@@ -172,18 +172,32 @@ def main():
                    "3軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "3軍")},
         "groups": groups_out, "global_top": global_top,
     }
-    # generated_at は毎回変わるので、それを除いた中身が前回と同じなら書き込みをスキップする
-    # （でないと earnings-retry/nightly が「何も変わっていない」実行でも毎回コミット＆
-    # Cloudflareデプロイを起こしてしまう＝設計上の「変化があった時だけコミット」を破る）。
-    prev_out = None
+    # generated_at は毎回変わるので、それをマスクした上でHTML本文が前回と同じなら
+    # 書き込みをスキップする（でないと earnings-retry/nightly が「何も変わっていない」
+    # 実行でも毎回コミット＆Cloudflareデプロイを起こしてしまう＝設計上の「変化があった
+    # 時だけコミット」を破る）。HTML全体で比較するのは、スコア等のデータだけでなく
+    # render_index() 自体（テンプレート）を直した場合もちゃんと差分として拾うため
+    # （generated_atだけをキーにJSONを比較する旧実装だと、テンプレート変更が
+    # 無視されてしまっていた＝実際に2026-09-05に踏んだ不具合）。
+    new_html = render_index(out)
+    gen = out["generated_at"]
+
+    def _mask(html_text, ts):
+        return html_text.replace(ts, "GENAT", 1) if ts else html_text
+
+    old_html = None
+    if os.path.isfile(INDEX):
+        try:
+            old_html = open(INDEX, encoding="utf-8").read()
+        except Exception:
+            old_html = None
+    prev_gen = None
     if os.path.isfile(RANKING):
         try:
-            prev_out = json.load(open(RANKING, encoding="utf-8"))
+            prev_gen = json.load(open(RANKING, encoding="utf-8")).get("generated_at")
         except Exception:
-            prev_out = None
-    unchanged = prev_out is not None and \
-        {k: v for k, v in prev_out.items() if k != "generated_at"} == \
-        {k: v for k, v in out.items() if k != "generated_at"}
+            prev_gen = None
+    unchanged = old_html is not None and _mask(old_html, prev_gen) == _mask(new_html, gen)
 
     os.makedirs(SITE, exist_ok=True)
     terms_src = os.path.join(HERE, "terms.html")
@@ -191,12 +205,12 @@ def main():
         shutil.copyfile(terms_src, os.path.join(SITE, "terms.html"))
 
     if unchanged:
-        print(f"変化なし（前回 {prev_out['generated_at']} から更新すべき内容がない）→ 書き込みスキップ")
+        print(f"変化なし（前回 {prev_gen} から更新すべき内容がない）→ 書き込みスキップ")
         print(f"  {out['counts']}")
         return
 
     json.dump(out, open(RANKING, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    open(INDEX, "w", encoding="utf-8").write(render_index(out))
+    open(INDEX, "w", encoding="utf-8").write(new_html)
     print(f"→ {RANKING}")
     print(f"→ {INDEX}")
     print(f"  {out['counts']}")
@@ -298,8 +312,10 @@ tr:last-child td{{border-bottom:none}}
 .disc{{margin-top:30px;padding:12px;background:#fff7ed;border:1px solid #fed7aa;
   border-radius:8px;font-size:11.5px;color:#7c2d12}}
 details{{margin:14px 0}}summary{{cursor:pointer;font-weight:600;font-size:13px}}
+.topbar{{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}}
+.topbar a{{font-size:12.5px;color:var(--accent);white-space:nowrap}}
 </style></head><body><div class="wrap">
-<h1>配当株 軍分けランキング</h1>
+<div class="topbar"><h1>配当株 軍分けランキング</h1><a href="terms.html">利用規約・免責事項</a></div>
 <div class="sub">生成 {gen}　｜　スクリーン：{scr}</div>
 <div class="summary">
   <div><b>{c['total']}</b>銘柄</div>
