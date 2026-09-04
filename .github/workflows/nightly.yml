@@ -1,0 +1,44 @@
+name: nightly-refresh
+
+# 毎晩ユニバース全銘柄の株価・スコアを更新してランキングを作り直す。
+# --only-stale --hours 20 なので、前回成功から20時間経っていない銘柄はスキップ
+# （1日1回のcronなら実質「毎晩フル更新」になる）。
+on:
+  schedule:
+    - cron: "0 18 * * *"   # 18:00 UTC = 03:00 JST（翌営業日の朝までに間に合わせる）
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nightly-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - run: pip install -r requirements.txt
+
+      - name: バッチ診断（古い銘柄のみ再取得）
+        run: python batch.py --codes universe.json --only-stale --hours 20 --sleep 2.0
+
+      - name: ランキング再生成
+        run: python rank.py
+
+      - name: コミット
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add site/ universe.json
+          git diff --cached --quiet || git commit -m "chore(nightly): refresh $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          git push

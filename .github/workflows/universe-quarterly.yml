@@ -1,0 +1,58 @@
+name: universe-quarterly
+
+# ユニバース（1〜3軍の母集団）の見直し。四半期の合図として自動起動するが、
+# 直接mainには反映せずPRを作るだけ＝銘柄の出入りは人間の目で確認してからマージする
+# （README/調べもの.txt の設計方針：境界銘柄は手で確認する）。
+on:
+  schedule:
+    - cron: "0 0 1 1,4,7,10 *"   # 1/4/7/10月の1日 0:00 UTC（四半期の合図。日付は目安）
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - run: pip install -r requirements.txt
+
+      - name: JPX上場銘柄一覧を取得
+        run: curl -sL -o data_j.xlsx "https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xlsx"
+
+      - name: 候補抽出＋数値スクリーン
+        run: python build_universe.py all --jpx data_j.xlsx --sleep 1.5
+
+      - name: 変更後の全銘柄を診断
+        run: python batch.py --codes universe.json --sleep 2.0
+
+      - name: ランキング再生成
+        run: python rank.py
+
+      - name: 日付を取得
+        id: today
+        run: echo "date=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: PRを作成（銘柄の出入りは人間が確認してからマージ）
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(universe): quarterly rebuild ${{ steps.today.outputs.date }}"
+          branch: universe-quarterly-update
+          title: "四半期ユニバース見直し ${{ steps.today.outputs.date }}"
+          body: |
+            JPXの最新上場銘柄一覧でユニバースを作り直しました。
+            `universe.json` の `codes`（通過）と `rejected`（除外理由）の差分を確認してからマージしてください。
+            境界の銘柄（利回り・時価総額がしきい値ぎりぎり）は特に目視推奨です。
+          add-paths: |
+            universe.json
+            universe_candidates.json
+            site/

@@ -1,0 +1,57 @@
+{
+ "code": "256",
+ "name": "飛島ホールディングス",
+ "asof": "2026-09-05",
+ "jp_sector": "サービス業",
+ "industry": "",
+ "is_simple": false,
+ "is_reit": false,
+ "price": null,
+ "price_date": null,
+ "mcap": null,
+ "sel_score": null,
+ "tim_score": null,
+ "sel_label": "判定不可（データ不足）",
+ "tim_label": "判定不可（PER・PBR・利回り履歴が不足）",
+ "comment": "※データ不足（銘柄選定 と 買い時のカバレッジ低）。点数は目安、参考程度に。　選定・買い時とも中位水準。",
+ "cov_sel": [
+  0,
+  16,
+  "低"
+ ],
+ "cov_tim": [
+  0,
+  6,
+  "低"
+ ],
+ "groups": {
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "配当の持続力": null,
+  "配当利回りセオリー": null,
+  "利回り水準とChowder": null,
+  "株価バリュエーション": null,
+  "金利スプレッド": null
+ },
+ "div_yield": null,
+ "streak_up": null,
+ "streak_flat": null,
+ "payout_ni": null,
+ "roe": null,
+ "div_policy": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
+ "per_band_pos": null,
+ "yield_band_pos": null,
+ "next_earn": null,
+ "earn_disc_date": null,
+ "warnings": [
+  "銘柄選定スコアは取得できた指標が少なく（0/16・カバレッジ低）、点数は目安です。",
+  "買い時スコアは取得できた指標が少なく（0/6・カバレッジ低）、点数は目安です。",
+  "損益計算書を取得できず、業績・成長性の評価が限定的です。",
+  "貸借対照表を取得できず、財務の評価が限定的です。",
+  "配当履歴を取得できませんでした（無配、または yfinance 未収録）。"
+ ],
+ "_generated_at": "2026-09-05T02:35:41"
+}

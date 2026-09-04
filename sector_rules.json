@@ -1,0 +1,146 @@
+{
+  "_meta": {
+    "説明": "分野別スコアの判定しきい値。default を全業種共通の土台とし、overrides でその業種だけ上書きする。未定義の業種は default をそのまま使う。しきい値の根拠は 配当金投資.txt Ⅴ（判断材料5層）＋Ⅷ（業種別平均）。",
+    "しきい値の型": {
+      "higher_better": "値が good 以上で満点、warn 以上で中間、それ未満で低評価",
+      "lower_better": "値が good 以下で満点、warn 以下で中間、それ超で低評価",
+      "band": "[lo, hi] の good 帯に入れば満点、warn 帯で中間、bad 帯で低評価",
+      "skip": "この業種ではこの指標を評価しない"
+    },
+    "points": { "good": 100, "warn": 60, "bad": 20 }
+  },
+
+  "market": {
+    "_note": "金利スプレッド判定に使う10年国債利回り（％）。四半期ごとに手更新。--jgb で上書き可。",
+    "jgb_10y": 1.6,
+    "jgb_10y_asof": "2026-09"
+  },
+
+  "score_groups": {
+    "_note": "総合スコアは廃止。銘柄選定（質・持続力）と買い時（バリュエーション・タイミング）の2本立て。各グループスコア＝そのグループの指標の点の平均、見出しスコア＝グループスコアの加重平均（取得できたグループだけで正規化）。",
+    "選定": {
+      "業績":            { "keys": ["rev_cagr", "eps_cagr", "op_margin", "earnings_stability"], "weight": 0.28 },
+      "財務":            { "keys": ["equity_ratio", "de", "net_de", "debt_to_ocf"], "weight": 0.27 },
+      "キャッシュフロー": { "keys": ["ocf_positive", "fcf_positive", "fcf_payout"], "weight": 0.15 },
+      "配当の持続力":    { "keys": ["dgr5", "streak_up", "streak_flat", "payout_ni", "roe", "div_policy"], "weight": 0.30 }
+    },
+    "買い時": {
+      "配当利回りセオリー": { "keys": ["yield_band_pos"], "weight": 0.38 },
+      "利回り水準とChowder": { "keys": ["div_yield", "chowder"], "weight": 0.24 },
+      "株価バリュエーション": { "keys": ["per_vs_sector", "pbr_vs_sector", "per_band_pos"], "weight": 0.20 },
+      "金利スプレッド":    { "keys": ["yield_spread"], "weight": 0.18 }
+    },
+    "simple_excludes": ["業績", "財務", "キャッシュフロー"]
+  },
+
+  "default": {
+    "rev_cagr":     { "dir": "higher_better", "good": 3,   "warn": -6,   "bad": -100 },
+    "op_cagr":      { "dir": "higher_better", "good": 5,   "warn": -8,   "bad": -100 },
+    "ni_cagr":      { "dir": "higher_better", "good": 5,   "warn": -8,   "bad": -100 },
+    "eps_cagr":     { "dir": "higher_better", "good": 5,   "warn": -8,   "bad": -100 },
+    "op_margin":    { "dir": "higher_better", "good": 10,  "warn": 4,    "bad": 0 },
+    "earnings_stability": { "dir": "higher_better", "good": 0.88, "warn": 0.65, "bad": 0, "_note": "直近数期の営業利益の最悪の前年比（1に近いほどブレが小さい）" },
+
+    "equity_ratio": { "dir": "higher_better", "good": 40,  "warn": 25,   "bad": 0 },
+    "de":           { "dir": "lower_better",  "good": 1.0, "warn": 2.0,  "bad": 999 },
+    "net_de":       { "dir": "lower_better",  "good": 0.5, "warn": 1.5,  "bad": 999 },
+    "debt_to_ocf":  { "dir": "lower_better",  "good": 3,   "warn": 6,    "bad": 999 },
+    "debt_ratio":   { "dir": "lower_better",  "good": 35,  "warn": 55,   "bad": 999 },
+    "cash_ratio":   { "dir": "higher_better", "good": 15,  "warn": 6,    "bad": 0 },
+    "roic_vs_sector": { "dir": "higher_better", "good": 1.1, "warn": 0.7, "bad": 0, "_note": "自業種ROIC中央値に対する倍率" },
+
+    "fcf_positive": { "dir": "higher_better", "good": 1,   "warn": 1,    "bad": 0 },
+    "ocf_positive": { "dir": "higher_better", "good": 1,   "warn": 1,    "bad": 0 },
+    "fcf_payout":   { "dir": "lower_better",  "good": 70,  "warn": 100,  "bad": 999 },
+
+    "per_band_pos": { "dir": "higher_better", "good": 0.6, "warn": 0.2, "bad": -1, "_note": "自社の過去PERレンジ内の位置。1=下限(割安)寄り" },
+    "yield_spread": { "dir": "higher_better", "good": 2.5, "warn": 1.0, "bad": -2, "_note": "予想配当利回り − 10年国債利回り（％）。金利敏感セクターのみ" },
+
+    "div_yield":    { "dir": "higher_better", "good": 3.5, "warn": 2.0,  "bad": 0 },
+    "dgr5":         { "dir": "higher_better", "good": 3,   "warn": 0,    "bad": -100 },
+    "streak_up":    { "dir": "higher_better", "good": 10,  "warn": 3,    "bad": 0 },
+    "streak_flat":  { "dir": "higher_better", "good": 15,  "warn": 5,    "bad": 0 },
+    "payout_ni":    { "dir": "band",          "good": [0, 50],  "warn": [50, 80],  "bad": [80, 999] },
+    "roe":          { "dir": "higher_better", "good": 10,  "warn": 6,    "bad": 0 },
+
+    "chowder":      { "dir": "higher_better", "good": 12,  "warn": 8,    "bad": 0 },
+    "per_vs_sector":{ "dir": "lower_better",  "good": 0.95,"warn": 1.20, "bad": 999, "_note": "自業種PER中央値に対する倍率" },
+    "pbr_vs_sector":{ "dir": "lower_better",  "good": 1.00,"warn": 1.40, "bad": 999 },
+    "yield_band_pos":{ "dir": "higher_better","good": 0.6, "warn": 0.2,  "bad": -1, "_note": "自業種の配当利回りレンジ内での位置。1=上限(割安)寄り" }
+  },
+
+  "overrides": {
+    "電気・ガス業": {
+      "payout_ni":    { "dir": "band", "good": [0, 70], "warn": [70, 90], "bad": [90, 999] },
+      "chowder":      { "dir": "higher_better", "good": 8, "warn": 5, "bad": 0 },
+      "equity_ratio": { "dir": "higher_better", "good": 30, "warn": 18, "bad": 0 },
+      "de":           { "dir": "lower_better", "good": 2.0, "warn": 3.5, "bad": 999 },
+      "net_de":       { "dir": "lower_better", "good": 1.8, "warn": 3.0, "bad": 999 },
+      "debt_to_ocf":  { "dir": "lower_better", "good": 6, "warn": 10, "bad": 999 },
+      "op_margin":    { "dir": "higher_better", "good": 8, "warn": 3, "bad": 0 }
+    },
+    "情報・通信業": {
+      "payout_ni":    { "dir": "band", "good": [0, 60], "warn": [60, 85], "bad": [85, 999] },
+      "chowder":      { "dir": "higher_better", "good": 8, "warn": 5, "bad": 0 },
+      "op_margin":    { "dir": "higher_better", "good": 15, "warn": 7, "bad": 0 }
+    },
+    "陸運業": {
+      "payout_ni":    { "dir": "band", "good": [0, 55], "warn": [55, 80], "bad": [80, 999] },
+      "chowder":      { "dir": "higher_better", "good": 8, "warn": 5, "bad": 0 },
+      "equity_ratio": { "dir": "higher_better", "good": 30, "warn": 18, "bad": 0 },
+      "de":           { "dir": "lower_better", "good": 2.0, "warn": 3.5, "bad": 999 },
+      "net_de":       { "dir": "lower_better", "good": 1.8, "warn": 3.0, "bad": 999 },
+      "debt_to_ocf":  { "dir": "lower_better", "good": 6, "warn": 10, "bad": 999 }
+    },
+    "不動産業": {
+      "equity_ratio": { "dir": "higher_better", "good": 28, "warn": 15, "bad": 0 },
+      "de":           { "dir": "lower_better", "good": 2.5, "warn": 4.0, "bad": 999 },
+      "net_de":       { "dir": "lower_better", "good": 2.2, "warn": 3.8, "bad": 999 },
+      "debt_to_ocf":  { "dir": "lower_better", "good": 10, "warn": 18, "bad": 999 },
+      "cash_ratio":   { "dir": "higher_better", "good": 8, "warn": 3, "bad": 0 }
+    },
+    "その他金融業": {
+      "equity_ratio": { "dir": "higher_better", "good": 15, "warn": 8, "bad": 0 },
+      "de":           { "dir": "lower_better", "good": 5, "warn": 9, "bad": 999 },
+      "net_de":       { "dir": "lower_better", "good": 5, "warn": 9, "bad": 999 },
+      "debt_to_ocf":  { "dir": "skip" },
+      "debt_ratio":   { "dir": "skip" },
+      "cash_ratio":   { "dir": "skip" },
+      "chowder":      { "dir": "higher_better", "good": 10, "warn": 6, "bad": 0 },
+      "payout_ni":    { "dir": "band", "good": [0, 45], "warn": [45, 70], "bad": [70, 999] }
+    },
+    "卸売業": {
+      "payout_ni":    { "dir": "band", "good": [0, 40], "warn": [40, 60], "bad": [60, 999] },
+      "equity_ratio": { "dir": "higher_better", "good": 30, "warn": 18, "bad": 0 },
+      "de":           { "dir": "lower_better", "good": 1.5, "warn": 2.5, "bad": 999 },
+      "net_de":       { "dir": "lower_better", "good": 1.2, "warn": 2.2, "bad": 999 },
+      "op_margin":    { "dir": "higher_better", "good": 3, "warn": 1.5, "bad": 0 }
+    },
+    "医薬品": {
+      "payout_ni":    { "dir": "band", "good": [0, 70], "warn": [70, 95], "bad": [95, 999] },
+      "op_margin":    { "dir": "higher_better", "good": 18, "warn": 8, "bad": 0 }
+    },
+    "海運業": {
+      "payout_ni":    { "dir": "band", "good": [0, 35], "warn": [35, 55], "bad": [55, 999] },
+      "dgr5":         { "dir": "higher_better", "good": 0, "warn": -15, "bad": -100 },
+      "streak_up":    { "dir": "higher_better", "good": 4, "warn": 1, "bad": 0 },
+      "op_margin":    { "dir": "higher_better", "good": 12, "warn": 4, "bad": 0 }
+    },
+    "鉄鋼": {
+      "payout_ni":    { "dir": "band", "good": [0, 45], "warn": [45, 70], "bad": [70, 999] },
+      "op_margin":    { "dir": "higher_better", "good": 8, "warn": 3, "bad": 0 }
+    },
+    "電気機器": {
+      "op_margin":    { "dir": "higher_better", "good": 12, "warn": 5, "bad": 0 }
+    },
+    "空運業": {
+      "payout_ni":    { "dir": "band", "good": [0, 35], "warn": [35, 60], "bad": [60, 999] },
+      "streak_up":    { "dir": "higher_better", "good": 3, "warn": 1, "bad": 0 },
+      "equity_ratio": { "dir": "higher_better", "good": 30, "warn": 15, "bad": 0 }
+    },
+
+    "銀行業": { "_simple": true },
+    "保険業": { "_simple": true },
+    "証券・商品先物取引業": { "_simple": true }
+  }
+}

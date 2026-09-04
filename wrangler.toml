@@ -1,0 +1,5 @@
+# Cloudflare Pages はダッシュボードのGit連携で設定する想定（下記README参照）ので
+# 本番デプロイにこのファイルは不要。ローカルでの見た目確認だけに使う：
+#   npx wrangler pages dev site
+name = "meigara-shindan"
+pages_build_output_dir = "site"

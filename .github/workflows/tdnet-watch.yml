@@ -1,0 +1,40 @@
+name: tdnet-watch
+
+# 平日 JST 11:00〜17:30 の間、30分おきにTDnetの当日開示を見て
+# ユニバース内の「決算短信」を検知する（実際の再取得は earnings-retry.yml）。
+on:
+  schedule:
+    - cron: "*/30 2-8 * * 1-5"   # UTC 2:00-8:30 = JST 11:00-17:30（同一暦日に収まる）
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tdnet-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - run: pip install -r requirements.txt
+
+      - name: TDnet検知
+        run: python tdnet_watch.py
+
+      - name: コミット
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pending_earnings.json tdnet_detections.json
+          git diff --cached --quiet || git commit -m "chore(tdnet): detect $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          git push
