@@ -172,12 +172,31 @@ def main():
                    "3軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "3軍")},
         "groups": groups_out, "global_top": global_top,
     }
+    # generated_at は毎回変わるので、それを除いた中身が前回と同じなら書き込みをスキップする
+    # （でないと earnings-retry/nightly が「何も変わっていない」実行でも毎回コミット＆
+    # Cloudflareデプロイを起こしてしまう＝設計上の「変化があった時だけコミット」を破る）。
+    prev_out = None
+    if os.path.isfile(RANKING):
+        try:
+            prev_out = json.load(open(RANKING, encoding="utf-8"))
+        except Exception:
+            prev_out = None
+    unchanged = prev_out is not None and \
+        {k: v for k, v in prev_out.items() if k != "generated_at"} == \
+        {k: v for k, v in out.items() if k != "generated_at"}
+
     os.makedirs(SITE, exist_ok=True)
-    json.dump(out, open(RANKING, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    open(INDEX, "w", encoding="utf-8").write(render_index(out))
     terms_src = os.path.join(HERE, "terms.html")
     if os.path.isfile(terms_src):
         shutil.copyfile(terms_src, os.path.join(SITE, "terms.html"))
+
+    if unchanged:
+        print(f"変化なし（前回 {prev_out['generated_at']} から更新すべき内容がない）→ 書き込みスキップ")
+        print(f"  {out['counts']}")
+        return
+
+    json.dump(out, open(RANKING, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    open(INDEX, "w", encoding="utf-8").write(render_index(out))
     print(f"→ {RANKING}")
     print(f"→ {INDEX}")
     print(f"  {out['counts']}")
