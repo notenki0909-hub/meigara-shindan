@@ -200,9 +200,10 @@ def main():
     unchanged = old_html is not None and _mask(old_html, prev_gen) == _mask(new_html, gen)
 
     os.makedirs(SITE, exist_ok=True)
-    terms_src = os.path.join(HERE, "terms.html")
-    if os.path.isfile(terms_src):
-        shutil.copyfile(terms_src, os.path.join(SITE, "terms.html"))
+    for fn in ("terms.html", "guide.html"):
+        src = os.path.join(HERE, fn)
+        if os.path.isfile(src):
+            shutil.copyfile(src, os.path.join(SITE, fn))
 
     if unchanged:
         print(f"変化なし（前回 {prev_gen} から更新すべき内容がない）→ 書き込みスキップ")
@@ -347,6 +348,7 @@ body{{margin:0;font:14px/1.6 -apple-system,"Hiragino Kaku Gothic ProN","Meiryo",
 .wrap{{max-width:980px;margin:0 auto;padding:20px 16px 60px}}
 h1{{font-size:20px;margin:0 0 4px}}
 .sub{{color:var(--muted);font-size:12px;margin-bottom:16px}}
+.sub a{{color:var(--accent)}}
 .summary{{display:flex;gap:14px;flex-wrap:wrap;margin:12px 0 22px}}
 .summary b{{display:block;font-size:20px}}
 .summary div{{background:var(--card);border:1px solid var(--line);border-radius:8px;
@@ -400,7 +402,7 @@ section.grp[hidden],details[hidden]{{display:none}}
   font-size:15px;line-height:1;color:var(--muted);padding:4px}}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>配当株 軍分けランキング</h1><a href="terms.html">利用規約・免責事項</a></div>
-<div class="sub">生成 {gen}　｜　スクリーン：{scr}</div>
+<div class="sub">生成 {gen}　｜　スクリーン：{scr}　｜　<a href="guide.html">使い方・見方</a></div>
 <div class="sub">表の見出し（軍・選定・買い時・利回り・増配・カバレッジ・業種級）をクリックすると説明が出ます</div>
 <div class="summary">
   <button type="button" class="sumbtn" data-tier=""><b>{c['total']}</b>銘柄</button>

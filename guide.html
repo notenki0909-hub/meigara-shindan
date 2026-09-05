@@ -1,0 +1,116 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>使い方・見方｜配当株スクリーニング</title>
+<style>
+:root{--bg:#fafafa;--card:#fff;--line:#e6e6e6;--muted:#666;--accent:#2563eb}
+*{box-sizing:border-box}
+body{margin:0;font:14px/1.8 -apple-system,"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;
+  background:var(--bg);color:#1a1a1a}
+.wrap{max-width:760px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:20px;margin:0 0 6px}
+h2{font-size:15px;margin:26px 0 8px;border-bottom:2px solid var(--line);padding-bottom:4px}
+h3{font-size:13.5px;margin:16px 0 4px}
+p,li{font-size:13.5px}
+.updated{color:var(--muted);font-size:12px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:16px}
+a{color:var(--accent)}
+.back{display:inline-block;margin-top:26px;font-size:13px}
+ul,ol{padding-left:20px;margin:6px 0}
+.topbar{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.topbar a{font-size:12.5px;white-space:nowrap}
+.steps{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.steps li{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;
+  display:flex;gap:10px;align-items:baseline}
+.steps b.n{background:var(--accent);color:#fff;border-radius:50%;width:20px;height:20px;
+  display:inline-flex;align-items:center;justify-content:center;font-size:12px;flex:none}
+.steps li span{flex:1;min-width:0}
+table{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left}
+th{background:#f3f4f6}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:10px;background:#eee}
+.tierbox{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
+.tierbox div{flex:1;min-width:140px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12.5px}
+.note{background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px 12px;
+  color:#7c2d12;font-size:12.5px;margin:10px 0}
+</style></head><body><div class="wrap">
+
+<div class="topbar"><h1>使い方・見方</h1><a href="index.html">← 一覧へ戻る</a></div>
+<div class="updated">最終更新：2026-09-05</div>
+
+<div class="card">
+<h2>まずはこの3ステップ</h2>
+<ol class="steps">
+<li><b class="n">1</b><span>一覧ページで<b>検索</b>（コード・銘柄名・業種）や<b>1〜3軍ボタン</b>で絞り込む。表の見出し（選定・買い時・利回り・増配）は<b>文字クリックで説明</b>、<b>▼クリックでその列を並び替え</b>できる。</span></li>
+<li><b class="n">2</b><span>気になる銘柄の<b>コードをクリック</b>して個別レポートへ。</span></li>
+<li><b class="n">3</b><span>レポート内の各指標は行をクリックすると「見るポイント／判定ルール／この銘柄がその評価になった理由」が展開される。数字だけでなく、なぜその評価かを確認してから読むのがおすすめ。</span></li>
+</ol>
+</div>
+
+<div class="card">
+<h2>銘柄選定スコアと買い時スコア（2本立て）</h2>
+<p>このサイトは「良い会社か」と「今買う値段か」を混ぜず、<b>2つのスコア</b>で別々に見る。</p>
+<table>
+<tr><th>スコア</th><th>意味</th><th>見ている指標グループ</th></tr>
+<tr><td><b>銘柄選定</b>（0〜110）</td><td>配当株としての質。長期保有できるか</td>
+<td>業績・財務・キャッシュフロー・配当の持続力</td></tr>
+<tr><td><b>買い時</b>（0〜110）</td><td>今の株価が割安か。質の評価とは別物</td>
+<td>配当利回りセオリー・利回り水準とChowder・株価バリュエーション・金利スプレッド</td></tr>
+</table>
+<p>2つを組み合わせて読む。例：</p>
+<table>
+<tr><th>選定</th><th>買い時</th><th>読み方の例</th></tr>
+<tr><td>上位</td><td>上位</td><td>質・価格とも良好な水準</td></tr>
+<tr><td>上位</td><td>下位</td><td>質は良いが今は割高寄り。押し目待ちの候補</td></tr>
+<tr><td>下位</td><td>上位</td><td>安いが質に不安。バリュートラップ（デレーティング）の可能性に注意</td></tr>
+<tr><td>下位</td><td>下位</td><td>質・価格とも見劣りする水準</td></tr>
+</table>
+<p>各スコアの直下に「選定スコア上位（質・持続力とも高水準）」等のラベルと、レポート冒頭に「→ 選定は◯◯、買い時は◯◯」という一言まとめが出る。</p>
+</div>
+
+<div class="card">
+<h2>1軍・2軍・3軍（一覧ページ）</h2>
+<p>東証33業種を配当株向けに12グループへ集約し、<b>同じグループ内</b>で銘柄選定スコアの高い順に分類。</p>
+<div class="tierbox">
+<div><span class="tag">1軍</span> グループ内 上位25%</div>
+<div><span class="tag">2軍</span> グループ内 続く45%</div>
+<div><span class="tag">3軍</span> グループ内 残り30%</div>
+</div>
+<p>選定スコアが85以上（＝単体でも「選定スコア上位」水準）の銘柄は、たまたま質の高いグループに属しているだけで3軍に落ちないよう最低でも2軍を保証する。グループの対象が6銘柄未満なら軍分けせず「―」。</p>
+<div class="note">3軍は「群として常に監視すべきリスト」ではない。毎晩の自動更新で昇格は自然に拾えるので、3軍は基本的に記録として見る程度でよい（保有株が3軍に落ちた時の確認や、なぜ評価が低いかの反面教師として使う）。</div>
+</div>
+
+<div class="card">
+<h2>業種級 A/B/C（一覧ページ）</h2>
+<p><b>A＞B＞Cの順で、Aが最も質の高い配当株が揃っている業種</b>という序列。12グループそれぞれの銘柄選定スコアの中央値をもとに判定する（境界値はこのサイトの対象銘柄の実際の分布に合わせて校正）。個別銘柄の良し悪しは、あくまで「選定」スコアと「軍」で見る。業種級は「その業種全体としての狩場の魅力」の目安。</p>
+</div>
+
+<div class="card">
+<h2>一覧ページの機能</h2>
+<ul>
+<li><b>検索</b>：銘柄コード・銘柄名・業種名で絞り込み（全角/半角どちらで入力しても検索できる）</li>
+<li><b>1〜3軍ボタン</b>：クリックでその軍だけ表示、もう一度押すと解除</li>
+<li><b>表の見出し文字</b>：クリックでその指標の説明を表示（軍・選定・買い時・利回り・増配・カバレッジ・業種級）</li>
+<li><b>見出しの▼</b>：クリックでその列を並び替え（もう一度で昇順・降順を切替）</li>
+<li><b>全体 選定スコア上位50</b>：業種をまたいだ全体順位（折りたたみ）</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>個別レポートページの見方</h2>
+<ul>
+<li>ヘッダー：現在株価・終値日・時価総額・業種</li>
+<li>企業概要：所在地・従業員数・事業内容（yfinance由来の英語の説明文）</li>
+<li>①銘柄選定の指標／②買い時の指標：各行クリックで詳細展開。推移がある指標は折れ線グラフ、自社の過去レンジで見る指標（配当利回りセオリー等）はレンジ帯グラフつき</li>
+<li>推移チャート：株価・1株配当の長期推移</li>
+<li>直近決算とアナリスト予想：実績EPS・サプライズ・今後の見通し・目標株価・レーティング（yfinance集計。あくまで参考）</li>
+<li>参考・自動判定できない項目：減配履歴・自社株買い・総還元利回り・インタレストカバレッジ等、採点はしないが判断材料になる情報</li>
+</ul>
+</div>
+
+<div class="note">
+このツールのスコア・分類は、あらかじめ定めたルールに基づく機械的な算出結果であり、投資助言ではありません。
+詳しくは<a href="terms.html">利用規約・免責事項</a>をご確認ください。
+</div>
+
+<a class="back" href="index.html">← 一覧へ戻る</a>
+</div></body></html>
