@@ -1,0 +1,55 @@
+name: universe-quarterly-us
+
+# 米国株ユニバース（Tier 1〜3 の母集団）の見直し。S&P 500/400/600 の構成銘柄入れ替えに
+# 追従する。四半期の合図で自動起動するが、直接 main には反映せず PR を作るだけ
+# ＝銘柄の出入りは人間の目で確認してからマージする（境界銘柄は手で確認する方針）。
+on:
+  schedule:
+    - cron: "30 0 2 1,4,7,10 *"   # 1/4/7/10月2日 0:30 UTC（JP の quarterly と半日ずらす）
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - run: pip install -r requirements.txt
+
+      - name: 候補抽出＋数値スクリーン（S&P1500）
+        run: python build_universe_us.py all --sleep 1.5
+
+      - name: 変更後の全銘柄を診断
+        run: python batch_us.py --codes universe_us.json --sleep 2.0
+
+      - name: ランキング再生成
+        run: python rank_us.py
+
+      - name: 日付を取得
+        id: today
+        run: echo "date=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: PRを作成（銘柄の出入りは人間が確認してからマージ）
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(universe-us): quarterly rebuild ${{ steps.today.outputs.date }}"
+          branch: universe-quarterly-us-update
+          title: "四半期ユニバース見直し（米国株）${{ steps.today.outputs.date }}"
+          body: |
+            S&P 500/400/600 の最新構成でユニバースを作り直しました。
+            `universe_us.json` の `tickers`（通過）と `rejected`（除外理由）の差分を
+            確認してからマージしてください。しきい値ぎりぎりの銘柄は特に目視推奨です。
+          add-paths: |
+            universe_us.json
+            universe_candidates_us.json
+            site/us

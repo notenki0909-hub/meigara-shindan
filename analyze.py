@@ -146,9 +146,11 @@ def row(rows, *labels):
     return None
 
 
-def fetch_yf(code):
-    tk = yf.Ticker(f"{code}.T")
-    d = {"code": code, "ticker": f"{code}.T"}
+def fetch_yf(code, suffix=".T"):
+    """suffix='.T' は東証。米国株版（analyze_us）は suffix='' で呼ぶ。"""
+    tkr = f"{code}{suffix}"
+    tk = yf.Ticker(tkr)
+    d = {"code": code, "ticker": tkr}
 
     try:
         d["info"] = tk.info or {}

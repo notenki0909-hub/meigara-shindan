@@ -1,0 +1,127 @@
+{
+  "_meta": {
+    "説明": "米国株版・分野別スコアの判定しきい値。default を全セクター共通の土台とし、overrides でその GICS11 セクターだけ上書きする。日本版 sector_rules.json をベースに、米国株の特性へ合わせて調整（詳細は下記 _us_changes）。しきい値の根拠は 配当金投資.txt 米編（第4部 銘柄選定の5層／米B GICS11平均）。",
+    "_us_changes": [
+      "財務グループの keys から equity_ratio（自己資本比率＝米国では非標準）を外し、interest_coverage（インタレストカバレッジレシオ）を追加。",
+      "配当の持続力グループの keys に total_yield（総還元利回り＝配当利回り＋自社株買い利回り）を追加＝米国株は自社株買いが主な還元手段のため第1級指標として採点する。",
+      "div_yield のしきい値を good 3.0 / warn 1.5 に緩和（S&P500平均が約1.2%＝日本の半分）。",
+      "yield_spread（予想配当利回り − 米10年国債）のしきい値を大幅に緩和：米10年債が約4.2%と高く、配当利回りとのスプレッドはマイナスが普通のため good 0 / warn -1.5 / bad -3.5。",
+      "10年国債は ust_10y（米国債・約4.2%）。四半期ごとに手更新。--jgb 相当のCLI上書きは analyze.py 側で対応予定。"
+    ],
+    "しきい値の型": {
+      "higher_better": "値が good 以上で満点、warn 以上で中間、それ未満で低評価",
+      "lower_better": "値が good 以下で満点、warn 以下で中間、それ超で低評価",
+      "band": "[lo, hi] の good 帯に入れば満点、warn 帯で中間、bad 帯で低評価",
+      "skip": "このセクターではこの指標を評価しない"
+    },
+    "points": { "good": 100, "warn": 60, "bad": 20 }
+  },
+
+  "market": {
+    "_note": "金利スプレッド判定に使う米10年国債利回り（％）。四半期ごとに手更新。",
+    "ust_10y": 4.2,
+    "ust_10y_asof": "2026-09"
+  },
+
+  "score_groups": {
+    "_note": "銘柄選定（質・持続力）と買い時（バリュエーション・タイミング）の2本立て。日本版と同じ重み。財務グループとキャッシュフローグループが米国株向けに一部差し替え。",
+    "選定": {
+      "業績":            { "keys": ["rev_cagr", "eps_cagr", "op_margin", "earnings_stability"], "weight": 0.28 },
+      "財務":            { "keys": ["de", "net_de", "debt_to_ocf", "interest_coverage"], "weight": 0.27 },
+      "キャッシュフロー": { "keys": ["ocf_positive", "fcf_positive", "fcf_payout"], "weight": 0.15 },
+      "配当の持続力":    { "keys": ["dgr5", "streak_up", "streak_flat", "payout_ni", "roe", "total_yield"], "weight": 0.30 }
+    },
+    "買い時": {
+      "配当利回りセオリー": { "keys": ["yield_band_pos"], "weight": 0.38 },
+      "利回り水準とChowder": { "keys": ["div_yield", "chowder"], "weight": 0.24 },
+      "株価バリュエーション": { "keys": ["per_vs_sector", "pbr_vs_sector", "per_band_pos"], "weight": 0.20 },
+      "金利スプレッド":    { "keys": ["yield_spread"], "weight": 0.18 }
+    },
+    "simple_excludes": ["業績", "財務", "キャッシュフロー"]
+  },
+
+  "default": {
+    "rev_cagr":     { "dir": "higher_better", "good": 3,   "warn": -6,   "bad": -100 },
+    "op_cagr":      { "dir": "higher_better", "good": 5,   "warn": -8,   "bad": -100 },
+    "ni_cagr":      { "dir": "higher_better", "good": 5,   "warn": -8,   "bad": -100 },
+    "eps_cagr":     { "dir": "higher_better", "good": 5,   "warn": -8,   "bad": -100 },
+    "op_margin":    { "dir": "higher_better", "good": 12,  "warn": 5,    "bad": 0 },
+    "earnings_stability": { "dir": "higher_better", "good": 0.88, "warn": 0.65, "bad": 0, "_note": "直近数期の営業利益の最悪の前年比（1に近いほどブレが小さい）" },
+
+    "de":           { "dir": "lower_better",  "good": 1.0, "warn": 2.0,  "bad": 999, "_note": "有利子負債÷自己資本" },
+    "net_de":       { "dir": "lower_better",  "good": 0.5, "warn": 1.5,  "bad": 999 },
+    "debt_to_ocf":  { "dir": "lower_better",  "good": 3,   "warn": 6,    "bad": 999, "_note": "有利子負債÷営業CF（何年で返せるか）" },
+    "interest_coverage": { "dir": "higher_better", "good": 10, "warn": 3, "bad": 0, "_note": "EBIT÷支払利息。10倍以上で余裕・3倍未満は要注意" },
+    "equity_ratio": { "dir": "skip", "_note": "米国では非標準指標のため既定では評価しない（財務は de/net_de/debt_to_ocf/interest_coverage で見る）" },
+    "debt_ratio":   { "dir": "lower_better",  "good": 35,  "warn": 55,   "bad": 999 },
+    "cash_ratio":   { "dir": "higher_better", "good": 15,  "warn": 6,    "bad": 0 },
+    "roic_vs_sector": { "dir": "higher_better", "good": 1.1, "warn": 0.7, "bad": 0, "_note": "自セクターROIC中央値に対する倍率" },
+
+    "fcf_positive": { "dir": "higher_better", "good": 1,   "warn": 1,    "bad": 0 },
+    "ocf_positive": { "dir": "higher_better", "good": 1,   "warn": 1,    "bad": 0 },
+    "fcf_payout":   { "dir": "lower_better",  "good": 70,  "warn": 100,  "bad": 999 },
+
+    "per_band_pos": { "dir": "higher_better", "good": 0.6, "warn": 0.2, "bad": -1, "_note": "自社の過去PERレンジ内の位置。1=下限(割安)寄り" },
+    "yield_spread": { "dir": "higher_better", "good": 0.0, "warn": -1.5, "bad": -3.5, "_note": "予想配当利回り − 米10年国債利回り（％）。金利敏感セクターのみ。米国は国債利回りが高くスプレッドはマイナスが普通" },
+
+    "div_yield":    { "dir": "higher_better", "good": 3.0, "warn": 1.5,  "bad": 0 },
+    "total_yield":  { "dir": "higher_better", "good": 4.0, "warn": 2.0,  "bad": 0, "_note": "配当利回り＋自社株買い利回り（自社株買い額÷時価総額）。米国株は自社株買いが主な還元手段" },
+    "dgr5":         { "dir": "higher_better", "good": 5,   "warn": 0,    "bad": -100, "_note": "直近5年の1株配当の年率。米国は日本より増配率が高めのため good を 5 に" },
+    "streak_up":    { "dir": "higher_better", "good": 15,  "warn": 5,    "bad": 0, "_note": "連続増配年数。米国は配当貴族25年/王50年の文化があり長め。10→15に引き上げ" },
+    "streak_flat":  { "dir": "higher_better", "good": 20,  "warn": 5,    "bad": 0, "_note": "連続非減配年数" },
+    "payout_ni":    { "dir": "band",          "good": [0, 55],  "warn": [55, 80],  "bad": [80, 999] },
+    "roe":          { "dir": "higher_better", "good": 12,  "warn": 7,    "bad": 0 },
+
+    "chowder":      { "dir": "higher_better", "good": 12,  "warn": 8,    "bad": 0, "_note": "現在の配当利回り＋過去5年の増配率。米SeekingAlpha由来" },
+    "per_vs_sector":{ "dir": "lower_better",  "good": 0.95,"warn": 1.20, "bad": 999, "_note": "自セクターPER(TTM)に対する倍率" },
+    "pbr_vs_sector":{ "dir": "lower_better",  "good": 1.00,"warn": 1.40, "bad": 999 },
+    "yield_band_pos":{ "dir": "higher_better","good": 0.6, "warn": 0.2,  "bad": -1, "_note": "自セクターの配当利回りレンジ内での位置。1=上限(割安)寄り" }
+  },
+
+  "overrides": {
+    "Utilities": {
+      "payout_ni":    { "dir": "band", "good": [0, 75], "warn": [75, 95], "bad": [95, 999] },
+      "chowder":      { "dir": "higher_better", "good": 8, "warn": 5, "bad": 0 },
+      "de":           { "dir": "lower_better", "good": 1.6, "warn": 2.8, "bad": 999 },
+      "net_de":       { "dir": "lower_better", "good": 1.5, "warn": 2.6, "bad": 999 },
+      "debt_to_ocf":  { "dir": "lower_better", "good": 6, "warn": 10, "bad": 999 },
+      "interest_coverage": { "dir": "higher_better", "good": 3.5, "warn": 2.0, "bad": 0 },
+      "op_margin":    { "dir": "higher_better", "good": 15, "warn": 8, "bad": 0 },
+      "roic_vs_sector": { "dir": "higher_better", "good": 1.05, "warn": 0.75, "bad": 0 }
+    },
+    "Real Estate": {
+      "_note": "REITは減価償却が大きくGAAP純利益ベースの配当性向・FCFが実態を映さない。配当性向はFFOベースで見るべきだがツールはGAAPしか持てないため band を大きく緩め、fcf_payout は評価から外す。負債も構造的に高い。",
+      "payout_ni":    { "dir": "band", "good": [0, 130], "warn": [130, 200], "bad": [200, 999] },
+      "fcf_payout":   { "dir": "skip" },
+      "de":           { "dir": "lower_better", "good": 1.3, "warn": 2.2, "bad": 999 },
+      "net_de":       { "dir": "lower_better", "good": 1.2, "warn": 2.0, "bad": 999 },
+      "debt_to_ocf":  { "dir": "lower_better", "good": 8, "warn": 14, "bad": 999 },
+      "interest_coverage": { "dir": "higher_better", "good": 3.0, "warn": 1.8, "bad": 0 },
+      "chowder":      { "dir": "higher_better", "good": 8, "warn": 5, "bad": 0 },
+      "roic_vs_sector": { "dir": "higher_better", "good": 1.05, "warn": 0.7, "bad": 0 }
+    },
+    "Communication Services": {
+      "payout_ni":    { "dir": "band", "good": [0, 70], "warn": [70, 95], "bad": [95, 999] },
+      "chowder":      { "dir": "higher_better", "good": 8, "warn": 5, "bad": 0 },
+      "de":           { "dir": "lower_better", "good": 1.5, "warn": 2.5, "bad": 999 },
+      "net_de":       { "dir": "lower_better", "good": 1.3, "warn": 2.2, "bad": 999 }
+    },
+    "Consumer Staples": {
+      "op_margin":    { "dir": "higher_better", "good": 15, "warn": 7, "bad": 0 }
+    },
+    "Energy": {
+      "payout_ni":    { "dir": "band", "good": [0, 55], "warn": [55, 80], "bad": [80, 999] },
+      "op_margin":    { "dir": "higher_better", "good": 10, "warn": 4, "bad": 0 },
+      "earnings_stability": { "dir": "higher_better", "good": 0.6, "warn": 0.35, "bad": 0 }
+    },
+    "Materials": {
+      "payout_ni":    { "dir": "band", "good": [0, 50], "warn": [50, 75], "bad": [75, 999] },
+      "op_margin":    { "dir": "higher_better", "good": 10, "warn": 4, "bad": 0 },
+      "earnings_stability": { "dir": "higher_better", "good": 0.65, "warn": 0.4, "bad": 0 }
+    },
+    "Information Technology": {
+      "op_margin":    { "dir": "higher_better", "good": 20, "warn": 10, "bad": 0 },
+      "div_yield":    { "dir": "higher_better", "good": 1.5, "warn": 0.8, "bad": 0 }
+    }
+  }
+}

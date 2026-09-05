@@ -1,0 +1,128 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to read this — US dividend screening</title>
+<style>
+:root{--bg:#fafafa;--card:#fff;--line:#e6e6e6;--muted:#666;--accent:#2563eb}
+*{box-sizing:border-box}
+body{margin:0;font:14px/1.8 -apple-system,"Segoe UI",system-ui,sans-serif;background:var(--bg);color:#1a1a1a}
+.wrap{max-width:760px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:20px;margin:0 0 6px}
+h2{font-size:15px;margin:0 0 8px;border-bottom:2px solid var(--line);padding-bottom:4px}
+h3{font-size:13.5px;margin:16px 0 4px}
+p,li{font-size:13.5px}
+.updated{color:var(--muted);font-size:12px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:16px}
+a{color:var(--accent)}
+.back{display:inline-block;margin-top:10px;font-size:13px}
+ul,ol{padding-left:20px;margin:6px 0}
+ol.steps{list-style:none;padding:0}
+ol.steps li{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 14px;
+  display:flex;gap:10px;align-items:baseline;margin-bottom:8px}
+ol.steps b.n{background:var(--accent);color:#fff;border-radius:50%;width:20px;height:20px;
+  display:inline-flex;align-items:center;justify-content:center;font-size:12px;flex:none}
+table{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left}
+th{background:#f3f4f6}
+.note{background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px 12px;
+  color:#7c2d12;font-size:12.5px;margin:10px 0}
+.topbar{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.topbar a{font-size:12.5px;white-space:nowrap}
+</style></head><body><div class="wrap">
+
+<div class="topbar"><h1>How to read this</h1><a href="index.html">&larr; back to list</a></div>
+<div class="updated">Last updated: 2026-09-06</div>
+
+<div class="card">
+<h2>Three steps</h2>
+<ol class="steps">
+<li><b class="n">1</b><span>On the list page, <b>search</b> (ticker / name / sector) or use the <b>Tier 1–3 buttons</b> to filter. Click a column header for its definition; click the <b>&#9660;</b> to sort by that column.</span></li>
+<li><b class="n">2</b><span>Click a <b>ticker</b> to open its individual report.</span></li>
+<li><b class="n">3</b><span>In a report, click any metric row to expand "what to look at / the scoring rule / why this name scored the way it did". Read the reasoning, not just the number.</span></li>
+</ol>
+</div>
+
+<div class="card">
+<h2>Why this set of names (the screen)</h2>
+<p>The starting universe is the S&amp;P Composite 1500 (S&amp;P 500 + 400 + 600, ~1,500 names).
+A name is listed only if it passes <b>both</b>:</p>
+<table>
+<tr><th>Filter</th><th>Bar</th></tr>
+<tr><td>Forward dividend yield</td><td>&ge; 1.5% (the S&amp;P 500 average is ~1.2%)</td></tr>
+<tr><td>Consecutive years without a dividend cut</td><td>&ge; 5 years, computed from the yfinance
+dividend history (not from any external Aristocrats/Kings list)</td></tr>
+</table>
+<p>No explicit market-cap floor — S&amp;P 600 inclusion already implies roughly $850M+.
+About 500 names pass. The list is rebuilt quarterly following S&amp;P index membership changes.
+Not being listed does not mean "bad" — most often the name just does not fit a dividend screen
+right now (e.g. a non-payer growth stock).</p>
+</div>
+
+<div class="card">
+<h2>Data sources</h2>
+<ul>
+<li><b>Universe &amp; sector (GICS)</b>: S&amp;P 500/400/600 constituent tables (Wikipedia).</li>
+<li><b>Prices, financials, dividends, earnings, analyst estimates</b>: yfinance (Yahoo Finance).</li>
+<li><b>10-year Treasury yield</b> (for the rate-spread metric): a bundled ~4.2% guide value,
+updated quarterly by hand.</li>
+</ul>
+<p>All free, unauthenticated data — so errors, delays and gaps are possible. See the
+<a href="terms.html">terms &amp; disclaimer</a>.</p>
+</div>
+
+<div class="card">
+<h2>Two scores</h2>
+<p>Quality and price are kept separate.</p>
+<table>
+<tr><th>Score</th><th>Means</th><th>Metric groups</th></tr>
+<tr><td><b>Selection</b> (0–110)</td><td>Quality of the dividend; is it long-term holdable</td>
+<td>Operating performance · financial strength · cash flow · dividend durability</td></tr>
+<tr><td><b>Timing</b> (0–110)</td><td>Whether the current price looks cheap; separate from quality</td>
+<td>Dividend-yield theory · yield level &amp; Chowder · valuation vs sector · rate spread</td></tr>
+</table>
+<p>Read them together:</p>
+<table>
+<tr><th>Selection</th><th>Timing</th><th>Reading</th></tr>
+<tr><td>high</td><td>high</td><td>Quality and price both look good.</td></tr>
+<tr><td>high</td><td>low</td><td>Good business, currently on the expensive side — a pullback candidate.</td></tr>
+<tr><td>low</td><td>high</td><td>Cheap but quality is in question — watch for a value trap / de-rating.</td></tr>
+<tr><td>low</td><td>low</td><td>Both quality and price look weak.</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h2>Tiers and sector grades</h2>
+<p><b>Tier 1 / 2 / 3</b> rank names <i>within a GICS sector</i> by selection score (top 25% / next
+45% / rest). A name with "low" coverage is capped at Tier 2; a name with selection score 85+ is
+guaranteed at least Tier 2 so a strong sector cannot drag it to Tier 3.</p>
+<p><b>Sector grade A / B / C</b> compares GICS sectors by their median selection score (median 88+ =
+A, 84+ = B, below = C) — a guide to which sectors hold the better-quality dividend names. Judge
+individual names by the selection score and tier, not the grade.</p>
+</div>
+
+<div class="card">
+<h2>US-specific notes</h2>
+<ul>
+<li><b>Total yield</b> = dividend yield + buyback yield (buybacks / market cap). US companies
+return a lot of cash through repurchases, so this is scored as a first-class metric. Buybacks are a
+single-year figure, not a recurring commitment — don't over-rely on one year.</li>
+<li><b>Interest coverage</b> (EBIT / interest expense) is scored in the financial-strength group;
+it matters more when rates are high.</li>
+<li><b>Rate spread</b> (yield minus the 10-year Treasury) is scored only for rate-sensitive
+sectors — Utilities, Real Estate, Communication Services, Consumer Staples. US Treasury yields are
+high, so a spread near zero is already attractive and the thresholds are set accordingly.</li>
+<li><b>Simple mode</b>: banks, insurers and REITs have structurally different financials, so their
+operating / financial / cash-flow groups are shown for reference only and the selection score comes
+from dividend durability. REIT payout ratios above 100% of GAAP net income are normal (judge on FFO,
+which this tool does not have).</li>
+<li>Company descriptions are the English text from Yahoo Finance.</li>
+</ul>
+</div>
+
+<div class="note">
+Educational general information only. Not investment advice; the operator is not a registered
+investment adviser. Scores are mechanical outputs of fixed rules and do not predict future prices
+or dividends.
+</div>
+
+<a class="back" href="index.html">&larr; back to list</a>
+</div></body></html>

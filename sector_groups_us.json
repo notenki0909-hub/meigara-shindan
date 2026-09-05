@@ -1,0 +1,29 @@
+{
+  "_meta": {
+    "description": "US version. The tiering unit is the GICS 11 sector itself (no collapsing, unlike the JP 33->12 map). rank_us.py uses this.",
+    "grade": "A(>=grade_a) / B(>=grade_b) / C by the median selection score within each GICS sector. A rough 'which sectors have the better-quality dividend names' guide.",
+    "tier": "Within a sector, sort by selection score; top tier1_pct = Tier 1, next tier2_pct = Tier 2, rest = Tier 3. Low coverage is capped at Tier 2 (cap_low_coverage_at). Plus an absolute-score floor (rank_us.py tier_floor): a name with selection score >= analyze_us.SEL_TIERS[0] (85) is guaranteed at least Tier 2 so it does not fall to Tier 3 just for sitting in a strong sector.",
+    "min_group": "A GICS sector with fewer than min_group_for_tiers screened names is shown flat (no tiering).",
+    "grade_a/grade_b calibration": "Calibrated 2026-09-06 from the full 501-name batch. GICS sector SEL medians ran 80.1 (Real Estate) to 91.5 (Information Technology); 88/84 gives a ~4A/3B/4C split. Re-check with batch_calib_us.py after a universe rebuild.",
+    "review": "Quarterly, following S&P 500/400/600 membership changes."
+  },
+  "grade_a": 88,
+  "grade_b": 84,
+  "tier1_pct": 0.25,
+  "tier2_pct": 0.45,
+  "cap_low_coverage_at": "Tier 2",
+  "min_group_for_tiers": 6,
+  "groups": {
+    "Information Technology": ["Information Technology"],
+    "Health Care": ["Health Care"],
+    "Financials": ["Financials"],
+    "Consumer Discretionary": ["Consumer Discretionary"],
+    "Consumer Staples": ["Consumer Staples"],
+    "Communication Services": ["Communication Services"],
+    "Industrials": ["Industrials"],
+    "Energy": ["Energy"],
+    "Utilities": ["Utilities"],
+    "Materials": ["Materials"],
+    "Real Estate": ["Real Estate"]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "_meta": {
+    "基準": "2026年8月時点",
+    "出所": "PE(TTM)・P/B・配当利回り＝Siblis Research（米大型株集計）。ROE・配当性向・D/E・ROIC＝Damodaran（NYU・2026年1月）＋各種集計の目安レンジ。元資料＝調べもの/配当金投資/配当金投資.txt 米B（GICS11セクターの平均指標）。",
+    "注意": "ROE・配当性向・D/E・ROICは目安レンジの中央値。金融はD/E・ROICが規制管理/適用外のため per_vs_sector 系の分母にのみ使い、de/roic の直接採点はしない（sector_map_us.json の financial_like で _simple 判定に落とす）。REITはD/E高め・GAAP配当性向が100%超が正常＝配当性向はFFOベースで見るべきなので payout_ni の band を緩める（sector_rules_us.json の overrides 参照）。",
+    "単位": "per・pbr・de は倍。roe・roic・payout・yield は％。",
+    "gics_note": "キーは GICS11 セクター名（sector_map_us.json の sector_rename で yfinance の Yahoo 系セクター名から変換した後の名前）。"
+  },
+  "_overall": { "per": 27.0, "pbr": 5.4, "roe": 20.0, "roic": 10.0, "payout": [25, 45], "yield": [1.0, 1.5] },
+
+  "Information Technology":   { "per": 39.2, "pbr": 13.4, "roe": 32,   "roic": 45,   "de": 0.5, "payout": [20, 30], "yield": [0.3, 0.8] },
+  "Health Care":             { "per": 23.6, "pbr": 5.2,  "roe": 18.5, "roic": 22.5, "de": 0.65, "payout": [40, 55], "yield": [1.3, 2.2] },
+  "Consumer Staples":        { "per": 23.7, "pbr": 6.6,  "roe": 24.5, "roic": 25,   "de": 1.2, "payout": [55, 65], "yield": [2.3, 3.2] },
+  "Consumer Discretionary":  { "per": 29.6, "pbr": 9.2,  "roe": 25,   "roic": 17.5, "de": 1.15, "payout": [20, 35], "yield": [0.5, 1.2] },
+  "Communication Services":  { "per": 20.7, "pbr": 5.9,  "roe": 20,   "roic": 15,   "de": 1.25, "payout": [25, 40], "yield": [0.5, 2.5] },
+  "Industrials":             { "per": 33.6, "pbr": 6.7,  "roe": 20,   "roic": 20,   "de": 1.0, "payout": [30, 40], "yield": [1.0, 2.0] },
+  "Financials":              { "per": 17.3, "pbr": 2.5,  "roe": 13,   "roic": null, "de": null, "payout": [25, 40], "yield": [1.5, 3.5] },
+  "Energy":                  { "per": 21.6, "pbr": 1.9,  "roe": 12,   "roic": 11.5, "de": 0.5, "payout": [40, 55], "yield": [3.0, 4.5] },
+  "Utilities":               { "per": 21.1, "pbr": 2.4,  "roe": 10.5, "roic": 6,    "de": 1.45, "payout": [60, 70], "yield": [2.8, 3.8] },
+  "Real Estate":             { "per": 42.7, "pbr": 3.0,  "roe": 8,    "roic": 3.5,  "de": 1.3, "payout": [70, 100], "yield": [3.0, 4.5] },
+  "Materials":               { "per": 25.3, "pbr": 2.9,  "roe": 10.5, "roic": 10,   "de": 0.65, "payout": [35, 45], "yield": [1.5, 2.5] }
+}

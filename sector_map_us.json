@@ -1,0 +1,42 @@
+{
+  "_meta": {
+    "説明": "米国株版。yfinance が返す sector（Yahoo 系の11分類）を GICS11 の正式名へ変換する（sector_rename）。日本版 sector_map.json のような industry→33業種の細かい対応表は基本不要（Yahoo 系セクターと GICS11 が1対1のため）。ただし GICS の Financials は銀行・保険・証券・資産運用・決済・取引所を全部含んで広すぎるので、industry（より細かい yfinance 分類）で『銀行・保険・与信』系だけ _simple 判定（財務・CF・業績の採点を外す）に落とす＝financial_like_industries。",
+    "rate_sensitive_note": "『債券の代わり』として買われやすい GICS11 セクター。ここだけ 金利スプレッド（予想配当利回り − 米10年国債利回り）を採点する（配当金投資.txt 米編 第6部 補強②）。他セクターは yield_spread を評価しない。米国債利回りは日本より高い（約4.2%）ので、スプレッドはマイナスが普通＝sector_rules_us.json の yield_spread しきい値は日本版より大幅に緩めてある。"
+  },
+
+  "sector_rename": {
+    "Technology": "Information Technology",
+    "Healthcare": "Health Care",
+    "Financial Services": "Financials",
+    "Consumer Cyclical": "Consumer Discretionary",
+    "Consumer Defensive": "Consumer Staples",
+    "Basic Materials": "Materials",
+    "Communication Services": "Communication Services",
+    "Industrials": "Industrials",
+    "Energy": "Energy",
+    "Utilities": "Utilities",
+    "Real Estate": "Real Estate"
+  },
+
+  "financial_like_industries": [
+    "Banks - Regional",
+    "Banks - Diversified",
+    "Banks",
+    "Banks—Regional",
+    "Banks—Diversified",
+    "Insurance - Property & Casualty",
+    "Insurance - Life",
+    "Insurance - Diversified",
+    "Insurance - Specialty",
+    "Insurance - Reinsurance",
+    "Insurance Brokers",
+    "Insurance—Property & Casualty",
+    "Insurance—Life",
+    "Insurance—Diversified",
+    "Insurance—Specialty",
+    "Insurance—Reinsurance"
+  ],
+  "financial_like_note": "上記 industry に該当する Financials 銘柄は _simple（PER・PBR・配当利回り・配当性向・連続増配・Total Yield だけの簡易判定。業績・財務・CF 分野は外す）。資産運用・取引所・データ（S&P Global 等）・決済（Visa/Mastercard は yfinance industry が『Credit Services』だが実態は資本の軽い決済網なので _simple にしない）は通常採点する。yfinance の『Credit Services』は決済網と実際の与信業者（Synchrony 等）が混在するためリストから外している＝与信業者のD/E採点が少しノイジーになるのは v1 では許容。",
+
+  "rate_sensitive": ["Utilities", "Real Estate", "Communication Services", "Consumer Staples"]
+}
