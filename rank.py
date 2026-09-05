@@ -251,7 +251,7 @@ def render_index(out):
             tcls = TIER_CLASS.get(s["tier"], "t0")
             dcls = DIR_CLASS.get(s["dir"], "fl")
             trs.append(
-                f'<tr class="{tcls} r">'
+                f'<tr class="{tcls} r" data-tier="{s["tier"]}">'
                 f'<td class="tier">{s["tier"]}<span class="dir {dcls}">{s["dir"]}</span></td>'
                 f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
                 f'<td class="nm">{html.escape(s["name"])}</td>'
@@ -268,7 +268,8 @@ def render_index(out):
                     '</tr></thead><tbody>' + "".join(trs) + '</tbody></table></section>')
 
     gt = "".join(
-        f'<tr class="r"><td class="n">{i+1}</td>'
+        f'<tr class="r" data-tier="{s.get("tier","―")}"><td class="n">{i+1}</td>'
+        f'<td class="tier">{s.get("tier","―")}</td>'
         f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
         f'<td class="nm">{html.escape(s["name"])}</td>'
         f'<td class="sec">{html.escape(s["group"])}</td>'
@@ -322,22 +323,28 @@ details{{margin:14px 0}}summary{{cursor:pointer;font-weight:600;font-size:13px}}
 .searchbar .hit{{font-size:12px;color:var(--muted);white-space:nowrap}}
 tr[hidden]{{display:none}}
 section.grp[hidden],details[hidden]{{display:none}}
+.sumbtn{{font:inherit;background:var(--card);border:1px solid var(--line);border-radius:8px;
+  padding:8px 14px;min-width:78px;text-align:center;cursor:pointer;color:inherit}}
+.sumbtn:hover{{border-color:var(--accent)}}
+.sumbtn.active{{border-color:var(--accent);border-width:2px;background:#eff6ff}}
+.sumbtn b{{display:block;font-size:20px}}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>配当株 軍分けランキング</h1><a href="terms.html">利用規約・免責事項</a></div>
 <div class="sub">生成 {gen}　｜　スクリーン：{scr}</div>
 <div class="summary">
-  <div><b>{c['total']}</b>銘柄</div>
-  <div><b>{c['1軍']}</b>1軍</div>
-  <div><b>{c['2軍']}</b>2軍</div>
-  <div><b>{c['3軍']}</b>3軍</div>
+  <button type="button" class="sumbtn" data-tier=""><b>{c['total']}</b>銘柄</button>
+  <button type="button" class="sumbtn" data-tier="1軍"><b>{c['1軍']}</b>1軍</button>
+  <button type="button" class="sumbtn" data-tier="2軍"><b>{c['2軍']}</b>2軍</button>
+  <button type="button" class="sumbtn" data-tier="3軍"><b>{c['3軍']}</b>3軍</button>
 </div>
+<div class="sub" style="margin:-14px 0 14px">クリックでその軍だけ表示（もう一度押すと解除）</div>
 <div class="searchbar">
   <input id="q" type="search" placeholder="銘柄コード・銘柄名・業種で検索" autocomplete="off">
   <button id="qclear" type="button">クリア</button>
   <span class="hit" id="qhit"></span>
 </div>
 <details id="topbox"><summary>全体 選定スコア 上位50（業種横断）</summary>
-<table><thead><tr><th class="n">#</th><th>コード</th><th>銘柄</th><th>グループ</th>
+<table><thead><tr><th class="n">#</th><th>軍</th><th>コード</th><th>銘柄</th><th>グループ</th>
 <th class="n">選定</th><th class="n">買い時</th></tr></thead><tbody>{gt}</tbody></table>
 </details>
 {"".join(secs)}
@@ -347,28 +354,41 @@ section.grp[hidden],details[hidden]{{display:none}}
   var q = document.getElementById('q');
   var hit = document.getElementById('qhit');
   var topbox = document.getElementById('topbox');
+  var sumbtns = document.querySelectorAll('.sumbtn');
+  var activeTier = '';
   function apply(){{
     var needle = q.value.trim().normalize('NFKC').toLowerCase();
+    var filtering = !!needle || !!activeTier;
     var total = 0;
     document.querySelectorAll('tr.r').forEach(function(tr){{
-      var show = !needle || tr.textContent.normalize('NFKC').toLowerCase().indexOf(needle) !== -1;
+      var textOk = !needle || tr.textContent.normalize('NFKC').toLowerCase().indexOf(needle) !== -1;
+      var tierOk = !activeTier || tr.dataset.tier === activeTier;
+      var show = textOk && tierOk;
       tr.hidden = !show;
       if (show) total++;
     }});
     document.querySelectorAll('section.grp').forEach(function(sec){{
       var any = sec.querySelector('tr.r:not([hidden])');
-      sec.hidden = !!needle && !any;
+      sec.hidden = filtering && !any;
     }});
     if (topbox) {{
       var anyTop = topbox.querySelector('tr.r:not([hidden])');
-      if (needle) topbox.open = true;
-      topbox.hidden = !!needle && !anyTop;
+      if (filtering) topbox.open = true;
+      topbox.hidden = filtering && !anyTop;
     }}
-    hit.textContent = needle ? (total + '件ヒット') : '';
+    hit.textContent = filtering ? (total + '件ヒット') : '';
   }}
   q.addEventListener('input', apply);
   document.getElementById('qclear').addEventListener('click', function(){{
     q.value = ''; apply(); q.focus();
+  }});
+  sumbtns.forEach(function(btn){{
+    btn.addEventListener('click', function(){{
+      var t = btn.dataset.tier;
+      activeTier = (activeTier === t) ? '' : t;
+      sumbtns.forEach(function(b){{ b.classList.toggle('active', b.dataset.tier === activeTier && activeTier !== ''); }});
+      apply();
+    }});
   }});
 }})();
 </script>
