@@ -373,7 +373,6 @@ section.grp[hidden],details[hidden]{{display:none}}
     }});
     if (topbox) {{
       var anyTop = topbox.querySelector('tr.r:not([hidden])');
-      if (filtering) topbox.open = true;
       topbox.hidden = filtering && !anyTop;
     }}
     hit.textContent = filtering ? (total + '件ヒット') : '';

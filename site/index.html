@@ -52,7 +52,7 @@ section.grp[hidden],details[hidden]{display:none}
 .sumbtn b{display:block;font-size:20px}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>配当株 軍分けランキング</h1><a href="terms.html">利用規約・免責事項</a></div>
-<div class="sub">生成 2026-09-05T09:15:02　｜　スクリーン：利回り≥2.0% ・ 時価総額≥300億 ・ 直近5年減配なし（累進配当/DOE宣言は例外）</div>
+<div class="sub">生成 2026-09-05T09:20:43　｜　スクリーン：利回り≥2.0% ・ 時価総額≥300億 ・ 直近5年減配なし（累進配当/DOE宣言は例外）</div>
 <div class="summary">
   <button type="button" class="sumbtn" data-tier=""><b>677</b>銘柄</button>
   <button type="button" class="sumbtn" data-tier="1軍"><b>168</b>1軍</button>
@@ -95,7 +95,6 @@ section.grp[hidden],details[hidden]{display:none}
     });
     if (topbox) {
       var anyTop = topbox.querySelector('tr.r:not([hidden])');
-      if (filtering) topbox.open = true;
       topbox.hidden = filtering && !anyTop;
     }
     hit.textContent = filtering ? (total + '件ヒット') : '';
