@@ -666,6 +666,22 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
     M["財務"].append({"name": "有利子負債 ÷ 営業CF（返済年数の目安）", "v": debt_to_ocf,
                       "disp": fmt_num(debt_to_ocf, 1) + "年" if is_num(debt_to_ocf) else "―",
                       "ref": "数年以内に返せる水準か", "key": "debt_to_ocf"})
+
+    # インタレストカバレッジレシオ＝EBIT÷支払利息（今の利益で利払いをどれだけ楽に
+    # 賄えているか。D/Eは借金の大きさ、こちらは今の負担の重さを見る）
+    ebit_row = row(isr, "EBIT") or opi
+    int_exp = row(isr, "Interest Expense", "Interest Expense Non Operating")
+    icr = None
+    if ebit_row and is_num(ebit_row[0]) and int_exp and is_num(int_exp[0]) and int_exp[0] != 0:
+        icr = ebit_row[0] / abs(int_exp[0])
+    if not int_exp or not is_num(int_exp[0]) or int_exp[0] == 0:
+        icr_disp = "無借金またはデータなし"
+    elif is_num(icr):
+        icr_disp = f"{icr:.1f}倍"
+    else:
+        icr_disp = "データなし"
+    M["参考"].append({"name": "インタレストカバレッジレシオ（EBIT÷支払利息）", "v": None, "disp": icr_disp,
+                      "ref": "10倍以上で余裕、3倍未満は利払い負担に注意。金利上昇局面で重要性が増す", "key": None})
     M["参考"].append({"name": "ROIC（投下資本利益率）", "v": None,
                       "disp": (fmt_pct(roic, 1) if is_num(roic) else "―"),
                       "ref": (f"業種中央値 {fmt_pct(sa.get('roic'))}（対平均 {fmt_num(roic_vs, 2)}倍）" if roic_vs
@@ -701,6 +717,24 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
     M["参考"].append({"name": "財務CF（直近／推移）", "v": None, "disp": series_disp(fcf_flow),
                       "ref": "配当・自社株買い・返済でマイナス傾向", "key": None,
                       "series": series_pairs(fcf_flow, cf_years), "series_kind": "yen"})
+
+    # 自社株買い（詳細項目を優先、無ければ純額項目［新株発行との差引］にフォールバック。
+    # 三菱商事・トヨタ等は詳細項目が無く純額項目のみ、という yfinance のクセに対応）
+    buyback_detail = row(cfr, "Repurchase Of Capital Stock")
+    buyback_net = row(cfr, "Net Common Stock Issuance")
+    buyback0, buyback_src = None, None
+    if buyback_detail and is_num(buyback_detail[0]):
+        buyback0, buyback_src = abs(buyback_detail[0]), "詳細項目（Repurchase Of Capital Stock）"
+    elif buyback_net and is_num(buyback_net[0]):
+        buyback0 = abs(buyback_net[0]) if buyback_net[0] < 0 else 0.0
+        buyback_src = "純額項目（新株発行との差引。個別の金額ではない）"
+    mcap = info.get("marketCap")
+    buyback_yield = (buyback0 / mcap * 100) if is_num(buyback0) and is_num(mcap) and mcap > 0 else None
+    M["参考"].append({"name": "自社株買い（直近期）", "v": None,
+                      "disp": (f"{fmt_yen(buyback0)}（時価総額比 {buyback_yield:.2f}%）"
+                               if is_num(buyback0) and is_num(buyback_yield) else
+                               fmt_yen(buyback0) if is_num(buyback0) else "データなし"),
+                      "ref": f"出所：{buyback_src}" if buyback_src else "yfinanceに該当項目なし", "key": None})
     M["キャッシュフロー"].append({"name": "フリーCF（営業CF＋投資CF）", "v": (1 if is_num(fcf0) and fcf0 > 0 else 0) if is_num(fcf0) else None,
                                     "disp": series_disp(fcf), "ref": "継続プラスなら配当の原資に余裕", "key": "fcf_positive",
                                     "series": series_pairs(fcf, cf_years), "series_kind": "yen"})
@@ -785,6 +819,19 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
     M["配当"].append({"name": "予想配当利回り", "v": yld_fwd, "disp": fmt_pct(yld_fwd, 2),
                       "ref": range_txt + "／安全圏3.5〜4%以上。推移＝各暦年の平均株価に対する利回り",
                       "key": "div_yield", "series": yy, "series_kind": "pct", "series_current": yld_fwd})
+
+    # 総還元利回り・総還元性向＝配当だけでなく自社株買いも含めた株主還元の全体像
+    total_yield = (yld_fwd + buyback_yield) if is_num(yld_fwd) and is_num(buyback_yield) else None
+    ni0 = ni[0] if ni and is_num(ni[0]) else None
+    divpaid0 = abs(divpaid[0]) if divpaid and is_num(divpaid[0]) else None
+    total_return_amt = (divpaid0 or 0) + (buyback0 or 0) if (is_num(divpaid0) or is_num(buyback0)) else None
+    total_payout = (total_return_amt / ni0 * 100) if is_num(total_return_amt) and is_num(ni0) and ni0 > 0 else None
+    M["参考"].append({"name": "総還元利回り（配当＋自社株買い）", "v": None,
+                      "disp": (f"{fmt_pct(yld_fwd,2)}（配当）＋{fmt_pct(buyback_yield,2)}（自社株買い）＝{fmt_pct(total_yield,2)}"
+                               if is_num(total_yield) else "算出不可（自社株買いデータなし）"),
+                      "ref": "配当だけでは見えない株主還元の全体像", "key": None})
+    M["参考"].append({"name": "総還元性向（（配当＋自社株買い）÷純利益）", "v": None, "disp": fmt_pct(total_payout),
+                      "ref": "100%超はその期の利益以上を還元＝内部留保の取り崩し", "key": None})
     M["配当"].append({"name": "増配率（直近5年・年率）", "v": dgr5, "disp": fmt_pct(dgr5),
                       "ref": f"3%以上が目安（0%以上で及第）／出所：{dps_src}", "key": "dgr5"})
     cap_note = "（yfinanceで追える範囲。実際はより長い可能性）" if streak_capped else ""
@@ -1949,6 +1996,21 @@ NAME_HELP = {
     "益回り（1÷PER）": "PERの逆数。株式の『利回り』に相当し、国債利回りと比べて割高・割安の目安にする。",
     "MACD(12,26,9)": "中期の移動平均の向き。上向き転換（ゴールデンクロス）／下向き転換の判定に使う短期指標。",
     "スローストキャスティクス(14,3,3)": "直近の値幅の中で終値がどこにあるか。80超で買われすぎ、20未満で売られすぎ。",
+    "インタレストカバレッジレシオ（EBIT÷支払利息）": "本業の利益（EBIT）で支払利息を何倍まかなえるかを見る指標。"
+        "例えばEBIT100億円・支払利息10億円なら10倍＝利払いに十分な余裕がある。D/Eレシオが『借金の"
+        "大きさ』を見るのに対し、こちらは『今の利益でその借金の利払いをどれだけ楽に賄えているか』を見る。"
+        "金利が上がるほど利払い負担が重くなるため、金利上昇局面で重要性が増す。目安は10倍以上で余裕、"
+        "3倍未満は要注意。",
+    "自社株買い（直近期）": "会社が市場から自社の株を買い戻した金額。発行済み株式数が減るため、1株当たりの"
+        "利益・配当の原資が相対的に増える効果がある。配当と並ぶ株主還元の手段で、東証の資本効率改善要請を"
+        "背景に積極化している会社が多い（総合商社・メガバンク等）。",
+    "総還元利回り（配当＋自社株買い）": "配当利回りだけでなく、自社株買いも時価総額に対する『利回り』とみなして"
+        "合算した数字。例えば配当利回り3%＋自社株買い利回り2%＝総還元利回り5%。配当は控えめでも自社株買いに"
+        "積極的な会社の株主還元姿勢を、配当利回りだけでは見落としてしまうのを補う。",
+    "総還元性向（（配当＋自社株買い）÷純利益）": "配当性向は配当だけを見るが、これに自社株買いも加えて"
+        "『純利益のうちどれだけを株主還元に回しているか』を見る。例えば純利益100億円に対し配当40億円＋"
+        "自社株買い30億円なら総還元性向70%。100%を超えると、その期の利益以上を還元している（内部留保を"
+        "取り崩している）ことを意味する。",
 }
 
 
