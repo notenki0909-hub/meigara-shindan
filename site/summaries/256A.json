@@ -46,6 +46,10 @@
  "yield_band_pos": null,
  "next_earn": null,
  "earn_disc_date": null,
+ "buyback_yen": null,
+ "total_yield": null,
+ "total_payout": null,
+ "interest_coverage": null,
  "warnings": [
   "銘柄選定スコアは取得できた指標が少なく（0/16・カバレッジ低）、点数は目安です。",
   "買い時スコアは取得できた指標が少なく（0/6・カバレッジ低）、点数は目安です。",
@@ -53,5 +57,5 @@
   "貸借対照表を取得できず、財務の評価が限定的です。",
   "配当履歴を取得できませんでした（無配、または yfinance 未収録）。"
  ],
- "_generated_at": "2026-09-05T02:35:41"
+ "_generated_at": "2026-09-05T11:35:13"
 }
