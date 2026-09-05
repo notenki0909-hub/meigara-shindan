@@ -2206,10 +2206,12 @@ svg.trend{{width:100%;height:auto;border:1px solid var(--line);border-radius:8px
 .muted{{color:var(--muted)}}
 .disc{{margin-top:30px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:11.5px}}
 .meta2{{color:var(--muted);font-size:12px;margin:2px 0 0}}
-@media print{{body{{font-size:11px}} .wrap{{max-width:none}}}}
+.topbar{{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}}
+.topbar a{{font-size:12.5px;white-space:nowrap}}
+@media print{{body{{font-size:11px}} .wrap{{max-width:none}} .topbar a{{display:none}}}}
 </style></head><body><div class="wrap">
 
-<h1>{meta['name']}（{meta['code']}）　配当株スクリーニング</h1>
+<div class="topbar"><h1>{meta['name']}（{meta['code']}）　配当株スクリーニング</h1><a href="../index.html">← 一覧へ戻る</a></div>
 <div class="sub">東証33業種：<b>{meta['jp_sector']}</b>
 （yfinance分類：{meta['industry'] or '―'} / {meta['sector'] or '―'}　→ {meta['sector_src']}）
 {'　｜　<b>簡易判定モード</b>（財務・CF・業績は構造的に別基準のため参考表示）' if meta['is_simple'] else ''}<br>
