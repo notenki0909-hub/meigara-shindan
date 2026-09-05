@@ -680,7 +680,7 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
         icr_disp = f"{icr:.1f}倍"
     else:
         icr_disp = "データなし"
-    M["参考"].append({"name": "インタレストカバレッジレシオ（EBIT÷支払利息）", "v": None, "disp": icr_disp,
+    M["参考"].append({"name": "インタレストカバレッジレシオ（EBIT÷支払利息）", "v": icr, "disp": icr_disp,
                       "ref": "10倍以上で余裕、3倍未満は利払い負担に注意。金利上昇局面で重要性が増す", "key": None})
     M["参考"].append({"name": "ROIC（投下資本利益率）", "v": None,
                       "disp": (fmt_pct(roic, 1) if is_num(roic) else "―"),
@@ -730,7 +730,7 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
         buyback_src = "純額項目（新株発行との差引。個別の金額ではない）"
     mcap = info.get("marketCap")
     buyback_yield = (buyback0 / mcap * 100) if is_num(buyback0) and is_num(mcap) and mcap > 0 else None
-    M["参考"].append({"name": "自社株買い（直近期）", "v": None,
+    M["参考"].append({"name": "自社株買い（直近期）", "v": buyback0,
                       "disp": (f"{fmt_yen(buyback0)}（時価総額比 {buyback_yield:.2f}%）"
                                if is_num(buyback0) and is_num(buyback_yield) else
                                fmt_yen(buyback0) if is_num(buyback0) else "データなし"),
@@ -826,11 +826,11 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
     divpaid0 = abs(divpaid[0]) if divpaid and is_num(divpaid[0]) else None
     total_return_amt = (divpaid0 or 0) + (buyback0 or 0) if (is_num(divpaid0) or is_num(buyback0)) else None
     total_payout = (total_return_amt / ni0 * 100) if is_num(total_return_amt) and is_num(ni0) and ni0 > 0 else None
-    M["参考"].append({"name": "総還元利回り（配当＋自社株買い）", "v": None,
+    M["参考"].append({"name": "総還元利回り（配当＋自社株買い）", "v": total_yield,
                       "disp": (f"{fmt_pct(yld_fwd,2)}（配当）＋{fmt_pct(buyback_yield,2)}（自社株買い）＝{fmt_pct(total_yield,2)}"
                                if is_num(total_yield) else "算出不可（自社株買いデータなし）"),
                       "ref": "配当だけでは見えない株主還元の全体像", "key": None})
-    M["参考"].append({"name": "総還元性向（（配当＋自社株買い）÷純利益）", "v": None, "disp": fmt_pct(total_payout),
+    M["参考"].append({"name": "総還元性向（（配当＋自社株買い）÷純利益）", "v": total_payout, "disp": fmt_pct(total_payout),
                       "ref": "100%超はその期の利益以上を還元＝内部留保の取り崩し", "key": None})
     M["配当"].append({"name": "増配率（直近5年・年率）", "v": dgr5, "disp": fmt_pct(dgr5),
                       "ref": f"3%以上が目安（0%以上で及第）／出所：{dps_src}", "key": "dgr5"})
@@ -2658,6 +2658,11 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
         it = rowmap.get(k)
         return it.get("v") if it else None
 
+    def gref(name):
+        """key を持たない M['参考'] 行から名前で v を拾う（自社株買い等）。"""
+        it = next((r for r in M.get("参考", []) if r.get("name") == name), None)
+        return it.get("v") if it else None
+
     sc_cov, lab_cov = cov_label(coverage["選定"])
     tc_cov, tlab_cov = cov_label(coverage["買い時"])
     ea = ctx.get("earn") or {}
@@ -2677,6 +2682,10 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
         "per_vs_sector": gv("per_vs_sector"), "pbr_vs_sector": gv("pbr_vs_sector"),
         "per_band_pos": gv("per_band_pos"), "yield_band_pos": gv("yield_band_pos"),
         "next_earn": ea.get("next_earn"), "earn_disc_date": ea.get("disc_date"),
+        "buyback_yen": gref("自社株買い（直近期）"),
+        "total_yield": gref("総還元利回り（配当＋自社株買い）"),
+        "total_payout": gref("総還元性向（（配当＋自社株買い）÷純利益）"),
+        "interest_coverage": gref("インタレストカバレッジレシオ（EBIT÷支払利息）"),
         "warnings": warnings,
     }
     res["ok"] = True
