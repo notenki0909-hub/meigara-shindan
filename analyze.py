@@ -415,6 +415,21 @@ def _one_streak(vals, strict):
     return s
 
 
+def find_last_cut(dps_series):
+    """(fy, dps) oldest→newest から、直近の実質減配（0.5%超の下げ）があった会計年度を
+    返す（無ければNone）。streak_flat と同じ判定ロジックを使い、その裏にある
+    『いつ最後に減配したか』を可視化するための関数。"""
+    if not dps_series or len(dps_series) < 2:
+        return None
+    vals = [v for _, v in dps_series]
+    fys = [fy for fy, _ in dps_series]
+    for i in range(len(vals) - 1, 0, -1):
+        if vals[i] >= vals[i - 1] * 0.995:
+            continue
+        return fys[i]
+    return None
+
+
 def dividend_streaks(vals):
     """oldest→newest の DPS 列から (連続増配年数, 連続非減配年数)。
     連続増配は分割調整のゆらぎを橋渡しするが、連続非減配は一度の下げで途切れる
@@ -538,7 +553,7 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
             xs = [x for x in s if is_num(x)]
             c = cagr(xs[-1], xs[0], len(xs) - 1)  # xs[0]=最新, xs[-1]=最古
             M[target].append({"name": name, "v": c, "disp": series_disp(s),
-                              "ref": f"年率 {fmt_pct(c)}（{len(xs)-1}期）", "key": key,
+                              "ref": f"年率 {fmt_pct(c)}（直近{len(xs)}期のデータから算出）", "key": key,
                               "series": series_pairs(s, years), "series_kind": kind})
         else:
             M[target].append({"name": name, "v": None, "disp": "―", "ref": "データ不足", "key": key})
@@ -549,7 +564,7 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
         c = cagr(xs[-1], xs[0], len(xs) - 1)
         M["業績"].append({"name": "EPS（推移／年率）", "v": c,
                           "disp": " ← ".join(fmt_num(x, 1) + "円" for x in eps if x is not None)[:120],
-                          "ref": f"年率 {fmt_pct(c)}", "key": "eps_cagr",
+                          "ref": f"年率 {fmt_pct(c)}（直近{len(xs)}期のデータから算出）", "key": "eps_cagr",
                           "series": series_pairs(eps, is_years), "series_kind": "eps"})
     else:
         M["業績"].append({"name": "EPS（推移／年率）", "v": None, "disp": "―", "ref": "データ不足", "key": "eps_cagr"})
@@ -808,6 +823,29 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
     M["配当"].append({"name": "累進配当・DOE の宣言", "v": dp_v, "disp": dp_disp,
                       "ref": "手管理リスト（2026-09時点）。会社の中期経営計画・配当方針の最新開示で要確認",
                       "key": "div_policy"})
+
+    # 減配履歴（連続非減配年数の裏側にある事実を可視化。過去の減配自体は恒久的な
+    # 減点にはせず、その後の実績や累進配当・DOE宣言で現在の評価を見る）
+    last_cut_fy = find_last_cut(dps_series) if len(dps_series) >= 3 else None
+    if len(dps_series) < 3:
+        cut_disp = "データ不足で判定不可"
+    elif last_cut_fy is None:
+        cut_disp = "減配歴なし（確認できたデータ範囲内）"
+    else:
+        yrs_txt = f"{streak_flat}年" if is_num(streak_flat) else "不明"
+        if is_num(dp_v):
+            cut_disp = f"最終減配 {last_cut_fy}年度（その後{yrs_txt}減配なし）。累進配当・DOE宣言があり現在は良好評価"
+        elif is_num(streak_flat) and streak_flat >= 10:
+            cut_disp = f"最終減配 {last_cut_fy}年度。その後{yrs_txt}間は減配なし＝現在は良好水準"
+        elif is_num(streak_flat) and streak_flat >= 5:
+            cut_disp = f"最終減配 {last_cut_fy}年度（{yrs_txt}前）。回復途上"
+        else:
+            cut_disp = f"最終減配 {last_cut_fy}年度（{yrs_txt}前）。直近の減配歴が新しく要注意"
+    M["参考"].append({"name": "減配履歴", "v": None, "disp": cut_disp,
+                      "ref": "「連続非減配年数」の裏側にある事実。過去に減配があってもスコアを恒久的には"
+                             "下げない：その後の非減配年数が長い（目安10年以上）か、累進配当・DOE宣言が"
+                             "あれば現在の評価は良好になり得る（連続非減配年数・累進配当宣言の各スコアに反映済み）",
+                      "key": None})
 
     # 配当の中身（記念・特別配当の疑い）
     if yd["divs"]:
@@ -1853,7 +1891,7 @@ METRIC_HELP = {
     "div_yield": {"what": "株価に対する予想年間配当の割合。厚いほどインカムは大きいが、5％超は減配・業績悪化のサインのこともある。", "unit": "%"},
     "dgr5": {"what": "直近5年の1株配当の年平均の伸び率。プラスが続いているのが増配株の条件。", "unit": "%"},
     "streak_up": {"what": "連続で増配してきた年数。10年以上で優良、20年超で王道クラス。景気に関係なく増やせる証拠。", "unit": "年"},
-    "streak_flat": {"what": "減配せずに配当を維持・増加してきた年数。危機でも下げなかったかを見る。分割調整のゆらぎも「減配」として途切れるため、実際の無減配記録より短く出ることがある（過小評価側）。", "unit": "年"},
+    "streak_flat": {"what": "減配せずに配当を維持・増加してきた年数＝直近の減配からの経過年数。危機でも下げなかったかを見る。分割調整のゆらぎも「減配」として途切れるため、実際の無減配記録より短く出ることがある（過小評価側）。過去に一度減配していても、その経過年数が長ければ得点は上がっていく設計＝過去の減配を恒久的な減点にはしない（詳しくは「減配履歴」参照）。", "unit": "年"},
     "div_policy": {"what": "会社が『累進配当（減配しない）』や『DOE（自己資本の一定％を配当）』を配当方針として公式に掲げているか。掲げていれば減配耐性が高い。手管理リスト（2026-09時点）で、宣言ありなら加点、宣言なしは減点しない（連続増配の実績で判断する）。連続増配20年超の銘柄は連続増配年数で既に評価されるため、公式宣言のある銘柄だけを対象にしている。", "unit": ""},
     "payout_ni": {"what": "純利益のうち配当に回す割合。低め〜中位だと不況でも減配せずに済む余裕がある。高すぎると次の減益で減配リスク。", "unit": "%"},
     "roe": {"what": "自己資本をどれだけ効率よく利益に変えているか。10％以上で優良。低いと増配の元手が細い。", "unit": "%"},
