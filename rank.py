@@ -229,6 +229,20 @@ def _streak(u, f):
     return ""
 
 
+def _streak_val(u, f):
+    """_streak() と同じ優先順位でソート用の生の年数を返す（表示文字列は_streak参照）。"""
+    if isinstance(u, (int, float)) and u >= 1:
+        return u
+    if isinstance(f, (int, float)) and f >= 1:
+        return f
+    return None
+
+
+def _v(x):
+    """並べ替え用の生の値。data-v 属性に埋め込む（欠損は空文字＝JS側でNaN扱い＝常に末尾）。"""
+    return x if isinstance(x, (int, float)) else ""
+
+
 TIER_CLASS = {"1軍": "t1", "2軍": "t2", "3軍": "t3", "―": "t0"}
 DIR_CLASS = {"↑": "up", "↓": "dn", "→": "fl"}
 
@@ -286,22 +300,25 @@ def render_index(out):
         for s in g["stocks"]:
             tcls = TIER_CLASS.get(s["tier"], "t0")
             dcls = DIR_CLASS.get(s["dir"], "fl")
+            streak_v = _streak_val(s["streak_up"], s["streak_flat"])
             trs.append(
                 f'<tr class="{tcls} r" data-tier="{s["tier"]}">'
                 f'<td class="tier">{s["tier"]}<span class="dir {dcls}">{s["dir"]}</span></td>'
                 f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
                 f'<td class="nm">{html.escape(s["name"])}</td>'
                 f'<td class="sec">{html.escape(s["sector"])}</td>'
-                f'<td class="n">{_num(s["sel"],0)}</td>'
-                f'<td class="n">{_num(s["tim"],0)}</td>'
-                f'<td class="n">{_num(s["yield"],2)}%</td>'
-                f'<td class="sk">{_streak(s["streak_up"], s["streak_flat"])}</td>'
+                f'<td class="n" data-v="{_v(s["sel"])}">{_num(s["sel"],0)}</td>'
+                f'<td class="n" data-v="{_v(s["tim"])}">{_num(s["tim"],0)}</td>'
+                f'<td class="n" data-v="{_v(s["yield"])}">{_num(s["yield"],2)}%</td>'
+                f'<td class="sk" data-v="{_v(streak_v)}">{_streak(s["streak_up"], s["streak_flat"])}</td>'
                 f'<td class="cv">{s["cov_sel"]}</td>'
                 f'</tr>')
         secs.append('<section class="grp">' + head + '<table><thead><tr>'
                     '<th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>業種</th>'
-                    '<th class="hdr" data-term="sel">選定</th><th class="hdr" data-term="tim">買い時</th>'
-                    '<th class="hdr" data-term="yield">利回り</th><th class="hdr" data-term="streak">増配</th>'
+                    '<th data-sort="1">選定<span class="hdr" data-term="sel">ⓘ</span></th>'
+                    '<th data-sort="1">買い時<span class="hdr" data-term="tim">ⓘ</span></th>'
+                    '<th data-sort="1">利回り<span class="hdr" data-term="yield">ⓘ</span></th>'
+                    '<th data-sort="1">増配<span class="hdr" data-term="streak">ⓘ</span></th>'
                     '<th class="hdr" data-term="cov">カバレッジ</th>'
                     '</tr></thead><tbody>' + "".join(trs) + '</tbody></table></section>')
 
@@ -311,7 +328,8 @@ def render_index(out):
         f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
         f'<td class="nm">{html.escape(s["name"])}</td>'
         f'<td class="sec">{html.escape(s["group"])}</td>'
-        f'<td class="n">{_num(s["sel"],0)}</td><td class="n">{_num(s["tim"],0)}</td></tr>'
+        f'<td class="n" data-v="{_v(s["sel"])}">{_num(s["sel"],0)}</td>'
+        f'<td class="n" data-v="{_v(s["tim"])}">{_num(s["tim"],0)}</td></tr>'
         for i, s in enumerate(out["global_top"]))
 
     return f"""<!doctype html><html lang="ja"><head><meta charset="utf-8">
@@ -366,8 +384,15 @@ section.grp[hidden],details[hidden]{{display:none}}
 .sumbtn:hover{{border-color:var(--accent)}}
 .sumbtn.active{{border-color:var(--accent);border-width:2px;background:#eff6ff}}
 .sumbtn b{{display:block;font-size:20px}}
-th.hdr,span.hdr{{cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px}}
-th.hdr:hover,span.hdr:hover{{color:var(--accent)}}
+th.hdr,span.grade.hdr{{cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px}}
+th.hdr:hover,span.grade.hdr:hover{{color:var(--accent)}}
+span.hdr{{cursor:pointer;color:var(--muted);font-size:10.5px;margin-left:3px;vertical-align:2px}}
+span.hdr:hover{{color:var(--accent)}}
+th[data-sort]{{cursor:pointer;user-select:none;white-space:nowrap}}
+th[data-sort]:hover{{color:var(--accent)}}
+th[data-sort]::after{{content:'';margin-left:3px;font-size:10px;color:var(--muted)}}
+th[data-sort].sort-asc::after{{content:'▲';color:var(--accent)}}
+th[data-sort].sort-desc::after{{content:'▼';color:var(--accent)}}
 .terminfo{{position:relative;margin:8px 0 18px;padding:12px 36px 12px 14px;background:#eff6ff;
   border:1px solid #bfdbfe;border-radius:8px;font-size:12.5px;line-height:1.7}}
 .terminfo b{{display:block;margin-bottom:4px;font-size:13.5px}}
@@ -395,7 +420,8 @@ th.hdr:hover,span.hdr:hover{{color:var(--accent)}}
 </div>
 <details id="topbox"><summary>全体 選定スコア 上位50（業種横断）</summary>
 <table><thead><tr><th class="n">#</th><th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>グループ</th>
-<th class="hdr n" data-term="sel">選定</th><th class="hdr n" data-term="tim">買い時</th></tr></thead><tbody>{gt}</tbody></table>
+<th class="n" data-sort="1">選定<span class="hdr" data-term="sel">ⓘ</span></th>
+<th class="n" data-sort="1">買い時<span class="hdr" data-term="tim">ⓘ</span></th></tr></thead><tbody>{gt}</tbody></table>
 </details>
 {"".join(secs)}
 <div class="disc">{DISC}</div>
@@ -443,7 +469,8 @@ th.hdr:hover,span.hdr:hover{{color:var(--accent)}}
   var tibox = document.getElementById('terminfo');
   var tibody = document.getElementById('terminfo-body');
   document.querySelectorAll('.hdr').forEach(function(el){{
-    el.addEventListener('click', function(){{
+    el.addEventListener('click', function(e){{
+      e.stopPropagation();
       var t = TERMS[el.dataset.term];
       if (!t) return;
       tibody.innerHTML = '<b>' + t[0] + '</b>' + t[1];
@@ -453,6 +480,35 @@ th.hdr:hover,span.hdr:hover{{color:var(--accent)}}
   }});
   document.getElementById('terminfo-close').addEventListener('click', function(){{
     tibox.hidden = true;
+  }});
+
+  function sortTable(th){{
+    var table = th.closest('table');
+    var idx = Array.prototype.indexOf.call(th.parentNode.children, th);
+    var tbody = table.querySelector('tbody');
+    var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+    var curCol = table.getAttribute('data-sort-col');
+    var curDir = table.getAttribute('data-sort-dir') || 'desc';
+    var dir = (curCol == idx && curDir === 'desc') ? 'asc' : 'desc';
+    rows.sort(function(a, b){{
+      var av = parseFloat(a.children[idx].getAttribute('data-v'));
+      var bv = parseFloat(b.children[idx].getAttribute('data-v'));
+      var aNaN = isNaN(av), bNaN = isNaN(bv);
+      if (aNaN && bNaN) return 0;
+      if (aNaN) return 1;
+      if (bNaN) return -1;
+      return dir === 'asc' ? (av - bv) : (bv - av);
+    }});
+    rows.forEach(function(r){{ tbody.appendChild(r); }});
+    table.setAttribute('data-sort-col', idx);
+    table.setAttribute('data-sort-dir', dir);
+    Array.prototype.forEach.call(table.querySelectorAll('th[data-sort]'), function(h){{
+      h.classList.remove('sort-asc', 'sort-desc');
+    }});
+    th.classList.add(dir === 'asc' ? 'sort-asc' : 'sort-desc');
+  }}
+  document.querySelectorAll('th[data-sort]').forEach(function(th){{
+    th.addEventListener('click', function(){{ sortTable(th); }});
   }});
 }})();
 </script>
