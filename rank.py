@@ -232,6 +232,41 @@ def _streak(u, f):
 TIER_CLASS = {"1軍": "t1", "2軍": "t2", "3軍": "t3", "―": "t0"}
 DIR_CLASS = {"↑": "up", "↓": "dn", "→": "fl"}
 
+TERMS = {
+    "tier": ("軍（1〜3軍）",
+             "業種グループ内で銘柄選定スコアの高い順に、上位25%を1軍、続く45%を2軍、"
+             "残りを3軍に分類。カバレッジが「低」の銘柄は最高でも2軍まで。逆に銘柄選定"
+             "スコアが85以上（＝選定スコア上位の水準）の銘柄は、たまたま質の高いグループに"
+             "属しているだけで3軍に落ちないよう最低でも2軍を保証する（1軍はグループ内での"
+             "相対的な上位という意味を残すため底上げしない）。対象が6銘柄未満のグループは"
+             "軍分けせず「―」。"),
+    "grade": ("業種級（A/B/C）",
+              "12の業種グループそれぞれの銘柄選定スコアの中央値をもとに判定。A・B・Cの"
+              "境界は、対象銘柄（利回り・時価総額・減配なしでスクリーニング済み）の実際の"
+              "分布に合わせて校正している。中央値が高いグループほど、質の高い配当株が"
+              "揃っている業種という目安。"),
+    "sel": ("選定（銘柄選定スコア）",
+            "業績・財務・キャッシュフロー・配当の持続力から算出する0〜110点のスコア。"
+            "配当株としての質・長期保有できるかどうかの目安。85以上＝選定スコア上位（質・"
+            "持続力とも高水準）、68以上＝中位、55以上＝下位、それ未満＝基準未達。"),
+    "tim": ("買い時（買い時スコア）",
+            "配当利回りセオリー（自社の過去レンジ内の位置）・利回り水準とChowderルール・"
+            "株価バリュエーション（PER/PBR対業種平均）・金利スプレッドから算出する0〜110点の"
+            "スコア。今の株価水準の目安であり、質の評価（選定）とは別物。72以上＝買い時"
+            "スコア上位（割安水準）、57以上＝中位（妥当水準）、45以上＝下位（やや割高）、"
+            "それ未満＝最下位（割高水準）。"),
+    "yield": ("利回り",
+              "会社予想の年間配当金 ÷ 現在の株価（予想配当利回り）。"),
+    "streak": ("増配",
+               "連続で増配している年数（「連続増配N年」）、増配は止まっていても減配して"
+               "いない年数（「非減配N年」）のどちらか長い方を表示。累進配当・DOEの公式"
+               "宣言がある銘柄は、この実績に加えて選定スコアに別途加点している。"),
+    "cov": ("カバレッジ",
+            "その銘柄でスコア算出に使えた指標の割合。高（85%以上）・中（65%以上）・"
+            "低（それ未満）の3段階。低い銘柄は財務・配当の履歴が短い等の理由でデータが"
+            "足りず、点数がぶれやすいので参考程度に見てほしいという意味。"),
+}
+
 
 def render_index(out):
     gen = out["generated_at"]
@@ -239,11 +274,12 @@ def render_index(out):
     scr = (f'利回り≥{sc.get("min_dividend_yield_pct")}% ・ 時価総額≥{sc.get("min_market_cap_oku")}億 ・ '
            f'直近{sc.get("no_cut_years")}年減配なし（累進配当/DOE宣言は例外）') if sc.get("min_dividend_yield_pct") else ""
     c = out["counts"]
+    terms_json = json.dumps(TERMS, ensure_ascii=False)
 
     secs = []
     for g in out["groups"]:
         head = (f'<h2>{html.escape(g["name"])} '
-                f'<span class="grade grade{g["grade"]}">業種級 {g["grade"]}</span> '
+                f'<span class="grade grade{g["grade"]} hdr" data-term="grade">業種級 {g["grade"]}</span> '
                 f'<span class="gmeta">中央値 {_num(g["median"])} ／ {g["count"]}銘柄'
                 f'{"" if g["tiered"] else " ・ 少数のため軍分けなし"}</span></h2>')
         trs = []
@@ -263,8 +299,10 @@ def render_index(out):
                 f'<td class="cv">{s["cov_sel"]}</td>'
                 f'</tr>')
         secs.append('<section class="grp">' + head + '<table><thead><tr>'
-                    '<th>軍</th><th>コード</th><th>銘柄</th><th>業種</th>'
-                    '<th>選定</th><th>買い時</th><th>利回り</th><th>増配</th><th>カバレッジ</th>'
+                    '<th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>業種</th>'
+                    '<th class="hdr" data-term="sel">選定</th><th class="hdr" data-term="tim">買い時</th>'
+                    '<th class="hdr" data-term="yield">利回り</th><th class="hdr" data-term="streak">増配</th>'
+                    '<th class="hdr" data-term="cov">カバレッジ</th>'
                     '</tr></thead><tbody>' + "".join(trs) + '</tbody></table></section>')
 
     gt = "".join(
@@ -328,9 +366,17 @@ section.grp[hidden],details[hidden]{{display:none}}
 .sumbtn:hover{{border-color:var(--accent)}}
 .sumbtn.active{{border-color:var(--accent);border-width:2px;background:#eff6ff}}
 .sumbtn b{{display:block;font-size:20px}}
+th.hdr,span.hdr{{cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px}}
+th.hdr:hover,span.hdr:hover{{color:var(--accent)}}
+.terminfo{{position:relative;margin:8px 0 18px;padding:12px 36px 12px 14px;background:#eff6ff;
+  border:1px solid #bfdbfe;border-radius:8px;font-size:12.5px;line-height:1.7}}
+.terminfo b{{display:block;margin-bottom:4px;font-size:13.5px}}
+.ticlose{{position:absolute;top:6px;right:8px;border:none;background:none;cursor:pointer;
+  font-size:15px;line-height:1;color:var(--muted);padding:4px}}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>配当株 軍分けランキング</h1><a href="terms.html">利用規約・免責事項</a></div>
 <div class="sub">生成 {gen}　｜　スクリーン：{scr}</div>
+<div class="sub">表の見出し（軍・選定・買い時・利回り・増配・カバレッジ・業種級）をクリックすると説明が出ます</div>
 <div class="summary">
   <button type="button" class="sumbtn" data-tier=""><b>{c['total']}</b>銘柄</button>
   <button type="button" class="sumbtn" data-tier="1軍"><b>{c['1軍']}</b>1軍</button>
@@ -343,9 +389,13 @@ section.grp[hidden],details[hidden]{{display:none}}
   <button id="qclear" type="button">クリア</button>
   <span class="hit" id="qhit"></span>
 </div>
+<div id="terminfo" class="terminfo" hidden>
+  <button type="button" id="terminfo-close" class="ticlose" aria-label="閉じる">✕</button>
+  <div id="terminfo-body"></div>
+</div>
 <details id="topbox"><summary>全体 選定スコア 上位50（業種横断）</summary>
-<table><thead><tr><th class="n">#</th><th>軍</th><th>コード</th><th>銘柄</th><th>グループ</th>
-<th class="n">選定</th><th class="n">買い時</th></tr></thead><tbody>{gt}</tbody></table>
+<table><thead><tr><th class="n">#</th><th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>グループ</th>
+<th class="hdr n" data-term="sel">選定</th><th class="hdr n" data-term="tim">買い時</th></tr></thead><tbody>{gt}</tbody></table>
 </details>
 {"".join(secs)}
 <div class="disc">{DISC}</div>
@@ -388,6 +438,21 @@ section.grp[hidden],details[hidden]{{display:none}}
       sumbtns.forEach(function(b){{ b.classList.toggle('active', b.dataset.tier === activeTier && activeTier !== ''); }});
       apply();
     }});
+  }});
+  var TERMS = {terms_json};
+  var tibox = document.getElementById('terminfo');
+  var tibody = document.getElementById('terminfo-body');
+  document.querySelectorAll('.hdr').forEach(function(el){{
+    el.addEventListener('click', function(){{
+      var t = TERMS[el.dataset.term];
+      if (!t) return;
+      tibody.innerHTML = '<b>' + t[0] + '</b>' + t[1];
+      tibox.hidden = false;
+      tibox.scrollIntoView({{behavior:'smooth', block:'nearest'}});
+    }});
+  }});
+  document.getElementById('terminfo-close').addEventListener('click', function(){{
+    tibox.hidden = true;
   }});
 }})();
 </script>
