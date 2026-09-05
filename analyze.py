@@ -32,6 +32,7 @@ import os
 import re
 import json
 import math
+import html
 import argparse
 import datetime as dt
 
@@ -1261,6 +1262,65 @@ def cagr_of(series):
 
 
 # ====================================================================
+# 企業概要（yfinance info。事業内容の説明文は英語のみ＝Yahoo Financeの制約）
+# ====================================================================
+def build_company_overview(info):
+    co = {
+        "summary": info.get("longBusinessSummary"),
+        "employees": info.get("fullTimeEmployees"),
+        "city": info.get("city"),
+        "country": info.get("country"),
+        "website": info.get("website"),
+    }
+    co["has"] = bool(co["summary"] or co["employees"] or co["website"])
+    return co
+
+
+COMPANY_DISC = "※ 事業内容は yfinance（Yahoo Finance）由来の英語の説明文です。日本語の要約ではありません。"
+
+
+def render_company_html(co):
+    if not co or not co.get("has"):
+        return ""
+    rows = []
+    loc = "、".join(x for x in (co.get("city"), co.get("country")) if x)
+    if loc:
+        rows.append(f'<div class="plain"><span class="mn">本社所在地</span>'
+                    f'<span class="mv2">{html.escape(loc)}</span></div>')
+    if is_num(co.get("employees")):
+        rows.append(f'<div class="plain"><span class="mn">従業員数</span>'
+                    f'<span class="mv2">{co["employees"]:,}名</span></div>')
+    if co.get("website"):
+        u = html.escape(co["website"])
+        rows.append(f'<div class="plain"><span class="mn">Webサイト</span>'
+                    f'<span class="mv2"><a href="{u}" target="_blank" rel="noopener">{u}</a></span></div>')
+    summary_p = ""
+    if co.get("summary"):
+        summary_p = (f'<p class="rule"><b>事業内容（English・出典 Yahoo Finance）</b></p>'
+                    f'<p style="white-space:pre-wrap">{html.escape(co["summary"])}</p>')
+    return (f'<details class="chartbox"><summary>企業概要</summary>'
+            f'<div class="mbody">{"".join(rows)}{summary_p}'
+            f'<p class="rule" style="margin-top:10px">{COMPANY_DISC}</p></div></details>')
+
+
+def render_company_md(co):
+    if not co or not co.get("has"):
+        return ""
+    L = ["\n## 企業概要\n"]
+    loc = "、".join(x for x in (co.get("city"), co.get("country")) if x)
+    if loc:
+        L.append(f"- **本社所在地**: {loc}")
+    if is_num(co.get("employees")):
+        L.append(f"- **従業員数**: {co['employees']:,}名")
+    if co.get("website"):
+        L.append(f"- **Webサイト**: {co['website']}")
+    if co.get("summary"):
+        L.append(f"\n**事業内容（English・出典 Yahoo Finance）**\n\n{co['summary']}")
+    L.append(f"\n> {COMPANY_DISC}")
+    return "\n".join(L)
+
+
+# ====================================================================
 # 直近決算・アナリスト予想（yfinance / Yahoo Finance 集計）
 # ====================================================================
 _RECO_JP = {"strong_buy": "強気買い", "buy": "買い", "hold": "中立",
@@ -2219,6 +2279,8 @@ svg.trend{{width:100%;height:auto;border:1px solid var(--line);border-radius:8px
 {('　｜　取得単価 ' + fmt_num(meta['cost'],0) + '円 → YOC <b>' + fmt_pct(meta['yoc'],2) + '</b>') if meta.get('yoc') else ''}
 </div>
 
+{render_company_html(ctx.get('company'))}
+
 {warn_html}
 
 <div class="top">
@@ -2279,6 +2341,9 @@ def render_md(meta, dom_scores, detail, groups, sel_score, tim_score, vd, M, ctx
         L.append(f"- 取得単価 {fmt_num(meta['cost'],0)}円 → YOC {fmt_pct(meta['yoc'],2)}")
     if meta["is_simple"]:
         L.append("- **簡易判定モード**（銀行・保険・証券／REIT：財務・CF・業績は不採点）")
+    co_md = render_company_md(ctx.get("company"))
+    if co_md:
+        L.append(co_md)
     sn = f"{sel_score:.0f}" if is_num(sel_score) else "―"
     tn = f"{tim_score:.0f}" if is_num(tim_score) else "―"
     (sel_sc, sel_ps), (_, sel_cl) = vd["選定cov"]
@@ -2407,6 +2472,7 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
         ctx["hist_m"] = yd["hist_m"]
         ctx["jgb_src"] = jgb_src
         ctx["earn"] = build_earnings(yd, yd["price"])
+        ctx["company"] = build_company_overview(info)
         dom_scores, detail, groups, sel_score, tim_score, coverage = score_all(M, jp_sector, rules, is_simple)
         vd = verdicts(sel_score, tim_score, groups, dom_scores, ctx, sec_avg, is_simple, coverage)
     except Exception as e:
