@@ -676,6 +676,10 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
         icr = ebit_row[0] / abs(int_exp[0])
     if not int_exp or not is_num(int_exp[0]) or int_exp[0] == 0:
         icr_disp = "無借金またはデータなし"
+    elif is_num(icr) and icr < 0:
+        icr_disp = f"営業損益が赤字（利払い以前の問題。参考値 {icr:.1f}倍）"
+    elif is_num(icr) and icr > 100:
+        icr_disp = f"100倍超（支払利息がごく僅か＝実質無借金水準。参考値 {icr:.0f}倍）"
     elif is_num(icr):
         icr_disp = f"{icr:.1f}倍"
     else:
@@ -829,8 +833,11 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
     M["参考"].append({"name": "総還元利回り（配当＋自社株買い）", "v": total_yield,
                       "disp": (f"{fmt_pct(yld_fwd,2)}（配当）＋{fmt_pct(buyback_yield,2)}（自社株買い）＝{fmt_pct(total_yield,2)}"
                                if is_num(total_yield) else "算出不可（自社株買いデータなし）"),
-                      "ref": "配当だけでは見えない株主還元の全体像", "key": None})
-    M["参考"].append({"name": "総還元性向（（配当＋自社株買い）÷純利益）", "v": total_payout, "disp": fmt_pct(total_payout),
+                      "ref": "配当だけでは見えない株主還元の全体像。自社株買いは単年の突発的な"
+                             "実施額なので、毎年続くとは限らない点に注意", "key": None})
+    payout_disp = ("純利益僅少のため参考にならず（純利益に対し配当・自社株買いが極端に大きい）"
+                   if is_num(total_payout) and total_payout > 300 else fmt_pct(total_payout))
+    M["参考"].append({"name": "総還元性向（（配当＋自社株買い）÷純利益）", "v": total_payout, "disp": payout_disp,
                       "ref": "100%超はその期の利益以上を還元＝内部留保の取り崩し", "key": None})
     M["配当"].append({"name": "増配率（直近5年・年率）", "v": dgr5, "disp": fmt_pct(dgr5),
                       "ref": f"3%以上が目安（0%以上で及第）／出所：{dps_src}", "key": "dgr5"})
