@@ -315,10 +315,10 @@ def render_index(out):
                 f'</tr>')
         secs.append('<section class="grp">' + head + '<table><thead><tr>'
                     '<th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>業種</th>'
-                    '<th data-sort="1">選定<span class="hdr" data-term="sel">ⓘ</span></th>'
-                    '<th data-sort="1">買い時<span class="hdr" data-term="tim">ⓘ</span></th>'
-                    '<th data-sort="1">利回り<span class="hdr" data-term="yield">ⓘ</span></th>'
-                    '<th data-sort="1">増配<span class="hdr" data-term="streak">ⓘ</span></th>'
+                    '<th><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>'
+                    '<th><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th>'
+                    '<th><span class="hdr" data-term="yield">利回り</span><span class="sortbtn">▼</span></th>'
+                    '<th><span class="hdr" data-term="streak">増配</span><span class="sortbtn">▼</span></th>'
                     '<th class="hdr" data-term="cov">カバレッジ</th>'
                     '</tr></thead><tbody>' + "".join(trs) + '</tbody></table></section>')
 
@@ -384,15 +384,11 @@ section.grp[hidden],details[hidden]{{display:none}}
 .sumbtn:hover{{border-color:var(--accent)}}
 .sumbtn.active{{border-color:var(--accent);border-width:2px;background:#eff6ff}}
 .sumbtn b{{display:block;font-size:20px}}
-th.hdr,span.grade.hdr{{cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px}}
-th.hdr:hover,span.grade.hdr:hover{{color:var(--accent)}}
-span.hdr{{cursor:pointer;color:var(--muted);font-size:10.5px;margin-left:3px;vertical-align:2px}}
-span.hdr:hover{{color:var(--accent)}}
-th[data-sort]{{cursor:pointer;user-select:none;white-space:nowrap}}
-th[data-sort]:hover{{color:var(--accent)}}
-th[data-sort]::after{{content:'';margin-left:3px;font-size:10px;color:var(--muted)}}
-th[data-sort].sort-asc::after{{content:'▲';color:var(--accent)}}
-th[data-sort].sort-desc::after{{content:'▼';color:var(--accent)}}
+.hdr{{cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px}}
+.hdr:hover{{color:var(--accent)}}
+.sortbtn{{cursor:pointer;color:var(--muted);font-size:10px;margin-left:4px;user-select:none;display:inline-block}}
+.sortbtn:hover{{color:var(--accent)}}
+.sortbtn.active{{color:var(--accent);font-weight:700}}
 .terminfo{{position:relative;margin:8px 0 18px;padding:12px 36px 12px 14px;background:#eff6ff;
   border:1px solid #bfdbfe;border-radius:8px;font-size:12.5px;line-height:1.7}}
 .terminfo b{{display:block;margin-bottom:4px;font-size:13.5px}}
@@ -420,8 +416,8 @@ th[data-sort].sort-desc::after{{content:'▼';color:var(--accent)}}
 </div>
 <details id="topbox"><summary>全体 選定スコア 上位50（業種横断）</summary>
 <table><thead><tr><th class="n">#</th><th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>グループ</th>
-<th class="n" data-sort="1">選定<span class="hdr" data-term="sel">ⓘ</span></th>
-<th class="n" data-sort="1">買い時<span class="hdr" data-term="tim">ⓘ</span></th></tr></thead><tbody>{gt}</tbody></table>
+<th class="n"><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>
+<th class="n"><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th></tr></thead><tbody>{gt}</tbody></table>
 </details>
 {"".join(secs)}
 <div class="disc">{DISC}</div>
@@ -482,7 +478,8 @@ th[data-sort].sort-desc::after{{content:'▼';color:var(--accent)}}
     tibox.hidden = true;
   }});
 
-  function sortTable(th){{
+  function sortTable(btn){{
+    var th = btn.closest('th');
     var table = th.closest('table');
     var idx = Array.prototype.indexOf.call(th.parentNode.children, th);
     var tbody = table.querySelector('tbody');
@@ -502,13 +499,17 @@ th[data-sort].sort-desc::after{{content:'▼';color:var(--accent)}}
     rows.forEach(function(r){{ tbody.appendChild(r); }});
     table.setAttribute('data-sort-col', idx);
     table.setAttribute('data-sort-dir', dir);
-    Array.prototype.forEach.call(table.querySelectorAll('th[data-sort]'), function(h){{
-      h.classList.remove('sort-asc', 'sort-desc');
+    Array.prototype.forEach.call(table.querySelectorAll('.sortbtn'), function(b){{
+      b.classList.remove('active'); b.textContent = '▼';
     }});
-    th.classList.add(dir === 'asc' ? 'sort-asc' : 'sort-desc');
+    btn.classList.add('active');
+    btn.textContent = dir === 'asc' ? '▲' : '▼';
   }}
-  document.querySelectorAll('th[data-sort]').forEach(function(th){{
-    th.addEventListener('click', function(){{ sortTable(th); }});
+  document.querySelectorAll('.sortbtn').forEach(function(btn){{
+    btn.addEventListener('click', function(e){{
+      e.stopPropagation();
+      sortTable(btn);
+    }});
   }});
 }})();
 </script>
