@@ -33,6 +33,23 @@ from analyze import (  # 国に依存しない再利用部品
 HERE = os.path.dirname(os.path.abspath(__file__))
 TODAY = dt.date.today()
 
+# 日本版 analyze.py の指標説明テーブルに、米国株だけで採点する指標を追記
+# （追加のみ。日本版のMには interest_coverage / total_yield キーが出ないため無害）。
+analyze.METRIC_HELP.setdefault("interest_coverage", {
+    "what": "本業の利益（EBIT）で支払利息を何倍まかなえるかを見る指標。例えばEBIT100億ドル・"
+            "支払利息10億ドルなら10倍＝利払いに十分な余裕がある。D/Eレシオが『借金の大きさ』を"
+            "見るのに対し、こちらは『今の利益でその借金の利払いをどれだけ楽に賄えているか』を見る。"
+            "金利が上がるほど利払い負担が重くなるため、金利上昇局面で重要性が増す。米国株では"
+            "財務グループの採点対象。目安は10倍以上で余裕、3倍未満は要注意。", "unit": "倍"})
+analyze.METRIC_HELP.setdefault("total_yield", {
+    "what": "配当利回りだけでなく、自社株買い額を時価総額で割った『自社株買い利回り』も合算した"
+            "数字。例えば配当利回り3%＋自社株買い利回り2%＝総還元利回り5%。米国企業は自社株買いに"
+            "よる株主還元が大きく、配当利回りだけ見ると還元姿勢を見落とすため、米国株では配当の"
+            "持続力グループの採点対象にしている。自社株買いは単年の実施額で毎年続くとは限らない"
+            "点に注意（1年に頼りすぎない）。", "unit": "%"})
+analyze.KEY_DOMAIN.setdefault("interest_coverage", "財務")
+analyze.KEY_DOMAIN.setdefault("total_yield", "配当")
+
 
 # ---------------------------------------------------------------- 設定
 _CFG_US_CACHE = {}
@@ -206,7 +223,7 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
         M["業績"].append({"name": "EPS（推移／年率）", "v": c,
                           "disp": " ← ".join(f"${fmt_num(x, 2)}" for x in eps if x is not None)[:120],
                           "ref": f"年率 {fmt_pct(c)}（直近{len(xs)}期のデータから算出）", "key": "eps_cagr",
-                          "series": spairs(eps, is_years), "series_kind": "eps"})
+                          "series": spairs(eps, is_years), "series_kind": "eps_usd"})
     else:
         M["業績"].append({"name": "EPS（推移／年率）", "v": None, "disp": "―", "ref": "データ不足", "key": "eps_cagr"})
 
@@ -758,44 +775,128 @@ def gics_jp(name):
 LABEL_MARK = {"good": "◎", "warn": "△", "bad": "▲", None: "―"}
 
 
-def _bar_us(score):
-    if not is_num(score):
-        return '<span class="bar"><i class="fill na" style="width:0"></i></span><span class="sc na">―</span>'
-    w = max(0, min(100, score))
-    cls = "hi" if score >= 90 else "mid" if score >= 65 else "lo"
-    return (f'<span class="bar"><i class="fill {cls}" style="width:{w:.0f}%"></i></span>'
-            f'<span class="sc {cls}">{score:.0f}</span>')
-
-
-def _metric_row_us(it):
-    lab = it.get("label")
-    mark = LABEL_MARK.get(lab, "―")
+def _metric_details_html_us(it, gics_key, gics_disp, is_simple, rules):
+    """日本版 analyze._metric_details_html の米国版。ルール参照は英語GICSキー、
+    表示は日本語セクター名。見るポイント／過去レンジ／推移／判定ルール／この銘柄／点。"""
+    key = it.get("key")
+    dom = analyze.KEY_DOMAIN.get(key, "")
+    rule = analyze.rule_for(key, gics_key, rules) if key else None
+    wht = analyze.METRIC_HELP.get(key, {}).get("what", "")
+    rb = analyze.rule_block_html(key, rule, gics_disp)
+    wb = analyze.why_block_html(it, rule, gics_disp, is_simple, dom)
+    what_p = f'<p class="what"><b>見るポイント：</b>{wht}</p>' if wht else ""
     sc = it.get("score")
-    sc_txt = f"{sc:.0f}" if is_num(sc) else "―"
-    name = analyze.html.escape(str(it["name"]))
-    disp = analyze.html.escape(str(it.get("disp", "―")))
-    ref = analyze.html.escape(str(it.get("ref", "")))
-    return (f'<details class="m"><summary>'
-            f'<span class="mn">{name}</span>'
-            f'<span class="mv mv2">{disp}</span>'
-            f'<span class="mt"><b>{mark}</b> {sc_txt}</span></summary>'
-            f'<div class="mbody"><p class="rule">{ref}</p></div></details>')
+    sc_txt = f"{sc:.0f} / 110" if is_num(sc) else "―（不採点）"
+
+    trend_p = ""
+    sp = it.get("series")
+    if sp and len([1 for _, v in sp if is_num(v)]) >= 2:
+        trend_rule = rule if key in ("op_margin", "payout_ni", "div_yield", "total_yield") else None
+        trend_p = ('<p class="rule"><b>推移：</b>古い→新しい'
+                   + ("　（帯＝◎良好／△注意／▲弱いの区切り）" if trend_rule else "")
+                   + '</p><div class="trendwrap wide">'
+                   + analyze.svg_trend(sp, it.get("series_kind", "usd"), it.get("series_current"), trend_rule)
+                   + '</div>')
+    band_p = ""
+    rbd = it.get("rangeband")
+    if rbd:
+        bsvg = analyze.svg_rangeband(rbd, it["name"])
+        if bsvg:
+            band_p = ('<p class="rule"><b>過去レンジ内の位置：</b>塗り分けたゾーン（割安・標準・割高。'
+                      'どちらが割安かは帯の右のラベルを参照）に、折れ線＝年次の実績推移、▶＝現在の値を'
+                      f'重ねたグラフ。</p><div class="trendwrap wide">{bsvg}</div>')
+    return (
+        '<details class="m"><summary>'
+        f'<span class="mn">{analyze.html.escape(it["name"])}</span>'
+        f'<span class="mv">{analyze.html.escape(str(it.get("disp","")))}</span>'
+        f'<span class="mr">{analyze.html.escape(str(it.get("ref","")))}</span>'
+        f'<span class="mt">{analyze.tag(it)}</span></summary>'
+        f'<div class="mbody">{what_p}{band_p}{trend_p}'
+        f'<p class="rule"><b>判定ルール：</b><br>{rb}</p>'
+        f'<p class="why"><b>この銘柄：</b>{wb}</p>'
+        f'<p class="rule">この指標の点：<b>{sc_txt}</b>（グループスコアはこの点の平均）</p>'
+        '</div></details>')
 
 
-def _group_section_us(head, sg, groups, rowmap):
+def _group_section_us(head, sg, groups, rowmap, gics_key, gics_disp, is_simple, rules):
     out = []
     for gname, gdef in sg[head].items():
-        out.append(f'<div class="domhead"><b>{analyze.html.escape(gname)}</b> {_bar_us(groups.get(gname))}</div>')
+        out.append(f'<div class="domhead"><b>{analyze.html.escape(gname)}</b> {analyze.bar(groups.get(gname))}</div>')
         got = False
         for k in gdef["keys"]:
             it = rowmap.get(k)
             if it is None:
                 continue
             got = True
-            out.append(_metric_row_us(it))
+            out.append(_metric_details_html_us(it, gics_key, gics_disp, is_simple, rules))
         if not got:
-            out.append('<div class="plain"><span class="mn">―</span><span class="mv2">この業種では評価しない</span></div>')
+            out.append('<div class="plain"><span class="mn">―</span><span class="mv2">この業種では評価対象外</span></div>')
     return "".join(out)
+
+
+def svg_price_us(hist_m):
+    """日本版 svg_price の米国版（$ 表記）。"""
+    import math
+    if hist_m is None or getattr(hist_m, "empty", True):
+        return "<p class='muted'>株価履歴なし</p>"
+    pts = [(idx.to_pydatetime().date(), float(r["Close"])) for idx, r in hist_m.iterrows()
+           if r.get("Close") is not None and not (isinstance(r["Close"], float) and math.isnan(r["Close"]))]
+    if len(pts) < 4:
+        return "<p class='muted'>株価履歴なし</p>"
+    W, H, LX, RX, TP, BT = 620, 184, 56, 606, 26, 22
+    xs = [p[0] for p in pts]
+    ys = [p[1] for p in pts]
+    x0, x1 = xs[0].toordinal(), xs[-1].toordinal()
+    lo, hi = min(ys), max(ys)
+    pad = (hi - lo) * 0.08 or 1.0
+    lo_ax, hi_ax = lo - pad, hi + pad
+
+    def px(d):
+        return LX + (d.toordinal() - x0) / (x1 - x0 or 1) * (RX - LX)
+
+    def py(v):
+        return TP + (1 - (v - lo_ax) / (hi_ax - lo_ax)) * (H - TP - BT)
+
+    grid = analyze._yscale(lo, hi, py, LX, RX, "usd_px")
+    xlab = []
+    for yr in range(xs[0].year, xs[-1].year + 1):
+        d = dt.date(yr, 1, 1)
+        if x0 <= d.toordinal() <= x1:
+            xlab.append(f'<text x="{px(d):.0f}" y="{H-6}" class="cx">{str(yr)[-2:]}</text>')
+    dpath = "M " + " L ".join(f"{px(x):.1f},{py(y):.1f}" for x, y in pts)
+    last = pts[-1][1]
+    return (f'<svg viewBox="0 0 {W} {H}" class="chart" role="img" aria-label="株価の推移">'
+            f'{grid}{"".join(xlab)}'
+            f'<path d="{dpath}" fill="none" stroke="var(--accent)" stroke-width="2"/>'
+            f'<text x="{LX}" y="14" class="ct">株価（$）　{xs[0].year}年〜　'
+            f'高値 ${hi:,.2f} / 安値 ${lo:,.2f} / 直近 ${last:,.2f}</text></svg>')
+
+
+def svg_dps_us(dps_series, src):
+    """日本版 svg_dps の米国版（$ 表記）。"""
+    if not dps_series or len(dps_series) < 2:
+        return "<p class='muted'>配当履歴なし</p>"
+    data = dps_series[-14:]
+    W, H, LX, RX, TP, BT = 620, 194, 52, 604, 26, 24
+    vals = [v for _, v in data]
+    hi = max(vals) or 1.0
+    hi_ax = hi * 1.12
+    n = len(data)
+
+    def py(v):
+        return TP + (1 - v / hi_ax) * (H - TP - BT)
+
+    bw = (RX - LX) / n * 0.6
+    parts = [analyze._yscale(0.0, hi, py, LX, RX, "usd_px")]
+    for i, (yr, v) in enumerate(data):
+        x = LX + (i + 0.5) * (RX - LX) / n - bw / 2
+        y = py(v)
+        parts.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{bw:.1f}" height="{H-BT-y:.1f}" fill="var(--accent)" opacity="0.85"/>')
+        parts.append(f'<text x="{x+bw/2:.1f}" y="{H-6:.0f}" class="cx">{str(yr)[-2:]}</text>')
+    gr = cagr(vals[0], vals[-1], len(vals) - 1)
+    return (f'<svg viewBox="0 0 {W} {H}" class="chart" role="img" aria-label="1株配当の推移">'
+            f'{"".join(parts)}'
+            f'<text x="{LX}" y="14" class="ct">1株配当（$・{src}）　{data[0][0]}→{data[-1][0]}　年率 {fmt_pct(gr)}</text></svg>')
 
 
 def render_company_html_us(co):
@@ -906,7 +1007,9 @@ _US_CSS = """
 @media (prefers-color-scheme:dark){ :root{ --bg:#161a1e; --fg:#e7ecef; --muted:#9aa6af;
   --line:#2c333a; --card:#1e242a; --accent:#4fb8ab; --hi:#4fb8ab; --mid:#e0a45a; --lo:#e07b73; --na:#4a555e; } }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,"Hiragino Kaku Gothic ProN","Meiryo","Segoe UI",system-ui,sans-serif;line-height:1.7;font-size:14px}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,"Segoe UI",sans-serif;
+  line-height:1.7;font-size:14px}
 .wrap{max-width:820px;margin:0 auto;padding:26px 20px 60px}
 h1{font-size:20px;margin:0 0 2px}
 h2{font-size:15px;margin:26px 0 4px;border-left:4px solid var(--accent);padding-left:8px}
@@ -924,64 +1027,104 @@ h2{font-size:15px;margin:26px 0 4px;border-left:4px solid var(--accent);padding-
 .gbar>i.hi{background:var(--hi)} .gbar>i.mid{background:var(--mid)} .gbar>i.lo{background:var(--lo)}
 .sblk .sub{font-size:11.5px;color:var(--muted)}
 .sblk .cov{font-size:11px;color:var(--muted);margin:0 0 5px}
-.sblk .cov.low b{color:var(--lo)} .sblk .cov.mid b{color:var(--mid)}
+.sblk .cov b{font-weight:700}
+.sblk .cov.low{color:var(--lo)} .sblk .cov.low b{color:var(--lo)}
+.sblk .cov.mid b{color:var(--mid)}
 .quad{margin:10px 0 14px;padding:10px 14px;border-left:4px solid var(--accent);background:var(--card);border-radius:6px;font-size:13.5px;font-weight:700}
 .legend{font-size:11.5px;color:var(--muted);margin:2px 0 12px;line-height:1.5}
 .domhead{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px 10px;margin:16px 0 0;font-size:14px}
 details.m{border-bottom:1px solid var(--line)}
-details.m>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(150px,1.4fr) 1fr 96px;gap:10px;align-items:start;padding:9px 6px 9px 22px;position:relative;font-size:13px}
+details.m>summary{list-style:none;cursor:pointer;display:grid;
+  grid-template-columns:minmax(130px,1.5fr) 1fr 1.25fr 86px;gap:10px;align-items:start;
+  padding:9px 6px 9px 22px;position:relative;font-size:13px}
 details.m>summary::-webkit-details-marker{display:none}
-details.m>summary::before{content:"\\25B8";position:absolute;left:6px;top:9px;color:var(--muted)}
-details.m[open]>summary::before{content:"\\25BE"}
+details.m>summary::before{content:"\\25B8";position:absolute;left:6px;top:9px;color:var(--muted);transition:transform .15s}
+details.m[open]>summary::before{transform:rotate(90deg)}
 details.m>summary:hover{background:var(--card)}
 details.m .mv{font-variant-numeric:tabular-nums}
+details.m .mr{color:var(--muted);font-size:12px}
 details.m .mt{text-align:right;white-space:nowrap}
 .mv2{font-size:12.5px}
 .mbody{padding:2px 14px 14px 22px;background:var(--card);font-size:12.5px}
-.mbody p{margin:6px 0} .mbody .rule{color:var(--muted)}
-.plain{display:grid;grid-template-columns:minmax(150px,1fr) 2fr;gap:10px;padding:9px 6px 9px 22px;border-bottom:1px solid var(--line);font-size:13px}
+.mbody p{margin:6px 0}
+.mbody .rule{color:var(--muted)}
+.mbody .what{}
+.mbody .why{border-left:3px solid var(--accent);padding-left:8px}
+.plain{display:grid;grid-template-columns:minmax(130px,1fr) 2fr;gap:10px;padding:9px 6px 9px 22px;border-bottom:1px solid var(--line);font-size:13px}
+@media(max-width:560px){
+  details.m>summary{grid-template-columns:1fr 80px}
+  details.m>summary .mv,details.m>summary .mr{display:none}
+  .plain{grid-template-columns:1fr}
+}
 .bar{display:inline-block;width:150px;height:9px;border-radius:5px;background:var(--line);overflow:hidden;vertical-align:middle;margin:0 8px}
 .fill{height:100%} .fill.hi{background:var(--hi)} .fill.mid{background:var(--mid)} .fill.lo{background:var(--lo)} .fill.na{background:var(--na)}
 .sc{font-weight:700} .sc.hi{color:var(--hi)} .sc.mid{color:var(--mid)} .sc.lo{color:var(--lo)} .sc.na{color:var(--muted);font-weight:400;font-size:12px}
+.t{font-size:11.5px;padding:2px 6px;border-radius:5px;border:1px solid var(--line)}
+.t.hi{color:var(--hi)} .t.mid{color:var(--mid)} .t.lo{color:var(--lo)} .t.na{color:var(--muted)}
 .gauge{position:relative;height:30px;border-radius:6px;margin:10px 0 4px;background:linear-gradient(90deg,var(--lo),var(--na) 50%,var(--hi))}
 .gauge i{position:absolute;top:-4px;width:2px;height:38px;background:var(--fg)}
 .gauge b{position:absolute;font-size:10px;color:#fff;top:7px}
 .gl{left:8px} .gr{right:8px}
+.charts{display:flex;gap:14px;flex-wrap:wrap}
+.chart{flex:1;min-width:280px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px}
+.ct{fill:var(--muted);font-size:10px} .cx{fill:var(--muted);font-size:9px;text-anchor:middle}
+.cm{fill:var(--muted);font-size:9px} .cg{fill:var(--fg);font-size:10px;font-weight:700}
+details.chartbox{border:1px solid var(--line);border-radius:8px;margin:8px 0 4px;background:var(--card)}
+details.chartbox>summary{list-style:none;cursor:pointer;padding:8px 12px;font-size:12.5px;font-weight:700;position:relative}
+details.chartbox>summary::-webkit-details-marker{display:none}
+details.chartbox>summary::before{content:"\\25B8";color:var(--muted);margin-right:6px;display:inline-block;transition:transform .15s}
+details.chartbox[open]>summary::before{transform:rotate(90deg)}
+details.chartbox .cbody{padding:0 8px 10px}
+details.chartbox .chart{border:0;background:transparent;padding:0}
+details.chartbox .mbody{background:transparent}
+.trendwrap{max-width:440px;margin:2px 0 8px}
+.trendwrap.wide{max-width:490px}
+svg.trend{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:4px}
 .warn{background:color-mix(in srgb,var(--mid) 12%,var(--bg));border:1px solid var(--mid);border-radius:10px;padding:10px 14px;margin:14px 0;font-size:12.5px}
 .warn ul{margin:6px 0 0;padding-left:18px}
 .muted{color:var(--muted)}
-.lines div{padding:3px 0;border-bottom:1px dashed var(--line)}
-.lines div:last-child{border:0}
-.lines k{display:inline-block;width:110px;color:var(--muted);font-size:12px}
 .disc{margin-top:30px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:11.5px}
 .topbar{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
 .topbar a{font-size:12.5px;white-space:nowrap}
 a{color:var(--accent)}
-details.chartbox{border:1px solid var(--line);border-radius:8px;margin:8px 0 4px;background:var(--card)}
-details.chartbox>summary{list-style:none;cursor:pointer;padding:8px 12px;font-size:12.5px;font-weight:700}
-details.chartbox>summary::-webkit-details-marker{display:none}
-details.chartbox .mbody{background:transparent}
-@media(max-width:560px){ details.m>summary{grid-template-columns:1fr 84px} details.m>summary .mv{display:none} .plain{grid-template-columns:1fr} }
+@media print{body{font-size:11px} .wrap{max-width:none} .topbar a{display:none}}
 """
 
 
 def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warnings, rules):
     rowmap = {r["key"]: r for dom in detail for r in detail[dom] if r.get("key")}
     sg = rules["score_groups"]
-    sel_blocks = _group_section_us("選定", sg, groups, rowmap)
-    tim_blocks = _group_section_us("買い時", sg, groups, rowmap)
+    gk = meta["gics_sector"]
+    gd = gics_jp(gk)
+    is_simple = meta["is_simple"]
+    sel_blocks = _group_section_us("選定", sg, groups, rowmap, gk, gd, is_simple, rules)
+    tim_blocks = _group_section_us("買い時", sg, groups, rowmap, gk, gd, is_simple, rules)
+    sel_chart = (
+        '<details class="chartbox"><summary>銘柄選定の指標スコアを一覧グラフで見る</summary>'
+        '<div class="cbody">'
+        + analyze.svg_score_bars(sg["選定"], rowmap, groups, "銘柄選定 指標スコア一覧")
+        + '</div></details>')
 
     ref_blocks = []
     for it in M.get("参考", []):
         nm = analyze.html.escape(str(it["name"]))
-        disp = analyze.html.escape(str(it.get("disp", "—")))
+        disp = analyze.html.escape(str(it.get("disp", "―")))
         ref = it.get("ref", "")
         link = f' <a href="{analyze.html.escape(ref)}" target="_blank" rel="noopener">{analyze.html.escape(ref)}</a>' if str(ref).startswith("http") else ""
         rtxt = "" if str(ref).startswith("http") else analyze.html.escape(str(ref))
-        if rtxt:
+        h = analyze.NAME_HELP.get(it["name"])
+        sp = it.get("series")
+        trend = ""
+        if sp and len([1 for _, v in sp if is_num(v)]) >= 2:
+            trend = ('<p class="rule"><b>推移：</b>古い→新しい</p>'
+                     f'<div class="trendwrap">{analyze.svg_trend(sp, it.get("series_kind", "usd"))}</div>')
+        if h or trend or rtxt:
+            body = (f'<p class="what">{h}</p>' if h else "") + trend
+            if rtxt and not h:
+                body = f'<p class="rule">{rtxt}</p>' + body
             ref_blocks.append(f'<details class="m"><summary><span class="mn">{nm}</span>'
-                              f'<span class="mv mv2">{disp}{link}</span><span class="mt"></span></summary>'
-                              f'<div class="mbody"><p class="rule">{rtxt}</p></div></details>')
+                              f'<span class="mv2">{disp}{link}</span></summary>'
+                              f'<div class="mbody">{body}</div></details>')
         else:
             ref_blocks.append(f'<div class="plain"><span class="mn">{nm}</span><span class="mv2">{disp}{link}</span></div>')
 
@@ -1044,17 +1187,21 @@ def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warni
 <div class="gauge"><b class="gl">割安</b><b class="gr">割高</b><i style="left:{gauge_pos:.0f}%"></i></div>
 <div class="muted" style="font-size:11.5px">PER・PBRの対業種平均と、配当利回りの過去レンジ内の位置を合成した目安。</div>
 
-<h2>1. 銘柄選定の指標</h2>
-<div class="legend">各行クリックで「判定ルール」と「この銘柄がその評価になった理由」が開きます。ラベル：◎ 良好 ／ △ 注意 ／ ▲ 弱い ／ ― 対象外。点は warn（60点）〜good（100点）の直線補間、別格は110点、下限20点。グループ点＝指標の平均。銘柄選定の重み：業績28／財務27／CF15／配当の持続力30。買い時の重み：配当利回りセオリー38／利回り水準とChowder24／株価バリュエーション20／金利スプレッド18。{simple_legend}</div>
+<h2>① 銘柄選定の指標</h2>
+{sel_chart}
+<div class="legend">各行をクリックすると「見るポイント／判定ルール／この評価になった理由」が開きます。ラベルは3段階（◎良好／△注意／▲弱い）＋対象外「―」。点は good/warn の2閾値の間を直線補間（warn=60・good=100・別格ライン=最大110・下限20）。ラベルの◎△▲は閾値どおりなので『△なのに94点（＝基準ぎりぎり）』とズレることがあります。グループスコア＝その指標の点の平均、銘柄選定＝業績28・財務27・CF15・配当の持続力30％、買い時＝配当利回りセオリー38・利回り水準とChowder24・株価バリュエーション20・金利スプレッド18％の加重平均。{simple_legend}</div>
 {sel_blocks}
 
-<h2>2. 買い時の指標</h2>
+<h2>② 買い時の指標</h2>
 {tim_blocks}
+
+<h2>推移チャート</h2>
+<div class="charts">{svg_price_us(ctx.get('hist_m'))}{svg_dps_us(ctx.get('dps_series'), ctx.get('dps_src', 'yfinance'))}</div>
 
 {_earn_block_us(ctx.get('earn'))}
 
-<h2>参考（自動採点の対象外）</h2>
-<div class="legend">一部の行はクリックで説明が開きます。</div>
+<h2>参考・自動判定できない項目</h2>
+<div class="legend">クリックで説明が開く行があります。</div>
 {''.join(ref_blocks)}
 
 <div class="disc">{DISC_HTML}</div>
@@ -1136,6 +1283,7 @@ def generate_us(ticker, cfg=None, log=None):
         M, flags, ctx = build_metrics_us(yd, sec_avg, is_simple, gics, rate_sensitive, ust_10y)
         ctx["earn"] = analyze.build_earnings(yd, yd["price"])
         ctx["company"] = analyze.build_company_overview(info)
+        ctx["hist_m"] = yd.get("hist_m")
         dom_scores, detail, groups, sel_score, tim_score, coverage = analyze.score_all(M, gics, rules, is_simple)
         vd = verdicts_us(sel_score, tim_score, groups, dom_scores, ctx, sec_avg, is_simple, coverage)
     except Exception as e:

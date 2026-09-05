@@ -1629,9 +1629,37 @@ def nice_ticks(lo, hi, target=4):
     return out
 
 
+def _fmt_usd_big(v):
+    """米国株レポート用。大きなUSD金額を $B/$M/$K で。analyze_us と表記を揃える。"""
+    if not is_num(v):
+        return "―"
+    a = abs(v)
+    sign = "-" if v < 0 else ""
+    if a >= 1e9:
+        return f"{sign}${a/1e9:,.2f}B"
+    if a >= 1e6:
+        return f"{sign}${a/1e6:,.0f}M"
+    if a >= 1e3:
+        return f"{sign}${a/1e3:,.1f}K"
+    return f"{sign}${a:,.0f}"
+
+
 def _tick_fmt(v, kind):
     if kind == "pct":
         return f"{v:.1f}%" if abs(v) < 10 else f"{v:.0f}%"
+    if kind == "usd":
+        a = abs(v)
+        if a >= 1e9:
+            return f"${v/1e9:.1f}B"
+        if a >= 1e6:
+            return f"${v/1e6:.0f}M"
+        if a >= 1e3:
+            return f"${v/1e3:.0f}K"
+        return f"${v:,.0f}"
+    if kind == "eps_usd":
+        return f"${v:,.2f}"
+    if kind == "usd_px":
+        return f"${v:,.2f}" if abs(v) < 100 else f"${v:,.0f}"
     if kind in ("eps", "price", "dps"):
         return f"{v:,.0f}"
     if kind == "per":
@@ -1762,6 +1790,8 @@ def svg_trend(pairs, kind="yen", current=None, rule=None):
     CX = RX + 30                      # 「現在」点の x
     n = len(pairs)
     fmt_end = (fmt_yen if kind == "yen" else
+               _fmt_usd_big if kind == "usd" else
+               (lambda x: "$" + fmt_num(x, 2)) if kind == "eps_usd" else
                (lambda x: fmt_num(x, 1) + "%") if kind == "pct" else
                (lambda x: fmt_num(x, 1) + "円"))
 
