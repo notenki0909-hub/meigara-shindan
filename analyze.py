@@ -786,10 +786,17 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
         if n >= 2:
             dgr5 = cagr(vals[-1 - n], vals[-1], n)
 
+    # info["dividendRate"]（会社予想/yfinance集計の年間配当）は増配ペースが速い銘柄で
+    # 更新が追いつかず、直近12ヶ月の実配当合計より大幅に低い値のまま残ることがある
+    # （forwardEps/forwardPE と同様、yfinanceのJP予想系フィールドは信頼性が低い）。
+    # 直近実績が取れるなら、それを大きく下回るdividendRateは採用しない。
     fwd_dps = info.get("dividendRate")
-    if not is_num(fwd_dps) and yd["divs"]:
-        last12 = [v for d0, v in yd["divs"] if (TODAY - d0).days <= 366]
-        fwd_dps = sum(last12) if last12 else None
+    last12 = [v for d0, v in yd["divs"] if (TODAY - d0).days <= 366]
+    last12_sum = sum(last12) if last12 else None
+    if not is_num(fwd_dps):
+        fwd_dps = last12_sum
+    elif is_num(last12_sum) and last12_sum > 0 and fwd_dps < last12_sum * 0.7:
+        fwd_dps = last12_sum
     yld_fwd = safe_div(fwd_dps, price)
     yld_fwd = yld_fwd * 100 if yld_fwd is not None else None
     if yld_fwd is None:
