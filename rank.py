@@ -251,7 +251,7 @@ def render_index(out):
             tcls = TIER_CLASS.get(s["tier"], "t0")
             dcls = DIR_CLASS.get(s["dir"], "fl")
             trs.append(
-                f'<tr class="{tcls}">'
+                f'<tr class="{tcls} r">'
                 f'<td class="tier">{s["tier"]}<span class="dir {dcls}">{s["dir"]}</span></td>'
                 f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
                 f'<td class="nm">{html.escape(s["name"])}</td>'
@@ -262,13 +262,13 @@ def render_index(out):
                 f'<td class="sk">{_streak(s["streak_up"], s["streak_flat"])}</td>'
                 f'<td class="cv">{s["cov_sel"]}</td>'
                 f'</tr>')
-        secs.append(head + '<table><thead><tr>'
+        secs.append('<section class="grp">' + head + '<table><thead><tr>'
                     '<th>軍</th><th>コード</th><th>銘柄</th><th>業種</th>'
                     '<th>選定</th><th>買い時</th><th>利回り</th><th>増配</th><th>カバレッジ</th>'
-                    '</tr></thead><tbody>' + "".join(trs) + '</tbody></table>')
+                    '</tr></thead><tbody>' + "".join(trs) + '</tbody></table></section>')
 
     gt = "".join(
-        f'<tr><td class="n">{i+1}</td>'
+        f'<tr class="r"><td class="n">{i+1}</td>'
         f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
         f'<td class="nm">{html.escape(s["name"])}</td>'
         f'<td class="sec">{html.escape(s["group"])}</td>'
@@ -314,6 +314,14 @@ tr:last-child td{{border-bottom:none}}
 details{{margin:14px 0}}summary{{cursor:pointer;font-weight:600;font-size:13px}}
 .topbar{{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}}
 .topbar a{{font-size:12.5px;color:var(--accent);white-space:nowrap}}
+.searchbar{{display:flex;align-items:center;gap:8px;margin:16px 0 6px}}
+.searchbar input{{flex:1;max-width:360px;padding:8px 10px;border:1px solid var(--line);
+  border-radius:8px;font-size:13.5px;background:var(--card)}}
+.searchbar button{{padding:8px 12px;border:1px solid var(--line);border-radius:8px;
+  background:var(--card);font-size:12.5px;cursor:pointer;color:var(--muted)}}
+.searchbar .hit{{font-size:12px;color:var(--muted);white-space:nowrap}}
+tr[hidden]{{display:none}}
+section.grp[hidden],details[hidden]{{display:none}}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>配当株 軍分けランキング</h1><a href="terms.html">利用規約・免責事項</a></div>
 <div class="sub">生成 {gen}　｜　スクリーン：{scr}</div>
@@ -323,12 +331,47 @@ details{{margin:14px 0}}summary{{cursor:pointer;font-weight:600;font-size:13px}}
   <div><b>{c['2軍']}</b>2軍</div>
   <div><b>{c['3軍']}</b>3軍</div>
 </div>
-<details><summary>全体 選定スコア 上位50（業種横断）</summary>
+<div class="searchbar">
+  <input id="q" type="search" placeholder="銘柄コード・銘柄名・業種で検索" autocomplete="off">
+  <button id="qclear" type="button">クリア</button>
+  <span class="hit" id="qhit"></span>
+</div>
+<details id="topbox"><summary>全体 選定スコア 上位50（業種横断）</summary>
 <table><thead><tr><th class="n">#</th><th>コード</th><th>銘柄</th><th>グループ</th>
 <th class="n">選定</th><th class="n">買い時</th></tr></thead><tbody>{gt}</tbody></table>
 </details>
 {"".join(secs)}
 <div class="disc">{DISC}</div>
+<script>
+(function(){{
+  var q = document.getElementById('q');
+  var hit = document.getElementById('qhit');
+  var topbox = document.getElementById('topbox');
+  function apply(){{
+    var needle = q.value.trim().normalize('NFKC').toLowerCase();
+    var total = 0;
+    document.querySelectorAll('tr.r').forEach(function(tr){{
+      var show = !needle || tr.textContent.normalize('NFKC').toLowerCase().indexOf(needle) !== -1;
+      tr.hidden = !show;
+      if (show) total++;
+    }});
+    document.querySelectorAll('section.grp').forEach(function(sec){{
+      var any = sec.querySelector('tr.r:not([hidden])');
+      sec.hidden = !!needle && !any;
+    }});
+    if (topbox) {{
+      var anyTop = topbox.querySelector('tr.r:not([hidden])');
+      if (needle) topbox.open = true;
+      topbox.hidden = !!needle && !anyTop;
+    }}
+    hit.textContent = needle ? (total + '件ヒット') : '';
+  }}
+  q.addEventListener('input', apply);
+  document.getElementById('qclear').addEventListener('click', function(){{
+    q.value = ''; apply(); q.focus();
+  }});
+}})();
+</script>
 </div></body></html>"""
 
 
