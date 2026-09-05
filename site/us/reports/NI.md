@@ -1,75 +1,75 @@
-# NiSource Inc. (NI) — dividend screening
+# NiSource Inc.（NI）｜米国株 配当スクリーニング
 
-- GICS sector: **Utilities**
-- Price: $41.39  |  Market cap: $19.85B  |  Generated: 2026-09-06
+- GICS業種：**公益事業**（Utilities）
+- 株価：$41.39  ｜  時価総額：$19.85B  ｜  生成：2026-09-06
 
-## Selection 90 — Selection score: top tier (quality & durability both high)
-Growth: flat to slightly up  /  Stability: medium
+## 銘柄選定 90 ― 選定スコア上位（質・持続力とも高水準）
+成長性：横ばい〜微増  ／  安定性：中程度
 
-## Timing 73 — Timing score: low tier (somewhat expensive)
-Valuation: roughly fair value  /  Short-term: RSI 39 (neutral) / above signal (uptrend)
+## 買い時 73 ― 買い時スコア下位（やや割高水準）
+割安・割高：ほぼ妥当な水準  ／  短期：RSI 39（中立） ／ シグナル上（上向き継続）
 
-> Selection is top tier, but timing is low (somewhat expensive).
+> 選定は上位水準だが、買い時は下位（やや割高水準）。
 
-### Selection metrics
+### 銘柄選定の指標
 
-**Operating performance** — 103
-- ◎ 101  Revenue (trend / CAGR): $6.64B ← $5.46B ← $5.51B ← $5.85B
-- △ 91  EPS (trend / CAGR): $1.96 ← $1.63 ← $1.59 ← $1.84
-- ◎ 110  Operating margin (latest): 27.6%
-- ◎ 110  Earnings stability (operating income volatility): worst YoY 1.12
+**業績** ― 103
+- ◎ 101  売上高（推移／年率）：$6.64B ← $5.46B ← $5.51B ← $5.85B
+- △ 91  EPS（推移／年率）：$1.96 ← $1.63 ← $1.59 ← $1.84
+- ◎ 110  営業利益率（直近）：27.6%
+- ◎ 110  利益の安定度（営業利益のブレ）：最悪の前年比 1.12
 
-**Financial strength** — 91
-- △ 96  D/E ratio (total debt / equity): 1.72x
-- △ 93  Net D/E ratio: 1.70x
-- △ 91  Total debt / operating CF (years to repay): 6.9 yr
-- △ 82  Interest coverage ratio (EBIT / interest expense): 2.8x
+**財務** ― 91
+- △ 96  D/Eレシオ（有利子負債÷自己資本）：1.72倍
+- △ 93  ネットD/Eレシオ：1.70倍
+- △ 91  有利子負債 ÷ 営業CF（返済年数の目安）：6.9年
+- △ 82  インタレストカバレッジレシオ（EBIT÷支払利息）：2.8倍
 
-**Cash flow** — 60
-- ◎ 100  Operating CF (latest / trend): $2.36B ← $1.78B ← $1.94B ← $1.41B
-- ▲ 20  Free CF (operating CF + investing CF): -$794M ← -$862M ← -$711M ← -$794M
-- — —  FCF payout ratio (dividends paid / free CF): ―
+**キャッシュフロー** ― 60
+- ◎ 100  営業CF（直近／推移）：$2.36B ← $1.78B ← $1.94B ← $1.41B
+- ▲ 20  フリーCF（営業CF＋投資CF）：-$794M ← -$862M ← -$711M ← -$794M
+- ― ―  FCF配当性向（配当支払÷フリーCF）：―
 
-**Dividend durability** — 92
-- ◎ 102  Dividend growth rate (5-yr CAGR): 5.9%
-- ◎ 100  Consecutive years of increases: 15 yr
-- ◎ 101  Consecutive years without a cut: 22 yr
-- ◎ 100  Payout ratio (net income basis): 61.7%
-- △ 72  ROE (efficiency of the dividend's source): 8.5%
-- △ 78  Total yield (dividend + buyback): 2.90% (div) + 0.00% (buyback) = 2.90%
+**配当の持続力** ― 92
+- ◎ 102  増配率（直近5年・年率）：5.9%
+- ◎ 100  連続増配 年数：15年
+- ◎ 101  連続 非減配 年数：22年
+- ◎ 100  配当性向（純利益ベース）：61.7%
+- △ 72  ROE（配当の原資の効率）：8.5%
+- △ 78  総還元利回り（配当＋自社株買い）：2.90%（配当）＋0.00%（自社株買い）＝2.90%
 
-### Timing metrics
+### 買い時の指標
 
-**Dividend yield theory** — 57
-- ▲ 57  Dividend yield theory (position in own historical range): range 2.7-3.7% / now 2.9% = cheapness 17/100
+**配当利回りセオリー** ― 57
+- ▲ 57  配当利回りセオリー（自分の過去レンジ内の位置）：過去 2.7〜3.7% ／ 現在 2.9% ＝ 割安度 17/100
 
-**Yield level & Chowder** — 100
-- △ 97  Forward dividend yield: 2.90%
-- ◎ 103  Chowder rule (yield + 5-yr DGR): 8.8%
+**利回り水準とChowder** ― 100
+- △ 97  予想配当利回り：2.90%
+- ◎ 103  Chowderルール（利回り＋5年増配率）：8.8%
 
-**Valuation vs sector** — 76
-- △ 85  P/E (trailing, vs sector): 22.0x
-- ◎ 103  P/B (vs sector): 2.07x
-- ▲ 40  P/E position within its own historical range: range 15.7-21.0x / now 22.0x = cheapness 0/100
+**株価バリュエーション** ― 76
+- △ 85  PER（実績・対業種平均）：22.0倍
+- ◎ 103  PBR（実績・対業種平均）：2.07倍
+- ▲ 40  PERの自社過去レンジ内の位置：過去 15.7〜21.0倍 ／ 現在 22.0倍 ＝ 割安度 0/100
 
-**Rate spread** — 65
-- △ 65  Yield minus 10-year Treasury (spread): 2.90% - 4.20% = -1.30%
+**金利スプレッド** ― 65
+- △ 65  利回り − 10年国債スプレッド：2.90% − 4.20% ＝ -1.30%
 
-### Reference
-- Operating income (trend / CAGR): $1.83B ← $1.46B ← $1.30B ← $1.16B
-- Net income (trend / CAGR): $930M ← $760M ← $714M ← $804M
-- Equity ratio (equity / assets): 26.4%
-- ROIC (return on invested capital): 5.9%
-- Solvency hedge (net cash?): net debt present; check repayment capacity from operating CF
-- Investing CF (latest / trend): -$4.52B ← -$3.21B ← -$3.57B ← -$2.57B
-- Financing CF (latest / trend): $2.10B ← -$651M ← $3.84B ← $1.14B
-- Buybacks (latest year): $0 (0.00% of market cap)
-- CF sign pattern: Op + / Inv - / Fin + … check
-- Total payout ratio ((dividend + buyback) / net income): 57.1%
-- Dividend cut history: last cut ~2004; no cut for 22 yr since = currently sound
-- Earnings yield (1 / P/E): 4.5%
-- RSI(14): 39  neutral
-- MACD(12,26,9): above signal (uptrend)
+### 参考
+- 営業利益（推移／年率）：$1.83B ← $1.46B ← $1.30B ← $1.16B
+- 当期純利益（推移／年率）：$930M ← $760M ← $714M ← $804M
+- 自己資本比率（自己資本÷総資産）：26.4%
+- ROIC（投下資本利益率）：5.9%
+- 倒産ヘッジ（ネット現金の有無）：純有利子負債あり。営業CFでの返済余力を確認
+- 投資CF（直近／推移）：-$4.52B ← -$3.21B ← -$3.57B ← -$2.57B
+- 財務CF（直近／推移）：$2.10B ← -$651M ← $3.84B ← $1.14B
+- 自社株買い（直近期）：$0（時価総額比 0.00%）
+- CFの符号パターン：営業＋ / 投資－ / 財務＋ … 要確認
+- 総還元性向（（配当＋自社株買い）÷純利益）：57.1%
+- 減配履歴：最終減配 2004年頃。その後22年間は減配なし＝現在は良好水準
+- 益回り（1÷PER）：4.5%
+- RSI(14)：39　中立
+- MACD(12,26,9)：シグナル上（上向き継続）
 
 ---
-Educational general information only. The 'Selection' and 'Timing' scores/labels are produced mechanically from public data using predefined rules, and are not a substitute for investment advice. The operator is not a registered investment adviser. Figures are sourced from yfinance (Yahoo Finance) and may contain errors, delays or gaps. Sector averages and thresholds are rough 2026 guides. Do your own research against primary sources (10-K, 10-Q). See the terms page.
+本ページは教育目的の一般情報です。「銘柄選定」「買い時」のスコア・ラベルは、あらかじめ定めた計算ルールで公開データから機械的に算出したものであり、投資助言ではありません。運営者は金融商品取引法上の投資助言・代理業の登録を受けていません。数値は yfinance（Yahoo Finance）由来で誤り・遅延・欠損があり得ます。業種平均・判定しきい値は2026年時点の目安です。正確な情報は各社の10-K・10-Q 等の一次情報でご確認ください。詳しくは<a href="../terms.html">利用規約・免責事項</a>を参照。

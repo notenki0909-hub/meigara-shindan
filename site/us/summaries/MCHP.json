@@ -11,28 +11,28 @@
  "mcap": 40274956288,
  "sel_score": 60.0,
  "tim_score": 95.4,
- "sel_label": "Selection score: low tier (quality concerns)",
- "tim_label": "Timing score: mid tier (fairly valued)",
- "comment": "Selection score is below the passing bar.",
+ "sel_label": "選定スコア下位（質に不安）",
+ "tim_label": "買い時スコア中位（妥当水準）",
+ "comment": "選定スコアが基準未達の水準。",
  "cov_sel": [
   17,
   17,
-  "high"
+  "高"
  ],
  "cov_tim": [
   5,
   6,
-  "mid"
+  "中"
  ],
  "groups": {
-  "Operating performance": 31.2,
-  "Financial strength": 77.0,
-  "Cash flow": 75.4,
-  "Dividend durability": 63.9,
-  "Dividend yield theory": 102.2,
-  "Yield level & Chowder": 110.0,
-  "Valuation vs sector": 65.0,
-  "Rate spread": null
+  "業績": 31.2,
+  "財務": 77.0,
+  "キャッシュフロー": 75.4,
+  "配当の持続力": 63.9,
+  "配当利回りセオリー": 102.2,
+  "利回り水準とChowder": 110.0,
+  "株価バリュエーション": 65.0,
+  "金利スプレッド": null
  },
  "div_yield": 2.453822360699514,
  "total_yield": 2.453822360699514,
@@ -48,5 +48,5 @@
  "yield_band_pos": 0.6876042830003072,
  "next_earn": "2026-11-05",
  "warnings": [],
- "_generated_at": "2026-09-06T01:50:03"
+ "_generated_at": "2026-09-06T03:02:48"
 }

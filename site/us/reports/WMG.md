@@ -1,75 +1,75 @@
-# Warner Music Group Corp. (WMG) — dividend screening
+# Warner Music Group Corp.（WMG）｜米国株 配当スクリーニング
 
-- GICS sector: **Communication Services**
-- Price: $28.78  |  Market cap: $15.06B  |  Generated: 2026-09-06
+- GICS業種：**コミュニケーション**（Communication Services）
+- 株価：$28.78  ｜  時価総額：$15.06B  ｜  生成：2026-09-06
 
-## Selection 73 — Selection score: mid tier (some weak spots)
-Growth: shrinking (check the dividend isn't propped up by a rising payout ratio)  /  Stability: low (watch debt / CF)
+## 銘柄選定 73 ― 選定スコア中位（一部に弱点）
+成長性：縮小傾向（増配を配当性向の引き上げで支えていないか確認）  ／  安定性：低い（負債・CFに注意）
 
-## Timing 91 — Timing score: mid tier (fairly valued)
-Valuation: roughly fair value  /  Short-term: RSI 72 (overbought) / above signal (uptrend)
+## 買い時 91 ― 買い時スコア中位（妥当水準）
+割安・割高：ほぼ妥当な水準  ／  短期：RSI 72（買われすぎ） ／ シグナル上（上向き継続）
 
-> Both selection and timing are mid tier.
+> 選定・買い時とも中位水準。
 
-### Selection metrics
+### 銘柄選定の指標
 
-**Operating performance** — 88
-- ◎ 101  Revenue (trend / CAGR): $6.71B ← $6.43B ← $6.04B ← $5.92B
-- ▲ 44  EPS (trend / CAGR): $0.69 ← $0.83 ← $0.82 ← $1.06
-- ◎ 103  Operating margin (latest): 13.8%
-- ◎ 103  Earnings stability (operating income volatility): worst YoY 0.96
+**業績** ― 88
+- ◎ 101  売上高（推移／年率）：$6.71B ← $6.43B ← $6.04B ← $5.92B
+- ▲ 44  EPS（推移／年率）：$0.69 ← $0.83 ← $0.82 ← $1.06
+- ◎ 103  営業利益率（直近）：13.8%
+- ◎ 103  利益の安定度（営業利益のブレ）：最悪の前年比 0.96
 
-**Financial strength** — 39
-- ▲ 20  D/E ratio (total debt / equity): 7.12x
-- ▲ 20  Net D/E ratio: 5.92x
-- ▲ 49  Total debt / operating CF (years to repay): 6.8 yr
-- △ 66  Interest coverage ratio (EBIT / interest expense): 4.0x
+**財務** ― 39
+- ▲ 20  D/Eレシオ（有利子負債÷自己資本）：7.12倍
+- ▲ 20  ネットD/Eレシオ：5.92倍
+- ▲ 49  有利子負債 ÷ 営業CF（返済年数の目安）：6.8年
+- △ 66  インタレストカバレッジレシオ（EBIT÷支払利息）：4.0倍
 
-**Cash flow** — 82
-- ◎ 100  Operating CF (latest / trend): $678M ← $754M ← $687M ← $742M
-- ◎ 100  Free CF (operating CF + investing CF): $344M ← $451M ← $446M ← $416M
-- ▲ 45  FCF payout ratio (dividends paid / free CF): 111.3%
+**キャッシュフロー** ― 82
+- ◎ 100  営業CF（直近／推移）：$678M ← $754M ← $687M ← $742M
+- ◎ 100  フリーCF（営業CF＋投資CF）：$344M ← $451M ← $446M ← $416M
+- ▲ 45  FCF配当性向（配当支払÷フリーCF）：111.3%
 
-**Dividend durability** — 87
-- ◎ 107  Dividend growth rate (5-yr CAGR): 8.6%
-- △ 64  Consecutive years of increases: 6 yr
-- △ 63  Consecutive years without a cut: 6 yr
-- ◎ 100  Payout ratio (net income basis): 60.8%
-- ◎ 110  ROE (efficiency of the dividend's source): 70.1%
-- △ 78  Total yield (dividend + buyback): 2.78% (div) + 0.11% (buyback) = 2.89%
+**配当の持続力** ― 87
+- ◎ 107  増配率（直近5年・年率）：8.6%
+- △ 64  連続増配 年数：6年
+- △ 63  連続 非減配 年数：6年
+- ◎ 100  配当性向（純利益ベース）：60.8%
+- ◎ 110  ROE（配当の原資の効率）：70.1%
+- △ 78  総還元利回り（配当＋自社株買い）：2.78%（配当）＋0.11%（自社株買い）＝2.89%
 
-### Timing metrics
+### 買い時の指標
 
-**Dividend yield theory** — 110
-- ◎ 110  Dividend yield theory (position in own historical range): range 0.8-2.4% / now 2.8% = cheapness 100/100
+**配当利回りセオリー** ― 110
+- ◎ 110  配当利回りセオリー（自分の過去レンジ内の位置）：過去 0.8〜2.4% ／ 現在 2.8% ＝ 割安度 100/100
 
-**Yield level & Chowder** — 102
-- △ 94  Forward dividend yield: 2.78%
-- ◎ 110  Chowder rule (yield + 5-yr DGR): 11.4%
+**利回り水準とChowder** ― 102
+- △ 94  予想配当利回り：2.78%
+- ◎ 110  Chowderルール（利回り＋5年増配率）：11.4%
 
-**Valuation vs sector** — 68
-- △ 74  P/E (trailing, vs sector): 23.0x
-- ▲ 20  P/B (vs sector): 17.62x
-- ◎ 110  P/E position within its own historical range: range 29.5-44.5x / now 23.0x = cheapness 100/100
+**株価バリュエーション** ― 68
+- △ 74  PER（実績・対業種平均）：23.0倍
+- ▲ 20  PBR（実績・対業種平均）：17.62倍
+- ◎ 110  PERの自社過去レンジ内の位置：過去 29.5〜44.5倍 ／ 現在 23.0倍 ＝ 割安度 100/100
 
-**Rate spread** — 62
-- △ 62  Yield minus 10-year Treasury (spread): 2.78% - 4.20% = -1.42%
+**金利スプレッド** ― 62
+- △ 62  利回り − 10年国債スプレッド：2.78% − 4.20% ＝ -1.42%
 
-### Reference
-- Operating income (trend / CAGR): $928M ← $968M ← $789M ← $714M
-- Net income (trend / CAGR): $365M ← $435M ← $430M ← $551M
-- Equity ratio (equity / assets): 6.6%
-- ROIC (return on invested capital): 14.0%
-- Solvency hedge (net cash?): net debt present; check repayment capacity from operating CF
-- Investing CF (latest / trend): -$340M ← -$311M ← -$300M ← -$824M
-- Financing CF (latest / trend): -$497M ← -$396M ← -$325M ← $188M
-- Buybacks (latest year): $16M (0.11% of market cap)
-- CF sign pattern: Op + / Inv - / Fin - … healthy (earns in the core business, then invests + returns to holders)
-- Total payout ratio ((dividend + buyback) / net income): 109.3%
-- Dividend cut history: no cut within the data window
-- Earnings yield (1 / P/E): 4.3%
-- RSI(14): 72  overbought
-- MACD(12,26,9): above signal (uptrend)
+### 参考
+- 営業利益（推移／年率）：$928M ← $968M ← $789M ← $714M
+- 当期純利益（推移／年率）：$365M ← $435M ← $430M ← $551M
+- 自己資本比率（自己資本÷総資産）：6.6%
+- ROIC（投下資本利益率）：14.0%
+- 倒産ヘッジ（ネット現金の有無）：純有利子負債あり。営業CFでの返済余力を確認
+- 投資CF（直近／推移）：-$340M ← -$311M ← -$300M ← -$824M
+- 財務CF（直近／推移）：-$497M ← -$396M ← -$325M ← $188M
+- 自社株買い（直近期）：$16M（時価総額比 0.11%）
+- CFの符号パターン：営業＋ / 投資－ / 財務－ … 健全型（本業で稼ぎ→投資と株主還元に回す）
+- 総還元性向（（配当＋自社株買い）÷純利益）：109.3%
+- 減配履歴：減配歴なし（確認できたデータ範囲内）
+- 益回り（1÷PER）：4.3%
+- RSI(14)：72　買われすぎ水準
+- MACD(12,26,9)：シグナル上（上向き継続）
 
 ---
-Educational general information only. The 'Selection' and 'Timing' scores/labels are produced mechanically from public data using predefined rules, and are not a substitute for investment advice. The operator is not a registered investment adviser. Figures are sourced from yfinance (Yahoo Finance) and may contain errors, delays or gaps. Sector averages and thresholds are rough 2026 guides. Do your own research against primary sources (10-K, 10-Q). See the terms page.
+本ページは教育目的の一般情報です。「銘柄選定」「買い時」のスコア・ラベルは、あらかじめ定めた計算ルールで公開データから機械的に算出したものであり、投資助言ではありません。運営者は金融商品取引法上の投資助言・代理業の登録を受けていません。数値は yfinance（Yahoo Finance）由来で誤り・遅延・欠損があり得ます。業種平均・判定しきい値は2026年時点の目安です。正確な情報は各社の10-K・10-Q 等の一次情報でご確認ください。詳しくは<a href="../terms.html">利用規約・免責事項</a>を参照。

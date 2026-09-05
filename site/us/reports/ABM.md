@@ -1,75 +1,75 @@
-# ABM Industries Incorporated (ABM) — dividend screening
+# ABM Industries Incorporated（ABM）｜米国株 配当スクリーニング
 
-- GICS sector: **Industrials**
-- Price: $47.05  |  Market cap: $2.76B  |  Generated: 2026-09-06
+- GICS業種：**資本財**（Industrials）
+- 株価：$47.05  ｜  時価総額：$2.76B  ｜  生成：2026-09-06
 
-## Selection 83 — Selection score: mid tier (some weak spots)
-Growth: shrinking (check the dividend isn't propped up by a rising payout ratio)  /  Stability: high
+## 銘柄選定 83 ― 選定スコア中位（一部に弱点）
+成長性：縮小傾向（増配を配当性向の引き上げで支えていないか確認）  ／  安定性：高い
 
-## Timing 96 — Timing score: mid tier (fairly valued)
-Valuation: cheap zone (below sector avg / low in its own range)  /  Short-term: RSI 43 (neutral) / below signal (downtrend)
+## 買い時 97 ― 買い時スコア中位（妥当水準）
+割安・割高：割安圏（業種平均・自分の過去レンジ比で安い）  ／  短期：RSI 43（中立） ／ シグナル下（下向き継続）
 
-> Both selection and timing are mid tier.
+> 選定・買い時とも中位水準。
 
-### Selection metrics
+### 銘柄選定の指標
 
-**Operating performance** — 61
-- ◎ 101  Revenue (trend / CAGR): $8.75B ← $8.36B ← $8.10B ← $7.81B
-- ▲ 58  EPS (trend / CAGR): $2.61 ← $1.29 ← $3.81 ← $3.44
-- ▲ 50  Operating margin (latest): 3.7%
-- ▲ 37  Earnings stability (operating income volatility): worst YoY 0.52
+**業績** ― 61
+- ◎ 101  売上高（推移／年率）：$8.75B ← $8.36B ← $8.10B ← $7.81B
+- ▲ 58  EPS（推移／年率）：$2.61 ← $1.29 ← $3.81 ← $3.44
+- ▲ 50  営業利益率（直近）：3.7%
+- ▲ 37  利益の安定度（営業利益のブレ）：最悪の前年比 0.52
 
-**Financial strength** — 73
-- ◎ 101  D/E ratio (total debt / equity): 0.94x
-- △ 87  Net D/E ratio: 0.82x
-- ▲ 45  Total debt / operating CF (years to repay): 7.2 yr
-- △ 62  Interest coverage ratio (EBIT / interest expense): 3.3x
+**財務** ― 73
+- ◎ 101  D/Eレシオ（有利子負債÷自己資本）：0.94倍
+- △ 87  ネットD/Eレシオ：0.82倍
+- ▲ 45  有利子負債 ÷ 営業CF（返済年数の目安）：7.2年
+- △ 62  インタレストカバレッジレシオ（EBIT÷支払利息）：3.3倍
 
-**Cash flow** — 103
-- ◎ 100  Operating CF (latest / trend): $234M ← $227M ← $243M ← $20M
-- ◎ 100  Free CF (operating CF + investing CF): $155M ← $167M ← $191M ← -$30M
-- ◎ 109  FCF payout ratio (dividends paid / free CF): 42.3%
+**キャッシュフロー** ― 103
+- ◎ 100  営業CF（直近／推移）：$234M ← $227M ← $243M ← $20M
+- ◎ 100  フリーCF（営業CF＋投資CF）：$155M ← $167M ← $191M ← -$30M
+- ◎ 109  FCF配当性向（配当支払÷フリーCF）：42.3%
 
-**Dividend durability** — 102
-- ◎ 105  Dividend growth rate (5-yr CAGR): 7.5%
-- ◎ 110  Consecutive years of increases: 33 yr
-- ◎ 110  Consecutive years without a cut: 42 yr
-- ◎ 100  Payout ratio (net income basis): 42.7%
-- △ 75  ROE (efficiency of the dividend's source): 8.9%
-- ◎ 110  Total yield (dividend + buyback): 2.47% (div) + 4.43% (buyback) = 6.90%
+**配当の持続力** ― 102
+- ◎ 105  増配率（直近5年・年率）：7.5%
+- ◎ 110  連続増配 年数：33年
+- ◎ 110  連続 非減配 年数：42年
+- ◎ 100  配当性向（純利益ベース）：42.7%
+- △ 75  ROE（配当の原資の効率）：8.9%
+- ◎ 110  総還元利回り（配当＋自社株買い）：2.47%（配当）＋4.43%（自社株買い）＝6.90%
 
-### Timing metrics
+### 買い時の指標
 
-**Dividend yield theory** — 110
-- ◎ 110  Dividend yield theory (position in own historical range): range 1.5-2.2% / now 2.5% = cheapness 100/100
+**配当利回りセオリー** ― 110
+- ◎ 110  配当利回りセオリー（自分の過去レンジ内の位置）：過去 1.5〜2.2% ／ 現在 2.5% ＝ 割安度 100/100
 
-**Yield level & Chowder** — 82
-- △ 86  Forward dividend yield: 2.47%
-- △ 79  Chowder rule (yield + 5-yr DGR): 9.9%
+**利回り水準とChowder** ― 82
+- △ 86  予想配当利回り：2.47%
+- △ 79  Chowderルール（利回り＋5年増配率）：9.9%
 
-**Valuation vs sector** — 87
-- ◎ 110  P/E (trailing, vs sector): 18.2x
-- ◎ 110  P/B (vs sector): 1.58x
-- ▲ 42  P/E position within its own historical range: range 11.5-18.3x / now 18.2x = cheapness 2/100
+**株価バリュエーション** ― 88
+- ◎ 110  PER（実績・対業種平均）：18.1倍
+- ◎ 110  PBR（実績・対業種平均）：1.58倍
+- ▲ 43  PERの自社過去レンジ内の位置：過去 11.5〜18.3倍 ／ 現在 18.1倍 ＝ 割安度 3/100
 
-**Rate spread** — n/a
-- — —  Yield minus 10-year Treasury (spread): not a rate-sensitive sector — not scored
+**金利スプレッド** ― ―
+- ― ―  利回り − 10年国債スプレッド：金利敏感セクター外のため評価しない
 
-### Reference
-- Operating income (trend / CAGR): $325M ← $212M ← $410M ← $349M
-- Net income (trend / CAGR): $162M ← $81M ← $251M ← $230M
-- Equity ratio (equity / assets): 33.9%
-- ROIC (return on invested capital): 7.2%
-- Solvency hedge (net cash?): net debt present; check repayment capacity from operating CF
-- Investing CF (latest / trend): -$116M ← -$172M ← -$62M ← -$242M
-- Financing CF (latest / trend): -$80M ← -$62M ← -$186M ← $236M
-- Buybacks (latest year): $122M (4.43% of market cap)
-- CF sign pattern: Op + / Inv - / Fin - … healthy (earns in the core business, then invests + returns to holders)
-- Total payout ratio ((dividend + buyback) / net income): 115.6%
-- Dividend cut history: no cut within the data window
-- Earnings yield (1 / P/E): 5.5%
-- RSI(14): 43  neutral
-- MACD(12,26,9): below signal (downtrend)
+### 参考
+- 営業利益（推移／年率）：$325M ← $212M ← $410M ← $349M
+- 当期純利益（推移／年率）：$162M ← $81M ← $251M ← $230M
+- 自己資本比率（自己資本÷総資産）：33.9%
+- ROIC（投下資本利益率）：7.2%
+- 倒産ヘッジ（ネット現金の有無）：純有利子負債あり。営業CFでの返済余力を確認
+- 投資CF（直近／推移）：-$116M ← -$172M ← -$62M ← -$242M
+- 財務CF（直近／推移）：-$80M ← -$62M ← -$186M ← $236M
+- 自社株買い（直近期）：$122M（時価総額比 4.43%）
+- CFの符号パターン：営業＋ / 投資－ / 財務－ … 健全型（本業で稼ぎ→投資と株主還元に回す）
+- 総還元性向（（配当＋自社株買い）÷純利益）：115.6%
+- 減配履歴：減配歴なし（確認できたデータ範囲内）
+- 益回り（1÷PER）：5.5%
+- RSI(14)：43　中立
+- MACD(12,26,9)：シグナル下（下向き継続）
 
 ---
-Educational general information only. The 'Selection' and 'Timing' scores/labels are produced mechanically from public data using predefined rules, and are not a substitute for investment advice. The operator is not a registered investment adviser. Figures are sourced from yfinance (Yahoo Finance) and may contain errors, delays or gaps. Sector averages and thresholds are rough 2026 guides. Do your own research against primary sources (10-K, 10-Q). See the terms page.
+本ページは教育目的の一般情報です。「銘柄選定」「買い時」のスコア・ラベルは、あらかじめ定めた計算ルールで公開データから機械的に算出したものであり、投資助言ではありません。運営者は金融商品取引法上の投資助言・代理業の登録を受けていません。数値は yfinance（Yahoo Finance）由来で誤り・遅延・欠損があり得ます。業種平均・判定しきい値は2026年時点の目安です。正確な情報は各社の10-K・10-Q 等の一次情報でご確認ください。詳しくは<a href="../terms.html">利用規約・免責事項</a>を参照。

@@ -150,18 +150,6 @@ def fetch_yf_us(ticker):
     return analyze.fetch_yf(ticker, suffix="")
 
 
-_MACD_EN = {
-    "ゴールデンクロス直後（上向き転換）": "golden cross (turning up)",
-    "デッドクロス直後（下向き転換）": "dead cross (turning down)",
-    "シグナル上（上向き継続）": "above signal (uptrend)",
-    "シグナル下（下向き継続）": "below signal (downtrend)",
-}
-
-
-def macd_en(s):
-    return _MACD_EN.get(s, s) if s else s
-
-
 # ---------------------------------------------------------------- 指標計算
 def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10y):
     """全指標を分野別 dict に。analyze.build_metrics の米国株版。
@@ -183,7 +171,7 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
 
     def sdisp(s):
         if not s:
-            return "—"
+            return "―"
         return " ← ".join(fmt_usd(x) for x in s if x is not None)[:120]
 
     def spairs(s, years):
@@ -195,7 +183,7 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
             pr = [(None, v) for v in s if is_num(v)]
         return pr[::-1]
 
-    # ---- Operating performance ----
+    # ---- 業績 ----
     rev = analyze.row(isr, "Total Revenue", "Operating Revenue")
     opi = analyze.row(isr, "Operating Income", "Total Operating Income As Reported", "EBIT")
     ni = analyze.row(isr, "Net Income", "Net Income Common Stockholders", "Net Income Continuous Operations")
@@ -206,21 +194,21 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
         if len(xs) >= 2:
             c = cagr(xs[-1], xs[0], len(xs) - 1)
             M[target].append({"name": name, "v": c, "disp": sdisp(s),
-                              "ref": f"CAGR {fmt_pct(c)} (from last {len(xs)} fiscal years)", "key": key,
+                              "ref": f"年率 {fmt_pct(c)}（直近{len(xs)}期のデータから算出）", "key": key,
                               "series": spairs(s, years), "series_kind": kind})
         else:
-            M[target].append({"name": name, "v": None, "disp": "—", "ref": "insufficient data", "key": key})
+            M[target].append({"name": name, "v": None, "disp": "―", "ref": "データ不足", "key": key})
 
-    growth_row("Revenue (trend / CAGR)", rev, "rev_cagr", "業績")
+    growth_row("売上高（推移／年率）", rev, "rev_cagr", "業績")
     xs = [x for x in (eps or []) if is_num(x)]
     if len(xs) >= 2:
         c = cagr(xs[-1], xs[0], len(xs) - 1)
-        M["業績"].append({"name": "EPS (trend / CAGR)", "v": c,
+        M["業績"].append({"name": "EPS（推移／年率）", "v": c,
                           "disp": " ← ".join(f"${fmt_num(x, 2)}" for x in eps if x is not None)[:120],
-                          "ref": f"CAGR {fmt_pct(c)} (from last {len(xs)} fiscal years)", "key": "eps_cagr",
+                          "ref": f"年率 {fmt_pct(c)}（直近{len(xs)}期のデータから算出）", "key": "eps_cagr",
                           "series": spairs(eps, is_years), "series_kind": "eps"})
     else:
-        M["業績"].append({"name": "EPS (trend / CAGR)", "v": None, "disp": "—", "ref": "insufficient data", "key": "eps_cagr"})
+        M["業績"].append({"name": "EPS（推移／年率）", "v": None, "disp": "―", "ref": "データ不足", "key": "eps_cagr"})
 
     op_margin = None
     if rev and opi and is_num(rev[0]) and is_num(opi[0]) and rev[0] != 0:
@@ -229,11 +217,11 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
     for i in range(min(len(rev or []), len(opi or []), len(is_years))):
         if is_num(rev[i]) and is_num(opi[i]) and rev[i] != 0:
             opm_series.append((is_years[i], opi[i] / rev[i] * 100))
-    M["業績"].append({"name": "Operating margin (latest)", "v": op_margin, "disp": fmt_pct(op_margin),
-                      "ref": "sector-dependent", "key": "op_margin",
+    M["業績"].append({"name": "営業利益率（直近）", "v": op_margin, "disp": fmt_pct(op_margin),
+                      "ref": "業種により水準が違う", "key": "op_margin",
                       "series": opm_series[::-1], "series_kind": "pct"})
 
-    # Earnings stability = worst year-over-year of operating income
+    # 利益の安定度＝営業利益の「最悪の前年比」（1に近いほどブレが小さい）
     earn_stab = None
     oip_chrono = [x for x in (opi or [])[::-1] if is_num(x)]
     if len(oip_chrono) >= 3:
@@ -244,16 +232,16 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
             earn_stab = 0.62
         else:
             earn_stab = 0.0
-    es_disp = ("—" if earn_stab is None else
-               "1 loss year → recovered (0.62)" if earn_stab == 0.62 else
-               "loss year(s) present (0.00)" if earn_stab == 0 else f"worst YoY {earn_stab:.2f}")
-    M["業績"].append({"name": "Earnings stability (operating income volatility)", "v": earn_stab, "disp": es_disp,
-                      "ref": "closer to 1.00 = fewer down years. >=0.88 stable, <0.65 cyclical. "
-                             "1 loss year then recovery = fixed 0.62; multiple/recent loss years = 0.00",
+    es_disp = ("―" if earn_stab is None else
+               "1期赤字→回復（0.62）" if earn_stab == 0.62 else
+               "赤字期あり（0.00）" if earn_stab == 0 else f"最悪の前年比 {earn_stab:.2f}")
+    M["業績"].append({"name": "利益の安定度（営業利益のブレ）", "v": earn_stab, "disp": es_disp,
+                      "ref": "1.00に近いほど減益年がない（安定）。0.88以上で安定・0.65未満は景気敏感。"
+                             "1期だけ赤字→回復は一律0.62点、複数期赤字・直近赤字は最低の0点",
                       "key": "earnings_stability"})
 
-    growth_row("Operating income (trend / CAGR)", opi, None, "参考")
-    growth_row("Net income (trend / CAGR)", ni, None, "参考")
+    growth_row("営業利益（推移／年率）", opi, None, "参考")
+    growth_row("当期純利益（推移／年率）", ni, None, "参考")
 
     # ---- Balance sheet / financial strength ----
     ta = analyze.row(bsr, "Total Assets")
@@ -302,38 +290,38 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
     if ebit_row and is_num(ebit_row[0]) and int_exp and is_num(int_exp[0]) and int_exp[0] != 0:
         icr = ebit_row[0] / abs(int_exp[0])
     if not int_exp or not is_num(int_exp[0]) or int_exp[0] == 0:
-        icr_disp = "no debt or data unavailable"
+        icr_disp = "無借金またはデータなし"
     elif is_num(icr) and icr < 0:
-        icr_disp = f"operating loss (ref {icr:.1f}x)"
+        icr_disp = f"営業損益が赤字（利払い以前の問題。参考値 {icr:.1f}倍）"
     elif is_num(icr) and icr > 100:
-        icr_disp = f">100x (interest expense negligible = effectively debt-free; ref {icr:.0f}x)"
+        icr_disp = f"100倍超（支払利息がごく僅か＝実質無借金水準。参考値 {icr:.0f}倍）"
     elif is_num(icr):
-        icr_disp = f"{icr:.1f}x"
+        icr_disp = f"{icr:.1f}倍"
     else:
-        icr_disp = "data unavailable"
+        icr_disp = "データなし"
 
-    M["財務"].append({"name": "D/E ratio (total debt / equity)", "v": de,
-                      "disp": fmt_num(de, 2) + "x" if is_num(de) else "—",
-                      "ref": "under 1x is comfortable (utilities/REITs run higher, that's normal)", "key": "de"})
-    M["財務"].append({"name": "Net D/E ratio", "v": net_de,
-                      "disp": fmt_num(net_de, 2) + "x" if is_num(net_de) else "—",
-                      "ref": "after netting cash. negative = net cash position", "key": "net_de"})
-    M["財務"].append({"name": "Total debt / operating CF (years to repay)", "v": debt_to_ocf,
-                      "disp": fmt_num(debt_to_ocf, 1) + " yr" if is_num(debt_to_ocf) else "—",
-                      "ref": "can it be repaid within a few years", "key": "debt_to_ocf"})
-    M["財務"].append({"name": "Interest coverage ratio (EBIT / interest expense)", "v": icr, "disp": icr_disp,
-                      "ref": ">=10x comfortable, <3x watch. matters more when rates are high", "key": "interest_coverage"})
-    M["参考"].append({"name": "Equity ratio (equity / assets)", "v": None, "disp": fmt_pct(equity_ratio),
-                      "ref": "non-standard metric in the US; not scored (use D/E instead)", "key": None})
-    M["参考"].append({"name": "ROIC (return on invested capital)", "v": None,
-                      "disp": (fmt_pct(roic, 1) if is_num(roic) else "—"),
-                      "ref": (f"sector median {fmt_pct(sec_avg.get('roic'))} (vs {fmt_num(roic_vs, 2)}x)" if roic_vs
-                              else "no sector average"), "key": None})
-    hedge = ("net cash (effectively debt-free) = lower solvency risk" if is_num(nd0) and nd0 < 0 else
-             "net debt present; check repayment capacity from operating CF" if is_num(nd0) else "—")
-    M["参考"].append({"name": "Solvency hedge (net cash?)", "v": None, "disp": hedge, "ref": "", "key": None})
+    M["財務"].append({"name": "D/Eレシオ（有利子負債÷自己資本）", "v": de,
+                      "disp": fmt_num(de, 2) + "倍" if is_num(de) else "―",
+                      "ref": "1倍未満が安全圏（公益・REITは高め正常）", "key": "de"})
+    M["財務"].append({"name": "ネットD/Eレシオ", "v": net_de,
+                      "disp": fmt_num(net_de, 2) + "倍" if is_num(net_de) else "―",
+                      "ref": "現金控除後。マイナス＝実質無借金", "key": "net_de"})
+    M["財務"].append({"name": "有利子負債 ÷ 営業CF（返済年数の目安）", "v": debt_to_ocf,
+                      "disp": fmt_num(debt_to_ocf, 1) + "年" if is_num(debt_to_ocf) else "―",
+                      "ref": "数年以内に返せる水準か", "key": "debt_to_ocf"})
+    M["財務"].append({"name": "インタレストカバレッジレシオ（EBIT÷支払利息）", "v": icr, "disp": icr_disp,
+                      "ref": "10倍以上で余裕、3倍未満は利払い負担に注意。金利上昇局面で重要性が増す（米国株は採点対象）", "key": "interest_coverage"})
+    M["参考"].append({"name": "自己資本比率（自己資本÷総資産）", "v": None, "disp": fmt_pct(equity_ratio),
+                      "ref": "米国では非標準指標のため採点対象外（財務はD/Eで見る）", "key": None})
+    M["参考"].append({"name": "ROIC（投下資本利益率）", "v": None,
+                      "disp": (fmt_pct(roic, 1) if is_num(roic) else "―"),
+                      "ref": (f"業種中央値 {fmt_pct(sec_avg.get('roic'))}（対平均 {fmt_num(roic_vs, 2)}倍）" if roic_vs
+                              else "業種平均なし"), "key": None})
+    hedge = ("ネットキャッシュ（実質無借金）＝倒産リスク低め" if is_num(nd0) and nd0 < 0 else
+             "純有利子負債あり。営業CFでの返済余力を確認" if is_num(nd0) else "―")
+    M["参考"].append({"name": "倒産ヘッジ（ネット現金の有無）", "v": None, "disp": hedge, "ref": "", "key": None})
 
-    # ---- Cash flow ----
+    # ---- キャッシュフロー ----
     icf = analyze.row(cfr, "Investing Cash Flow")
     fin = analyze.row(cfr, "Financing Cash Flow")
     fcf = analyze.row(cfr, "Free Cash Flow")
@@ -343,47 +331,47 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
     fin0 = fin[0] if fin else None
     fcf0 = fcf[0] if fcf else (ocf0 + capex[0] if is_num(ocf0) and capex and is_num(capex[0]) else None)
 
-    M["キャッシュフロー"].append({"name": "Operating CF (latest / trend)",
+    M["キャッシュフロー"].append({"name": "営業CF（直近／推移）",
                                     "v": (1 if is_num(ocf0) and ocf0 > 0 else 0) if is_num(ocf0) else None,
-                                    "disp": sdisp(ocf), "ref": "should stay positive and stable", "key": "ocf_positive",
+                                    "disp": sdisp(ocf), "ref": "継続してプラス・安定が理想", "key": "ocf_positive",
                                     "series": spairs(ocf, cf_years), "series_kind": "usd"})
-    M["参考"].append({"name": "Investing CF (latest / trend)", "v": None, "disp": sdisp(icf),
-                      "ref": "normally negative (reinvesting in the business)", "key": None,
+    M["参考"].append({"name": "投資CF（直近／推移）", "v": None, "disp": sdisp(icf),
+                      "ref": "本業投資でマイナスが通常", "key": None,
                       "series": spairs(icf, cf_years), "series_kind": "usd"})
-    M["参考"].append({"name": "Financing CF (latest / trend)", "v": None, "disp": sdisp(fin),
-                      "ref": "tends negative with dividends / buybacks / repayment", "key": None,
+    M["参考"].append({"name": "財務CF（直近／推移）", "v": None, "disp": sdisp(fin),
+                      "ref": "配当・自社株買い・返済でマイナス傾向", "key": None,
                       "series": spairs(fin, cf_years), "series_kind": "usd"})
 
     buyback_detail = analyze.row(cfr, "Repurchase Of Capital Stock")
     buyback_net = analyze.row(cfr, "Net Common Stock Issuance")
     buyback0, buyback_src = None, None
     if buyback_detail and is_num(buyback_detail[0]):
-        buyback0, buyback_src = abs(buyback_detail[0]), "detail line (Repurchase Of Capital Stock)"
+        buyback0, buyback_src = abs(buyback_detail[0]), "詳細項目（Repurchase Of Capital Stock）"
     elif buyback_net and is_num(buyback_net[0]):
         buyback0 = abs(buyback_net[0]) if buyback_net[0] < 0 else 0.0
-        buyback_src = "net line (issuance netted; not a standalone figure)"
+        buyback_src = "純額項目（新株発行との差引。個別の金額ではない）"
     mcap = info.get("marketCap")
     buyback_yield = (buyback0 / mcap * 100) if is_num(buyback0) and is_num(mcap) and mcap > 0 else None
-    M["参考"].append({"name": "Buybacks (latest year)", "v": buyback0,
-                      "disp": (f"{fmt_usd(buyback0)} ({buyback_yield:.2f}% of market cap)"
+    M["参考"].append({"name": "自社株買い（直近期）", "v": buyback0,
+                      "disp": (f"{fmt_usd(buyback0)}（時価総額比 {buyback_yield:.2f}%）"
                                if is_num(buyback0) and is_num(buyback_yield) else
-                               fmt_usd(buyback0) if is_num(buyback0) else "no data"),
-                      "ref": f"source: {buyback_src}" if buyback_src else "no matching line in yfinance", "key": None})
-    M["キャッシュフロー"].append({"name": "Free CF (operating CF + investing CF)",
+                               fmt_usd(buyback0) if is_num(buyback0) else "データなし"),
+                      "ref": f"出所：{buyback_src}" if buyback_src else "yfinanceに該当項目なし", "key": None})
+    M["キャッシュフロー"].append({"name": "フリーCF（営業CF＋投資CF）",
                                     "v": (1 if is_num(fcf0) and fcf0 > 0 else 0) if is_num(fcf0) else None,
-                                    "disp": sdisp(fcf), "ref": "consistently positive = room for dividends", "key": "fcf_positive",
+                                    "disp": sdisp(fcf), "ref": "継続プラスなら配当の原資に余裕", "key": "fcf_positive",
                                     "series": spairs(fcf, cf_years), "series_kind": "usd"})
     if is_num(ocf0) and is_num(icf0) and is_num(fin0):
-        sg_ = lambda x: "+" if x > 0 else "-"
-        note = "healthy (earns in the core business, then invests + returns to holders)" if ocf0 > 0 and icf0 < 0 and fin0 < 0 else "check"
-        M["参考"].append({"name": "CF sign pattern", "v": None,
-                          "disp": f"Op {sg_(ocf0)} / Inv {sg_(icf0)} / Fin {sg_(fin0)} … {note}", "ref": "", "key": None})
+        sg_ = lambda x: "＋" if x > 0 else "－"
+        note = "健全型（本業で稼ぎ→投資と株主還元に回す）" if ocf0 > 0 and icf0 < 0 and fin0 < 0 else "要確認"
+        M["参考"].append({"name": "CFの符号パターン", "v": None,
+                          "disp": f"営業{sg_(ocf0)} / 投資{sg_(icf0)} / 財務{sg_(fin0)} … {note}", "ref": "", "key": None})
     fcf_payout = None
     if divpaid and is_num(divpaid[0]) and is_num(fcf0) and fcf0 > 0:
         fcf_payout = abs(divpaid[0]) / fcf0 * 100
-    M["キャッシュフロー"].append({"name": "FCF payout ratio (dividends paid / free CF)", "v": fcf_payout,
+    M["キャッシュフロー"].append({"name": "FCF配当性向（配当支払÷フリーCF）", "v": fcf_payout,
                                     "disp": fmt_pct(fcf_payout),
-                                    "ref": "under 70% for stable names. over 100% draws down reserves. REITs: skipped (use FFO)",
+                                    "ref": "安定企業で70%未満。100%超は取り崩し。REITは対象外（FFOで見る）",
                                     "key": "fcf_payout"})
 
     # ---- Dividend ----
@@ -397,7 +385,7 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
             fye_month = 12
     yf_fy = analyze.annual_dps_from_divs(divs, fye_month)
     dps_series = clean_dps_series(yf_fy)
-    dps_src = "yfinance (fiscal-year aggregated)"
+    dps_src = "yfinance（会計年度換算）"
 
     # 連続増配/非減配は rate 方式（決算期のズレに強い）
     streak_up = up_streak_rate(divs)
@@ -456,63 +444,63 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
                 if len(yy) >= 3 and is_num(yld_fwd) else None)
 
     yb = sec_avg.get("yield")
-    range_txt = f"sector yield guide {yb[0]:.1f}-{yb[1]:.1f}%" if yb else "—"
-    M["配当"].append({"name": "Forward dividend yield", "v": yld_fwd, "disp": fmt_pct(yld_fwd, 2),
-                      "ref": range_txt + ". trend = each calendar year's DPS / that year's mean price",
+    range_txt = f"業種の利回り目安 {yb[0]:.1f}〜{yb[1]:.1f}%" if yb else "―"
+    M["配当"].append({"name": "予想配当利回り", "v": yld_fwd, "disp": fmt_pct(yld_fwd, 2),
+                      "ref": range_txt + "／米国はS&P500平均が約1.2%と低い。推移＝各暦年の平均株価に対する利回り",
                       "key": "div_yield", "series": yy, "series_kind": "pct", "series_current": yld_fwd})
 
-    # Total yield = dividend yield + buyback yield  (SCORED for US, in 配当)
+    # 総還元利回り＝配当利回り＋自社株買い利回り（米国株は採点対象）
     total_yield = (yld_fwd + buyback_yield) if is_num(yld_fwd) and is_num(buyback_yield) else None
     ni0 = ni[0] if ni and is_num(ni[0]) else None
     divpaid0 = abs(divpaid[0]) if divpaid and is_num(divpaid[0]) else None
     total_return_amt = (divpaid0 or 0) + (buyback0 or 0) if (is_num(divpaid0) or is_num(buyback0)) else None
     total_payout = (total_return_amt / ni0 * 100) if is_num(total_return_amt) and is_num(ni0) and ni0 > 0 else None
-    M["配当"].append({"name": "Total yield (dividend + buyback)", "v": total_yield,
-                      "disp": (f"{fmt_pct(yld_fwd,2)} (div) + {fmt_pct(buyback_yield,2)} (buyback) = {fmt_pct(total_yield,2)}"
-                               if is_num(total_yield) else "not available (no buyback data)"),
-                      "ref": "the full picture of shareholder returns. buybacks are a single-year figure, "
-                             "not a recurring commitment — don't over-rely on one year", "key": "total_yield"})
-    payout_disp = ("net income negligible — not meaningful" if is_num(total_payout) and total_payout > 300
+    M["配当"].append({"name": "総還元利回り（配当＋自社株買い）", "v": total_yield,
+                      "disp": (f"{fmt_pct(yld_fwd,2)}（配当）＋{fmt_pct(buyback_yield,2)}（自社株買い）＝{fmt_pct(total_yield,2)}"
+                               if is_num(total_yield) else "算出不可（自社株買いデータなし）"),
+                      "ref": "配当だけでは見えない株主還元の全体像。米国株は自社株買いが主な還元手段のため採点対象。"
+                             "自社株買いは単年の実施額で毎年続くとは限らない点に注意", "key": "total_yield"})
+    payout_disp = ("純利益僅少のため参考にならず" if is_num(total_payout) and total_payout > 300
                    else fmt_pct(total_payout))
-    M["参考"].append({"name": "Total payout ratio ((dividend + buyback) / net income)", "v": None, "disp": payout_disp,
-                      "ref": "over 100% = returning more than that year's profit", "key": None})
+    M["参考"].append({"name": "総還元性向（（配当＋自社株買い）÷純利益）", "v": None, "disp": payout_disp,
+                      "ref": "100%超はその期の利益以上を還元＝内部留保の取り崩し", "key": None})
 
-    M["配当"].append({"name": "Dividend growth rate (5-yr CAGR)", "v": dgr5, "disp": fmt_pct(dgr5),
-                      "ref": f">=5% is the bar for US names (>=0% passes). source: {dps_src}", "key": "dgr5"})
-    M["配当"].append({"name": "Consecutive years of increases", "v": streak_up,
-                      "disp": f"{streak_up} yr" if is_num(streak_up) else "—",
-                      "ref": "25+ = Dividend Aristocrat territory, 50+ = Dividend King", "key": "streak_up"})
-    M["配当"].append({"name": "Consecutive years without a cut", "v": streak_flat,
-                      "disp": f"{streak_flat} yr" if is_num(streak_flat) else "—",
-                      "ref": "has the dividend held through downturns", "key": "streak_flat"})
+    M["配当"].append({"name": "増配率（直近5年・年率）", "v": dgr5, "disp": fmt_pct(dgr5),
+                      "ref": f"5%以上が目安（0%以上で及第）／出所：{dps_src}", "key": "dgr5"})
+    M["配当"].append({"name": "連続増配 年数", "v": streak_up,
+                      "disp": f"{streak_up}年" if is_num(streak_up) else "―",
+                      "ref": "25年以上で配当貴族、50年以上で配当王の水準", "key": "streak_up"})
+    M["配当"].append({"name": "連続 非減配 年数", "v": streak_flat,
+                      "disp": f"{streak_flat}年" if is_num(streak_flat) else "―",
+                      "ref": "不況局面でも減配せず持続してきたか", "key": "streak_flat"})
     pn = sec_avg.get("payout")
-    pn_txt = f"sector guide {pn[0]}-{pn[1]}%" if pn else "—"
-    M["配当"].append({"name": "Payout ratio (net income basis)", "v": payout_ni, "disp": fmt_pct(payout_ni),
-                      "ref": pn_txt + ". over 80% is a warning. REITs: use FFO basis (this GAAP number runs >100%)",
+    pn_txt = f"業種目安 {pn[0]}〜{pn[1]}%" if pn else "―"
+    M["配当"].append({"name": "配当性向（純利益ベース）", "v": payout_ni, "disp": fmt_pct(payout_ni),
+                      "ref": pn_txt + "／80%超は警戒。REITはFFOベースで見る（このGAAP値は100%超が普通）",
                       "key": "payout_ni"})
-    M["配当"].append({"name": "ROE (efficiency of the dividend's source)", "v": roe, "disp": fmt_pct(roe),
-                      "ref": f"sector median {fmt_pct(sec_avg.get('roe'))}. 10%+ is strong" if sec_avg.get("roe") is not None else "10%+ is strong",
+    M["配当"].append({"name": "ROE（配当の原資の効率）", "v": roe, "disp": fmt_pct(roe),
+                      "ref": f"業種中央値 {fmt_pct(sec_avg.get('roe'))}／10%以上で優良" if sec_avg.get("roe") is not None else "10%以上で優良",
                       "key": "roe"})
 
     # 減配履歴
     last_cut_fy = find_last_cut(dps_series) if len(dps_series) >= 3 else None
     if len(dps_series) < 3:
-        cut_disp = "insufficient data"
+        cut_disp = "データ不足で判定不可"
     elif last_cut_fy is None:
-        cut_disp = "no cut within the data window"
+        cut_disp = "減配歴なし（確認できたデータ範囲内）"
     else:
-        yrs_txt = f"{streak_flat} yr" if is_num(streak_flat) else "?"
+        yrs_txt = f"{streak_flat}年" if is_num(streak_flat) else "不明"
         if is_num(streak_flat) and streak_flat >= 10:
-            cut_disp = f"last cut ~{last_cut_fy}; no cut for {yrs_txt} since = currently sound"
+            cut_disp = f"最終減配 {last_cut_fy}年頃。その後{yrs_txt}間は減配なし＝現在は良好水準"
         elif is_num(streak_flat) and streak_flat >= 5:
-            cut_disp = f"last cut ~{last_cut_fy} ({yrs_txt} ago). recovering"
+            cut_disp = f"最終減配 {last_cut_fy}年頃（{yrs_txt}前）。回復途上"
         else:
-            cut_disp = f"last cut ~{last_cut_fy} ({yrs_txt} ago). recent — watch"
-    M["参考"].append({"name": "Dividend cut history", "v": None, "disp": cut_disp,
-                      "ref": "the fact behind the 'years without a cut' streak. a past cut is not a permanent penalty "
-                             "if enough clean years have followed", "key": None})
+            cut_disp = f"最終減配 {last_cut_fy}年頃（{yrs_txt}前）。直近の減配歴が新しく要注意"
+    M["参考"].append({"name": "減配履歴", "v": None, "disp": cut_disp,
+                      "ref": "「連続非減配年数」の裏側にある事実。過去に減配があっても、その後の非減配年数が"
+                             "長ければ現在の評価は良好になり得る", "key": None})
 
-    # ---- Valuation ----
+    # ---- 期待（バリュエーション）----
     per = info.get("trailingPE")
     pbr = info.get("priceToBook")
     per = per if is_num(per) and per > 0 else None
@@ -560,49 +548,49 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
     rate_sens = gics_sector in rate_sensitive
     yield_spread = (yld_fwd - ust_10y) if (rate_sens and is_num(yld_fwd) and is_num(ust_10y)) else None
 
-    M["期待"].append({"name": "P/E (trailing, vs sector)", "v": per_vs, "disp": (fmt_num(per, 1) + "x" if per else "—"),
-                      "ref": f"sector avg {fmt_num(sec_avg.get('per'),1)}x (vs {fmt_num(per_vs,2)}x)" if per_vs else "—",
+    M["期待"].append({"name": "PER（実績・対業種平均）", "v": per_vs, "disp": (fmt_num(per, 1) + "倍" if per else "―"),
+                      "ref": f"業種平均 {fmt_num(sec_avg.get('per'),1)}倍（対平均 {fmt_num(per_vs,2)}倍）" if per_vs else "―",
                       "key": "per_vs_sector"})
-    M["期待"].append({"name": "P/B (vs sector)", "v": pbr_vs, "disp": (fmt_num(pbr, 2) + "x" if pbr else "—"),
-                      "ref": f"sector avg {fmt_num(sec_avg.get('pbr'),1)}x" if pbr_vs else "—", "key": "pbr_vs_sector"})
+    M["期待"].append({"name": "PBR（実績・対業種平均）", "v": pbr_vs, "disp": (fmt_num(pbr, 2) + "倍" if pbr else "―"),
+                      "ref": f"業種平均 {fmt_num(sec_avg.get('pbr'),1)}倍" if pbr_vs else "―", "key": "pbr_vs_sector"})
     if per_range:
-        M["期待"].append({"name": "P/E position within its own historical range", "v": per_band_pos,
-                          "disp": f"range {per_range[0]:.1f}-{per_range[1]:.1f}x / now {per:.1f}x = cheapness {per_band_pos*100:.0f}/100",
-                          "ref": "0 = top of range (high P/E = expensive) / 100 = bottom (cheap)", "key": "per_band_pos", "rangeband": rb_per})
+        M["期待"].append({"name": "PERの自社過去レンジ内の位置", "v": per_band_pos,
+                          "disp": f"過去 {per_range[0]:.1f}〜{per_range[1]:.1f}倍 ／ 現在 {per:.1f}倍 ＝ 割安度 {per_band_pos*100:.0f}/100",
+                          "ref": "0＝レンジ上端（高PER＝割高）／100＝下端（低PER＝割安）", "key": "per_band_pos", "rangeband": rb_per})
     else:
-        M["期待"].append({"name": "P/E position within its own historical range", "v": None,
-                          "disp": "insufficient history", "ref": "needs 3+ years of price & EPS", "key": "per_band_pos"})
-    M["参考"].append({"name": "Earnings yield (1 / P/E)", "v": None, "disp": fmt_pct(ey),
-                      "ref": "compare against the 10-year Treasury", "key": None})
+        M["期待"].append({"name": "PERの自社過去レンジ内の位置", "v": None,
+                          "disp": "履歴不足で算出不可", "ref": "3年以上の株価・EPSが必要", "key": "per_band_pos"})
+    M["参考"].append({"name": "益回り（1÷PER）", "v": None, "disp": fmt_pct(ey),
+                      "ref": "米10年国債利回りとの比較に使う", "key": None})
     if yrange:
-        M["期待"].append({"name": "Dividend yield theory (position in own historical range)", "v": yband_pos,
-                          "disp": f"range {yrange[0]:.1f}-{yrange[1]:.1f}% / now {yld_fwd:.1f}% = cheapness {yband_pos*100:.0f}/100",
-                          "ref": "0 = bottom of range (low yield = expensive) / 100 = top (high yield = cheap)",
+        M["期待"].append({"name": "配当利回りセオリー（自分の過去レンジ内の位置）", "v": yband_pos,
+                          "disp": f"過去 {yrange[0]:.1f}〜{yrange[1]:.1f}% ／ 現在 {yld_fwd:.1f}% ＝ 割安度 {yband_pos*100:.0f}/100",
+                          "ref": "0＝レンジ下端（低利回り＝割高）／100＝上端（高利回り＝割安）",
                           "key": "yield_band_pos", "rangeband": rb_yield})
     else:
-        M["期待"].append({"name": "Dividend yield theory (position in own range)", "v": None,
-                          "disp": "insufficient history", "ref": "needs 5+ years of price & dividends", "key": "yield_band_pos"})
-    M["期待"].append({"name": "Chowder rule (yield + 5-yr DGR)", "v": chowder, "disp": fmt_pct(chowder),
-                      "ref": "12%+ passes (8%+ for utilities/telecom)", "key": "chowder"})
+        M["期待"].append({"name": "配当利回りセオリー（過去レンジ内の位置）", "v": None,
+                          "disp": "履歴不足で算出不可", "ref": "5年以上の株価・配当が必要", "key": "yield_band_pos"})
+    M["期待"].append({"name": "Chowderルール（利回り＋5年増配率）", "v": chowder, "disp": fmt_pct(chowder),
+                      "ref": "合計12%以上で合格（公益・通信等は8%）", "key": "chowder"})
     if rate_sens:
-        M["期待"].append({"name": "Yield minus 10-year Treasury (spread)", "v": yield_spread,
-                          "disp": (f"{yld_fwd:.2f}% - {ust_10y:.2f}% = {yield_spread:+.2f}%" if yield_spread is not None else "yield unknown"),
-                          "ref": f"'bond substitute' sectors. wider = cheaper. UST 10y = {fmt_num(ust_10y,2)}%. "
-                                 f"US rates are high so a spread near 0 is already attractive",
+        M["期待"].append({"name": "利回り − 10年国債スプレッド", "v": yield_spread,
+                          "disp": (f"{yld_fwd:.2f}% − {ust_10y:.2f}% ＝ {yield_spread:+.2f}%" if yield_spread is not None else "利回り不明"),
+                          "ref": f"「債券の代わり」需要のある業種。広いほど割安。米10年国債 ＝ {fmt_num(ust_10y,2)}%。"
+                                 f"米国は国債利回りが高く、スプレッドが0付近でも割安の目安",
                           "key": "yield_spread"})
     else:
-        M["期待"].append({"name": "Yield minus 10-year Treasury (spread)", "v": None,
-                          "disp": "not a rate-sensitive sector — not scored",
-                          "ref": "scored only for utilities / real estate / communication services / consumer staples", "key": "yield_spread"})
+        M["期待"].append({"name": "利回り − 10年国債スプレッド", "v": None,
+                          "disp": "金利敏感セクター外のため評価しない",
+                          "ref": "公益・不動産・通信サービス・生活必需品のみ採点", "key": "yield_spread"})
 
-    # ---- Technicals (reference only) ----
+    # ---- テクニカル（採点しない・参考のみ）----
     tec = calc_technicals(yd["hist_d"])
     M["参考"].append({"name": "RSI(14)", "v": None,
-                      "disp": (f"{tec['rsi']:.0f}" if tec["rsi"] is not None else "—") +
-                              ("  oversold" if tec["rsi"] is not None and tec["rsi"] < 30 else
-                               "  overbought" if tec["rsi"] is not None and tec["rsi"] >= 70 else "  neutral"),
-                      "ref": "too short-term to score; shown for context", "key": None})
-    M["参考"].append({"name": "MACD(12,26,9)", "v": None, "disp": macd_en(tec["macd_state"]) or "—", "ref": "", "key": None})
+                      "disp": (f"{tec['rsi']:.0f}" if tec["rsi"] is not None else "―") +
+                              ("　売られすぎ水準" if tec["rsi"] is not None and tec["rsi"] < 30 else
+                               "　買われすぎ水準" if tec["rsi"] is not None and tec["rsi"] >= 70 else "　中立"),
+                      "ref": "短期すぎるため採点対象外。値動きの強弱を示す参考指標", "key": None})
+    M["参考"].append({"name": "MACD(12,26,9)", "v": None, "disp": tec["macd_state"] or "―", "ref": "", "key": None})
 
     ctx = {
         "per": per, "pbr": pbr, "yld_fwd": yld_fwd, "dgr5": dgr5,
@@ -625,40 +613,38 @@ SEL_TIERS = (85, 68, 55)
 # 引き上げ、「割安圏」＝実際に上位1/4 という意味に揃えた。SEL 側は絶対的な質のバーとして
 # 日本版と同じ (85,68,55) を維持（母集団がスクリーニング済みで高めに出るのは想定どおり）。
 TIM_TIERS = (98, 82, 64)
-SEL_LABEL = {"hi": "Selection score: top tier (quality & durability both high)",
-             "mid": "Selection score: mid tier (some weak spots)",
-             "lo": "Selection score: low tier (quality concerns)",
-             "xlo": "Selection score: below threshold",
-             None: "N/A (insufficient data)"}
-TIM_LABEL = {"hi": "Timing score: top tier (cheap zone)",
-             "mid": "Timing score: mid tier (fairly valued)",
-             "lo": "Timing score: low tier (somewhat expensive)",
-             "xlo": "Timing score: bottom tier (expensive)",
-             None: "N/A (P/E, P/B, yield history insufficient)"}
+SEL_LABEL = {"hi": "選定スコア上位（質・持続力とも高水準）", "mid": "選定スコア中位（一部に弱点）",
+             "lo": "選定スコア下位（質に不安）", "xlo": "選定スコア基準未達", None: "判定不可（データ不足）"}
+TIM_LABEL = {"hi": "買い時スコア上位（割安水準）", "mid": "買い時スコア中位（妥当水準）",
+             "lo": "買い時スコア下位（やや割高水準）", "xlo": "買い時スコア最下位（割高水準）",
+             None: "判定不可（PER・PBR・利回り履歴が不足）"}
 QUADRANT = {
-    ("hi", "hi"): "Both selection and timing are top tier.",
-    ("hi", "mid"): "Selection is top tier; timing is mid (fairly valued).",
-    ("hi", "lo"): "Selection is top tier, but timing is low (somewhat expensive).",
-    ("hi", "xlo"): "Selection is top tier, but timing is bottom tier (expensive).",
-    ("mid", "hi"): "Timing is top tier (cheap), but selection is mid (some weak spots).",
-    ("mid", "mid"): "Both selection and timing are mid tier.",
-    ("mid", "lo"): "Selection is mid; timing is low (somewhat expensive).",
-    ("mid", "xlo"): "Selection is mid; timing is bottom tier (expensive).",
-    ("lo", "hi"): "Timing is top tier (cheap), but selection is low (quality concerns) — a low score usually has a reason (possible value trap).",
-    ("lo", "mid"): "Selection score is below the passing bar.",
-    ("lo", "lo"): "Both selection and timing are low tier.",
-    ("lo", "xlo"): "Selection is low; timing is bottom tier.",
-    ("xlo", "hi"): "Timing is top tier (cheap), but selection is bottom tier — a low score usually has a reason (possible value trap).",
-    ("xlo", "mid"): "Selection score is well below the bar.",
-    ("xlo", "lo"): "Both selection and timing are low tier.",
-    ("xlo", "xlo"): "Both selection and timing are bottom tier.",
+    ("hi", "hi"): "選定・買い時とも上位水準。",
+    ("hi", "mid"): "選定は上位水準、買い時は中位（妥当水準）。",
+    ("hi", "lo"): "選定は上位水準だが、買い時は下位（やや割高水準）。",
+    ("hi", "xlo"): "選定は上位水準だが、買い時は最下位（割高水準）。",
+    ("mid", "hi"): "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
+    ("mid", "mid"): "選定・買い時とも中位水準。",
+    ("mid", "lo"): "選定は中位、買い時は下位（やや割高水準）。",
+    ("mid", "xlo"): "選定は中位、買い時は最下位（割高水準）。",
+    ("lo", "hi"): "買い時は上位（割安水準）だが、選定は下位（質に不安）。"
+                   "低評価には理由があることが多い（バリュートラップの可能性）。",
+    ("lo", "mid"): "選定スコアが基準未達の水準。",
+    ("lo", "lo"): "選定・買い時とも下位水準。",
+    ("lo", "xlo"): "選定は下位、買い時は最下位水準。",
+    ("xlo", "hi"): "買い時は上位（割安水準）だが、選定は最下位水準。"
+                    "低評価には理由があることが多い（バリュートラップの可能性）。",
+    ("xlo", "mid"): "選定スコアが基準を大きく下回る水準。",
+    ("xlo", "lo"): "選定・買い時とも下位水準。",
+    ("xlo", "xlo"): "選定・買い時とも最下位水準。",
 }
 DISC_HTML = (
-    "Educational general information only. The 'Selection' and 'Timing' scores/labels are produced "
-    "mechanically from public data using predefined rules, and are not a substitute for investment "
-    "advice. The operator is not a registered investment adviser. Figures are sourced from yfinance "
-    "(Yahoo Finance) and may contain errors, delays or gaps. Sector averages and thresholds are "
-    "rough 2026 guides. Do your own research against primary sources (10-K, 10-Q). See the terms page."
+    "本ページは教育目的の一般情報です。「銘柄選定」「買い時」のスコア・ラベルは、あらかじめ定めた"
+    "計算ルールで公開データから機械的に算出したものであり、投資助言ではありません。運営者は金融商品"
+    "取引法上の投資助言・代理業の登録を受けていません。数値は yfinance（Yahoo Finance）由来で誤り・"
+    "遅延・欠損があり得ます。業種平均・判定しきい値は2026年時点の目安です。正確な情報は各社の"
+    "10-K・10-Q 等の一次情報でご確認ください。詳しくは"
+    '<a href="../terms.html">利用規約・免責事項</a>を参照。'
 )
 
 
@@ -669,9 +655,9 @@ def _tier(score, tiers):
 def cov_label_us(pair):
     scored, possible = pair
     if possible <= 0:
-        return 0.0, "N/A"
+        return 0.0, "―"
     r = scored / possible
-    return r, ("high" if r >= 0.85 else "mid" if r >= 0.65 else "low")
+    return r, ("高" if r >= 0.85 else "中" if r >= 0.65 else "低")
 
 
 def verdicts_us(sel_score, tim_score, groups, dom_scores, ctx, sec_avg, is_simple, coverage):
@@ -686,58 +672,58 @@ def verdicts_us(sel_score, tim_score, groups, dom_scores, ctx, sec_avg, is_simpl
     sig = [max(-0.5, min(0.5, s)) for s in sig]
     val_idx = sum(sig) / len(sig) if sig else None
     if val_idx is None:
-        val_label = "N/A (P/E, P/B, yield history insufficient)"
+        val_label = "判定不可（PER・PBR・利回り履歴が不足）"
     elif val_idx >= 0.12:
-        val_label = "cheap zone (below sector avg / low in its own range)"
+        val_label = "割安圏（業種平均・自分の過去レンジ比で安い）"
     elif val_idx <= -0.12:
-        val_label = "expensive zone (above sector avg / high vs its range)"
+        val_label = "割高圏（業種平均・過去レンジ比で高い）"
     else:
-        val_label = "roughly fair value"
+        val_label = "ほぼ妥当な水準"
     if pbr and pbr < 1:
-        val_label += " / P/B below 1x"
+        val_label += "／PBR1倍割れ"
 
     fin = dom_scores.get("財務")
     cf = dom_scores.get("キャッシュフロー")
     stab_vals = [x for x in (fin, cf) if x is not None]
     stab = sum(stab_vals) / len(stab_vals) if stab_vals else None
     if is_simple:
-        stab_label = "not scored in simple mode (financials/CF are structurally different)"
+        stab_label = "簡易判定では未評価（財務・CFは構造的に別基準）"
     elif stab is None:
-        stab_label = "N/A"
+        stab_label = "判定不可"
     else:
-        stab_label = "high" if stab >= 88 else "medium" if stab >= 68 else "low (watch debt / CF)"
+        stab_label = "高い" if stab >= 88 else "中程度" if stab >= 68 else "低い（負債・CFに注意）"
 
     rc = analyze.cagr_of(ctx["rev_series"])
     ec = analyze.cagr_of(ctx["eps_series"])
     if is_simple:
-        grow_label = "not scored in simple mode (see reference section)"
+        grow_label = "簡易判定では未評価（業績は参考欄に表示）"
     elif rc is None and ec is None:
-        grow_label = "N/A"
+        grow_label = "判定不可"
     elif (rc or 0) > 3 and (ec or 0) > 3:
-        grow_label = "expanding (revenue and EPS both up)"
+        grow_label = "拡大（増収かつ増益）"
     elif (rc or -99) >= 0 and (ec or -99) >= -2:
-        grow_label = "flat to slightly up"
+        grow_label = "横ばい〜微増"
     else:
-        grow_label = "shrinking (check the dividend isn't propped up by a rising payout ratio)"
+        grow_label = "縮小傾向（増配を配当性向の引き上げで支えていないか確認）"
 
     tec = ctx.get("tec") or {}
     rsi = tec.get("rsi")
     macd = tec.get("macd_state")
     bits = []
     if is_num(rsi):
-        bits.append(f"RSI {rsi:.0f}" + (" (oversold)" if rsi < 30 else " (overbought)" if rsi >= 70 else " (neutral)"))
+        bits.append(f"RSI {rsi:.0f}" + ("（売られすぎ）" if rsi < 30 else "（買われすぎ）" if rsi >= 70 else "（中立）"))
     if macd:
-        bits.append(macd_en(str(macd)))
-    short_label = " / ".join(bits) if bits else "—"
+        bits.append(str(macd))
+    short_label = " ／ ".join(bits) if bits else "―"
 
     st_tier = _tier(sel_score, SEL_TIERS)
     ti_tier = _tier(tim_score, TIM_TIERS)
-    quad = QUADRANT.get((st_tier or "mid", ti_tier or "mid"), "—")
+    quad = QUADRANT.get((st_tier or "mid", ti_tier or "mid"), "―")
     sel_cov = cov_label_us(coverage.get("選定", (0, 0)))
     tim_cov = cov_label_us(coverage.get("買い時", (0, 0)))
-    if "low" in (sel_cov[1], tim_cov[1]):
-        which = " and ".join(n for n, c in (("selection", sel_cov[1]), ("timing", tim_cov[1])) if c == "low")
-        quad = f"Note: limited data ({which} coverage low) — scores are indicative only. " + quad
+    if "低" in (sel_cov[1], tim_cov[1]):
+        which = " と ".join(n for n, c in (("銘柄選定", sel_cov[1]), ("買い時", tim_cov[1])) if c == "低")
+        quad = f"※データ不足（{which}のカバレッジ低）。点数は目安、参考程度に。　" + quad
 
     return {
         "sel_label": SEL_LABEL[st_tier], "tim_label": TIM_LABEL[ti_tier],
@@ -749,22 +735,32 @@ def verdicts_us(sel_score, tim_score, groups, dom_scores, ctx, sec_avg, is_simpl
 
 
 # ---------------------------------------------------------------- レンダリング
-GROUP_LABEL_EN = {
-    "配当利回りセオリー": "Dividend yield theory",
-    "利回り水準とChowder": "Yield level & Chowder",
-    "株価バリュエーション": "Valuation vs sector",
-    "金利スプレッド": "Rate spread",
-    "業績": "Operating performance",
-    "財務": "Financial strength",
-    "キャッシュフロー": "Cash flow",
-    "配当の持続力": "Dividend durability",
+# GICS11 は設定JSONのキー・summaryの保存値としては英語のまま。表示だけ日本語に。
+GICS_JP = {
+    "Information Technology": "情報技術",
+    "Health Care": "ヘルスケア",
+    "Financials": "金融",
+    "Consumer Discretionary": "一般消費財",
+    "Consumer Staples": "生活必需品",
+    "Communication Services": "コミュニケーション",
+    "Industrials": "資本財",
+    "Energy": "エネルギー",
+    "Utilities": "公益事業",
+    "Materials": "素材",
+    "Real Estate": "不動産",
 }
-LABEL_MARK = {"good": "◎", "warn": "△", "bad": "▲", None: "—"}
+
+
+def gics_jp(name):
+    return GICS_JP.get(name, name or "―")
+
+
+LABEL_MARK = {"good": "◎", "warn": "△", "bad": "▲", None: "―"}
 
 
 def _bar_us(score):
     if not is_num(score):
-        return '<span class="bar"><i class="fill na" style="width:0"></i></span><span class="sc na">n/a</span>'
+        return '<span class="bar"><i class="fill na" style="width:0"></i></span><span class="sc na">―</span>'
     w = max(0, min(100, score))
     cls = "hi" if score >= 90 else "mid" if score >= 65 else "lo"
     return (f'<span class="bar"><i class="fill {cls}" style="width:{w:.0f}%"></i></span>'
@@ -773,11 +769,11 @@ def _bar_us(score):
 
 def _metric_row_us(it):
     lab = it.get("label")
-    mark = LABEL_MARK.get(lab, "—")
+    mark = LABEL_MARK.get(lab, "―")
     sc = it.get("score")
-    sc_txt = f"{sc:.0f}" if is_num(sc) else "—"
+    sc_txt = f"{sc:.0f}" if is_num(sc) else "―"
     name = analyze.html.escape(str(it["name"]))
-    disp = analyze.html.escape(str(it.get("disp", "—")))
+    disp = analyze.html.escape(str(it.get("disp", "―")))
     ref = analyze.html.escape(str(it.get("ref", "")))
     return (f'<details class="m"><summary>'
             f'<span class="mn">{name}</span>'
@@ -789,8 +785,7 @@ def _metric_row_us(it):
 def _group_section_us(head, sg, groups, rowmap):
     out = []
     for gname, gdef in sg[head].items():
-        glabel = GROUP_LABEL_EN.get(gname, gname)
-        out.append(f'<div class="domhead"><b>{glabel}</b> {_bar_us(groups.get(gname))}</div>')
+        out.append(f'<div class="domhead"><b>{analyze.html.escape(gname)}</b> {_bar_us(groups.get(gname))}</div>')
         got = False
         for k in gdef["keys"]:
             it = rowmap.get(k)
@@ -799,7 +794,7 @@ def _group_section_us(head, sg, groups, rowmap):
             got = True
             out.append(_metric_row_us(it))
         if not got:
-            out.append('<div class="plain"><span class="mn">—</span><span class="mv2">not evaluated for this sector</span></div>')
+            out.append('<div class="plain"><span class="mn">―</span><span class="mv2">この業種では評価しない</span></div>')
     return "".join(out)
 
 
@@ -807,88 +802,91 @@ def render_company_html_us(co):
     if not co or not co.get("has"):
         return ""
     rows = []
-    loc = ", ".join(x for x in (co.get("city"), co.get("country")) if x)
+    loc = "、".join(x for x in (co.get("city"), co.get("country")) if x)
     if loc:
-        rows.append(f'<div class="plain"><span class="mn">Headquarters</span><span class="mv2">{analyze.html.escape(loc)}</span></div>')
+        rows.append(f'<div class="plain"><span class="mn">本社所在地</span><span class="mv2">{analyze.html.escape(loc)}</span></div>')
     if is_num(co.get("employees")):
-        rows.append(f'<div class="plain"><span class="mn">Employees</span><span class="mv2">{co["employees"]:,}</span></div>')
+        rows.append(f'<div class="plain"><span class="mn">従業員数</span><span class="mv2">{co["employees"]:,}名</span></div>')
     if co.get("website"):
         u = analyze.html.escape(co["website"])
-        rows.append(f'<div class="plain"><span class="mn">Website</span><span class="mv2"><a href="{u}" target="_blank" rel="noopener">{u}</a></span></div>')
+        rows.append(f'<div class="plain"><span class="mn">Webサイト</span><span class="mv2"><a href="{u}" target="_blank" rel="noopener">{u}</a></span></div>')
     summary_p = ""
     if co.get("summary"):
-        summary_p = f'<p class="rule"><b>Business (source: Yahoo Finance)</b></p><p style="white-space:pre-wrap">{analyze.html.escape(co["summary"])}</p>'
-    return (f'<details class="chartbox"><summary>Company overview</summary>'
-            f'<div class="mbody">{"".join(rows)}{summary_p}</div></details>')
+        summary_p = (f'<p class="rule"><b>事業内容（English・出典 Yahoo Finance）</b></p>'
+                     f'<p style="white-space:pre-wrap">{analyze.html.escape(co["summary"])}</p>')
+    return (f'<details class="chartbox"><summary>企業概要</summary>'
+            f'<div class="mbody">{"".join(rows)}{summary_p}'
+            f'<p class="rule" style="margin-top:10px">※ 事業内容は yfinance（Yahoo Finance）由来の英語の説明文です。</p>'
+            f'</div></details>')
 
 
-_RECO_EN = {"strong_buy": "strong buy", "buy": "buy", "hold": "hold",
-            "underperform": "underperform", "sell": "sell", "none": "—"}
-_QNAME_EN = {"売上高": "Revenue", "営業利益": "Operating income", "純利益": "Net income",
-             "EPS（四半期）": "EPS (quarter)"}
+_RECO_JP = {"strong_buy": "強気買い", "buy": "買い", "hold": "中立",
+            "underperform": "弱気", "sell": "売り", "none": "―"}
+_QNAME_JP = {"売上高": "売上高", "営業利益": "営業利益", "純利益": "純利益",
+             "EPS（四半期）": "EPS（四半期）"}
 
 
 def _earn_rows_us(ea):
-    """(heading, body) pairs from the yfinance earnings aggregate — USD / English."""
+    """(見出し, 本文) のリスト。yfinance の決算集計を USD／日本語で。"""
     R = []
     epr = ea.get("eps_reported")
     if is_num(epr):
-        s = f"reported ${fmt_num(epr, 2)}"
+        s = f"実績 ${fmt_num(epr, 2)}"
         if is_num(ea.get("eps_est")):
-            s += f" / estimate ${fmt_num(ea['eps_est'], 2)}"
+            s += f" ／ 事前予想 ${fmt_num(ea['eps_est'], 2)}"
         if is_num(ea.get("surprise")):
-            s += f" / surprise {ea['surprise']:+.1f}%"
-        head = "Latest quarter EPS" + (f" (disclosed {ea['disc_date']})" if ea.get("disc_date") else "")
+            s += f" ／ サプライズ {ea['surprise']:+.1f}%"
+        head = "直近四半期 EPS" + (f"（開示 {ea['disc_date']}）" if ea.get("disc_date") else "")
         R.append((head, s))
     qs = [x for x in (ea.get("q") or []) if x.get("unit") != "円"]
     if qs:
         parts = []
         for x in qs:
-            nm = _QNAME_EN.get(x["name"], x["name"])
+            nm = _QNAME_JP.get(x["name"], x["name"])
             t = f"{nm} {fmt_usd(x['val'])}"
             if is_num(x.get("yoy")):
-                t += f" ({x['yoy']:+.1f}% YoY)"
+                t += f"（前年同期比 {x['yoy']:+.1f}%）"
             parts.append(t)
-        R.append(("Latest quarter" + (f" ({ea['q_date']})" if ea.get("q_date") else ""), " / ".join(parts)))
+        R.append(("直近四半期" + (f"（{ea['q_date']}）" if ea.get("q_date") else ""), " ／ ".join(parts)))
     fw = []
     for pk in ("0y", "+1y"):
         f = (ea.get("fwd") or {}).get(pk)
         if not f:
             continue
-        t = f"{'this year' if pk == '0y' else 'next year'} EPS ${fmt_num(f['eps'], 2)}"
+        t = f"{'今期' if pk == '0y' else '来期'}予想EPS ${fmt_num(f['eps'], 2)}"
         if is_num(f.get("growth")):
-            t += f" ({f['growth']:+.1f}% vs prior)"
+            t += f"（前期比 {f['growth']:+.1f}%）"
         if is_num(f.get("per")):
-            t += f" / fwd P/E {fmt_num(f['per'], 1)}x"
+            t += f" ／ 予想PER {fmt_num(f['per'], 1)}倍"
         if is_num(f.get("n")):
-            t += f" / {int(f['n'])} analysts"
+            t += f" ／ {int(f['n'])}名"
         fw.append(t)
     if ea.get("fwd_rev") and is_num(ea["fwd_rev"].get("avg")):
         rr = ea["fwd_rev"]
-        t = f"this year revenue {fmt_usd(rr['avg'])}"
+        t = f"今期予想 売上 {fmt_usd(rr['avg'])}"
         if is_num(rr.get("growth")):
-            t += f" ({rr['growth']:+.1f}% vs prior)"
+            t += f"（前期比 {rr['growth']:+.1f}%）"
         fw.append(t)
     if fw:
-        R.append(("Analyst outlook", " / ".join(fw)))
+        R.append(("今後の見通し（アナリスト予想）", " ／ ".join(fw)))
     if ea.get("next_earn"):
-        R.append(("Next report (est.)", str(ea["next_earn"])))
+        R.append(("次回決算 予定日", str(ea["next_earn"])))
     t = ea.get("target")
     if t and is_num(t.get("mean")):
-        s = f"mean ${fmt_num(t['mean'], 2)}"
+        s = f"平均 ${fmt_num(t['mean'], 2)}"
         if is_num(t.get("vs")):
-            s += f" ({t['vs']:+.1f}% vs current price)"
+            s += f"（現在株価比 {t['vs']:+.1f}%）"
         if is_num(t.get("high")) and is_num(t.get("low")):
-            s += f" / high ${fmt_num(t['high'], 2)} · low ${fmt_num(t['low'], 2)}"
-        R.append(("Analyst target price", s))
+            s += f" ／ 高値 ${fmt_num(t['high'], 2)} ・ 安値 ${fmt_num(t['low'], 2)}"
+        R.append(("アナリスト目標株価", s))
     rc = ea.get("reco") or {}
     if rc.get("key") or is_num(rc.get("mean")):
-        s = _RECO_EN.get((rc.get("key") or "none"), rc.get("key") or "—")
+        s = _RECO_JP.get((rc.get("key") or "none"), rc.get("key") or "―")
         if is_num(rc.get("mean")):
-            s += f" ({rc['mean']:.2f} / 1=buy … 5=sell)"
+            s += f"（{rc['mean']:.2f}／1=強気・5=弱気）"
         if is_num(rc.get("n")):
-            s += f" / {int(rc['n'])} analysts"
-        R.append(("Analyst rating", s))
+            s += f" ／ 対象 {int(rc['n'])}名"
+        R.append(("アナリスト・レーティング", s))
     return R
 
 
@@ -897,9 +895,9 @@ def _earn_block_us(ea):
         return ""
     rows = "".join(f'<div class="plain"><span class="mn">{analyze.html.escape(h)}</span>'
                    f'<span class="mv2">{analyze.html.escape(b)}</span></div>' for h, b in _earn_rows_us(ea))
-    disc = ("yfinance (Yahoo Finance) analyst aggregation. Quarterly EPS actual/estimate are yfinance "
-            "conversions and carry error. Always confirm against the company's 10-Q / 10-K / press release.")
-    return f'<h2>Recent earnings &amp; analyst view</h2><div class="legend">{disc}</div>{rows}'
+    disc = ("yfinance（Yahoo Finance）のアナリスト集計。四半期のEPS実績/予想もyfinance換算で誤差あり。"
+            "会社の正式な業績は決算資料（10-Q・10-K・プレスリリース）で必ず確認すること。")
+    return f'<h2>直近決算とアナリスト予想</h2><div class="legend">{disc}</div>{rows}'
 
 
 _US_CSS = """
@@ -908,7 +906,7 @@ _US_CSS = """
 @media (prefers-color-scheme:dark){ :root{ --bg:#161a1e; --fg:#e7ecef; --muted:#9aa6af;
   --line:#2c333a; --card:#1e242a; --accent:#4fb8ab; --hi:#4fb8ab; --mid:#e0a45a; --lo:#e07b73; --na:#4a555e; } }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:"Segoe UI",system-ui,-apple-system,sans-serif;line-height:1.6;font-size:14px}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,"Hiragino Kaku Gothic ProN","Meiryo","Segoe UI",system-ui,sans-serif;line-height:1.7;font-size:14px}
 .wrap{max-width:820px;margin:0 auto;padding:26px 20px 60px}
 h1{font-size:20px;margin:0 0 2px}
 h2{font-size:15px;margin:26px 0 4px;border-left:4px solid var(--accent);padding-left:8px}
@@ -989,7 +987,7 @@ def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warni
 
     warn_html = ""
     if warnings:
-        warn_html = '<div class="warn"><b>Data notes</b><ul>' + "".join(f"<li>{analyze.html.escape(w)}</li>" for w in warnings) + "</ul></div>"
+        warn_html = '<div class="warn"><b>データに関する注意</b><ul>' + "".join(f"<li>{analyze.html.escape(w)}</li>" for w in warnings) + "</ul></div>"
 
     gauge_pos = 50
     if vd.get("val_idx") is not None:
@@ -1000,61 +998,63 @@ def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warni
         return "hi" if t == "hi" else "mid" if t == "mid" else "lo"
 
     sel_cls, tim_cls = _cls(sel_score, SEL_TIERS), _cls(tim_score, TIM_TIERS)
-    sel_n = f"{sel_score:.0f}" if is_num(sel_score) else "—"
-    tim_n = f"{tim_score:.0f}" if is_num(tim_score) else "—"
+    sel_n = f"{sel_score:.0f}" if is_num(sel_score) else "―"
+    tim_n = f"{tim_score:.0f}" if is_num(tim_score) else "―"
     sel_w = min(100, sel_score) if is_num(sel_score) else 0
     tim_w = min(100, tim_score) if is_num(tim_score) else 0
     (sel_sc, sel_ps), (_, sel_cl) = vd["sel_cov"]
     (tim_sc, tim_ps), (_, tim_cl) = vd["tim_cov"]
+    cov_cls = {"高": "", "中": "mid", "低": "low", "―": ""}
 
-    simple_note = ' | <b>Simple mode</b> (banks/insurance/REITs: operating/financial/CF metrics shown for reference only)' if meta["is_simple"] else ""
-    price_s = f"${fmt_num(meta['price'], 2)}" if is_num(meta["price"]) else "—"
-    pdate_s = f" (close {meta['price_date']})" if meta.get("price_date") else ""
+    simple_note = '　｜　<b>簡易判定</b>（銀行・保険・REIT：業績／財務／CFは参考表示のみ）' if meta["is_simple"] else ""
+    price_s = f"${fmt_num(meta['price'], 2)}" if is_num(meta["price"]) else "―"
+    pdate_s = f"（終値 {meta['price_date']}）" if meta.get("price_date") else ""
     mcap_s = fmt_usd(meta["mcap"])
+    simple_legend = "　簡易判定の銘柄は 業績／財務／CF グループを採点せず、銘柄選定は配当の持続力のみで算出。" if meta['is_simple'] else ""
 
-    return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
+    return f"""<!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{analyze.html.escape(meta['name'])} ({meta['code']}) — dividend screening</title>
+<title>{analyze.html.escape(meta['name'])}（{meta['code']}）｜米国株 配当スクリーニング</title>
 <style>{_US_CSS}</style></head><body><div class="wrap">
-<div class="topbar"><h1>{analyze.html.escape(meta['name'])} ({meta['code']}) — dividend screening</h1><a href="../index.html">&larr; back to list</a></div>
-<div class="sub">GICS sector: <b>{meta['gics_sector']}</b> (yfinance: {analyze.html.escape(meta['industry'] or '—')} / {analyze.html.escape(meta['sector'] or '—')}){simple_note}<br>
-Price {price_s}{pdate_s} &nbsp;|&nbsp; Market cap {mcap_s} &nbsp;|&nbsp; Generated {meta['today']}</div>
+<div class="topbar"><h1>{analyze.html.escape(meta['name'])}（{meta['code']}）</h1><a href="../index.html">← 一覧へ戻る</a></div>
+<div class="sub">GICS業種：<b>{gics_jp(meta['gics_sector'])}</b>（{analyze.html.escape(meta['gics_sector'])}／yfinance：{analyze.html.escape(meta['industry'] or '―')}）{simple_note}<br>
+株価 {price_s}{pdate_s} &nbsp;｜&nbsp; 時価総額 {mcap_s} &nbsp;｜&nbsp; 生成 {meta['today']}</div>
 
 {render_company_html_us(ctx.get('company'))}
 {warn_html}
 
 <div class="top"><div class="score2">
   <div class="sblk">
-    <div class="hd"><b>Selection</b><span class="num {sel_cls}">{sel_n}</span><span class="lab {sel_cls}">{vd['sel_label']}</span></div>
+    <div class="hd"><b>銘柄選定</b><span class="num {sel_cls}">{sel_n}</span><span class="lab {sel_cls}">{vd['sel_label']}</span></div>
     <div class="gbar"><i class="{sel_cls}" style="width:{sel_w:.0f}%"></i></div>
-    <div class="cov {sel_cl}">scored {sel_sc}/{sel_ps} &nbsp; coverage <b>{sel_cl}</b></div>
-    <div class="sub">= quality of the dividend (operating performance / financial strength / cash flow / dividend durability)<br>
-      Growth: {vd['growth']} &nbsp;/&nbsp; Stability: {vd['stability']}</div>
+    <div class="cov {cov_cls.get(sel_cl,'')}">採点 {sel_sc}/{sel_ps} &nbsp; カバレッジ <b>{sel_cl}</b></div>
+    <div class="sub">＝配当株としての質（業績／財務／キャッシュフロー／配当の持続力）<br>
+      成長性：{vd['growth']} &nbsp;／&nbsp; 安定性：{vd['stability']}</div>
   </div>
   <div class="sblk">
-    <div class="hd"><b>Timing</b><span class="num {tim_cls}">{tim_n}</span><span class="lab {tim_cls}">{vd['tim_label']}</span></div>
+    <div class="hd"><b>買い時</b><span class="num {tim_cls}">{tim_n}</span><span class="lab {tim_cls}">{vd['tim_label']}</span></div>
     <div class="gbar"><i class="{tim_cls}" style="width:{tim_w:.0f}%"></i></div>
-    <div class="cov {tim_cl}">scored {tim_sc}/{tim_ps} &nbsp; coverage <b>{tim_cl}</b></div>
-    <div class="sub">= how the current price looks (yield theory / yield level &amp; Chowder / valuation vs sector / rate spread)<br>
-      Valuation: {vd['valuation']} &nbsp;/&nbsp; Short-term: {vd['short']}</div>
+    <div class="cov {cov_cls.get(tim_cl,'')}">採点 {tim_sc}/{tim_ps} &nbsp; カバレッジ <b>{tim_cl}</b></div>
+    <div class="sub">＝今の株価水準（配当利回りセオリー／利回り水準とChowder／株価バリュエーション／金利スプレッド）<br>
+      割安・割高：{vd['valuation']} &nbsp;／&nbsp; 短期：{vd['short']}</div>
   </div>
 </div></div>
-<div class="quad">&rarr; {vd['comment']}</div>
+<div class="quad">→ {vd['comment']}</div>
 
-<div class="gauge"><b class="gl">cheap</b><b class="gr">expensive</b><i style="left:{gauge_pos:.0f}%"></i></div>
-<div class="muted" style="font-size:11.5px">Blend of P/E &amp; P/B vs sector and the dividend yield's position in its own historical range.</div>
+<div class="gauge"><b class="gl">割安</b><b class="gr">割高</b><i style="left:{gauge_pos:.0f}%"></i></div>
+<div class="muted" style="font-size:11.5px">PER・PBRの対業種平均と、配当利回りの過去レンジ内の位置を合成した目安。</div>
 
-<h2>1. Selection metrics</h2>
-<div class="legend">Click a row for the scoring rule and why it scored this way. Labels: &#9678; good / &#9651; watch / &#9650; weak / &mdash; n/a. Score is linear between the warn (60) and good (100) thresholds; a bonus line goes to 110, floor is 20. Group score = mean of its metrics. Selection weights: performance 28 / financials 27 / CF 15 / dividend durability 30. Timing weights: yield theory 38 / yield &amp; Chowder 24 / valuation 20 / rate spread 18.{' In simple mode, operating/financial/CF groups are not scored — selection comes from dividend durability only.' if meta['is_simple'] else ''}</div>
+<h2>1. 銘柄選定の指標</h2>
+<div class="legend">各行クリックで「判定ルール」と「この銘柄がその評価になった理由」が開きます。ラベル：◎ 良好 ／ △ 注意 ／ ▲ 弱い ／ ― 対象外。点は warn（60点）〜good（100点）の直線補間、別格は110点、下限20点。グループ点＝指標の平均。銘柄選定の重み：業績28／財務27／CF15／配当の持続力30。買い時の重み：配当利回りセオリー38／利回り水準とChowder24／株価バリュエーション20／金利スプレッド18。{simple_legend}</div>
 {sel_blocks}
 
-<h2>2. Timing metrics</h2>
+<h2>2. 買い時の指標</h2>
 {tim_blocks}
 
 {_earn_block_us(ctx.get('earn'))}
 
-<h2>Reference (not auto-scored)</h2>
-<div class="legend">Some rows expand for an explanation.</div>
+<h2>参考（自動採点の対象外）</h2>
+<div class="legend">一部の行はクリックで説明が開きます。</div>
 {''.join(ref_blocks)}
 
 <div class="disc">{DISC_HTML}</div>
@@ -1064,38 +1064,38 @@ Price {price_s}{pdate_s} &nbsp;|&nbsp; Market cap {mcap_s} &nbsp;|&nbsp; Generat
 def render_md_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, rules):
     sg = rules["score_groups"]
     rowmap = {r["key"]: r for dom in detail for r in detail[dom] if r.get("key")}
-    L = [f"# {meta['name']} ({meta['code']}) — dividend screening", ""]
-    L.append(f"- GICS sector: **{meta['gics_sector']}**"
-             + (" (simple mode)" if meta["is_simple"] else ""))
-    L.append(f"- Price: ${fmt_num(meta['price'], 2)}  |  Market cap: {fmt_usd(meta['mcap'])}  |  Generated: {meta['today']}")
+    L = [f"# {meta['name']}（{meta['code']}）｜米国株 配当スクリーニング", ""]
+    L.append(f"- GICS業種：**{gics_jp(meta['gics_sector'])}**（{meta['gics_sector']}）"
+             + ("（簡易判定）" if meta["is_simple"] else ""))
+    L.append(f"- 株価：${fmt_num(meta['price'], 2)}  ｜  時価総額：{fmt_usd(meta['mcap'])}  ｜  生成：{meta['today']}")
     L.append("")
-    sel_n = f"{sel_score:.0f}" if is_num(sel_score) else "—"
-    tim_n = f"{tim_score:.0f}" if is_num(tim_score) else "—"
-    L.append(f"## Selection {sel_n} — {vd['sel_label']}")
-    L.append(f"Growth: {vd['growth']}  /  Stability: {vd['stability']}")
+    sel_n = f"{sel_score:.0f}" if is_num(sel_score) else "―"
+    tim_n = f"{tim_score:.0f}" if is_num(tim_score) else "―"
+    L.append(f"## 銘柄選定 {sel_n} ― {vd['sel_label']}")
+    L.append(f"成長性：{vd['growth']}  ／  安定性：{vd['stability']}")
     L.append("")
-    L.append(f"## Timing {tim_n} — {vd['tim_label']}")
-    L.append(f"Valuation: {vd['valuation']}  /  Short-term: {vd['short']}")
+    L.append(f"## 買い時 {tim_n} ― {vd['tim_label']}")
+    L.append(f"割安・割高：{vd['valuation']}  ／  短期：{vd['short']}")
     L.append("")
     L.append(f"> {vd['comment']}")
     for head in ("選定", "買い時"):
         L.append("")
-        L.append(f"### {'Selection metrics' if head == '選定' else 'Timing metrics'}")
+        L.append(f"### {'銘柄選定の指標' if head == '選定' else '買い時の指標'}")
         for gname, gdef in sg[head].items():
             gs = groups.get(gname)
-            L.append(f"\n**{GROUP_LABEL_EN.get(gname, gname)}** — {gs:.0f}" if is_num(gs) else f"\n**{GROUP_LABEL_EN.get(gname, gname)}** — n/a")
+            L.append(f"\n**{gname}** ― {gs:.0f}" if is_num(gs) else f"\n**{gname}** ― ―")
             for k in gdef["keys"]:
                 it = rowmap.get(k)
                 if it is None:
                     continue
-                mark = LABEL_MARK.get(it.get("label"), "—")
+                mark = LABEL_MARK.get(it.get("label"), "―")
                 sc = it.get("score")
-                sc_txt = f"{sc:.0f}" if is_num(sc) else "—"
-                L.append(f"- {mark} {sc_txt}  {it['name']}: {it.get('disp', '—')}")
+                sc_txt = f"{sc:.0f}" if is_num(sc) else "―"
+                L.append(f"- {mark} {sc_txt}  {it['name']}：{it.get('disp', '―')}")
     L.append("")
-    L.append("### Reference")
+    L.append("### 参考")
     for it in M.get("参考", []):
-        L.append(f"- {it['name']}: {it.get('disp', '—')}")
+        L.append(f"- {it['name']}：{it.get('disp', '―')}")
     L.append("")
     L.append(f"---\n{DISC_HTML}")
     return "\n".join(L)
@@ -1124,7 +1124,7 @@ def generate_us(ticker, cfg=None, log=None):
         return res
     info = yd.get("info") or {}
     if not info and yd.get("price") is None:
-        res["error"] = "no data (check the ticker; US-listed only)"
+        res["error"] = "データなし（ティッカーを確認。米国上場銘柄のみ対応）"
         return res
 
     name = info.get("longName") or info.get("shortName") or ticker
@@ -1144,20 +1144,20 @@ def generate_us(ticker, cfg=None, log=None):
         return res
 
     warnings = []
-    for nm, key in (("Selection", "選定"), ("Timing", "買い時")):
+    for nm, key in (("銘柄選定", "選定"), ("買い時", "買い時")):
         _, lab = cov_label_us(coverage[key])
-        if lab == "low":
-            warnings.append(f"{nm} score has few scored metrics (coverage low) — treat the number as indicative.")
+        if lab == "低":
+            warnings.append(f"{nm}スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。")
     if not yd["is_rows"]:
-        warnings.append("Income statement unavailable — operating/growth assessment is limited.")
+        warnings.append("損益計算書が取得できず、業績・成長性の評価が限定的です。")
     if not yd["bs_rows"]:
-        warnings.append("Balance sheet unavailable — financial-strength assessment is limited.")
+        warnings.append("貸借対照表が取得できず、財務の評価が限定的です。")
     if not yd["divs"]:
-        warnings.append("No dividend history retrieved (non-payer, or not in yfinance).")
+        warnings.append("配当履歴を取得できませんでした（無配、またはyfinance未収録）。")
     if is_reit:
-        warnings.append("REIT: FFO / NAV multiples / LTV / distribution composition matter here and this equity-oriented tool can't judge them properly. Reference only.")
+        warnings.append("REIT：FFO・NAV倍率・LTV・分配金の内訳が重要で、株式向けのこのツールでは正しく評価できません。参考程度に。")
     if is_simple and not is_reit:
-        warnings.append("Banks / insurers are scored in simple mode: operating, financial and CF metrics are structurally different and are shown for reference only.")
+        warnings.append("銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。")
 
     pdate = yd.get("price_date")
     meta = {
@@ -1195,7 +1195,7 @@ def generate_us(ticker, cfg=None, log=None):
         "comment": vd.get("comment"),
         "cov_sel": [coverage["選定"][0], coverage["選定"][1], lab_sel],
         "cov_tim": [coverage["買い時"][0], coverage["買い時"][1], lab_tim],
-        "groups": {GROUP_LABEL_EN.get(g, g): (round(v, 1) if is_num(v) else None) for g, v in groups.items()},
+        "groups": {g: (round(v, 1) if is_num(v) else None) for g, v in groups.items()},
         "div_yield": gv("div_yield"), "total_yield": gv("total_yield"),
         "streak_up": gv("streak_up"), "streak_flat": gv("streak_flat"),
         "payout_ni": gv("payout_ni"), "roe": gv("roe"), "chowder": gv("chowder"),

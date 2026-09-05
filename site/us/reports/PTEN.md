@@ -1,75 +1,75 @@
-# Patterson-UTI Energy, Inc. (PTEN) — dividend screening
+# Patterson-UTI Energy, Inc.（PTEN）｜米国株 配当スクリーニング
 
-- GICS sector: **Energy**
-- Price: $12.42  |  Market cap: $4.74B  |  Generated: 2026-09-06
+- GICS業種：**エネルギー**（Energy）
+- 株価：$12.42  ｜  時価総額：$4.74B  ｜  生成：2026-09-06
 
-## Selection 71 — Selection score: mid tier (some weak spots)
-Growth: shrinking (check the dividend isn't propped up by a rising payout ratio)  /  Stability: high
+## 銘柄選定 71 ― 選定スコア中位（一部に弱点）
+成長性：縮小傾向（増配を配当性向の引き上げで支えていないか確認）  ／  安定性：高い
 
-## Timing 101 — Timing score: top tier (cheap zone)
-Valuation: roughly fair value  /  Short-term: RSI 53 (neutral) / above signal (uptrend)
+## 買い時 101 ― 買い時スコア上位（割安水準）
+割安・割高：ほぼ妥当な水準  ／  短期：RSI 53（中立） ／ シグナル上（上向き継続）
 
-> Timing is top tier (cheap), but selection is mid (some weak spots).
+> 買い時は上位（割安水準）だが、選定は中位（一部に弱点）。
 
-### Selection metrics
+### 銘柄選定の指標
 
-**Operating performance** — 50
-- ◎ 110  Revenue (trend / CAGR): $4.83B ← $5.38B ← $4.15B ← $2.65B
-- — —  EPS (trend / CAGR): $-0.24 ← $-2.44 ← $0.88 ← $0.72
-- ▲ 20  Operating margin (latest): -0.8%
-- ▲ 20  Earnings stability (operating income volatility): loss year(s) present (0.00)
+**業績** ― 50
+- ◎ 110  売上高（推移／年率）：$4.83B ← $5.38B ← $4.15B ← $2.65B
+- ― ―  EPS（推移／年率）：$-0.24 ← $-2.44 ← $0.88 ← $0.72
+- ▲ 20  営業利益率（直近）：-0.8%
+- ▲ 20  利益の安定度（営業利益のブレ）：赤字期あり（0.00）
 
-**Financial strength** — 89
-- ◎ 106  D/E ratio (total debt / equity): 0.40x
-- ◎ 103  Net D/E ratio: 0.25x
-- ◎ 106  Total debt / operating CF (years to repay): 1.3 yr
-- ▲ 40  Interest coverage ratio (EBIT / interest expense): operating loss (ref -0.5x)
+**財務** ― 89
+- ◎ 106  D/Eレシオ（有利子負債÷自己資本）：0.40倍
+- ◎ 103  ネットD/Eレシオ：0.25倍
+- ◎ 106  有利子負債 ÷ 営業CF（返済年数の目安）：1.3年
+- ▲ 40  インタレストカバレッジレシオ（EBIT÷支払利息）：営業損益が赤字（利払い以前の問題。参考値 -0.5倍）
 
-**Cash flow** — 103
-- ◎ 100  Operating CF (latest / trend): $961M ← $1.18B ← $1.01B ← $566M
-- ◎ 100  Free CF (operating CF + investing CF): $372M ← $497M ← $390M ← $129M
-- ◎ 110  FCF payout ratio (dividends paid / free CF): 32.9%
+**キャッシュフロー** ― 103
+- ◎ 100  営業CF（直近／推移）：$961M ← $1.18B ← $1.01B ← $566M
+- ◎ 100  フリーCF（営業CF＋投資CF）：$372M ← $497M ← $390M ← $129M
+- ◎ 110  FCF配当性向（配当支払÷フリーCF）：32.9%
 
-**Dividend durability** — 57
-- ◎ 110  Dividend growth rate (5-yr CAGR): 26.2%
-- ▲ 28  Consecutive years of increases: 1 yr
-- △ 63  Consecutive years without a cut: 6 yr
-- ▲ 20  Payout ratio (net income basis): 213.3%
-- ▲ 20  ROE (efficiency of the dividend's source): -2.8%
-- ◎ 103  Total yield (dividend + buyback): 3.22% (div) + 1.47% (buyback) = 4.69%
+**配当の持続力** ― 57
+- ◎ 110  増配率（直近5年・年率）：26.2%
+- ▲ 28  連続増配 年数：1年
+- △ 63  連続 非減配 年数：6年
+- ▲ 20  配当性向（純利益ベース）：213.3%
+- ▲ 20  ROE（配当の原資の効率）：-2.8%
+- ◎ 103  総還元利回り（配当＋自社株買い）：3.22%（配当）＋1.47%（自社株買い）＝4.69%
 
-### Timing metrics
+### 買い時の指標
 
-**Dividend yield theory** — 95
-- △ 95  Dividend yield theory (position in own historical range): range 1.0-5.0% / now 3.2% = cheapness 55/100
+**配当利回りセオリー** ― 95
+- △ 95  配当利回りセオリー（自分の過去レンジ内の位置）：過去 1.0〜5.0% ／ 現在 3.2% ＝ 割安度 55/100
 
-**Yield level & Chowder** — 106
-- ◎ 101  Forward dividend yield: 3.22%
-- ◎ 110  Chowder rule (yield + 5-yr DGR): 29.4%
+**利回り水準とChowder** ― 106
+- ◎ 101  予想配当利回り：3.22%
+- ◎ 110  Chowderルール（利回り＋5年増配率）：29.4%
 
-**Valuation vs sector** — 105
-- — —  P/E (trailing, vs sector): —
-- ◎ 105  P/B (vs sector): 1.53x
-- — —  P/E position within its own historical range: insufficient history
+**株価バリュエーション** ― 105
+- ― ―  PER（実績・対業種平均）：―
+- ◎ 105  PBR（実績・対業種平均）：1.53倍
+- ― ―  PERの自社過去レンジ内の位置：履歴不足で算出不可
 
-**Rate spread** — n/a
-- — —  Yield minus 10-year Treasury (spread): not a rate-sensitive sector — not scored
+**金利スプレッド** ― ―
+- ― ―  利回り − 10年国債スプレッド：金利敏感セクター外のため評価しない
 
-### Reference
-- Operating income (trend / CAGR): -$40M ← $29M ← $450M ← $213M
-- Net income (trend / CAGR): -$94M ← -$968M ← $246M ← $155M
-- Equity ratio (equity / assets): 57.8%
-- ROIC (return on invested capital): -0.7%
-- Solvency hedge (net cash?): net debt present; check repayment capacity from operating CF
-- Investing CF (latest / trend): -$567M ← -$655M ← -$1.02B ← -$413M
-- Financing CF (latest / trend): -$211M ← -$475M ← $66M ← -$133M
-- Buybacks (latest year): $70M (1.47% of market cap)
-- CF sign pattern: Op + / Inv - / Fin - … healthy (earns in the core business, then invests + returns to holders)
-- Total payout ratio ((dividend + buyback) / net income): ―
-- Dividend cut history: last cut ~2021 (6 yr ago). recovering
-- Earnings yield (1 / P/E): ―
-- RSI(14): 53  neutral
-- MACD(12,26,9): above signal (uptrend)
+### 参考
+- 営業利益（推移／年率）：-$40M ← $29M ← $450M ← $213M
+- 当期純利益（推移／年率）：-$94M ← -$968M ← $246M ← $155M
+- 自己資本比率（自己資本÷総資産）：57.8%
+- ROIC（投下資本利益率）：-0.7%
+- 倒産ヘッジ（ネット現金の有無）：純有利子負債あり。営業CFでの返済余力を確認
+- 投資CF（直近／推移）：-$567M ← -$655M ← -$1.02B ← -$413M
+- 財務CF（直近／推移）：-$211M ← -$475M ← $66M ← -$133M
+- 自社株買い（直近期）：$70M（時価総額比 1.47%）
+- CFの符号パターン：営業＋ / 投資－ / 財務－ … 健全型（本業で稼ぎ→投資と株主還元に回す）
+- 総還元性向（（配当＋自社株買い）÷純利益）：―
+- 減配履歴：最終減配 2021年頃（6年前）。回復途上
+- 益回り（1÷PER）：―
+- RSI(14)：53　中立
+- MACD(12,26,9)：シグナル上（上向き継続）
 
 ---
-Educational general information only. The 'Selection' and 'Timing' scores/labels are produced mechanically from public data using predefined rules, and are not a substitute for investment advice. The operator is not a registered investment adviser. Figures are sourced from yfinance (Yahoo Finance) and may contain errors, delays or gaps. Sector averages and thresholds are rough 2026 guides. Do your own research against primary sources (10-K, 10-Q). See the terms page.
+本ページは教育目的の一般情報です。「銘柄選定」「買い時」のスコア・ラベルは、あらかじめ定めた計算ルールで公開データから機械的に算出したものであり、投資助言ではありません。運営者は金融商品取引法上の投資助言・代理業の登録を受けていません。数値は yfinance（Yahoo Finance）由来で誤り・遅延・欠損があり得ます。業種平均・判定しきい値は2026年時点の目安です。正確な情報は各社の10-K・10-Q 等の一次情報でご確認ください。詳しくは<a href="../terms.html">利用規約・免責事項</a>を参照。

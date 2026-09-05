@@ -11,28 +11,28 @@
  "mcap": 51251187712,
  "sel_score": 88.8,
  "tim_score": 57.5,
- "sel_label": "Selection score: top tier (quality & durability both high)",
- "tim_label": "Timing score: bottom tier (expensive)",
- "comment": "Selection is top tier, but timing is bottom tier (expensive).",
+ "sel_label": "選定スコア上位（質・持続力とも高水準）",
+ "tim_label": "買い時スコア最下位（割高水準）",
+ "comment": "選定は上位水準だが、買い時は最下位（割高水準）。",
  "cov_sel": [
   16,
   17,
-  "high"
+  "高"
  ],
  "cov_tim": [
   7,
   7,
-  "high"
+  "高"
  ],
  "groups": {
-  "Operating performance": 100.3,
-  "Financial strength": 90.9,
-  "Cash flow": 60.0,
-  "Dividend durability": 90.7,
-  "Dividend yield theory": 40.0,
-  "Yield level & Chowder": 90.8,
-  "Valuation vs sector": 56.2,
-  "Rate spread": 51.6
+  "業績": 100.3,
+  "財務": 90.9,
+  "キャッシュフロー": 60.0,
+  "配当の持続力": 90.7,
+  "配当利回りセオリー": 40.0,
+  "利回り水準とChowder": 90.8,
+  "株価バリュエーション": 56.2,
+  "金利スプレッド": 51.6
  },
  "div_yield": 2.38650142641304,
  "total_yield": 2.38650142641304,
@@ -48,5 +48,5 @@
  "yield_band_pos": 0.0,
  "next_earn": "2026-10-29",
  "warnings": [],
- "_generated_at": "2026-09-06T01:38:16"
+ "_generated_at": "2026-09-06T02:50:59"
 }

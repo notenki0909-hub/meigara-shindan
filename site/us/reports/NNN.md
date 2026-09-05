@@ -1,75 +1,75 @@
-# NNN REIT, Inc. (NNN) — dividend screening
+# NNN REIT, Inc.（NNN）｜米国株 配当スクリーニング
 
-- GICS sector: **Real Estate** (simple mode)
-- Price: $44.63  |  Market cap: $8.49B  |  Generated: 2026-09-06
+- GICS業種：**不動産**（Real Estate）（簡易判定）
+- 株価：$44.63  ｜  時価総額：$8.49B  ｜  生成：2026-09-06
 
-## Selection 96 — Selection score: top tier (quality & durability both high)
-Growth: not scored in simple mode (see reference section)  /  Stability: not scored in simple mode (financials/CF are structurally different)
+## 銘柄選定 96 ― 選定スコア上位（質・持続力とも高水準）
+成長性：簡易判定では未評価（業績は参考欄に表示）  ／  安定性：簡易判定では未評価（財務・CFは構造的に別基準）
 
-## Timing 105 — Timing score: top tier (cheap zone)
-Valuation: cheap zone (below sector avg / low in its own range)  /  Short-term: RSI 32 (neutral) / below signal (downtrend)
+## 買い時 105 ― 買い時スコア上位（割安水準）
+割安・割高：割安圏（業種平均・自分の過去レンジ比で安い）  ／  短期：RSI 32（中立） ／ シグナル下（下向き継続）
 
-> Both selection and timing are top tier.
+> 選定・買い時とも上位水準。
 
-### Selection metrics
+### 銘柄選定の指標
 
-**Operating performance** — n/a
-- — —  Revenue (trend / CAGR): $926M ← $869M ← $828M ← $773M
-- — —  EPS (trend / CAGR): $2.07 ← $2.16 ← $2.16 ← $1.89
-- — —  Operating margin (latest): 61.5%
-- — —  Earnings stability (operating income volatility): worst YoY 1.05
+**業績** ― ―
+- ― ―  売上高（推移／年率）：$926M ← $869M ← $828M ← $773M
+- ― ―  EPS（推移／年率）：$2.07 ← $2.16 ← $2.16 ← $1.89
+- ― ―  営業利益率（直近）：61.5%
+- ― ―  利益の安定度（営業利益のブレ）：最悪の前年比 1.05
 
-**Financial strength** — n/a
-- — —  D/E ratio (total debt / equity): 1.09x
-- — —  Net D/E ratio: 1.09x
-- — —  Total debt / operating CF (years to repay): 7.2 yr
-- — —  Interest coverage ratio (EBIT / interest expense): 2.9x
+**財務** ― ―
+- ― ―  D/Eレシオ（有利子負債÷自己資本）：1.09倍
+- ― ―  ネットD/Eレシオ：1.09倍
+- ― ―  有利子負債 ÷ 営業CF（返済年数の目安）：7.2年
+- ― ―  インタレストカバレッジレシオ（EBIT÷支払利息）：2.9倍
 
-**Cash flow** — n/a
-- — —  Operating CF (latest / trend): $667M ← $636M ← $612M ← $578M
-- — —  Free CF (operating CF + investing CF): $667M ← $636M ← $612M ← $578M
-- — —  FCF payout ratio (dividends paid / free CF): 66.4%
+**キャッシュフロー** ― ―
+- ― ―  営業CF（直近／推移）：$667M ← $636M ← $612M ← $578M
+- ― ―  フリーCF（営業CF＋投資CF）：$667M ← $636M ← $612M ← $578M
+- ― ―  FCF配当性向（配当支払÷フリーCF）：66.4%
 
-**Dividend durability** — 96
-- △ 81  Dividend growth rate (5-yr CAGR): 2.7%
-- ◎ 102  Consecutive years of increases: 17 yr
-- ◎ 110  Consecutive years without a cut: 36 yr
-- ◎ 100  Payout ratio (net income basis): 118.2%
-- △ 74  ROE (efficiency of the dividend's source): 8.7%
-- ◎ 108  Total yield (dividend + buyback): 5.56% (div) + 0.00% (buyback) = 5.56%
+**配当の持続力** ― 96
+- △ 81  増配率（直近5年・年率）：2.7%
+- ◎ 102  連続増配 年数：17年
+- ◎ 110  連続 非減配 年数：36年
+- ◎ 100  配当性向（純利益ベース）：118.2%
+- △ 74  ROE（配当の原資の効率）：8.7%
+- ◎ 108  総還元利回り（配当＋自社株買い）：5.56%（配当）＋0.00%（自社株買い）＝5.56%
 
-### Timing metrics
+### 買い時の指標
 
-**Dividend yield theory** — 107
-- ◎ 107  Dividend yield theory (position in own historical range): range 4.6-5.7% / now 5.6% = cheapness 88/100
+**配当利回りセオリー** ― 107
+- ◎ 107  配当利回りセオリー（自分の過去レンジ内の位置）：過去 4.6〜5.7% ／ 現在 5.6% ＝ 割安度 88/100
 
-**Yield level & Chowder** — 105
-- ◎ 110  Forward dividend yield: 5.56%
-- ◎ 101  Chowder rule (yield + 5-yr DGR): 8.2%
+**利回り水準とChowder** ― 105
+- ◎ 110  予想配当利回り：5.56%
+- ◎ 101  Chowderルール（利回り＋5年増配率）：8.2%
 
-**Valuation vs sector** — 98
-- ◎ 110  P/E (trailing, vs sector): 22.0x
-- ◎ 109  P/B (vs sector): 1.92x
-- △ 75  P/E position within its own historical range: range 19.4-23.4x / now 22.0x = cheapness 35/100
+**株価バリュエーション** ― 98
+- ◎ 110  PER（実績・対業種平均）：22.0倍
+- ◎ 109  PBR（実績・対業種平均）：1.92倍
+- △ 75  PERの自社過去レンジ内の位置：過去 19.4〜23.4倍 ／ 現在 22.0倍 ＝ 割安度 35/100
 
-**Rate spread** — 109
-- ◎ 109  Yield minus 10-year Treasury (spread): 5.56% - 4.20% = +1.36%
+**金利スプレッド** ― 109
+- ◎ 109  利回り − 10年国債スプレッド：5.56% − 4.20% ＝ +1.36%
 
-### Reference
-- Operating income (trend / CAGR): $570M ← $542M ← $514M ← $473M
-- Net income (trend / CAGR): $390M ← $397M ← $392M ← $335M
-- Equity ratio (equity / assets): 47.0%
-- ROIC (return on invested capital): 4.9%
-- Solvency hedge (net cash?): net debt present; check repayment capacity from operating CF
-- Investing CF (latest / trend): -$748M ← -$424M ← -$681M ← -$778M
-- Financing CF (latest / trend): $78M ← -$207M ← $67M ← $35M
-- Buybacks (latest year): $0 (0.00% of market cap)
-- CF sign pattern: Op + / Inv - / Fin + … check
-- Total payout ratio ((dividend + buyback) / net income): 113.7%
-- Dividend cut history: no cut within the data window
-- Earnings yield (1 / P/E): 4.5%
-- RSI(14): 32  neutral
-- MACD(12,26,9): below signal (downtrend)
+### 参考
+- 営業利益（推移／年率）：$570M ← $542M ← $514M ← $473M
+- 当期純利益（推移／年率）：$390M ← $397M ← $392M ← $335M
+- 自己資本比率（自己資本÷総資産）：47.0%
+- ROIC（投下資本利益率）：4.9%
+- 倒産ヘッジ（ネット現金の有無）：純有利子負債あり。営業CFでの返済余力を確認
+- 投資CF（直近／推移）：-$748M ← -$424M ← -$681M ← -$778M
+- 財務CF（直近／推移）：$78M ← -$207M ← $67M ← $35M
+- 自社株買い（直近期）：$0（時価総額比 0.00%）
+- CFの符号パターン：営業＋ / 投資－ / 財務＋ … 要確認
+- 総還元性向（（配当＋自社株買い）÷純利益）：113.7%
+- 減配履歴：減配歴なし（確認できたデータ範囲内）
+- 益回り（1÷PER）：4.5%
+- RSI(14)：32　中立
+- MACD(12,26,9)：シグナル下（下向き継続）
 
 ---
-Educational general information only. The 'Selection' and 'Timing' scores/labels are produced mechanically from public data using predefined rules, and are not a substitute for investment advice. The operator is not a registered investment adviser. Figures are sourced from yfinance (Yahoo Finance) and may contain errors, delays or gaps. Sector averages and thresholds are rough 2026 guides. Do your own research against primary sources (10-K, 10-Q). See the terms page.
+本ページは教育目的の一般情報です。「銘柄選定」「買い時」のスコア・ラベルは、あらかじめ定めた計算ルールで公開データから機械的に算出したものであり、投資助言ではありません。運営者は金融商品取引法上の投資助言・代理業の登録を受けていません。数値は yfinance（Yahoo Finance）由来で誤り・遅延・欠損があり得ます。業種平均・判定しきい値は2026年時点の目安です。正確な情報は各社の10-K・10-Q 等の一次情報でご確認ください。詳しくは<a href="../terms.html">利用規約・免責事項</a>を参照。

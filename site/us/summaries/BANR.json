@@ -11,28 +11,28 @@
  "mcap": 2606898432,
  "sel_score": 67.3,
  "tim_score": 56.9,
- "sel_label": "Selection score: low tier (quality concerns)",
- "tim_label": "Timing score: bottom tier (expensive)",
- "comment": "Selection is low; timing is bottom tier.",
+ "sel_label": "選定スコア下位（質に不安）",
+ "tim_label": "買い時スコア最下位（割高水準）",
+ "comment": "選定は下位、買い時は最下位水準。",
  "cov_sel": [
   6,
   6,
-  "high"
+  "高"
  ],
  "cov_tim": [
   6,
   6,
-  "high"
+  "高"
  ],
  "groups": {
-  "Operating performance": null,
-  "Financial strength": null,
-  "Cash flow": null,
-  "Dividend durability": 67.3,
-  "Dividend yield theory": 40.4,
-  "Yield level & Chowder": 58.2,
-  "Valuation vs sector": 86.7,
-  "Rate spread": null
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "配当の持続力": 67.3,
+  "配当利回りセオリー": 40.4,
+  "利回り水準とChowder": 58.2,
+  "株価バリュエーション": 86.7,
+  "金利スプレッド": null
  },
  "div_yield": 2.8671819483489465,
  "total_yield": 4.0783913922004205,
@@ -48,7 +48,7 @@
  "yield_band_pos": 0.004494649740779684,
  "next_earn": "2026-10-14",
  "warnings": [
-  "Banks / insurers are scored in simple mode: operating, financial and CF metrics are structurally different and are shown for reference only."
+  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
  ],
- "_generated_at": "2026-09-06T01:29:12"
+ "_generated_at": "2026-09-06T02:41:57"
 }

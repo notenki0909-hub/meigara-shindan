@@ -1,10 +1,10 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>How to read this — US dividend screening</title>
+<title>使い方・見方｜米国株 配当スクリーニング</title>
 <style>
 :root{--bg:#fafafa;--card:#fff;--line:#e6e6e6;--muted:#666;--accent:#2563eb}
 *{box-sizing:border-box}
-body{margin:0;font:14px/1.8 -apple-system,"Segoe UI",system-ui,sans-serif;background:var(--bg);color:#1a1a1a}
+body{margin:0;font:14px/1.8 -apple-system,"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;background:var(--bg);color:#1a1a1a}
 .wrap{max-width:760px;margin:0 auto;padding:28px 18px 60px}
 h1{font-size:20px;margin:0 0 6px}
 h2{font-size:15px;margin:0 0 8px;border-bottom:2px solid var(--line);padding-bottom:4px}
@@ -20,6 +20,7 @@ ol.steps li{background:var(--bg);border:1px solid var(--line);border-radius:8px;
   display:flex;gap:10px;align-items:baseline;margin-bottom:8px}
 ol.steps b.n{background:var(--accent);color:#fff;border-radius:50%;width:20px;height:20px;
   display:inline-flex;align-items:center;justify-content:center;font-size:12px;flex:none}
+ol.steps li span{flex:1;min-width:0}
 table{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0}
 th,td{border:1px solid var(--line);padding:6px 8px;text-align:left}
 th{background:#f3f4f6}
@@ -29,100 +30,95 @@ th{background:#f3f4f6}
 .topbar a{font-size:12.5px;white-space:nowrap}
 </style></head><body><div class="wrap">
 
-<div class="topbar"><h1>How to read this</h1><a href="index.html">&larr; back to list</a></div>
-<div class="updated">Last updated: 2026-09-06</div>
+<div class="topbar"><h1>使い方・見方</h1><a href="index.html">← 一覧へ戻る</a></div>
+<div class="updated">最終更新：2026-09-06</div>
 
 <div class="card">
-<h2>Three steps</h2>
+<h2>まずはこの3ステップ</h2>
 <ol class="steps">
-<li><b class="n">1</b><span>On the list page, <b>search</b> (ticker / name / sector) or use the <b>Tier 1–3 buttons</b> to filter. Click a column header for its definition; click the <b>&#9660;</b> to sort by that column.</span></li>
-<li><b class="n">2</b><span>Click a <b>ticker</b> to open its individual report.</span></li>
-<li><b class="n">3</b><span>In a report, click any metric row to expand "what to look at / the scoring rule / why this name scored the way it did". Read the reasoning, not just the number.</span></li>
+<li><b class="n">1</b><span>一覧ページで<b>検索</b>（ティッカー・銘柄名・業種）や<b>1〜3軍ボタン</b>で絞り込む。表の見出し（選定・買い時・利回り・増配・カバレッジ・業種級）は<b>文字クリックで説明</b>、<b>▼クリックでその列を並び替え</b>できる。</span></li>
+<li><b class="n">2</b><span>気になる銘柄の<b>ティッカーをクリック</b>して個別レポートへ。</span></li>
+<li><b class="n">3</b><span>レポート内の各指標は行をクリックすると「判定ルール／この銘柄がその評価になった理由」が展開される。数字だけでなく、なぜその評価かを確認してから読むのがおすすめ。</span></li>
 </ol>
 </div>
 
 <div class="card">
-<h2>Why this set of names (the screen)</h2>
-<p>The starting universe is the S&amp;P Composite 1500 (S&amp;P 500 + 400 + 600, ~1,500 names).
-A name is listed only if it passes <b>both</b>:</p>
+<h2>掲載銘柄の選び方（スクリーン）</h2>
+<p>母集団は S&amp;P コンポジット1500（S&amp;P 500 ＋ 400 ＋ 600・約1,500銘柄）。
+以下の2条件を<b>すべて</b>満たす銘柄だけを掲載している。</p>
 <table>
-<tr><th>Filter</th><th>Bar</th></tr>
-<tr><td>Forward dividend yield</td><td>&ge; 1.5% (the S&amp;P 500 average is ~1.2%)</td></tr>
-<tr><td>Consecutive years without a dividend cut</td><td>&ge; 5 years, computed from the yfinance
-dividend history (not from any external Aristocrats/Kings list)</td></tr>
+<tr><th>条件</th><th>基準</th></tr>
+<tr><td>予想配当利回り</td><td>1.5%以上（S&amp;P500平均は約1.2%と日本の半分程度）</td></tr>
+<tr><td>連続非減配年数</td><td>直近5年 減配なし。yfinanceの配当履歴から自前計算
+（外部の配当貴族／王リストには依存しない）</td></tr>
 </table>
-<p>No explicit market-cap floor — S&amp;P 600 inclusion already implies roughly $850M+.
-About 500 names pass. The list is rebuilt quarterly following S&amp;P index membership changes.
-Not being listed does not mean "bad" — most often the name just does not fit a dividend screen
-right now (e.g. a non-payer growth stock).</p>
+<p>時価総額の下限は別途設けていない（S&amp;P600採用基準で概ね8.5億ドル以上が担保されるため）。
+約500銘柄が通過する。S&amp;Pの構成銘柄入れ替えに合わせて四半期ごとに作り直す。
+掲載されていない＝「悪い銘柄」という意味ではなく、単に配当株スクリーニングの基準に
+今は合っていない場合が多い（無配の成長株など）。</p>
 </div>
 
 <div class="card">
-<h2>Data sources</h2>
+<h2>情報源</h2>
 <ul>
-<li><b>Universe &amp; sector (GICS)</b>: S&amp;P 500/400/600 constituent tables (Wikipedia).</li>
-<li><b>Prices, financials, dividends, earnings, analyst estimates</b>: yfinance (Yahoo Finance).</li>
-<li><b>10-year Treasury yield</b> (for the rate-spread metric): a bundled ~4.2% guide value,
-updated quarterly by hand.</li>
+<li><b>銘柄の一覧・GICS業種分類</b>：S&amp;P 500/400/600 構成銘柄一覧（Wikipedia）</li>
+<li><b>株価・財務・配当・決算実績・アナリスト予想</b>：yfinance（Yahoo Finance）経由で取得</li>
+<li><b>米10年国債利回り</b>（金利スプレッドの算出用）：同梱の目安値 約4.2%（四半期ごとに手更新）</li>
 </ul>
-<p>All free, unauthenticated data — so errors, delays and gaps are possible. See the
-<a href="terms.html">terms &amp; disclaimer</a>.</p>
+<p>いずれも無料で公開されているデータで、誤り・遅延・欠損があり得る。詳しくは
+<a href="terms.html">利用規約・免責事項</a>を参照。</p>
 </div>
 
 <div class="card">
-<h2>Two scores</h2>
-<p>Quality and price are kept separate.</p>
+<h2>銘柄選定スコアと買い時スコア（2本立て）</h2>
+<p>このサイトは「良い会社か」と「今買う値段か」を混ぜず、<b>2つのスコア</b>で別々に見る。</p>
 <table>
-<tr><th>Score</th><th>Means</th><th>Metric groups</th></tr>
-<tr><td><b>Selection</b> (0–110)</td><td>Quality of the dividend; is it long-term holdable</td>
-<td>Operating performance · financial strength · cash flow · dividend durability</td></tr>
-<tr><td><b>Timing</b> (0–110)</td><td>Whether the current price looks cheap; separate from quality</td>
-<td>Dividend-yield theory · yield level &amp; Chowder · valuation vs sector · rate spread</td></tr>
+<tr><th>スコア</th><th>意味</th><th>見ている指標グループ</th></tr>
+<tr><td><b>銘柄選定</b>（0〜110）</td><td>配当株としての質。長期保有できるか</td>
+<td>業績・財務・キャッシュフロー・配当の持続力</td></tr>
+<tr><td><b>買い時</b>（0〜110）</td><td>今の株価が割安か。質の評価とは別物</td>
+<td>配当利回りセオリー・利回り水準とChowder・株価バリュエーション・金利スプレッド</td></tr>
 </table>
-<p>Read them together:</p>
+<p>2つを組み合わせて読む。例：</p>
 <table>
-<tr><th>Selection</th><th>Timing</th><th>Reading</th></tr>
-<tr><td>high</td><td>high</td><td>Quality and price both look good.</td></tr>
-<tr><td>high</td><td>low</td><td>Good business, currently on the expensive side — a pullback candidate.</td></tr>
-<tr><td>low</td><td>high</td><td>Cheap but quality is in question — watch for a value trap / de-rating.</td></tr>
-<tr><td>low</td><td>low</td><td>Both quality and price look weak.</td></tr>
+<tr><th>選定</th><th>買い時</th><th>読み方の例</th></tr>
+<tr><td>上位</td><td>上位</td><td>質・価格とも良好な水準</td></tr>
+<tr><td>上位</td><td>下位</td><td>質は良いが今は割高寄り。押し目待ちの候補</td></tr>
+<tr><td>下位</td><td>上位</td><td>安いが質に不安。バリュートラップの可能性に注意</td></tr>
+<tr><td>下位</td><td>下位</td><td>質・価格とも見劣りする水準</td></tr>
 </table>
 </div>
 
 <div class="card">
-<h2>Tiers and sector grades</h2>
-<p><b>Tier 1 / 2 / 3</b> rank names <i>within a GICS sector</i> by selection score (top 25% / next
-45% / rest). A name with "low" coverage is capped at Tier 2; a name with selection score 85+ is
-guaranteed at least Tier 2 so a strong sector cannot drag it to Tier 3.</p>
-<p><b>Sector grade A / B / C</b> compares GICS sectors by their median selection score (median 88+ =
-A, 84+ = B, below = C) — a guide to which sectors hold the better-quality dividend names. Judge
-individual names by the selection score and tier, not the grade.</p>
+<h2>軍と業種級</h2>
+<p><b>1軍／2軍／3軍</b>は、<b>GICS業種セクター内</b>で銘柄選定スコアの高い順に上位25%／次の45%／
+残りに分類したもの。カバレッジ「低」の銘柄は最高でも2軍。銘柄選定スコア85以上の銘柄は、
+強いセクターにいるだけで3軍に落ちないよう最低2軍を保証する。</p>
+<p><b>業種級 A／B／C</b>は、セクターごとの銘柄選定スコア中央値で比較したもの。どの業種に質の高い
+配当株が揃っているかの目安。個別銘柄は業種級ではなく「選定」スコアと「軍」で見る。</p>
 </div>
 
 <div class="card">
-<h2>US-specific notes</h2>
+<h2>米国株ならではの注意点</h2>
 <ul>
-<li><b>Total yield</b> = dividend yield + buyback yield (buybacks / market cap). US companies
-return a lot of cash through repurchases, so this is scored as a first-class metric. Buybacks are a
-single-year figure, not a recurring commitment — don't over-rely on one year.</li>
-<li><b>Interest coverage</b> (EBIT / interest expense) is scored in the financial-strength group;
-it matters more when rates are high.</li>
-<li><b>Rate spread</b> (yield minus the 10-year Treasury) is scored only for rate-sensitive
-sectors — Utilities, Real Estate, Communication Services, Consumer Staples. US Treasury yields are
-high, so a spread near zero is already attractive and the thresholds are set accordingly.</li>
-<li><b>Simple mode</b>: banks, insurers and REITs have structurally different financials, so their
-operating / financial / cash-flow groups are shown for reference only and the selection score comes
-from dividend durability. REIT payout ratios above 100% of GAAP net income are normal (judge on FFO,
-which this tool does not have).</li>
-<li>Company descriptions are the English text from Yahoo Finance.</li>
+<li><b>総還元利回り</b>＝配当利回り ＋ 自社株買い利回り（自社株買い額 ÷ 時価総額）。米国企業は
+自社株買いによる還元が大きいため、第1級の指標として採点している。自社株買いは単年の実施額で
+毎年続くとは限らない点に注意。</li>
+<li><b>インタレストカバレッジレシオ</b>（EBIT ÷ 支払利息）を財務グループで採点している。金利が
+高い局面ほど重要度が増す。</li>
+<li><b>金利スプレッド</b>（利回り − 米10年国債）は金利敏感セクター（公益・不動産・コミュニケーション・
+生活必需品）のみ採点。米国債利回りが高いため、スプレッドが0付近でも割安の目安としている。</li>
+<li><b>簡易判定</b>：銀行・保険・REIT は財務構造が特殊なため、業績・財務・CF グループは参考表示のみで、
+銘柄選定は配当の持続力から算出する。REITの配当性向がGAAP純利益ベースで100%を超えるのは
+正常（FFOベースで見るべきだがツールはGAAPしか持てない）。</li>
+<li>企業の事業内容の説明文は Yahoo Finance 由来の英語です。</li>
 </ul>
 </div>
 
 <div class="note">
-Educational general information only. Not investment advice; the operator is not a registered
-investment adviser. Scores are mechanical outputs of fixed rules and do not predict future prices
-or dividends.
+教育目的の一般情報です。投資助言ではなく、運営者は投資助言・代理業の登録を受けていません。
+スコアは定めたルールで機械的に算出したもので、将来の株価・配当を保証しません。
 </div>
 
-<a class="back" href="index.html">&larr; back to list</a>
+<a class="back" href="index.html">← 一覧へ戻る</a>
 </div></body></html>

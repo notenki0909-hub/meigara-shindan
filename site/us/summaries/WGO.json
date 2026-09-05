@@ -11,28 +11,28 @@
  "mcap": 877183744,
  "sel_score": 66.2,
  "tim_score": 109.8,
- "sel_label": "Selection score: low tier (quality concerns)",
- "tim_label": "Timing score: top tier (cheap zone)",
- "comment": "Timing is top tier (cheap), but selection is low (quality concerns) — a low score usually has a reason (possible value trap).",
+ "sel_label": "選定スコア下位（質に不安）",
+ "tim_label": "買い時スコア上位（割安水準）",
+ "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
  "cov_sel": [
   17,
   17,
-  "high"
+  "高"
  ],
  "cov_tim": [
   5,
   6,
-  "mid"
+  "中"
  ],
  "groups": {
-  "Operating performance": 24.7,
-  "Financial strength": 85.6,
-  "Cash flow": 102.9,
-  "Dividend durability": 68.9,
-  "Dividend yield theory": 110.0,
-  "Yield level & Chowder": 110.0,
-  "Valuation vs sector": 109.1,
-  "Rate spread": null
+  "業績": 24.7,
+  "財務": 85.6,
+  "キャッシュフロー": 102.9,
+  "配当の持続力": 68.9,
+  "配当利回りセオリー": 110.0,
+  "利回り水準とChowder": 110.0,
+  "株価バリュエーション": 109.1,
+  "金利スプレッド": null
  },
  "div_yield": 4.640670216355289,
  "total_yield": 10.762534690852437,
@@ -48,5 +48,5 @@
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-21",
  "warnings": [],
- "_generated_at": "2026-09-06T02:09:56"
+ "_generated_at": "2026-09-06T03:22:34"
 }

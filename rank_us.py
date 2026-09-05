@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-Reads site/us/summaries/*.json and, per GICS sector, assigns
-  - Sector grade A/B/C (median selection score within the sector)
-  - Tier 1 / Tier 2 / Tier 3 (within-sector percentile; low coverage capped at Tier 2;
-    absolute-score floor guarantees Tier 2 for selection score >= 85)
-  - Direction flag up / flat / down (delta vs the previous ranking.json)
-then writes site/us/ranking.json and site/us/index.html.
+site/us/summaries/*.json を読み、GICS11 セクターごとに
+  - 業種級 A/B/C（セクター内の銘柄選定スコア中央値）
+  - 1軍/2軍/3軍（セクター内パーセンタイル。カバレッジ低は2軍止まり）
+  - 方向フラグ ↑改善中／→横ばい／↓悪化中（前回 ranking.json との差）
+を付けて site/us/ranking.json と site/us/index.html を書き出す。
 
   python rank_us.py
 
 日本株版 rank.py の米国版。tiering の単位は GICS11 セクターそのもの（東証33→12の
-集約に相当するものは無し）。UI は英語。
+集約に相当するものは無し）。UI は日本語。
 """
 import datetime as dt
 import glob
@@ -21,6 +20,7 @@ import shutil
 import statistics as st
 
 import analyze_us
+from analyze_us import gics_jp
 
 HERE = os.path.dirname(__file__)
 SITE = os.path.join(HERE, "site", "us")
@@ -30,15 +30,11 @@ SCREEN_CFG = os.path.join(HERE, "universe_screen_us.json")
 RANKING = os.path.join(SITE, "ranking.json")
 INDEX = os.path.join(SITE, "index.html")
 
-DISC = ('This page classifies a pre-screened set of US-listed dividend stocks into tiers and '
-        'sector grades using scores computed mechanically from public data with fixed rules. '
-        'It does not recommend or solicit the purchase or sale of any security. The operator is '
-        'not a registered investment adviser. This is general educational information; make your '
-        'own decisions. Figures come from yfinance (Yahoo Finance) and may be wrong, delayed or '
-        'missing. See the <a href="terms.html">terms &amp; disclaimer</a>.')
-
-T1, T2, T3, T0 = "Tier 1", "Tier 2", "Tier 3", "—"
-TIER_RANK = {T1: 3, T2: 2, T3: 1, T0: 0}
+DISC = ('本ページは、あらかじめ定めた基準で抽出した米国上場の配当銘柄について、公開データを'
+        '機械的なルールで算出したスコアによる分類（1〜3軍・業種級）です。特定銘柄の売買を推奨・'
+        '勧誘するものではなく、運営者は投資助言・代理業の登録を受けていません。教育目的の一般'
+        '情報であり、投資判断はご自身の責任で行ってください。数値は yfinance 由来で誤り・遅延・'
+        '欠損があり得ます。詳しくは<a href="terms.html">利用規約・免責事項</a>をご確認ください。')
 
 
 def load_group_map(cfg):
@@ -49,24 +45,26 @@ def load_group_map(cfg):
     return rev
 
 
+TIER_RANK = {"1軍": 3, "2軍": 2, "3軍": 1, "―": 0}
+
+
 def tier_of(rank_idx, n, c1, c2):
     n1 = max(1, round(n * c1))
     n2 = max(1, round(n * c2))
     if rank_idx < n1:
-        return T1
+        return "1軍"
     if rank_idx < n1 + n2:
-        return T2
-    return T3
+        return "2軍"
+    return "3軍"
 
 
 def tier_floor(sel_score):
-    """Absolute-score floor. Same bar as analyze_us.SEL_TIERS[0] (85). A name judged a
-    long-term-holdable dividend stock should not drop to Tier 3 merely for sitting in a
-    strong sector; guarantee Tier 2. Tier 1 is left as a genuine within-sector top position."""
+    """絶対スコアの下駄。analyze_us.SEL_TIERS[0]（85）と同じ基準で「銘柄選定で長期保有
+    できる配当株と判定された銘柄が、強いセクターに属しているだけで3軍に落ちる」のを防ぐ。
+    最低でも2軍を保証。1軍はあくまでセクター内での相対的な上位なので下駄では底上げしない。"""
     if not isinstance(sel_score, (int, float)):
         return None
-    hi = analyze_us.SEL_TIERS[0]
-    return T2 if sel_score >= hi else None
+    return "2軍" if sel_score >= analyze_us.SEL_TIERS[0] else None
 
 
 def apply_floor(percentile_tier, sel_score):
@@ -78,7 +76,7 @@ def apply_floor(percentile_tier, sel_score):
 
 def grade_of(median, ga, gb):
     if median is None:
-        return "—"
+        return "―"
     return "A" if median >= ga else "B" if median >= gb else "C"
 
 
@@ -111,7 +109,7 @@ def main():
     gmap = load_group_map(gcfg)
     ga, gb = gcfg["grade_a"], gcfg["grade_b"]
     c1, c2 = gcfg["tier1_pct"], gcfg["tier2_pct"]
-    cap = gcfg.get("cap_low_coverage_at", T2)
+    cap = gcfg.get("cap_low_coverage_at", "2軍")
     min_n = gcfg.get("min_group_for_tiers", 6)
     prev = load_prev_scores()
 
@@ -122,14 +120,14 @@ def main():
         except Exception:
             continue
         sec = s.get("gics_sector") or ""
-        grp = gmap.get(sec, "Other")
+        grp = gmap.get(sec, "その他")
         rows.append({
             "code": s["code"], "name": s.get("name") or s["code"],
-            "sector": sec, "group": grp,
+            "sector": sec, "sector_jp": gics_jp(sec), "group": grp,
             "sel": s.get("sel_score"), "tim": s.get("tim_score"),
             "sel_label": s.get("sel_label"), "tim_label": s.get("tim_label"),
-            "cov_sel": (s.get("cov_sel") or [None, None, "—"])[2],
-            "cov_tim": (s.get("cov_tim") or [None, None, "—"])[2],
+            "cov_sel": (s.get("cov_sel") or [None, None, "―"])[2],
+            "cov_tim": (s.get("cov_tim") or [None, None, "―"])[2],
             "yield": s.get("div_yield"), "total_yield": s.get("total_yield"),
             "streak_up": s.get("streak_up"), "streak_flat": s.get("streak_flat"),
             "next_earn": s.get("next_earn"), "is_simple": s.get("is_simple"),
@@ -147,14 +145,14 @@ def main():
         n = len(gr)
         tiered = n >= min_n
         for i, r in enumerate(gr):
-            t = tier_of(i, n, c1, c2) if (tiered and r["sel"] is not None) else T0
+            t = tier_of(i, n, c1, c2) if (tiered and r["sel"] is not None) else "―"
             t = apply_floor(t, r["sel"])
-            if t == T1 and r["cov_sel"] == "low":
+            if t == "1軍" and r["cov_sel"] == "低":
                 t = cap
             r["tier"] = t
             r["dir"] = direction(r["sel"], prev.get(r["code"]))
         groups_out.append({
-            "name": gname, "grade": grade_of(median, ga, gb),
+            "name": gname, "name_jp": gics_jp(gname), "grade": grade_of(median, ga, gb),
             "median": median, "count": n, "tiered": tiered, "stocks": gr,
         })
 
@@ -170,9 +168,9 @@ def main():
             "no_cut_years": scfg.get("no_cut_years"),
         },
         "counts": {"total": len(rows),
-                   "Tier 1": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == T1),
-                   "Tier 2": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == T2),
-                   "Tier 3": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == T3)},
+                   "1軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "1軍"),
+                   "2軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "2軍"),
+                   "3軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "3軍")},
         "groups": groups_out, "global_top": global_top,
     }
 
@@ -203,27 +201,27 @@ def main():
             shutil.copyfile(src, os.path.join(SITE, fn))
 
     if unchanged:
-        print(f"no change (nothing to update since {prev_gen}) -> skip write")
+        print(f"変化なし（前回 {prev_gen} から更新すべき内容がない）→ 書き込みスキップ")
         print(f"  {out['counts']}")
         return
 
     json.dump(out, open(RANKING, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     open(INDEX, "w", encoding="utf-8").write(new_html)
-    print(f"-> {RANKING}")
-    print(f"-> {INDEX}")
+    print(f"→ {RANKING}")
+    print(f"→ {INDEX}")
     print(f"  {out['counts']}")
 
 
 # ---------------------------------------------------------------- HTML
 def _num(v, d=1):
-    return f"{v:.{d}f}" if isinstance(v, (int, float)) else "—"
+    return f"{v:.{d}f}" if isinstance(v, (int, float)) else "―"
 
 
 def _streak(u, f):
     if isinstance(u, (int, float)) and u >= 1:
-        return f"{int(u)}y increases"
+        return f"連続増配{int(u)}年"
     if isinstance(f, (int, float)) and f >= 1:
-        return f"{int(f)}y no cut"
+        return f"非減配{int(f)}年"
     return ""
 
 
@@ -239,61 +237,60 @@ def _v(x):
     return x if isinstance(x, (int, float)) else ""
 
 
-TIER_CLASS = {T1: "t1", T2: "t2", T3: "t3", T0: "t0"}
+TIER_CLASS = {"1軍": "t1", "2軍": "t2", "3軍": "t3", "―": "t0"}
 DIR_CLASS = {"↑": "up", "↓": "dn", "→": "fl"}
 
 TERMS = {
-    "tier": ("Tier (1–3)",
-             "Within a GICS sector, names are ranked by selection score: the top 25% are Tier 1, "
-             "the next 45% Tier 2, the rest Tier 3. A name with 'low' coverage is capped at Tier 2. "
-             "Conversely, a name with a selection score of 85+ (the long-term-holdable bar) is "
-             "guaranteed at least Tier 2 so it is not dragged to Tier 3 just for being in a "
-             "strong sector — Tier 1 is left as a genuine within-sector top position. Sectors with "
-             "fewer than 6 screened names are shown flat ('—')."),
-    "grade": ("Sector grade (A/B/C)",
-              "<b>A &gt; B &gt; C: A sectors hold the better-quality dividend names.</b> Judged from "
-              "the median selection score of each GICS sector — median 88+ = A, 84+ = B, below = C "
-              "(thresholds are calibrated to the actual distribution of the pre-screened universe "
-              "and are provisional). A guide for picking hunting grounds; judge individual names by "
-              "the selection score and tier."),
-    "sel": ("Selection score",
-            "A 0–110 score from operating performance, financial strength, cash flow and dividend "
-            "durability. The quality of the dividend / whether it looks long-term holdable. "
-            "85+ = top tier, 68+ = mid, 55+ = low, below = under the bar."),
-    "tim": ("Timing score",
-            "A 0–110 score from the dividend-yield-theory position (where the yield sits in its own "
-            "history), yield level &amp; the Chowder rule, valuation vs the sector (P/E, P/B) and — "
-            "for rate-sensitive sectors — the spread over the 10-year Treasury. A read on the "
-            "current price, separate from quality. 98+ = cheap zone, 82+ = fair, 64+ = a bit "
-            "expensive, below = expensive (thresholds calibrated to the screened universe)."),
-    "yield": ("Yield",
-              "Forward annual dividend / current price."),
-    "streak": ("Dividend streak",
-               "The longer of: consecutive years of increases ('Ny increases'), or consecutive "
-               "years without a cut even if increases have paused ('Ny no cut'). Computed from the "
-               "yfinance dividend history on a per-payment-rate basis (robust to shifted pay dates)."),
-    "cov": ("Coverage",
-            "The share of scoring metrics that had usable data for this name: high (85%+), mid "
-            "(65%+), low (below). Low-coverage names have short financial/dividend history and their "
-            "scores are noisier — treat as indicative."),
+    "tier": ("軍（1〜3軍）",
+             "GICS業種セクター内で銘柄選定スコアの高い順に、上位25%を1軍、続く45%を2軍、"
+             "残りを3軍に分類。カバレッジが「低」の銘柄は最高でも2軍まで。逆に銘柄選定スコアが"
+             "85以上（＝選定スコア上位の水準）の銘柄は、たまたま質の高いセクターに属しているだけで"
+             "3軍に落ちないよう最低でも2軍を保証する（1軍はセクター内での相対的な上位という意味を"
+             "残すため底上げしない）。対象が6銘柄未満のセクターは軍分けせず「―」。"),
+    "grade": ("業種級（A/B/C）",
+              "<b>A＞B＞C の順で、Aが最も質の高い配当株が揃っている業種</b>という序列。GICS11の"
+              "各セクターの銘柄選定スコアの中央値をもとに判定し、中央値88以上でA、84以上でB、"
+              "それ未満はC（この境界値は、スクリーニング済みの母集団の実際の分布に合わせて"
+              "校正しており暫定値）。同じセクター内の銘柄でも、Aの業種の方がBやCの業種より"
+              "粒ぞろいで質が高い傾向にある、という業種選びの目安。個別銘柄の良し悪しは"
+              "「選定」スコアと「軍」で見る。"),
+    "sel": ("選定（銘柄選定スコア）",
+            "業績・財務・キャッシュフロー・配当の持続力から算出する0〜110点のスコア。"
+            "配当株としての質・長期保有できるかどうかの目安。85以上＝選定スコア上位（質・"
+            "持続力とも高水準）、68以上＝中位、55以上＝下位、それ未満＝基準未達。"),
+    "tim": ("買い時（買い時スコア）",
+            "配当利回りセオリー（自社の過去レンジ内の位置）・利回り水準とChowderルール・"
+            "株価バリュエーション（PER/PBR対業種平均）・金利スプレッド（利回り − 米10年国債）"
+            "から算出する0〜110点のスコア。今の株価水準の目安であり、質の評価（選定）とは"
+            "別物。98以上＝割安水準、82以上＝妥当水準、64以上＝やや割高、それ未満＝割高"
+            "（しきい値は母集団の分布に合わせて校正）。"),
+    "yield": ("利回り",
+              "会社予想の年間配当金 ÷ 現在の株価（予想配当利回り）。"),
+    "streak": ("増配",
+               "連続で増配している年数（「連続増配N年」）、増配は止まっていても減配して"
+               "いない年数（「非減配N年」）のどちらか長い方を表示。yfinanceの配当履歴から、"
+               "1回あたり配当額の前年同期比で自前計算（支払時期のズレに強い方式）。"),
+    "cov": ("カバレッジ",
+            "その銘柄でスコア算出に使えた指標の割合。高（85%以上）・中（65%以上）・"
+            "低（それ未満）の3段階。低い銘柄は財務・配当の履歴が短い等の理由でデータが"
+            "足りず、点数がぶれやすいので参考程度に見てほしいという意味。"),
 }
 
 
 def render_index(out):
     gen = out["generated_at"]
     sc = out.get("screen", {})
-    scr = (f'yield &ge; {sc.get("min_dividend_yield_pct")}% · no cut in the last '
-           f'{sc.get("no_cut_years")} years · universe: {html.escape(str(sc.get("universe") or "S&P 1500"))}'
-           ) if sc.get("min_dividend_yield_pct") else ""
+    scr = (f'予想利回り ≥ {sc.get("min_dividend_yield_pct")}% ・ 直近{sc.get("no_cut_years")}年 減配なし ・ '
+           f'母集団：{html.escape(str(sc.get("universe") or "S&P1500"))}') if sc.get("min_dividend_yield_pct") else ""
     c = out["counts"]
     terms_json = json.dumps(TERMS, ensure_ascii=False)
 
     secs = []
     for g in out["groups"]:
-        head = (f'<h2>{html.escape(g["name"])} '
-                f'<span class="grade grade{g["grade"]} hdr" data-term="grade">grade {g["grade"]}</span> '
-                f'<span class="gmeta">median {_num(g["median"])} / {g["count"]} names'
-                f'{"" if g["tiered"] else " · too few to tier"}</span></h2>')
+        head = (f'<h2>{html.escape(g["name_jp"])} '
+                f'<span class="grade grade{g["grade"]} hdr" data-term="grade">業種級 {g["grade"]}</span> '
+                f'<span class="gmeta">中央値 {_num(g["median"])} ／ {g["count"]}銘柄'
+                f'{"" if g["tiered"] else " ・ 少数のため軍分けなし"}</span></h2>')
         trs = []
         for s in g["stocks"]:
             tcls = TIER_CLASS.get(s["tier"], "t0")
@@ -311,31 +308,31 @@ def render_index(out):
                 f'<td class="cv">{s["cov_sel"]}</td>'
                 f'</tr>')
         secs.append('<section class="grp">' + head + '<table><thead><tr>'
-                    '<th class="hdr" data-term="tier">Tier</th><th>Ticker</th><th>Name</th>'
-                    '<th class="n"><span class="hdr" data-term="sel">Sel</span><span class="sortbtn">▼</span></th>'
-                    '<th class="n"><span class="hdr" data-term="tim">Tim</span><span class="sortbtn">▼</span></th>'
-                    '<th class="n"><span class="hdr" data-term="yield">Yield</span><span class="sortbtn">▼</span></th>'
-                    '<th><span class="hdr" data-term="streak">Streak</span><span class="sortbtn">▼</span></th>'
-                    '<th class="hdr" data-term="cov">Cov</th>'
+                    '<th class="hdr" data-term="tier">軍</th><th>ティッカー</th><th>銘柄</th>'
+                    '<th class="n"><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>'
+                    '<th class="n"><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th>'
+                    '<th class="n"><span class="hdr" data-term="yield">利回り</span><span class="sortbtn">▼</span></th>'
+                    '<th><span class="hdr" data-term="streak">増配</span><span class="sortbtn">▼</span></th>'
+                    '<th class="hdr" data-term="cov">カバレッジ</th>'
                     '</tr></thead><tbody>' + "".join(trs) + '</tbody></table></section>')
 
     gt = "".join(
-        f'<tr class="r" data-tier="{s.get("tier","—")}"><td class="n">{i+1}</td>'
-        f'<td class="tier">{s.get("tier","—")}</td>'
+        f'<tr class="r" data-tier="{s.get("tier","―")}"><td class="n">{i+1}</td>'
+        f'<td class="tier">{s.get("tier","―")}</td>'
         f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
         f'<td class="nm">{html.escape(s["name"])}</td>'
-        f'<td class="sec">{html.escape(s["group"])}</td>'
+        f'<td class="sec">{html.escape(s["sector_jp"])}</td>'
         f'<td class="n" data-v="{_v(s["sel"])}">{_num(s["sel"],0)}</td>'
         f'<td class="n" data-v="{_v(s["tim"])}">{_num(s["tim"],0)}</td></tr>'
         for i, s in enumerate(out["global_top"]))
 
-    return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
+    return f"""<!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>US dividend stocks — tier ranking</title>
+<title>米国株 配当株 軍分けランキング</title>
 <style>
 :root{{--bg:#fafafa;--card:#fff;--line:#e6e6e6;--muted:#666;--accent:#2563eb}}
 *{{box-sizing:border-box}}
-body{{margin:0;font:14px/1.6 -apple-system,"Segoe UI",system-ui,sans-serif;
+body{{margin:0;font:14px/1.7 -apple-system,"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;
   background:var(--bg);color:#1a1a1a}}
 .wrap{{max-width:980px;margin:0 auto;padding:20px 16px 60px}}
 h1{{font-size:20px;margin:0 0 4px}}
@@ -391,29 +388,29 @@ section.grp[hidden],details[hidden]{{display:none}}
 .ticlose{{position:absolute;top:6px;right:8px;border:none;background:none;cursor:pointer;
   font-size:15px;line-height:1;color:var(--muted);padding:4px}}
 </style></head><body><div class="wrap">
-<div class="topbar"><h1>US dividend stocks — tier ranking</h1><a href="terms.html">terms &amp; disclaimer</a></div>
-<div class="sub">generated {gen} &nbsp;|&nbsp; screen: {scr} &nbsp;|&nbsp; <a href="guide.html">how to read this</a></div>
-<div class="sub">Click a column header (Tier / Sel / Tim / Yield / Streak / Cov / grade) for its definition.</div>
+<div class="topbar"><h1>米国株 配当株 軍分けランキング</h1><a href="terms.html">利用規約・免責事項</a></div>
+<div class="sub">生成 {gen}　｜　スクリーン：{scr}　｜　<a href="guide.html">使い方・見方</a></div>
+<div class="sub">表の見出し（軍・選定・買い時・利回り・増配・カバレッジ・業種級）をクリックすると説明が出ます</div>
 <div class="summary">
-  <button type="button" class="sumbtn" data-tier=""><b>{c['total']}</b>names</button>
-  <button type="button" class="sumbtn" data-tier="Tier 1"><b>{c['Tier 1']}</b>Tier 1</button>
-  <button type="button" class="sumbtn" data-tier="Tier 2"><b>{c['Tier 2']}</b>Tier 2</button>
-  <button type="button" class="sumbtn" data-tier="Tier 3"><b>{c['Tier 3']}</b>Tier 3</button>
+  <button type="button" class="sumbtn" data-tier=""><b>{c['total']}</b>銘柄</button>
+  <button type="button" class="sumbtn" data-tier="1軍"><b>{c['1軍']}</b>1軍</button>
+  <button type="button" class="sumbtn" data-tier="2軍"><b>{c['2軍']}</b>2軍</button>
+  <button type="button" class="sumbtn" data-tier="3軍"><b>{c['3軍']}</b>3軍</button>
 </div>
-<div class="sub" style="margin:-14px 0 14px">Click to show only that tier (click again to clear).</div>
+<div class="sub" style="margin:-14px 0 14px">クリックでその軍だけ表示（もう一度押すと解除）</div>
 <div class="searchbar">
-  <input id="q" type="search" placeholder="search ticker / name / sector" autocomplete="off">
-  <button id="qclear" type="button">clear</button>
+  <input id="q" type="search" placeholder="ティッカー・銘柄名・業種で検索" autocomplete="off">
+  <button id="qclear" type="button">クリア</button>
   <span class="hit" id="qhit"></span>
 </div>
 <div id="terminfo" class="terminfo" hidden>
-  <button type="button" id="terminfo-close" class="ticlose" aria-label="close">✕</button>
+  <button type="button" id="terminfo-close" class="ticlose" aria-label="閉じる">✕</button>
   <div id="terminfo-body"></div>
 </div>
-<details id="topbox"><summary>Top 50 by selection score (all sectors)</summary>
-<table><thead><tr><th class="n">#</th><th class="hdr" data-term="tier">Tier</th><th>Ticker</th><th>Name</th><th>Sector</th>
-<th class="n"><span class="hdr" data-term="sel">Sel</span><span class="sortbtn">▼</span></th>
-<th class="n"><span class="hdr" data-term="tim">Tim</span><span class="sortbtn">▼</span></th></tr></thead><tbody>{gt}</tbody></table>
+<details id="topbox"><summary>全体 選定スコア 上位50（業種横断）</summary>
+<table><thead><tr><th class="n">#</th><th class="hdr" data-term="tier">軍</th><th>ティッカー</th><th>銘柄</th><th>業種</th>
+<th class="n"><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>
+<th class="n"><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th></tr></thead><tbody>{gt}</tbody></table>
 </details>
 {"".join(secs)}
 <div class="disc">{DISC}</div>
@@ -443,7 +440,7 @@ section.grp[hidden],details[hidden]{{display:none}}
       var anyTop = topbox.querySelector('tr.r:not([hidden])');
       topbox.hidden = filtering && !anyTop;
     }}
-    hit.textContent = filtering ? (total + ' hits') : '';
+    hit.textContent = filtering ? (total + '件ヒット') : '';
   }}
   q.addEventListener('input', apply);
   document.getElementById('qclear').addEventListener('click', function(){{

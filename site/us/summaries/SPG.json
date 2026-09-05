@@ -11,28 +11,28 @@
  "mcap": 79508340736,
  "sel_score": 90.7,
  "tim_score": 75.0,
- "sel_label": "Selection score: top tier (quality & durability both high)",
- "tim_label": "Timing score: low tier (somewhat expensive)",
- "comment": "Selection is top tier, but timing is low (somewhat expensive).",
+ "sel_label": "選定スコア上位（質・持続力とも高水準）",
+ "tim_label": "買い時スコア下位（やや割高水準）",
+ "comment": "選定は上位水準だが、買い時は下位（やや割高水準）。",
  "cov_sel": [
   6,
   6,
-  "high"
+  "高"
  ],
  "cov_tim": [
   7,
   7,
-  "high"
+  "高"
  ],
  "groups": {
-  "Operating performance": null,
-  "Financial strength": null,
-  "Cash flow": null,
-  "Dividend durability": 90.7,
-  "Dividend yield theory": 40.0,
-  "Yield level & Chowder": 109.2,
-  "Valuation vs sector": 77.8,
-  "Rate spread": 100.3
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "配当の持続力": 90.7,
+  "配当利回りセオリー": 40.0,
+  "利回り水準とChowder": 109.2,
+  "株価バリュエーション": 77.7,
+  "金利スプレッド": 100.3
  },
  "div_yield": 4.2494269940098475,
  "total_yield": 4.56806903540424,
@@ -42,13 +42,13 @@
  "roe": 120.508,
  "chowder": 11.589768548665507,
  "interest_coverage": 6.539304600265686,
- "per_vs_sector": 0.3459039578454332,
+ "per_vs_sector": 0.3496021545667447,
  "pbr_vs_sector": 5.140515,
- "per_band_pos": 0.7384898891663233,
+ "per_band_pos": 0.7219660167480519,
  "yield_band_pos": 0.0,
  "next_earn": "2026-11-02",
  "warnings": [
-  "REIT: FFO / NAV multiples / LTV / distribution composition matter here and this equity-oriented tool can't judge them properly. Reference only."
+  "REIT：FFO・NAV倍率・LTV・分配金の内訳が重要で、株式向けのこのツールでは正しく評価できません。参考程度に。"
  ],
- "_generated_at": "2026-09-06T02:03:17"
+ "_generated_at": "2026-09-06T03:15:59"
 }

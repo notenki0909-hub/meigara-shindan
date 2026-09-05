@@ -11,28 +11,28 @@
  "mcap": 936073536,
  "sel_score": 63.1,
  "tim_score": 107.1,
- "sel_label": "Selection score: low tier (quality concerns)",
- "tim_label": "Timing score: top tier (cheap zone)",
- "comment": "Timing is top tier (cheap), but selection is low (quality concerns) — a low score usually has a reason (possible value trap).",
+ "sel_label": "選定スコア下位（質に不安）",
+ "tim_label": "買い時スコア上位（割安水準）",
+ "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
  "cov_sel": [
   6,
   6,
-  "high"
+  "高"
  ],
  "cov_tim": [
   6,
   7,
-  "high"
+  "高"
  ],
  "groups": {
-  "Operating performance": null,
-  "Financial strength": null,
-  "Cash flow": null,
-  "Dividend durability": 63.1,
-  "Dividend yield theory": 110.0,
-  "Yield level & Chowder": 103.3,
-  "Valuation vs sector": 103.6,
-  "Rate spread": 110.0
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "配当の持続力": 63.1,
+  "配当利回りセオリー": 110.0,
+  "利回り水準とChowder": 103.3,
+  "株価バリュエーション": 103.6,
+  "金利スプレッド": 110.0
  },
  "div_yield": 5.822306070243213,
  "total_yield": 7.361180896419262,
@@ -48,7 +48,7 @@
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-02",
  "warnings": [
-  "REIT: FFO / NAV multiples / LTV / distribution composition matter here and this equity-oriented tool can't judge them properly. Reference only."
+  "REIT：FFO・NAV倍率・LTV・分配金の内訳が重要で、株式向けのこのツールでは正しく評価できません。参考程度に。"
  ],
- "_generated_at": "2026-09-06T01:34:24"
+ "_generated_at": "2026-09-06T02:47:07"
 }
