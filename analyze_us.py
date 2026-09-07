@@ -1002,10 +1002,6 @@ def _earn_block_us(ea):
 
 
 _US_CSS = """
-:root{ --bg:#ffffff; --fg:#1d232b; --muted:#6b7683; --line:#e4e8ec; --card:#f7f9fa;
-  --accent:#2f9e91; --hi:#2f9e91; --mid:#e0912f; --lo:#d1584f; --na:#c3ccd3; }
-@media (prefers-color-scheme:dark){ :root{ --bg:#161a1e; --fg:#e7ecef; --muted:#9aa6af;
-  --line:#2c333a; --card:#1e242a; --accent:#4fb8ab; --hi:#4fb8ab; --mid:#e0a45a; --lo:#e07b73; --na:#4a555e; } }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);
   font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,"Segoe UI",sans-serif;
@@ -1160,10 +1156,12 @@ def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warni
 
     return f"""<!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+{analyze.THEME_HEAD}
 <title>{analyze.html.escape(meta['name'])}（{meta['code']}）｜米国株 配当スクリーニング</title>
-<style>{_US_CSS}</style></head><body><div class="wrap">
+<style>{analyze.THEME_CSS}{_US_CSS}</style></head><body><div class="wrap">
 <div class="topbar"><h1>{analyze.html.escape(meta['name'])}（{meta['code']}）</h1>
 <span class="blk"><a href="../index.html">← 一覧へ戻る</a><a href="../watchlist.html">← ウォッチリストへ戻る</a></span></div>
+{analyze.THEME_BAR}
 {f'<div class="meta2">前回の値動き（{meta["price_date"] or "―"}）　終値 <b>${fmt_num(meta["ohlc"]["close"],2)}</b>　／　高値 ${fmt_num(meta["ohlc"]["high"],2)}　／　安値 ${fmt_num(meta["ohlc"]["low"],2)}　／　始値 ${fmt_num(meta["ohlc"]["open"],2)}</div>' if meta.get("ohlc") else ""}
 <div class="sub">GICS業種：<b>{gics_jp(meta['gics_sector'])}</b>（{analyze.html.escape(meta['gics_sector'])}／yfinance：{analyze.html.escape(meta['industry'] or '―')}）{simple_note}<br>
 株価 {price_s}{pdate_s} &nbsp;｜&nbsp; 時価総額 {mcap_s} &nbsp;｜&nbsp; 生成 {meta['today']}</div>
@@ -1210,6 +1208,7 @@ def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warni
 {''.join(ref_blocks)}
 
 <div class="disc">{DISC_HTML}</div>
+{analyze.THEME_JS}
 </div></body></html>"""
 
 
