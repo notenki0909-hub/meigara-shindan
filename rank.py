@@ -200,7 +200,7 @@ def main():
     unchanged = old_html is not None and _mask(old_html, prev_gen) == _mask(new_html, gen)
 
     os.makedirs(SITE, exist_ok=True)
-    for fn in ("terms.html", "guide.html"):
+    for fn in ("terms.html", "guide.html", "watchlist.html"):
         src = os.path.join(HERE, fn)
         if os.path.isfile(src):
             shutil.copyfile(src, os.path.join(SITE, fn))
@@ -308,6 +308,7 @@ def render_index(out):
             streak_v = _streak_val(s["streak_up"], s["streak_flat"])
             trs.append(
                 f'<tr class="{tcls} r" data-tier="{s["tier"]}">'
+                f'<td class="wl"><input type="checkbox" class="wlc" data-code="{s["code"]}" aria-label="ウォッチリストに追加"></td>'
                 f'<td class="tier">{s["tier"]}<span class="dir {dcls}">{s["dir"]}</span></td>'
                 f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
                 f'<td class="nm">{html.escape(s["name"])}</td>'
@@ -319,6 +320,7 @@ def render_index(out):
                 f'<td class="cv">{s["cov_sel"]}</td>'
                 f'</tr>')
         secs.append('<section class="grp">' + head + '<table><thead><tr>'
+                    '<th class="wl" title="ウォッチリストに入れる銘柄にチェック">☑</th>'
                     '<th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>業種</th>'
                     '<th><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>'
                     '<th><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th>'
@@ -328,7 +330,9 @@ def render_index(out):
                     '</tr></thead><tbody>' + "".join(trs) + '</tbody></table></section>')
 
     gt = "".join(
-        f'<tr class="r" data-tier="{s.get("tier","―")}"><td class="n">{i+1}</td>'
+        f'<tr class="r" data-tier="{s.get("tier","―")}">'
+        f'<td class="wl"><input type="checkbox" class="wlc" data-code="{s["code"]}" aria-label="ウォッチリストに追加"></td>'
+        f'<td class="n">{i+1}</td>'
         f'<td class="tier">{s.get("tier","―")}</td>'
         f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
         f'<td class="nm">{html.escape(s["name"])}</td>'
@@ -400,10 +404,23 @@ section.grp[hidden],details[hidden]{{display:none}}
 .terminfo b{{display:block;margin-bottom:4px;font-size:13.5px}}
 .ticlose{{position:absolute;top:6px;right:8px;border:none;background:none;cursor:pointer;
   font-size:15px;line-height:1;color:var(--muted);padding:4px}}
+td.wl,th.wl{{width:34px;text-align:center;padding-left:4px;padding-right:4px}}
+th.wl{{color:var(--muted);cursor:default}}
+.wlc{{width:16px;height:16px;cursor:pointer;accent-color:var(--accent)}}
+#wlbar{{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;gap:10px;
+  align-items:center;justify-content:center;flex-wrap:wrap;
+  background:var(--card);border-top:1px solid var(--line);
+  box-shadow:0 -2px 10px rgba(0,0,0,.06);padding:10px 14px;font-size:13px}}
+#wlbar b{{color:var(--accent)}}
+#wlbar button{{padding:8px 16px;border:1px solid var(--accent);border-radius:8px;
+  background:var(--accent);color:#fff;font-size:13px;cursor:pointer}}
+#wlbar button.ghost{{background:var(--card);color:var(--muted);border-color:var(--line)}}
+#wlbar[hidden]{{display:none}}
+body.wlon{{padding-bottom:60px}}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>配当株 軍分けランキング</h1><a href="terms.html">利用規約・免責事項</a></div>
-<div class="sub">生成 {gen}　｜　スクリーン：{scr}　｜　<a href="guide.html">使い方・見方</a></div>
-<div class="sub">表の見出し（軍・選定・買い時・利回り・増配・カバレッジ・業種級）をクリックすると説明が出ます</div>
+<div class="sub">生成 {gen}　｜　スクリーン：{scr}　｜　<a href="guide.html">使い方・見方</a>　｜　<a href="watchlist.html">ウォッチリスト</a></div>
+<div class="sub">表の見出し（軍・選定・買い時・利回り・増配・カバレッジ・業種級）をクリックすると説明が出ます。左端の□にチェックを入れて下部の「ウォッチリストを作成」を押すと、その銘柄だけの一覧を作れます。</div>
 <div class="summary">
   <button type="button" class="sumbtn" data-tier=""><b>{c['total']}</b>銘柄</button>
   <button type="button" class="sumbtn" data-tier="1軍"><b>{c['1軍']}</b>1軍</button>
@@ -421,12 +438,15 @@ section.grp[hidden],details[hidden]{{display:none}}
   <div id="terminfo-body"></div>
 </div>
 <details id="topbox"><summary>全体 選定スコア 上位50（業種横断）</summary>
-<table><thead><tr><th class="n">#</th><th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>グループ</th>
+<table><thead><tr><th class="wl">☑</th><th class="n">#</th><th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>グループ</th>
 <th class="n"><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>
 <th class="n"><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th></tr></thead><tbody>{gt}</tbody></table>
 </details>
 {"".join(secs)}
 <div class="disc">{DISC}</div>
+<div id="wlbar" hidden><span><b id="wlcount">0</b> 銘柄を選択中</span>
+<button type="button" id="wlgo">ウォッチリストを作成 →</button>
+<button type="button" id="wlclear2" class="ghost">選択をクリア</button></div>
 <script>
 (function(){{
   var q = document.getElementById('q');
@@ -517,6 +537,42 @@ section.grp[hidden],details[hidden]{{display:none}}
       sortTable(btn);
     }});
   }});
+
+  // ---- ウォッチリスト選択 ----
+  var WL_KEY = 'wl_codes';
+  var wlSet;
+  try {{
+    wlSet = new Set((localStorage.getItem(WL_KEY) || '').split(',').map(function(s){{return s.trim();}}).filter(Boolean));
+  }} catch(e) {{ wlSet = new Set(); }}
+  var wlBar = document.getElementById('wlbar');
+  var wlCount = document.getElementById('wlcount');
+  function wlSave(){{ try {{ localStorage.setItem(WL_KEY, Array.from(wlSet).join(',')); }} catch(e) {{}} }}
+  function wlSync(){{
+    document.querySelectorAll('.wlc').forEach(function(cb){{ cb.checked = wlSet.has(cb.dataset.code); }});
+    wlCount.textContent = String(wlSet.size);
+    wlBar.hidden = wlSet.size === 0;
+    document.body.classList.toggle('wlon', wlSet.size > 0);
+  }}
+  document.addEventListener('change', function(e){{
+    var cb = e.target;
+    if (!cb.classList || !cb.classList.contains('wlc')) return;
+    var code = cb.dataset.code;
+    if (cb.checked) wlSet.add(code); else wlSet.delete(code);
+    document.querySelectorAll('.wlc[data-code="' + code + '"]').forEach(function(o){{ o.checked = cb.checked; }});
+    wlCount.textContent = String(wlSet.size);
+    wlBar.hidden = wlSet.size === 0;
+    document.body.classList.toggle('wlon', wlSet.size > 0);
+    wlSave();
+  }});
+  document.getElementById('wlgo').addEventListener('click', function(){{
+    if (!wlSet.size) return;
+    wlSave();
+    location.href = 'watchlist.html?codes=' + encodeURIComponent(Array.from(wlSet).join(','));
+  }});
+  document.getElementById('wlclear2').addEventListener('click', function(){{
+    wlSet.clear(); wlSave(); wlSync();
+  }});
+  wlSync();
 }})();
 </script>
 </div></body></html>"""
