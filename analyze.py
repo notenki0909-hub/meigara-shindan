@@ -160,12 +160,19 @@ def fetch_yf(code, suffix=".T"):
     # 価格
     d["price"] = None
     d["price_date"] = None
+    d["ohlc"] = None
     try:
         h6 = tk.history(period="6mo", auto_adjust=False)
         cl = h6["Close"].dropna()
         if len(cl):
             d["price"] = float(cl.iloc[-1])
             d["price_date"] = cl.index[-1].date()
+            lb = h6.dropna(subset=["Close"]).iloc[-1]
+            try:
+                d["ohlc"] = {"open": float(lb["Open"]), "high": float(lb["High"]),
+                             "low": float(lb["Low"]), "close": float(lb["Close"])}
+            except Exception:
+                d["ohlc"] = None
     except Exception:
         pass
 
@@ -2445,13 +2452,17 @@ svg.trend{{width:100%;height:auto;border:1px solid var(--line);border-radius:8px
 .warn ul{{margin:6px 0 0;padding-left:18px}}
 .muted{{color:var(--muted)}}
 .disc{{margin-top:30px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:11.5px}}
-.meta2{{color:var(--muted);font-size:12px;margin:2px 0 0}}
+.meta2{{color:var(--muted);font-size:12px;margin:4px 0 12px}}
+.meta2 b{{color:var(--fg)}}
 .topbar{{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}}
 .topbar a{{font-size:12.5px;white-space:nowrap}}
+.topbar .blk{{display:flex;flex-direction:column;align-items:flex-end;gap:2px}}
 @media print{{body{{font-size:11px}} .wrap{{max-width:none}} .topbar a{{display:none}}}}
 </style></head><body><div class="wrap">
 
-<div class="topbar"><h1>{meta['name']}（{meta['code']}）　配当株スクリーニング</h1><a href="../index.html">← 一覧へ戻る</a></div>
+<div class="topbar"><h1>{meta['name']}（{meta['code']}）　配当株スクリーニング</h1>
+<span class="blk"><a href="../index.html">← 一覧へ戻る</a><a href="../watchlist.html">← ウォッチリストへ戻る</a></span></div>
+{f'<div class="meta2">前回の値動き（{meta["price_date"] or "―"}）　終値 <b>{fmt_num(meta["ohlc"]["close"],1)}円</b>　／　高値 {fmt_num(meta["ohlc"]["high"],1)}円　／　安値 {fmt_num(meta["ohlc"]["low"],1)}円　／　始値 {fmt_num(meta["ohlc"]["open"],1)}円</div>' if meta.get("ohlc") else ""}
 <div class="sub">東証33業種：<b>{meta['jp_sector']}</b>
 （yfinance分類：{meta['industry'] or '―'} / {meta['sector'] or '―'}　→ {meta['sector_src']}）
 {'　｜　<b>簡易判定モード</b>（財務・CF・業績は構造的に別基準のため参考表示）' if meta['is_simple'] else ''}<br>
@@ -2686,7 +2697,7 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
     meta = {
         "code": code, "name": name, "jp_sector": jp_sector, "industry": industry, "sector": sector,
         "sector_src": sector_src, "price": yd["price"], "mcap": info.get("marketCap"),
-        "price_date": pdate.isoformat() if pdate else None,
+        "price_date": pdate.isoformat() if pdate else None, "ohlc": yd.get("ohlc"),
         "today": TODAY.isoformat(), "is_simple": is_simple, "cost": cost, "yoc": yoc,
     }
 

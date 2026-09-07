@@ -133,6 +133,7 @@ def main():
             "cov_tim": (s.get("cov_tim") or [None, None, "―"])[2],
             "yield": s.get("div_yield"), "streak_up": s.get("streak_up"),
             "streak_flat": s.get("streak_flat"), "next_earn": s.get("next_earn"),
+            "price": s.get("price"), "price_date": s.get("price_date"),
             "asof": s.get("_generated_at") or s.get("asof"),
         })
 
@@ -222,6 +223,10 @@ def _num(v, d=1):
     return f"{v:.{d}f}" if isinstance(v, (int, float)) else "―"
 
 
+def _price(v):
+    return f"{v:,.0f}" if isinstance(v, (int, float)) else "―"
+
+
 def _streak(u, f):
     if isinstance(u, (int, float)) and u >= 1:
         return f"連続増配{int(u)}年"
@@ -274,6 +279,9 @@ TERMS = {
             "スコア。今の株価水準の目安であり、質の評価（選定）とは別物。72以上＝買い時"
             "スコア上位（割安水準）、57以上＝中位（妥当水準）、45以上＝下位（やや割高）、"
             "それ未満＝最下位（割高水準）。"),
+    "price": ("終値",
+              "前回の取引終了時点（前営業日）の株価（円）。夜間更新のため、当日ザラ場の株価とは"
+              "ずれます。個別ページでは同じ日の高値・安値・始値も見られます。"),
     "yield": ("利回り",
               "会社予想の年間配当金 ÷ 現在の株価（予想配当利回り）。"),
     "streak": ("増配",
@@ -312,6 +320,7 @@ def render_index(out):
                 f'<td class="tier">{s["tier"]}<span class="dir {dcls}">{s["dir"]}</span></td>'
                 f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
                 f'<td class="nm">{html.escape(s["name"])}</td>'
+                f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"])}</td>'
                 f'<td class="sec">{html.escape(s["sector"])}</td>'
                 f'<td class="n" data-v="{_v(s["sel"])}">{_num(s["sel"],0)}</td>'
                 f'<td class="n" data-v="{_v(s["tim"])}">{_num(s["tim"],0)}</td>'
@@ -321,7 +330,8 @@ def render_index(out):
                 f'</tr>')
         secs.append('<section class="grp">' + head + '<table><thead><tr>'
                     '<th class="wl" title="ウォッチリストに入れる銘柄にチェック">☑</th>'
-                    '<th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>業種</th>'
+                    '<th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th>'
+                    '<th class="n"><span class="hdr" data-term="price">終値</span><span class="sortbtn">▼</span></th><th>業種</th>'
                     '<th><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>'
                     '<th><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th>'
                     '<th><span class="hdr" data-term="yield">利回り</span><span class="sortbtn">▼</span></th>'
@@ -336,6 +346,7 @@ def render_index(out):
         f'<td class="tier">{s.get("tier","―")}</td>'
         f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
         f'<td class="nm">{html.escape(s["name"])}</td>'
+        f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"])}</td>'
         f'<td class="sec">{html.escape(s["group"])}</td>'
         f'<td class="n" data-v="{_v(s["sel"])}">{_num(s["sel"],0)}</td>'
         f'<td class="n" data-v="{_v(s["tim"])}">{_num(s["tim"],0)}</td></tr>'
@@ -394,6 +405,9 @@ section.grp[hidden],details[hidden]{{display:none}}
 .sumbtn:hover{{border-color:var(--accent)}}
 .sumbtn.active{{border-color:var(--accent);border-width:2px;background:#eff6ff}}
 .sumbtn b{{display:block;font-size:20px}}
+a.sumbtn{{text-decoration:none;color:inherit}}
+a.sumbtn.wlnav{{border-color:var(--accent);color:var(--accent)}}
+a.sumbtn.wlnav b{{color:var(--accent)}}
 .hdr{{cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px}}
 .hdr:hover{{color:var(--accent)}}
 .sortbtn{{cursor:pointer;color:var(--muted);font-size:10px;margin-left:4px;user-select:none;display:inline-block}}
@@ -419,13 +433,14 @@ th.wl{{color:var(--muted);cursor:default}}
 body.wlon{{padding-bottom:60px}}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>配当株 軍分けランキング</h1><a href="terms.html">利用規約・免責事項</a></div>
-<div class="sub">生成 {gen}　｜　スクリーン：{scr}　｜　<a href="guide.html">使い方・見方</a>　｜　<a href="watchlist.html">ウォッチリスト</a></div>
-<div class="sub">表の見出し（軍・選定・買い時・利回り・増配・カバレッジ・業種級）をクリックすると説明が出ます。左端の□にチェックを入れて下部の「ウォッチリストを作成」を押すと、その銘柄だけの一覧を作れます。</div>
+<div class="sub">生成 {gen}　｜　スクリーン：{scr}　｜　<a href="guide.html">使い方・見方</a></div>
+<div class="sub">表の見出し（軍・終値・選定・買い時・利回り・増配・カバレッジ・業種級）をクリックすると説明が出ます。左端の□にチェックを入れて下部の「ウォッチリストを作成」を押すと、その銘柄だけの一覧を作れます。</div>
 <div class="summary">
   <button type="button" class="sumbtn" data-tier=""><b>{c['total']}</b>銘柄</button>
   <button type="button" class="sumbtn" data-tier="1軍"><b>{c['1軍']}</b>1軍</button>
   <button type="button" class="sumbtn" data-tier="2軍"><b>{c['2軍']}</b>2軍</button>
   <button type="button" class="sumbtn" data-tier="3軍"><b>{c['3軍']}</b>3軍</button>
+  <a class="sumbtn wlnav" href="watchlist.html"><b id="wlnav-n">☆</b>ウォッチリスト</a>
 </div>
 <div class="sub" style="margin:-14px 0 14px">クリックでその軍だけ表示（もう一度押すと解除）</div>
 <div class="searchbar">
@@ -438,7 +453,8 @@ body.wlon{{padding-bottom:60px}}
   <div id="terminfo-body"></div>
 </div>
 <details id="topbox"><summary>全体 選定スコア 上位50（業種横断）</summary>
-<table><thead><tr><th class="wl">☑</th><th class="n">#</th><th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>グループ</th>
+<table><thead><tr><th class="wl">☑</th><th class="n">#</th><th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th>
+<th class="n"><span class="hdr" data-term="price">終値</span><span class="sortbtn">▼</span></th><th>グループ</th>
 <th class="n"><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>
 <th class="n"><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th></tr></thead><tbody>{gt}</tbody></table>
 </details>
@@ -546,12 +562,17 @@ body.wlon{{padding-bottom:60px}}
   }} catch(e) {{ wlSet = new Set(); }}
   var wlBar = document.getElementById('wlbar');
   var wlCount = document.getElementById('wlcount');
+  var wlNav = document.getElementById('wlnav-n');
   function wlSave(){{ try {{ localStorage.setItem(WL_KEY, Array.from(wlSet).join(',')); }} catch(e) {{}} }}
-  function wlSync(){{
-    document.querySelectorAll('.wlc').forEach(function(cb){{ cb.checked = wlSet.has(cb.dataset.code); }});
+  function wlBadge(){{
     wlCount.textContent = String(wlSet.size);
+    if (wlNav) wlNav.textContent = wlSet.size ? String(wlSet.size) : '☆';
     wlBar.hidden = wlSet.size === 0;
     document.body.classList.toggle('wlon', wlSet.size > 0);
+  }}
+  function wlSync(){{
+    document.querySelectorAll('.wlc').forEach(function(cb){{ cb.checked = wlSet.has(cb.dataset.code); }});
+    wlBadge();
   }}
   document.addEventListener('change', function(e){{
     var cb = e.target;
@@ -559,9 +580,7 @@ body.wlon{{padding-bottom:60px}}
     var code = cb.dataset.code;
     if (cb.checked) wlSet.add(code); else wlSet.delete(code);
     document.querySelectorAll('.wlc[data-code="' + code + '"]').forEach(function(o){{ o.checked = cb.checked; }});
-    wlCount.textContent = String(wlSet.size);
-    wlBar.hidden = wlSet.size === 0;
-    document.body.classList.toggle('wlon', wlSet.size > 0);
+    wlBadge();
     wlSave();
   }});
   document.getElementById('wlgo').addEventListener('click', function(){{

@@ -177,11 +177,13 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
       var dcls = DIRC[s.dir] || 'fl';
       var yraw = s['yield'];
       var yv = (typeof yraw === 'number') ? yraw.toFixed(2) + '%' : '―';
+      var pv = (typeof s.price === 'number') ? s.price.toLocaleString('ja-JP', {maximumFractionDigits:0}) : '―';
       var cov = Array.isArray(s.cov_sel) ? (s.cov_sel[2] || '') : (s.cov_sel || '');
       return '<tr class="' + tcls + '">'
         + '<td class="tier">' + (s.tier || '―') + '<span class="dir ' + dcls + '">' + (s.dir || '') + '</span></td>'
         + '<td class="code"><a href="reports/' + s.code + '.html">' + s.code + '</a></td>'
         + '<td>' + (s.name || s.code) + '</td>'
+        + '<td class="n">' + pv + '</td>'
         + '<td class="sec">' + (s.sector || '') + '</td>'
         + '<td class="n">' + numTxt(s.sel, 0) + '</td>'
         + '<td class="n">' + numTxt(s.tim, 0) + '</td>'
@@ -193,7 +195,7 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
     }).join('');
 
     $('list').innerHTML = '<table><thead><tr>'
-      + '<th>軍</th><th>コード</th><th>銘柄</th><th>業種</th><th class="n">選定</th>'
+      + '<th>軍</th><th>コード</th><th>銘柄</th><th class="n">終値</th><th>業種</th><th class="n">選定</th>'
       + '<th class="n">買い時</th><th class="n">利回り</th><th>増配</th><th>カバレッジ</th><th></th>'
       + '</tr></thead><tbody>' + rows + '</tbody></table>';
 
