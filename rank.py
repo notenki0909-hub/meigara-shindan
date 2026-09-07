@@ -249,6 +249,182 @@ def _v(x):
     return x if isinstance(x, (int, float)) else ""
 
 
+# ======================================================================
+# 配色テーマ（ランキング／ウォッチリスト共通）。
+# 下の3つの定数は watchlist.html / rank_us.py / site_us_watchlist.html と
+# 「同一内容」を貼っている（1か所直したら4か所そろえる）。
+# ======================================================================
+THEME_HEAD = (
+    '<script>try{var t=JSON.parse(localStorage.getItem("pp_theme")||"{}");'
+    'if(t.pal&&t.pal!=="genko"&&t.pal!=="custom"){document.documentElement.setAttribute("data-pal",t.pal);'
+    'document.documentElement.setAttribute("data-hl","on");}'
+    'if(t.pal==="custom")document.documentElement.setAttribute("data-hl","on");'
+    'if(t.mode==="dark"||t.mode==="light")document.documentElement.setAttribute("data-mode",t.mode);}catch(e){}</script>'
+)
+
+THEME_CSS = """
+:root{
+  --bg:#fafafa;--card:#ffffff;--line:#e6e6e6;--muted:#666666;--fg:#1a1a1a;
+  --accent:#2563eb;--th:#f3f4f6;--field:#f7f8fa;--info:#eff6ff;
+  --t1:#166534;--t2:#854d0e;--t3:#9ca3af;--gA:#166534;--gB:#854d0e;--gC:#b91c1c;
+  --wbg:#fff7ed;--wbd:#fed7aa;--wfg:#7c2d12;--ibg:#eff6ff;--ibd:#bfdbfe;
+}
+:root[data-mode="dark"]{
+  --bg:#101216;--card:#181b22;--line:#2b303a;--muted:#98a1ad;--fg:#e6e8eb;
+  --accent:#6aa4ff;--th:#1e232c;--field:#161a21;--info:#17233a;
+  --t1:#4ade80;--t2:#fbbf24;--t3:#9aa1ac;--gA:#4ade80;--gB:#fbbf24;--gC:#f87171;
+  --wbg:#26210f;--wbd:#5a4a1b;--wfg:#e7c06a;--ibg:#152036;--ibd:#2b3f63;
+}
+:root[data-pal="blueplus"]{--bg:#f7f8fa;--card:#ffffff;--line:#dfe1e6;--muted:#5b6472;--fg:#161a1f;--accent:#2563eb;--th:#eaedf3;--field:#f4f6f9;--info:#e9f0ff;}
+:root[data-pal="blueplus"][data-mode="dark"]{--bg:#0d0f14;--card:#191d26;--line:#30363f;--muted:#9aa3ae;--fg:#e9ebef;--accent:#7db0ff;--th:#20262f;--field:#161b24;--info:#16233b;}
+:root[data-pal="teal"]{--bg:#f2f8f6;--card:#ffffff;--line:#d7e6e1;--muted:#556661;--fg:#132019;--accent:#0d7c72;--th:#e4f1ed;--field:#f0f7f5;--info:#e2f2ee;}
+:root[data-pal="teal"][data-mode="dark"]{--bg:#0b120f;--card:#152019;--line:#28372f;--muted:#8fa39c;--fg:#e2ece7;--accent:#3fd9c8;--th:#1c2b24;--field:#131d17;--info:#132720;}
+:root[data-pal="slate"]{--bg:#f5f6f9;--card:#ffffff;--line:#dde1e8;--muted:#5b6577;--fg:#171d28;--accent:#334c86;--th:#e8ebf1;--field:#f3f5f8;--info:#e8ecf5;}
+:root[data-pal="slate"][data-mode="dark"]{--bg:#0d0f13;--card:#181c23;--line:#2c323d;--muted:#96a0ae;--fg:#e6e8ec;--accent:#8fb0e6;--th:#1e232c;--field:#161a21;--info:#182238;}
+:root[data-pal="sand"]{--bg:#f8f4ea;--card:#fffdf8;--line:#e7dcc7;--muted:#6a5f48;--fg:#221c11;--accent:#b1500a;--th:#efe5d1;--field:#f5efe0;--info:#f6ecda;}
+:root[data-pal="sand"][data-mode="dark"]{--bg:#131009;--card:#201b11;--line:#372c1b;--muted:#a89d84;--fg:#ece4d3;--accent:#ffab2e;--th:#271f12;--field:#191509;--info:#241d10;}
+:root[data-pal="violet"]{--bg:#f8f6fd;--card:#ffffff;--line:#e4dcf1;--muted:#635a75;--fg:#1b1626;--accent:#6d28d9;--th:#efe9fa;--field:#f5f2fc;--info:#efe9fb;}
+:root[data-pal="violet"][data-mode="dark"]{--bg:#0f0d16;--card:#1c1727;--line:#302742;--muted:#a89fb8;--fg:#ebe5f4;--accent:#b79bff;--th:#231c30;--field:#171223;--info:#1e1830;}
+:root[data-pal="rose"]{--bg:#fdf5f8;--card:#ffffff;--line:#efd9e2;--muted:#7a5a65;--fg:#24171d;--accent:#c2255c;--th:#fbe7ef;--field:#fbf3f6;--info:#fbe9f0;}
+:root[data-pal="rose"][data-mode="dark"]{--bg:#140f12;--card:#211820;--line:#3a2b33;--muted:#b499a3;--fg:#efe3e9;--accent:#f472b6;--th:#281c24;--field:#1a1318;--info:#241722;}
+
+#theme-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:8px 0 14px;font-size:12px}
+#theme-bar .tb-lbl{color:var(--muted)}
+#theme-bar .sw{width:20px;height:20px;border-radius:50%;border:1px solid var(--line);cursor:pointer;padding:0;background:var(--tb-c,#ccc)}
+#theme-bar .sw[data-pal="genko"]{background:linear-gradient(135deg,#fff 48%,#2563eb 52%)}
+#theme-bar .sw.custom{background:conic-gradient(#e74c8b,#f0b429,#28a48b,#4f7be0,#9b5de5,#e74c8b)}
+#theme-bar .sw[aria-pressed="true"]{outline:2px solid var(--fg);outline-offset:1px}
+#theme-bar .tb-btn{border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:7px;padding:3px 9px;font:inherit;font-size:12px;cursor:pointer}
+#theme-bar .tb-reset{color:var(--accent);border:0;background:none;text-decoration:underline;text-underline-offset:2px;cursor:pointer;font:inherit;font-size:12px}
+#theme-bar .tb-sep{width:1px;align-self:stretch;background:var(--line);margin:0 3px}
+#cust-panel{display:none;flex-wrap:wrap;gap:10px 16px;align-items:center;width:100%;margin-top:4px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--card)}
+#cust-panel.open{display:flex}
+#cust-panel label{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--fg)}
+#cust-panel input[type=color]{width:40px;height:24px;border:1px solid var(--line);border-radius:5px;padding:0;background:none;cursor:pointer}
+#cust-panel .cc-more{border:0;background:none;color:var(--accent);font:inherit;font-size:11.5px;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+#cust-panel .cc-adv{display:none;gap:10px 16px;flex-wrap:wrap;align-items:center}
+#cust-panel .cc-adv.open{display:flex}
+#cust-panel .cc-warn{font-size:11px;color:var(--gC);flex-basis:100%}
+
+:root[data-hl="on"] .sumbtn.active{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 24%,transparent)}
+:root[data-hl="on"] tr.r:has(.wlc:checked)>td{background:color-mix(in srgb,var(--accent) 10%,transparent)}
+"""
+
+THEME_BAR = """
+<div id="theme-bar">
+  <span class="tb-lbl">配色</span>
+  <button type="button" class="sw" data-pal="genko" title="現行（そのまま）" aria-label="現行"></button>
+  <button type="button" class="sw" data-pal="blueplus" style="--tb-c:#2563eb" title="ブルー＋" aria-label="ブルー＋"></button>
+  <button type="button" class="sw" data-pal="teal" style="--tb-c:#0d7c72" title="ティール" aria-label="ティール"></button>
+  <button type="button" class="sw" data-pal="slate" style="--tb-c:#334c86" title="スレート" aria-label="スレート"></button>
+  <button type="button" class="sw" data-pal="sand" style="--tb-c:#b1500a" title="サンド" aria-label="サンド"></button>
+  <button type="button" class="sw" data-pal="violet" style="--tb-c:#6d28d9" title="バイオレット" aria-label="バイオレット"></button>
+  <button type="button" class="sw" data-pal="rose" style="--tb-c:#c2255c" title="ローズ" aria-label="ローズ"></button>
+  <button type="button" class="sw custom" data-pal="custom" title="カスタム" aria-label="カスタム"></button>
+  <span class="tb-sep"></span>
+  <button type="button" class="tb-btn tb-mode">🌙 ダークへ</button>
+  <button type="button" class="tb-reset">↺ 標準に戻す</button>
+  <div id="cust-panel">
+    <label>地色 <input type="color" id="cc-bg" value="#fafafa"></label>
+    <label>アクセント <input type="color" id="cc-accent" value="#2563eb"></label>
+    <button type="button" class="cc-more">＋ くわしく（面・枠・文字色も指定）</button>
+    <div class="cc-adv">
+      <label>面 <input type="color" id="cc-card" value="#ffffff"></label>
+      <label>枠 <input type="color" id="cc-line" value="#e6e6e6"></label>
+      <label>補助文字 <input type="color" id="cc-muted" value="#666666"></label>
+      <label>文字色 <input type="color" id="cc-fg" value="#1a1a1a"></label>
+    </div>
+    <span class="cc-warn"></span>
+  </div>
+</div>
+"""
+
+THEME_JS = r"""
+(function(){
+  var PALS=['genko','blueplus','teal','slate','sand','violet','rose','custom'];
+  var TKEY='pp_theme',CKEY='pp_custom',root=document.documentElement;
+  var bar=document.getElementById('theme-bar'); if(!bar) return;
+  function readT(){try{return JSON.parse(localStorage.getItem(TKEY)||'null')||{};}catch(e){return {};}}
+  function readC(){try{return JSON.parse(localStorage.getItem(CKEY)||'null')||null;}catch(e){return null;}}
+  function saveT(o){try{localStorage.setItem(TKEY,JSON.stringify(o));}catch(e){}}
+  function h2r(h){h=h.replace('#','');return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
+  function r2h(a){return '#'+a.map(function(x){x=Math.max(0,Math.min(255,Math.round(x)));return x.toString(16).padStart(2,'0');}).join('');}
+  function mix(a,b,t){var A=h2r(a),B=h2r(b);return r2h([0,1,2].map(function(i){return A[i]+(B[i]-A[i])*t;}));}
+  function lum(h){var c=h2r(h).map(function(x){x/=255;return x<=0.03928?x/12.92:Math.pow((x+0.055)/1.055,2.4);});return 0.2126*c[0]+0.7152*c[1]+0.0722*c[2];}
+  function cr(a,b){var L1=lum(a),L2=lum(b);return (Math.max(L1,L2)+0.05)/(Math.min(L1,L2)+0.05);}
+  function deriv(bg){var d=lum(bg)<0.35;return{dark:d,fg:d?mix(bg,'#ffffff',0.9):mix(bg,'#000000',0.86),card:d?mix(bg,'#ffffff',0.06):mix(bg,'#ffffff',0.72),line:d?mix(bg,'#ffffff',0.15):mix(bg,'#000000',0.1),muted:d?mix(bg,'#ffffff',0.55):mix(bg,'#000000',0.55)};}
+  var CD={bg:'#fafafa',accent:'#2563eb',card:'#ffffff',line:'#e6e6e6',muted:'#666666',fg:'#1a1a1a'};
+  var CVARS=['--bg','--card','--line','--muted','--fg','--accent','--th','--t1','--t2','--t3','--gA','--gB','--gC'];
+  function clearCP(){CVARS.forEach(function(p){root.style.removeProperty(p);});}
+  function applyCustom(c){
+    var bg=c.bg,ac=c.accent,card,line,muted,fg;
+    if(c.adv){card=c.card;line=c.line;muted=c.muted;fg=c.fg;}
+    else if(bg.toLowerCase()===CD.bg){card=CD.card;line=CD.line;muted=CD.muted;fg=CD.fg;}
+    else{var d=deriv(bg);card=d.card;line=d.line;muted=d.muted;fg=d.fg;}
+    var dark=lum(bg)<0.35;
+    var S=root.style;
+    S.setProperty('--bg',bg);S.setProperty('--card',card);S.setProperty('--line',line);
+    S.setProperty('--muted',muted);S.setProperty('--fg',fg);S.setProperty('--accent',ac);
+    S.setProperty('--th',mix(card,fg,0.06));
+    S.setProperty('--t1',dark?'#4ade80':'#166534');S.setProperty('--t2',dark?'#fbbf24':'#854d0e');S.setProperty('--t3',dark?'#9aa1ac':'#9ca3af');
+    S.setProperty('--gA',dark?'#4ade80':'#166534');S.setProperty('--gB',dark?'#fbbf24':'#854d0e');S.setProperty('--gC',dark?'#f87171':'#b91c1c');
+  }
+  function apply(){
+    var t=readT();
+    var pal=(t.pal&&PALS.indexOf(t.pal)>=0)?t.pal:'genko';
+    var mode=(t.mode==='dark')?'dark':(t.mode==='light'?'light':'');
+    clearCP();
+    if(pal==='custom'){
+      applyCustom(readC()||Object.assign({},CD));
+      root.removeAttribute('data-pal');root.removeAttribute('data-mode');root.setAttribute('data-hl','on');
+    }else{
+      if(pal==='genko'){root.removeAttribute('data-pal');root.removeAttribute('data-hl');}
+      else{root.setAttribute('data-pal',pal);root.setAttribute('data-hl','on');}
+      if(mode)root.setAttribute('data-mode',mode);else root.removeAttribute('data-mode');
+    }
+    bar.querySelectorAll('.sw').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.pal===pal?'true':'false');});
+    var mb=bar.querySelector('.tb-mode');
+    if(mb){mb.textContent=(mode==='dark')?'☀ ライトへ':'🌙 ダークへ';mb.style.display=(pal==='custom')?'none':'';}
+    var cp=document.getElementById('cust-panel');
+    if(cp)cp.classList.toggle('open',pal==='custom');
+  }
+  bar.querySelectorAll('.sw').forEach(function(b){
+    b.addEventListener('click',function(){var t=readT();t.pal=b.dataset.pal;if(!('mode' in t))t.mode='';saveT(t);apply();});
+  });
+  var mBtn=bar.querySelector('.tb-mode');
+  if(mBtn)mBtn.addEventListener('click',function(){var t=readT();t.mode=(t.mode==='dark')?'light':'dark';saveT(t);apply();});
+  var rBtn=bar.querySelector('.tb-reset');
+  if(rBtn)rBtn.addEventListener('click',function(){try{localStorage.removeItem(TKEY);}catch(e){}apply();});
+  var cp=document.getElementById('cust-panel');
+  if(cp){
+    var q=function(s){return cp.querySelector(s);};
+    var ci={bg:q('#cc-bg'),accent:q('#cc-accent'),card:q('#cc-card'),line:q('#cc-line'),muted:q('#cc-muted'),fg:q('#cc-fg')};
+    var adv=q('.cc-adv'),more=q('.cc-more'),warn=q('.cc-warn'),advOpen=false;
+    var sv=readC();
+    if(sv){ci.bg.value=sv.bg||CD.bg;ci.accent.value=sv.accent||CD.accent;ci.card.value=sv.card||CD.card;ci.line.value=sv.line||CD.line;ci.muted.value=sv.muted||CD.muted;ci.fg.value=sv.fg||CD.fg;advOpen=!!sv.adv;}
+    if(advOpen){adv.classList.add('open');more.textContent='－ かんたんに戻す';}
+    function push(){
+      var c={bg:ci.bg.value,accent:ci.accent.value,adv:advOpen,card:ci.card.value,line:ci.line.value,muted:ci.muted.value,fg:ci.fg.value};
+      try{localStorage.setItem(CKEY,JSON.stringify(c));}catch(e){}
+      var t=readT();t.pal='custom';saveT(t);apply();
+      var bg=c.bg,fg=advOpen?c.fg:(bg.toLowerCase()===CD.bg?CD.fg:deriv(bg).fg),m=[];
+      if(cr(fg,bg)<4.5)m.push('文字と背景の差が小さめ');
+      if(cr(c.accent,bg)<2.4)m.push('アクセントが埋もれ気味');
+      warn.textContent=m.length?'⚠ '+m.join(' ／ '):'';
+    }
+    cp.addEventListener('input',push);
+    more.addEventListener('click',function(){
+      advOpen=!advOpen;adv.classList.toggle('open',advOpen);
+      more.textContent=advOpen?'－ かんたんに戻す':'＋ くわしく（面・枠・文字色も指定）';
+      if(advOpen){var d=deriv(ci.bg.value);ci.card.value=d.card;ci.line.value=d.line;ci.muted.value=d.muted;ci.fg.value=d.fg;}
+      push();
+    });
+  }
+  apply();
+})();
+"""
+
+
 TIER_CLASS = {"1軍": "t1", "2軍": "t2", "3軍": "t3", "―": "t0"}
 DIR_CLASS = {"↑": "up", "↓": "dn", "→": "fl"}
 
@@ -354,12 +530,13 @@ def render_index(out):
 
     return f"""<!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+{THEME_HEAD}
 <title>配当株 軍分けランキング</title>
 <style>
-:root{{--bg:#fafafa;--card:#fff;--line:#e6e6e6;--muted:#666;--accent:#2563eb}}
+{THEME_CSS}
 *{{box-sizing:border-box}}
 body{{margin:0;font:14px/1.6 -apple-system,"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;
-  background:var(--bg);color:#1a1a1a}}
+  background:var(--bg);color:var(--fg)}}
 .wrap{{max-width:980px;margin:0 auto;padding:20px 16px 60px}}
 h1{{font-size:20px;margin:0 0 4px}}
 .sub{{color:var(--muted);font-size:12px;margin-bottom:16px}}
@@ -370,25 +547,27 @@ h1{{font-size:20px;margin:0 0 4px}}
   padding:8px 14px;min-width:78px;text-align:center}}
 h2{{font-size:15px;margin:26px 0 6px;border-bottom:2px solid var(--line);padding-bottom:4px}}
 .grade{{font-size:11px;padding:1px 7px;border-radius:10px;vertical-align:middle}}
-.gradeA{{background:#dcfce7;color:#166534}}.gradeB{{background:#fef9c3;color:#854d0e}}
-.gradeC{{background:#fee2e2;color:#991b1b}}.grade―{{background:#eee;color:#666}}
+.gradeA{{background:color-mix(in srgb,var(--gA) 15%,transparent);color:var(--gA)}}
+.gradeB{{background:color-mix(in srgb,var(--gB) 15%,transparent);color:var(--gB)}}
+.gradeC{{background:color-mix(in srgb,var(--gC) 15%,transparent);color:var(--gC)}}
+.grade―{{background:color-mix(in srgb,var(--muted) 15%,transparent);color:var(--muted)}}
 .gmeta{{font-size:11px;color:var(--muted);font-weight:normal}}
 table{{width:100%;border-collapse:collapse;background:var(--card);font-size:13px;
   border:1px solid var(--line);border-radius:8px;overflow:hidden}}
 th,td{{padding:6px 8px;text-align:left;border-bottom:1px solid var(--line)}}
-th{{background:#f3f4f6;font-size:11px;color:#444}}
+th{{background:var(--th);font-size:11px;color:var(--muted)}}
 td.n,th.n{{text-align:right;font-variant-numeric:tabular-nums}}
 tr:last-child td{{border-bottom:none}}
 .tier{{font-weight:700;white-space:nowrap}}
-.t1 .tier{{color:#166534}}.t2 .tier{{color:#854d0e}}.t3 .tier{{color:#9ca3af}}
+.t1 .tier{{color:var(--t1)}}.t2 .tier{{color:var(--t2)}}.t3 .tier{{color:var(--t3)}}
 .dir{{font-weight:700;margin-left:3px}}
-.dir.up{{color:#16a34a}}.dir.dn{{color:#dc2626}}.dir.fl{{color:#cbd5e1}}
+.dir.up{{color:var(--t1)}}.dir.dn{{color:var(--gC)}}.dir.fl{{color:var(--t3)}}
 .code a{{color:var(--accent);text-decoration:none}}
 .sec{{color:var(--muted);font-size:11px}}
-.sk{{font-size:11px;color:#555}}
+.sk{{font-size:11px;color:var(--muted)}}
 .cv{{font-size:11px}}
-.disc{{margin-top:30px;padding:12px;background:#fff7ed;border:1px solid #fed7aa;
-  border-radius:8px;font-size:11.5px;color:#7c2d12}}
+.disc{{margin-top:30px;padding:12px;background:var(--wbg);border:1px solid var(--wbd);
+  border-radius:8px;font-size:11.5px;color:var(--wfg)}}
 details{{margin:14px 0}}summary{{cursor:pointer;font-weight:600;font-size:13px}}
 .topbar{{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}}
 .topbar a{{font-size:12.5px;color:var(--accent);white-space:nowrap}}
@@ -403,7 +582,7 @@ section.grp[hidden],details[hidden]{{display:none}}
 .sumbtn{{font:inherit;background:var(--card);border:1px solid var(--line);border-radius:8px;
   padding:8px 14px;min-width:78px;text-align:center;cursor:pointer;color:inherit}}
 .sumbtn:hover{{border-color:var(--accent)}}
-.sumbtn.active{{border-color:var(--accent);border-width:2px;background:#eff6ff}}
+.sumbtn.active{{border-color:var(--accent);border-width:2px;background:var(--info)}}
 .sumbtn b{{display:block;font-size:20px}}
 a.sumbtn{{text-decoration:none;color:inherit}}
 a.sumbtn.wlnav{{border-color:var(--accent);color:var(--accent)}}
@@ -413,8 +592,8 @@ a.sumbtn.wlnav b{{color:var(--accent)}}
 .sortbtn{{cursor:pointer;color:var(--muted);font-size:10px;margin-left:4px;user-select:none;display:inline-block}}
 .sortbtn:hover{{color:var(--accent)}}
 .sortbtn.active{{color:var(--accent);font-weight:700}}
-.terminfo{{position:relative;margin:8px 0 18px;padding:12px 36px 12px 14px;background:#eff6ff;
-  border:1px solid #bfdbfe;border-radius:8px;font-size:12.5px;line-height:1.7}}
+.terminfo{{position:relative;margin:8px 0 18px;padding:12px 36px 12px 14px;background:var(--ibg);
+  border:1px solid var(--ibd);border-radius:8px;font-size:12.5px;line-height:1.7}}
 .terminfo b{{display:block;margin-bottom:4px;font-size:13.5px}}
 .ticlose{{position:absolute;top:6px;right:8px;border:none;background:none;cursor:pointer;
   font-size:15px;line-height:1;color:var(--muted);padding:4px}}
@@ -433,6 +612,7 @@ th.wl{{color:var(--muted);cursor:default}}
 body.wlon{{padding-bottom:60px}}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>配当株 軍分けランキング</h1><a href="terms.html">利用規約・免責事項</a></div>
+{THEME_BAR}
 <div class="sub">生成 {gen}　｜　スクリーン：{scr}　｜　<a href="guide.html">使い方・見方</a></div>
 <div class="sub">表の見出し（軍・終値・選定・買い時・利回り・増配・カバレッジ・業種級）をクリックすると説明が出ます。左端の□にチェックを入れて下部の「ウォッチリストを作成」を押すと、その銘柄だけの一覧を作れます。</div>
 <div class="summary">
@@ -464,6 +644,7 @@ body.wlon{{padding-bottom:60px}}
 <button type="button" id="wlgo">ウォッチリストを作成 →</button>
 <button type="button" id="wlclear2" class="ghost">選択をクリア</button></div>
 <script>
+{THEME_JS}
 (function(){{
   var q = document.getElementById('q');
   var hit = document.getElementById('qhit');
