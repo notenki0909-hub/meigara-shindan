@@ -1,15 +1,55 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=JSON.parse(localStorage.getItem("pp_theme")||"{}");if(t.pal&&t.pal!=="genko"&&t.pal!=="custom"){document.documentElement.setAttribute("data-pal",t.pal);document.documentElement.setAttribute("data-hl","on");}if(t.pal==="custom")document.documentElement.setAttribute("data-hl","on");if(t.mode==="dark"||t.mode==="light")document.documentElement.setAttribute("data-mode",t.mode);}catch(e){}</script>
 <title>ミマキエンジニアリング（6638）銘柄診断</title>
 <style>
+
 :root{
-  --bg:#ffffff; --fg:#1d232b; --muted:#6b7683; --line:#e4e8ec; --card:#f7f9fa;
-  --accent:#2f9e91; --hi:#2f9e91; --mid:#e0912f; --lo:#d1584f; --na:#c3ccd3;
+  --bg:#ffffff;--fg:#1d232b;--muted:#6b7683;--line:#e4e8ec;--card:#f7f9fa;--accent:#2f9e91;
+  --hi:#2f9e91;--mid:#e0912f;--lo:#d1584f;--na:#c3ccd3;
 }
 @media (prefers-color-scheme:dark){
-  :root{ --bg:#161a1e; --fg:#e7ecef; --muted:#9aa6af; --line:#2c333a; --card:#1e242a;
-    --accent:#4fb8ab; --hi:#4fb8ab; --mid:#e0a45a; --lo:#e07b73; --na:#4a555e; }
+  :root:not([data-mode]){
+    --bg:#161a1e;--fg:#e7ecef;--muted:#9aa6af;--line:#2c333a;--card:#1e242a;--accent:#4fb8ab;
+    --hi:#4fb8ab;--mid:#e0a45a;--lo:#e07b73;--na:#4a555e;
+  }
 }
+:root[data-mode="dark"]{
+  --bg:#161a1e;--fg:#e7ecef;--muted:#9aa6af;--line:#2c333a;--card:#1e242a;--accent:#4fb8ab;
+  --hi:#4fb8ab;--mid:#e0a45a;--lo:#e07b73;--na:#4a555e;
+}
+:root[data-pal="blueplus"]{--bg:#f7f8fa;--card:#ffffff;--line:#dfe1e6;--muted:#5b6472;--fg:#161a1f;--accent:#2563eb;}
+:root[data-pal="blueplus"][data-mode="dark"]{--bg:#0d0f14;--card:#191d26;--line:#30363f;--muted:#9aa3ae;--fg:#e9ebef;--accent:#7db0ff;}
+:root[data-pal="teal"]{--bg:#f2f8f6;--card:#ffffff;--line:#d7e6e1;--muted:#556661;--fg:#132019;--accent:#0d7c72;}
+:root[data-pal="teal"][data-mode="dark"]{--bg:#0b120f;--card:#152019;--line:#28372f;--muted:#8fa39c;--fg:#e2ece7;--accent:#3fd9c8;}
+:root[data-pal="slate"]{--bg:#f5f6f9;--card:#ffffff;--line:#dde1e8;--muted:#5b6577;--fg:#171d28;--accent:#334c86;}
+:root[data-pal="slate"][data-mode="dark"]{--bg:#0d0f13;--card:#181c23;--line:#2c323d;--muted:#96a0ae;--fg:#e6e8ec;--accent:#8fb0e6;}
+:root[data-pal="sand"]{--bg:#f8f4ea;--card:#fffdf8;--line:#e7dcc7;--muted:#6a5f48;--fg:#221c11;--accent:#b1500a;}
+:root[data-pal="sand"][data-mode="dark"]{--bg:#131009;--card:#201b11;--line:#372c1b;--muted:#a89d84;--fg:#ece4d3;--accent:#ffab2e;}
+:root[data-pal="violet"]{--bg:#f8f6fd;--card:#ffffff;--line:#e4dcf1;--muted:#635a75;--fg:#1b1626;--accent:#6d28d9;}
+:root[data-pal="violet"][data-mode="dark"]{--bg:#0f0d16;--card:#1c1727;--line:#302742;--muted:#a89fb8;--fg:#ebe5f4;--accent:#b79bff;}
+:root[data-pal="rose"]{--bg:#fdf5f8;--card:#ffffff;--line:#efd9e2;--muted:#7a5a65;--fg:#24171d;--accent:#c2255c;}
+:root[data-pal="rose"][data-mode="dark"]{--bg:#140f12;--card:#211820;--line:#3a2b33;--muted:#b499a3;--fg:#efe3e9;--accent:#f472b6;}
+
+#theme-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:10px 0 4px;font-size:12px}
+#theme-bar .tb-lbl{color:var(--muted)}
+#theme-bar .sw{width:20px;height:20px;border-radius:50%;border:1px solid var(--line);cursor:pointer;padding:0;background:var(--tb-c,#ccc)}
+#theme-bar .sw[data-pal="genko"]{background:linear-gradient(135deg,#fff 48%,#2f9e91 52%)}
+#theme-bar .sw.custom{background:conic-gradient(#e74c8b,#f0b429,#28a48b,#4f7be0,#9b5de5,#e74c8b)}
+#theme-bar .sw[aria-pressed="true"]{outline:2px solid var(--fg);outline-offset:1px}
+#theme-bar .tb-btn{border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:7px;padding:3px 9px;font:inherit;font-size:12px;cursor:pointer}
+#theme-bar .tb-reset{color:var(--accent);border:0;background:none;text-decoration:underline;text-underline-offset:2px;cursor:pointer;font:inherit;font-size:12px}
+#theme-bar .tb-sep{width:1px;align-self:stretch;background:var(--line);margin:0 3px}
+#cust-panel{display:none;flex-wrap:wrap;gap:10px 16px;align-items:center;width:100%;margin-top:4px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--card)}
+#cust-panel.open{display:flex}
+#cust-panel label{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--fg)}
+#cust-panel input[type=color]{width:40px;height:24px;border:1px solid var(--line);border-radius:5px;padding:0;background:none;cursor:pointer}
+#cust-panel .cc-more{border:0;background:none;color:var(--accent);font:inherit;font-size:11.5px;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+#cust-panel .cc-adv{display:none;gap:10px 16px;flex-wrap:wrap;align-items:center}
+#cust-panel .cc-adv.open{display:flex}
+#cust-panel .cc-warn{font-size:11px;color:var(--lo);flex-basis:100%}
+@media print{#theme-bar{display:none}}
+
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);
   font-family:"Segoe UI","Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
@@ -109,6 +149,34 @@ svg.trend{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;
 
 <div class="topbar"><h1>ミマキエンジニアリング（6638）　配当株スクリーニング</h1>
 <span class="blk"><a href="../index.html">← 一覧へ戻る</a><a href="../watchlist.html">← ウォッチリストへ戻る</a></span></div>
+
+<div id="theme-bar">
+  <span class="tb-lbl">配色</span>
+  <button type="button" class="sw" data-pal="genko" title="現行（そのまま）" aria-label="現行"></button>
+  <button type="button" class="sw" data-pal="blueplus" style="--tb-c:#2563eb" title="ブルー＋" aria-label="ブルー＋"></button>
+  <button type="button" class="sw" data-pal="teal" style="--tb-c:#0d7c72" title="ティール" aria-label="ティール"></button>
+  <button type="button" class="sw" data-pal="slate" style="--tb-c:#334c86" title="スレート" aria-label="スレート"></button>
+  <button type="button" class="sw" data-pal="sand" style="--tb-c:#b1500a" title="サンド" aria-label="サンド"></button>
+  <button type="button" class="sw" data-pal="violet" style="--tb-c:#6d28d9" title="バイオレット" aria-label="バイオレット"></button>
+  <button type="button" class="sw" data-pal="rose" style="--tb-c:#c2255c" title="ローズ" aria-label="ローズ"></button>
+  <button type="button" class="sw custom" data-pal="custom" title="カスタム" aria-label="カスタム"></button>
+  <span class="tb-sep"></span>
+  <button type="button" class="tb-btn tb-mode">🌙 ダークへ</button>
+  <button type="button" class="tb-reset">↺ 標準に戻す</button>
+  <div id="cust-panel">
+    <label>地色 <input type="color" id="cc-bg" value="#ffffff"></label>
+    <label>アクセント <input type="color" id="cc-accent" value="#2f9e91"></label>
+    <button type="button" class="cc-more">＋ くわしく（面・枠・文字色も指定）</button>
+    <div class="cc-adv">
+      <label>面 <input type="color" id="cc-card" value="#f7f9fa"></label>
+      <label>枠 <input type="color" id="cc-line" value="#e4e8ec"></label>
+      <label>補助文字 <input type="color" id="cc-muted" value="#6b7683"></label>
+      <label>文字色 <input type="color" id="cc-fg" value="#1d232b"></label>
+    </div>
+    <span class="cc-warn"></span>
+  </div>
+</div>
+
 <div class="meta2">前回の値動き（2026-09-07）　終値 <b>1,966.0円</b>　／　高値 1,975.0円　／　安値 1,893.0円　／　始値 1,910.0円</div>
 <div class="sub">東証33業種：<b>電気機器</b>
 （yfinance分類：Electronics & Computer Distribution / Technology　→ sector（industry未対応））
@@ -162,4 +230,88 @@ svg.trend{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;
 <details class="m"><summary><span class="mn">営業利益（推移／年率）</span><span class="mv2">94億円 ← 91億円 ← 55億円 ← 42億円</span></summary><div class="mbody"><p class="rule"><b>推移：</b>古い→新しい</p><div class="trendwrap"><svg viewBox="0 0 456 112" class="chart trend" role="img" aria-label="推移"><line x1="48" y1="63" x2="392" y2="63" stroke="var(--line)" stroke-width="1"/><text x="44" y="66" class="cm" style="text-anchor:end">60億</text><line x1="48" y1="41" x2="392" y2="41" stroke="var(--line)" stroke-width="1"/><text x="44" y="44" class="cm" style="text-anchor:end">80億</text><polyline points="48,83 163,69 277,29 392,25" fill="none" stroke="var(--accent)" stroke-width="2"/><circle cx="48" cy="83" r="2.4" fill="var(--accent)"/><text x="48" y="106" class="cx">23</text><circle cx="163" cy="69" r="2.4" fill="var(--accent)"/><text x="163" y="106" class="cx">24</text><circle cx="277" cy="29" r="2.4" fill="var(--accent)"/><text x="277" y="106" class="cx">25</text><circle cx="392" cy="25" r="2.4" fill="var(--accent)"/><text x="392" y="106" class="cx">26</text><text x="48" y="77" class="cm" style="text-anchor:start">42億円</text><text x="392" y="19" class="cm" style="text-anchor:end">94億円</text></svg></div></div></details><details class="m"><summary><span class="mn">当期純利益（推移／年率）</span><span class="mv2">67億円 ← 62億円 ← 37億円 ← 28億円</span></summary><div class="mbody"><p class="rule"><b>推移：</b>古い→新しい</p><div class="trendwrap"><svg viewBox="0 0 456 112" class="chart trend" role="img" aria-label="推移"><line x1="48" y1="65" x2="392" y2="65" stroke="var(--line)" stroke-width="1"/><text x="44" y="68" class="cm" style="text-anchor:end">40億</text><line x1="48" y1="36" x2="392" y2="36" stroke="var(--line)" stroke-width="1"/><text x="44" y="39" class="cm" style="text-anchor:end">60億</text><polyline points="48,83 163,70 277,34 392,25" fill="none" stroke="var(--accent)" stroke-width="2"/><circle cx="48" cy="83" r="2.4" fill="var(--accent)"/><text x="48" y="106" class="cx">23</text><circle cx="163" cy="70" r="2.4" fill="var(--accent)"/><text x="163" y="106" class="cx">24</text><circle cx="277" cy="34" r="2.4" fill="var(--accent)"/><text x="277" y="106" class="cx">25</text><circle cx="392" cy="25" r="2.4" fill="var(--accent)"/><text x="392" y="106" class="cx">26</text><text x="48" y="77" class="cm" style="text-anchor:start">28億円</text><text x="392" y="19" class="cm" style="text-anchor:end">67億円</text></svg></div></div></details><details class="m"><summary><span class="mn">税引前利益（経常利益に相当・IFRS）</span><span class="mv2">89億円 ← 83億円 ← 49億円 ← 38億円</span></summary><div class="mbody"><p class="what">IFRS採用企業には日本基準の『経常利益』がなく、最も近いのが税引前利益。営業外の損益まで含んだ利益。</p><p class="rule"><b>推移：</b>古い→新しい</p><div class="trendwrap"><svg viewBox="0 0 456 112" class="chart trend" role="img" aria-label="推移"><line x1="48" y1="81" x2="392" y2="81" stroke="var(--line)" stroke-width="1"/><text x="44" y="84" class="cm" style="text-anchor:end">40億</text><line x1="48" y1="58" x2="392" y2="58" stroke="var(--line)" stroke-width="1"/><text x="44" y="61" class="cm" style="text-anchor:end">60億</text><line x1="48" y1="36" x2="392" y2="36" stroke="var(--line)" stroke-width="1"/><text x="44" y="39" class="cm" style="text-anchor:end">80億</text><polyline points="48,83 163,71 277,32 392,25" fill="none" stroke="var(--accent)" stroke-width="2"/><circle cx="48" cy="83" r="2.4" fill="var(--accent)"/><text x="48" y="106" class="cx">23</text><circle cx="163" cy="71" r="2.4" fill="var(--accent)"/><text x="163" y="106" class="cx">24</text><circle cx="277" cy="32" r="2.4" fill="var(--accent)"/><text x="277" y="106" class="cx">25</text><circle cx="392" cy="25" r="2.4" fill="var(--accent)"/><text x="392" y="106" class="cx">26</text><text x="48" y="77" class="cm" style="text-anchor:start">38億円</text><text x="392" y="19" class="cm" style="text-anchor:end">89億円</text></svg></div></div></details><details class="m"><summary><span class="mn">インタレストカバレッジレシオ（EBIT÷支払利息）</span><span class="mv2">21.0倍</span></summary><div class="mbody"><p class="what">本業の利益（EBIT）で支払利息を何倍まかなえるかを見る指標。例えばEBIT100億円・支払利息10億円なら10倍＝利払いに十分な余裕がある。D/Eレシオが『借金の大きさ』を見るのに対し、こちらは『今の利益でその借金の利払いをどれだけ楽に賄えているか』を見る。金利が上がるほど利払い負担が重くなるため、金利上昇局面で重要性が増す。目安は10倍以上で余裕、3倍未満は要注意。</p></div></details><div class="plain"><span class="mn">ROIC（投下資本利益率）</span><span class="mv2">11.6%</span></div><div class="plain"><span class="mn">有利子負債比率（負債÷総資産）</span><span class="mv2">28.8%</span></div><div class="plain"><span class="mn">現金比率（現金÷総資産）</span><span class="mv2">19.7%</span></div><details class="m"><summary><span class="mn">倒産ヘッジ（ネット現金の有無）</span><span class="mv2">純有利子負債あり。営業CFでの返済余力を確認</span></summary><div class="mbody"><p class="what">手元現金が有利子負債を上回っていれば（ネットキャッシュ）、資金繰りで行き詰まるリスクが低い。</p></div></details><details class="m"><summary><span class="mn">投資CF（直近／推移）</span><span class="mv2">-54億円 ← -24億円 ← -26億円 ← -35億円</span></summary><div class="mbody"><p class="what">設備・買収などへの支出。成長企業は大きくマイナスになるのが普通。</p><p class="rule"><b>推移：</b>古い→新しい</p><div class="trendwrap"><svg viewBox="0 0 456 112" class="chart trend" role="img" aria-label="推移"><line x1="48" y1="75" x2="392" y2="75" stroke="var(--line)" stroke-width="1"/><text x="44" y="78" class="cm" style="text-anchor:end">-50億</text><line x1="48" y1="56" x2="392" y2="56" stroke="var(--line)" stroke-width="1"/><text x="44" y="59" class="cm" style="text-anchor:end">-40億</text><line x1="48" y1="36" x2="392" y2="36" stroke="var(--line)" stroke-width="1"/><text x="44" y="39" class="cm" style="text-anchor:end">-30億</text><polyline points="48,46 163,28 277,25 392,83" fill="none" stroke="var(--accent)" stroke-width="2"/><circle cx="48" cy="46" r="2.4" fill="var(--accent)"/><text x="48" y="106" class="cx">23</text><circle cx="163" cy="28" r="2.4" fill="var(--accent)"/><text x="163" y="106" class="cx">24</text><circle cx="277" cy="25" r="2.4" fill="var(--accent)"/><text x="277" y="106" class="cx">25</text><circle cx="392" cy="83" r="2.4" fill="var(--accent)"/><text x="392" y="106" class="cx">26</text><text x="48" y="40" class="cm" style="text-anchor:start">-35億円</text><text x="392" y="77" class="cm" style="text-anchor:end">-54億円</text></svg></div></div></details><details class="m"><summary><span class="mn">財務CF（直近／推移）</span><span class="mv2">-13億円 ← -75億円 ← -14億円 ← 35億円</span></summary><div class="mbody"><p class="what">配当・自社株買い・借入返済の収支。株主還元に積極的な会社はマイナスが続く。</p><p class="rule"><b>推移：</b>古い→新しい</p><div class="trendwrap"><svg viewBox="0 0 456 112" class="chart trend" role="img" aria-label="推移"><line x1="48" y1="70" x2="392" y2="70" stroke="var(--line)" stroke-width="1"/><text x="44" y="73" class="cm" style="text-anchor:end">-50億</text><line x1="48" y1="44" x2="392" y2="44" stroke="var(--line)" stroke-width="1"/><text x="44" y="47" class="cm" style="text-anchor:end">0</text><polyline points="48,25 163,51 277,83 392,50" fill="none" stroke="var(--accent)" stroke-width="2"/><circle cx="48" cy="25" r="2.4" fill="var(--accent)"/><text x="48" y="106" class="cx">23</text><circle cx="163" cy="51" r="2.4" fill="var(--accent)"/><text x="163" y="106" class="cx">24</text><circle cx="277" cy="83" r="2.4" fill="var(--accent)"/><text x="277" y="106" class="cx">25</text><circle cx="392" cy="50" r="2.4" fill="var(--accent)"/><text x="392" y="106" class="cx">26</text><text x="48" y="19" class="cm" style="text-anchor:start">35億円</text><text x="392" y="44" class="cm" style="text-anchor:end">-13億円</text></svg></div></div></details><details class="m"><summary><span class="mn">自社株買い（直近期）</span><span class="mv2">6万円（時価総額比 0.00%）</span></summary><div class="mbody"><p class="what">会社が市場から自社の株を買い戻した金額。発行済み株式数が減るため、1株当たりの利益・配当の原資が相対的に増える効果がある。配当と並ぶ株主還元の手段で、東証の資本効率改善要請を背景に積極化している会社が多い（総合商社・メガバンク等）。</p></div></details><details class="m"><summary><span class="mn">CFの符号パターン</span><span class="mv2">営業＋ / 投資－ / 財務－ … 健全型（本業で稼ぎ→投資と株主還元に回す）</span></summary><div class="mbody"><p class="what">営業＋／投資－／財務－ が『本業で稼いで投資と株主還元に回す』健全型。</p></div></details><details class="m"><summary><span class="mn">総還元利回り（配当＋自社株買い）</span><span class="mv2">2.80%（配当）＋0.00%（自社株買い）＝2.80%</span></summary><div class="mbody"><p class="what">配当利回りだけでなく、自社株買いも時価総額に対する『利回り』とみなして合算した数字。例えば配当利回り3%＋自社株買い利回り2%＝総還元利回り5%。配当は控えめでも自社株買いに積極的な会社の株主還元姿勢を、配当利回りだけでは見落としてしまうのを補う。</p></div></details><details class="m"><summary><span class="mn">総還元性向（（配当＋自社株買い）÷純利益）</span><span class="mv2">25.7%</span></summary><div class="mbody"><p class="what">配当性向は配当だけを見るが、これに自社株買いも加えて『純利益のうちどれだけを株主還元に回しているか』を見る。例えば純利益100億円に対し配当40億円＋自社株買い30億円なら総還元性向70%。100%を超えると、その期の利益以上を還元している（内部留保を取り崩している）ことを意味する。</p></div></details><div class="plain"><span class="mn">減配履歴</span><span class="mv2">最終減配 2020年度（5年前）。回復途上</span></div><details class="m"><summary><span class="mn">配当の中身（記念・特別の有無）</span><span class="mv2">直近の配当は普通配当のみと推定（突出した回なし）。ただし会社発表の内訳で最終確認を。</span></summary><div class="mbody"><p class="what">記念配当・特別配当が乗った年の利回りで判断すると、翌年それが外れて減配に見える。普通配当だけで見る。</p></div></details><div class="plain"><span class="mn">配当方針の一次情報</span><span class="mv2">累進配当・DOE・配当性向目標などは会社の中期経営計画／決算説明資料で確認 <a href="https://irbank.net/6638/dividend">https://irbank.net/6638/dividend</a></span></div><details class="m"><summary><span class="mn">益回り（1÷PER）</span><span class="mv2">11.8%</span></summary><div class="mbody"><p class="what">PERの逆数。株式の『利回り』に相当し、国債利回りと比べて割高・割安の目安にする。</p></div></details><div class="plain"><span class="mn">RSI(14)</span><span class="mv2">54　中立</span></div><details class="m"><summary><span class="mn">MACD(12,26,9)</span><span class="mv2">シグナル下（下向き継続）</span></summary><div class="mbody"><p class="what">中期の移動平均の向き。上向き転換（ゴールデンクロス）／下向き転換の判定に使う短期指標。</p></div></details><details class="m"><summary><span class="mn">スローストキャスティクス(14,3,3)</span><span class="mv2">%K=39 中立ゾーン</span></summary><div class="mbody"><p class="what">直近の値幅の中で終値がどこにあるか。80超で買われすぎ、20未満で売られすぎ。</p></div></details>
 
 <div class="disc">教育目的の一般情報であり、投資助言・特定銘柄の売買推奨ではありません。表示される「銘柄選定」「買い時」のスコア・ラベルは、公開データをあらかじめ定めたルールで機械的に算出したものであり、投資判断の代替にはなりません。運営者は金融商品取引法上の投資助言・代理業の登録を受けていません。数値は yfinance／IR BANK 由来で誤り・遅延・欠損があり得ます。業種平均と判定しきい値は2026年8月時点の目安です。最終判断はご自身の責任で、一次情報（決算短信・有価証券報告書）をご確認ください。詳しくは<a href="../terms.html">利用規約・免責事項</a>をご確認ください。</div>
+
+<script>
+(function(){
+  var PALS=['genko','blueplus','teal','slate','sand','violet','rose','custom'];
+  var TKEY='pp_theme',CKEY='pp_custom',root=document.documentElement;
+  var bar=document.getElementById('theme-bar'); if(!bar) return;
+  function readT(){try{return JSON.parse(localStorage.getItem(TKEY)||'null')||{};}catch(e){return {};}}
+  function readC(){try{return JSON.parse(localStorage.getItem(CKEY)||'null')||null;}catch(e){return null;}}
+  function saveT(o){try{localStorage.setItem(TKEY,JSON.stringify(o));}catch(e){}}
+  function h2r(h){h=h.replace('#','');return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
+  function r2h(a){return '#'+a.map(function(x){x=Math.max(0,Math.min(255,Math.round(x)));return x.toString(16).padStart(2,'0');}).join('');}
+  function mix(a,b,t){var A=h2r(a),B=h2r(b);return r2h([0,1,2].map(function(i){return A[i]+(B[i]-A[i])*t;}));}
+  function lum(h){var c=h2r(h).map(function(x){x/=255;return x<=0.03928?x/12.92:Math.pow((x+0.055)/1.055,2.4);});return 0.2126*c[0]+0.7152*c[1]+0.0722*c[2];}
+  function cr(a,b){var L1=lum(a),L2=lum(b);return (Math.max(L1,L2)+0.05)/(Math.min(L1,L2)+0.05);}
+  function deriv(bg){var d=lum(bg)<0.35;return{dark:d,fg:d?mix(bg,'#ffffff',0.9):mix(bg,'#000000',0.86),card:d?mix(bg,'#ffffff',0.06):mix(bg,'#ffffff',0.72),line:d?mix(bg,'#ffffff',0.15):mix(bg,'#000000',0.1),muted:d?mix(bg,'#ffffff',0.55):mix(bg,'#000000',0.55)};}
+  var CD={bg:'#ffffff',accent:'#2f9e91',card:'#f7f9fa',line:'#e4e8ec',muted:'#6b7683',fg:'#1d232b'};
+  var CVARS=['--bg','--card','--line','--muted','--fg','--accent','--hi','--mid','--lo','--na'];
+  function clearCP(){CVARS.forEach(function(p){root.style.removeProperty(p);});}
+  function applyCustom(c){
+    var bg=c.bg,ac=c.accent,card,line,muted,fg;
+    if(c.adv){card=c.card;line=c.line;muted=c.muted;fg=c.fg;}
+    else if(bg.toLowerCase()===CD.bg){card=CD.card;line=CD.line;muted=CD.muted;fg=CD.fg;}
+    else{var d=deriv(bg);card=d.card;line=d.line;muted=d.muted;fg=d.fg;}
+    var dark=lum(bg)<0.35,S=root.style;
+    S.setProperty('--bg',bg);S.setProperty('--card',card);S.setProperty('--line',line);
+    S.setProperty('--muted',muted);S.setProperty('--fg',fg);S.setProperty('--accent',ac);
+    S.setProperty('--hi',dark?'#4fb8ab':'#2f9e91');S.setProperty('--mid',dark?'#e0a45a':'#e0912f');
+    S.setProperty('--lo',dark?'#e07b73':'#d1584f');S.setProperty('--na',dark?'#4a555e':'#c3ccd3');
+  }
+  function apply(){
+    var t=readT();
+    var pal=(t.pal&&PALS.indexOf(t.pal)>=0)?t.pal:'genko';
+    var mode=(t.mode==='dark')?'dark':(t.mode==='light'?'light':'');
+    clearCP();
+    if(pal==='custom'){
+      applyCustom(readC()||Object.assign({},CD));
+      root.removeAttribute('data-pal');root.removeAttribute('data-mode');root.setAttribute('data-hl','on');
+    }else{
+      if(pal==='genko'){root.removeAttribute('data-pal');root.removeAttribute('data-hl');}
+      else{root.setAttribute('data-pal',pal);root.setAttribute('data-hl','on');}
+      if(mode)root.setAttribute('data-mode',mode);else root.removeAttribute('data-mode');
+    }
+    bar.querySelectorAll('.sw').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.pal===pal?'true':'false');});
+    var mb=bar.querySelector('.tb-mode');
+    if(mb){mb.textContent=(mode==='dark')?'☀ ライトへ':'🌙 ダークへ';mb.style.display=(pal==='custom')?'none':'';}
+    var cp=document.getElementById('cust-panel');
+    if(cp)cp.classList.toggle('open',pal==='custom');
+  }
+  bar.querySelectorAll('.sw').forEach(function(b){
+    b.addEventListener('click',function(){var t=readT();t.pal=b.dataset.pal;if(!('mode' in t))t.mode='';saveT(t);apply();});
+  });
+  var mBtn=bar.querySelector('.tb-mode');
+  if(mBtn)mBtn.addEventListener('click',function(){var t=readT();t.mode=(t.mode==='dark')?'light':'dark';saveT(t);apply();});
+  var rBtn=bar.querySelector('.tb-reset');
+  if(rBtn)rBtn.addEventListener('click',function(){try{localStorage.removeItem(TKEY);}catch(e){}apply();});
+  var cp=document.getElementById('cust-panel');
+  if(cp){
+    var q=function(s){return cp.querySelector(s);};
+    var ci={bg:q('#cc-bg'),accent:q('#cc-accent'),card:q('#cc-card'),line:q('#cc-line'),muted:q('#cc-muted'),fg:q('#cc-fg')};
+    var adv=q('.cc-adv'),more=q('.cc-more'),warn=q('.cc-warn'),advOpen=false;
+    var sv=readC();
+    if(sv){ci.bg.value=sv.bg||CD.bg;ci.accent.value=sv.accent||CD.accent;ci.card.value=sv.card||CD.card;ci.line.value=sv.line||CD.line;ci.muted.value=sv.muted||CD.muted;ci.fg.value=sv.fg||CD.fg;advOpen=!!sv.adv;}
+    if(advOpen){adv.classList.add('open');more.textContent='－ かんたんに戻す';}
+    function push(){
+      var c={bg:ci.bg.value,accent:ci.accent.value,adv:advOpen,card:ci.card.value,line:ci.line.value,muted:ci.muted.value,fg:ci.fg.value};
+      try{localStorage.setItem(CKEY,JSON.stringify(c));}catch(e){}
+      var t=readT();t.pal='custom';saveT(t);apply();
+      var bg=c.bg,fg=advOpen?c.fg:(bg.toLowerCase()===CD.bg?CD.fg:deriv(bg).fg),m=[];
+      if(cr(fg,bg)<4.5)m.push('文字と背景の差が小さめ');
+      if(cr(c.accent,bg)<2.4)m.push('アクセントが埋もれ気味');
+      warn.textContent=m.length?'⚠ '+m.join(' ／ '):'';
+    }
+    cp.addEventListener('input',push);
+    more.addEventListener('click',function(){
+      advOpen=!advOpen;adv.classList.toggle('open',advOpen);
+      more.textContent=advOpen?'－ かんたんに戻す':'＋ くわしく（面・枠・文字色も指定）';
+      if(advOpen){var d=deriv(ci.bg.value);ci.card.value=d.card;ci.line.value=d.line;ci.muted.value=d.muted;ci.fg.value=d.fg;}
+      push();
+    });
+  }
+  apply();
+})();
+</script>
+
 </div></body></html>

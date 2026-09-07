@@ -1976,6 +1976,184 @@ DISC = ("教育目的の一般情報であり、投資助言・特定銘柄の�
 DISC_HTML = DISC.replace("利用規約・免責事項", '<a href="../terms.html">利用規約・免責事項</a>')
 
 
+# ======================================================================
+# 配色テーマ（個別銘柄レポート用）。ランキング側 rank.py の THEME_* と考え方は
+# 同じだが、レポートは意味色が --hi/--mid/--lo/--na（スコア棒の良/注意/弱/対象外）
+# なのでこちら専用。localStorage キー pp_theme / pp_custom はサイト共通。
+# THEME_HEAD / THEME_BAR は rank.py と「同一内容」（1か所直したら全部そろえる）。
+# analyze_us.py の render_html_us もこの4定数を使う。
+# ======================================================================
+THEME_HEAD = (
+    '<script>try{var t=JSON.parse(localStorage.getItem("pp_theme")||"{}");'
+    'if(t.pal&&t.pal!=="genko"&&t.pal!=="custom"){document.documentElement.setAttribute("data-pal",t.pal);'
+    'document.documentElement.setAttribute("data-hl","on");}'
+    'if(t.pal==="custom")document.documentElement.setAttribute("data-hl","on");'
+    'if(t.mode==="dark"||t.mode==="light")document.documentElement.setAttribute("data-mode",t.mode);}catch(e){}</script>'
+)
+
+THEME_CSS = """
+:root{
+  --bg:#ffffff;--fg:#1d232b;--muted:#6b7683;--line:#e4e8ec;--card:#f7f9fa;--accent:#2f9e91;
+  --hi:#2f9e91;--mid:#e0912f;--lo:#d1584f;--na:#c3ccd3;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-mode]){
+    --bg:#161a1e;--fg:#e7ecef;--muted:#9aa6af;--line:#2c333a;--card:#1e242a;--accent:#4fb8ab;
+    --hi:#4fb8ab;--mid:#e0a45a;--lo:#e07b73;--na:#4a555e;
+  }
+}
+:root[data-mode="dark"]{
+  --bg:#161a1e;--fg:#e7ecef;--muted:#9aa6af;--line:#2c333a;--card:#1e242a;--accent:#4fb8ab;
+  --hi:#4fb8ab;--mid:#e0a45a;--lo:#e07b73;--na:#4a555e;
+}
+:root[data-pal="blueplus"]{--bg:#f7f8fa;--card:#ffffff;--line:#dfe1e6;--muted:#5b6472;--fg:#161a1f;--accent:#2563eb;}
+:root[data-pal="blueplus"][data-mode="dark"]{--bg:#0d0f14;--card:#191d26;--line:#30363f;--muted:#9aa3ae;--fg:#e9ebef;--accent:#7db0ff;}
+:root[data-pal="teal"]{--bg:#f2f8f6;--card:#ffffff;--line:#d7e6e1;--muted:#556661;--fg:#132019;--accent:#0d7c72;}
+:root[data-pal="teal"][data-mode="dark"]{--bg:#0b120f;--card:#152019;--line:#28372f;--muted:#8fa39c;--fg:#e2ece7;--accent:#3fd9c8;}
+:root[data-pal="slate"]{--bg:#f5f6f9;--card:#ffffff;--line:#dde1e8;--muted:#5b6577;--fg:#171d28;--accent:#334c86;}
+:root[data-pal="slate"][data-mode="dark"]{--bg:#0d0f13;--card:#181c23;--line:#2c323d;--muted:#96a0ae;--fg:#e6e8ec;--accent:#8fb0e6;}
+:root[data-pal="sand"]{--bg:#f8f4ea;--card:#fffdf8;--line:#e7dcc7;--muted:#6a5f48;--fg:#221c11;--accent:#b1500a;}
+:root[data-pal="sand"][data-mode="dark"]{--bg:#131009;--card:#201b11;--line:#372c1b;--muted:#a89d84;--fg:#ece4d3;--accent:#ffab2e;}
+:root[data-pal="violet"]{--bg:#f8f6fd;--card:#ffffff;--line:#e4dcf1;--muted:#635a75;--fg:#1b1626;--accent:#6d28d9;}
+:root[data-pal="violet"][data-mode="dark"]{--bg:#0f0d16;--card:#1c1727;--line:#302742;--muted:#a89fb8;--fg:#ebe5f4;--accent:#b79bff;}
+:root[data-pal="rose"]{--bg:#fdf5f8;--card:#ffffff;--line:#efd9e2;--muted:#7a5a65;--fg:#24171d;--accent:#c2255c;}
+:root[data-pal="rose"][data-mode="dark"]{--bg:#140f12;--card:#211820;--line:#3a2b33;--muted:#b499a3;--fg:#efe3e9;--accent:#f472b6;}
+
+#theme-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:10px 0 4px;font-size:12px}
+#theme-bar .tb-lbl{color:var(--muted)}
+#theme-bar .sw{width:20px;height:20px;border-radius:50%;border:1px solid var(--line);cursor:pointer;padding:0;background:var(--tb-c,#ccc)}
+#theme-bar .sw[data-pal="genko"]{background:linear-gradient(135deg,#fff 48%,#2f9e91 52%)}
+#theme-bar .sw.custom{background:conic-gradient(#e74c8b,#f0b429,#28a48b,#4f7be0,#9b5de5,#e74c8b)}
+#theme-bar .sw[aria-pressed="true"]{outline:2px solid var(--fg);outline-offset:1px}
+#theme-bar .tb-btn{border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:7px;padding:3px 9px;font:inherit;font-size:12px;cursor:pointer}
+#theme-bar .tb-reset{color:var(--accent);border:0;background:none;text-decoration:underline;text-underline-offset:2px;cursor:pointer;font:inherit;font-size:12px}
+#theme-bar .tb-sep{width:1px;align-self:stretch;background:var(--line);margin:0 3px}
+#cust-panel{display:none;flex-wrap:wrap;gap:10px 16px;align-items:center;width:100%;margin-top:4px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--card)}
+#cust-panel.open{display:flex}
+#cust-panel label{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--fg)}
+#cust-panel input[type=color]{width:40px;height:24px;border:1px solid var(--line);border-radius:5px;padding:0;background:none;cursor:pointer}
+#cust-panel .cc-more{border:0;background:none;color:var(--accent);font:inherit;font-size:11.5px;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+#cust-panel .cc-adv{display:none;gap:10px 16px;flex-wrap:wrap;align-items:center}
+#cust-panel .cc-adv.open{display:flex}
+#cust-panel .cc-warn{font-size:11px;color:var(--lo);flex-basis:100%}
+@media print{#theme-bar{display:none}}
+"""
+
+THEME_BAR = """
+<div id="theme-bar">
+  <span class="tb-lbl">配色</span>
+  <button type="button" class="sw" data-pal="genko" title="現行（そのまま）" aria-label="現行"></button>
+  <button type="button" class="sw" data-pal="blueplus" style="--tb-c:#2563eb" title="ブルー＋" aria-label="ブルー＋"></button>
+  <button type="button" class="sw" data-pal="teal" style="--tb-c:#0d7c72" title="ティール" aria-label="ティール"></button>
+  <button type="button" class="sw" data-pal="slate" style="--tb-c:#334c86" title="スレート" aria-label="スレート"></button>
+  <button type="button" class="sw" data-pal="sand" style="--tb-c:#b1500a" title="サンド" aria-label="サンド"></button>
+  <button type="button" class="sw" data-pal="violet" style="--tb-c:#6d28d9" title="バイオレット" aria-label="バイオレット"></button>
+  <button type="button" class="sw" data-pal="rose" style="--tb-c:#c2255c" title="ローズ" aria-label="ローズ"></button>
+  <button type="button" class="sw custom" data-pal="custom" title="カスタム" aria-label="カスタム"></button>
+  <span class="tb-sep"></span>
+  <button type="button" class="tb-btn tb-mode">🌙 ダークへ</button>
+  <button type="button" class="tb-reset">↺ 標準に戻す</button>
+  <div id="cust-panel">
+    <label>地色 <input type="color" id="cc-bg" value="#ffffff"></label>
+    <label>アクセント <input type="color" id="cc-accent" value="#2f9e91"></label>
+    <button type="button" class="cc-more">＋ くわしく（面・枠・文字色も指定）</button>
+    <div class="cc-adv">
+      <label>面 <input type="color" id="cc-card" value="#f7f9fa"></label>
+      <label>枠 <input type="color" id="cc-line" value="#e4e8ec"></label>
+      <label>補助文字 <input type="color" id="cc-muted" value="#6b7683"></label>
+      <label>文字色 <input type="color" id="cc-fg" value="#1d232b"></label>
+    </div>
+    <span class="cc-warn"></span>
+  </div>
+</div>
+"""
+
+THEME_JS = r"""
+<script>
+(function(){
+  var PALS=['genko','blueplus','teal','slate','sand','violet','rose','custom'];
+  var TKEY='pp_theme',CKEY='pp_custom',root=document.documentElement;
+  var bar=document.getElementById('theme-bar'); if(!bar) return;
+  function readT(){try{return JSON.parse(localStorage.getItem(TKEY)||'null')||{};}catch(e){return {};}}
+  function readC(){try{return JSON.parse(localStorage.getItem(CKEY)||'null')||null;}catch(e){return null;}}
+  function saveT(o){try{localStorage.setItem(TKEY,JSON.stringify(o));}catch(e){}}
+  function h2r(h){h=h.replace('#','');return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
+  function r2h(a){return '#'+a.map(function(x){x=Math.max(0,Math.min(255,Math.round(x)));return x.toString(16).padStart(2,'0');}).join('');}
+  function mix(a,b,t){var A=h2r(a),B=h2r(b);return r2h([0,1,2].map(function(i){return A[i]+(B[i]-A[i])*t;}));}
+  function lum(h){var c=h2r(h).map(function(x){x/=255;return x<=0.03928?x/12.92:Math.pow((x+0.055)/1.055,2.4);});return 0.2126*c[0]+0.7152*c[1]+0.0722*c[2];}
+  function cr(a,b){var L1=lum(a),L2=lum(b);return (Math.max(L1,L2)+0.05)/(Math.min(L1,L2)+0.05);}
+  function deriv(bg){var d=lum(bg)<0.35;return{dark:d,fg:d?mix(bg,'#ffffff',0.9):mix(bg,'#000000',0.86),card:d?mix(bg,'#ffffff',0.06):mix(bg,'#ffffff',0.72),line:d?mix(bg,'#ffffff',0.15):mix(bg,'#000000',0.1),muted:d?mix(bg,'#ffffff',0.55):mix(bg,'#000000',0.55)};}
+  var CD={bg:'#ffffff',accent:'#2f9e91',card:'#f7f9fa',line:'#e4e8ec',muted:'#6b7683',fg:'#1d232b'};
+  var CVARS=['--bg','--card','--line','--muted','--fg','--accent','--hi','--mid','--lo','--na'];
+  function clearCP(){CVARS.forEach(function(p){root.style.removeProperty(p);});}
+  function applyCustom(c){
+    var bg=c.bg,ac=c.accent,card,line,muted,fg;
+    if(c.adv){card=c.card;line=c.line;muted=c.muted;fg=c.fg;}
+    else if(bg.toLowerCase()===CD.bg){card=CD.card;line=CD.line;muted=CD.muted;fg=CD.fg;}
+    else{var d=deriv(bg);card=d.card;line=d.line;muted=d.muted;fg=d.fg;}
+    var dark=lum(bg)<0.35,S=root.style;
+    S.setProperty('--bg',bg);S.setProperty('--card',card);S.setProperty('--line',line);
+    S.setProperty('--muted',muted);S.setProperty('--fg',fg);S.setProperty('--accent',ac);
+    S.setProperty('--hi',dark?'#4fb8ab':'#2f9e91');S.setProperty('--mid',dark?'#e0a45a':'#e0912f');
+    S.setProperty('--lo',dark?'#e07b73':'#d1584f');S.setProperty('--na',dark?'#4a555e':'#c3ccd3');
+  }
+  function apply(){
+    var t=readT();
+    var pal=(t.pal&&PALS.indexOf(t.pal)>=0)?t.pal:'genko';
+    var mode=(t.mode==='dark')?'dark':(t.mode==='light'?'light':'');
+    clearCP();
+    if(pal==='custom'){
+      applyCustom(readC()||Object.assign({},CD));
+      root.removeAttribute('data-pal');root.removeAttribute('data-mode');root.setAttribute('data-hl','on');
+    }else{
+      if(pal==='genko'){root.removeAttribute('data-pal');root.removeAttribute('data-hl');}
+      else{root.setAttribute('data-pal',pal);root.setAttribute('data-hl','on');}
+      if(mode)root.setAttribute('data-mode',mode);else root.removeAttribute('data-mode');
+    }
+    bar.querySelectorAll('.sw').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.pal===pal?'true':'false');});
+    var mb=bar.querySelector('.tb-mode');
+    if(mb){mb.textContent=(mode==='dark')?'☀ ライトへ':'🌙 ダークへ';mb.style.display=(pal==='custom')?'none':'';}
+    var cp=document.getElementById('cust-panel');
+    if(cp)cp.classList.toggle('open',pal==='custom');
+  }
+  bar.querySelectorAll('.sw').forEach(function(b){
+    b.addEventListener('click',function(){var t=readT();t.pal=b.dataset.pal;if(!('mode' in t))t.mode='';saveT(t);apply();});
+  });
+  var mBtn=bar.querySelector('.tb-mode');
+  if(mBtn)mBtn.addEventListener('click',function(){var t=readT();t.mode=(t.mode==='dark')?'light':'dark';saveT(t);apply();});
+  var rBtn=bar.querySelector('.tb-reset');
+  if(rBtn)rBtn.addEventListener('click',function(){try{localStorage.removeItem(TKEY);}catch(e){}apply();});
+  var cp=document.getElementById('cust-panel');
+  if(cp){
+    var q=function(s){return cp.querySelector(s);};
+    var ci={bg:q('#cc-bg'),accent:q('#cc-accent'),card:q('#cc-card'),line:q('#cc-line'),muted:q('#cc-muted'),fg:q('#cc-fg')};
+    var adv=q('.cc-adv'),more=q('.cc-more'),warn=q('.cc-warn'),advOpen=false;
+    var sv=readC();
+    if(sv){ci.bg.value=sv.bg||CD.bg;ci.accent.value=sv.accent||CD.accent;ci.card.value=sv.card||CD.card;ci.line.value=sv.line||CD.line;ci.muted.value=sv.muted||CD.muted;ci.fg.value=sv.fg||CD.fg;advOpen=!!sv.adv;}
+    if(advOpen){adv.classList.add('open');more.textContent='－ かんたんに戻す';}
+    function push(){
+      var c={bg:ci.bg.value,accent:ci.accent.value,adv:advOpen,card:ci.card.value,line:ci.line.value,muted:ci.muted.value,fg:ci.fg.value};
+      try{localStorage.setItem(CKEY,JSON.stringify(c));}catch(e){}
+      var t=readT();t.pal='custom';saveT(t);apply();
+      var bg=c.bg,fg=advOpen?c.fg:(bg.toLowerCase()===CD.bg?CD.fg:deriv(bg).fg),m=[];
+      if(cr(fg,bg)<4.5)m.push('文字と背景の差が小さめ');
+      if(cr(c.accent,bg)<2.4)m.push('アクセントが埋もれ気味');
+      warn.textContent=m.length?'⚠ '+m.join(' ／ '):'';
+    }
+    cp.addEventListener('input',push);
+    more.addEventListener('click',function(){
+      advOpen=!advOpen;adv.classList.toggle('open',advOpen);
+      more.textContent=advOpen?'－ かんたんに戻す':'＋ くわしく（面・枠・文字色も指定）';
+      if(advOpen){var d=deriv(ci.bg.value);ci.card.value=d.card;ci.line.value=d.line;ci.muted.value=d.muted;ci.fg.value=d.fg;}
+      push();
+    });
+  }
+  apply();
+})();
+</script>
+"""
+
+
 # ---- 指標の説明・判定ルール文の生成（クリックで開く用）----
 METRIC_HELP = {
     "rev_cagr": {"what": "売上高の伸び（年率）。配当の一番の原資。伸びていれば増配の余力がある。減っている会社の連続増配は、配当性向の引き上げで支えているだけのことが多い。", "unit": "%"},
@@ -2353,16 +2531,10 @@ def render_html(meta, dom_scores, detail, groups, sel_score, tim_score, vd, M, c
 
     return f"""<!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+{THEME_HEAD}
 <title>{meta['name']}（{meta['code']}）銘柄診断</title>
 <style>
-:root{{
-  --bg:#ffffff; --fg:#1d232b; --muted:#6b7683; --line:#e4e8ec; --card:#f7f9fa;
-  --accent:#2f9e91; --hi:#2f9e91; --mid:#e0912f; --lo:#d1584f; --na:#c3ccd3;
-}}
-@media (prefers-color-scheme:dark){{
-  :root{{ --bg:#161a1e; --fg:#e7ecef; --muted:#9aa6af; --line:#2c333a; --card:#1e242a;
-    --accent:#4fb8ab; --hi:#4fb8ab; --mid:#e0a45a; --lo:#e07b73; --na:#4a555e; }}
-}}
+{THEME_CSS}
 *{{box-sizing:border-box}}
 body{{margin:0;background:var(--bg);color:var(--fg);
   font-family:"Segoe UI","Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
@@ -2462,6 +2634,7 @@ svg.trend{{width:100%;height:auto;border:1px solid var(--line);border-radius:8px
 
 <div class="topbar"><h1>{meta['name']}（{meta['code']}）　配当株スクリーニング</h1>
 <span class="blk"><a href="../index.html">← 一覧へ戻る</a><a href="../watchlist.html">← ウォッチリストへ戻る</a></span></div>
+{THEME_BAR}
 {f'<div class="meta2">前回の値動き（{meta["price_date"] or "―"}）　終値 <b>{fmt_num(meta["ohlc"]["close"],1)}円</b>　／　高値 {fmt_num(meta["ohlc"]["high"],1)}円　／　安値 {fmt_num(meta["ohlc"]["low"],1)}円　／　始値 {fmt_num(meta["ohlc"]["open"],1)}円</div>' if meta.get("ohlc") else ""}
 <div class="sub">東証33業種：<b>{meta['jp_sector']}</b>
 （yfinance分類：{meta['industry'] or '―'} / {meta['sector'] or '―'}　→ {meta['sector_src']}）
@@ -2515,6 +2688,7 @@ svg.trend{{width:100%;height:auto;border:1px solid var(--line);border-radius:8px
 {''.join(ref_blocks)}
 
 <div class="disc">{DISC_HTML}</div>
+{THEME_JS}
 </div></body></html>"""
 
 
