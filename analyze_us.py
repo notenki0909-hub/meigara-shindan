@@ -1086,6 +1086,9 @@ svg.trend{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;
 .disc{margin-top:30px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:11.5px}
 .topbar{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
 .topbar a{font-size:12.5px;white-space:nowrap}
+.topbar .blk{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.meta2{color:var(--muted);font-size:12px;margin:4px 0 12px}
+.meta2 b{color:var(--fg)}
 a{color:var(--accent)}
 @media print{body{font-size:11px} .wrap{max-width:none} .topbar a{display:none}}
 """
@@ -1159,7 +1162,9 @@ def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warni
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{analyze.html.escape(meta['name'])}（{meta['code']}）｜米国株 配当スクリーニング</title>
 <style>{_US_CSS}</style></head><body><div class="wrap">
-<div class="topbar"><h1>{analyze.html.escape(meta['name'])}（{meta['code']}）</h1><a href="../index.html">← 一覧へ戻る</a></div>
+<div class="topbar"><h1>{analyze.html.escape(meta['name'])}（{meta['code']}）</h1>
+<span class="blk"><a href="../index.html">← 一覧へ戻る</a><a href="../watchlist.html">← ウォッチリストへ戻る</a></span></div>
+{f'<div class="meta2">前回の値動き（{meta["price_date"] or "―"}）　終値 <b>${fmt_num(meta["ohlc"]["close"],2)}</b>　／　高値 ${fmt_num(meta["ohlc"]["high"],2)}　／　安値 ${fmt_num(meta["ohlc"]["low"],2)}　／　始値 ${fmt_num(meta["ohlc"]["open"],2)}</div>' if meta.get("ohlc") else ""}
 <div class="sub">GICS業種：<b>{gics_jp(meta['gics_sector'])}</b>（{analyze.html.escape(meta['gics_sector'])}／yfinance：{analyze.html.escape(meta['industry'] or '―')}）{simple_note}<br>
 株価 {price_s}{pdate_s} &nbsp;｜&nbsp; 時価総額 {mcap_s} &nbsp;｜&nbsp; 生成 {meta['today']}</div>
 
@@ -1310,7 +1315,7 @@ def generate_us(ticker, cfg=None, log=None):
     pdate = yd.get("price_date")
     meta = {
         "code": ticker, "name": name, "gics_sector": gics, "industry": industry, "sector": ysector,
-        "price": yd["price"], "mcap": info.get("marketCap"),
+        "price": yd["price"], "mcap": info.get("marketCap"), "ohlc": yd.get("ohlc"),
         "price_date": pdate.isoformat() if pdate else None,
         "today": TODAY.isoformat(), "is_simple": is_simple,
     }

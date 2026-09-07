@@ -1,0 +1,220 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ウォッチリスト｜米国株 配当株 軍分けランキング</title>
+<style>
+:root{--bg:#fafafa;--card:#fff;--line:#e6e6e6;--muted:#666;--accent:#2563eb}
+*{box-sizing:border-box}
+body{margin:0;font:14px/1.6 -apple-system,"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;
+  background:var(--bg);color:#1a1a1a}
+.wrap{max-width:980px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:20px;margin:0 0 4px}
+.topbar{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.topbar a{font-size:12.5px;color:var(--accent);white-space:nowrap}
+.sub{color:var(--muted);font-size:12px;margin-bottom:14px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:14px 0}
+.box h2{font-size:14px;margin:0 0 8px}
+.box p{font-size:12.5px;margin:6px 0;color:#333}
+.box p.note{color:var(--muted)}
+.codewrap{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0}
+#codestr{flex:1;min-width:220px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;
+  font:13px/1.4 monospace;background:#f7f8fa;color:#1a1a1a}
+button{padding:8px 14px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);
+  color:#fff;font-size:13px;cursor:pointer}
+button.ghost{background:var(--card);color:var(--muted);border-color:var(--line)}
+#copystat{font-size:12px;color:#166534}
+textarea{width:100%;min-height:64px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;
+  font:13px/1.5 monospace;background:#f7f8fa;resize:vertical}
+table{width:100%;border-collapse:collapse;background:var(--card);font-size:13px;
+  border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:6px}
+th,td{padding:6px 8px;text-align:left;border-bottom:1px solid var(--line)}
+th{background:#f3f4f6;font-size:11px;color:#444}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:none}
+.tier{font-weight:700;white-space:nowrap}
+.t1 .tier{color:#166534}.t2 .tier{color:#854d0e}.t3 .tier{color:#9ca3af}
+.dir{font-weight:700;margin-left:3px}
+.dir.up{color:#16a34a}.dir.dn{color:#dc2626}.dir.fl{color:#cbd5e1}
+.code a{color:var(--accent);text-decoration:none}
+.sec{color:var(--muted);font-size:11px}
+.sk{font-size:11px;color:#555}
+.cv{font-size:11px}
+td.x{width:30px;text-align:center}
+td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--muted);border-color:var(--line);border-radius:6px}
+.empty{color:var(--muted);font-size:13px;padding:20px 4px}
+.miss{background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px 12px;
+  font-size:12px;color:#7c2d12;margin:10px 0}
+.disc{margin-top:30px;padding:12px;background:#fff7ed;border:1px solid #fed7aa;
+  border-radius:8px;font-size:11.5px;color:#7c2d12}
+.disc a{color:#7c2d12}
+</style></head><body><div class="wrap">
+<div class="topbar"><h1>ウォッチリスト</h1><a href="index.html">← ランキングへ戻る</a></div>
+<div class="sub" id="asof"></div>
+
+<div class="box">
+  <h2>あなたの銘柄リスト</h2>
+  <div class="codewrap">
+    <input id="codestr" readonly value="">
+    <button type="button" id="copy">コピー</button>
+    <span id="copystat"></span>
+  </div>
+  <p>基本は<b>この銘柄リストをコピーして控えておく</b>方式です。次回、下の入力欄に貼り付ければウォッチリストが復元されます。</p>
+  <p><b>同じ端末・同じブラウザ</b>を使う場合は、一度開けば以降はこのページを開くだけで前回のウォッチリストが表示されます（貼り付け不要）。</p>
+  <p class="note">別の端末でも、同じ銘柄リストを貼り付ければ同じ顔ぶれが見られます。銘柄を足し引きしたら、新しく表示される銘柄リストを控え直してください。スコア・軍・利回りは各端末でその時点の最新が表示されます。</p>
+</div>
+
+<div class="box">
+  <h2>銘柄リストを貼り付けて表示</h2>
+  <textarea id="paste" placeholder="例）KO,PEP,JNJ,MMM　（カンマ・スペース・改行区切りのどれでも可。BRK-B のようなハイフンも可）"></textarea>
+  <div style="margin-top:8px"><button type="button" id="load">このリストを表示</button></div>
+</div>
+
+<div id="missbox"></div>
+<div id="list"></div>
+
+<div class="disc" id="disc"></div>
+</div>
+<script>
+(function(){
+  var WL_KEY = 'wl_codes_us';
+  var $ = function(id){ return document.getElementById(id); };
+
+  function parseCodes(str){
+    var seen = {}, out = [];
+    (str || '').split(/[\s,;、，]+/).forEach(function(t){
+      t = t.trim().toUpperCase();
+      if (!t) return;
+      if (!/^[A-Z0-9.\-]{1,7}$/.test(t) || !/[A-Z]/.test(t)) return;   // 米国株ティッカー
+      if (!seen[t]) { seen[t] = 1; out.push(t); }
+    });
+    return out;
+  }
+
+  var params = new URLSearchParams(location.search);
+  var codes = parseCodes(params.get('codes') || '');
+  if (!codes.length) {
+    try { codes = parseCodes(localStorage.getItem(WL_KEY) || ''); } catch(e) {}
+  }
+
+  function persist(list){
+    var s = list.join(',');
+    try { localStorage.setItem(WL_KEY, s); } catch(e) {}
+    $('codestr').value = s;
+    var u = list.length ? ('?codes=' + encodeURIComponent(s)) : location.pathname;
+    history.replaceState(null, '', u);
+  }
+
+  $('copy').addEventListener('click', function(){
+    var el = $('codestr');
+    el.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch(e) {}
+    if (navigator.clipboard) { navigator.clipboard.writeText(el.value).then(function(){}, function(){}); ok = true; }
+    $('copystat').textContent = ok ? 'コピーしました' : '手動でコピーしてください';
+    setTimeout(function(){ $('copystat').textContent = ''; }, 2500);
+  });
+
+  $('load').addEventListener('click', function(){
+    var list = parseCodes($('paste').value);
+    if (!list.length) { alert('ティッカーが読み取れませんでした。'); return; }
+    location.href = 'watchlist.html?codes=' + encodeURIComponent(list.join(','));
+  });
+
+  var DISC = 'このページは、ランキングでチェックした銘柄だけを一覧にしたものです。'
+    + '銘柄選定／買い時のスコア・軍は公開データを機械的なルールで算出した分類であり、'
+    + '特定銘柄の売買を推奨・勧誘するものではありません。運営者は投資助言・代理業の登録を'
+    + '受けていません。数値は yfinance 由来で誤り・遅延・欠損があり得ます。'
+    + '詳しくは<a href="terms.html">利用規約・免責事項</a>をご確認ください。';
+  $('disc').innerHTML = DISC;
+
+  function numTxt(v, d){ return (typeof v === 'number') ? v.toFixed(d) : '―'; }
+  function priceTxt(v){
+    if (typeof v !== 'number') return '―';
+    return '$' + v.toLocaleString('en-US', {maximumFractionDigits: (Math.abs(v) < 100 ? 2 : 0)});
+  }
+  function streakTxt(u, f){
+    if (typeof u === 'number' && u >= 1) return '連続増配' + Math.round(u) + '年';
+    if (typeof f === 'number' && f >= 1) return '非減配' + Math.round(f) + '年';
+    return '';
+  }
+  var DIRC = {'↑':'up','↓':'dn','→':'fl'};
+
+  if (!codes.length) {
+    $('codestr').value = '';
+    $('list').innerHTML = '<div class="empty">まだ銘柄が選ばれていません。'
+      + '<a href="index.html">ランキングページ</a>で左端の□にチェックを入れて'
+      + '「ウォッチリストを作成」を押すか、上の欄に銘柄リストを貼り付けてください。</div>';
+    return;
+  }
+  $('codestr').value = codes.join(',');
+
+  fetch('ranking.json', {cache:'no-cache'}).then(function(r){ return r.json(); }).then(function(j){
+    $('asof').textContent = '対象データ：' + (j.generated_at || '') + ' 時点のランキング';
+    var byCode = {};
+    (j.groups || []).forEach(function(g){
+      (g.stocks || []).forEach(function(s){ byCode[String(s.code).toUpperCase()] = s; });
+    });
+    var found = [], missing = [];
+    codes.forEach(function(c){ (byCode[c] ? found : missing).push(c); });
+    found.sort(function(a, b){
+      var av = byCode[a].sel, bv = byCode[b].sel;
+      if (typeof av !== 'number') return 1;
+      if (typeof bv !== 'number') return -1;
+      return bv - av;   // 選定スコア降順
+    });
+
+    persist(found.concat(missing));
+
+    if (missing.length) {
+      $('missbox').innerHTML = '<div class="miss">次のティッカーは現在のランキングに見つかりませんでした'
+        + '（ユニバース外・上場廃止・入力誤りの可能性）：<b>' + missing.join(', ') + '</b>'
+        + '　※銘柄リストには残してあります。</div>';
+    }
+
+    if (!found.length) {
+      $('list').innerHTML = '<div class="empty">表示できる銘柄がありませんでした。</div>';
+      return;
+    }
+
+    var rows = found.map(function(c){
+      var s = byCode[c];
+      var tcls = {'1軍':'t1','2軍':'t2','3軍':'t3'}[s.tier] || 't0';
+      var dcls = DIRC[s.dir] || 'fl';
+      var yraw = s['yield'];
+      var yv = (typeof yraw === 'number') ? yraw.toFixed(2) + '%' : '―';
+      var cov = Array.isArray(s.cov_sel) ? (s.cov_sel[2] || '') : (s.cov_sel || '');
+      var secj = s.sector_jp || s.sector || '';
+      return '<tr class="' + tcls + '">'
+        + '<td class="tier">' + (s.tier || '―') + '<span class="dir ' + dcls + '">' + (s.dir || '') + '</span></td>'
+        + '<td class="code"><a href="reports/' + s.code + '.html">' + s.code + '</a></td>'
+        + '<td>' + (s.name || s.code) + '</td>'
+        + '<td class="n">' + priceTxt(s.price) + '</td>'
+        + '<td class="sec">' + secj + '</td>'
+        + '<td class="n">' + numTxt(s.sel, 0) + '</td>'
+        + '<td class="n">' + numTxt(s.tim, 0) + '</td>'
+        + '<td class="n">' + yv + '</td>'
+        + '<td class="sk">' + streakTxt(s.streak_up, s.streak_flat) + '</td>'
+        + '<td class="cv">' + cov + '</td>'
+        + '<td class="x"><button type="button" data-code="' + s.code + '" title="このリストから外す">✕</button></td>'
+        + '</tr>';
+    }).join('');
+
+    $('list').innerHTML = '<table><thead><tr>'
+      + '<th>軍</th><th>ティッカー</th><th>銘柄</th><th class="n">終値</th><th>業種</th><th class="n">選定</th>'
+      + '<th class="n">買い時</th><th class="n">利回り</th><th>増配</th><th>カバレッジ</th><th></th>'
+      + '</tr></thead><tbody>' + rows + '</tbody></table>';
+
+    $('list').addEventListener('click', function(e){
+      var b = e.target.closest('button[data-code]');
+      if (!b) return;
+      var c = b.dataset.code;
+      var next = found.concat(missing).filter(function(x){ return x !== c; });
+      if (!next.length) { location.href = 'watchlist.html'; return; }
+      location.href = 'watchlist.html?codes=' + encodeURIComponent(next.join(','));
+    });
+  }).catch(function(){
+    $('list').innerHTML = '<div class="empty">ランキングデータ（ranking.json）を読み込めませんでした。'
+      + 'このページはサーバー経由（https://...）で開いてください。</div>';
+  });
+})();
+</script>
+</body></html>
