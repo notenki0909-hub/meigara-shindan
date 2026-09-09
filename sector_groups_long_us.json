@@ -1,0 +1,32 @@
+{
+  "_meta": {
+    "description": "For the US '10-year hold / quality' ranking (dividend-agnostic score). The tiering unit is the GICS 11 sector. rank_long_us.py uses this. Separate from sector_groups_us.json (the dividend version).",
+    "difference_from_dividend_version": "The whole Financials and Real Estate GICS sectors are routed to a separate '対象外' section (exclude_groups) and never tiered — analyze_us.py scores them via the dividend-persistence group only, so a dividend-free quality score is not meaningful for them.",
+    "quality_score": "sel_score with the '配当の持続力' group (weight 0.30) removed; 業績 0.28 / 財務 0.27 / CF 0.15 renormalized over the groups that resolved.",
+    "grade_a/grade_b calibration": "Calibrated 2026-09-09 from the first full S&P500 batch (universe 503, scored 403, excluded 100 = Financials+Real Estate). Quality-score distribution min 33.4 / median 92.5 / p75 100.9 / max 108.4. The 9 scored GICS-sector medians were [87.5, 88.3, 88.3, 89.4, 93.2, 94.5, 95.4, 96.6, 98.3] with a clear gap at 89.4->93.2: grade_a=95 (A = Communication Services, Health Care, Information Technology), grade_b=91 (B = Consumer Discretionary, Industrials), C = Consumer Staples, Utilities, Energy, Materials. Re-check with rank_long_us.py's printed distribution after a universe rebuild.",
+    "score_floor_tier2": "Quality score >= this guarantees at least Tier 2. Set to the first batch's p60 (~97). Independent of analyze_us.SEL_TIERS[0]=85.",
+    "review": "Quarterly, following S&P 500 membership changes."
+  },
+  "grade_a": 95,
+  "grade_b": 91,
+  "tier1_pct": 0.25,
+  "tier2_pct": 0.45,
+  "cap_low_coverage_at": "2軍",
+  "min_group_for_tiers": 6,
+  "score_floor_tier2": 97,
+  "exclude_groups": ["Financials", "Real Estate"],
+  "_exclude_note": "金融・REITは v1 対象外。is_simple=False の金融（資本市場・資産運用など一部）も含め、GICSセクター単位で丸ごと『対象外』節へ回す。",
+  "groups": {
+    "Information Technology": ["Information Technology"],
+    "Health Care": ["Health Care"],
+    "Consumer Discretionary": ["Consumer Discretionary"],
+    "Consumer Staples": ["Consumer Staples"],
+    "Communication Services": ["Communication Services"],
+    "Industrials": ["Industrials"],
+    "Energy": ["Energy"],
+    "Utilities": ["Utilities"],
+    "Materials": ["Materials"],
+    "Financials": ["Financials"],
+    "Real Estate": ["Real Estate"]
+  }
+}

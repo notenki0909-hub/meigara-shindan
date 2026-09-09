@@ -410,6 +410,47 @@ r = analyze.generate("9433", jgb=1.6)      # {"ok","html","md","summary",...}
 | `tdnet_detections.json` | TDnet検知の履歴ログ（直近500件） |
 | `terms.html` | 利用規約・免責事項（原本。`rank.py` が `site/terms.html` へコピー） |
 
+## 10年保有できる優良企業ランキング（配当を評価しない品質スコア版）
+
+配当株ランキングとは**別系統**。「配当株としての選定はしない・配当利回りは条件に使わず表示のみ」という
+要望で追加した、業績・財務・キャッシュフローだけで長期保有の質を測るランキング。既存の
+`analyze*.py` / `build_universe*.py` / `rank*.py` / `universe*.json` / 既存 workflow / 既存 `site/` ページは
+**一切書き換えていない**（新規ファイルのみ）。
+
+- **品質スコア** = 既存サマリ（`site/summaries/` 等）の `groups` から
+  `業績×0.28 ＋ 財務×0.27 ＋ キャッシュフロー×0.15` を取得できたグループだけで再正規化（0〜110）。
+  `sel_score` から「配当の持続力」グループ（重み0.30）を除いたもの。エンジン（`analyze.py`）は無改変で、
+  スコアは**サマリの再集計だけ**で出す（＝既存バッチ結果の流用）。
+- **母集団**：
+  - JP = **時価総額 3,000億円以上**（TOPIX500相当）。`universe.json` の `codes`＋`rejected` に
+    ある取得済みの時価総額を流用するので、母集団づくりにネットワーク再取得は不要。
+  - US = **S&P500 メンバーシップ**（`universe_candidates_us.json` の `index` タグ）。S&P委員会の
+    黒字継続・流動性・業種代表性・低回転という基準そのものを「10年保有の事前スクリーン」として使う。
+    日米で手法が非対称なのは意図的（日本に同等の委員会指数が無く、TOPIX500の無料構成リストも無いため）。
+- **無配株も対象**（S&P500 の非配当銘柄は自動で入る。JP は時価総額さえ満たせば無配でも可）。
+- **金融・保険・証券・REIT は v1 対象外**：`analyze` が業績/財務/CFを採点せず配当の持続力だけで
+  sel_score を出すため、配当を抜くと無スコアになる。ページ下部の「対象外」節に利回り・終値だけ参考表示。
+  v2 で金融向けの品質サブスコア（利益の安定度・増収率・EPS成長・ROE）追加を検討。
+
+```bash
+python build_universe_long.py jp     # universe.json の取得済みデータを流用 → universe_long.json
+python build_universe_long.py us     # S&P500 メンバーシップ → universe_long_us.json
+python batch_long.py jp --only-stale # 母集団のうち配当株バッチ外の銘柄だけ診断 → site/long_summaries/
+python rank_long.py jp               # → site/long/index.html + site/long/ranking.json
+python rank_long.py us               # → site/us/long/index.html + site/us/long/ranking.json
+```
+
+自動更新：`nightly-long.yml` / `nightly-long-us.yml` が各配当株 nightly の完了後（`workflow_run`）に走り、
+`site/long/` `site/us/long/` だけをコミットする。母集団の四半期見直しは `universe-long-quarterly.yml`（PR）。
+
+| 追加ファイル | 役割 |
+|---|---|
+| `build_universe_long.py` | `universe_long.json`（JP・時価総額）／`universe_long_us.json`（US・S&P500）を作る |
+| `batch_long.py` | 母集団のうち既存サマリが無い/古い銘柄だけ診断 → `site/long_summaries/` `site/us/long_summaries/` |
+| `rank_long.py` | 配当抜き品質スコアで業種級・軍分け → `site/long/` `site/us/long/` |
+| `universe_screen_long.json` / `_us.json` | 母集団スクリーンの定義 |
+| `sector_groups_long.json` / `_us.json` | 業種グループ＋業種級/軍のしきい値（金融グループ除外・**grade_a/b は初回フルバッチ後に要再校正**） |
+
 ## 制約・免責
 
 - 教育目的の一般情報。投資助言ではありません。
