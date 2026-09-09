@@ -1,57 +1,33 @@
 {
  "code": "4755",
  "name": "楽天グループ",
- "asof": "2026-09-09",
  "jp_sector": "小売業",
- "industry": "Internet Retail",
+ "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 720.0,
+ "price": 718.0,
  "price_date": "2026-09-09",
- "mcap": 1571029647360,
- "sel_score": 52.8,
- "tim_score": 103.6,
- "sel_label": "選定スコア基準未達",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は最下位水準。低評価には理由があることが多い（バリュートラップの可能性）。",
- "cov_sel": [
-  13,
-  16,
-  "中"
- ],
- "cov_tim": [
-  1,
-  6,
-  "低"
- ],
+ "mcap": 1566665605120,
+ "q_score": 49.5,
  "groups": {
-  "業績": 50.9,
+  "業績": 50.85753925175888,
   "財務": 20.0,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 60.4,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 103.6,
-  "金利スプレッド": null
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "streak_up": 0,
- "streak_flat": 17,
- "payout_ni": 0.0,
- "roe": 0.33999999999999997,
- "div_policy": null,
- "per_vs_sector": null,
- "pbr_vs_sector": 0.8579027,
+ "q_cov": "高",
+ "bt_score": 73.3,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 110.0,
+  "per_cheap": null,
+  "pbr_cheap": 103.3
+ },
+ "ev_ebit": 90.30187770268391,
+ "fcf_yield": 13.922881774333238,
  "per_band_pos": null,
- "yield_band_pos": null,
- "next_earn": "2026-11-13",
- "earn_disc_date": "2026-08-10",
- "buyback_yen": 0.0,
- "total_yield": null,
- "total_payout": null,
- "interest_coverage": 0.7027252698610706,
- "warnings": [
-  "買い時スコアは取得できた指標が少なく（1/6・カバレッジ低）、点数は目安です。"
- ],
- "_generated_at": "2026-09-09T11:50:27"
+ "pbr_band_pos": 0.7164364832613367,
+ "div_yield": null,
+ "implied_fcf_growth": -0.0662,
+ "_generated_at": "2026-09-09T22:26:09"
 }

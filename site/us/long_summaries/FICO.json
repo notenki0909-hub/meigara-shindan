@@ -1,54 +1,33 @@
 {
  "code": "FICO",
- "name": "Fair Isaac Corporation",
- "asof": "2026-09-09",
+ "name": "Fair Isaac",
+ "jp_sector": null,
  "gics_sector": "Information Technology",
- "industry": "Software - Application",
  "is_simple": false,
  "is_reit": false,
- "price": 933.2999877929688,
- "price_date": "2026-09-08",
- "mcap": 20157073408,
- "sel_score": 93.2,
- "tim_score": 110.0,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定・買い時とも上位水準。",
- "cov_sel": [
-  14,
-  17,
-  "中"
- ],
- "cov_tim": [
-  2,
-  6,
-  "低"
- ],
+ "price": 938.0,
+ "price_date": "2026-09-09",
+ "mcap": 20258582528,
+ "q_score": 103.1,
  "groups": {
   "業績": 110.0,
-  "財務": 97.6,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 70.2,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 110.0,
-  "金利スプレッド": null
+  "財務": 97.56127377735844,
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 21,
- "payout_ni": 0.0,
- "roe": null,
- "chowder": null,
- "interest_coverage": 7.005334949531227,
- "per_vs_sector": 0.6903065561224488,
- "pbr_vs_sector": null,
+ "q_cov": "高",
+ "bt_score": 80.4,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 83.07963138738529,
+  "fcf_yield": 68.66414840742537,
+  "per_cheap": 110.0,
+  "pbr_cheap": null
+ },
+ "ev_ebit": 24.79164211795181,
+ "fcf_yield": 3.6498111305569028,
  "per_band_pos": 1.0,
- "yield_band_pos": null,
- "next_earn": "2026-11-04",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。"
- ],
- "_generated_at": "2026-09-09T12:52:43"
+ "pbr_band_pos": null,
+ "div_yield": null,
+ "implied_fcf_growth": 0.1199,
+ "_generated_at": "2026-09-09T23:26:13"
 }

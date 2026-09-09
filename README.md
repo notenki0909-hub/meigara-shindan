@@ -410,46 +410,56 @@ r = analyze.generate("9433", jgb=1.6)      # {"ok","html","md","summary",...}
 | `tdnet_detections.json` | TDnet検知の履歴ログ（直近500件） |
 | `terms.html` | 利用規約・免責事項（原本。`rank.py` が `site/terms.html` へコピー） |
 
-## 10年保有できる優良企業ランキング（配当を評価しない品質スコア版）
+## 10年保有できる優良企業ランキング（配当を評価しない独自エンジン）
 
-配当株ランキングとは**別系統**。「配当株としての選定はしない・配当利回りは条件に使わず表示のみ」という
-要望で追加した、業績・財務・キャッシュフローだけで長期保有の質を測るランキング。既存の
-`analyze*.py` / `build_universe*.py` / `rank*.py` / `universe*.json` / 既存 workflow / 既存 `site/` ページは
-**一切書き換えていない**（新規ファイルのみ）。
+配当株ランキングとは**別系統の独立したエンジン**。「配当株としての選定はしない」という要望で追加した、
+業績・財務・CFで長期保有の質を測る **品質スコア** と、配当利回りを使わない **買い時スコア**（割安さ）の
+2本立て。既存の `analyze*.py` / `build_universe*.py` / `rank*.py` / `universe*.json` / 既存 workflow /
+既存 `site/` ページは **一切書き換えていない**（`analyze_long.py` は `analyze.py` を `import` して計算部品を
+流用するだけ。`analyze_us.py` と同じ作り）。
 
-- **品質スコア** = 既存サマリ（`site/summaries/` 等）の `groups` から
-  `業績×0.28 ＋ 財務×0.27 ＋ キャッシュフロー×0.15` を取得できたグループだけで再正規化（0〜110）。
-  `sel_score` から「配当の持続力」グループ（重み0.30）を除いたもの。エンジン（`analyze.py`）は無改変で、
-  スコアは**サマリの再集計だけ**で出す（＝既存バッチ結果の流用）。
-- **母集団**：
-  - JP = **時価総額 3,000億円以上**（TOPIX500相当）。`universe.json` の `codes`＋`rejected` に
-    ある取得済みの時価総額を流用するので、母集団づくりにネットワーク再取得は不要。
-  - US = **S&P500 メンバーシップ**（`universe_candidates_us.json` の `index` タグ）。S&P委員会の
-    黒字継続・流動性・業種代表性・低回転という基準そのものを「10年保有の事前スクリーン」として使う。
-    日米で手法が非対称なのは意図的（日本に同等の委員会指数が無く、TOPIX500の無料構成リストも無いため）。
-- **無配株も対象**（S&P500 の非配当銘柄は自動で入る。JP は時価総額さえ満たせば無配でも可）。
-- **金融・保険・証券・REIT は v1 対象外**：`analyze` が業績/財務/CFを採点せず配当の持続力だけで
-  sel_score を出すため、配当を抜くと無スコアになる。ページ下部の「対象外」節に利回り・終値だけ参考表示。
-  v2 で金融向けの品質サブスコア（利益の安定度・増収率・EPS成長・ROE）追加を検討。
+- **品質スコア（0〜110）** = 業績×0.28 ＋ 財務×0.27 ＋ CF×0.15（取得できたグループで再正規化）。
+  既存 `sel_score` から「配当の持続力」グループ（重み0.30）を除いたもの。
+- **買い時スコア（0〜110）** = 次の4指標を**均等25%**で合成（欠損は中立60）。配当利回り・Chowder・
+  累進配当宣言などは一切使わない（Fed model も不採用）。
+  - **EV/EBIT 対業種中央値**（EV＝時価総額＋有利子負債−現金、EBIT＝営業利益）… 40年研究で単一の
+    割安指標として最良クラス。業種中央値は `calib_long.py` が `sector_averages_long{,_us}.json` に出力
+  - **FCF利回り**（FCF÷時価総額）… 配当利回りの配当なし版。40年研究で割安2位
+  - **PER割安度** … 「PER 自社過去レンジ位置」＋「PER 対業種平均」の平均（明細で個別表示）
+  - **PBR割安度** … 「PBR 自社過去レンジ位置」＋「PBR 対業種平均」の平均
+- **母集団**：JP = **時価総額 3,000億円以上**（TOPIX500相当・`universe.json` の取得済み時価総額を流用）／
+  US = **S&P500 メンバーシップ**（S&P委員会の黒字継続・流動性・業種代表性・低回転をそのまま事前
+  スクリーンに使う）。日米で手法が非対称なのは意図的。**無配株も対象**。
+- **金融・保険・証券・REIT は v1 対象外**：現エンジンが業績/財務/CFを採点しないため。ページ下部の
+  「対象外」節に利回り・終値のみ参考表示。v2 で金融向け品質サブスコアを検討。
+- 個別レポートは配当セクションなしの専用テンプレート（`analyze_long.render_long_html`）。買い時の各指標は
+  クリックで説明・判定ルール・図解（PER/PBR はレンジ帯グラフ）。ウォッチリスト（`site/long/watchlist.html`）付き。
 
 ```bash
-python build_universe_long.py jp     # universe.json の取得済みデータを流用 → universe_long.json
-python build_universe_long.py us     # S&P500 メンバーシップ → universe_long_us.json
-python batch_long.py jp --only-stale # 母集団のうち配当株バッチ外の銘柄だけ診断 → site/long_summaries/
-python rank_long.py jp               # → site/long/index.html + site/long/ranking.json
-python rank_long.py us               # → site/us/long/index.html + site/us/long/ranking.json
+python build_universe_long.py jp        # universe.json の時価総額を流用 → universe_long.json
+python build_universe_long.py us        # S&P500 メンバーシップ → universe_long_us.json
+python batch_long.py jp --sleep 2.0     # analyze_long で全銘柄診断 → site/long_summaries/ + site/long/reports/
+python calib_long.py jp                 # 業種中央値EV/EBIT → sector_averages_long.json（＋スコア分布を表示）
+python batch_long.py jp --sleep 2.0     # 2パス目（EV/EBIT対業種が採点される）
+python rank_long.py jp                  # → site/long/index.html + ranking.json + watchlist.html
+python analyze_long.py 7203             # 単体：out_long/7203_*.html
 ```
 
-自動更新：`nightly-long.yml` / `nightly-long-us.yml` が各配当株 nightly の完了後（`workflow_run`）に走り、
-`site/long/` `site/us/long/` だけをコミットする。母集団の四半期見直しは `universe-long-quarterly.yml`（PR）。
+自動更新：`nightly-long.yml` / `nightly-long-us.yml`（`batch_long → calib_long → rank_long`）。母集団の
+四半期見直しは `universe-long-quarterly.yml`（PR・2パスで EV/EBIT 中央値を確定）。
 
 | 追加ファイル | 役割 |
 |---|---|
-| `build_universe_long.py` | `universe_long.json`（JP・時価総額）／`universe_long_us.json`（US・S&P500）を作る |
-| `batch_long.py` | 母集団のうち既存サマリが無い/古い銘柄だけ診断 → `site/long_summaries/` `site/us/long_summaries/` |
-| `rank_long.py` | 配当抜き品質スコアで業種級・軍分け → `site/long/` `site/us/long/` |
+| `build_universe_long.py` | `universe_long.json`（JP・時価総額）／`universe_long_us.json`（US・S&P500） |
+| `analyze_long.py` | 配当を評価しない診断エンジン（品質＋買い時＋専用レポート）。`analyze.py`/`analyze_us.py` を無改変で流用 |
+| `long_common.py` | 品質/買い時スコアの計算・簡易リバースDCF・レンジ帯位置 の市場共通ロジック |
+| `batch_long.py` | 母集団を `analyze_long` で一括診断 → `site/long_summaries/` `site/us/long_summaries/` ＋ `site/(us/)long/reports/` |
+| `calib_long.py` | 業種中央値 EV/EBIT → `sector_averages_long{,_us}.json`。品質/買い時のスコア分布を表示（しきい値校正用） |
+| `rank_long.py` | 業種級・軍分け＋買い時列＋ウォッチリスト → `site/long/` `site/us/long/` |
+| `buytiming_long.json` | 買い時4指標の重み・しきい値・4段階ラベル（**初回フルバッチ後に校正**） |
 | `universe_screen_long.json` / `_us.json` | 母集団スクリーンの定義 |
-| `sector_groups_long.json` / `_us.json` | 業種グループ＋業種級/軍のしきい値（金融グループ除外・**grade_a/b は初回フルバッチ後に要再校正**） |
+| `sector_groups_long.json` / `_us.json` | 業種グループ＋業種級/軍のしきい値（金融グループ除外・**grade_a/b は初回フルバッチ後に校正**） |
+| `sector_averages_long.json` / `_us.json` | `calib_long.py` が生成する業種中央値 EV/EBIT |
 
 ## 制約・免責
 

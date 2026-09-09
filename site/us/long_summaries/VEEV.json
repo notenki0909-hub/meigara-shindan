@@ -1,55 +1,33 @@
 {
  "code": "VEEV",
- "name": "Veeva Systems Inc.",
- "asof": "2026-09-09",
+ "name": "Veeva Systems",
+ "jp_sector": null,
  "gics_sector": "Health Care",
- "industry": "Health Information Services",
  "is_simple": false,
  "is_reit": false,
- "price": 264.8399963378906,
- "price_date": "2026-09-08",
- "mcap": 42879938560,
- "sel_score": 93.0,
- "tim_score": 72.1,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は上位水準だが、買い時は下位（やや割高水準）。",
- "cov_sel": [
-  13,
-  17,
-  "中"
- ],
- "cov_tim": [
-  3,
-  6,
-  "低"
- ],
+ "price": 263.30499267578125,
+ "price_date": "2026-09-09",
+ "mcap": 42631409664,
+ "q_score": 106.6,
  "groups": {
-  "業績": 108.1,
-  "財務": 108.8,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 61.2,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 72.1,
-  "金利スプレッド": null
+  "業績": 108.09981288165565,
+  "財務": 108.82612923941632,
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 14.424999999999999,
- "chowder": null,
- "interest_coverage": null,
- "per_vs_sector": 1.8366666525423727,
- "pbr_vs_sector": 1.136137423076923,
+ "q_cov": "高",
+ "bt_score": 61.9,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 64.26235682889256,
+  "per_cheap": 65.0,
+  "pbr_cheap": 98.5
+ },
+ "ev_ebit": 45.07576714620421,
+ "fcf_yield": 3.319676762166942,
  "per_band_pos": 1.0,
- "yield_band_pos": null,
- "next_earn": "2026-11-25",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T12:40:32"
+ "pbr_band_pos": 1.0,
+ "div_yield": null,
+ "implied_fcf_growth": 0.1328,
+ "_generated_at": "2026-09-10T00:00:20"
 }

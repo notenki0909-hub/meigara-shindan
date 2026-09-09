@@ -1,57 +1,33 @@
 {
  "code": "4186",
  "name": "東京応化工業",
- "asof": "2026-09-09",
  "jp_sector": "電気機器",
- "industry": "Electronic Components",
+ "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 8454.0,
+ "price": 8378.0,
  "price_date": "2026-09-09",
- "mcap": 1014276358144,
- "sel_score": 99.9,
- "tim_score": 52.6,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "選定は上位水準だが、買い時は下位（やや割高水準）。",
- "cov_sel": [
-  16,
-  16,
-  "高"
- ],
- "cov_tim": [
-  6,
-  6,
-  "高"
- ],
+ "mcap": 1005158203392,
+ "q_score": 102.5,
  "groups": {
-  "業績": 101.5,
-  "財務": 108.3,
-  "キャッシュフロー": 93.7,
-  "配当の持続力": 94.0,
-  "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 48.5,
-  "株価バリュエーション": 81.3,
-  "金利スプレッド": null
+  "業績": 101.54796043682572,
+  "財務": 108.32049967644251,
+  "キャッシュフロー": 93.68706928743592
  },
- "div_yield": 0.9462976105985333,
- "streak_up": 16,
- "streak_flat": 14,
- "payout_ni": 23.01,
- "roe": 5.5440000000000005,
- "div_policy": null,
- "per_vs_sector": 0.898288231292517,
- "pbr_vs_sector": 0.9504265384615385,
- "per_band_pos": 0.005209536332801749,
- "yield_band_pos": 0.0,
- "next_earn": "2026-11-10",
- "earn_disc_date": "2026-08-05",
- "buyback_yen": 44000000.0,
- "total_yield": 0.9506356787834721,
- "total_payout": 24.927275453591243,
- "interest_coverage": 300.35714285714283,
- "warnings": [
-  "yfinance の業種『Electronic Components』が対応表に無く、sector（industry未対応） で 電気機器 に割り当てました。業種平均との比較は目安です。"
- ],
- "_generated_at": "2026-09-09T11:44:29"
+ "q_cov": "高",
+ "bt_score": 66.6,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 85.10372096918526,
+  "fcf_yield": 33.024815353264614,
+  "per_cheap": 77.7,
+  "pbr_cheap": 70.7
+ },
+ "ev_ebit": 20.273481690625925,
+ "fcf_yield": 0.9768611514948462,
+ "per_band_pos": 0.11459836200326336,
+ "pbr_band_pos": 0.0,
+ "div_yield": 0.9548818333731202,
+ "implied_fcf_growth": 0.3024,
+ "_generated_at": "2026-09-09T22:20:23"
 }

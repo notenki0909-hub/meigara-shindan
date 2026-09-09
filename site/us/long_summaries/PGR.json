@@ -1,54 +1,33 @@
 {
  "code": "PGR",
- "name": "The Progressive Corporation",
- "asof": "2026-09-09",
+ "name": "Progressive Corporation",
+ "jp_sector": null,
  "gics_sector": "Financials",
- "industry": "Insurance - Property & Casualty",
  "is_simple": true,
  "is_reit": false,
- "price": 214.89999389648438,
- "price_date": "2026-09-08",
- "mcap": 124878389248,
- "sel_score": 82.0,
- "tim_score": 105.0,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
- "cov_sel": [
-  6,
-  6,
-  "高"
- ],
- "cov_tim": [
-  6,
-  6,
-  "高"
- ],
+ "price": 213.0749969482422,
+ "price_date": "2026-09-09",
+ "mcap": 123817885696,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 82.0,
-  "配当利回りセオリー": 108.9,
-  "利回り水準とChowder": 110.0,
-  "株価バリュエーション": 91.5,
-  "金利スプレッド": null
+  "キャッシュフロー": null
  },
- "div_yield": 6.468124892872505,
- "total_yield": 6.601054217953993,
- "streak_up": 0,
- "streak_flat": 7,
- "payout_ni": 69.74000000000001,
- "roe": 34.943000000000005,
- "chowder": 18.19930797612027,
- "interest_coverage": 52.16187050359712,
- "per_vs_sector": 0.6235926589595375,
- "pbr_vs_sector": 1.4546562,
+ "q_cov": "低",
+ "bt_score": 102.5,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 107.20057306170251,
+  "fcf_yield": 110.0,
+  "per_cheap": 110.0,
+  "pbr_cheap": 82.9
+ },
+ "ev_ebit": 9.005577939176609,
+ "fcf_yield": 13.891369492635148,
  "per_band_pos": 1.0,
- "yield_band_pos": 0.9576125497382766,
- "next_earn": "2026-10-14",
- "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
- ],
- "_generated_at": "2026-09-09T13:13:15"
+ "pbr_band_pos": 1.0,
+ "div_yield": 6.523524673979667,
+ "implied_fcf_growth": -0.0659,
+ "_generated_at": "2026-09-09T23:47:53"
 }

@@ -1,54 +1,33 @@
 {
  "code": "IRM",
- "name": "Iron Mountain Incorporated",
- "asof": "2026-09-09",
+ "name": "Iron Mountain",
+ "jp_sector": null,
  "gics_sector": "Real Estate",
- "industry": "REIT - Specialty",
  "is_simple": true,
  "is_reit": true,
- "price": 116.08000183105469,
- "price_date": "2026-09-08",
- "mcap": 34557341696,
- "sel_score": 67.9,
- "tim_score": 56.4,
- "sel_label": "選定スコア下位（質に不安）",
- "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "選定は下位、買い時は最下位水準。",
- "cov_sel": [
-  4,
-  6,
-  "中"
- ],
- "cov_tim": [
-  5,
-  7,
-  "中"
- ],
+ "price": 115.79499816894531,
+ "price_date": "2026-09-09",
+ "mcap": 34472497152,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 67.9,
-  "配当利回りセオリー": 42.6,
-  "利回り水準とChowder": 100.4,
-  "株価バリュエーション": 20.0,
-  "金利スプレッド": 67.5
+  "キャッシュフロー": null
  },
- "div_yield": 2.9807029164556336,
- "total_yield": null,
- "streak_up": 3,
- "streak_flat": 16,
- "payout_ni": 239.5,
- "roe": null,
- "chowder": 8.369407738341792,
- "interest_coverage": 1.2494949566548763,
- "per_vs_sector": 1.9280152224824354,
- "pbr_vs_sector": null,
+ "q_cov": "低",
+ "bt_score": 41.9,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 67.42642159530659,
+  "fcf_yield": 20.0,
+  "per_cheap": 20.0,
+  "pbr_cheap": null
+ },
+ "ev_ebit": 38.01177998176534,
+ "fcf_yield": -2.9215057892653125,
  "per_band_pos": null,
- "yield_band_pos": 0.02610474907138031,
- "next_earn": "2026-11-04",
- "warnings": [
-  "REIT：FFO・NAV倍率・LTV・分配金の内訳が重要で、株式向けのこのツールでは正しく評価できません。参考程度に。"
- ],
- "_generated_at": "2026-09-09T13:00:14"
+ "pbr_band_pos": null,
+ "div_yield": 2.9880392544692196,
+ "implied_fcf_growth": null,
+ "_generated_at": "2026-09-09T23:34:08"
 }

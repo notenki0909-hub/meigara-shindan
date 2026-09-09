@@ -1,54 +1,33 @@
 {
  "code": "HIG",
- "name": "The Hartford Insurance Group, Inc.",
- "asof": "2026-09-09",
+ "name": "Hartford (The)",
+ "jp_sector": null,
  "gics_sector": "Financials",
- "industry": "Insurance - Diversified",
  "is_simple": true,
  "is_reit": false,
- "price": 135.66000366210938,
- "price_date": "2026-09-08",
- "mcap": 36746498048,
- "sel_score": 98.3,
- "tim_score": 71.9,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "選定は上位水準だが、買い時は下位（やや割高水準）。",
- "cov_sel": [
-  6,
-  6,
-  "高"
- ],
- "cov_tim": [
-  6,
-  6,
-  "高"
- ],
+ "price": 136.07000732421875,
+ "price_date": "2026-09-09",
+ "mcap": 36857556992,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 98.3,
-  "配当利回りセオリー": 45.3,
-  "利回り水準とChowder": 84.2,
-  "株価バリュエーション": 107.9,
-  "金利スプレッド": null
+  "キャッシュフロー": null
  },
- "div_yield": 1.7691286563560176,
- "total_yield": 6.164105282129747,
- "streak_up": 7,
- "streak_flat": 17,
- "payout_ni": 16.02,
- "roe": 22.061001,
- "chowder": 12.457521010486055,
- "interest_coverage": 24.91959798994975,
- "per_vs_sector": 0.5419224855491329,
- "pbr_vs_sector": 0.76373312,
- "per_band_pos": 0.9132388604780417,
- "yield_band_pos": 0.05257186549828311,
- "next_earn": "2026-10-29",
- "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
- ],
- "_generated_at": "2026-09-09T12:57:02"
+ "q_cov": "低",
+ "bt_score": 100.1,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 108.56371592840078,
+  "fcf_yield": 110.0,
+  "per_cheap": 108.8,
+  "pbr_cheap": 72.9
+ },
+ "ev_ebit": 8.287065334139948,
+ "fcf_yield": 15.60873934549894,
+ "per_band_pos": 0.9042124666082113,
+ "pbr_band_pos": 0.0,
+ "div_yield": 1.763797950184155,
+ "implied_fcf_growth": -0.0832,
+ "_generated_at": "2026-09-09T23:30:40"
 }

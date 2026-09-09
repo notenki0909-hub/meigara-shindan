@@ -1,54 +1,33 @@
 {
  "code": "EXR",
- "name": "Extra Space Storage Inc.",
- "asof": "2026-09-09",
+ "name": "Extra Space Storage",
+ "jp_sector": null,
  "gics_sector": "Real Estate",
- "industry": "REIT - Industrial",
  "is_simple": true,
  "is_reit": true,
- "price": 139.16000366210938,
- "price_date": "2026-09-08",
- "mcap": 30712967168,
- "sel_score": 79.5,
- "tim_score": 108.1,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
- "cov_sel": [
-  6,
-  6,
-  "高"
- ],
- "cov_tim": [
-  7,
-  7,
-  "高"
- ],
+ "price": 137.125,
+ "price_date": "2026-09-09",
+ "mcap": 30263836672,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 79.5,
-  "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 110.0,
-  "株価バリュエーション": 106.6,
-  "金利スプレッド": 103.0
+  "キャッシュフロー": null
  },
- "div_yield": 4.656510368980668,
- "total_yield": 5.143431737345932,
- "streak_up": 0,
- "streak_flat": 16,
- "payout_ni": 143.05,
- "roe": 6.952999999999999,
- "chowder": 17.382745253431974,
- "interest_coverage": 2.6753950359925183,
- "per_vs_sector": 0.7194296487119438,
- "pbr_vs_sector": 0.7392062333333334,
- "per_band_pos": 0.7651838409386984,
- "yield_band_pos": 1.0,
- "next_earn": "2026-10-28",
- "warnings": [
-  "REIT：FFO・NAV倍率・LTV・分配金の内訳が重要で、株式向けのこのツールでは正しく評価できません。参考程度に。"
- ],
- "_generated_at": "2026-09-09T12:51:19"
+ "q_cov": "低",
+ "bt_score": 103.0,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 96.03507828211704,
+  "fcf_yield": 100.1456501789393,
+  "per_cheap": 107.5,
+  "pbr_cheap": 108.3
+ },
+ "ev_ebit": 29.628370747904132,
+ "fcf_yield": 6.043695053681791,
+ "per_band_pos": 0.8151673452258036,
+ "pbr_band_pos": 0.9909209892473201,
+ "div_yield": 4.725615314494075,
+ "implied_fcf_growth": 0.0513,
+ "_generated_at": "2026-09-09T23:24:54"
 }

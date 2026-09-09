@@ -1,54 +1,33 @@
 {
  "code": "ALL",
- "name": "The Allstate Corporation",
- "asof": "2026-09-09",
+ "name": "Allstate",
+ "jp_sector": null,
  "gics_sector": "Financials",
- "industry": "Insurance - Property & Casualty",
  "is_simple": true,
  "is_reit": false,
- "price": 253.4600067138672,
- "price_date": "2026-09-08",
- "mcap": 64089378816,
- "sel_score": 100.9,
- "tim_score": 70.0,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "選定は上位水準だが、買い時は下位（やや割高水準）。",
- "cov_sel": [
-  6,
-  6,
-  "高"
- ],
- "cov_tim": [
-  5,
-  6,
-  "中"
- ],
+ "price": 251.86000061035156,
+ "price_date": "2026-09-09",
+ "mcap": 63684804608,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 100.9,
-  "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 86.3,
-  "株価バリュエーション": 107.3,
-  "金利スプレッド": null
+  "キャッシュフロー": null
  },
- "div_yield": 1.7044109072706208,
- "total_yield": 3.628286630173056,
- "streak_up": 16,
- "streak_flat": 17,
- "payout_ni": 8.33,
- "roe": 46.113998,
- "chowder": 14.819683916323573,
- "interest_coverage": 33.97243107769424,
- "per_vs_sector": 0.29336940462427746,
- "pbr_vs_sector": 0.8124304,
+ "q_cov": "低",
+ "bt_score": 102.7,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 110.0,
+  "fcf_yield": 110.0,
+  "per_cheap": 110.0,
+  "pbr_cheap": 80.6
+ },
+ "ev_ebit": 5.200797093913685,
+ "fcf_yield": 15.517045331028049,
  "per_band_pos": null,
- "yield_band_pos": 0.0,
- "next_earn": "2026-11-04",
- "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
- ],
- "_generated_at": "2026-09-09T12:32:05"
+ "pbr_band_pos": 0.164791853880064,
+ "div_yield": 1.7152386204760637,
+ "implied_fcf_growth": -0.0823,
+ "_generated_at": "2026-09-09T23:06:04"
 }

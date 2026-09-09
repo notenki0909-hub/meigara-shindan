@@ -1,55 +1,33 @@
 {
  "code": "NOW",
- "name": "ServiceNow, Inc.",
- "asof": "2026-09-09",
+ "name": "ServiceNow",
+ "jp_sector": null,
  "gics_sector": "Information Technology",
- "industry": "Software - Application",
  "is_simple": false,
  "is_reit": false,
- "price": 134.2100067138672,
- "price_date": "2026-09-08",
- "mcap": 138754621440,
- "sel_score": 91.1,
- "tim_score": 62.2,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は上位水準だが、買い時は最下位（割高水準）。",
- "cov_sel": [
-  13,
-  17,
-  "中"
- ],
- "cov_tim": [
-  2,
-  6,
-  "低"
- ],
+ "price": 133.34950256347656,
+ "price_date": "2026-09-09",
+ "mcap": 137864986624,
+ "q_score": 103.9,
  "groups": {
-  "業績": 101.2,
-  "財務": 108.9,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 61.1,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 62.2,
-  "金利スプレッド": null
+  "業績": 101.23700858563036,
+  "財務": 108.8916869436212,
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 14.244000000000002,
- "chowder": null,
- "interest_coverage": 99.30434782608695,
- "per_vs_sector": 2.1398279591836733,
- "pbr_vs_sector": 0.8273312686567165,
+ "q_cov": "高",
+ "bt_score": 52.8,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 63.839992647907316,
+  "per_cheap": 20.0,
+  "pbr_cheap": 107.2
+ },
+ "ev_ebit": 74.85854529824562,
+ "fcf_yield": 3.2879994485930486,
  "per_band_pos": null,
- "yield_band_pos": null,
- "next_earn": "2026-10-28",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T13:09:54"
+ "pbr_band_pos": 1.0,
+ "div_yield": null,
+ "implied_fcf_growth": 0.1341,
+ "_generated_at": "2026-09-09T23:44:18"
 }

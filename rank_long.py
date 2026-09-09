@@ -3,8 +3,8 @@
 『10年保有できる優良企業』ランキング（配当を評価しない品質スコア版）を生成する。
 配当株ランキング（rank.py / rank_us.py）とは独立。既存ファイルは書き換えない。
 
-  python rank_long.py jp     → site/long/index.html      + site/long/ranking.json
-  python rank_long.py us     → site/us/long/index.html   + site/us/long/ranking.json
+  python rank_long.py jp     -> site/long/index.html      + site/long/ranking.json
+  python rank_long.py us     -> site/us/long/index.html   + site/us/long/ranking.json
 
 品質スコア = 既存サマリの groups から、
   業績0.28 ・ 財務0.27 ・ キャッシュフロー0.15
@@ -27,6 +27,7 @@ import statistics as st
 
 import rank as _jp          # THEME_*, TIER_CLASS, DIR_CLASS を流用（配色をサイトと統一）
 import rank_us as _us
+import long_common as LC
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -37,16 +38,14 @@ MK = {
     "jp": {
         "theme": _jp,
         "universe": "universe_long.json",
-        "sumdirs": [os.path.join(HERE, "site", "summaries"),
-                    os.path.join(HERE, "site", "long_summaries")],
+        "sumdir": os.path.join(HERE, "site", "long_summaries"),
         "groups_cfg": "sector_groups_long.json",
         "seckey": "jp_sector",
         "out_dir": os.path.join(HERE, "site", "long"),
-        "report_dirs": [("reports/", os.path.join(HERE, "site", "long", "reports")),
-                        ("../reports/", os.path.join(HERE, "site", "reports"))],
+        "report_dirs": [("reports/", os.path.join(HERE, "site", "long", "reports"))],
         "title": "10年保有できる優良企業ランキング（日本株）",
         "screen_line": "母集団＝時価総額3,000億円以上（TOPIX500相当）／金融・REITを除く。"
-                       "配当利回りは条件に使わず表示のみ。",
+                       "品質スコア（配当は不使用）＋買い時スコア（EV/EBIT・FCF利回り・PER/PBR割安度）。",
         "nav": [("../index.html", "配当株ランキング（日本）"),
                 ("../us/long/index.html", "10年保有（米国株）")],
         "unit_price": "円",
@@ -54,16 +53,14 @@ MK = {
     "us": {
         "theme": _us,
         "universe": "universe_long_us.json",
-        "sumdirs": [os.path.join(HERE, "site", "us", "summaries"),
-                    os.path.join(HERE, "site", "us", "long_summaries")],
+        "sumdir": os.path.join(HERE, "site", "us", "long_summaries"),
         "groups_cfg": "sector_groups_long_us.json",
         "seckey": "gics_sector",
         "out_dir": os.path.join(HERE, "site", "us", "long"),
-        "report_dirs": [("reports/", os.path.join(HERE, "site", "us", "long", "reports")),
-                        ("../reports/", os.path.join(HERE, "site", "us", "reports"))],
+        "report_dirs": [("reports/", os.path.join(HERE, "site", "us", "long", "reports"))],
         "title": "10年保有できる優良企業ランキング（米国株）",
         "screen_line": "母集団＝S&P500 メンバーシップ（黒字継続・流動性・業種代表性を"
-                       "委員会が審査済み）／金融・REITは対象外。配当利回りは表示のみ。",
+                       "委員会が審査済み）／金融・REITは対象外。品質スコア（配当は不使用）＋買い時スコア。",
         "nav": [("../index.html", "配当株ランキング（米国）"),
                 ("../../long/index.html", "10年保有（日本株）")],
         "unit_price": "$",
@@ -134,20 +131,14 @@ def direction(now, prev, thr=2.0):
 
 
 # ---------------------------------------------------------------- データ収集
-def load_summary(code, sumdirs):
-    best, best_gen = None, None
-    for d in sumdirs:
-        p = os.path.join(d, f"{code}.json")
-        if not os.path.isfile(p):
-            continue
-        try:
-            s = json.load(open(p, encoding="utf-8"))
-        except Exception:
-            continue
-        gen = s.get("_generated_at") or ""
-        if best is None or gen > (best_gen or ""):
-            best, best_gen = s, gen
-    return best
+def load_summary(code, sumdir):
+    p = os.path.join(sumdir, f"{code}.json")
+    if not os.path.isfile(p):
+        return None
+    try:
+        return json.load(open(p, encoding="utf-8"))
+    except Exception:
+        return None
 
 
 def load_prev(out_dir):
@@ -188,12 +179,12 @@ def build(market):
     rows, excluded, missing = [], [], []
     for it in items:
         code = str(it.get("ticker") or it.get("code"))
-        s = load_summary(code, m["sumdirs"])
+        s = load_summary(code, m["sumdir"])
         if s is None:
             missing.append(code)
             continue
         groups = s.get("groups", {}) or {}
-        q = quality_score(groups)
+        q = s.get("q_score")
         sec = s.get(m["seckey"]) or it.get(m["seckey"]) or ""
         grp = gmap.get(sec, "その他")
         if grp in excl_groups:
@@ -203,6 +194,8 @@ def build(market):
             "sector": sec, "group": grp,
             "q": q, "perf": groups.get("業績"), "fin": groups.get("財務"),
             "cf": groups.get("キャッシュフロー"),
+            "bt": s.get("bt_score"), "bt_cov": s.get("bt_cov"),
+            "ev_ebit": s.get("ev_ebit"), "fcf_yield": s.get("fcf_yield"),
             "yield": s.get("div_yield"), "price": s.get("price"),
             "price_date": s.get("price_date"),
             "is_simple": s.get("is_simple"), "is_reit": s.get("is_reit"),
@@ -215,8 +208,7 @@ def build(market):
                 rec["why"] = "金融（銀行・保険・証券／採点対象外）"
             excluded.append(rec)
         else:
-            got, poss, cov = quality_cov(groups)
-            rec["cov"] = cov
+            rec["cov"] = s.get("q_cov") or "―"
             rec["dir"] = direction(q, prev.get(code))
             rows.append(rec)
 
@@ -243,6 +235,14 @@ def build(market):
 
     global_top = sorted(rows, key=lambda r: -r["q"])[:50]
     excluded.sort(key=lambda r: (r["group"], r["name"]))
+    tt = tuple(LC.load_bt_cfg()[f"tim_tiers_{market}"])
+    bt_vals = [r["bt"] for r in rows if isinstance(r.get("bt"), (int, float))]
+    bt_counts = {
+        "買い場": sum(1 for v in bt_vals if v >= tt[0]),
+        "妥当": sum(1 for v in bt_vals if tt[1] <= v < tt[0]),
+        "やや割高": sum(1 for v in bt_vals if tt[2] <= v < tt[1]),
+        "割高": sum(1 for v in bt_vals if v < tt[2]),
+    }
 
     out = {
         "generated_at": dt.datetime.now().isoformat(timespec="seconds"),
@@ -255,6 +255,7 @@ def build(market):
             "2軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "2軍"),
             "3軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "3軍"),
         },
+        "buytiming_counts": bt_counts, "tim_tiers": list(tt),
         "groups": groups_out, "global_top": global_top, "excluded": excluded,
         "missing": sorted(missing),
     }
@@ -264,12 +265,16 @@ def build(market):
 
 def _print_dist(out):
     allq = sorted(s["q"] for g in out["groups"] for s in g["stocks"])
-    if allq:
-        p = lambda k: allq[min(len(allq) - 1, int(len(allq) * k))]
-        print(f"  品質スコア分布 n={len(allq)}  min {allq[0]}  p10 {p(.1)}  "
-              f"p25 {p(.25)}  median {st.median(allq)}  p75 {p(.75)}  max {allq[-1]}")
+    allbt = sorted(s["bt"] for g in out["groups"] for s in g["stocks"]
+                   if isinstance(s.get("bt"), (int, float)))
+    for lab, xs in (("品質", allq), ("買い時", allbt)):
+        if xs:
+            p = lambda k, xs=xs: xs[min(len(xs) - 1, int(len(xs) * k))]
+            print(f"  {lab}スコア分布 n={len(xs)}  min {xs[0]:.1f}  p10 {p(.1):.1f}  "
+                  f"p25 {p(.25):.1f}  median {st.median(xs):.1f}  p60 {p(.6):.1f}  "
+                  f"p75 {p(.75):.1f}  max {xs[-1]:.1f}")
     print("  グループ中央値:", {g["name"]: g["median"] for g in out["groups"]})
-    print(f"  {out['counts']}")
+    print(f"  {out['counts']}  買い時内訳 {out['buytiming_counts']}")
 
 
 # ---------------------------------------------------------------- HTML
@@ -291,6 +296,14 @@ def render(out, m):
     c = out["counts"]
     unit = m["unit_price"]
 
+    tt = tuple(LC.load_bt_cfg()[f"tim_tiers_{out['market']}"])
+
+    def _bt_cell(v):
+        if not isinstance(v, (int, float)):
+            return '<td class="n bt">―</td>'
+        cls = "t1" if v >= tt[0] else "t2" if v >= tt[1] else "t3" if v >= tt[2] else "t4"
+        return f'<td class="n bt {cls}" data-v="{v}"><b>{v:.0f}</b></td>'
+
     def row_html(s, with_rank=None):
         tcls = th.TIER_CLASS.get(s.get("tier", "―"), "t0")
         dcls = th.DIR_CLASS.get(s.get("dir", "→"), "fl")
@@ -299,6 +312,7 @@ def render(out, m):
         return (
             f'<tr class="{tcls} r" data-tier="{s.get("tier","―")}">'
             + rk +
+            f'<td class="wl"><input type="checkbox" class="wlc" data-code="{s["code"]}" aria-label="ウォッチ"></td>'
             f'<td class="tier">{s.get("tier","―")}<span class="dir {dcls}">{s.get("dir","")}</span></td>'
             f'<td class="code">{codecell}</td>'
             f'<td class="nm">{html.escape(str(s["name"]))}</td>'
@@ -307,14 +321,15 @@ def render(out, m):
             f'<td class="n" data-v="{_v(s["perf"])}">{_num(s["perf"],0)}</td>'
             f'<td class="n" data-v="{_v(s["fin"])}">{_num(s["fin"],0)}</td>'
             f'<td class="n" data-v="{_v(s["cf"])}">{_num(s["cf"],0)}</td>'
+            + _bt_cell(s.get("bt")) +
             f'<td class="n" data-v="{_v(s["yield"])}">{_num(s["yield"],2)}%</td>'
             f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"], unit)}</td>'
             f'<td class="cv">{s.get("cov","―")}</td>'
             f'</tr>')
 
-    thead = ('<thead><tr>{rk}<th>軍</th><th>コード</th><th>銘柄</th><th>業種</th>'
+    thead = ('<thead><tr>{rk}<th class="wl">☑</th><th>軍</th><th>コード</th><th>銘柄</th><th>業種</th>'
              '<th class="n">品質</th><th class="n">業績</th><th class="n">財務</th>'
-             '<th class="n">CF</th><th class="n">利回り</th>'
+             '<th class="n">CF</th><th class="n">買い時</th><th class="n">利回り</th>'
              f'<th class="n">終値</th><th>カバレッジ</th></tr></thead>')
 
     secs = []
@@ -390,6 +405,23 @@ tr:last-child td{{border-bottom:none}}
 .code a{{color:var(--accent);text-decoration:none}}
 .sec{{color:var(--muted);font-size:11px}}
 .cv{{font-size:11px}}
+td.bt.t1,td.bt.t1 b{{color:var(--t1)}}
+td.bt.t2,td.bt.t2 b{{color:var(--t2)}}
+td.bt.t3,td.bt.t3 b{{color:var(--t3)}}
+td.bt.t4,td.bt.t4 b{{color:var(--gC)}}
+td.wl,th.wl{{width:30px;text-align:center;padding-left:2px;padding-right:2px}}
+th.wl{{cursor:default}}
+.wlc{{width:15px;height:15px;cursor:pointer;accent-color:var(--accent)}}
+#wlbar{{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;gap:10px;
+  align-items:center;justify-content:center;flex-wrap:wrap;background:var(--card);
+  border-top:1px solid var(--line);box-shadow:0 -2px 10px rgba(0,0,0,.06);
+  padding:10px 14px;font-size:13px}}
+#wlbar b{{color:var(--accent)}}
+#wlbar button{{padding:8px 16px;border:1px solid var(--accent);border-radius:8px;
+  background:var(--accent);color:#fff;font-size:13px;cursor:pointer}}
+#wlbar button.ghost{{background:var(--card);color:var(--muted);border-color:var(--line)}}
+#wlbar[hidden]{{display:none}}
+body.wlon{{padding-bottom:60px}}
 .disc{{margin-top:30px;padding:12px;background:var(--wbg);border:1px solid var(--wbd);
   border-radius:8px;font-size:11.5px;color:var(--wfg)}}
 .searchbar{{display:flex;align-items:center;gap:8px;margin:14px 0 4px}}
@@ -420,20 +452,23 @@ section.grp[hidden]{{display:none}}
   <button type="button" class="sumbtn" data-tier="3軍"><b>{c['3軍']}</b>3軍</button>
   <span class="sumbtn" style="cursor:default"><b>{c['excluded']}</b>対象外</span>
 </div>
-<div class="sub" style="margin:-4px 0 12px">数字ボタンでその軍だけ表示（もう一度で解除）。品質＝配当抜きの質、業績/財務/CF＝その内訳。</div>
+<div class="sub" style="margin:-4px 0 12px">数字ボタンでその軍だけ表示（もう一度で解除）。品質＝配当抜きの質、業績/財務/CF＝その内訳、買い時＝割安さ（EV/EBIT・FCF利回り・PER/PBR割安度、配当は不使用）。左端□で選んで下部の「ウォッチリストを作成」。</div>
 <div class="searchbar">
   <input id="q" type="search" placeholder="コード・銘柄名・業種で検索" autocomplete="off">
   <button id="qclear" type="button">クリア</button>
   <span class="hit" id="qhit"></span>
 </div>
 <details id="topbox"><summary>全体 品質スコア 上位50（業種横断）</summary>
-<table><thead><tr><th class="n">#</th><th>軍</th><th>コード</th><th>銘柄</th><th>業種</th>
+<table><thead><tr><th class="n">#</th><th class="wl">☑</th><th>軍</th><th>コード</th><th>銘柄</th><th>業種</th>
 <th class="n">品質</th><th class="n">業績</th><th class="n">財務</th><th class="n">CF</th>
-<th class="n">利回り</th><th class="n">終値</th><th>カバレッジ</th></tr></thead>
+<th class="n">買い時</th><th class="n">利回り</th><th class="n">終値</th><th>カバレッジ</th></tr></thead>
 <tbody>{gt}</tbody></table></details>
 {"".join(secs)}
 {exc}
 <div class="disc">{DISC}</div>
+<div id="wlbar" hidden><span><b id="wlcount">0</b> 銘柄を選択中</span>
+<button type="button" id="wlgo">ウォッチリストを作成 →</button>
+<button type="button" id="wlclear" class="ghost">選択をクリア</button></div>
 <script>
 {th.THEME_JS}
 (function(){{
@@ -459,6 +494,115 @@ section.grp[hidden]{{display:none}}
     btns.forEach(function(x){{x.classList.toggle('active',x.dataset.tier===activeTier&&activeTier!=='');}});
     apply();
   }});}});
+  // ---- ウォッチリスト選択 ----
+  var wlSet=new Set();
+  var bar=document.getElementById('wlbar'),cnt=document.getElementById('wlcount');
+  function sync(){{
+    cnt.textContent=wlSet.size;
+    bar.hidden=(wlSet.size===0);
+    document.body.classList.toggle('wlon',wlSet.size>0);
+  }}
+  document.querySelectorAll('.wlc').forEach(function(cb){{
+    cb.addEventListener('change',function(){{
+      var c=cb.dataset.code;
+      if(cb.checked)wlSet.add(c);else wlSet.delete(c);
+      document.querySelectorAll('.wlc[data-code="'+c+'"]').forEach(function(o){{o.checked=cb.checked;}});
+      sync();
+    }});
+  }});
+  document.getElementById('wlclear').addEventListener('click',function(){{
+    wlSet.clear();document.querySelectorAll('.wlc').forEach(function(o){{o.checked=false;}});sync();
+  }});
+  document.getElementById('wlgo').addEventListener('click',function(){{
+    if(!wlSet.size)return;
+    location.href='watchlist.html?codes='+encodeURIComponent(Array.from(wlSet).join(','));
+  }});
+}})();
+</script>
+</div></body></html>"""
+
+
+def render_watchlist(out, m):
+    """?codes=A,B,C を ranking.json から引いて表にするだけの静的ページ。"""
+    th = m["theme"]
+    return f"""<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+{th.THEME_HEAD}
+<title>ウォッチリスト｜{html.escape(m['title'])}</title>
+<style>
+{th.THEME_CSS}
+*{{box-sizing:border-box}}
+body{{margin:0;font:14px/1.6 -apple-system,"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;
+  background:var(--bg);color:var(--fg)}}
+.wrap{{max-width:900px;margin:0 auto;padding:20px 16px 60px}}
+h1{{font-size:19px;margin:0 0 4px}}
+.sub{{color:var(--muted);font-size:12px;margin-bottom:12px}} .sub a{{color:var(--accent)}}
+.box{{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:12px 0}}
+textarea{{width:100%;min-height:52px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;
+  font:12px/1.5 monospace;background:var(--field);color:var(--fg);resize:vertical}}
+button{{padding:7px 13px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);
+  color:#fff;font-size:12.5px;cursor:pointer;margin-right:6px}}
+button.ghost{{background:var(--card);color:var(--muted);border-color:var(--line)}}
+table{{width:100%;border-collapse:collapse;background:var(--card);font-size:13px;
+  border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:8px}}
+th,td{{padding:6px 8px;text-align:left;border-bottom:1px solid var(--line)}}
+th{{background:var(--th);font-size:11px;color:var(--muted)}}
+td.n,th.n{{text-align:right;font-variant-numeric:tabular-nums}}
+tr:last-child td{{border-bottom:none}}
+.code a{{color:var(--accent);text-decoration:none}}
+.sec{{color:var(--muted);font-size:11px}}
+td.bt.t1{{color:var(--t1)}} td.bt.t2{{color:var(--t2)}} td.bt.t3{{color:var(--t3)}} td.bt.t4{{color:var(--gC)}}
+.empty{{color:var(--muted);font-size:13px;padding:14px 0}}
+</style></head><body><div class="wrap">
+<h1>ウォッチリスト</h1>
+<div class="sub"><a href="index.html">← ランキングに戻る</a>　｜　{html.escape(m['title'])}</div>
+<div class="box"><b>この一覧のコード</b>（コピーして保存・共有できます。URL の <code>?codes=</code> でも復元）
+<textarea id="codestr" readonly></textarea>
+<div style="margin-top:6px"><button id="copy">コピー</button>
+<button id="clear" class="ghost">クリア</button><span id="stat" class="sub"></span></div></div>
+<div id="tbl"></div>
+{th.THEME_BAR}
+<script>
+{th.THEME_JS}
+(function(){{
+  var params=new URLSearchParams(location.search);
+  var LS='pp_wl_long_{out["market"]}';
+  var codes=(params.get('codes')||localStorage.getItem(LS)||'').split(/[\\s,]+/).filter(Boolean);
+  codes=Array.from(new Set(codes));
+  try{{localStorage.setItem(LS,codes.join(','));}}catch(e){{}}
+  document.getElementById('codestr').value=codes.join(',');
+  document.getElementById('copy').onclick=function(){{
+    navigator.clipboard.writeText(codes.join(',')).then(function(){{
+      document.getElementById('stat').textContent=' コピーしました';}});
+  }};
+  document.getElementById('clear').onclick=function(){{
+    try{{localStorage.removeItem(LS);}}catch(e){{}}location.href='watchlist.html';
+  }};
+  var tbl=document.getElementById('tbl');
+  if(!codes.length){{tbl.innerHTML='<div class="empty">ランキングで銘柄を選んで「ウォッチリストを作成」を押すと、ここに一覧が出ます。</div>';return;}}
+  fetch('ranking.json').then(function(r){{return r.json();}}).then(function(j){{
+    var map={{}};
+    (j.groups||[]).forEach(function(g){{(g.stocks||[]).forEach(function(s){{s._grade=g.grade;s._gname=g.name;map[s.code]=s;}});}});
+    (j.excluded||[]).forEach(function(s){{map[s.code]=s;s._exc=true;}});
+    var tt=(j.tim_tiers||[72,57,45]);
+    function btcls(v){{return v>=tt[0]?'t1':v>=tt[1]?'t2':v>=tt[2]?'t3':'t4';}}
+    var rows=codes.map(function(c){{
+      var s=map[c];
+      if(!s)return '<tr><td class="code">'+c+'</td><td colspan="7" class="sec">ランキングに見つかりません（対象外・母集団外）</td></tr>';
+      var bt=(typeof s.bt==='number')?'<td class="n bt '+btcls(s.bt)+'"><b>'+s.bt.toFixed(0)+'</b></td>':'<td class="n">―</td>';
+      var q=(typeof s.q==='number')?s.q.toFixed(0):(s._exc?'対象外':'―');
+      var yld=(typeof s.yield==='number')?s.yield.toFixed(2)+'%':'―';
+      var px=(typeof s.price==='number')?s.price.toLocaleString():'―';
+      return '<tr><td class="code"><a href="reports/'+c+'.html">'+c+'</a></td>'
+        +'<td>'+(s.name||'')+'</td><td class="sec">'+(s.sector||s._gname||'')+'</td>'
+        +'<td class="n"><b>'+q+'</b></td>'+bt
+        +'<td class="n">'+yld+'</td><td class="n">'+px+'</td>'
+        +'<td>'+(s.tier||(s._exc?'―':''))+'</td></tr>';
+    }}).join('');
+    tbl.innerHTML='<table><thead><tr><th>コード</th><th>銘柄</th><th>業種</th>'
+      +'<th class="n">品質</th><th class="n">買い時</th><th class="n">利回り</th>'
+      +'<th class="n">終値</th><th>軍</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  }}).catch(function(){{tbl.innerHTML='<div class="empty">ranking.json を読み込めませんでした。</div>';}});
 }})();
 </script>
 </div></body></html>"""
@@ -471,6 +615,8 @@ def main():
     out, m = build(args.market)
     os.makedirs(m["out_dir"], exist_ok=True)
     new_html = render(out, m)
+    open(os.path.join(m["out_dir"], "watchlist.html"), "w",
+         encoding="utf-8").write(render_watchlist(out, m))
 
     idx = os.path.join(m["out_dir"], "index.html")
     rjson = os.path.join(m["out_dir"], "ranking.json")
@@ -485,12 +631,12 @@ def main():
         except Exception:
             prev_gen = None
     if old is not None and _mask(old, prev_gen) == _mask(new_html, out["generated_at"]):
-        print(f"変化なし → 書き込みスキップ  {out['counts']}")
+        print(f"変化なし -> 書き込みスキップ  {out['counts']}")
         return
 
     json.dump(out, open(rjson, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     open(idx, "w", encoding="utf-8").write(new_html)
-    print(f"→ {idx}\n→ {rjson}")
+    print(f"-> {idx}\n-> {rjson}")
 
 
 if __name__ == "__main__":

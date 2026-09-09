@@ -1,55 +1,33 @@
 {
  "code": "DLTR",
- "name": "Dollar Tree, Inc.",
- "asof": "2026-09-09",
+ "name": "Dollar Tree",
+ "jp_sector": null,
  "gics_sector": "Consumer Staples",
- "industry": "Discount Stores",
  "is_simple": false,
  "is_reit": false,
- "price": 124.04000091552734,
- "price_date": "2026-09-08",
- "mcap": 23273662464,
- "sel_score": 82.4,
- "tim_score": 103.5,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
- "cov_sel": [
-  14,
-  17,
-  "中"
- ],
- "cov_tim": [
-  2,
-  6,
-  "低"
- ],
+ "price": 121.08419799804688,
+ "price_date": "2026-09-09",
+ "mcap": 22719064064,
+ "q_score": 91.0,
  "groups": {
-  "業績": 83.2,
-  "財務": 94.0,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 62.5,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 103.5,
-  "金利スプレッド": null
+  "業績": 83.23957404016258,
+  "財務": 93.9982000350201,
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 46.032002999999996,
- "chowder": null,
- "interest_coverage": 20.058479532163744,
- "per_vs_sector": 0.6413916033755275,
- "pbr_vs_sector": 1.0297484848484848,
+ "q_cov": "高",
+ "bt_score": 91.5,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 85.78906037048446,
+  "fcf_yield": 100.54075226655722,
+  "per_cheap": 110.0,
+  "pbr_cheap": 69.7
+ },
+ "ev_ebit": 17.577196820519024,
+ "fcf_yield": 6.1622256799671655,
  "per_band_pos": null,
- "yield_band_pos": null,
- "next_earn": "2026-12-02",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T12:46:42"
+ "pbr_band_pos": 0.0,
+ "div_yield": null,
+ "implied_fcf_growth": 0.0486,
+ "_generated_at": "2026-09-09T23:20:26"
 }

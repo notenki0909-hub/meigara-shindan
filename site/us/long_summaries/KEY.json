@@ -1,54 +1,33 @@
 {
  "code": "KEY",
  "name": "KeyCorp",
- "asof": "2026-09-09",
+ "jp_sector": null,
  "gics_sector": "Financials",
- "industry": "Banks - Regional",
  "is_simple": true,
  "is_reit": false,
- "price": 21.790000915527344,
- "price_date": "2026-09-08",
- "mcap": 23252731904,
- "sel_score": 79.7,
- "tim_score": 66.8,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "選定は中位、買い時は下位（やや割高水準）。",
- "cov_sel": [
-  6,
-  6,
-  "高"
- ],
- "cov_tim": [
-  6,
-  6,
-  "高"
- ],
+ "price": 21.850000381469727,
+ "price_date": "2026-09-09",
+ "mcap": 23316760576,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 79.7,
-  "配当利回りセオリー": 46.9,
-  "利回り水準とChowder": 71.7,
-  "株価バリュエーション": 98.7,
-  "金利スプレッド": null
+  "キャッシュフロー": null
  },
- "div_yield": 3.763193967631621,
- "total_yield": 4.623307956928489,
- "streak_up": 0,
- "streak_flat": 17,
- "payout_ni": 47.949999999999996,
- "roe": 10.33,
- "chowder": 5.837497777111148,
- "interest_coverage": null,
- "per_vs_sector": 0.736571676300578,
- "pbr_vs_sector": 0.54015872,
- "per_band_pos": 0.3741722443503884,
- "yield_band_pos": 0.06924926191875613,
- "next_earn": "2026-10-20",
- "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
- ],
- "_generated_at": "2026-09-09T13:01:45"
+ "q_cov": "低",
+ "bt_score": 88.3,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": 110.0,
+  "per_cheap": 92.5,
+  "pbr_cheap": 90.7
+ },
+ "ev_ebit": null,
+ "fcf_yield": 9.01068565314585,
+ "per_band_pos": 0.3658639720399997,
+ "pbr_band_pos": 0.314828224775056,
+ "div_yield": 3.752860346379743,
+ "implied_fcf_growth": -0.0039,
+ "_generated_at": "2026-09-09T23:35:44"
 }

@@ -1,55 +1,33 @@
 {
  "code": "ACGL",
- "name": "Arch Capital Group Ltd.",
- "asof": "2026-09-09",
+ "name": "Arch Capital Group",
+ "jp_sector": null,
  "gics_sector": "Financials",
- "industry": "Insurance - Diversified",
  "is_simple": true,
  "is_reit": false,
- "price": 95.70999908447266,
- "price_date": "2026-09-08",
- "mcap": 32659038208,
- "sel_score": 62.5,
- "tim_score": 102.0,
- "sel_label": "選定スコア下位（質に不安）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
- "cov_sel": [
-  4,
-  6,
-  "中"
- ],
- "cov_tim": [
-  3,
-  6,
-  "低"
- ],
+ "price": 95.19000244140625,
+ "price_date": "2026-09-09",
+ "mcap": 32481601536,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 62.5,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 102.0,
-  "金利スプレッド": null
+  "キャッシュフロー": null
  },
+ "q_cov": "低",
+ "bt_score": 106.2,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 110.0,
+  "fcf_yield": 110.0,
+  "per_cheap": 98.9,
+  "pbr_cheap": 106.0
+ },
+ "ev_ebit": 6.674000689682075,
+ "fcf_yield": 18.866064818904377,
+ "per_band_pos": 0.47847472977450517,
+ "pbr_band_pos": 0.6808773936432452,
  "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 19.936001,
- "chowder": null,
- "interest_coverage": 34.641891891891895,
- "per_vs_sector": 0.4328928092485549,
- "pbr_vs_sector": 0.5603794,
- "per_band_pos": 0.460209622006584,
- "yield_band_pos": null,
- "next_earn": "2026-10-26",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
- ],
- "_generated_at": "2026-09-09T12:29:55"
+ "implied_fcf_growth": -0.1121,
+ "_generated_at": "2026-09-09T23:03:55"
 }

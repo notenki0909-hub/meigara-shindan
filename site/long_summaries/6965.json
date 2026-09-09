@@ -1,57 +1,33 @@
 {
  "code": "6965",
  "name": "浜松ホトニクス",
- "asof": "2026-09-09",
  "jp_sector": "電気機器",
- "industry": "Electronic Components",
+ "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 2252.0,
+ "price": 2244.0,
  "price_date": "2026-09-09",
- "mcap": 650235346944,
- "sel_score": 75.7,
- "tim_score": 83.5,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
- "cov_sel": [
-  16,
-  16,
-  "高"
- ],
- "cov_tim": [
-  6,
-  6,
-  "高"
- ],
+ "mcap": 647925465088,
+ "q_score": 78.7,
  "groups": {
-  "業績": 54.6,
-  "財務": 106.8,
-  "キャッシュフロー": 73.3,
-  "配当の持続力": 68.6,
-  "配当利回りセオリー": 100.7,
-  "利回り水準とChowder": 80.1,
-  "株価バリュエーション": 55.1,
-  "金利スプレッド": null
+  "業績": 54.61300006341176,
+  "財務": 106.78424897694646,
+  "キャッシュフロー": 73.33333333333333
  },
- "div_yield": 1.6873889875666075,
- "streak_up": 0,
- "streak_flat": 17,
- "payout_ni": 83.21,
- "roe": 5.5180001999999995,
- "div_policy": null,
- "per_vs_sector": 1.6794264285714287,
- "pbr_vs_sector": 0.7895169999999999,
+ "q_cov": "高",
+ "bt_score": 43.6,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 21.156511626274114,
+  "per_cheap": 30.0,
+  "pbr_cheap": 103.4
+ },
+ "ev_ebit": 38.86457601979218,
+ "fcf_yield": 0.0867383719705584,
  "per_band_pos": 0.0,
- "yield_band_pos": 0.6266235655806824,
- "next_earn": "2026-11-06",
- "earn_disc_date": "2026-08-05",
- "buyback_yen": 20001000000.0,
- "total_yield": 4.7633521898135225,
- "total_payout": 222.25586143772443,
- "interest_coverage": 26.766169154228855,
- "warnings": [
-  "yfinance の業種『Electronic Components』が対応表に無く、sector（industry未対応） で 電気機器 に割り当てました。業種平均との比較は目安です。"
- ],
- "_generated_at": "2026-09-09T12:08:11"
+ "pbr_band_pos": 0.6572802884183678,
+ "div_yield": 1.6934046345811051,
+ "implied_fcf_growth": 0.6818,
+ "_generated_at": "2026-09-09T22:43:08"
 }

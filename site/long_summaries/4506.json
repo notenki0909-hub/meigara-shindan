@@ -1,57 +1,33 @@
 {
  "code": "4506",
  "name": "住友ファーマ",
- "asof": "2026-09-09",
  "jp_sector": "医薬品",
- "industry": "Drug Manufacturers - Specialty & Generic",
+ "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 1543.0,
+ "price": 1545.0,
  "price_date": "2026-09-09",
- "mcap": 692179632128,
- "sel_score": 66.8,
- "tim_score": 84.4,
- "sel_label": "選定スコア下位（質に不安）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
- "cov_sel": [
-  16,
-  16,
-  "高"
- ],
- "cov_tim": [
-  2,
-  6,
-  "低"
- ],
+ "mcap": 693076819968,
+ "q_score": 72.2,
  "groups": {
-  "業績": 50.7,
-  "財務": 77.3,
-  "キャッシュフロー": 103.3,
-  "配当の持続力": 54.0,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 84.4,
-  "金利スプレッド": null
+  "業績": 50.67666640029687,
+  "財務": 77.29966002364988,
+  "キャッシュフロー": 103.33333333333333
  },
- "div_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 38.529,
- "div_policy": null,
- "per_vs_sector": 0.30667274331550803,
- "pbr_vs_sector": 1.4118446666666669,
+ "q_cov": "高",
+ "bt_score": 79.9,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 102.91415878382472,
+  "fcf_yield": 26.675546683093923,
+  "per_cheap": 110.0,
+  "pbr_cheap": 79.9
+ },
+ "ev_ebit": 8.243008957078807,
+ "fcf_yield": 0.5006660012320443,
  "per_band_pos": null,
- "yield_band_pos": null,
- "next_earn": "2026-10-30",
- "earn_disc_date": "2026-07-30",
- "buyback_yen": null,
- "total_yield": null,
- "total_payout": 0.002807280213353296,
- "interest_coverage": 10.845368916797488,
- "warnings": [
-  "買い時スコアは取得できた指標が少なく（2/6・カバレッジ低）、点数は目安です。"
- ],
- "_generated_at": "2026-09-09T11:46:56"
+ "pbr_band_pos": 0.6471079194921778,
+ "div_yield": null,
+ "implied_fcf_growth": 0.4,
+ "_generated_at": "2026-09-09T22:22:50"
 }

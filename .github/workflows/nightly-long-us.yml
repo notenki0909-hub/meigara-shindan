@@ -1,8 +1,10 @@
 name: nightly-long-us
 
-# 『10年保有できる優良企業ランキング（米国株・配当抜き品質スコア）』の毎晩更新。
-# 既存の nightly-refresh-us（配当株）とは別ジョブ。site/us/long/ 以下しか触らない。
-# nightly-refresh-us の完了後に走らせて site/us/summaries/ の最新結果を流用する。
+# 『10年保有できる優良企業ランキング（米国株）』の毎晩更新。
+# 配当を評価しない独自エンジン analyze_long.py（品質スコア＋買い時スコア）で
+# universe_long_us.json（S&P500）の全銘柄を診断し直す。既存の配当株ツール
+# （analyze_us.py / rank_us.py / site/us/summaries / site/us/reports）には触らない。
+# yfinance のアクセスが nightly-refresh-us と重ならないよう、その完了後に走らせる。
 on:
   workflow_run:
     workflows: ["nightly-refresh-us"]
@@ -19,7 +21,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
 
@@ -30,8 +32,11 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - name: S&P500 のうち配当株バッチ外の銘柄だけ診断（古いものだけ）
+      - name: バッチ診断（古いサマリだけ再取得）
         run: python batch_long.py us --only-stale --hours 20 --sleep 2.0
+
+      - name: 業種中央値 EV/EBIT を再計算
+        run: python calib_long.py us || true
 
       - name: 10年保有ランキング再生成
         run: python rank_long.py us
@@ -40,6 +45,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add site/us/long site/us/long_summaries universe_long_us.json
+          git add site/us/long site/us/long_summaries universe_long_us.json sector_averages_long_us.json
           git diff --cached --quiet || git commit -m "chore(nightly-long-us): refresh $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
           git push

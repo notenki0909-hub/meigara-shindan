@@ -1,57 +1,33 @@
 {
  "code": "6976",
  "name": "太陽誘電",
- "asof": "2026-09-09",
  "jp_sector": "電気機器",
- "industry": "Electronic Components",
+ "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 9325.0,
+ "price": 8972.0,
  "price_date": "2026-09-09",
- "mcap": 1166994833408,
- "sel_score": 78.1,
- "tim_score": 56.3,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "選定は中位、買い時は下位（やや割高水準）。",
- "cov_sel": [
-  16,
-  16,
-  "高"
- ],
- "cov_tim": [
-  5,
-  6,
-  "中"
- ],
+ "mcap": 1122818064384,
+ "q_score": 82.9,
  "groups": {
-  "業績": 51.1,
-  "財務": 104.5,
-  "キャッシュフロー": 103.3,
-  "配当の持続力": 66.9,
-  "配当利回りセオリー": 52.0,
-  "利回り水準とChowder": 71.2,
-  "株価バリュエーション": 46.6,
-  "金利スプレッド": null
+  "業績": 51.06475021606773,
+  "財務": 104.53583762484338,
+  "キャッシュフロー": 103.33333333333333
  },
- "div_yield": 0.96514745308311,
- "streak_up": 0,
- "streak_flat": 14,
- "payout_ni": 83.67999999999999,
- "roe": 5.335,
- "div_policy": null,
- "per_vs_sector": 2.9463712244897957,
- "pbr_vs_sector": 1.2685702307692306,
+ "q_cov": "高",
+ "bt_score": 47.0,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 89.01325850670696,
+  "per_cheap": 20.0,
+  "pbr_cheap": 59.0
+ },
+ "ev_ebit": 59.70984518823765,
+ "fcf_yield": 5.175994388003022,
  "per_band_pos": null,
- "yield_band_pos": 0.12023368019662466,
- "next_earn": "2026-11-05",
- "earn_disc_date": "2026-08-05",
- "buyback_yen": 0.0,
- "total_yield": 0.96514745308311,
- "total_payout": 75.80710522761042,
- "interest_coverage": 11.793975255513717,
- "warnings": [
-  "yfinance の業種『Electronic Components』が対応表に無く、sector（industry未対応） で 電気機器 に割り当てました。業種平均との比較は目安です。"
- ],
- "_generated_at": "2026-09-09T12:08:28"
+ "pbr_band_pos": 0.0,
+ "div_yield": 1.0031208203299153,
+ "implied_fcf_growth": 0.0724,
+ "_generated_at": "2026-09-09T22:43:24"
 }

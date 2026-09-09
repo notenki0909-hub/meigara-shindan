@@ -1,54 +1,33 @@
 {
  "code": "CRM",
- "name": "Salesforce, Inc.",
- "asof": "2026-09-09",
+ "name": "Salesforce",
+ "jp_sector": null,
  "gics_sector": "Information Technology",
- "industry": "Software - Application",
  "is_simple": false,
  "is_reit": false,
- "price": 249.1199951171875,
- "price_date": "2026-09-08",
- "mcap": 205025755136,
- "sel_score": 97.6,
- "tim_score": 79.8,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は上位水準だが、買い時は下位（やや割高水準）。",
- "cov_sel": [
-  15,
-  17,
-  "高"
- ],
- "cov_tim": [
-  3,
-  6,
-  "低"
- ],
+ "price": 249.38999938964844,
+ "price_date": "2026-09-09",
+ "mcap": 205247971328,
+ "q_score": 105.8,
  "groups": {
-  "業績": 107.3,
-  "財務": 105.7,
-  "キャッシュフロー": 103.3,
-  "配当の持続力": 78.4,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": 54.7,
-  "株価バリュエーション": 110.0,
-  "金利スプレッド": null
+  "業績": 107.26289888204437,
+  "財務": 105.69178893938033,
+  "キャッシュフロー": 103.33333333333333
  },
- "div_yield": 0.7064868475017775,
- "total_yield": 6.850105239076377,
- "streak_up": 2,
- "streak_flat": 2,
- "payout_ni": 15.68,
- "roe": 19.381,
- "chowder": null,
- "interest_coverage": null,
- "per_vs_sector": 0.5825024744897959,
- "pbr_vs_sector": 0.398675671641791,
+ "q_cov": "高",
+ "bt_score": 93.6,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 86.1600043238001,
+  "fcf_yield": 103.38959374655587,
+  "per_cheap": 110.0,
+  "pbr_cheap": 75.0
+ },
+ "ev_ebit": 24.122123060222048,
+ "fcf_yield": 7.016878123966761,
  "per_band_pos": null,
- "yield_band_pos": null,
- "next_earn": "2026-12-02",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。"
- ],
- "_generated_at": "2026-09-09T12:43:34"
+ "pbr_band_pos": 0.0,
+ "div_yield": 0.7057219633134387,
+ "implied_fcf_growth": 0.0308,
+ "_generated_at": "2026-09-09T23:17:24"
 }

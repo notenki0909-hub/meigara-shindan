@@ -1,55 +1,33 @@
 {
  "code": "IQV",
- "name": "IQVIA Holdings Inc.",
- "asof": "2026-09-09",
+ "name": "IQVIA",
+ "jp_sector": null,
  "gics_sector": "Health Care",
- "industry": "Diagnostics & Research",
  "is_simple": false,
  "is_reit": false,
- "price": 259.2099914550781,
- "price_date": "2026-09-08",
- "mcap": 42665963520,
- "sel_score": 76.1,
- "tim_score": 59.5,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は中位、買い時は最下位（割高水準）。",
- "cov_sel": [
-  14,
-  17,
-  "中"
- ],
- "cov_tim": [
-  3,
-  6,
-  "低"
- ],
+ "price": 256.18499755859375,
+ "price_date": "2026-09-09",
+ "mcap": 42168049664,
+ "q_score": 82.0,
  "groups": {
-  "業績": 103.6,
-  "財務": 49.6,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 62.5,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 59.5,
-  "金利スプレッド": null
+  "業績": 103.55963228806219,
+  "財務": 49.568767454382844,
+  "キャッシュフロー": 100.0
  },
+ "q_cov": "高",
+ "bt_score": 66.6,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 68.57848884383834,
+  "fcf_yield": 84.85162791394939,
+  "per_cheap": 58.7,
+  "pbr_cheap": 54.3
+ },
+ "ev_ebit": 24.54615201749016,
+ "fcf_yield": 4.863872093546204,
+ "per_band_pos": 0.41355251221165845,
+ "pbr_band_pos": 0.0,
  "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 22.817999999999998,
- "chowder": null,
- "interest_coverage": 3.1824417009602195,
- "per_vs_sector": 1.3678050847457626,
- "pbr_vs_sector": 1.3296010769230768,
- "per_band_pos": 0.3833155528015371,
- "yield_band_pos": null,
- "next_earn": "2026-11-03",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T13:00:01"
+ "implied_fcf_growth": 0.0809,
+ "_generated_at": "2026-09-09T23:33:53"
 }

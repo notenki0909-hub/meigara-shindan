@@ -1,55 +1,33 @@
 {
  "code": "KEYS",
- "name": "Keysight Technologies, Inc.",
- "asof": "2026-09-09",
+ "name": "Keysight Technologies",
+ "jp_sector": null,
  "gics_sector": "Information Technology",
- "industry": "Scientific & Technical Instruments",
  "is_simple": false,
  "is_reit": false,
- "price": 333.4200134277344,
- "price_date": "2026-09-08",
- "mcap": 56763006976,
- "sel_score": 81.8,
- "tim_score": 72.2,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は中位、買い時は下位（やや割高水準）。",
- "cov_sel": [
-  14,
-  17,
-  "中"
- ],
- "cov_tim": [
-  3,
-  6,
-  "低"
- ],
+ "price": 330.3949890136719,
+ "price_date": "2026-09-09",
+ "mcap": 56248012800,
+ "q_score": 90.1,
  "groups": {
-  "業績": 71.3,
-  "財務": 104.0,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 62.5,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 72.2,
-  "金利スプレッド": null
+  "業績": 71.3494172398895,
+  "財務": 103.9560914387751,
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 20.897,
- "chowder": null,
- "interest_coverage": 12.270833333333334,
- "per_vs_sector": 1.1509624999999999,
- "pbr_vs_sector": 0.644864328358209,
+ "q_cov": "高",
+ "bt_score": 49.9,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 50.36551719743599,
+  "per_cheap": 54.9,
+  "pbr_cheap": 74.5
+ },
+ "ev_ebit": 65.24316529680365,
+ "fcf_yield": 2.2774137898077,
  "per_band_pos": 0.0,
- "yield_band_pos": null,
- "next_earn": "2026-11-24",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T13:01:52"
+ "pbr_band_pos": 0.0,
+ "div_yield": null,
+ "implied_fcf_growth": 0.1842,
+ "_generated_at": "2026-09-09T23:35:50"
 }

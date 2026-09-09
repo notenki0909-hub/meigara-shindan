@@ -1,54 +1,33 @@
 {
  "code": "IT",
- "name": "Gartner, Inc.",
- "asof": "2026-09-09",
+ "name": "Gartner",
+ "jp_sector": null,
  "gics_sector": "Information Technology",
- "industry": "Information Technology Services",
  "is_simple": false,
  "is_reit": false,
- "price": 172.58999633789062,
- "price_date": "2026-09-08",
- "mcap": 10898881536,
- "sel_score": 76.2,
- "tim_score": 110.0,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
- "cov_sel": [
-  14,
-  17,
-  "中"
- ],
- "cov_tim": [
-  2,
-  6,
-  "低"
- ],
+ "price": 169.63499450683594,
+ "price_date": "2026-09-09",
+ "mcap": 10712275968,
+ "q_score": 82.1,
  "groups": {
-  "業績": 95.3,
-  "財務": 58.5,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 62.5,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 110.0,
-  "金利スプレッド": null
+  "業績": 95.33726978752873,
+  "財務": 58.5204521618906,
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 113.581,
- "chowder": null,
- "interest_coverage": 8.727819152757489,
- "per_vs_sector": 0.39558005102040816,
- "pbr_vs_sector": null,
+ "q_cov": "高",
+ "bt_score": 97.5,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 110.0,
+  "fcf_yield": 110.0,
+  "per_cheap": 110.0,
+  "pbr_cheap": null
+ },
+ "ev_ebit": 10.49382456062757,
+ "fcf_yield": 10.97080586339129,
  "per_band_pos": 1.0,
- "yield_band_pos": null,
- "next_earn": "2026-11-03",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。"
- ],
- "_generated_at": "2026-09-09T13:00:28"
+ "pbr_band_pos": null,
+ "div_yield": null,
+ "implied_fcf_growth": -0.0317,
+ "_generated_at": "2026-09-09T23:34:22"
 }

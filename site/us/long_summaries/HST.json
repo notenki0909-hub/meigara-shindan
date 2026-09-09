@@ -1,54 +1,33 @@
 {
  "code": "HST",
- "name": "Host Hotels & Resorts, Inc.",
- "asof": "2026-09-09",
+ "name": "Host Hotels & Resorts",
+ "jp_sector": null,
  "gics_sector": "Real Estate",
- "industry": "REIT - Hotel & Motel",
  "is_simple": true,
  "is_reit": true,
- "price": 22.06999969482422,
- "price_date": "2026-09-08",
- "mcap": 15332613120,
- "sel_score": 79.2,
- "tim_score": 109.1,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
- "cov_sel": [
-  6,
-  6,
-  "高"
- ],
- "cov_tim": [
-  7,
-  7,
-  "高"
- ],
+ "price": 22.0049991607666,
+ "price_date": "2026-09-09",
+ "mcap": 15287455744,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 79.2,
-  "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 108.0,
-  "株価バリュエーション": 108.0,
-  "金利スプレッド": 110.0
+  "キャッシュフロー": null
  },
- "div_yield": 7.56683290934364,
- "total_yield": 8.903852231461643,
- "streak_up": 1,
- "streak_flat": 4,
- "payout_ni": 53.690000000000005,
- "roe": 15.558,
- "chowder": 9.816272385298792,
- "interest_coverage": 4.480851063829787,
- "per_vs_sector": 0.3468871194379391,
- "pbr_vs_sector": 0.788834,
- "per_band_pos": 0.9484264181571423,
- "yield_band_pos": 1.0,
- "next_earn": "2026-11-04",
- "warnings": [
-  "REIT：FFO・NAV倍率・LTV・分配金の内訳が重要で、株式向けのこのツールでは正しく評価できません。参考程度に。"
- ],
- "_generated_at": "2026-09-09T12:58:11"
+ "q_cov": "低",
+ "bt_score": 95.3,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 103.58932486729596,
+  "fcf_yield": 95.53033585198432,
+  "per_cheap": 109.5,
+  "pbr_cheap": 72.7
+ },
+ "ev_ebit": 24.259272856799036,
+ "fcf_yield": 5.664775188898823,
+ "per_band_pos": 0.9560192689355135,
+ "pbr_band_pos": 0.0,
+ "div_yield": 7.589184565739475,
+ "implied_fcf_growth": 0.0601,
+ "_generated_at": "2026-09-09T23:31:54"
 }

@@ -1,57 +1,33 @@
 {
  "code": "6645",
  "name": "オムロン",
- "asof": "2026-09-09",
  "jp_sector": "電気機器",
- "industry": "Electronic Components",
+ "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 6107.0,
+ "price": 6037.0,
  "price_date": "2026-09-09",
- "mcap": 1200815734784,
- "sel_score": 71.8,
- "tim_score": 76.0,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
- "cov_sel": [
-  16,
-  16,
-  "高"
- ],
- "cov_tim": [
-  5,
-  6,
-  "中"
- ],
+ "mcap": 1187051601920,
+ "q_score": 73.1,
  "groups": {
-  "業績": 45.0,
-  "財務": 102.2,
-  "キャッシュフロー": 73.3,
-  "配当の持続力": 68.5,
-  "配当利回りセオリー": 89.7,
-  "利回り水準とChowder": 46.4,
-  "株価バリュエーション": 85.5,
-  "金利スプレッド": null
+  "業績": 44.996958676963175,
+  "財務": 102.23740987370674,
+  "キャッシュフロー": 73.33333333333333
  },
- "div_yield": 1.7029638120189945,
- "streak_up": 0,
- "streak_flat": 10,
- "payout_ni": 59.84,
- "roe": 5.131,
- "div_policy": null,
- "per_vs_sector": 1.1936621088435375,
- "pbr_vs_sector": 0.5550700384615385,
+ "q_cov": "高",
+ "bt_score": 66.8,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 70.79740695939222,
+  "fcf_yield": 28.776928188980975,
+  "per_cheap": 63.2,
+  "pbr_cheap": 104.5
+ },
+ "ev_ebit": 22.862209210697976,
+ "fcf_yield": 0.6582696141735729,
  "per_band_pos": null,
- "yield_band_pos": 0.4970618572357464,
- "next_earn": "2026-11-05",
- "earn_disc_date": "2026-02-04",
- "buyback_yen": 1322000000.0,
- "total_yield": 1.8130556405740057,
- "total_payout": 76.46996875767894,
- "interest_coverage": null,
- "warnings": [
-  "yfinance の業種『Electronic Components』が対応表に無く、sector（industry未対応） で 電気機器 に割り当てました。業種平均との比較は目安です。"
- ],
- "_generated_at": "2026-09-09T12:03:57"
+ "pbr_band_pos": 0.5897738839030708,
+ "div_yield": 1.7227099552757992,
+ "implied_fcf_growth": 0.3595,
+ "_generated_at": "2026-09-09T22:39:02"
 }

@@ -1,55 +1,33 @@
 {
  "code": "FFIV",
  "name": "F5, Inc.",
- "asof": "2026-09-09",
+ "jp_sector": null,
  "gics_sector": "Information Technology",
- "industry": "Software - Infrastructure",
  "is_simple": false,
  "is_reit": false,
- "price": 389.6199951171875,
- "price_date": "2026-09-08",
- "mcap": 22063083520,
- "sel_score": 93.0,
- "tim_score": 86.3,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は上位水準、買い時は中位（妥当水準）。",
- "cov_sel": [
-  13,
-  17,
-  "中"
- ],
- "cov_tim": [
-  3,
-  6,
-  "低"
- ],
+ "price": 399.6099853515625,
+ "price_date": "2026-09-09",
+ "mcap": 22628788224,
+ "q_score": 106.1,
  "groups": {
-  "業績": 106.9,
-  "財務": 108.8,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 62.5,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 86.3,
-  "金利スプレッド": null
+  "業績": 106.8604865736539,
+  "財務": 108.78862905367077,
+  "キャッシュフロー": 100.0
  },
+ "q_cov": "高",
+ "bt_score": 73.3,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 71.88671583879307,
+  "fcf_yield": 73.40724926894492,
+  "per_cheap": 72.8,
+  "pbr_cheap": 75.0
+ },
+ "ev_ebit": 27.224422312438325,
+ "fcf_yield": 4.005543695170869,
+ "per_band_pos": 0.0,
+ "pbr_band_pos": 0.0,
  "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 19.830000000000002,
- "chowder": null,
- "interest_coverage": null,
- "per_vs_sector": 0.7932391071428571,
- "pbr_vs_sector": 0.428529,
- "per_band_pos": 0.027790341329151785,
- "yield_band_pos": null,
- "next_earn": "2026-10-26",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T12:52:36"
+ "implied_fcf_growth": 0.1073,
+ "_generated_at": "2026-09-09T23:26:06"
 }

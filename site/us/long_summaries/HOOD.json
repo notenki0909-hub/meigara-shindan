@@ -1,55 +1,33 @@
 {
  "code": "HOOD",
- "name": "Robinhood Markets, Inc.",
- "asof": "2026-09-09",
+ "name": "Robinhood Markets",
+ "jp_sector": null,
  "gics_sector": "Financials",
- "industry": "Capital Markets",
  "is_simple": false,
  "is_reit": false,
- "price": 117.33999633789062,
- "price_date": "2026-09-08",
- "mcap": 105498312704,
- "sel_score": 76.2,
- "tim_score": 20.0,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は中位、買い時は最下位（割高水準）。",
- "cov_sel": [
-  12,
-  17,
-  "中"
- ],
- "cov_tim": [
-  2,
-  6,
-  "低"
- ],
+ "price": 118.58350372314453,
+ "price_date": "2026-09-09",
+ "mcap": 106616332288,
+ "q_score": 82.0,
  "groups": {
   "業績": 80.0,
-  "財務": 74.1,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 62.5,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 20.0,
-  "金利スプレッド": null
+  "財務": 74.08422266336197,
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 23.618999,
- "chowder": null,
- "interest_coverage": null,
- "per_vs_sector": 3.0011764739884392,
- "pbr_vs_sector": 4.4510192,
+ "q_cov": "高",
+ "bt_score": 27.5,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 39.809347730091744,
+  "per_cheap": 20.0,
+  "pbr_cheap": 30.0
+ },
+ "ev_ebit": 54.43234588729704,
+ "fcf_yield": 1.4857010797568808,
  "per_band_pos": null,
- "yield_band_pos": null,
- "next_earn": "2026-11-04",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T12:57:36"
+ "pbr_band_pos": 0.0,
+ "div_yield": null,
+ "implied_fcf_growth": 0.2432,
+ "_generated_at": "2026-09-09T23:31:15"
 }
