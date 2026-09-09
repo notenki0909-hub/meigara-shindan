@@ -1,0 +1,71 @@
+name: universe-long-quarterly
+
+# 『10年保有できる優良企業』母集団（universe_long.json / universe_long_us.json）の四半期見直し。
+#   JP: universe.json（配当株ユニバースの四半期リビルド結果）＋各銘柄の最新時価総額から
+#       時価総額3,000億円以上・金融/REIT以外を再抽出。
+#   US: S&P500 の構成銘柄入れ替えに追従（Wikipedia を取り直す）。
+# 既存の universe-quarterly / universe-quarterly-us が走った数日後に動かす。
+# 銘柄の出入りは人間が確認してからマージ＝直接 main には入れず PR を作る。
+on:
+  schedule:
+    - cron: "0 1 5 1,4,7,10 *"   # 1/4/7/10月5日 1:00 UTC（base の quarterly の数日後）
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - run: pip install -r requirements.txt
+
+      - name: S&P500 構成銘柄を取り直す（Wikipedia）
+        run: python build_universe_us.py candidates
+
+      - name: 母集団を作り直す
+        run: |
+          python build_universe_long.py jp
+          python build_universe_long.py us
+
+      - name: 母集団の全銘柄を診断（新規メンバーを取り込む）
+        run: |
+          python batch_long.py jp --sleep 2.0
+          python batch_long.py us --sleep 2.0
+
+      - name: 10年保有ランキング再生成
+        run: |
+          python rank_long.py jp
+          python rank_long.py us
+
+      - name: 日付を取得
+        id: today
+        run: echo "date=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: PRを作成（銘柄の出入りは人間が確認してからマージ）
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(universe-long): quarterly rebuild ${{ steps.today.outputs.date }}"
+          branch: universe-long-quarterly-update
+          title: "四半期 母集団見直し（10年保有）${{ steps.today.outputs.date }}"
+          body: |
+            10年保有ランキングの母集団を作り直しました。
+            - `universe_long.json` … JP：時価総額3,000億円以上・金融/REIT除外。`codes`（通過）と `excluded`（除外理由）の差分を確認。
+            - `universe_long_us.json` … US：S&P500 メンバーシップ。前回からの入れ替えを確認。
+            時価総額がしきい値ぎりぎりの銘柄は目視推奨です。
+          add-paths: |
+            universe_long.json
+            universe_long_us.json
+            site/long
+            site/us/long
+            site/long_summaries
+            site/us/long_summaries

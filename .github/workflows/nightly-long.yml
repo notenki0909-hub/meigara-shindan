@@ -1,0 +1,46 @@
+name: nightly-long
+
+# 『10年保有できる優良企業ランキング（日本株・配当抜き品質スコア）』の毎晩更新。
+# 既存の nightly-refresh（配当株）とは別ジョブ。site/long/ 以下しか触らない。
+# nightly-refresh の完了後に走らせて、site/summaries/ の最新結果を最大限流用する
+# （batch_long.py は site/summaries/ が新しい銘柄は再取得しない）。
+on:
+  workflow_run:
+    workflows: ["nightly-refresh"]
+    types: [completed]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nightly-long
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - run: pip install -r requirements.txt
+
+      - name: 母集団にあって配当株バッチ外の銘柄だけ診断（古いものだけ）
+        run: python batch_long.py jp --only-stale --hours 20 --sleep 2.0
+
+      - name: 10年保有ランキング再生成
+        run: python rank_long.py jp
+
+      - name: コミット
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add site/long site/long_summaries universe_long.json
+          git diff --cached --quiet || git commit -m "chore(nightly-long): refresh $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          git push
