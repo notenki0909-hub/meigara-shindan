@@ -1,55 +1,33 @@
 {
  "code": "VRTX",
- "name": "Vertex Pharmaceuticals Incorporated",
- "asof": "2026-09-09",
+ "name": "Vertex Pharmaceuticals",
+ "jp_sector": null,
  "gics_sector": "Health Care",
- "industry": "Biotechnology",
  "is_simple": false,
  "is_reit": false,
- "price": 528.9000244140625,
- "price_date": "2026-09-08",
- "mcap": 134055493632,
- "sel_score": 89.2,
- "tim_score": 51.9,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は上位水準だが、買い時は最下位（割高水準）。",
- "cov_sel": [
-  14,
-  17,
-  "中"
- ],
- "cov_tim": [
-  3,
-  6,
-  "低"
- ],
+ "price": 522.5750122070312,
+ "price_date": "2026-09-09",
+ "mcap": 132452343808,
+ "q_score": 100.6,
  "groups": {
-  "業績": 93.4,
-  "財務": 108.4,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 62.5,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 51.9,
-  "金利スプレッド": null
+  "業績": 93.43573980037326,
+  "財務": 108.42116348719318,
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 23.542999000000002,
- "chowder": null,
- "interest_coverage": 350.1127819548872,
- "per_vs_sector": 1.3067649576271185,
- "pbr_vs_sector": 1.2726510576923076,
+ "q_cov": "高",
+ "bt_score": 52.6,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 48.332300642993204,
+  "fcf_yield": 52.15043145006843,
+  "per_cheap": 42.9,
+  "pbr_cheap": 67.2
+ },
+ "ev_ebit": 28.41165549973652,
+ "fcf_yield": 2.4112823587551326,
  "per_band_pos": 0.0,
- "yield_band_pos": null,
- "next_earn": "2026-11-02",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T12:41:19"
+ "pbr_band_pos": 0.20170079968580257,
+ "div_yield": null,
+ "implied_fcf_growth": 0.1764,
+ "_generated_at": "2026-09-10T00:01:25"
 }

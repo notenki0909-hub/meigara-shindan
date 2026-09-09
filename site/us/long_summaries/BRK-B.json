@@ -1,56 +1,33 @@
 {
  "code": "BRK-B",
- "name": "Berkshire Hathaway Inc.",
- "asof": "2026-09-09",
+ "name": "Berkshire Hathaway",
+ "jp_sector": null,
  "gics_sector": "Financials",
- "industry": "Insurance - Diversified",
  "is_simple": true,
  "is_reit": false,
- "price": 505.8299865722656,
- "price_date": "2026-09-08",
- "mcap": 1082835206144,
- "sel_score": 60.1,
- "tim_score": 99.5,
- "sel_label": "選定スコア下位（質に不安）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
- "cov_sel": [
-  4,
-  6,
-  "中"
- ],
- "cov_tim": [
-  3,
-  6,
-  "低"
- ],
+ "price": 505.17999267578125,
+ "price_date": "2026-09-09",
+ "mcap": 1081443745792,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 60.1,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 99.5,
-  "金利スプレッド": null
+  "キャッシュフロー": null
  },
+ "q_cov": "低",
+ "bt_score": 88.0,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 96.687895742555,
+  "fcf_yield": 50.8747759310222,
+  "per_cheap": 94.4,
+  "pbr_cheap": 110.0
+ },
+ "ev_ebit": 13.237452538524815,
+ "fcf_yield": 2.315608194826665,
+ "per_band_pos": 0.4015424084189857,
+ "pbr_band_pos": 1.0,
  "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 12.1199995,
- "chowder": null,
- "interest_coverage": 17.267311106727163,
- "per_vs_sector": 0.735195578034682,
- "pbr_vs_sector": 0.000387441508,
- "per_band_pos": 0.40000197487090833,
- "yield_band_pos": null,
- "next_earn": "2026-11-07",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。",
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
- ],
- "_generated_at": "2026-09-09T12:37:43"
+ "implied_fcf_growth": 0.1819,
+ "_generated_at": "2026-09-09T23:11:40"
 }

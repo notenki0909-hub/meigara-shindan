@@ -1,54 +1,33 @@
 {
  "code": "UDR",
  "name": "UDR, Inc.",
- "asof": "2026-09-09",
+ "jp_sector": null,
  "gics_sector": "Real Estate",
- "industry": "REIT - Residential",
  "is_simple": true,
  "is_reit": true,
- "price": 36.11000061035156,
- "price_date": "2026-09-08",
- "mcap": 13265522688,
- "sel_score": 62.7,
- "tim_score": 93.8,
- "sel_label": "選定スコア下位（質に不安）",
- "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "選定スコアが基準未達の水準。",
- "cov_sel": [
-  6,
-  6,
-  "高"
- ],
- "cov_tim": [
-  6,
-  7,
-  "高"
- ],
+ "price": 35.5099983215332,
+ "price_date": "2026-09-09",
+ "mcap": 13045102592,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 62.7,
-  "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 65.0,
-  "株価バリュエーション": 88.2,
-  "金利スプレッド": 103.9
+  "キャッシュフロー": null
  },
- "div_yield": 4.7909165626102626,
- "total_yield": 5.679015756067388,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 109.18,
- "roe": 13.739,
- "chowder": 0.35676498084210895,
- "interest_coverage": 3.0575325884070206,
- "per_vs_sector": 0.5352325526932085,
- "pbr_vs_sector": 1.3354784666666666,
+ "q_cov": "低",
+ "bt_score": 66.8,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 82.75110991987718,
+  "per_cheap": 110.0,
+  "pbr_cheap": 54.3
+ },
+ "ev_ebit": 59.087127078712676,
+ "fcf_yield": 4.706333243990788,
  "per_band_pos": null,
- "yield_band_pos": 1.0,
- "next_earn": "2026-10-28",
- "warnings": [
-  "REIT：FFO・NAV倍率・LTV・分配金の内訳が重要で、株式向けのこのツールでは正しく評価できません。参考程度に。"
- ],
- "_generated_at": "2026-09-09T12:39:57"
+ "pbr_band_pos": 0.0,
+ "div_yield": 4.871867309976556,
+ "implied_fcf_growth": 0.0854,
+ "_generated_at": "2026-09-09T23:59:16"
 }

@@ -1,55 +1,33 @@
 {
  "code": "PLTR",
- "name": "Palantir Technologies Inc.",
- "asof": "2026-09-09",
+ "name": "Palantir Technologies",
+ "jp_sector": null,
  "gics_sector": "Information Technology",
- "industry": "Software - Infrastructure",
  "is_simple": false,
  "is_reit": false,
- "price": 170.3000030517578,
- "price_date": "2026-09-08",
- "mcap": 409240862720,
- "sel_score": 88.7,
- "tim_score": 20.0,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は上位水準だが、買い時は最下位（割高水準）。",
- "cov_sel": [
-  12,
-  17,
-  "中"
- ],
- "cov_tim": [
-  2,
-  6,
-  "低"
- ],
+ "price": 170.8300018310547,
+ "price_date": "2026-09-09",
+ "mcap": 410680754176,
+ "q_score": 100.0,
  "groups": {
-  "業績": 91.6,
-  "財務": 108.6,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 62.5,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 20.0,
-  "金利スプレッド": null
+  "業績": 91.59420289855073,
+  "財務": 108.6494382485438,
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 38.096999999999994,
- "chowder": null,
- "interest_coverage": null,
- "per_vs_sector": 3.7131520408163268,
- "pbr_vs_sector": 3.1241288805970147,
+ "q_cov": "高",
+ "bt_score": 24.2,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 26.81986670064335,
+  "per_cheap": 20.0,
+  "pbr_cheap": 30.0
+ },
+ "ev_ebit": 289.5911968232303,
+ "fcf_yield": 0.5114900025482513,
  "per_band_pos": null,
- "yield_band_pos": null,
- "next_earn": "2026-11-02",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T13:13:49"
+ "pbr_band_pos": 0.0,
+ "div_yield": null,
+ "implied_fcf_growth": 0.3968,
+ "_generated_at": "2026-09-09T23:48:29"
 }

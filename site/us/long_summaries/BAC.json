@@ -1,54 +1,33 @@
 {
  "code": "BAC",
- "name": "Bank of America Corporation",
- "asof": "2026-09-09",
+ "name": "Bank of America",
+ "jp_sector": null,
  "gics_sector": "Financials",
- "industry": "Banks - Diversified",
  "is_simple": true,
  "is_reit": false,
- "price": 62.38999938964844,
- "price_date": "2026-09-08",
- "mcap": 436277575680,
- "sel_score": 94.4,
- "tim_score": 67.8,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "選定は上位水準だが、買い時は下位（やや割高水準）。",
- "cov_sel": [
-  6,
-  6,
-  "高"
- ],
- "cov_tim": [
-  6,
-  6,
-  "高"
- ],
+ "price": 62.492000579833984,
+ "price_date": "2026-09-09",
+ "mcap": 436990836736,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 94.4,
-  "配当利回りセオリー": 51.4,
-  "利回り水準とChowder": 79.8,
-  "株価バリュエーション": 84.6,
-  "金利スプレッド": null
+  "キャッシュフロー": null
  },
- "div_yield": 2.051610855140309,
- "total_yield": 7.576075403297211,
- "streak_up": 6,
- "streak_flat": 17,
- "payout_ni": 25.869999999999997,
- "roe": 11.1990005,
- "chowder": 10.498787974910163,
- "interest_coverage": null,
- "per_vs_sector": 0.8328772254335259,
- "pbr_vs_sector": 0.6343348,
+ "q_cov": "低",
+ "bt_score": 66.3,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": 58.48440726800232,
+  "per_cheap": 72.3,
+  "pbr_cheap": 74.6
+ },
+ "ev_ebit": null,
+ "fcf_yield": 2.886330545100174,
  "per_band_pos": 0.0,
- "yield_band_pos": 0.11398849230349181,
- "next_earn": "2026-10-14",
- "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
- ],
- "_generated_at": "2026-09-09T12:35:42"
+ "pbr_band_pos": 0.0,
+ "div_yield": 2.0482621585538627,
+ "implied_fcf_growth": 0.1518,
+ "_generated_at": "2026-09-09T23:09:40"
 }

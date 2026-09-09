@@ -1,55 +1,33 @@
 {
  "code": "ZBRA",
- "name": "Zebra Technologies Corporation",
- "asof": "2026-09-09",
+ "name": "Zebra Technologies",
+ "jp_sector": null,
  "gics_sector": "Information Technology",
- "industry": "Communication Equipment",
  "is_simple": false,
  "is_reit": false,
- "price": 352.5400085449219,
- "price_date": "2026-09-08",
- "mcap": 16678900736,
- "sel_score": 79.0,
- "tim_score": 108.4,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
- "cov_sel": [
-  14,
-  17,
-  "中"
- ],
- "cov_tim": [
-  3,
-  6,
-  "低"
- ],
+ "price": 349.30999755859375,
+ "price_date": "2026-09-09",
+ "mcap": 16526086144,
+ "q_score": 86.4,
  "groups": {
-  "業績": 72.2,
-  "財務": 93.6,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 61.6,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 108.4,
-  "金利スプレッド": null
+  "業績": 72.19805028229888,
+  "財務": 93.59529636599832,
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 15.286,
- "chowder": null,
- "interest_coverage": 6.185185185185185,
- "per_vs_sector": 0.8235684183673468,
- "pbr_vs_sector": 0.36295723880597014,
+ "q_cov": "高",
+ "bt_score": 95.9,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 87.30799319070621,
+  "fcf_yield": 87.04551763469254,
+  "per_cheap": 107.6,
+  "pbr_cheap": 101.8
+ },
+ "ev_ebit": 23.87260768,
+ "fcf_yield": 5.028413822601941,
  "per_band_pos": 1.0,
- "yield_band_pos": null,
- "next_earn": "2026-11-03",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T12:43:18"
+ "pbr_band_pos": 0.5355379350875416,
+ "div_yield": null,
+ "implied_fcf_growth": 0.0763,
+ "_generated_at": "2026-09-10T00:04:53"
 }

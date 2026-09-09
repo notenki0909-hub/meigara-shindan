@@ -1,54 +1,33 @@
 {
  "code": "BNY",
- "name": "The Bank of New York Mellon Corporation",
- "asof": "2026-09-09",
+ "name": "BNY Mellon",
+ "jp_sector": null,
  "gics_sector": "Financials",
- "industry": "Banks - Diversified",
  "is_simple": true,
  "is_reit": false,
- "price": 162.85000610351562,
- "price_date": "2026-09-08",
- "mcap": 110494400512,
- "sel_score": 96.3,
- "tim_score": 57.2,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "選定は上位水準だが、買い時は最下位（割高水準）。",
- "cov_sel": [
-  6,
-  6,
-  "高"
- ],
- "cov_tim": [
-  6,
-  6,
-  "高"
- ],
+ "price": 162.5399932861328,
+ "price_date": "2026-09-09",
+ "mcap": 110284054528,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 96.3,
-  "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 75.2,
-  "株価バリュエーション": 68.5,
-  "金利スプレッド": null
+  "キャッシュフロー": null
  },
- "div_yield": 1.3632176338936437,
- "total_yield": 5.467498012796181,
- "streak_up": 6,
- "streak_flat": 17,
- "payout_ni": 24.740000000000002,
- "roe": 14.124,
- "chowder": 11.395890327498327,
- "interest_coverage": null,
- "per_vs_sector": 1.0984008670520229,
- "pbr_vs_sector": 1.10742768,
+ "q_cov": "低",
+ "bt_score": 66.4,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": 82.5898884132352,
+  "per_cheap": 58.3,
+  "pbr_cheap": 64.7
+ },
+ "ev_ebit": null,
+ "fcf_yield": 4.69424163099264,
  "per_band_pos": 0.0,
- "yield_band_pos": 0.0,
- "next_earn": "2026-10-15",
- "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
- ],
- "_generated_at": "2026-09-09T12:37:28"
+ "pbr_band_pos": 0.0,
+ "div_yield": 1.365817701303794,
+ "implied_fcf_growth": 0.0857,
+ "_generated_at": "2026-09-09T23:11:25"
 }

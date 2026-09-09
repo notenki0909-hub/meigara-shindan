@@ -1,54 +1,33 @@
 {
  "code": "O",
- "name": "Realty Income Corporation",
- "asof": "2026-09-09",
+ "name": "Realty Income",
+ "jp_sector": null,
  "gics_sector": "Real Estate",
- "industry": "REIT - Retail",
  "is_simple": true,
  "is_reit": true,
- "price": 61.02000045776367,
- "price_date": "2026-09-08",
- "mcap": 57738227712,
- "sel_score": 77.9,
- "tim_score": 101.1,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
- "cov_sel": [
-  6,
-  6,
-  "高"
- ],
- "cov_tim": [
-  7,
-  7,
-  "高"
- ],
+ "price": 60.540000915527344,
+ "price_date": "2026-09-09",
+ "mcap": 57284042752,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 77.9,
-  "配当利回りセオリー": 99.1,
-  "利回り水準とChowder": 98.7,
-  "株価バリュエーション": 101.7,
-  "金利スプレッド": 107.5
+  "キャッシュフロー": null
  },
- "div_yield": 5.32612254280391,
- "total_yield": 5.32612254280391,
- "streak_up": 30,
- "streak_flat": 32,
- "payout_ni": 236.41999,
- "roe": 3.225,
- "chowder": 7.058148123970584,
- "interest_coverage": 2.04395131663258,
- "per_vs_sector": 1.0430947540983606,
- "pbr_vs_sector": 0.4866261333333333,
+ "q_cov": "低",
+ "bt_score": 98.5,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 83.74136421312102,
+  "fcf_yield": 103.24529838844477,
+  "per_cheap": 98.2,
+  "pbr_cheap": 108.8
+ },
+ "ev_ebit": 33.23088998439755,
+ "fcf_yield": 6.97358951653343,
  "per_band_pos": 1.0,
- "yield_band_pos": 0.5912493661586756,
- "next_earn": "2026-11-02",
- "warnings": [
-  "REIT：FFO・NAV倍率・LTV・分配金の内訳が重要で、株式向けのこのツールでは正しく評価できません。参考程度に。"
- ],
- "_generated_at": "2026-09-09T13:11:11"
+ "pbr_band_pos": 0.902533546094484,
+ "div_yield": 5.368351421954534,
+ "implied_fcf_growth": 0.0316,
+ "_generated_at": "2026-09-09T23:45:39"
 }

@@ -1,54 +1,33 @@
 {
  "code": "AMT",
- "name": "American Tower Corporation",
- "asof": "2026-09-09",
+ "name": "American Tower",
+ "jp_sector": null,
  "gics_sector": "Real Estate",
- "industry": "REIT - Specialty",
  "is_simple": true,
  "is_reit": true,
- "price": 175.72999572753906,
- "price_date": "2026-09-08",
- "mcap": 81883160576,
- "sel_score": 99.8,
- "tim_score": 100.7,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "選定・買い時とも上位水準。",
- "cov_sel": [
-  6,
-  6,
-  "高"
- ],
- "cov_tim": [
-  7,
-  7,
-  "高"
- ],
+ "price": 175.68499755859375,
+ "price_date": "2026-09-09",
+ "mcap": 81850548224,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 99.8,
-  "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 108.2,
-  "株価バリュエーション": 80.0,
-  "金利スプレッド": 93.9
+  "キャッシュフロー": null
  },
- "div_yield": 3.9720026004110056,
- "total_yield": 4.417271197073925,
- "streak_up": 14,
- "streak_flat": 14,
- "payout_ni": 96.00999999999999,
- "roe": 33.914003,
- "chowder": 12.435134874192066,
- "interest_coverage": 3.2393703104310725,
- "per_vs_sector": 0.5668672833723652,
- "pbr_vs_sector": 7.337675666666667,
+ "q_cov": "低",
+ "bt_score": 78.6,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 102.59225356570516,
+  "fcf_yield": 81.6342847966506,
+  "per_cheap": 110.0,
+  "pbr_cheap": 20.0
+ },
+ "ev_ebit": 25.427989982958696,
+ "fcf_yield": 4.622571359748795,
  "per_band_pos": 1.0,
- "yield_band_pos": 1.0,
- "next_earn": "2026-10-27",
- "warnings": [
-  "REIT：FFO・NAV倍率・LTV・分配金の内訳が重要で、株式向けのこのツールでは正しく評価できません。参考程度に。"
- ],
- "_generated_at": "2026-09-09T12:33:05"
+ "pbr_band_pos": null,
+ "div_yield": 3.9730199487705598,
+ "implied_fcf_growth": 0.0878,
+ "_generated_at": "2026-09-09T23:07:04"
 }

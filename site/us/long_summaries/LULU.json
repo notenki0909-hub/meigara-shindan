@@ -1,55 +1,33 @@
 {
  "code": "LULU",
- "name": "lululemon athletica inc.",
- "asof": "2026-09-09",
+ "name": "Lululemon Athletica",
+ "jp_sector": null,
  "gics_sector": "Consumer Discretionary",
- "industry": "Apparel Retail",
  "is_simple": false,
  "is_reit": false,
- "price": 103.19000244140625,
- "price_date": "2026-09-08",
- "mcap": 11424167936,
- "sel_score": 92.4,
- "tim_score": 110.0,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定・買い時とも上位水準。",
- "cov_sel": [
-  13,
-  17,
-  "中"
- ],
- "cov_tim": [
-  3,
-  6,
-  "低"
- ],
+ "price": 100.08000183105469,
+ "price_date": "2026-09-09",
+ "mcap": 11079859200,
+ "q_score": 105.2,
  "groups": {
-  "業績": 107.3,
-  "財務": 105.9,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 62.5,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 110.0,
-  "金利スプレッド": null
+  "業績": 107.25615904901127,
+  "財務": 105.8840505412893,
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 30.898002,
- "chowder": null,
- "interest_coverage": null,
- "per_vs_sector": 0.2869258445945946,
- "pbr_vs_sector": 0.2659593695652174,
+ "q_cov": "高",
+ "bt_score": 109.4,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 110.0,
+  "fcf_yield": 107.72824044551035,
+  "per_cheap": 110.0,
+  "pbr_cheap": 110.0
+ },
+ "ev_ebit": 5.008153025289342,
+ "fcf_yield": 8.318472133653106,
  "per_band_pos": 1.0,
- "yield_band_pos": null,
- "next_earn": "2026-12-10",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T13:04:34"
+ "pbr_band_pos": 1.0,
+ "div_yield": null,
+ "implied_fcf_growth": 0.0072,
+ "_generated_at": "2026-09-09T23:38:39"
 }

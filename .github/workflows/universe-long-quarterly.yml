@@ -37,10 +37,16 @@ jobs:
           python build_universe_long.py jp
           python build_universe_long.py us
 
-      - name: 母集団の全銘柄を診断（新規メンバーを取り込む）
+      - name: 母集団の全銘柄を診断（2パス：診断→業種中央値算出→再診断）
         run: |
           python batch_long.py jp --sleep 2.0
           python batch_long.py us --sleep 2.0
+          python calib_long.py jp
+          python calib_long.py us
+          python batch_long.py jp --sleep 2.0
+          python batch_long.py us --sleep 2.0
+          python calib_long.py jp
+          python calib_long.py us
 
       - name: 10年保有ランキング再生成
         run: |
@@ -65,6 +71,8 @@ jobs:
           add-paths: |
             universe_long.json
             universe_long_us.json
+            sector_averages_long.json
+            sector_averages_long_us.json
             site/long
             site/us/long
             site/long_summaries

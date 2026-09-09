@@ -1,55 +1,33 @@
 {
  "code": "WAT",
  "name": "Waters Corporation",
- "asof": "2026-09-09",
+ "jp_sector": null,
  "gics_sector": "Health Care",
- "industry": "Diagnostics & Research",
  "is_simple": false,
  "is_reit": false,
- "price": 402.9100036621094,
- "price_date": "2026-09-08",
- "mcap": 39560065024,
- "sel_score": 81.6,
- "tim_score": 56.7,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は中位、買い時は最下位（割高水準）。",
- "cov_sel": [
-  14,
-  17,
-  "中"
- ],
- "cov_tim": [
-  3,
-  6,
-  "低"
- ],
+ "price": 409.5375061035156,
+ "price_date": "2026-09-09",
+ "mcap": 40210792448,
+ "q_score": 99.4,
  "groups": {
-  "業績": 95.9,
-  "財務": 102.8,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 40.0,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 56.7,
-  "金利スプレッド": null
+  "業績": 95.94000973958737,
+  "財務": 102.75255533243546,
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 1.9199998999999999,
- "chowder": null,
- "interest_coverage": 11.854057629263243,
- "per_vs_sector": 4.34413686440678,
- "pbr_vs_sector": 0.5008707115384615,
+ "q_cov": "高",
+ "bt_score": 49.5,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 37.89934052151378,
+  "per_cheap": 30.0,
+  "pbr_cheap": 110.0
+ },
+ "ev_ebit": 51.22683798910524,
+ "fcf_yield": 1.3424505391135333,
  "per_band_pos": 0.0,
- "yield_band_pos": null,
- "next_earn": "2026-10-30",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T12:41:40"
+ "pbr_band_pos": null,
+ "div_yield": null,
+ "implied_fcf_growth": 0.2574,
+ "_generated_at": "2026-09-10T00:02:08"
 }

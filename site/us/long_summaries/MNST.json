@@ -1,55 +1,33 @@
 {
  "code": "MNST",
- "name": "Monster Beverage Corporation",
- "asof": "2026-09-09",
+ "name": "Monster Beverage",
+ "jp_sector": null,
  "gics_sector": "Consumer Staples",
- "industry": "Beverages - Non-Alcoholic",
  "is_simple": false,
  "is_reit": false,
- "price": 43.150001525878906,
- "price_date": "2026-09-08",
- "mcap": 84533084160,
- "sel_score": 87.7,
- "tim_score": 42.4,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "※データ不足（銘柄選定 と 買い時のカバレッジ低）。点数は目安、参考程度に。　選定は上位水準だが、買い時は最下位（割高水準）。",
- "cov_sel": [
-  10,
-  17,
-  "低"
- ],
- "cov_tim": [
-  3,
-  6,
-  "低"
- ],
+ "price": 42.29499816894531,
+ "price_date": "2026-09-09",
+ "mcap": 82858090496,
+ "q_score": 105.2,
  "groups": {
-  "業績": 108.0,
+  "業績": 107.99180642300448,
   "財務": null,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 62.5,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 42.4,
-  "金利スプレッド": null
+  "キャッシュフロー": 100.0
  },
+ "q_cov": "中",
+ "bt_score": 40.3,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 51.228461230247405,
+  "per_cheap": 36.9,
+  "pbr_cheap": 53.0
+ },
+ "ev_ebit": 33.38493395179044,
+ "fcf_yield": 2.3421345922685552,
+ "per_band_pos": 0.1384882973687839,
+ "pbr_band_pos": 0.0,
  "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 25.704,
- "chowder": null,
- "interest_coverage": null,
- "per_vs_sector": 1.6858103375527427,
- "pbr_vs_sector": 1.3677571212121211,
- "per_band_pos": 0.03926263614582863,
- "yield_band_pos": null,
- "next_earn": "2026-11-05",
- "warnings": [
-  "銘柄選定スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。"
- ],
- "_generated_at": "2026-09-09T13:07:00"
+ "implied_fcf_growth": 0.1803,
+ "_generated_at": "2026-09-09T23:41:14"
 }

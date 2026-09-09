@@ -1,54 +1,33 @@
 {
  "code": "CCI",
- "name": "Crown Castle Inc.",
- "asof": "2026-09-09",
+ "name": "Crown Castle",
+ "jp_sector": null,
  "gics_sector": "Real Estate",
- "industry": "REIT - Specialty",
  "is_simple": true,
  "is_reit": true,
- "price": 75.97000122070312,
- "price_date": "2026-09-08",
- "mcap": 33198891008,
- "sel_score": 57.1,
- "tim_score": 102.3,
- "sel_label": "選定スコア下位（質に不安）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
- "cov_sel": [
-  5,
-  6,
-  "中"
- ],
- "cov_tim": [
-  5,
-  7,
-  "中"
- ],
+ "price": 75.51000213623047,
+ "price_date": "2026-09-09",
+ "mcap": 32997871616,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 57.1,
-  "配当利回りセオリー": 107.0,
-  "利回り水準とChowder": 84.1,
-  "株価バリュエーション": 109.0,
-  "金利スプレッド": 109.3
+  "キャッシュフロー": null
  },
- "div_yield": 5.594313454929631,
- "total_yield": 5.663592877529795,
- "streak_up": 0,
- "streak_flat": 1,
- "payout_ni": 173.47,
- "roe": null,
- "chowder": 4.869897704662616,
- "interest_coverage": 2.189160467587673,
- "per_vs_sector": 0.7261864871194379,
- "pbr_vs_sector": null,
+ "q_cov": "低",
+ "bt_score": 93.3,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 94.95522238575529,
+  "fcf_yield": 109.04227716519318,
+  "per_cheap": 109.1,
+  "pbr_cheap": null
+ },
+ "ev_ebit": 29.94480902013423,
+ "fcf_yield": 8.712683149557957,
  "per_band_pos": null,
- "yield_band_pos": 0.8808999912411302,
- "next_earn": "2026-10-21",
- "warnings": [
-  "REIT：FFO・NAV倍率・LTV・分配金の内訳が重要で、株式向けのこのツールでは正しく評価できません。参考程度に。"
- ],
- "_generated_at": "2026-09-09T12:39:19"
+ "pbr_band_pos": null,
+ "div_yield": 5.628393431021778,
+ "implied_fcf_growth": 0.0008,
+ "_generated_at": "2026-09-09T23:13:17"
 }

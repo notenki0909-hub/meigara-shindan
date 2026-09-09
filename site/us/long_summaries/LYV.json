@@ -1,55 +1,33 @@
 {
  "code": "LYV",
- "name": "Live Nation Entertainment, Inc.",
- "asof": "2026-09-09",
+ "name": "Live Nation Entertainment",
+ "jp_sector": null,
  "gics_sector": "Communication Services",
- "industry": "Entertainment",
  "is_simple": false,
  "is_reit": false,
- "price": 170.4499969482422,
- "price_date": "2026-09-08",
- "mcap": 39707947008,
- "sel_score": 66.9,
- "tim_score": 20.0,
- "sel_label": "選定スコア下位（質に不安）",
- "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は下位、買い時は最下位水準。",
- "cov_sel": [
-  13,
-  17,
-  "中"
- ],
- "cov_tim": [
-  1,
-  6,
-  "低"
- ],
+ "price": 171.61000061035156,
+ "price_date": "2026-09-09",
+ "mcap": 39966531584,
+ "q_score": 68.8,
  "groups": {
-  "業績": 82.7,
-  "財務": 36.9,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 62.5,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 20.0,
-  "金利スプレッド": null
+  "業績": 82.72832905071986,
+  "財務": 36.94566561830501,
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 17.677,
- "chowder": null,
- "interest_coverage": 4.260820863643986,
- "per_vs_sector": null,
- "pbr_vs_sector": 80.92389830508475,
+ "q_cov": "高",
+ "bt_score": 32.5,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 30.174479759696194,
+  "per_cheap": null,
+  "pbr_cheap": 20.0
+ },
+ "ev_ebit": 35.107571807649784,
+ "fcf_yield": 0.7630859819772146,
  "per_band_pos": null,
- "yield_band_pos": null,
- "next_earn": "2026-11-03",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T13:05:01"
+ "pbr_band_pos": null,
+ "div_yield": null,
+ "implied_fcf_growth": 0.3379,
+ "_generated_at": "2026-09-09T23:39:07"
 }

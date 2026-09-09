@@ -1,56 +1,33 @@
 {
  "code": "CSGP",
- "name": "CoStar Group, Inc.",
- "asof": "2026-09-09",
+ "name": "CoStar Group",
+ "jp_sector": null,
  "gics_sector": "Real Estate",
- "industry": "Real Estate Services",
  "is_simple": true,
  "is_reit": true,
- "price": 30.34000015258789,
- "price_date": "2026-09-08",
- "mcap": 12293695488,
- "sel_score": 40.0,
- "tim_score": 65.0,
- "sel_label": "選定スコア基準未達",
- "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定・買い時とも下位水準。",
- "cov_sel": [
-  4,
-  6,
-  "中"
- ],
- "cov_tim": [
-  2,
-  6,
-  "低"
- ],
+ "price": 29.8799991607666,
+ "price_date": "2026-09-09",
+ "mcap": 12107303936,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 40.0,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 65.0,
-  "金利スプレッド": null
+  "キャッシュフロー": null
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 0.894,
- "chowder": null,
- "interest_coverage": null,
- "per_vs_sector": 3.9474370023419203,
- "pbr_vs_sector": 0.5161181,
+ "q_cov": "低",
+ "bt_score": 53.6,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": 24.51518083263113,
+  "per_cheap": 20.0,
+  "pbr_cheap": 110.0
+ },
+ "ev_ebit": null,
+ "fcf_yield": 0.3386385624473349,
  "per_band_pos": null,
- "yield_band_pos": null,
- "next_earn": "2026-10-27",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。",
-  "REIT：FFO・NAV倍率・LTV・分配金の内訳が重要で、株式向けのこのツールでは正しく評価できません。参考程度に。"
- ],
- "_generated_at": "2026-09-09T12:43:55"
+ "pbr_band_pos": 1.0,
+ "div_yield": null,
+ "implied_fcf_growth": 0.4593,
+ "_generated_at": "2026-09-09T23:17:44"
 }

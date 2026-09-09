@@ -1,54 +1,33 @@
 {
  "code": "COO",
- "name": "The Cooper Companies, Inc.",
- "asof": "2026-09-09",
+ "name": "Cooper Companies (The)",
+ "jp_sector": null,
  "gics_sector": "Health Care",
- "industry": "Medical Instruments & Supplies",
  "is_simple": false,
  "is_reit": false,
- "price": 67.69000244140625,
- "price_date": "2026-09-08",
- "mcap": 13201623040,
- "sel_score": 88.1,
- "tim_score": 61.5,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は上位水準だが、買い時は最下位（割高水準）。",
- "cov_sel": [
-  16,
-  17,
-  "高"
- ],
- "cov_tim": [
-  3,
-  6,
-  "低"
- ],
+ "price": 67.5199966430664,
+ "price_date": "2026-09-09",
+ "mcap": 13168466944,
+ "q_score": 99.3,
  "groups": {
-  "業績": 99.4,
-  "財務": 97.0,
-  "キャッシュフロー": 103.3,
-  "配当の持続力": 61.9,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 61.5,
-  "金利スプレッド": null
+  "業績": 99.4250319649795,
+  "財務": 97.00973570457246,
+  "キャッシュフロー": 103.33333333333333
  },
+ "q_cov": "高",
+ "bt_score": 72.3,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 77.77756532965947,
+  "fcf_yield": 63.91298312292492,
+  "per_cheap": 37.6,
+  "pbr_cheap": 110.0
+ },
+ "ev_ebit": 22.789818339434763,
+ "fcf_yield": 3.293473734219369,
+ "per_band_pos": 0.15120046887303207,
+ "pbr_band_pos": 1.0,
  "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 24,
- "payout_ni": 0.0,
- "roe": 2.8529999999999998,
- "chowder": null,
- "interest_coverage": 6.665,
- "per_vs_sector": 2.4306953389830506,
- "pbr_vs_sector": 0.3079416153846154,
- "per_band_pos": 0.14391009042828032,
- "yield_band_pos": null,
- "next_earn": "2026-09-09",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。"
- ],
- "_generated_at": "2026-09-09T12:42:26"
+ "implied_fcf_growth": 0.1338,
+ "_generated_at": "2026-09-09T23:16:18"
 }

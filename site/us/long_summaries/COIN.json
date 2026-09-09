@@ -1,55 +1,33 @@
 {
  "code": "COIN",
- "name": "Coinbase Global, Inc.",
- "asof": "2026-09-09",
+ "name": "Coinbase",
+ "jp_sector": null,
  "gics_sector": "Financials",
- "industry": "Financial Data & Stock Exchanges",
  "is_simple": false,
  "is_reit": false,
- "price": 178.94000244140625,
- "price_date": "2026-09-08",
- "mcap": 47210979328,
- "sel_score": 77.7,
- "tim_score": 55.6,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は中位、買い時は最下位（割高水準）。",
- "cov_sel": [
-  13,
-  17,
-  "中"
- ],
- "cov_tim": [
-  1,
-  6,
-  "低"
- ],
+ "price": 179.35000610351562,
+ "price_date": "2026-09-09",
+ "mcap": 47324430336,
+ "q_score": 93.8,
  "groups": {
   "業績": 80.0,
-  "財務": 104.8,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 40.0,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 55.6,
-  "金利スプレッド": null
+  "財務": 104.75145989938315,
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": -7.8469999999999995,
- "chowder": null,
- "interest_coverage": 18.820062519756945,
- "per_vs_sector": null,
- "pbr_vs_sector": 1.44350108,
+ "q_cov": "高",
+ "bt_score": 61.5,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 88.36167515094867,
+  "per_cheap": null,
+  "pbr_cheap": 77.8
+ },
+ "ev_ebit": 30.12779450947536,
+ "fcf_yield": 5.127125636321151,
  "per_band_pos": null,
- "yield_band_pos": null,
- "next_earn": "2026-10-29",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T12:42:18"
+ "pbr_band_pos": 0.6111208972973545,
+ "div_yield": null,
+ "implied_fcf_growth": 0.0737,
+ "_generated_at": "2026-09-09T23:16:11"
 }

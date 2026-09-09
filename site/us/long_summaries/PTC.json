@@ -1,55 +1,33 @@
 {
  "code": "PTC",
  "name": "PTC Inc.",
- "asof": "2026-09-09",
+ "jp_sector": null,
  "gics_sector": "Information Technology",
- "industry": "Software - Application",
  "is_simple": false,
  "is_reit": false,
- "price": 133.25999450683594,
- "price_date": "2026-09-08",
- "mcap": 14459002880,
- "sel_score": 92.3,
- "tim_score": 110.0,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定・買い時とも上位水準。",
- "cov_sel": [
-  14,
-  17,
-  "中"
- ],
- "cov_tim": [
-  3,
-  6,
-  "低"
- ],
+ "price": 133.13999938964844,
+ "price_date": "2026-09-09",
+ "mcap": 14446524416,
+ "q_score": 105.0,
  "groups": {
-  "業績": 108.2,
-  "財務": 104.4,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 62.5,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 110.0,
-  "金利スプレッド": null
+  "業績": 108.22935295972887,
+  "財務": 104.43008494903778,
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 35.053003,
- "chowder": null,
- "interest_coverage": 12.947402588971553,
- "per_vs_sector": 0.32971505102040816,
- "pbr_vs_sector": 0.31731719402985076,
+ "q_cov": "高",
+ "bt_score": 106.3,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 106.26999817922055,
+  "fcf_yield": 99.06750674242357,
+  "per_cheap": 110.0,
+  "pbr_cheap": 110.0
+ },
+ "ev_ebit": 15.662863582985647,
+ "fcf_yield": 5.930063005681768,
  "per_band_pos": 1.0,
- "yield_band_pos": null,
- "next_earn": "2026-11-11",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T13:15:13"
+ "pbr_band_pos": 1.0,
+ "div_yield": null,
+ "implied_fcf_growth": 0.0539,
+ "_generated_at": "2026-09-09T23:49:56"
 }

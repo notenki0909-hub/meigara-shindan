@@ -1,60 +1,10 @@
 {
- "ran_at": "2026-09-09T12:43:18",
- "seconds": 2139.2,
+ "ran_at": "2026-09-10T00:05:00",
+ "seconds": 3708.2,
  "counts": {
-  "reuse": 199,
   "skip": 0,
-  "ok": 304,
-  "fail": 12
+  "ok": 503,
+  "fail": 0
  },
- "failed": [
-  {
-   "code": "ARE",
-   "error": "UnicodeEncodeError: 'cp932' codec can't encode character '\\u2713' in position 11: illegal multibyte sequence"
-  },
-  {
-   "code": "CCL",
-   "error": "UnicodeEncodeError: 'cp932' codec can't encode character '\\u2713' in position 11: illegal multibyte sequence"
-  },
-  {
-   "code": "CVNA",
-   "error": "UnicodeEncodeError: 'cp932' codec can't encode character '\\u2713' in position 11: illegal multibyte sequence"
-  },
-  {
-   "code": "EME",
-   "error": "UnicodeEncodeError: 'cp932' codec can't encode character '\\u2713' in position 12: illegal multibyte sequence"
-  },
-  {
-   "code": "FTV",
-   "error": "UnicodeEncodeError: 'cp932' codec can't encode character '\\u2713' in position 12: illegal multibyte sequence"
-  },
-  {
-   "code": "IBKR",
-   "error": "UnicodeEncodeError: 'cp932' codec can't encode character '\\u2713' in position 12: illegal multibyte sequence"
-  },
-  {
-   "code": "LIN",
-   "error": "UnicodeEncodeError: 'cp932' codec can't encode character '\\u2713' in position 12: illegal multibyte sequence"
-  },
-  {
-   "code": "MTD",
-   "error": "UnicodeEncodeError: 'cp932' codec can't encode character '\\u2713' in position 12: illegal multibyte sequence"
-  },
-  {
-   "code": "PSKY",
-   "error": "UnicodeEncodeError: 'cp932' codec can't encode character '\\u2713' in position 12: illegal multibyte sequence"
-  },
-  {
-   "code": "STLD",
-   "error": "UnicodeEncodeError: 'cp932' codec can't encode character '\\u2713' in position 12: illegal multibyte sequence"
-  },
-  {
-   "code": "UDR",
-   "error": "UnicodeEncodeError: 'cp932' codec can't encode character '\\u2713' in position 12: illegal multibyte sequence"
-  },
-  {
-   "code": "WYNN",
-   "error": "UnicodeEncodeError: 'cp932' codec can't encode character '\\u2713' in position 12: illegal multibyte sequence"
-  }
- ]
+ "failed": []
 }

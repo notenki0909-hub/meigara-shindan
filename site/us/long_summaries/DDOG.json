@@ -1,55 +1,33 @@
 {
  "code": "DDOG",
- "name": "Datadog, Inc.",
- "asof": "2026-09-09",
+ "name": "Datadog",
+ "jp_sector": null,
  "gics_sector": "Information Technology",
- "industry": "Software - Application",
  "is_simple": false,
  "is_reit": false,
- "price": 210.22999572753906,
- "price_date": "2026-09-08",
- "mcap": 75488337920,
- "sel_score": 70.9,
- "tim_score": 45.5,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は中位、買い時は最下位（割高水準）。",
- "cov_sel": [
-  13,
-  17,
-  "中"
- ],
- "cov_tim": [
-  2,
-  6,
-  "低"
- ],
+ "price": 220.8000030517578,
+ "price_date": "2026-09-09",
+ "mcap": 79283765248,
+ "q_score": 81.9,
  "groups": {
   "業績": 50.0,
-  "財務": 104.9,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 45.4,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 45.5,
-  "金利スプレッド": null
+  "財務": 104.87613636121175,
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 4.696,
- "chowder": null,
- "interest_coverage": 12.485758205986075,
- "per_vs_sector": 10.944918367346938,
- "pbr_vs_sector": 1.2895615671641791,
+ "q_cov": "高",
+ "bt_score": 41.9,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": 35.38300638033122,
+  "per_cheap": 20.0,
+  "pbr_cheap": 52.3
+ },
+ "ev_ebit": null,
+ "fcf_yield": 1.1537254785248414,
  "per_band_pos": null,
- "yield_band_pos": null,
- "next_earn": "2026-11-05",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T12:45:26"
+ "pbr_band_pos": 0.0,
+ "div_yield": null,
+ "implied_fcf_growth": 0.2787,
+ "_generated_at": "2026-09-09T23:19:13"
 }

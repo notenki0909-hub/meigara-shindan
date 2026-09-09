@@ -1,55 +1,33 @@
 {
  "code": "CDNS",
- "name": "Cadence Design Systems, Inc.",
- "asof": "2026-09-09",
+ "name": "Cadence Design Systems",
+ "jp_sector": null,
  "gics_sector": "Information Technology",
- "industry": "Software - Application",
  "is_simple": false,
  "is_reit": false,
- "price": 284.1099853515625,
- "price_date": "2026-09-08",
- "mcap": 78241898496,
- "sel_score": 92.5,
- "tim_score": 76.7,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は上位水準だが、買い時は下位（やや割高水準）。",
- "cov_sel": [
-  14,
-  17,
-  "中"
- ],
- "cov_tim": [
-  3,
-  6,
-  "低"
- ],
+ "price": 285.739990234375,
+ "price_date": "2026-09-09",
+ "mcap": 78690787328,
+ "q_score": 105.4,
  "groups": {
-  "業績": 108.2,
-  "財務": 105.4,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 62.5,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 76.7,
-  "金利スプレッド": null
+  "業績": 108.17504098067612,
+  "財務": 105.41970792098357,
+  "キャッシュフロー": 100.0
  },
+ "q_cov": "高",
+ "bt_score": 59.0,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 46.888535136655335,
+  "per_cheap": 62.3,
+  "pbr_cheap": 106.8
+ },
+ "ev_ebit": 47.464426689360586,
+ "fcf_yield": 2.01664013524915,
+ "per_band_pos": 0.7787251880674532,
+ "pbr_band_pos": 1.0,
  "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 23.229,
- "chowder": null,
- "interest_coverage": 14.0601505049725,
- "per_vs_sector": 1.440895331632653,
- "pbr_vs_sector": 0.8514270895522388,
- "per_band_pos": 0.7919476166109777,
- "yield_band_pos": null,
- "next_earn": "2026-10-26",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T12:39:33"
+ "implied_fcf_growth": 0.2009,
+ "_generated_at": "2026-09-09T23:13:31"
 }

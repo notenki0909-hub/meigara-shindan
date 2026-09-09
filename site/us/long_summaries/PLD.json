@@ -1,54 +1,33 @@
 {
  "code": "PLD",
- "name": "Prologis, Inc.",
- "asof": "2026-09-09",
+ "name": "Prologis",
+ "jp_sector": null,
  "gics_sector": "Real Estate",
- "industry": "REIT - Industrial",
  "is_simple": true,
  "is_reit": true,
- "price": 138.47999572753906,
- "price_date": "2026-09-08",
- "mcap": 134615212032,
- "sel_score": 92.0,
- "tim_score": 98.5,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "選定・買い時とも上位水準。",
- "cov_sel": [
-  5,
-  6,
-  "中"
- ],
- "cov_tim": [
-  7,
-  7,
-  "高"
- ],
+ "price": 135.97000122070312,
+ "price_date": "2026-09-09",
+ "mcap": 132175265792,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 92.0,
-  "配当利回りセオリー": 103.2,
-  "利回り水準とChowder": 105.3,
-  "株価バリュエーション": 106.6,
-  "金利スプレッド": 70.4
+  "キャッシュフロー": null
  },
- "div_yield": 3.090699113264668,
- "total_yield": null,
- "streak_up": 13,
- "streak_flat": 17,
- "payout_ni": 92.65,
- "roe": 7.7490000000000006,
- "chowder": 14.822982974655758,
- "interest_coverage": 4.876864086627123,
- "per_vs_sector": 0.7222920608899297,
- "pbr_vs_sector": 0.8025732,
- "per_band_pos": 0.8355838649705447,
- "yield_band_pos": 0.729044468036037,
- "next_earn": "2026-10-15",
- "warnings": [
-  "REIT：FFO・NAV倍率・LTV・分配金の内訳が重要で、株式向けのこのツールでは正しく評価できません。参考程度に。"
- ],
- "_generated_at": "2026-09-09T13:13:43"
+ "q_cov": "低",
+ "bt_score": 70.6,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 30.51910248752126,
+  "fcf_yield": 70.52315923093218,
+  "per_cheap": 108.7,
+  "pbr_cheap": 72.6
+ },
+ "ev_ebit": 48.82700850481299,
+ "fcf_yield": 3.789236942319914,
+ "per_band_pos": 0.9130821879309572,
+ "pbr_band_pos": 0.0,
+ "div_yield": 3.147753152589012,
+ "implied_fcf_growth": 0.1148,
+ "_generated_at": "2026-09-09T23:48:23"
 }

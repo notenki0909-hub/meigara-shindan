@@ -1,55 +1,33 @@
 {
  "code": "FSLR",
- "name": "First Solar, Inc.",
- "asof": "2026-09-09",
+ "name": "First Solar",
+ "jp_sector": null,
  "gics_sector": "Information Technology",
- "industry": "Solar",
  "is_simple": false,
  "is_reit": false,
- "price": 213.25,
- "price_date": "2026-09-08",
- "mcap": 22917933056,
- "sel_score": 88.8,
- "tim_score": 110.0,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定・買い時とも上位水準。",
- "cov_sel": [
-  13,
-  17,
-  "中"
- ],
- "cov_tim": [
-  3,
-  6,
-  "低"
- ],
+ "price": 210.3699951171875,
+ "price_date": "2026-09-09",
+ "mcap": 22608418816,
+ "q_score": 100.1,
  "groups": {
-  "業績": 91.6,
-  "財務": 108.9,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 62.5,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 110.0,
-  "金利スプレッド": null
+  "業績": 91.59420289855073,
+  "財務": 108.87581257759265,
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 18.509,
- "chowder": null,
- "interest_coverage": 36.82318551585053,
- "per_vs_sector": 0.33559846938775506,
- "pbr_vs_sector": 0.16571917910447762,
+ "q_cov": "高",
+ "bt_score": 104.1,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 109.5482368296704,
+  "fcf_yield": 90.01698554049527,
+  "per_cheap": 110.0,
+  "pbr_cheap": 106.9
+ },
+ "ev_ebit": 12.812762900284557,
+ "fcf_yield": 5.251273915537145,
  "per_band_pos": 1.0,
- "yield_band_pos": null,
- "next_earn": "2026-10-29",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T12:53:52"
+ "pbr_band_pos": 0.754933394456905,
+ "div_yield": null,
+ "implied_fcf_growth": 0.0704,
+ "_generated_at": "2026-09-09T23:27:19"
 }

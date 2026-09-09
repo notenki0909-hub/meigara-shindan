@@ -1,57 +1,33 @@
 {
  "code": "6762",
  "name": "ＴＤＫ",
- "asof": "2026-09-09",
  "jp_sector": "電気機器",
- "industry": "Electronic Components",
+ "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 2836.5,
+ "price": 2812.5,
  "price_date": "2026-09-09",
- "mcap": 5384114274304,
- "sel_score": 101.7,
- "tim_score": 67.7,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "選定は上位水準、買い時は中位（妥当水準）。",
- "cov_sel": [
-  15,
-  16,
-  "高"
- ],
- "cov_tim": [
-  6,
-  6,
-  "高"
- ],
+ "mcap": 5338558365696,
+ "q_score": 104.4,
  "groups": {
-  "業績": 102.9,
-  "財務": 106.5,
-  "キャッシュフロー": 103.3,
-  "配当の持続力": 95.5,
-  "配当利回りセオリー": 54.8,
-  "利回り水準とChowder": 77.1,
-  "株価バリュエーション": 81.0,
-  "金利スプレッド": null
+  "業績": 102.9391360961239,
+  "財務": 106.49957522372547,
+  "キャッシュフロー": 103.33333333333333
  },
- "div_yield": 1.4101886127269523,
- "streak_up": 5,
- "streak_flat": 13,
- "payout_ni": 34.96,
- "roe": 11.63,
- "div_policy": null,
- "per_vs_sector": 0.93715,
- "pbr_vs_sector": 0.9007672307692308,
+ "q_cov": "高",
+ "bt_score": 76.8,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 93.44211106831807,
+  "fcf_yield": 72.2190912921343,
+  "per_cheap": 70.4,
+  "pbr_cheap": 71.3
+ },
+ "ev_ebit": 18.764650002187846,
+ "fcf_yield": 3.916431846910072,
  "per_band_pos": 0.0,
- "yield_band_pos": 0.14823091841640051,
- "next_earn": "2026-10-30",
- "earn_disc_date": "2026-07-30",
- "buyback_yen": null,
- "total_yield": null,
- "total_payout": 31.04112683542622,
- "interest_coverage": 9.462549678997249,
- "warnings": [
-  "yfinance の業種『Electronic Components』が対応表に無く、sector（industry未対応） で 電気機器 に割り当てました。業種平均との比較は目安です。"
- ],
- "_generated_at": "2026-09-09T12:05:27"
+ "pbr_band_pos": 0.0,
+ "div_yield": 1.4222222222222223,
+ "implied_fcf_growth": 0.1103,
+ "_generated_at": "2026-09-09T22:40:29"
 }

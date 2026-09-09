@@ -1,57 +1,33 @@
 {
  "code": "8601",
  "name": "大和証券グループ本社",
- "asof": "2026-09-09",
  "jp_sector": "証券・商品先物取引業",
- "industry": "Capital Markets",
+ "gics_sector": null,
  "is_simple": true,
  "is_reit": false,
- "price": 1813.5,
+ "price": 1797.0,
  "price_date": "2026-09-09",
- "mcap": 2518169419776,
- "sel_score": 82.9,
- "tim_score": 66.0,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "選定・買い時とも中位水準。",
- "cov_sel": [
-  5,
-  5,
-  "高"
- ],
- "cov_tim": [
-  5,
-  6,
-  "中"
- ],
+ "mcap": 2495258034176,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 82.9,
-  "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 106.2,
-  "株価バリュエーション": 67.1,
-  "金利スプレッド": null
+  "キャッシュフロー": null
  },
- "div_yield": 3.859939343810312,
- "streak_up": 3,
- "streak_flat": 3,
- "payout_ni": 51.55,
- "roe": 10.955,
- "div_policy": null,
- "per_vs_sector": 1.315445945945946,
- "pbr_vs_sector": 1.0740286923076923,
+ "q_cov": "低",
+ "bt_score": 70.0,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": 110.0,
+  "per_cheap": 43.4,
+  "pbr_cheap": 66.8
+ },
+ "ev_ebit": null,
+ "fcf_yield": 13.113753989296637,
  "per_band_pos": null,
- "yield_band_pos": 0.0,
- "next_earn": "2026-11-04",
- "earn_disc_date": "2026-08-02",
- "buyback_yen": 50011000000.0,
- "total_yield": 5.845945511911927,
- "total_payout": 74.0981623792653,
- "interest_coverage": null,
- "warnings": [
-  "銀行・保険・証券は自己資本比率・D/E・ROA・営業CFが構造的に別水準です。財務・CF・業績は採点から外し、銘柄選定は配当の持続力のみ、買い時は通常どおりの簡易判定にしています。"
- ],
- "_generated_at": "2026-09-09T12:18:30"
+ "pbr_band_pos": 0.0,
+ "div_yield": 3.8953811908736786,
+ "implied_fcf_growth": -0.0574,
+ "_generated_at": "2026-09-09T22:52:58"
 }

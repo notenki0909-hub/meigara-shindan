@@ -1,55 +1,33 @@
 {
  "code": "TDY",
- "name": "Teledyne Technologies Incorporated",
- "asof": "2026-09-09",
+ "name": "Teledyne Technologies",
+ "jp_sector": null,
  "gics_sector": "Information Technology",
- "industry": "Scientific & Technical Instruments",
  "is_simple": false,
  "is_reit": false,
- "price": 605.0800170898438,
- "price_date": "2026-09-08",
- "mcap": 28048889856,
- "sel_score": 87.9,
- "tim_score": 86.0,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は上位水準、買い時は中位（妥当水準）。",
- "cov_sel": [
-  14,
-  17,
-  "中"
- ],
- "cov_tim": [
-  3,
-  6,
-  "低"
- ],
+ "price": 602.3699951171875,
+ "price_date": "2026-09-09",
+ "mcap": 27923265536,
+ "q_score": 102.3,
  "groups": {
-  "業績": 100.3,
-  "財務": 105.8,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 54.3,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 86.0,
-  "金利スプレッド": null
+  "業績": 100.27812111547044,
+  "財務": 105.76876126846959,
+  "キャッシュフロー": 100.0
  },
- "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": 9.154,
- "chowder": null,
- "interest_coverage": 19.364093959731544,
- "per_vs_sector": 0.747854413265306,
- "pbr_vs_sector": 0.19170937313432834,
+ "q_cov": "高",
+ "bt_score": 74.2,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 76.24700341560286,
+  "fcf_yield": 71.28340015080964,
+  "per_cheap": 74.1,
+  "pbr_cheap": 75.0
+ },
+ "ev_ebit": 26.276713807618716,
+ "fcf_yield": 3.8462550113107232,
  "per_band_pos": 0.0,
- "yield_band_pos": null,
- "next_earn": "2026-10-21",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T13:21:13"
+ "pbr_band_pos": 0.0,
+ "div_yield": null,
+ "implied_fcf_growth": 0.1128,
+ "_generated_at": "2026-09-09T23:55:59"
 }

@@ -1,54 +1,33 @@
 {
  "code": "WELL",
- "name": "Welltower Inc.",
- "asof": "2026-09-09",
+ "name": "Welltower",
+ "jp_sector": null,
  "gics_sector": "Real Estate",
- "industry": "REIT - Healthcare Facilities",
  "is_simple": true,
  "is_reit": true,
- "price": 237.25,
- "price_date": "2026-09-08",
- "mcap": 170955718656,
- "sel_score": 59.2,
- "tim_score": 39.5,
- "sel_label": "選定スコア下位（質に不安）",
- "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "選定は下位、買い時は最下位水準。",
- "cov_sel": [
-  6,
-  6,
-  "高"
- ],
- "cov_tim": [
-  6,
-  7,
-  "高"
- ],
+ "price": 235.0050048828125,
+ "price_date": "2026-09-09",
+ "mcap": 169338028032,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 59.2,
-  "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 41.2,
-  "株価バリュエーション": 48.8,
-  "金利スプレッド": 26.2
+  "キャッシュフロー": null
  },
- "div_yield": 1.4330874604847208,
- "total_yield": 1.4330874604847208,
- "streak_up": 3,
- "streak_flat": 6,
- "payout_ni": 132.74000999999998,
- "roe": 3.836,
- "chowder": 2.3065825968649856,
- "interest_coverage": 0.26371452017393837,
- "per_vs_sector": 2.502795550351288,
- "pbr_vs_sector": 1.2249016666666666,
+ "q_cov": "低",
+ "bt_score": 35.4,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 42.423614534764226,
+  "per_cheap": 20.0,
+  "pbr_cheap": 59.3
+ },
+ "ev_ebit": 522.8079247905217,
+ "fcf_yield": 1.6817710901073166,
  "per_band_pos": null,
- "yield_band_pos": 0.0,
- "next_earn": "2026-10-26",
- "warnings": [
-  "REIT：FFO・NAV倍率・LTV・分配金の内訳が重要で、株式向けのこのツールでは正しく評価できません。参考程度に。"
- ],
- "_generated_at": "2026-09-09T12:42:07"
+ "pbr_band_pos": 0.0,
+ "div_yield": 1.4467776980730442,
+ "implied_fcf_growth": 0.226,
+ "_generated_at": "2026-09-10T00:02:45"
 }

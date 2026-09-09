@@ -1,55 +1,33 @@
 {
  "code": "ORLY",
- "name": "O'Reilly Automotive, Inc.",
- "asof": "2026-09-09",
+ "name": "O'Reilly Automotive",
+ "jp_sector": null,
  "gics_sector": "Consumer Discretionary",
- "industry": "Auto Parts",
  "is_simple": false,
  "is_reit": false,
- "price": 85.88999938964844,
- "price_date": "2026-09-08",
- "mcap": 69481635840,
- "sel_score": 87.5,
- "tim_score": 92.3,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は上位水準、買い時は中位（妥当水準）。",
- "cov_sel": [
-  13,
-  17,
-  "中"
- ],
- "cov_tim": [
-  2,
-  6,
-  "低"
- ],
+ "price": 85.5,
+ "price_date": "2026-09-09",
+ "mcap": 69166145536,
+ "q_score": 104.9,
  "groups": {
-  "業績": 106.1,
-  "財務": 106.5,
-  "キャッシュフロー": 100.0,
-  "配当の持続力": 46.7,
-  "配当利回りセオリー": null,
-  "利回り水準とChowder": null,
-  "株価バリュエーション": 92.3,
-  "金利スプレッド": null
+  "業績": 106.13558414724443,
+  "財務": 106.4606121539079,
+  "キャッシュフロー": 100.0
  },
+ "q_cov": "高",
+ "bt_score": 62.0,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 44.321986212578494,
+  "fcf_yield": 50.71209645805256,
+  "per_cheap": 92.9,
+  "pbr_cheap": null
+ },
+ "ev_ebit": 22.38443706951256,
+ "fcf_yield": 2.303407234353942,
+ "per_band_pos": 0.4448047603455021,
+ "pbr_band_pos": null,
  "div_yield": null,
- "total_yield": null,
- "streak_up": 0,
- "streak_flat": 0,
- "payout_ni": 0.0,
- "roe": null,
- "chowder": null,
- "interest_coverage": 14.784207705135623,
- "per_vs_sector": 0.9211711486486486,
- "pbr_vs_sector": null,
- "per_band_pos": 0.43358673412180626,
- "yield_band_pos": null,
- "next_earn": "2026-10-28",
- "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "配当履歴を取得できませんでした（無配、またはyfinance未収録）。"
- ],
- "_generated_at": "2026-09-09T13:11:51"
+ "implied_fcf_growth": 0.1826,
+ "_generated_at": "2026-09-09T23:46:23"
 }

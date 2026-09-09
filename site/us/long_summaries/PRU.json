@@ -1,54 +1,33 @@
 {
  "code": "PRU",
- "name": "Prudential Financial, Inc.",
- "asof": "2026-09-09",
+ "name": "Prudential Financial",
+ "jp_sector": null,
  "gics_sector": "Financials",
- "industry": "Insurance - Life",
  "is_simple": true,
  "is_reit": false,
- "price": 119.37999725341797,
- "price_date": "2026-09-08",
- "mcap": 41186099200,
- "sel_score": 96.1,
- "tim_score": 79.6,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "選定は上位水準だが、買い時は下位（やや割高水準）。",
- "cov_sel": [
-  6,
-  6,
-  "高"
- ],
- "cov_tim": [
-  6,
-  6,
-  "高"
- ],
+ "price": 118.04000091552734,
+ "price_date": "2026-09-09",
+ "mcap": 40723800064,
+ "q_score": null,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 96.1,
-  "配当利回りセオリー": 57.4,
-  "利回り水準とChowder": 89.4,
-  "株価バリュエーション": 110.0,
-  "金利スプレッド": null
+  "キャッシュフロー": null
  },
- "div_yield": 4.690903106751132,
- "total_yield": 7.11890677649415,
- "streak_up": 13,
- "streak_flat": 13,
- "payout_ni": 49.86,
- "roe": 12.011,
- "chowder": 8.87182991701556,
- "interest_coverage": null,
- "per_vs_sector": 0.6256190751445087,
- "pbr_vs_sector": 0.52204524,
- "per_band_pos": 0.9976580305931374,
- "yield_band_pos": 0.1736164469759538,
- "next_earn": "2026-10-28",
- "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
- ],
- "_generated_at": "2026-09-09T13:14:45"
+ "q_cov": "低",
+ "bt_score": 95.8,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": 110.0,
+  "per_cheap": 110.0,
+  "pbr_cheap": 103.0
+ },
+ "ev_ebit": null,
+ "fcf_yield": 15.39885764625288,
+ "per_band_pos": 1.0,
+ "pbr_band_pos": 0.5595867144765643,
+ "div_yield": 4.744154487094178,
+ "implied_fcf_growth": -0.0811,
+ "_generated_at": "2026-09-09T23:49:27"
 }
