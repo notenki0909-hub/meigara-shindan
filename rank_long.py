@@ -45,7 +45,8 @@ MK = {
         "out_dir": os.path.join(HERE, "site", "long"),
         "report_dirs": [("reports/", os.path.join(HERE, "site", "long", "reports"))],
         "title": "10年保有できる優良企業ランキング（日本株）",
-        "screen_line": "母集団＝時価総額3,000億円以上（TOPIX500相当）／金融・REITを除く。"
+        "screen_line": "母集団＝時価総額3,000億円以上（TOPIX500相当）。銀行・保険・証券は"
+                       "専用の品質スコア（ROE・増収率・EPS成長率・利益の安定度）で評価。"
                        "品質スコア（配当は不使用）＋買い時スコア（EV/EBIT・FCF利回り・PER/PBR割安度）。",
         "terms_src": "long_terms.html",
         "unit_price": "円",
@@ -60,7 +61,9 @@ MK = {
         "report_dirs": [("reports/", os.path.join(HERE, "site", "us", "long", "reports"))],
         "title": "10年保有できる優良企業ランキング（米国株）",
         "screen_line": "母集団＝S&P500 メンバーシップ（黒字継続・流動性・業種代表性を"
-                       "委員会が審査済み）／金融・REITは対象外。品質スコア（配当は不使用）＋買い時スコア。",
+                       "委員会が審査済み）。金融は専用の品質スコア（ROE・増収率・EPS成長率・"
+                       "利益の安定度）、REITは専用のFFOベース品質スコアで評価。"
+                       "品質スコア（配当は不使用）＋買い時スコア。",
         "terms_src": "long_us_terms.html",
         "unit_price": "$",
     },
@@ -99,7 +102,9 @@ TERMS = {
 DISC = ('本ページは、あらかじめ定めた基準（時価総額または指数構成）で抽出した銘柄について、'
         '公開データを機械的なルールで算出した「配当を含めない品質スコア」（業績・財務・'
         'キャッシュフロー）による分類です。配当利回りは参考表示で、採点には使っていません。'
-        '銀行・保険・証券・REITは、このスコアの算出対象外のため「対象外」として掲載しています。'
+        '銀行・保険・証券は専用の品質スコア（ROE・増収率・EPS成長率・利益の安定度）、'
+        '米国REITは専用のFFOベース品質スコアで評価しています。日本のJ-REITはこのツールの'
+        '母集団に含まれておらず対象外です。'
         '特定銘柄の売買を推奨・勧誘するものではなく、運営者は投資助言・代理業の登録を受けて'
         'いません。教育目的の一般情報であり、投資判断はご自身の責任で行ってください。数値は'
         'yfinance 由来で誤り・遅延・欠損があり得ます。')
@@ -233,8 +238,10 @@ def build(market):
         if q is None:
             if s.get("is_reit") or grp == "Real Estate":
                 rec["why"] = "REIT・不動産（採点対象外）"
-            else:
+            elif s.get("is_simple"):
                 rec["why"] = "金融（銀行・保険・証券／採点対象外）"
+            else:
+                rec["why"] = "データ不足（新規上場・決算データ未整備等）"
             excluded.append(rec)
         else:
             rec["cov"] = s.get("q_cov") or "―"

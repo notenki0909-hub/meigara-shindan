@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-12T02:23:02",
+ "generated_at": "2026-09-12T08:21:13",
  "market": "jp",
  "universe": {
   "count": 502,
@@ -11,17 +11,17 @@
   "キャッシュフロー": 0.15
  },
  "counts": {
-  "total": 494,
-  "excluded": 8,
+  "total": 497,
+  "excluded": 5,
   "missing": 0,
   "1軍": 109,
-  "2軍": 238,
-  "3軍": 147
+  "2軍": 239,
+  "3軍": 149
  },
  "buytiming_counts": {
   "買い場": 128,
-  "妥当": 156,
-  "やや割高": 122,
+  "妥当": 157,
+  "やや割高": 124,
   "割高": 88
  },
  "tim_tiers": [
@@ -10060,7 +10060,7 @@
    "name": "金融",
    "grade": "B",
    "median": 96.7,
-   "count": 62,
+   "count": 65,
    "tiered": true,
    "stocks": [
     {
@@ -10174,6 +10174,52 @@
      "is_simple": true,
      "is_reit": false,
      "asof": "2026-09-12T02:16:11",
+     "cov": "低",
+     "dir": "→",
+     "tier": "2軍"
+    },
+    {
+     "code": "8604",
+     "name": "野村ホールディングス",
+     "sector": "証券・商品先物取引業",
+     "group": "金融",
+     "q": 105.6,
+     "perf": null,
+     "fin": null,
+     "cf": null,
+     "bt": 71.0,
+     "bt_cov": "高",
+     "ev_ebit": null,
+     "fcf_yield": null,
+     "yield": 3.0639831781315707,
+     "price": 1664.5,
+     "price_date": "2026-09-11",
+     "is_simple": true,
+     "is_reit": false,
+     "asof": "2026-09-12T08:20:55",
+     "cov": "低",
+     "dir": "→",
+     "tier": "2軍"
+    },
+    {
+     "code": "8601",
+     "name": "大和証券グループ本社",
+     "sector": "証券・商品先物取引業",
+     "group": "金融",
+     "q": 105.5,
+     "perf": null,
+     "fin": null,
+     "cf": null,
+     "bt": 51.8,
+     "bt_cov": "高",
+     "ev_ebit": null,
+     "fcf_yield": null,
+     "yield": 3.8002171552660156,
+     "price": 1842.0,
+     "price_date": "2026-09-11",
+     "is_simple": true,
+     "is_reit": false,
+     "asof": "2026-09-12T08:20:47",
      "cov": "低",
      "dir": "→",
      "tier": "2軍"
@@ -11073,7 +11119,7 @@
      "asof": "2026-09-12T02:17:19",
      "cov": "高",
      "dir": "→",
-     "tier": "2軍"
+     "tier": "3軍"
     },
     {
      "code": "7180",
@@ -11417,6 +11463,29 @@
      "is_reit": false,
      "asof": "2026-09-12T02:20:24",
      "cov": "高",
+     "dir": "→",
+     "tier": "3軍"
+    },
+    {
+     "code": "6178",
+     "name": "日本郵政",
+     "sector": "銀行業",
+     "group": "金融",
+     "q": 62.0,
+     "perf": null,
+     "fin": null,
+     "cf": null,
+     "bt": 64.9,
+     "bt_cov": "高",
+     "ev_ebit": null,
+     "fcf_yield": null,
+     "yield": 2.4301336573511545,
+     "price": 2469.0,
+     "price_date": "2026-09-11",
+     "is_simple": true,
+     "is_reit": false,
+     "asof": "2026-09-12T08:20:39",
+     "cov": "低",
      "dir": "→",
      "tier": "3軍"
     },
@@ -12664,7 +12733,7 @@
    "is_simple": false,
    "is_reit": false,
    "asof": "2026-09-11T18:06:17",
-   "why": "金融（銀行・保険・証券／採点対象外）"
+   "why": "データ不足（新規上場・決算データ未整備等）"
   },
   {
    "code": "429A",
@@ -12685,7 +12754,7 @@
    "is_simple": false,
    "is_reit": false,
    "asof": "2026-09-11T18:14:39",
-   "why": "金融（銀行・保険・証券／採点対象外）"
+   "why": "データ不足（新規上場・決算データ未整備等）"
   },
   {
    "code": "417A",
@@ -12706,7 +12775,7 @@
    "is_simple": false,
    "is_reit": false,
    "asof": "2026-09-11T18:13:05",
-   "why": "金融（銀行・保険・証券／採点対象外）"
+   "why": "データ不足（新規上場・決算データ未整備等）"
   },
   {
    "code": "268A",
@@ -12727,7 +12796,7 @@
    "is_simple": false,
    "is_reit": false,
    "asof": "2026-09-11T18:05:14",
-   "why": "金融（銀行・保険・証券／採点対象外）"
+   "why": "データ不足（新規上場・決算データ未整備等）"
   },
   {
    "code": "543A",
@@ -12748,70 +12817,7 @@
    "is_simple": false,
    "is_reit": false,
    "asof": "2026-09-11T18:23:18",
-   "why": "金融（銀行・保険・証券／採点対象外）"
-  },
-  {
-   "code": "8601",
-   "name": "大和証券グループ本社",
-   "sector": "証券・商品先物取引業",
-   "group": "金融",
-   "q": null,
-   "perf": null,
-   "fin": null,
-   "cf": null,
-   "bt": 68.4,
-   "bt_cov": "高",
-   "ev_ebit": null,
-   "fcf_yield": 12.793386222985404,
-   "yield": 3.8002171552660156,
-   "price": 1842.0,
-   "price_date": "2026-09-11",
-   "is_simple": true,
-   "is_reit": false,
-   "asof": "2026-09-11T18:44:09",
-   "why": "金融（銀行・保険・証券／採点対象外）"
-  },
-  {
-   "code": "6178",
-   "name": "日本郵政",
-   "sector": "銀行業",
-   "group": "金融",
-   "q": null,
-   "perf": null,
-   "fin": null,
-   "cf": null,
-   "bt": 52.1,
-   "bt_cov": "高",
-   "ev_ebit": null,
-   "fcf_yield": -156.99116015612807,
-   "yield": 2.4301336573511545,
-   "price": 2469.0,
-   "price_date": "2026-09-11",
-   "is_simple": true,
-   "is_reit": false,
-   "asof": "2026-09-11T18:26:38",
-   "why": "金融（銀行・保険・証券／採点対象外）"
-  },
-  {
-   "code": "8604",
-   "name": "野村ホールディングス",
-   "sector": "証券・商品先物取引業",
-   "group": "金融",
-   "q": null,
-   "perf": null,
-   "fin": null,
-   "cf": null,
-   "bt": 55.6,
-   "bt_cov": "高",
-   "ev_ebit": null,
-   "fcf_yield": -24.601492813082995,
-   "yield": 3.0639831781315707,
-   "price": 1664.5,
-   "price_date": "2026-09-11",
-   "is_simple": true,
-   "is_reit": false,
-   "asof": "2026-09-11T18:44:17",
-   "why": "金融（銀行・保険・証券／採点対象外）"
+   "why": "データ不足（新規上場・決算データ未整備等）"
   }
  ],
  "missing": []
