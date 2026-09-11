@@ -166,11 +166,13 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
   <div id="addcodes"></div>
   <p class="note">1回の購入ごとに1行として追加してください（同じ銘柄を複数回に分けて買った場合は、そのつど追加すると加重平均取得単価を自動計算します）。<b>取得単価を空欄にすると、購入日の終値を自動で調べて入力します</b>（直近10年分のみ対応。それより前の購入日は手入力してください）。</p>
   <div class="addrow">
-    <label>証券コード<input class="code" id="in-code" placeholder="9433"></label>
-    <label>株数<input class="shares" id="in-shares" type="number" min="1" step="1" placeholder="100"></label>
-    <label>取得単価（円・空欄で自動取得）<input class="price" id="in-price" type="number" min="0" step="0.01" placeholder="空欄可"></label>
-    <label>購入日<input class="date" id="in-date" type="date"></label>
-    <button type="button" id="in-add" style="align-self:flex-end">追加</button>
+    <div class="addrow-body">
+      <label>証券コード<input class="code" id="in-code" placeholder="9433"></label>
+      <label>株数<input class="shares" id="in-shares" type="number" min="1" step="1" placeholder="100"></label>
+      <label>取得単価（円・空欄で自動取得）<input class="price" id="in-price" type="number" min="0" step="0.01" placeholder="空欄可"></label>
+      <label>購入日<input class="date" id="in-date" type="date"></label>
+      <button type="button" id="in-add" style="align-self:flex-end">追加</button>
+    </div>
   </div>
 </div>
 
