@@ -75,10 +75,14 @@ td.bt.t1{color:var(--t1)} td.bt.t2{color:var(--t2)} td.bt.t3{color:var(--t3)} td
 </style></head><body><div class="wrap">
 <h1>ウォッチリスト</h1>
 <div class="sub"><a href="index.html">← ランキングに戻る</a>　｜　10年保有できる優良企業ランキング（日本株）</div>
-<div class="box"><b>この一覧のコード</b>（コピーして保存・共有できます。URL の <code>?codes=</code> でも復元）
-<textarea id="codestr" readonly></textarea>
-<div style="margin-top:6px"><button id="copy">コピー</button>
-<button id="clear" class="ghost">クリア</button><span id="stat" class="sub"></span></div></div>
+<div class="box"><b>銘柄リストを貼り付けて表示</b>
+（コード／ティッカーをカンマ・空白・改行区切りで。保存・共有した文字列の復元にも。URL の <code>?codes=</code> でも可）
+<textarea id="codestr" placeholder="例：7203, 9433, 6146"></textarea>
+<div style="margin-top:6px">
+  <button id="show">表示</button>
+  <button id="copy" class="ghost">コピー</button>
+  <button id="clear" class="ghost">クリア</button>
+  <span id="stat" class="sub"></span></div></div>
 <div id="tbl"></div>
 
 <div id="theme-bar">
@@ -199,7 +203,14 @@ td.bt.t1{color:var(--t1)} td.bt.t2{color:var(--t2)} td.bt.t3{color:var(--t3)} td
   var codes=(params.get('codes')||localStorage.getItem(LS)||'').split(/[\s,]+/).filter(Boolean);
   codes=Array.from(new Set(codes));
   try{localStorage.setItem(LS,codes.join(','));}catch(e){}
-  document.getElementById('codestr').value=codes.join(',');
+  var ta=document.getElementById('codestr');
+  ta.value=codes.join(', ');
+  document.getElementById('show').onclick=function(){
+    var v=(ta.value||'').split(/[\s,]+/).filter(Boolean);
+    v=Array.from(new Set(v.map(function(x){return x.toUpperCase();})));
+    try{localStorage.setItem(LS,v.join(','));}catch(e){}
+    location.href='watchlist.html?codes='+encodeURIComponent(v.join(','));
+  };
   document.getElementById('copy').onclick=function(){
     navigator.clipboard.writeText(codes.join(',')).then(function(){
       document.getElementById('stat').textContent=' コピーしました';});
@@ -208,7 +219,7 @@ td.bt.t1{color:var(--t1)} td.bt.t2{color:var(--t2)} td.bt.t3{color:var(--t3)} td
     try{localStorage.removeItem(LS);}catch(e){}location.href='watchlist.html';
   };
   var tbl=document.getElementById('tbl');
-  if(!codes.length){tbl.innerHTML='<div class="empty">ランキングで銘柄を選んで「ウォッチリストを作成」を押すと、ここに一覧が出ます。</div>';return;}
+  if(!codes.length){tbl.innerHTML='<div class="empty">上の欄に銘柄コードを貼り付けて「表示」を押すか、ランキングで銘柄を選んで「ウォッチリストを作成」すると、ここに一覧が出ます。</div>';return;}
   fetch('ranking.json').then(function(r){return r.json();}).then(function(j){
     var map={};
     (j.groups||[]).forEach(function(g){(g.stocks||[]).forEach(function(s){s._grade=g.grade;s._gname=g.name;map[s.code]=s;});});

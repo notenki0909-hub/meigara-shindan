@@ -67,6 +67,36 @@ MK = {
     },
 }
 
+TERMS = {
+    "grade": ("業種級（A/B/C）",
+              "業種グループ内の<b>品質スコア中央値</b>で A＞B＞C。Aが最も質の高い企業が揃う"
+              "業種という序列（業種選びの目安）。個別銘柄の良し悪しは「品質」と「軍」で見る。"),
+    "tier": ("軍（1〜3軍）",
+             "業種グループ内で品質スコアの高い順に、上位25%を1軍・続く45%を2軍・残りを3軍。"
+             "カバレッジ「低」は最高2軍まで。品質スコアが十分高い銘柄は、強い業種にいるだけで"
+             "3軍に落ちないよう最低2軍を保証（1軍はグループ内上位の意味を残す）。6銘柄未満の"
+             "グループは軍分けせず「―」。矢印は前回比の方向（↑改善／→横ばい／↓悪化）。"),
+    "q": ("品質スコア（0〜110）",
+          "配当を評価しない、長期保有できる優良企業かのスコア。<b>業績×0.28＋財務×0.27＋"
+          "キャッシュフロー×0.15</b>（取得できたグループで再正規化）。既存の「銘柄選定スコア」"
+          "から配当の持続力（連続増配・増配率・配当性向・累進配当宣言など）を除いたもの。"),
+    "perf": ("業績", "売上・EPSの伸び（年率）、営業利益率、利益の安定度（営業利益のブレ）の"
+             "平均点（0〜110）。品質スコアの28%。"),
+    "fin": ("財務", "自己資本比率・D/E・ネットD/E・有利子負債÷営業CF（米国株はICRを含み"
+            "自己資本比率は参考）の平均点。品質スコアの27%。"),
+    "cf": ("CF（キャッシュフロー）", "営業CFの継続黒字・フリーCFの継続黒字・FCF配当性向の"
+           "平均点。品質スコアの15%。"),
+    "bt": ("買い時スコア（0〜110）",
+           "今の株価が割高すぎないか。配当利回りは使わず、<b>EV/EBIT対業種・FCF利回り・"
+           "PER割安度・PBR割安度を均等25%</b>で合成（欠損は中立60）。色＝買い場（割安圏）／"
+           "ほぼ妥当／やや割高／割高で見送りの4段階。品質とは別物で、質の評価には混ぜない。"),
+    "yield": ("利回り", "予想年間配当 ÷ 現在株価（予想配当利回り）。<b>採点には使わず参考表示のみ。</b>"),
+    "cov": ("カバレッジ", "品質スコアの算出に使えたグループ数（業績・財務・CFの3つ中）。"
+            "高＝3/3・中＝2/3・低＝1以下。低い銘柄は財務やCFの履歴が短く点がぶれやすい。"),
+    "price": ("終値", "前営業日の終値。夜間更新のため当日ザラ場とはずれる。"),
+}
+
+
 DISC = ('本ページは、あらかじめ定めた基準（時価総額または指数構成）で抽出した銘柄について、'
         '公開データを機械的なルールで算出した「配当を含めない品質スコア」（業績・財務・'
         'キャッシュフロー）による分類です。配当利回りは参考表示で、採点には使っていません。'
@@ -295,6 +325,7 @@ def render(out, m):
     gen = out["generated_at"]
     c = out["counts"]
     unit = m["unit_price"]
+    terms_json = json.dumps(TERMS, ensure_ascii=False)
 
     tt = tuple(LC.load_bt_cfg()[f"tim_tiers_{out['market']}"])
 
@@ -327,15 +358,21 @@ def render(out, m):
             f'<td class="cv">{s.get("cov","―")}</td>'
             f'</tr>')
 
-    thead = ('<thead><tr>{rk}<th class="wl">☑</th><th>軍</th><th>コード</th><th>銘柄</th><th>業種</th>'
-             '<th class="n">品質</th><th class="n">業績</th><th class="n">財務</th>'
-             '<th class="n">CF</th><th class="n">買い時</th><th class="n">利回り</th>'
-             f'<th class="n">終値</th><th>カバレッジ</th></tr></thead>')
+    thead = ('<thead><tr>{rk}<th class="wl">☑</th>'
+             '<th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>業種</th>'
+             '<th class="n hdr" data-term="q">品質</th>'
+             '<th class="n hdr" data-term="perf">業績</th>'
+             '<th class="n hdr" data-term="fin">財務</th>'
+             '<th class="n hdr" data-term="cf">CF</th>'
+             '<th class="n hdr" data-term="bt">買い時</th>'
+             '<th class="n hdr" data-term="yield">利回り</th>'
+             '<th class="n hdr" data-term="price">終値</th>'
+             '<th class="hdr" data-term="cov">カバレッジ</th></tr></thead>')
 
     secs = []
     for g in out["groups"]:
         head = (f'<h2>{html.escape(g["name"])} '
-                f'<span class="grade grade{g["grade"]}">業種級 {g["grade"]}</span> '
+                f'<span class="grade grade{g["grade"]} hdr" data-term="grade">業種級 {g["grade"]}</span> '
                 f'<span class="gmeta">中央値 {_num(g["median"])} ／ {g["count"]}銘柄'
                 f'{"" if g["tiered"] else " ・ 少数のため軍分けなし"}</span></h2>')
         trs = "".join(row_html(s) for s in g["stocks"])
@@ -422,6 +459,16 @@ th.wl{{cursor:default}}
 #wlbar button.ghost{{background:var(--card);color:var(--muted);border-color:var(--line)}}
 #wlbar[hidden]{{display:none}}
 body.wlon{{padding-bottom:60px}}
+.hdr{{cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px}}
+.hdr:hover{{color:var(--accent)}}
+a.sumbtn.wlnav{{border-color:var(--accent);color:var(--accent);text-decoration:none}}
+a.sumbtn.wlnav b{{color:var(--accent)}}
+.terminfo{{position:relative;margin:8px 0 18px;padding:12px 36px 12px 14px;background:var(--info);
+  border:1px solid var(--accent);border-radius:8px;font-size:12.5px;line-height:1.7}}
+.terminfo b{{display:block;margin-bottom:4px;font-size:13.5px}}
+.terminfo[hidden]{{display:none}}
+.ticlose{{position:absolute;top:6px;right:8px;border:none;background:none;cursor:pointer;
+  font-size:15px;line-height:1;color:var(--muted);padding:4px}}
 .disc{{margin-top:30px;padding:12px;background:var(--wbg);border:1px solid var(--wbd);
   border-radius:8px;font-size:11.5px;color:var(--wfg)}}
 .searchbar{{display:flex;align-items:center;gap:8px;margin:14px 0 4px}}
@@ -451,17 +498,25 @@ section.grp[hidden]{{display:none}}
   <button type="button" class="sumbtn" data-tier="2軍"><b>{c['2軍']}</b>2軍</button>
   <button type="button" class="sumbtn" data-tier="3軍"><b>{c['3軍']}</b>3軍</button>
   <span class="sumbtn" style="cursor:default"><b>{c['excluded']}</b>対象外</span>
+  <a class="sumbtn wlnav" href="watchlist.html"><b>☆</b>ウォッチリスト</a>
 </div>
-<div class="sub" style="margin:-4px 0 12px">数字ボタンでその軍だけ表示（もう一度で解除）。品質＝配当抜きの質、業績/財務/CF＝その内訳、買い時＝割安さ（EV/EBIT・FCF利回り・PER/PBR割安度、配当は不使用）。左端□で選んで下部の「ウォッチリストを作成」。</div>
+<div class="sub" style="margin:-4px 0 12px">見出し（軍・品質・業績・財務・CF・買い時・利回り・カバレッジ・業種級）をクリックすると説明が出ます。数字ボタンでその軍だけ表示（もう一度で解除）。左端□で選んで下部の「ウォッチリストを作成」。</div>
+<div id="terminfo" class="terminfo" hidden>
+  <button type="button" id="terminfo-close" class="ticlose" aria-label="閉じる">✕</button>
+  <div id="terminfo-body"></div>
+</div>
 <div class="searchbar">
   <input id="q" type="search" placeholder="コード・銘柄名・業種で検索" autocomplete="off">
   <button id="qclear" type="button">クリア</button>
   <span class="hit" id="qhit"></span>
 </div>
 <details id="topbox"><summary>全体 品質スコア 上位50（業種横断）</summary>
-<table><thead><tr><th class="n">#</th><th class="wl">☑</th><th>軍</th><th>コード</th><th>銘柄</th><th>業種</th>
-<th class="n">品質</th><th class="n">業績</th><th class="n">財務</th><th class="n">CF</th>
-<th class="n">買い時</th><th class="n">利回り</th><th class="n">終値</th><th>カバレッジ</th></tr></thead>
+<table><thead><tr><th class="n">#</th><th class="wl">☑</th>
+<th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>業種</th>
+<th class="n hdr" data-term="q">品質</th><th class="n hdr" data-term="perf">業績</th>
+<th class="n hdr" data-term="fin">財務</th><th class="n hdr" data-term="cf">CF</th>
+<th class="n hdr" data-term="bt">買い時</th><th class="n hdr" data-term="yield">利回り</th>
+<th class="n hdr" data-term="price">終値</th><th class="hdr" data-term="cov">カバレッジ</th></tr></thead>
 <tbody>{gt}</tbody></table></details>
 {"".join(secs)}
 {exc}
@@ -517,6 +572,18 @@ section.grp[hidden]{{display:none}}
     if(!wlSet.size)return;
     location.href='watchlist.html?codes='+encodeURIComponent(Array.from(wlSet).join(','));
   }});
+  // ---- 見出しクリックで用語説明 ----
+  var TERMS={terms_json};
+  var tibox=document.getElementById('terminfo'),tibody=document.getElementById('terminfo-body');
+  document.querySelectorAll('.hdr').forEach(function(el){{
+    el.addEventListener('click',function(e){{
+      e.stopPropagation();
+      var t=TERMS[el.dataset.term];if(!t)return;
+      tibody.innerHTML='<b>'+t[0]+'</b>'+t[1];
+      tibox.hidden=false;tibox.scrollIntoView({{behavior:'smooth',block:'nearest'}});
+    }});
+  }});
+  document.getElementById('terminfo-close').addEventListener('click',function(){{tibox.hidden=true;}});
 }})();
 </script>
 </div></body></html>"""
@@ -556,10 +623,14 @@ td.bt.t1{{color:var(--t1)}} td.bt.t2{{color:var(--t2)}} td.bt.t3{{color:var(--t3
 </style></head><body><div class="wrap">
 <h1>ウォッチリスト</h1>
 <div class="sub"><a href="index.html">← ランキングに戻る</a>　｜　{html.escape(m['title'])}</div>
-<div class="box"><b>この一覧のコード</b>（コピーして保存・共有できます。URL の <code>?codes=</code> でも復元）
-<textarea id="codestr" readonly></textarea>
-<div style="margin-top:6px"><button id="copy">コピー</button>
-<button id="clear" class="ghost">クリア</button><span id="stat" class="sub"></span></div></div>
+<div class="box"><b>銘柄リストを貼り付けて表示</b>
+（コード／ティッカーをカンマ・空白・改行区切りで。保存・共有した文字列の復元にも。URL の <code>?codes=</code> でも可）
+<textarea id="codestr" placeholder="例：7203, 9433, 6146"></textarea>
+<div style="margin-top:6px">
+  <button id="show">表示</button>
+  <button id="copy" class="ghost">コピー</button>
+  <button id="clear" class="ghost">クリア</button>
+  <span id="stat" class="sub"></span></div></div>
 <div id="tbl"></div>
 {th.THEME_BAR}
 <script>
@@ -570,7 +641,14 @@ td.bt.t1{{color:var(--t1)}} td.bt.t2{{color:var(--t2)}} td.bt.t3{{color:var(--t3
   var codes=(params.get('codes')||localStorage.getItem(LS)||'').split(/[\\s,]+/).filter(Boolean);
   codes=Array.from(new Set(codes));
   try{{localStorage.setItem(LS,codes.join(','));}}catch(e){{}}
-  document.getElementById('codestr').value=codes.join(',');
+  var ta=document.getElementById('codestr');
+  ta.value=codes.join(', ');
+  document.getElementById('show').onclick=function(){{
+    var v=(ta.value||'').split(/[\\s,]+/).filter(Boolean);
+    v=Array.from(new Set(v.map(function(x){{return x.toUpperCase();}})));
+    try{{localStorage.setItem(LS,v.join(','));}}catch(e){{}}
+    location.href='watchlist.html?codes='+encodeURIComponent(v.join(','));
+  }};
   document.getElementById('copy').onclick=function(){{
     navigator.clipboard.writeText(codes.join(',')).then(function(){{
       document.getElementById('stat').textContent=' コピーしました';}});
@@ -579,7 +657,7 @@ td.bt.t1{{color:var(--t1)}} td.bt.t2{{color:var(--t2)}} td.bt.t3{{color:var(--t3
     try{{localStorage.removeItem(LS);}}catch(e){{}}location.href='watchlist.html';
   }};
   var tbl=document.getElementById('tbl');
-  if(!codes.length){{tbl.innerHTML='<div class="empty">ランキングで銘柄を選んで「ウォッチリストを作成」を押すと、ここに一覧が出ます。</div>';return;}}
+  if(!codes.length){{tbl.innerHTML='<div class="empty">上の欄に銘柄コードを貼り付けて「表示」を押すか、ランキングで銘柄を選んで「ウォッチリストを作成」すると、ここに一覧が出ます。</div>';return;}}
   fetch('ranking.json').then(function(r){{return r.json();}}).then(function(j){{
     var map={{}};
     (j.groups||[]).forEach(function(g){{(g.stocks||[]).forEach(function(s){{s._grade=g.grade;s._gname=g.name;map[s.code]=s;}});}});

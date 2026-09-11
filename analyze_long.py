@@ -185,12 +185,15 @@ def _buytiming(raw, rowmap, seckey, market, pbr_pairs):
         "ev_ebit": ev_ebit, "ev_median": med, "ev_vs": ev_vs, "ev_score": ev_score,
         "fcf_yield": fy, "fcf_score": fy_score,
         "per_band": per_band, "per_vs": per_vs, "per_score": per_sc,
-        "per_disp": rowmap.get("per_vs_sector", {}).get("disp"),
-        "per_ref": rowmap.get("per_vs_sector", {}).get("ref"),
+        "per_band_disp": rowmap.get("per_band_pos", {}).get("disp"),   # 「過去27〜37倍／現在42.9倍＝割安度0/100」
+        "per_vs_disp": rowmap.get("per_vs_sector", {}).get("disp"),     # 生PER「42.9倍」
+        "per_band_score": LC.score_val("per_band_pos", per_band, rules),
+        "per_vs_score": LC.score_val("per_vs_sector", per_vs, rules),
         "per_rb": rowmap.get("per_band_pos", {}).get("rangeband"),
         "pbr_band": pbr_band, "pbr_vs": pbr_vs, "pbr_score": pbr_sc,
-        "pbr_disp": rowmap.get("pbr_vs_sector", {}).get("disp"),
-        "pbr_ref": rowmap.get("pbr_vs_sector", {}).get("ref"),
+        "pbr_vs_disp": rowmap.get("pbr_vs_sector", {}).get("disp"),     # 生PBR「7.52倍」
+        "pbr_band_score": LC.score_val("pbr_band_pos", pbr_band, rules),
+        "pbr_vs_score": LC.score_val("pbr_vs_sector", pbr_vs, rules),
         "pbr": raw["pbr"], "pbr_pairs": pbr_pairs,
     }
     return total, (scored, poss, cov), comp, d
@@ -282,11 +285,25 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
         w = "割安" if vs < 0.95 else "ほぼ妥当" if vs <= 1.2 else "割高"
         return f"業種平均の {vs:.2f} 倍＝{w}。"
 
-    def _why_band(pos):
+    def _why_band(pos, rb, kind="per"):
         if not LC.is_num(pos):
             return "過去レンジを引くだけの履歴がありません。"
+        u = "%" if kind == "pct" else "倍"
+        cur = rb.get("current") if rb else None
+        vals = [v for _, v in (rb.get("hist") or [])] if rb else []
+        lo, hi = (min(vals), max(vals)) if vals else (None, None)
+        head = ""
+        if LC.is_num(cur) and LC.is_num(lo):
+            if cur > hi:
+                head = (f"現在 {cur:.1f}{u} は過去{len(vals)}年のレンジ（{lo:.1f}〜{hi:.1f}{u}）を"
+                        f"上回る過去最高水準。グラフでは点線＋▶が現在値（上端の外側）、折れ線が年次実績。")
+            elif cur < lo:
+                head = (f"現在 {cur:.1f}{u} は過去{len(vals)}年のレンジ（{lo:.1f}〜{hi:.1f}{u}）を"
+                        f"下回る過去最安水準。")
+            else:
+                head = f"現在 {cur:.1f}{u}（過去{len(vals)}年 {lo:.1f}〜{hi:.1f}{u} の範囲内）。"
         w = "下端寄り＝自社史比で割安" if pos >= 0.6 else "中ほど" if pos >= 0.2 else "上端寄り＝自社史比で割高"
-        return f"過去レンジ内の位置は割安度 {pos*100:.0f}/100（{w}）。"
+        return f"{head}過去レンジ内の位置は割安度 {pos*100:.0f}/100（{w}）。"
 
     bt_rows = [
         _detail_row(
@@ -306,26 +323,35 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
              "FCFまたは時価総額が取得できませんでした。"),
             btd["fcf_score"], figure=fcf_fig),
         _detail_row(
-            "per_band_pos", "PER 自社過去レンジ内の位置", btd.get("per_ref") or "履歴不足で算出不可",
-            "0＝レンジ上端（高PER＝割高）／100＝下端（低PER＝割安）。自社の物差しで割安か。",
-            _why_band(btd["per_band"]), btd.get("per_score"), figure=per_rb_fig),
+            "per_band_pos", "PER 自社過去レンジ内の位置",
+            btd.get("per_band_disp") or "履歴不足で算出不可",
+            "0＝レンジ上端（高PER＝割高）／100＝下端（低PER＝割安）。自社の物差しで割安か。"
+            "グラフの折れ線＝年次の実績PER、点線＋▶＝現在値（レンジを外れる年もある）。",
+            _why_band(btd["per_band"], btd.get("per_rb"), "per"),
+            btd.get("per_band_score"), figure=per_rb_fig),
         _detail_row(
-            "per_vs_sector", "PER 対業種平均", btd.get("per_disp") or "―",
+            "per_vs_sector", "PER 対業種平均", btd.get("per_vs_disp") or "―",
             "1.0未満＝業種平均より安い。0.95以下で割安・1.2超で割高。業種をまたいだ比較はしない。",
-            _why_vs(btd["per_vs"], "mul"), btd.get("per_score")),
+            _why_vs(btd["per_vs"], "mul"), btd.get("per_vs_score")),
         _detail_row(
             "pbr_band_pos", "PBR 自社過去レンジ内の位置",
             (f"割安度 {btd['pbr_band']*100:.0f}/100" if LC.is_num(btd["pbr_band"]) else "履歴不足で算出不可"),
-            "0＝レンジ上端（高PBR＝割高）／100＝下端（低PBR＝割安）。常に高PBRの優良企業でも自社史比で見られる。",
-            _why_band(btd["pbr_band"]), btd.get("pbr_score"), figure=pbr_rb_fig),
+            "0＝レンジ上端（高PBR＝割高）／100＝下端（低PBR＝割安）。常に高PBRの優良企業でも自社史比で見られる。"
+            "グラフの折れ線＝年次の実績PBR、点線＋▶＝現在値。",
+            _why_band(btd["pbr_band"],
+                      {"hist": btd["pbr_pairs"], "current": btd["pbr"]}, "per"),
+            btd.get("pbr_band_score"), figure=pbr_rb_fig),
         _detail_row(
-            "pbr_vs_sector", "PBR 対業種平均", btd.get("pbr_disp") or "―",
+            "pbr_vs_sector", "PBR 対業種平均", btd.get("pbr_vs_disp") or "―",
             "1.0未満＝業種平均より安い。1.0以下で割安・1.4超で割高。1倍割れは東証改革の是正テーマ。",
-            _why_vs(btd["pbr_vs"], "mul"), btd.get("pbr_score")),
+            _why_vs(btd["pbr_vs"], "mul"), btd.get("pbr_vs_score")),
     ]
+    _pc = f"{btd['per_score']:.0f}" if LC.is_num(btd.get("per_score")) else "―"
+    _bc = f"{btd['pbr_score']:.0f}" if LC.is_num(btd.get("pbr_score")) else "―"
     bt_note = ('<p class="sub">買い時スコア＝<b>EV/EBIT対業種・FCF利回り・PER割安度・PBR割安度</b>を'
-               '均等25%で合成（欠損は中立60）。PER割安度＝上の「PER 自社レンジ」＋「PER 対業種」の平均、'
-               'PBR割安度も同様。配当利回り・増配・累進配当宣言は一切使っていません。</p>')
+               '均等25%で合成（欠損は中立60）。各行の点はその指標単体の点。'
+               f'<b>PER割安度＝「PER 自社レンジ」と「PER 対業種」の平均＝{_pc}</b>、'
+               f'<b>PBR割安度＝同様に{_bc}</b>。配当利回り・増配・累進配当宣言は一切使っていません。</p>')
     bt_html = bt_note + "".join(bt_rows)
 
     # 参考欄
@@ -390,6 +416,13 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
 <title>{meta['name']}（{meta['code']}）10年保有できるか</title>
 <style>
 {analyze.THEME_CSS}
+/* analyze.THEME_CSS は --hi/--mid/--lo/--na のみ定義。ここで別名・派生色を補う */
+:root{{--t1:var(--hi);--t2:var(--mid);--t3:var(--lo);--gC:var(--lo);
+  --field:color-mix(in srgb,var(--fg) 4%,var(--card));
+  --th:color-mix(in srgb,var(--fg) 6%,var(--card));
+  --wbg:color-mix(in srgb,var(--mid) 12%,var(--bg));
+  --wbd:color-mix(in srgb,var(--mid) 34%,var(--line));
+  --wfg:var(--fg);--info:color-mix(in srgb,var(--accent) 12%,var(--card))}}
 *{{box-sizing:border-box}}
 body{{margin:0;background:var(--bg);color:var(--fg);
   font-family:"Segoe UI","Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
