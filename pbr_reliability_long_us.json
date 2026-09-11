@@ -1,0 +1,63 @@
+{
+ "_meta": {
+  "説明": "業種ごとにPBR割安度スコアが張り付いた(<=25点 or >=105点)割合を測り、n>=10 かつ張り付き率>=30.0% の業種を『PBR不信頼』としてbuytiming_score から pbr_cheap を除外(3指標均等33%)する。自社株買いによる自己資本の構造的な変動でPBRの過去レンジ自体が非定常になり、『過去の下限に近い＝底値』という前提が崩れる業種を機械的に検出する目的。calib_long.py 実行のたびに再算出される（手で編集しない）。",
+  "min_n": 10,
+  "threshold_pct": 30.0
+ },
+ "unreliable_sectors": [
+  "Communication Services",
+  "Consumer Discretionary",
+  "Consumer Staples",
+  "Health Care",
+  "Information Technology",
+  "Materials",
+  "Real Estate",
+  "Utilities"
+ ],
+ "detail": {
+  "Consumer Staples": {
+   "n": 31,
+   "extreme_rate_pct": 51.6
+  },
+  "Health Care": {
+   "n": 54,
+   "extreme_rate_pct": 48.1
+  },
+  "Information Technology": {
+   "n": 79,
+   "extreme_rate_pct": 44.3
+  },
+  "Consumer Discretionary": {
+   "n": 43,
+   "extreme_rate_pct": 41.9
+  },
+  "Utilities": {
+   "n": 31,
+   "extreme_rate_pct": 38.7
+  },
+  "Real Estate": {
+   "n": 26,
+   "extreme_rate_pct": 38.5
+  },
+  "Communication Services": {
+   "n": 24,
+   "extreme_rate_pct": 33.3
+  },
+  "Materials": {
+   "n": 20,
+   "extreme_rate_pct": 30.0
+  },
+  "Industrials": {
+   "n": 71,
+   "extreme_rate_pct": 26.8
+  },
+  "Financials": {
+   "n": 69,
+   "extreme_rate_pct": 17.4
+  },
+  "Energy": {
+   "n": 21,
+   "extreme_rate_pct": 14.3
+  }
+ }
+}

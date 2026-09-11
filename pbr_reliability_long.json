@@ -1,0 +1,74 @@
+{
+ "_meta": {
+  "説明": "業種ごとにPBR割安度スコアが張り付いた(<=25点 or >=105点)割合を測り、n>=10 かつ張り付き率>=30.0% の業種を『PBR不信頼』としてbuytiming_score から pbr_cheap を除外(3指標均等33%)する。自社株買いによる自己資本の構造的な変動でPBRの過去レンジ自体が非定常になり、『過去の下限に近い＝底値』という前提が崩れる業種を機械的に検出する目的。calib_long.py 実行のたびに再算出される（手で編集しない）。",
+  "min_n": 10,
+  "threshold_pct": 30.0
+ },
+ "unreliable_sectors": [],
+ "detail": {
+  "精密機器": {
+   "n": 11,
+   "extreme_rate_pct": 27.3
+  },
+  "不動産業": {
+   "n": 11,
+   "extreme_rate_pct": 18.2
+  },
+  "輸送用機器": {
+   "n": 28,
+   "extreme_rate_pct": 17.9
+  },
+  "卸売業": {
+   "n": 35,
+   "extreme_rate_pct": 17.1
+  },
+  "建設業": {
+   "n": 24,
+   "extreme_rate_pct": 16.7
+  },
+  "電気機器": {
+   "n": 42,
+   "extreme_rate_pct": 16.7
+  },
+  "電気・ガス業": {
+   "n": 12,
+   "extreme_rate_pct": 16.7
+  },
+  "機械": {
+   "n": 35,
+   "extreme_rate_pct": 14.3
+  },
+  "小売業": {
+   "n": 24,
+   "extreme_rate_pct": 12.5
+  },
+  "その他製品": {
+   "n": 16,
+   "extreme_rate_pct": 12.5
+  },
+  "陸運業": {
+   "n": 17,
+   "extreme_rate_pct": 11.8
+  },
+  "食料品": {
+   "n": 26,
+   "extreme_rate_pct": 11.5
+  },
+  "サービス業": {
+   "n": 21,
+   "extreme_rate_pct": 9.5
+  },
+  "情報・通信業": {
+   "n": 41,
+   "extreme_rate_pct": 7.3
+  },
+  "化学": {
+   "n": 38,
+   "extreme_rate_pct": 5.3
+  },
+  "医薬品": {
+   "n": 20,
+   "extreme_rate_pct": 5.0
+  }
+ }
+}

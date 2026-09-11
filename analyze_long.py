@@ -61,6 +61,24 @@ def _sector_avg_long(market="jp"):
     return _SEC_AVG_LONG[market]
 
 
+_PBR_REL_LONG = {"jp": None, "us": None}
+
+
+def _pbr_unreliable_sectors(market="jp"):
+    """pbr_reliability_long{,_us}.json（calib_long.py が生成）。
+    自社株買い等で自己資本が構造的に振れ、PBRの過去レンジ自体が非定常になりやすい業種の集合。
+    この集合に含まれる業種は買い時スコアからPBR割安度を除外する（_buytiming 参照）。無ければ空集合＝全業種PBRを使う。"""
+    if _PBR_REL_LONG[market] is None:
+        fn = "pbr_reliability_long.json" if market == "jp" else "pbr_reliability_long_us.json"
+        p = os.path.join(HERE, fn)
+        try:
+            data = analyze.load_json(fn) if os.path.isfile(p) else {}
+            _PBR_REL_LONG[market] = set(data.get("unreliable_sectors") or [])
+        except Exception:
+            _PBR_REL_LONG[market] = set()
+    return _PBR_REL_LONG[market]
+
+
 # ---------------------------------------------------------------- 生データ抽出
 def _raw_valuation(yd):
     isr, bsr, cfr = yd["is_rows"], yd["bs_rows"], yd["cf_rows"]
@@ -180,8 +198,11 @@ def _buytiming(raw, rowmap, seckey, market, pbr_pairs):
 
     comp = {"ev_ebit_vs_sector": ev_score, "fcf_yield": fy_score,
             "per_cheap": per_sc, "pbr_cheap": pbr_sc}
-    total, scored, poss, cov = LC.buytiming_score(comp)
+    pbr_unreliable = seckey in _pbr_unreliable_sectors(market)
+    weights = {"ev_ebit_vs_sector": 1 / 3, "fcf_yield": 1 / 3, "per_cheap": 1 / 3} if pbr_unreliable else None
+    total, scored, poss, cov = LC.buytiming_score(comp, weights=weights)
     d = {
+        "pbr_unreliable": pbr_unreliable,
         "ev_ebit": ev_ebit, "ev_median": med, "ev_vs": ev_vs, "ev_score": ev_score,
         "fcf_yield": fy, "fcf_score": fy_score,
         "per_band": per_band, "per_vs": per_vs, "per_score": per_sc,
@@ -348,10 +369,19 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
     ]
     _pc = f"{btd['per_score']:.0f}" if LC.is_num(btd.get("per_score")) else "―"
     _bc = f"{btd['pbr_score']:.0f}" if LC.is_num(btd.get("pbr_score")) else "―"
-    bt_note = ('<p class="sub">買い時スコア＝<b>EV/EBIT対業種・FCF利回り・PER割安度・PBR割安度</b>を'
-               '均等25%で合成（欠損は中立60）。各行の点はその指標単体の点。'
-               f'<b>PER割安度＝「PER 自社レンジ」と「PER 対業種」の平均＝{_pc}</b>、'
-               f'<b>PBR割安度＝同様に{_bc}</b>。配当利回り・増配・累進配当宣言は一切使っていません。</p>')
+    if btd.get("pbr_unreliable"):
+        bt_note = ('<p class="sub">買い時スコア＝<b>EV/EBIT対業種・FCF利回り・PER割安度</b>を'
+                   '均等33%で合成（欠損は中立60）。各行の点はその指標単体の点。'
+                   f'<b>PER割安度＝「PER 自社レンジ」と「PER 対業種」の平均＝{_pc}</b>。'
+                   'この業種は自社株買い等で自己資本が構造的に変動しやすく、'
+                   '「PBRが過去レンジの下限に近い＝底値」という前提が成り立ちにくいため、'
+                   f'買い時スコアからPBR割安度（参考値{_bc}）を除外しています。'
+                   '配当利回り・増配・累進配当宣言は一切使っていません。</p>')
+    else:
+        bt_note = ('<p class="sub">買い時スコア＝<b>EV/EBIT対業種・FCF利回り・PER割安度・PBR割安度</b>を'
+                   '均等25%で合成（欠損は中立60）。各行の点はその指標単体の点。'
+                   f'<b>PER割安度＝「PER 自社レンジ」と「PER 対業種」の平均＝{_pc}</b>、'
+                   f'<b>PBR割安度＝同様に{_bc}</b>。配当利回り・増配・累進配当宣言は一切使っていません。</p>')
     bt_html = bt_note + "".join(bt_rows)
 
     # 参考欄

@@ -142,12 +142,15 @@ def composite(sub_keys, raw_vals, rules):
     return (round(sum(pts) / len(pts), 1) if pts else None), parts
 
 
-def buytiming_score(comp_scores):
+def buytiming_score(comp_scores, weights=None):
     """comp_scores: {"ev_ebit_vs_sector": s|None, "fcf_yield": s|None,
     "per_cheap": s|None, "pbr_cheap": s|None}。均等ウェイト、欠損は missing_fill で中立化。
+    weights を渡すとその業種専用のウェイトで合成する（例：自社株買いで自己資本が構造的に
+    振れPBRの判定が不安定な業種向けに、pbr_cheap を除いた3指標均等33%）。省略時は
+    buytiming_long.json の既定ウェイト（4指標均等25%）。
     返り値: (score 0..110, scored_count, possible_count, cov_label)"""
     cfg = load_bt_cfg()
-    w = cfg["weights"]
+    w = weights if weights is not None else cfg["weights"]
     fill = cfg.get("missing_fill", 60)
     num = den = 0.0
     scored = 0

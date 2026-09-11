@@ -4,7 +4,8 @@
     "設計": "4つの別概念の割安シグナルを均等ウェイト（各25%）で合成。EV/EBIT対業種・FCF利回り・PER割安度（自社レンジ＋対業種の合成）・PBR割安度（自社レンジ＋対業種の合成）。欠損した合成指標は中立（60点）で埋める。",
     "根拠": "複合>単一指標（O'Shaughnessy VC2・46年）、均等ウェイトが定石、EV/EBITとFCF利回りは40年研究で1・2位、Fed model(益回り−金利)は不採用(Asness)、買い時に品質(ROIC等)は混ぜない(Magic Formula)。",
     "校正": "good/warn とラベルしきい値（tim_tiers）は初回フルバッチ後に実分布で再校正すること（rank_long.py が分布を出力）。ここは仮値。",
-    "スコア補間": "analyze.score_metric を流用（warn=60・good=100・別格ライン最大110・下限20の直線補間）。"
+    "スコア補間": "analyze.score_metric を流用（warn=60・good=100・別格ライン最大110・下限20の直線補間）。",
+    "PBR業種条件付き除外（2026-09-11追加）": "ここに書いた weights は『PBR信頼できる業種』の既定値。自社株買い等で自己資本が構造的に振れPBRの過去レンジが非定常になりやすい業種（pbr_reliability_long{,_us}.json の unreliable_sectors、calib_long.py が業種別の張り付き率(<=25点/>=105点の割合、n>=10かつ>=30%)から機械的に判定・毎回再算出）は、analyze_long.py が pbr_cheap を除いた3指標(ev_ebit_vs_sector/fcf_yield/per_cheap)均等33%で合成し直す（long_common.buytiming_score の weights 引数）。理由：『PBRが過去レンジの下限に近い＝底値』という前提は、自己資本が安定した資産集約型業種でのみ成り立ち、自社株買いで分母が動く業種では機能しない。2026-09-11時点でJP=0業種、US=8業種（Communication Services/Consumer Discretionary/Consumer Staples/Health Care/Information Technology/Materials/Real Estate/Utilities）が該当。"
   },
   "weights": {
     "ev_ebit_vs_sector": 0.25,
@@ -26,6 +27,6 @@
     "pbr_cheap": ["pbr_band_pos", "pbr_vs_sector"]
   },
   "tim_tiers_jp": [85, 65, 50],
-  "tim_tiers_us": [88, 66, 52],
-  "_tim_tiers_note": "買い場（割安圏）/ ほぼ妥当 / やや割高 / 割高で見送り の3閾値。2026-09-09 の初回フルバッチで校正。JP：買い時スコア分布 n=433 median70 p25 56 p75 87 →『買い場』を上位≒25%（≥85）、割高を下位≒20%（<50）。US：n=403 median72 p25 56 p75 90 →（≥88 / ≥66 / ≥52）。母集団やスコア構成が変わったら calib_long.py の分布で再校正。"
+  "tim_tiers_us": [90, 64, 49],
+  "_tim_tiers_note": "買い場（割安圏）/ ほぼ妥当 / やや割高 / 割高で見送り の3閾値。2026-09-09 の初回フルバッチで校正。JP：買い時スコア分布 n=433 median70 p25 56 p75 87 →『買い場』を上位≒25%（≥85）、割高を下位≒20%（<50）。US：n=403 median72 p25 56 p75 90 →（≥88 / ≥66 / ≥52）。母集団やスコア構成が変わったら calib_long.py の分布で再校正。2026-09-11再校正（PBR業種条件付き除外の導入に伴う）：JPはPBR不信頼業種0のため分布ほぼ不変→[85,65,50]維持（買い場28%・割高18%）。USは8業種でPBR除外の影響で分布シフト（n=403 median71 p25 53 p75 92）→[90,64,49]に変更（買い場28%・割高21%）。"
 }
