@@ -23,6 +23,7 @@ import glob
 import html
 import json
 import os
+import shutil
 import statistics as st
 
 import rank as _jp          # THEME_*, TIER_CLASS, DIR_CLASS を流用（配色をサイトと統一）
@@ -46,6 +47,7 @@ MK = {
         "title": "10年保有できる優良企業ランキング（日本株）",
         "screen_line": "母集団＝時価総額3,000億円以上（TOPIX500相当）／金融・REITを除く。"
                        "品質スコア（配当は不使用）＋買い時スコア（EV/EBIT・FCF利回り・PER/PBR割安度）。",
+        "terms_src": "long_terms.html",
         "unit_price": "円",
     },
     "us": {
@@ -59,6 +61,7 @@ MK = {
         "title": "10年保有できる優良企業ランキング（米国株）",
         "screen_line": "母集団＝S&P500 メンバーシップ（黒字継続・流動性・業種代表性を"
                        "委員会が審査済み）／金融・REITは対象外。品質スコア（配当は不使用）＋買い時スコア。",
+        "terms_src": "long_us_terms.html",
         "unit_price": "$",
     },
 }
@@ -479,7 +482,7 @@ section.grp[hidden]{{display:none}}
 .formula{{font-size:11.5px;color:var(--muted);background:var(--field);border:1px solid var(--line);
   border-radius:8px;padding:8px 12px;margin:6px 0 4px}}
 </style></head><body><div class="wrap">
-<div class="topbar"><h1>{html.escape(m["title"])}</h1></div>
+<div class="topbar"><h1>{html.escape(m["title"])}</h1><a href="terms.html">利用規約・免責事項</a></div>
 {th.THEME_BAR}
 <div class="sub">生成 {gen}　｜　{html.escape(m["screen_line"])}</div>
 <div class="formula">品質スコア ＝ 業績×0.28 ＋ 財務×0.27 ＋ キャッシュフロー×0.15（取得できた
@@ -689,6 +692,10 @@ def main():
     new_html = render(out, m)
     open(os.path.join(m["out_dir"], "watchlist.html"), "w",
          encoding="utf-8").write(render_watchlist(out, m))
+
+    terms_src = os.path.join(HERE, m["terms_src"])
+    if os.path.isfile(terms_src):
+        shutil.copyfile(terms_src, os.path.join(m["out_dir"], "terms.html"))
 
     idx = os.path.join(m["out_dir"], "index.html")
     rjson = os.path.join(m["out_dir"], "ranking.json")
