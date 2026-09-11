@@ -128,6 +128,10 @@ tr.detail td{background:var(--field);padding:10px 12px}
 tr.detail .lots{font-size:12px}
 tr.detail .lots div{padding:2px 0}
 tr.detail .dnote{margin-top:8px;font-size:11.5px;color:var(--muted)}
+.divhist{margin-top:10px}
+.divhist table{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:6px}
+.divhist th,.divhist td{padding:3px 6px;text-align:right;border-bottom:1px solid var(--line)}
+.divhist th:first-child,.divhist td:first-child{text-align:left}
 td.x{width:30px;text-align:center}
 td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--muted);border-color:var(--line);border-radius:6px}
 </style></head><body><div class="wrap">
@@ -413,6 +417,70 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
     return best;
   }
 
+  // ---- 個別銘柄の配当推移グラフ・受取実績（行クリックで展開時に遅延読み込み）----
+  var divHistCache = {};
+  function drawDivHistChart(divs){
+    var W = 700, H = 140, padL = 46, padR = 10, padT = 10, padB = 20;
+    var n = divs.length;
+    var bw = (W - padL - padR) / n;
+    var maxV = Math.max.apply(null, divs.map(function(d){ return d[1]; })) || 1;
+    var scaleMax = Math.ceil(maxV * 1.15 * 100) / 100;
+    var y0 = H - padB;
+    var parts = [];
+    for (var i = 0; i <= 2; i++) {
+      var gv = scaleMax * i / 2;
+      var gy = y0 - (y0 - padT) * (i / 2);
+      parts.push('<line x1="' + padL + '" y1="' + gy + '" x2="' + (W - padR) + '" y2="' + gy + '" stroke="var(--line)" stroke-width="1"/>');
+      parts.push('<text x="' + (padL - 6) + '" y="' + (gy + 3) + '" font-size="9" fill="var(--muted)" text-anchor="end">' + gv.toFixed(2) + '</text>');
+    }
+    divs.forEach(function(d, i){
+      var hh = (y0 - padT) * (scaleMax ? d[1] / scaleMax : 0);
+      var x = padL + i * bw + bw * 0.15, w = Math.max(1, bw * 0.7);
+      var y = y0 - hh;
+      var safeDate = String(d[0]).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+      parts.push('<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + Math.max(0, hh) + '" fill="var(--accent)" rx="1"><title>' + safeDate + '　' + yen(d[1]) + '/株</title></rect>');
+    });
+    parts.push('<text x="' + padL + '" y="' + (H - 4) + '" font-size="9" fill="var(--muted)">' + divs[0][0].slice(0,7) + '</text>');
+    parts.push('<text x="' + (W - padR) + '" y="' + (H - 4) + '" font-size="9" fill="var(--muted)" text-anchor="end">' + divs[n-1][0].slice(0,7) + '</text>');
+    return '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;height:auto;display:block">' + parts.join('') + '</svg>';
+  }
+  function renderDivHist(code, container){
+    if (divHistCache[code] !== undefined) { container.innerHTML = divHistCache[code]; return; }
+    var codeLots = lots.filter(function(l){ return l.code === code; })
+      .slice().sort(function(a,b){ return a.date < b.date ? -1 : (a.date > b.date ? 1 : 0); });
+    loadPD(code).then(function(pd){
+      var divs = (pd.divs || []).slice().sort(function(a,b){ return a[0] < b[0] ? -1 : (a[0] > b[0] ? 1 : 0); });
+      var html;
+      if (!divs.length) {
+        html = '<div class="dnote">この銘柄の配当履歴データがありません。</div>';
+      } else {
+        var chartSvg = drawDivHistChart(divs);
+        var firstBuy = codeLots.length ? codeLots[0].date : null;
+        var tableHtml = '<div class="dnote">配当データがありません。</div>';
+        if (firstBuy) {
+          var actual = divs.filter(function(d){ return d[0] >= firstBuy; }).slice().reverse();
+          if (actual.length) {
+            var rowsHtml = actual.map(function(d){
+              var sharesAt = codeLots.reduce(function(a,l){ return l.date <= d[0] ? a + l.shares : a; }, 0);
+              var received = sharesAt * d[1];
+              return '<tr><td>' + d[0] + '</td><td>' + yen(d[1]) + '</td><td>' + sharesAt.toLocaleString('ja-JP') + '株</td><td>' + yen(received) + '</td></tr>';
+            }).join('');
+            tableHtml = '<table><thead><tr><th>確定日</th><th>1株配当</th><th>当時の保有株数</th><th>受取見込み額</th></tr></thead>'
+              + '<tbody>' + rowsHtml + '</tbody></table>';
+          } else {
+            tableHtml = '<div class="dnote">保有開始日以降の配当の確定はまだありません。</div>';
+          }
+        }
+        html = chartSvg + tableHtml
+          + '<div class="dnote">グラフはyfinanceで取得できる配当履歴の全期間（権利落ち日ベース）における1株あたり配当額の推移です。'
+          + '受取見込み額は、確定日（権利落ち日）時点で保有していた株数から機械計算した参考値です。'
+          + '実際の入金額・入金日は証券会社の取引履歴でご確認ください。</div>';
+      }
+      divHistCache[code] = html;
+      container.innerHTML = html;
+    });
+  }
+
   function addOneLot(code, shares, price, date, clearInputs, onDone){
     code = (code || '').trim().toUpperCase();
     shares = parseFloat(shares);
@@ -689,10 +757,16 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
     if (!tr) return;
     var idx = tr.dataset.idx;
     var d = $('holdtable').querySelector('tr.detail[data-idx="' + idx + '"]');
-    if (d) d.hidden = !d.hidden;
+    if (!d) return;
+    d.hidden = !d.hidden;
+    if (!d.hidden) {
+      var dh = d.querySelector('.divhist');
+      if (dh) renderDivHist(dh.dataset.code, dh.querySelector('.divhist-body'));
+    }
   });
 
   function render(){
+    divHistCache = {}; // lots が変わった可能性があるので配当実績の再計算キャッシュを破棄
     fetch('ranking.json', {cache:'no-cache'}).then(function(r){ return r.json(); }).then(function(j){
       $('asof').textContent = '対象データ：' + (j.generated_at || '') + ' 時点のランキング';
       var byCode = {};
@@ -777,7 +851,9 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
         }).join('');
         var detail = '<tr class="detail" data-idx="' + idx + '" hidden><td colspan="10"><div class="lots">'
           + '<b>購入ロット内訳</b>' + lotRows
-          + '<div class="dnote">配当金の推移グラフ・支払日ごとの実績は今後のアップデートで追加予定です。個別銘柄の詳しいレポート（業績・財務・配当推移など）は'
+          + '<div class="divhist" data-code="' + h.code + '"><b>配当推移・受取実績</b>'
+          + '<div class="divhist-body">読み込み中…</div></div>'
+          + '<div class="dnote">個別銘柄の詳しいレポート（業績・財務・配当推移など）は'
           + (h.missing ? 'コードをご確認ください。' : ('<a href="reports/' + h.code + '.html" target="_blank" rel="noopener">こちら</a>でご覧いただけます。'))
           + '</div></div></td></tr>';
         return main + detail;
