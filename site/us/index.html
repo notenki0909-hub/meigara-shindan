@@ -153,7 +153,7 @@ body.wlon{padding-bottom:60px}
   </div>
 </div>
 
-<div class="sub">生成 2026-09-11T23:55:10　｜　スクリーン：予想利回り ≥ 1.5% ・ 直近5年 減配なし ・ 母集団：S&amp;P500+400+600 (S&amp;P Composite 1500)　｜　<a href="guide.html">使い方・見方</a></div>
+<div class="sub">生成 2026-09-12T00:20:25　｜　スクリーン：予想利回り ≥ 1.5% ・ 直近5年 減配なし ・ 母集団：S&amp;P500+400+600 (S&amp;P Composite 1500)　｜　<a href="guide.html">使い方・見方</a></div>
 <div class="sub">表の見出し（軍・終値・選定・買い時・利回り・増配・カバレッジ・業種級）をクリックすると説明が出ます。左端の□にチェックを入れて下部の「ウォッチリストを作成」を押すと、その銘柄だけの一覧を作れます。</div>
 <div class="summary">
   <button type="button" class="sumbtn" data-tier=""><b>502</b>銘柄</button>
@@ -388,6 +388,17 @@ body.wlon{padding-bottom:60px}
     document.querySelectorAll('.wlc[data-code="' + code + '"]').forEach(function(o){ o.checked = cb.checked; });
     wlBadge();
     wlSave();
+  });
+  // チェックボックス本体（16px）は特にスマホで狙いにくいため、セル全体（td.wl）を
+  // タップ範囲にする。input自体へのクリックは通常のchangeイベントに任せ、二重発火を防ぐ。
+  document.addEventListener('click', function(e){
+    if (e.target.tagName === 'INPUT') return;
+    var td = e.target.closest('td.wl');
+    if (!td) return;
+    var cb = td.querySelector('.wlc');
+    if (!cb) return;
+    cb.checked = !cb.checked;
+    cb.dispatchEvent(new Event('change', {bubbles: true}));
   });
   document.getElementById('wlgo').addEventListener('click', function(){
     if (!wlSet.size) return;

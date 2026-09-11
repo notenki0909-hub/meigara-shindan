@@ -754,6 +754,17 @@ body.wlon{{padding-bottom:60px}}
     wlBadge();
     wlSave();
   }});
+  // チェックボックス本体（16px）は特にスマホで狙いにくいため、セル全体（td.wl）を
+  // タップ範囲にする。input自体へのクリックは通常のchangeイベントに任せ、二重発火を防ぐ。
+  document.addEventListener('click', function(e){{
+    if (e.target.tagName === 'INPUT') return;
+    var td = e.target.closest('td.wl');
+    if (!td) return;
+    var cb = td.querySelector('.wlc');
+    if (!cb) return;
+    cb.checked = !cb.checked;
+    cb.dispatchEvent(new Event('change', {{bubbles: true}}));
+  }});
   document.getElementById('wlgo').addEventListener('click', function(){{
     if (!wlSet.size) return;
     wlSave();
