@@ -5,6 +5,8 @@
 
   python batch_long.py jp [--only-stale] [--hours 20] [--sleep 2.0] [--limit N]
   python batch_long.py us [...]
+  python batch_long.py us --only-codes JPM,BAC,...   # 特定銘柄だけ再診断（スコアリング変更の
+                                                       # 部分反映用。--only-stale の鮮度チェックより優先）
 
 出力（配当株ツールとは完全に別ディレクトリ。既存 site/summaries・site/reports は触らない）:
   site/long_summaries/<code>.json          site/us/long_summaries/<TICKER>.json
@@ -67,6 +69,10 @@ def main():
     ap.add_argument("--only-stale", action="store_true",
                     help="サマリが --hours より新しい銘柄はスキップ")
     ap.add_argument("--hours", type=float, default=20)
+    ap.add_argument("--only-codes", type=str, default="",
+                    help="カンマ区切りのコード/ティッカーだけ診断する（--only-staleより優先、"
+                         "鮮度に関わらず必ず再診断）。スコアリングロジック変更を一部銘柄だけ"
+                         "反映したいときに使う。")
     args = ap.parse_args()
 
     c = CFG[args.market]
@@ -87,8 +93,13 @@ def main():
 
     counts = {"skip": 0, "ok": 0, "fail": 0}
     failed = []
-    todo = [(code, name) for code, name in codes
-            if not (args.only_stale and _fresh(os.path.join(c["sum"], f"{code}.json"), args.hours))]
+    if args.only_codes:
+        want = {x.strip().upper() if args.market == "us" else x.strip()
+                for x in args.only_codes.split(",") if x.strip()}
+        todo = [(code, name) for code, name in codes if code in want]
+    else:
+        todo = [(code, name) for code, name in codes
+                if not (args.only_stale and _fresh(os.path.join(c["sum"], f"{code}.json"), args.hours))]
     counts["skip"] = len(codes) - len(todo)
 
     print(f"[{args.market}] 母集団 {len(codes)}  skip(新しい) {counts['skip']}  "

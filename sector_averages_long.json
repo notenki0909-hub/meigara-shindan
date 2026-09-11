@@ -1,11 +1,15 @@
 {
  "_meta": {
   "説明": "業種ごとの EV/EBIT 中央値。calib_long.py が生成。analyze_long.py の買い時スコア『EV/EBIT 対業種』の基準。",
-  "算出": "site/long_summaries の 441 銘柄、0<EV/EBIT<80 の中央値、n>=3 の業種のみ"
+  "算出": "site/long_summaries の 503 銘柄、0<EV/EBIT<80 の中央値、n>=3 の業種のみ"
  },
  "その他製品": {
   "ev_ebit": 14.62,
   "n": 15
+ },
+ "その他金融業": {
+  "ev_ebit": 20.85,
+  "n": 7
  },
  "サービス業": {
   "ev_ebit": 14.11,

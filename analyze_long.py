@@ -15,8 +15,12 @@
   （簡易リバースDCF）・高値からの下落率・RSI/MACD 等
 - 載せない：配当の持続力、1株配当チャート、減配履歴、累進配当、既存の買い時スコア
 
-金融・保険・証券・REIT（is_simple / is_reit）は品質スコアが出せないため対象外扱い
-（summary の q_score=None）。rank_long.py が「対象外」節に回す。
+v2（2026-09-12）：銀行・保険・証券（is_simple かつ REIT でない）は専用の品質サブスコア
+「金融品質」（ROE・増収率・EPS成長率・利益の安定度を均等25%で合成。
+financial_quality_long.json）で対象化。買い時スコアもEV/EBIT・FCF利回りが構造的に
+使えないためPER割安度・PBR割安度のみで合成する。REIT（is_reit）はFFO系の指標設計が
+別途必要な規模のため引き続き対象外（summary の q_score=None）。rank_long.py が
+「対象外」節に回す。
 """
 import argparse
 import datetime as dt
@@ -45,6 +49,19 @@ analyze.METRIC_HELP.setdefault("pbr_band_pos", {"what":
     "今のPBRが、その銘柄自身の過去数年のレンジのどこにあるか。下限（＝低PBR）に近いほど、その"
     "銘柄の物差しで割安。業種平均比（PBR対業種）と違い、常に高PBRで取引される優良企業でも"
     "『自分史比で安いか』を見られる。", "unit": ""})
+# v2：銀行・保険・証券向けの品質サブスコア（業績/財務/CFの代替）
+analyze.METRIC_HELP.setdefault("fq_roe", {"what":
+    "自己資本利益率（ROE）。銀行・保険・証券は貸借対照表の構造上、通常の営業利益率や"
+    "自己資本比率では収益性・健全性を測れないため、代わりにROEを収益性の物差しにする。", "unit": "%"})
+analyze.METRIC_HELP.setdefault("fq_rev_growth", {"what":
+    "売上高（銀行＝受取利息等、保険＝保険料収入、証券＝手数料・トレーディング収益）の"
+    "年率成長率。事業規模が拡大しているかを見る。", "unit": "%"})
+analyze.METRIC_HELP.setdefault("fq_eps_growth", {"what":
+    "1株当たり利益（EPS）の年率成長率。利益成長に加え、自社株買いによる1株当たり価値の"
+    "向上も反映する。", "unit": "%"})
+analyze.METRIC_HELP.setdefault("fq_profit_stability", {"what":
+    "直近数年の純利益について、前年比で最も大きく減益した年の下落率。0＝一度も減益して"
+    "いない。金融業は市況で利益が振れやすいため、下方リスクを別途見る。", "unit": "%"})
 
 _SEC_AVG_LONG = {"jp": None, "us": None}
 
@@ -111,6 +128,23 @@ def _raw_valuation(yd):
     }
 
 
+def _raw_financial_quality(yd, info):
+    """銀行・保険・証券（is_simple かつ REIT でない）向けの品質サブスコアの素材。
+    ROE・増収率(売上高CAGR)・EPS成長率(CAGR)・利益の安定度(純利益の最大減益率)。"""
+    isr = yd.get("is_rows") or {}
+    rev = analyze.row(isr, "Total Revenue") or []
+    ni = analyze.row(isr, "Net Income") or []
+    eps = analyze.row(isr, "Diluted EPS", "Basic EPS") or []
+    roe = info.get("returnOnEquity")
+    return {
+        "roe": (roe * 100.0 if LC.is_num(roe) else None),
+        "rev_growth": analyze.cagr_of(rev),
+        "eps_growth": analyze.cagr_of(eps),
+        "profit_stability": LC.worst_yoy_decline_pct(ni),
+        "rev_series": rev, "eps_series": eps, "ni_series": ni,
+    }
+
+
 def _pbr_pairs(yd, raw):
     """過去PBR ≈ 暦年平均株価 ÷ （その年の自己資本 ÷ 現在の発行株数）。-> [(year, pbr)]"""
     pm = analyze.yearly_price_mean(yd["hist_m"])
@@ -172,19 +206,27 @@ def _score(key, v):
     return LC.score_val(key, v, LC.load_bt_cfg()["rules"])
 
 
-def _buytiming(raw, rowmap, seckey, market, pbr_pairs):
+def _buytiming(raw, rowmap, seckey, market, pbr_pairs, is_fin_simple=False):
     bt = LC.load_bt_cfg()
     rules = bt["rules"]
     sec = _sector_avg_long(market).get(seckey, {}) if isinstance(_sector_avg_long(market), dict) else {}
 
-    ev_ebit = LC.ev_over_ebit(raw["mcap"], raw["total_debt"], raw["cash"], raw["ebit"])
-    med = sec.get("ev_ebit")
-    ev_vs = (ev_ebit / med) if (LC.is_num(ev_ebit) and LC.is_num(med) and med > 0) else None
-    ev_score = _score("ev_ebit_vs_sector", ev_vs)
+    if is_fin_simple:
+        # 銀行・保険・証券：EBITの概念が成立せず、「FCF」もバランスシートの
+        # 資金繰り（貸出増減等）で数兆円単位に振れ株価の割安度と無関係なため、
+        # 両方とも算出しない（中立フィルではなく非対象＝算出不可として扱う）。
+        ev_ebit = ev_vs = ev_score = None
+        fy = fy_score = None
+    else:
+        ev_ebit = LC.ev_over_ebit(raw["mcap"], raw["total_debt"], raw["cash"], raw["ebit"])
+        med = sec.get("ev_ebit")
+        ev_vs = (ev_ebit / med) if (LC.is_num(ev_ebit) and LC.is_num(med) and med > 0) else None
+        ev_score = _score("ev_ebit_vs_sector", ev_vs)
 
-    fy = LC.fcf_yield_pct(raw["fcf"], raw["mcap"])
-    fy_score = _score("fcf_yield", fy if (LC.is_num(fy) and fy > 0) else
-                      (0.0 if LC.is_num(fy) else None))
+        fy = LC.fcf_yield_pct(raw["fcf"], raw["mcap"])
+        fy_score = _score("fcf_yield", fy if (LC.is_num(fy) and fy > 0) else
+                          (0.0 if LC.is_num(fy) else None))
+    med = sec.get("ev_ebit")
 
     per_band = rowmap.get("per_band_pos", {}).get("v")
     per_vs = rowmap.get("per_vs_sector", {}).get("v")
@@ -199,10 +241,17 @@ def _buytiming(raw, rowmap, seckey, market, pbr_pairs):
     comp = {"ev_ebit_vs_sector": ev_score, "fcf_yield": fy_score,
             "per_cheap": per_sc, "pbr_cheap": pbr_sc}
     pbr_unreliable = seckey in _pbr_unreliable_sectors(market)
-    weights = {"ev_ebit_vs_sector": 1 / 3, "fcf_yield": 1 / 3, "per_cheap": 1 / 3} if pbr_unreliable else None
+    if is_fin_simple and pbr_unreliable:
+        weights = {"per_cheap": 1.0}
+    elif is_fin_simple:
+        weights = {"per_cheap": 0.5, "pbr_cheap": 0.5}
+    elif pbr_unreliable:
+        weights = {"ev_ebit_vs_sector": 1 / 3, "fcf_yield": 1 / 3, "per_cheap": 1 / 3}
+    else:
+        weights = None
     total, scored, poss, cov = LC.buytiming_score(comp, weights=weights)
     d = {
-        "pbr_unreliable": pbr_unreliable,
+        "pbr_unreliable": pbr_unreliable, "is_fin_simple": is_fin_simple,
         "ev_ebit": ev_ebit, "ev_median": med, "ev_vs": ev_vs, "ev_score": ev_score,
         "fcf_yield": fy, "fcf_score": fy_score,
         "per_band": per_band, "per_vs": per_vs, "per_score": per_sc,
@@ -280,13 +329,56 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
         unit = "＄"
 
     # 品質の指標
-    q_blocks = []
-    for gname in ("業績", "財務", "キャッシュフロー"):
-        q_blocks.append(f'<div class="domhead"><b>{gname}</b> {analyze.bar(groups.get(gname))}</div>')
-        rows = [r for r in (detail.get(gname) or []) if r.get("key")]
-        q_blocks += ([mdh(r) for r in rows] if rows else
-                     ['<div class="plain"><span class="mn">―</span>'
-                      '<span class="mv2">この業種では評価対象外</span></div>'])
+    is_fin_simple = bool(is_simple and not meta.get("is_reit"))
+    if is_fin_simple and extras.get("fin_q") and extras.get("fq_parts"):
+        fq, fqp = extras["fin_q"], extras["fq_parts"]
+        fq_rules = LC.load_fq_cfg()["rules"]
+
+        def _fq_why(key, v, lab):
+            if not LC.is_num(v):
+                return "データを取得できませんでした。"
+            r = fq_rules[key]
+            good, warn = r["good"], r["warn"]
+            w = "良好" if v >= good else "弱い" if v < warn else "やや弱い"
+            return f"{lab} {v:.1f}%（{w}）。"
+
+        def _fq_gauge(key, v, title):
+            r = fq_rules[key]
+            return _gauge_svg(v, r["good"], r["warn"], "higher_better", "pct", title) if LC.is_num(v) else ""
+
+        q_blocks = [
+            f'<div class="domhead"><b>金融品質（銀行・保険・証券向け代替指標）</b> '
+            f'{analyze.bar(groups.get("金融品質"))}</div>',
+            _detail_row("fq_roe", "ROE（自己資本利益率）",
+                       f"{fq['roe']:.1f}%" if LC.is_num(fq['roe']) else "算出不可",
+                       "10%以上＝良好 ／ 5%未満＝弱い。自己資本に対する利益創出力。",
+                       _fq_why("roe", fq['roe'], "ROE"),
+                       fqp["roe"][1], figure=_fq_gauge("roe", fq['roe'], "ROE")),
+            _detail_row("fq_rev_growth", "増収率（売上高の年率成長）",
+                       f"{fq['rev_growth']:.1f}%" if LC.is_num(fq['rev_growth']) else "算出不可（データ不足）",
+                       "6%以上＝良好 ／ 0%未満（減収）＝弱い。",
+                       _fq_why("rev_growth", fq['rev_growth'], "増収率"),
+                       fqp["rev_growth"][1], figure=_fq_gauge("rev_growth", fq['rev_growth'], "増収率")),
+            _detail_row("fq_eps_growth", "EPS成長率（1株利益の年率成長）",
+                       f"{fq['eps_growth']:.1f}%" if LC.is_num(fq['eps_growth']) else "算出不可（データ不足）",
+                       "8%以上＝良好 ／ 0%未満（減益）＝弱い。自社株買いの効果を含む。",
+                       _fq_why("eps_growth", fq['eps_growth'], "EPS成長率"),
+                       fqp["eps_growth"][1], figure=_fq_gauge("eps_growth", fq['eps_growth'], "EPS成長率")),
+            _detail_row("fq_profit_stability", "利益の安定度（純利益の最大減益率）",
+                       f"{fq['profit_stability']:.1f}%" if LC.is_num(fq['profit_stability']) else "算出不可（データ不足）",
+                       "0%（減益なし）＝良好 ／ -30%（最大30%の減益年）＝弱い。",
+                       _fq_why("profit_stability", fq['profit_stability'], "最大減益率"),
+                       fqp["profit_stability"][1],
+                       figure=_fq_gauge("profit_stability", fq['profit_stability'], "利益の安定度")),
+        ]
+    else:
+        q_blocks = []
+        for gname in ("業績", "財務", "キャッシュフロー"):
+            q_blocks.append(f'<div class="domhead"><b>{gname}</b> {analyze.bar(groups.get(gname))}</div>')
+            rows = [r for r in (detail.get(gname) or []) if r.get("key")]
+            q_blocks += ([mdh(r) for r in rows] if rows else
+                         ['<div class="plain"><span class="mn">―</span>'
+                          '<span class="mv2">この業種では評価対象外</span></div>'])
     q_html = "".join(q_blocks)
 
     # 買い時の指標（6行）
@@ -326,19 +418,25 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
         w = "下端寄り＝自社史比で割安" if pos >= 0.6 else "中ほど" if pos >= 0.2 else "上端寄り＝自社史比で割高"
         return f"{head}過去レンジ内の位置は割安度 {pos*100:.0f}/100（{w}）。"
 
+    _fin_note_ev = "銀行・保険・証券はEBITの概念が成立しないため、この指標は使いません（買い時スコアはPER・PBRのみで合成）。"
+    _fin_note_fcf = "銀行・保険・証券は「FCF」がバランスシートの資金繰りで大きく振れ株価の割安度と無関係なため、この指標は使いません（買い時スコアはPER・PBRのみで合成）。"
     bt_ev = [_detail_row(
         "ev_ebit_vs_sector", "EV/EBIT（対業種中央値）",
-        (f"{_f(btd['ev_ebit'],1)}倍 ／ 業種中央値 {_f(btd['ev_median'],1)}倍（対業種 {_f(btd['ev_vs'],2)}倍）"
+        ("対象外（銀行・保険・証券）" if btd.get("is_fin_simple") else
+         f"{_f(btd['ev_ebit'],1)}倍 ／ 業種中央値 {_f(btd['ev_median'],1)}倍（対業種 {_f(btd['ev_vs'],2)}倍）"
          if LC.is_num(btd["ev_ebit"]) else "算出不可（EBIT≤0 等）"),
         "対業種 0.85倍以下＝割安 ／ 1.2倍超＝割高。EV＝時価総額＋有利子負債−現金、EBIT＝営業利益。",
-        (_why_vs(btd["ev_vs"], "mul") if LC.is_num(btd["ev_vs"]) else
+        (_fin_note_ev if btd.get("is_fin_simple") else
+         _why_vs(btd["ev_vs"], "mul") if LC.is_num(btd["ev_vs"]) else
          "この業種の EV/EBIT 中央値が未算出のため中立（60点）扱いです。"),
         btd["ev_score"], figure=ev_fig)]
     bt_fcf = [_detail_row(
         "fcf_yield", "FCF利回り（FCF÷時価総額）",
-        (f"{_f(btd['fcf_yield'],2)}%" if LC.is_num(btd["fcf_yield"]) else "算出不可"),
+        ("対象外（銀行・保険・証券）" if btd.get("is_fin_simple") else
+         f"{_f(btd['fcf_yield'],2)}%" if LC.is_num(btd["fcf_yield"]) else "算出不可"),
         "6%以上＝割安 ／ 3%未満＝割高。負のFCF（先行投資の重い年）は中立扱い。資本集約業種は構造的に低め。",
-        ("負のFCFのため中立扱い。" if LC.is_num(btd["fcf_yield"]) and btd["fcf_yield"] <= 0 else
+        (_fin_note_fcf if btd.get("is_fin_simple") else
+         "負のFCFのため中立扱い。" if LC.is_num(btd["fcf_yield"]) and btd["fcf_yield"] <= 0 else
          f"時価総額に対して年 {_f(btd['fcf_yield'],2)}% の現金を生んでいます。" if LC.is_num(btd["fcf_yield"]) else
          "FCFまたは時価総額が取得できませんでした。"),
         btd["fcf_score"], figure=fcf_fig)]
@@ -371,7 +469,21 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
     ]
     _pc = f"{btd['per_score']:.0f}" if LC.is_num(btd.get("per_score")) else "―"
     _bc = f"{btd['pbr_score']:.0f}" if LC.is_num(btd.get("pbr_score")) else "―"
-    if btd.get("pbr_unreliable"):
+    _is_fin = bool(btd.get("is_fin_simple"))
+    if _is_fin and btd.get("pbr_unreliable"):
+        bt_note = ('<p class="sub">買い時スコア＝<b>PER割安度</b>のみ（100%）で合成。'
+                   f'<b>PER割安度＝「PER 自社レンジ」と「PER 対業種」の平均＝{_pc}</b>。'
+                   '銀行・保険・証券はEV/EBIT・FCF利回りが使えず、さらにこの業種はPBRの'
+                   '過去レンジも自社株買い等で非定常なため、PER割安度のみで判定しています。'
+                   '配当利回り・増配・累進配当宣言は一切使っていません。</p>')
+    elif _is_fin:
+        bt_note = ('<p class="sub">買い時スコア＝<b>PER割安度・PBR割安度</b>を均等50%で合成。'
+                   f'<b>PER割安度＝「PER 自社レンジ」と「PER 対業種」の平均＝{_pc}</b>、'
+                   f'<b>PBR割安度＝同様に{_bc}</b>。銀行・保険・証券はEBITの概念が成立せず、'
+                   '「FCF」もバランスシートの資金繰りで株価の割安度と無関係に振れるため、'
+                   'EV/EBIT・FCF利回りは使わずPER・PBRのみで判定しています。'
+                   '配当利回り・増配・累進配当宣言は一切使っていません。</p>')
+    elif btd.get("pbr_unreliable"):
         bt_note = ('<p class="sub">買い時スコア＝<b>EV/EBIT対業種・FCF利回り・PER割安度</b>を'
                    '均等33%で合成（欠損は中立60）。各行の点はその指標単体の点。'
                    f'<b>PER割安度＝「PER 自社レンジ」と「PER 対業種」の平均＝{_pc}</b>。'
@@ -384,10 +496,11 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
                    '均等25%で合成（欠損は中立60）。各行の点はその指標単体の点。'
                    f'<b>PER割安度＝「PER 自社レンジ」と「PER 対業種」の平均＝{_pc}</b>、'
                    f'<b>PBR割安度＝同様に{_bc}</b>。配当利回り・増配・累進配当宣言は一切使っていません。</p>')
+    _ev_fcf_head_note = "（対象外・銀行/保険/証券）" if _is_fin else ""
     _pbr_head_note = "（参考・買い時スコアには不使用）" if btd.get("pbr_unreliable") else ""
     bt_blocks = [
-        f'<div class="domhead"><b>EV/EBIT（対業種）</b> {analyze.bar(btd.get("ev_score"))}</div>' + "".join(bt_ev),
-        f'<div class="domhead"><b>FCF利回り</b> {analyze.bar(btd.get("fcf_score"))}</div>' + "".join(bt_fcf),
+        f'<div class="domhead"><b>EV/EBIT（対業種）{_ev_fcf_head_note}</b> {analyze.bar(btd.get("ev_score"))}</div>' + "".join(bt_ev),
+        f'<div class="domhead"><b>FCF利回り{_ev_fcf_head_note}</b> {analyze.bar(btd.get("fcf_score"))}</div>' + "".join(bt_fcf),
         f'<div class="domhead"><b>PER割安度</b> {analyze.bar(btd.get("per_score"))}</div>' + "".join(bt_per),
         f'<div class="domhead"><b>PBR割安度{_pbr_head_note}</b> {analyze.bar(btd.get("pbr_score"))}</div>' + "".join(bt_pbr),
     ]
@@ -550,7 +663,7 @@ table.subt tr:last-child td{{border-bottom:none}}
 <h2>会社概要</h2>
 <div class="cobox">{comp_html}</div>
 
-<h2>① 品質の指標（業績・財務・キャッシュフロー）</h2>
+<h2>① 品質の指標（{'銀行・保険・証券向け代替指標' if is_fin_simple else '業績・財務・キャッシュフロー'}）</h2>
 {q_html}
 
 <h2>② 買い時の指標（割安さ・配当は不使用）</h2>
@@ -641,12 +754,24 @@ def generate_long(code, cfg=None, market="jp", name=None):
     ctx["company"] = analyze.build_company_overview(info)
 
     rowmap = {r["key"]: r for dom in detail for r in detail[dom] if r.get("key")}
+
+    # 銀行・保険・証券（is_simpleだがREITではない）：v2で専用の品質サブスコアを追加。
+    # REIT(is_reit)はFFO系の指標設計が別途必要な規模のためv2でも対象外のまま。
+    is_fin_simple = bool(is_simple and not is_reit)
+    fin_q = fq_parts = None
+    if is_fin_simple:
+        fin_q = _raw_financial_quality(yd, info)
+        fq_score, fq_parts = LC.financial_quality_score(fin_q)
+        groups = dict(groups)
+        groups["金融品質"] = fq_score
+
     q_score = LC.quality_score(groups)
     q_cov = LC.quality_coverage(groups)
 
     raw = _raw_valuation(yd)
     pbr_pairs = _pbr_pairs(yd, raw)
-    bt_score, bt_cov, bt_comp, btd = _buytiming(raw, rowmap, seckey, market, pbr_pairs)
+    bt_score, bt_cov, bt_comp, btd = _buytiming(raw, rowmap, seckey, market, pbr_pairs,
+                                                is_fin_simple=is_fin_simple)
 
     ig = LC.implied_fcf_growth(raw["mcap"], raw["fcf"])
     hg = None
@@ -667,15 +792,21 @@ def generate_long(code, cfg=None, market="jp", name=None):
         dd = None
     extras = {"implied_growth": ig, "hist_growth": hg,
               "ref_src": M.get("参考", []), "drawdown": dd,
-              "div_yield": rowmap.get("div_yield", {}).get("v")}
+              "div_yield": rowmap.get("div_yield", {}).get("v"),
+              "fin_q": fin_q, "fq_parts": fq_parts}
 
     warnings = []
-    if is_simple:
-        warnings.append("銀行・保険・証券・REIT は業績・財務・CFを構造的に採点できないため、"
+    if is_reit:
+        warnings.append("REIT は業績・財務・CFを構造的に採点できないため、"
                         "品質スコアは算出していません（本ツールの対象外）。")
+    elif is_fin_simple:
+        warnings.append("銀行・保険・証券は業績・財務・CFの代わりに、専用の品質サブスコア"
+                        "（ROE・増収率・EPS成長率・利益の安定度）で評価しています。"
+                        "買い時スコアもEV/EBIT・FCF利回りが構造的に使えないため、"
+                        "PER割安度・PBR割安度のみで合成しています。")
     if not yd.get("is_rows"):
         warnings.append("損益計算書を取得できず、業績の評価が限定的です。")
-    if not LC.is_num(btd["ev_median"]):
+    if not is_fin_simple and not LC.is_num(btd["ev_median"]):
         warnings.append("この業種の EV/EBIT 中央値が未算出のため EV/EBIT対業種 は中立扱いです。")
 
     pd_ = yd.get("price_date")
@@ -699,7 +830,9 @@ def generate_long(code, cfg=None, market="jp", name=None):
         "price": yd["price"], "price_date": meta["price_date"], "mcap": info.get("marketCap"),
         "q_score": q_score,
         "groups": {"業績": groups.get("業績"), "財務": groups.get("財務"),
-                   "キャッシュフロー": groups.get("キャッシュフロー")},
+                   "キャッシュフロー": groups.get("キャッシュフロー"),
+                   "金融品質": groups.get("金融品質")},
+        "is_fin_simple": is_fin_simple,
         "q_cov": q_cov[2],
         "bt_score": bt_score, "bt_cov": bt_cov[2], "bt_components": bt_comp,
         "ev_ebit": btd["ev_ebit"], "fcf_yield": btd["fcf_yield"],

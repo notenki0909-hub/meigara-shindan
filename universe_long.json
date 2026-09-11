@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-09T11:24:16",
+ "generated_at": "2026-09-12T02:14:47",
  "market": "jp",
  "screen": {
   "_meta": {
@@ -10,27 +10,21 @@
     "非減配年数の条件も設けない（配当関連の条件はすべて外す）。",
     "残す条件は時価総額（10年スパンでの上場廃止・経営危機・被買収リスクは規模と強く逆相関）のみ。"
    ],
-   "金融・REITの扱い": "銀行・保険・証券・その他金融・REITは analyze.py が業績/財務/CFを構造的に採点しない（配当の持続力グループのみでsel_scoreを出す）ため、配当を除くと無スコアになる。v1では本ランキングの対象外とし、一覧に『―（対象外）』と表示する。v2で金融向けの品質サブスコア追加を検討。",
+   "金融・REITの扱い（v2・2026-09-12）": "銀行・保険・証券・その他金融は analyze.py が業績/財務/CFを構造的に採点しない（配当の持続力グループのみでsel_scoreを出す）ため、v1では対象外だった。v2で financial_quality_long.json による専用品質サブスコア（ROE・増収率・EPS成長率・利益の安定度）を追加し、銀行業・保険業・証券商品先物取引業を対象化。その他金融業はsector_rules.jsonのoverridesが_simpleではなく既存の業績/財務/CFロジックで普通に採点できるため、もともと対象化に専用スコアは不要（母集団に含めるだけでよい）。REITはFFO系の指標設計が別途必要な規模のため引き続き対象外（is_reitはanalyze.pyのclassify_sectorが判定し、is_simple扱いになるため品質サブスコアが無くq_score=Noneとなり、rank_long.pyが自動的に『対象外』節へ回す。母集団段階での明示的なREIT除外は不要）。",
    "見直し": "四半期。universe-long-quarterly.yml が universe.json の四半期リビルド後に走り、最新の時価総額で universe_long.json を作り直す。",
    "注意": "時価総額は yfinance 由来。欠損・遅延あり。境界の銘柄は四半期リビルドで是正される。"
   },
   "market": "jp",
   "min_market_cap_oku": 3000,
-  "exclude_sectors": [
-   "銀行業",
-   "保険業",
-   "証券・商品先物取引業",
-   "その他金融業"
-  ],
-  "exclude_reit": true,
+  "exclude_sectors": [],
   "notes": [
    "min_market_cap_oku: 時価総額の下限（億円）。3,000億円 ≒ TOPIX500 の最小構成銘柄クラス（東証の時価総額・流動性上位およそ500社）。",
-   "exclude_sectors: 東証33業種名で指定。金融は現エンジンで配当抜きスコアが出せないため母集団から除外。",
+   "exclude_sectors: v1では銀行業・保険業・証券商品先物取引業・その他金融業を除外していたが、v2（2026-09-12）で専用品質サブスコアを追加し対象化したため空。REITはsector名での除外ではなく、is_reit判定によるq_score=Noneでrank_long.py側が自動的に対象外にする。",
    "配当利回り・増配・連続増配・累進配当宣言などの配当系条件は一切使わない。"
   ]
  },
  "source": "universe.json (codes + rejected) の取得済みデータを流用",
- "count": 441,
+ "count": 502,
  "codes": [
   {
    "code": "1332",
@@ -521,10 +515,6 @@
    "name": "ＵＢＥ"
   },
   {
-   "code": "4272",
-   "name": "日本化薬"
-  },
-  {
    "code": "429A",
    "name": "テクセンドフォトマスク"
   },
@@ -859,6 +849,26 @@
   {
    "code": "5805",
    "name": "ＳＷＣＣ"
+  },
+  {
+   "code": "5830",
+   "name": "いよぎんホールディングス"
+  },
+  {
+   "code": "5831",
+   "name": "しずおかフィナンシャルグループ"
+  },
+  {
+   "code": "5832",
+   "name": "ちゅうぎんフィナンシャルグループ"
+  },
+  {
+   "code": "5838",
+   "name": "楽天銀行"
+  },
+  {
+   "code": "5844",
+   "name": "京都フィナンシャルグループ"
   },
   {
    "code": "5857",
@@ -1229,6 +1239,38 @@
    "name": "名村造船所"
   },
   {
+   "code": "7164",
+   "name": "全国保証"
+  },
+  {
+   "code": "7167",
+   "name": "めぶきフィナンシャルグループ"
+  },
+  {
+   "code": "7173",
+   "name": "東京きらぼしフィナンシャルグループ"
+  },
+  {
+   "code": "7180",
+   "name": "九州フィナンシャルグループ"
+  },
+  {
+   "code": "7181",
+   "name": "かんぽ生命保険"
+  },
+  {
+   "code": "7182",
+   "name": "ゆうちょ銀行"
+  },
+  {
+   "code": "7186",
+   "name": "横浜フィナンシャルグループ"
+  },
+  {
+   "code": "7189",
+   "name": "西日本フィナンシャルホールディングス"
+  },
+  {
    "code": "7201",
    "name": "日産自動車"
   },
@@ -1283,6 +1325,22 @@
   {
    "code": "7309",
    "name": "シマノ"
+  },
+  {
+   "code": "7327",
+   "name": "第四北越フィナンシャルグループ"
+  },
+  {
+   "code": "7337",
+   "name": "ひろぎんホールディングス"
+  },
+  {
+   "code": "7380",
+   "name": "十六フィナンシャルグループ"
+  },
+  {
+   "code": "7389",
+   "name": "あいちフィナンシャルグループ"
   },
   {
    "code": "7419",
@@ -1481,8 +1539,156 @@
    "name": "エイチ・ツー・オー　リテイリング"
   },
   {
+   "code": "8252",
+   "name": "丸井グループ"
+  },
+  {
+   "code": "8253",
+   "name": "クレディセゾン"
+  },
+  {
    "code": "8267",
    "name": "イオン"
+  },
+  {
+   "code": "8303",
+   "name": "ＳＢＩ新生銀行"
+  },
+  {
+   "code": "8304",
+   "name": "あおぞら銀行"
+  },
+  {
+   "code": "8306",
+   "name": "三菱ＵＦＪフィナンシャル・グループ"
+  },
+  {
+   "code": "8308",
+   "name": "りそなホールディングス"
+  },
+  {
+   "code": "8309",
+   "name": "三井住友トラストグループ"
+  },
+  {
+   "code": "8316",
+   "name": "三井住友フィナンシャルグループ"
+  },
+  {
+   "code": "8331",
+   "name": "千葉銀行"
+  },
+  {
+   "code": "8334",
+   "name": "群馬銀行"
+  },
+  {
+   "code": "8341",
+   "name": "七十七銀行"
+  },
+  {
+   "code": "8354",
+   "name": "ふくおかフィナンシャルグループ"
+  },
+  {
+   "code": "8358",
+   "name": "スルガ銀行"
+  },
+  {
+   "code": "8359",
+   "name": "八十二長野銀行"
+  },
+  {
+   "code": "8361",
+   "name": "大垣共立銀行"
+  },
+  {
+   "code": "8366",
+   "name": "滋賀銀行"
+  },
+  {
+   "code": "8367",
+   "name": "南都銀行"
+  },
+  {
+   "code": "8368",
+   "name": "百五銀行"
+  },
+  {
+   "code": "8370",
+   "name": "紀陽銀行"
+  },
+  {
+   "code": "8377",
+   "name": "ほくほくフィナンシャルグループ"
+  },
+  {
+   "code": "8381",
+   "name": "山陰合同銀行"
+  },
+  {
+   "code": "8386",
+   "name": "百十四銀行"
+  },
+  {
+   "code": "8388",
+   "name": "阿波銀行"
+  },
+  {
+   "code": "8410",
+   "name": "セブン銀行"
+  },
+  {
+   "code": "8411",
+   "name": "みずほフィナンシャルグループ"
+  },
+  {
+   "code": "8418",
+   "name": "山口フィナンシャルグループ"
+  },
+  {
+   "code": "8424",
+   "name": "芙蓉総合リース"
+  },
+  {
+   "code": "8425",
+   "name": "みずほリース"
+  },
+  {
+   "code": "8439",
+   "name": "東京センチュリー"
+  },
+  {
+   "code": "8473",
+   "name": "ＳＢＩホールディングス"
+  },
+  {
+   "code": "8522",
+   "name": "名古屋銀行"
+  },
+  {
+   "code": "8524",
+   "name": "北洋銀行"
+  },
+  {
+   "code": "8544",
+   "name": "京葉銀行"
+  },
+  {
+   "code": "8570",
+   "name": "イオンフィナンシャルサービス"
+  },
+  {
+   "code": "8572",
+   "name": "アコム"
+  },
+  {
+   "code": "8591",
+   "name": "オリックス"
+  },
+  {
+   "code": "8593",
+   "name": "三菱ＨＣキャピタル"
   },
   {
    "code": "8601",
@@ -1491,6 +1697,38 @@
   {
    "code": "8604",
    "name": "野村ホールディングス"
+  },
+  {
+   "code": "8628",
+   "name": "松井証券"
+  },
+  {
+   "code": "8630",
+   "name": "ＳＯＭＰＯホールディングス"
+  },
+  {
+   "code": "8697",
+   "name": "日本取引所グループ"
+  },
+  {
+   "code": "8725",
+   "name": "ＭＳ＆ＡＤインシュアランスグループホールディングス"
+  },
+  {
+   "code": "8729",
+   "name": "ソニーフィナンシャルグループ"
+  },
+  {
+   "code": "8750",
+   "name": "第一ライフグループ"
+  },
+  {
+   "code": "8766",
+   "name": "東京海上ホールディングス"
+  },
+  {
+   "code": "8795",
+   "name": "Ｔ＆Ｄホールディングス"
   },
   {
    "code": "8801",
@@ -1797,15 +2035,15 @@
    "name": "サンドラッグ"
   }
  ],
- "excluded_count": 2663,
+ "excluded_count": 2602,
  "excluded": [
   {
    "code": "1301",
    "name": "極洋",
    "sector": "食料品",
-   "mcap_oku": 549,
+   "mcap_oku": 553,
    "mcap_src": "summary",
-   "reason": "時価総額 549億 < 3000億"
+   "reason": "時価総額 553億 < 3000億"
   },
   {
    "code": "1333",
@@ -1899,9 +2137,9 @@
    "code": "1414",
    "name": "ショーボンドホールディングス",
    "sector": "建設業",
-   "mcap_oku": 2523,
+   "mcap_oku": 2498,
    "mcap_src": "summary",
-   "reason": "時価総額 2523億 < 3000億"
+   "reason": "時価総額 2498億 < 3000億"
   },
   {
    "code": "1418",
@@ -2107,17 +2345,17 @@
    "code": "1719",
    "name": "安藤・間",
    "sector": "建設業",
-   "mcap_oku": 2984,
+   "mcap_oku": 2941,
    "mcap_src": "summary",
-   "reason": "時価総額 2984億 < 3000億"
+   "reason": "時価総額 2941億 < 3000億"
   },
   {
    "code": "1720",
    "name": "東急建設",
    "sector": "建設業",
-   "mcap_oku": 1255,
+   "mcap_oku": 1267,
    "mcap_src": "summary",
-   "reason": "時価総額 1255億 < 3000億"
+   "reason": "時価総額 1267億 < 3000億"
   },
   {
    "code": "1723",
@@ -2155,9 +2393,9 @@
    "code": "1762",
    "name": "高松コンストラクショングループ",
    "sector": "建設業",
-   "mcap_oku": 1443,
+   "mcap_oku": 1419,
    "mcap_src": "summary",
-   "reason": "時価総額 1443億 < 3000億"
+   "reason": "時価総額 1419億 < 3000億"
   },
   {
    "code": "1764",
@@ -2171,9 +2409,9 @@
    "code": "1766",
    "name": "東建コーポレーション",
    "sector": "不動産業",
-   "mcap_oku": 1520,
+   "mcap_oku": 1503,
    "mcap_src": "summary",
-   "reason": "時価総額 1520億 < 3000億"
+   "reason": "時価総額 1503億 < 3000億"
   },
   {
    "code": "1768",
@@ -2235,9 +2473,9 @@
    "code": "1793",
    "name": "大本組",
    "sector": "建設業",
-   "mcap_oku": 531,
+   "mcap_oku": 534,
    "mcap_src": "summary",
-   "reason": "時価総額 531億 < 3000億"
+   "reason": "時価総額 534億 < 3000億"
   },
   {
    "code": "1795",
@@ -2259,9 +2497,9 @@
    "code": "1799",
    "name": "第一建設工業",
    "sector": "建設業",
-   "mcap_oku": 589,
+   "mcap_oku": 577,
    "mcap_src": "summary",
-   "reason": "時価総額 589億 < 3000億"
+   "reason": "時価総額 577億 < 3000億"
   },
   {
    "code": "1807",
@@ -2275,9 +2513,9 @@
    "code": "1810",
    "name": "松井建設",
    "sector": "建設業",
-   "mcap_oku": 412,
+   "mcap_oku": 410,
    "mcap_src": "summary",
-   "reason": "時価総額 412億 < 3000億"
+   "reason": "時価総額 410億 < 3000億"
   },
   {
    "code": "1811",
@@ -2291,33 +2529,33 @@
    "code": "1813",
    "name": "不動テトラ",
    "sector": "建設業",
-   "mcap_oku": 434,
+   "mcap_oku": 440,
    "mcap_src": "summary",
-   "reason": "時価総額 434億 < 3000億"
+   "reason": "時価総額 440億 < 3000億"
   },
   {
    "code": "1814",
    "name": "大末建設",
    "sector": "不動産業",
-   "mcap_oku": 374,
+   "mcap_oku": 361,
    "mcap_src": "summary",
-   "reason": "時価総額 374億 < 3000億"
+   "reason": "時価総額 361億 < 3000億"
   },
   {
    "code": "1815",
    "name": "鉄建建設",
    "sector": "建設業",
-   "mcap_oku": 626,
+   "mcap_oku": 623,
    "mcap_src": "summary",
-   "reason": "時価総額 626億 < 3000億"
+   "reason": "時価総額 623億 < 3000億"
   },
   {
    "code": "1820",
    "name": "西松建設",
    "sector": "建設業",
-   "mcap_oku": 2206,
+   "mcap_oku": 2181,
    "mcap_src": "summary",
-   "reason": "時価総額 2206億 < 3000億"
+   "reason": "時価総額 2181億 < 3000億"
   },
   {
    "code": "1822",
@@ -2363,9 +2601,9 @@
    "code": "1835",
    "name": "東鉄工業",
    "sector": "建設業",
-   "mcap_oku": 1367,
+   "mcap_oku": 1333,
    "mcap_src": "summary",
-   "reason": "時価総額 1367億 < 3000億"
+   "reason": "時価総額 1333億 < 3000億"
   },
   {
    "code": "1840",
@@ -2387,9 +2625,9 @@
    "code": "1847",
    "name": "イチケン",
    "sector": "不動産業",
-   "mcap_oku": 500,
+   "mcap_oku": 481,
    "mcap_src": "summary",
-   "reason": "時価総額 500億 < 3000億"
+   "reason": "時価総額 481億 < 3000億"
   },
   {
    "code": "1848",
@@ -2427,9 +2665,9 @@
    "code": "1861",
    "name": "熊谷組",
    "sector": "建設業",
-   "mcap_oku": 2202,
+   "mcap_oku": 2187,
    "mcap_src": "summary",
-   "reason": "時価総額 2202億 < 3000億"
+   "reason": "時価総額 2187億 < 3000億"
   },
   {
    "code": "1866",
@@ -2451,9 +2689,9 @@
    "code": "1870",
    "name": "矢作建設工業",
    "sector": "建設業",
-   "mcap_oku": 921,
+   "mcap_oku": 912,
    "mcap_src": "summary",
-   "reason": "時価総額 921億 < 3000億"
+   "reason": "時価総額 912億 < 3000億"
   },
   {
    "code": "1871",
@@ -2475,25 +2713,25 @@
    "code": "1879",
    "name": "新日本建設",
    "sector": "建設業",
-   "mcap_oku": 1348,
+   "mcap_oku": 1313,
    "mcap_src": "summary",
-   "reason": "時価総額 1348億 < 3000億"
+   "reason": "時価総額 1313億 < 3000億"
   },
   {
    "code": "1882",
    "name": "東亜道路工業",
    "sector": "建設業",
-   "mcap_oku": 746,
+   "mcap_oku": 734,
    "mcap_src": "summary",
-   "reason": "時価総額 746億 < 3000億"
+   "reason": "時価総額 734億 < 3000億"
   },
   {
    "code": "1885",
    "name": "東亜建設工業",
    "sector": "建設業",
-   "mcap_oku": 1653,
+   "mcap_oku": 1598,
    "mcap_src": "summary",
-   "reason": "時価総額 1653億 < 3000億"
+   "reason": "時価総額 1598億 < 3000億"
   },
   {
    "code": "1887",
@@ -2507,9 +2745,9 @@
    "code": "1888",
    "name": "若築建設",
    "sector": "建設業",
-   "mcap_oku": 472,
+   "mcap_oku": 455,
    "mcap_src": "summary",
-   "reason": "時価総額 472億 < 3000億"
+   "reason": "時価総額 455億 < 3000億"
   },
   {
    "code": "1897",
@@ -2587,57 +2825,57 @@
    "code": "1929",
    "name": "日特建設",
    "sector": "建設業",
-   "mcap_oku": 507,
+   "mcap_oku": 506,
    "mcap_src": "summary",
-   "reason": "時価総額 507億 < 3000億"
+   "reason": "時価総額 506億 < 3000億"
   },
   {
    "code": "1930",
    "name": "北陸電気工事",
    "sector": "建設業",
-   "mcap_oku": 440,
+   "mcap_oku": 429,
    "mcap_src": "summary",
-   "reason": "時価総額 440億 < 3000億"
+   "reason": "時価総額 429億 < 3000億"
   },
   {
    "code": "1934",
    "name": "ユアテック",
    "sector": "建設業",
-   "mcap_oku": 1820,
+   "mcap_oku": 1793,
    "mcap_src": "summary",
-   "reason": "時価総額 1820億 < 3000億"
+   "reason": "時価総額 1793億 < 3000億"
   },
   {
    "code": "1938",
    "name": "日本リーテック",
    "sector": "建設業",
-   "mcap_oku": 634,
+   "mcap_oku": 638,
    "mcap_src": "summary",
-   "reason": "時価総額 634億 < 3000億"
+   "reason": "時価総額 638億 < 3000億"
   },
   {
    "code": "1939",
    "name": "四電工",
    "sector": "建設業",
-   "mcap_oku": 1104,
+   "mcap_oku": 1085,
    "mcap_src": "summary",
-   "reason": "時価総額 1104億 < 3000億"
+   "reason": "時価総額 1085億 < 3000億"
   },
   {
    "code": "1941",
    "name": "中電工",
    "sector": "建設業",
-   "mcap_oku": 2764,
+   "mcap_oku": 2732,
    "mcap_src": "summary",
-   "reason": "時価総額 2764億 < 3000億"
+   "reason": "時価総額 2732億 < 3000億"
   },
   {
    "code": "1945",
    "name": "東京エネシス",
    "sector": "建設業",
-   "mcap_oku": 722,
+   "mcap_oku": 692,
    "mcap_src": "summary",
-   "reason": "時価総額 722億 < 3000億"
+   "reason": "時価総額 692億 < 3000億"
   },
   {
    "code": "1946",
@@ -2667,9 +2905,9 @@
    "code": "1952",
    "name": "新日本空調",
    "sector": "建設業",
-   "mcap_oku": 1469,
+   "mcap_oku": 1435,
    "mcap_src": "summary",
-   "reason": "時価総額 1469億 < 3000億"
+   "reason": "時価総額 1435億 < 3000億"
   },
   {
    "code": "1960",
@@ -2691,9 +2929,9 @@
    "code": "1965",
    "name": "テクノ菱和",
    "sector": "建設業",
-   "mcap_oku": 1487,
+   "mcap_oku": 1429,
    "mcap_src": "summary",
-   "reason": "時価総額 1487億 < 3000億"
+   "reason": "時価総額 1429億 < 3000億"
   },
   {
    "code": "1966",
@@ -2707,17 +2945,17 @@
    "code": "1967",
    "name": "ヤマト",
    "sector": "建設業",
-   "mcap_oku": 473,
+   "mcap_oku": 464,
    "mcap_src": "summary",
-   "reason": "時価総額 473億 < 3000億"
+   "reason": "時価総額 464億 < 3000億"
   },
   {
    "code": "1968",
    "name": "太平電業",
    "sector": "建設業",
-   "mcap_oku": 1610,
+   "mcap_oku": 1595,
    "mcap_src": "summary",
-   "reason": "時価総額 1610億 < 3000億"
+   "reason": "時価総額 1595億 < 3000億"
   },
   {
    "code": "1972",
@@ -2731,25 +2969,25 @@
    "code": "1975",
    "name": "朝日工業社",
    "sector": "建設業",
-   "mcap_oku": 1036,
+   "mcap_oku": 974,
    "mcap_src": "summary",
-   "reason": "時価総額 1036億 < 3000億"
+   "reason": "時価総額 974億 < 3000億"
   },
   {
    "code": "1976",
    "name": "明星工業",
    "sector": "建設業",
-   "mcap_oku": 783,
+   "mcap_oku": 780,
    "mcap_src": "summary",
-   "reason": "時価総額 783億 < 3000億"
+   "reason": "時価総額 780億 < 3000億"
   },
   {
    "code": "1979",
    "name": "大氣社",
    "sector": "建設業",
-   "mcap_oku": 2454,
+   "mcap_oku": 2332,
    "mcap_src": "summary",
-   "reason": "時価総額 2454億 < 3000億"
+   "reason": "時価総額 2332億 < 3000億"
   },
   {
    "code": "197A",
@@ -2771,9 +3009,9 @@
    "code": "1982",
    "name": "日比谷総合設備",
    "sector": "建設業",
-   "mcap_oku": 1304,
+   "mcap_oku": 1279,
    "mcap_src": "summary",
-   "reason": "時価総額 1304億 < 3000億"
+   "reason": "時価総額 1279億 < 3000億"
   },
   {
    "code": "1992",
@@ -2803,17 +3041,17 @@
    "code": "2001",
    "name": "ニップン",
    "sector": "食料品",
-   "mcap_oku": 2406,
+   "mcap_oku": 2462,
    "mcap_src": "summary",
-   "reason": "時価総額 2406億 < 3000億"
+   "reason": "時価総額 2462億 < 3000億"
   },
   {
    "code": "2003",
    "name": "日東富士製粉",
    "sector": "食料品",
-   "mcap_oku": 658,
+   "mcap_oku": 678,
    "mcap_src": "summary",
-   "reason": "時価総額 658億 < 3000億"
+   "reason": "時価総額 678億 < 3000億"
   },
   {
    "code": "2004",
@@ -2835,9 +3073,9 @@
    "code": "2053",
    "name": "中部飼料",
    "sector": "食料品",
-   "mcap_oku": 573,
+   "mcap_oku": 576,
    "mcap_src": "summary",
-   "reason": "時価総額 573億 < 3000億"
+   "reason": "時価総額 576億 < 3000億"
   },
   {
    "code": "2055",
@@ -2851,9 +3089,9 @@
    "code": "2060",
    "name": "フィード・ワン",
    "sector": "食料品",
-   "mcap_oku": 553,
+   "mcap_oku": 558,
    "mcap_src": "summary",
-   "reason": "時価総額 553億 < 3000億"
+   "reason": "時価総額 558億 < 3000億"
   },
   {
    "code": "208A",
@@ -2867,17 +3105,17 @@
    "code": "2108",
    "name": "日本甜菜製糖",
    "sector": "食料品",
-   "mcap_oku": 629,
+   "mcap_oku": 608,
    "mcap_src": "summary",
-   "reason": "時価総額 629億 < 3000億"
+   "reason": "時価総額 608億 < 3000億"
   },
   {
    "code": "2109",
    "name": "ＤＭ三井製糖",
    "sector": "食料品",
-   "mcap_oku": 1162,
+   "mcap_oku": 1193,
    "mcap_src": "summary",
-   "reason": "時価総額 1162億 < 3000億"
+   "reason": "時価総額 1193億 < 3000億"
   },
   {
    "code": "2112",
@@ -2899,9 +3137,9 @@
    "code": "2117",
    "name": "ウェルネオシュガー",
    "sector": "食料品",
-   "mcap_oku": 917,
+   "mcap_oku": 923,
    "mcap_src": "summary",
-   "reason": "時価総額 917億 < 3000億"
+   "reason": "時価総額 923億 < 3000億"
   },
   {
    "code": "211A",
@@ -2923,9 +3161,9 @@
    "code": "2121",
    "name": "ＭＩＸＩ",
    "sector": "情報・通信業",
-   "mcap_oku": 2322,
+   "mcap_oku": 2394,
    "mcap_src": "summary",
-   "reason": "時価総額 2322億 < 3000億"
+   "reason": "時価総額 2394億 < 3000億"
   },
   {
    "code": "2122",
@@ -2947,9 +3185,9 @@
    "code": "2127",
    "name": "日本Ｍ＆Ａセンターホールディングス",
    "sector": "証券・商品先物取引業",
-   "mcap_oku": 2076,
+   "mcap_oku": 1986,
    "mcap_src": "summary",
-   "reason": "金融は対象外（証券・商品先物取引業）"
+   "reason": "時価総額 1986億 < 3000億"
   },
   {
    "code": "212A",
@@ -3035,9 +3273,9 @@
    "code": "2154",
    "name": "オープンアップグループ",
    "sector": "サービス業",
-   "mcap_oku": 1669,
+   "mcap_oku": 1645,
    "mcap_src": "summary",
-   "reason": "時価総額 1669億 < 3000億"
+   "reason": "時価総額 1645億 < 3000億"
   },
   {
    "code": "2156",
@@ -3051,9 +3289,9 @@
    "code": "2157",
    "name": "コシダカホールディングス",
    "sector": "その他製品",
-   "mcap_oku": 831,
+   "mcap_oku": 816,
    "mcap_src": "summary",
-   "reason": "時価総額 831億 < 3000億"
+   "reason": "時価総額 816億 < 3000億"
   },
   {
    "code": "2163",
@@ -3091,9 +3329,9 @@
    "code": "2170",
    "name": "リンクアンドモチベーション",
    "sector": "サービス業",
-   "mcap_oku": 668,
+   "mcap_oku": 664,
    "mcap_src": "summary",
-   "reason": "時価総額 668億 < 3000億"
+   "reason": "時価総額 664億 < 3000億"
   },
   {
    "code": "2175",
@@ -3163,9 +3401,9 @@
    "code": "2201",
    "name": "森永製菓",
    "sector": "食料品",
-   "mcap_oku": 2093,
+   "mcap_oku": 2056,
    "mcap_src": "summary",
-   "reason": "時価総額 2093億 < 3000億"
+   "reason": "時価総額 2056億 < 3000億"
   },
   {
    "code": "2204",
@@ -3227,9 +3465,9 @@
    "code": "2216",
    "name": "カンロ",
    "sector": "食料品",
-   "mcap_oku": 462,
+   "mcap_oku": 440,
    "mcap_src": "summary",
-   "reason": "時価総額 462億 < 3000億"
+   "reason": "時価総額 440億 < 3000億"
   },
   {
    "code": "2217",
@@ -3291,9 +3529,9 @@
    "code": "2270",
    "name": "雪印メグミルク",
    "sector": "食料品",
-   "mcap_oku": 2245,
+   "mcap_oku": 2204,
    "mcap_src": "summary",
-   "reason": "時価総額 2245億 < 3000億"
+   "reason": "時価総額 2204億 < 3000億"
   },
   {
    "code": "2281",
@@ -3331,9 +3569,9 @@
    "code": "2292",
    "name": "Ｓ　Ｆｏｏｄｓ",
    "sector": "食料品",
-   "mcap_oku": 877,
+   "mcap_oku": 863,
    "mcap_src": "summary",
-   "reason": "時価総額 877億 < 3000億"
+   "reason": "時価総額 863億 < 3000億"
   },
   {
    "code": "2293",
@@ -3427,9 +3665,9 @@
    "code": "2317",
    "name": "システナ",
    "sector": "情報・通信業",
-   "mcap_oku": 1555,
+   "mcap_oku": 1519,
    "mcap_src": "summary",
-   "reason": "時価総額 1555億 < 3000億"
+   "reason": "時価総額 1519億 < 3000億"
   },
   {
    "code": "2323",
@@ -3443,17 +3681,17 @@
    "code": "2325",
    "name": "ＮＪＳ",
    "sector": "サービス業",
-   "mcap_oku": 454,
+   "mcap_oku": 434,
    "mcap_src": "summary",
-   "reason": "時価総額 454億 < 3000億"
+   "reason": "時価総額 434億 < 3000億"
   },
   {
    "code": "2326",
    "name": "デジタルアーツ",
    "sector": "情報・通信業",
-   "mcap_oku": 604,
+   "mcap_oku": 608,
    "mcap_src": "summary",
-   "reason": "時価総額 604億 < 3000億"
+   "reason": "時価総額 608億 < 3000億"
   },
   {
    "code": "2329",
@@ -3491,9 +3729,9 @@
    "code": "2337",
    "name": "いちご",
    "sector": "不動産業",
-   "mcap_oku": 1533,
+   "mcap_oku": 1580,
    "mcap_src": "summary",
-   "reason": "時価総額 1533億 < 3000億"
+   "reason": "時価総額 1580億 < 3000億"
   },
   {
    "code": "2338",
@@ -3555,9 +3793,9 @@
    "code": "2353",
    "name": "日本駐車場開発",
    "sector": "卸売業",
-   "mcap_oku": 834,
+   "mcap_oku": 806,
    "mcap_src": "summary",
-   "reason": "時価総額 834億 < 3000億"
+   "reason": "時価総額 806億 < 3000億"
   },
   {
    "code": "2354",
@@ -3611,9 +3849,9 @@
    "code": "2379",
    "name": "ディップ",
    "sector": "情報・通信業",
-   "mcap_oku": 943,
+   "mcap_oku": 946,
    "mcap_src": "summary",
-   "reason": "時価総額 943億 < 3000億"
+   "reason": "時価総額 946億 < 3000億"
   },
   {
    "code": "2384",
@@ -3643,9 +3881,9 @@
    "code": "2395",
    "name": "新日本科学",
    "sector": "精密機器",
-   "mcap_oku": 556,
+   "mcap_oku": 544,
    "mcap_src": "summary",
-   "reason": "時価総額 556億 < 3000億"
+   "reason": "時価総額 544億 < 3000億"
   },
   {
    "code": "2404",
@@ -3947,9 +4185,9 @@
    "code": "2498",
    "name": "オリエンタルコンサルタンツホールディングス",
    "sector": "サービス業",
-   "mcap_oku": 379,
+   "mcap_oku": 372,
    "mcap_src": "summary",
-   "reason": "時価総額 379億 < 3000億"
+   "reason": "時価総額 372億 < 3000億"
   },
   {
    "code": "2499",
@@ -3995,17 +4233,17 @@
    "code": "255A",
    "name": "ジーエルテクノホールディングス",
    "sector": "サービス業",
-   "mcap_oku": 656,
+   "mcap_oku": 640,
    "mcap_src": "fast_info",
-   "reason": "時価総額 656億 < 3000億"
+   "reason": "時価総額 640億 < 3000億"
   },
   {
    "code": "256A",
    "name": "飛島ホールディングス",
    "sector": "サービス業",
-   "mcap_oku": 425,
+   "mcap_oku": 434,
    "mcap_src": "fast_info",
-   "reason": "時価総額 425億 < 3000億"
+   "reason": "時価総額 434億 < 3000億"
   },
   {
    "code": "2573",
@@ -4059,9 +4297,9 @@
    "code": "2602",
    "name": "日清オイリオグループ",
    "sector": "食料品",
-   "mcap_oku": 1865,
+   "mcap_oku": 1922,
    "mcap_src": "summary",
-   "reason": "時価総額 1865億 < 3000億"
+   "reason": "時価総額 1922億 < 3000億"
   },
   {
    "code": "2612",
@@ -4131,17 +4369,17 @@
    "code": "2659",
    "name": "サンエー",
    "sector": "小売業",
-   "mcap_oku": 1973,
+   "mcap_oku": 1997,
    "mcap_src": "summary",
-   "reason": "時価総額 1973億 < 3000億"
+   "reason": "時価総額 1997億 < 3000億"
   },
   {
    "code": "2664",
    "name": "カワチ薬品",
    "sector": "医薬品",
-   "mcap_oku": 850,
+   "mcap_oku": 834,
    "mcap_src": "summary",
-   "reason": "時価総額 850億 < 3000億"
+   "reason": "時価総額 834億 < 3000億"
   },
   {
    "code": "2666",
@@ -4187,9 +4425,9 @@
    "code": "2674",
    "name": "ハードオフコーポレーション",
    "sector": "小売業",
-   "mcap_oku": 359,
+   "mcap_oku": 351,
    "mcap_src": "summary",
-   "reason": "時価総額 359億 < 3000億"
+   "reason": "時価総額 351億 < 3000億"
   },
   {
    "code": "2676",
@@ -4227,9 +4465,9 @@
    "code": "2685",
    "name": "アンドエスティＨＤ",
    "sector": "繊維製品",
-   "mcap_oku": 1497,
+   "mcap_oku": 1467,
    "mcap_src": "summary",
-   "reason": "時価総額 1497億 < 3000億"
+   "reason": "時価総額 1467億 < 3000億"
   },
   {
    "code": "2687",
@@ -4323,9 +4561,9 @@
    "code": "2726",
    "name": "パルグループホールディングス",
    "sector": "小売業",
-   "mcap_oku": 2611,
+   "mcap_oku": 2570,
    "mcap_src": "summary",
-   "reason": "時価総額 2611億 < 3000億"
+   "reason": "時価総額 2570億 < 3000億"
   },
   {
    "code": "2730",
@@ -4347,9 +4585,9 @@
    "code": "2734",
    "name": "サーラコーポレーション",
    "sector": "卸売業",
-   "mcap_oku": 758,
+   "mcap_oku": 776,
    "mcap_src": "summary",
-   "reason": "時価総額 758億 < 3000億"
+   "reason": "時価総額 776億 < 3000億"
   },
   {
    "code": "2735",
@@ -4467,9 +4705,9 @@
    "code": "2767",
    "name": "円谷フィールズホールディングス",
    "sector": "サービス業",
-   "mcap_oku": 1525,
+   "mcap_oku": 1558,
    "mcap_src": "summary",
-   "reason": "時価総額 1525億 < 3000億"
+   "reason": "時価総額 1558億 < 3000億"
   },
   {
    "code": "2769",
@@ -4507,9 +4745,9 @@
    "code": "2780",
    "name": "コメ兵ホールディングス",
    "sector": "不動産業",
-   "mcap_oku": 541,
+   "mcap_oku": 485,
    "mcap_src": "summary",
-   "reason": "時価総額 541億 < 3000億"
+   "reason": "時価総額 485億 < 3000億"
   },
   {
    "code": "2782",
@@ -4539,9 +4777,9 @@
    "code": "2790",
    "name": "ナフコ",
    "sector": "小売業",
-   "mcap_oku": 519,
+   "mcap_oku": 509,
    "mcap_src": "summary",
-   "reason": "時価総額 519億 < 3000億"
+   "reason": "時価総額 509億 < 3000億"
   },
   {
    "code": "2791",
@@ -4635,9 +4873,9 @@
    "code": "2815",
    "name": "アリアケジャパン",
    "sector": "食料品",
-   "mcap_oku": 1710,
+   "mcap_oku": 1636,
    "mcap_src": "summary",
-   "reason": "時価総額 1710億 < 3000億"
+   "reason": "時価総額 1636億 < 3000億"
   },
   {
    "code": "2816",
@@ -4795,9 +5033,9 @@
    "code": "2908",
    "name": "フジッコ",
    "sector": "食料品",
-   "mcap_oku": 458,
+   "mcap_oku": 462,
    "mcap_src": "summary",
-   "reason": "時価総額 458億 < 3000億"
+   "reason": "時価総額 462億 < 3000億"
   },
   {
    "code": "2910",
@@ -4971,9 +5209,9 @@
    "code": "2975",
    "name": "スター・マイカ・ホールディングス",
    "sector": "不動産業",
-   "mcap_oku": 563,
+   "mcap_oku": 513,
    "mcap_src": "summary",
-   "reason": "時価総額 563億 < 3000億"
+   "reason": "時価総額 513億 < 3000億"
   },
   {
    "code": "297A",
@@ -5043,9 +5281,9 @@
    "code": "3002",
    "name": "グンゼ",
    "sector": "繊維製品",
-   "mcap_oku": 1287,
+   "mcap_oku": 1260,
    "mcap_src": "summary",
-   "reason": "時価総額 1287億 < 3000億"
+   "reason": "時価総額 1260億 < 3000億"
   },
   {
    "code": "3004",
@@ -5115,9 +5353,9 @@
    "code": "3028",
    "name": "アルペン",
    "sector": "小売業",
-   "mcap_oku": 874,
+   "mcap_oku": 864,
    "mcap_src": "summary",
-   "reason": "時価総額 874億 < 3000億"
+   "reason": "時価総額 864億 < 3000億"
   },
   {
    "code": "3030",
@@ -5155,17 +5393,17 @@
    "code": "3036",
    "name": "アルコニックス",
    "sector": "非鉄金属",
-   "mcap_oku": 1015,
+   "mcap_oku": 992,
    "mcap_src": "summary",
-   "reason": "時価総額 1015億 < 3000億"
+   "reason": "時価総額 992億 < 3000億"
   },
   {
    "code": "3040",
    "name": "ソリトンシステムズ",
    "sector": "情報・通信業",
-   "mcap_oku": 436,
+   "mcap_oku": 411,
    "mcap_src": "summary",
-   "reason": "時価総額 436億 < 3000億"
+   "reason": "時価総額 411億 < 3000億"
   },
   {
    "code": "3041",
@@ -5203,17 +5441,17 @@
    "code": "3048",
    "name": "ビックカメラ",
    "sector": "小売業",
-   "mcap_oku": 2947,
+   "mcap_oku": 2944,
    "mcap_src": "summary",
-   "reason": "時価総額 2947億 < 3000億"
+   "reason": "時価総額 2944億 < 3000億"
   },
   {
    "code": "3050",
    "name": "ＤＣＭホールディングス",
    "sector": "小売業",
-   "mcap_oku": 2157,
+   "mcap_oku": 2175,
    "mcap_src": "summary",
-   "reason": "時価総額 2157億 < 3000億"
+   "reason": "時価総額 2175億 < 3000億"
   },
   {
    "code": "3053",
@@ -5299,9 +5537,9 @@
    "code": "3076",
    "name": "あい　ホールディングス",
    "sector": "卸売業",
-   "mcap_oku": 1588,
+   "mcap_oku": 1583,
    "mcap_src": "summary",
-   "reason": "時価総額 1588億 < 3000億"
+   "reason": "時価総額 1583億 < 3000億"
   },
   {
    "code": "3077",
@@ -5363,9 +5601,9 @@
    "code": "3093",
    "name": "トレジャー・ファクトリー",
    "sector": "小売業",
-   "mcap_oku": 439,
+   "mcap_oku": 425,
    "mcap_src": "summary",
-   "reason": "時価総額 439億 < 3000億"
+   "reason": "時価総額 425億 < 3000億"
   },
   {
    "code": "3096",
@@ -5387,9 +5625,9 @@
    "code": "3101",
    "name": "東洋紡",
    "sector": "化学",
-   "mcap_oku": 1451,
+   "mcap_oku": 1445,
    "mcap_src": "summary",
-   "reason": "時価総額 1451億 < 3000億"
+   "reason": "時価総額 1445億 < 3000億"
   },
   {
    "code": "3103",
@@ -5411,9 +5649,9 @@
    "code": "3106",
    "name": "倉敷紡績",
    "sector": "卸売業",
-   "mcap_oku": 1746,
+   "mcap_oku": 1686,
    "mcap_src": "summary",
-   "reason": "時価総額 1746億 < 3000億"
+   "reason": "時価総額 1686億 < 3000億"
   },
   {
    "code": "3109",
@@ -5515,25 +5753,25 @@
    "code": "3148",
    "name": "クリエイトＳＤホールディングス",
    "sector": "医薬品",
-   "mcap_oku": 2184,
+   "mcap_oku": 2142,
    "mcap_src": "summary",
-   "reason": "時価総額 2184億 < 3000億"
+   "reason": "時価総額 2142億 < 3000億"
   },
   {
    "code": "3150",
    "name": "グリムス",
    "sector": "電気・ガス業",
-   "mcap_oku": 568,
+   "mcap_oku": 555,
    "mcap_src": "summary",
-   "reason": "時価総額 568億 < 3000億"
+   "reason": "時価総額 555億 < 3000億"
   },
   {
    "code": "3151",
    "name": "バイタルケーエスケー・ホールディングス",
    "sector": "医薬品",
-   "mcap_oku": 769,
+   "mcap_oku": 754,
    "mcap_src": "summary",
-   "reason": "時価総額 769億 < 3000億"
+   "reason": "時価総額 754億 < 3000億"
   },
   {
    "code": "3153",
@@ -5555,9 +5793,9 @@
    "code": "3156",
    "name": "レスター",
    "sector": "電気機器",
-   "mcap_oku": 1482,
+   "mcap_oku": 1516,
    "mcap_src": "summary",
-   "reason": "時価総額 1482億 < 3000億"
+   "reason": "時価総額 1516億 < 3000億"
   },
   {
    "code": "3157",
@@ -5603,9 +5841,9 @@
    "code": "3167",
    "name": "ＴＯＫＡＩホールディングス",
    "sector": "卸売業",
-   "mcap_oku": 1701,
+   "mcap_oku": 1718,
    "mcap_src": "summary",
-   "reason": "時価総額 1701億 < 3000億"
+   "reason": "時価総額 1718億 < 3000億"
   },
   {
    "code": "3168",
@@ -5715,9 +5953,9 @@
    "code": "3183",
    "name": "ウイン・パートナーズ",
    "sector": "医薬品",
-   "mcap_oku": 346,
+   "mcap_oku": 342,
    "mcap_src": "summary",
-   "reason": "時価総額 346億 < 3000億"
+   "reason": "時価総額 342億 < 3000億"
   },
   {
    "code": "3184",
@@ -5755,9 +5993,9 @@
    "code": "3191",
    "name": "ジョイフル本田",
    "sector": "小売業",
-   "mcap_oku": 1345,
+   "mcap_oku": 1353,
    "mcap_src": "summary",
-   "reason": "時価総額 1345億 < 3000億"
+   "reason": "時価総額 1353億 < 3000億"
   },
   {
    "code": "3192",
@@ -5771,9 +6009,9 @@
    "code": "3193",
    "name": "エターナルホスピタリティグループ",
    "sector": "サービス業",
-   "mcap_oku": 328,
+   "mcap_oku": 315,
    "mcap_src": "summary",
-   "reason": "時価総額 328億 < 3000億"
+   "reason": "時価総額 315億 < 3000億"
   },
   {
    "code": "3195",
@@ -5803,9 +6041,9 @@
    "code": "3201",
    "name": "日本毛織",
    "sector": "繊維製品",
-   "mcap_oku": 1284,
+   "mcap_oku": 1304,
    "mcap_src": "summary",
-   "reason": "時価総額 1284億 < 3000億"
+   "reason": "時価総額 1304億 < 3000億"
   },
   {
    "code": "3202",
@@ -5859,9 +6097,9 @@
    "code": "3232",
    "name": "三重交通グループホールディングス",
    "sector": "卸売業",
-   "mcap_oku": 607,
+   "mcap_oku": 600,
    "mcap_src": "summary",
-   "reason": "時価総額 607億 < 3000億"
+   "reason": "時価総額 600億 < 3000億"
   },
   {
    "code": "3236",
@@ -5971,9 +6209,9 @@
    "code": "3284",
    "name": "フージャースホールディングス",
    "sector": "建設業",
-   "mcap_oku": 522,
+   "mcap_oku": 512,
    "mcap_src": "summary",
-   "reason": "時価総額 522億 < 3000億"
+   "reason": "時価総額 512億 < 3000億"
   },
   {
    "code": "3286",
@@ -6131,9 +6369,9 @@
    "code": "3360",
    "name": "シップヘルスケアホールディングス",
    "sector": "精密機器",
-   "mcap_oku": 2182,
+   "mcap_oku": 2213,
    "mcap_src": "summary",
-   "reason": "時価総額 2182億 < 3000億"
+   "reason": "時価総額 2213億 < 3000億"
   },
   {
    "code": "3361",
@@ -6155,9 +6393,9 @@
    "code": "3371",
    "name": "ソフトクリエイトホールディングス",
    "sector": "情報・通信業",
-   "mcap_oku": 523,
+   "mcap_oku": 514,
    "mcap_src": "summary",
-   "reason": "時価総額 523億 < 3000億"
+   "reason": "時価総額 514億 < 3000億"
   },
   {
    "code": "3372",
@@ -6227,9 +6465,9 @@
    "code": "3395",
    "name": "サンマルクホールディングス",
    "sector": "サービス業",
-   "mcap_oku": 523,
+   "mcap_oku": 526,
    "mcap_src": "summary",
-   "reason": "時価総額 523億 < 3000億"
+   "reason": "時価総額 526億 < 3000億"
   },
   {
    "code": "3396",
@@ -6323,17 +6561,17 @@
    "code": "3431",
    "name": "宮地エンジニアリンググループ",
    "sector": "建設業",
-   "mcap_oku": 418,
+   "mcap_oku": 412,
    "mcap_src": "summary",
-   "reason": "時価総額 418億 < 3000億"
+   "reason": "時価総額 412億 < 3000億"
   },
   {
    "code": "3433",
    "name": "トーカロ",
    "sector": "サービス業",
-   "mcap_oku": 1654,
+   "mcap_oku": 1632,
    "mcap_src": "summary",
-   "reason": "時価総額 1654億 < 3000億"
+   "reason": "時価総額 1632億 < 3000億"
   },
   {
    "code": "3434",
@@ -6515,9 +6753,9 @@
    "code": "3482",
    "name": "ロードスターキャピタル",
    "sector": "不動産業",
-   "mcap_oku": 429,
+   "mcap_oku": 419,
    "mcap_src": "summary",
-   "reason": "時価総額 429億 < 3000億"
+   "reason": "時価総額 419億 < 3000億"
   },
   {
    "code": "3484",
@@ -6531,9 +6769,9 @@
    "code": "3486",
    "name": "グローバル・リンク・マネジメント",
    "sector": "不動産業",
-   "mcap_oku": 312,
+   "mcap_oku": 306,
    "mcap_src": "summary",
-   "reason": "時価総額 312億 < 3000億"
+   "reason": "時価総額 306億 < 3000億"
   },
   {
    "code": "3489",
@@ -6667,9 +6905,9 @@
    "code": "3543",
    "name": "コメダホールディングス",
    "sector": "サービス業",
-   "mcap_oku": 1298,
+   "mcap_oku": 1303,
    "mcap_src": "summary",
-   "reason": "時価総額 1298億 < 3000億"
+   "reason": "時価総額 1303億 < 3000億"
   },
   {
    "code": "3544",
@@ -6755,9 +6993,9 @@
    "code": "3569",
    "name": "セーレン",
    "sector": "繊維製品",
-   "mcap_oku": 2003,
+   "mcap_oku": 1873,
    "mcap_src": "summary",
-   "reason": "時価総額 2003億 < 3000億"
+   "reason": "時価総額 1873億 < 3000億"
   },
   {
    "code": "3571",
@@ -6795,9 +7033,9 @@
    "code": "3591",
    "name": "ワコールホールディングス",
    "sector": "繊維製品",
-   "mcap_oku": 2039,
+   "mcap_oku": 1951,
    "mcap_src": "summary",
-   "reason": "時価総額 2039億 < 3000億"
+   "reason": "時価総額 1951億 < 3000億"
   },
   {
    "code": "3597",
@@ -6995,9 +7233,9 @@
    "code": "3661",
    "name": "エムアップホールディングス",
    "sector": "情報・通信業",
-   "mcap_oku": 566,
+   "mcap_oku": 544,
    "mcap_src": "summary",
-   "reason": "時価総額 566億 < 3000億"
+   "reason": "時価総額 544億 < 3000億"
   },
   {
    "code": "3662",
@@ -7099,9 +7337,9 @@
    "code": "3679",
    "name": "じげん",
    "sector": "情報・通信業",
-   "mcap_oku": 444,
+   "mcap_oku": 431,
    "mcap_src": "summary",
-   "reason": "時価総額 444億 < 3000億"
+   "reason": "時価総額 431億 < 3000億"
   },
   {
    "code": "367A",
@@ -7307,9 +7545,9 @@
    "code": "3762",
    "name": "テクマトリックス",
    "sector": "情報・通信業",
-   "mcap_oku": 950,
+   "mcap_oku": 956,
    "mcap_src": "summary",
-   "reason": "時価総額 950億 < 3000億"
+   "reason": "時価総額 956億 < 3000億"
   },
   {
    "code": "3763",
@@ -7347,9 +7585,9 @@
    "code": "3771",
    "name": "システムリサーチ",
    "sector": "情報・通信業",
-   "mcap_oku": 311,
+   "mcap_oku": 310,
    "mcap_src": "summary",
-   "reason": "時価総額 311億 < 3000億"
+   "reason": "時価総額 310億 < 3000億"
   },
   {
    "code": "3772",
@@ -7475,9 +7713,9 @@
    "code": "3817",
    "name": "ＳＲＡホールディングス",
    "sector": "情報・通信業",
-   "mcap_oku": 653,
+   "mcap_oku": 633,
    "mcap_src": "summary",
-   "reason": "時価総額 653億 < 3000億"
+   "reason": "時価総額 633億 < 3000億"
   },
   {
    "code": "3823",
@@ -7523,9 +7761,9 @@
    "code": "3836",
    "name": "アバントグループ",
    "sector": "情報・通信業",
-   "mcap_oku": 412,
+   "mcap_oku": 411,
    "mcap_src": "summary",
-   "reason": "時価総額 412億 < 3000億"
+   "reason": "時価総額 411億 < 3000億"
   },
   {
    "code": "3837",
@@ -7571,17 +7809,17 @@
    "code": "3843",
    "name": "フリービット",
    "sector": "情報・通信業",
-   "mcap_oku": 369,
+   "mcap_oku": 366,
    "mcap_src": "summary",
-   "reason": "時価総額 369億 < 3000億"
+   "reason": "時価総額 366億 < 3000億"
   },
   {
    "code": "3844",
    "name": "コムチュア",
    "sector": "情報・通信業",
-   "mcap_oku": 415,
+   "mcap_oku": 403,
    "mcap_src": "summary",
-   "reason": "時価総額 415億 < 3000億"
+   "reason": "時価総額 403億 < 3000億"
   },
   {
    "code": "3845",
@@ -7627,9 +7865,9 @@
    "code": "3854",
    "name": "アイル",
    "sector": "情報・通信業",
-   "mcap_oku": 584,
+   "mcap_oku": 532,
    "mcap_src": "summary",
-   "reason": "時価総額 584億 < 3000億"
+   "reason": "時価総額 532億 < 3000億"
   },
   {
    "code": "3856",
@@ -7883,9 +8121,9 @@
    "code": "3932",
    "name": "アカツキ",
    "sector": "情報・通信業",
-   "mcap_oku": 427,
+   "mcap_oku": 410,
    "mcap_src": "summary",
-   "reason": "時価総額 427億 < 3000億"
+   "reason": "時価総額 410億 < 3000億"
   },
   {
    "code": "3933",
@@ -7963,9 +8201,9 @@
    "code": "3946",
    "name": "トーモク",
    "sector": "その他製品",
-   "mcap_oku": 716,
+   "mcap_oku": 713,
    "mcap_src": "summary",
-   "reason": "時価総額 716億 < 3000億"
+   "reason": "時価総額 713億 < 3000億"
   },
   {
    "code": "3947",
@@ -8051,9 +8289,9 @@
    "code": "3964",
    "name": "オークネット",
    "sector": "小売業",
-   "mcap_oku": 1228,
+   "mcap_oku": 1141,
    "mcap_src": "summary",
-   "reason": "時価総額 1228億 < 3000億"
+   "reason": "時価総額 1141億 < 3000億"
   },
   {
    "code": "3965",
@@ -8179,9 +8417,9 @@
    "code": "4008",
    "name": "住友精化",
    "sector": "化学",
-   "mcap_oku": 955,
+   "mcap_oku": 915,
    "mcap_src": "summary",
-   "reason": "時価総額 955億 < 3000億"
+   "reason": "時価総額 915億 < 3000億"
   },
   {
    "code": "4012",
@@ -8235,9 +8473,9 @@
    "code": "4027",
    "name": "テイカ",
    "sector": "化学",
-   "mcap_oku": 557,
+   "mcap_oku": 525,
    "mcap_src": "summary",
-   "reason": "時価総額 557億 < 3000億"
+   "reason": "時価総額 525億 < 3000億"
   },
   {
    "code": "4028",
@@ -8267,33 +8505,33 @@
    "code": "4041",
    "name": "日本曹達",
    "sector": "化学",
-   "mcap_oku": 2093,
+   "mcap_oku": 2053,
    "mcap_src": "summary",
-   "reason": "時価総額 2093億 < 3000億"
+   "reason": "時価総額 2053億 < 3000億"
   },
   {
    "code": "4043",
    "name": "トクヤマ",
    "sector": "化学",
-   "mcap_oku": 2943,
+   "mcap_oku": 2894,
    "mcap_src": "summary",
-   "reason": "時価総額 2943億 < 3000億"
+   "reason": "時価総額 2894億 < 3000億"
   },
   {
    "code": "4044",
    "name": "セントラル硝子",
    "sector": "化学",
-   "mcap_oku": 1113,
+   "mcap_oku": 1049,
    "mcap_src": "summary",
-   "reason": "時価総額 1113億 < 3000億"
+   "reason": "時価総額 1049億 < 3000億"
   },
   {
    "code": "4045",
    "name": "東亞合成",
    "sector": "化学",
-   "mcap_oku": 1932,
+   "mcap_oku": 1893,
    "mcap_src": "summary",
-   "reason": "時価総額 1932億 < 3000億"
+   "reason": "時価総額 1893億 < 3000億"
   },
   {
    "code": "4046",
@@ -8347,9 +8585,9 @@
    "code": "4064",
    "name": "日本カーバイド工業",
    "sector": "化学",
-   "mcap_oku": 327,
+   "mcap_oku": 328,
    "mcap_src": "summary",
-   "reason": "時価総額 327億 < 3000億"
+   "reason": "時価総額 328億 < 3000億"
   },
   {
    "code": "4071",
@@ -8411,25 +8649,25 @@
    "code": "4094",
    "name": "日本化学産業",
    "sector": "化学",
-   "mcap_oku": 446,
+   "mcap_oku": 439,
    "mcap_src": "summary",
-   "reason": "時価総額 446億 < 3000億"
+   "reason": "時価総額 439億 < 3000億"
   },
   {
    "code": "4095",
    "name": "日本パーカライジング",
    "sector": "化学",
-   "mcap_oku": 1843,
+   "mcap_oku": 1837,
    "mcap_src": "summary",
-   "reason": "時価総額 1843億 < 3000億"
+   "reason": "時価総額 1837億 < 3000億"
   },
   {
    "code": "4097",
    "name": "高圧ガス工業",
    "sector": "化学",
-   "mcap_oku": 660,
+   "mcap_oku": 654,
    "mcap_src": "summary",
-   "reason": "時価総額 660億 < 3000億"
+   "reason": "時価総額 654億 < 3000億"
   },
   {
    "code": "4098",
@@ -8483,17 +8721,17 @@
    "code": "4109",
    "name": "ステラ　ケミファ",
    "sector": "化学",
-   "mcap_oku": 660,
+   "mcap_oku": 639,
    "mcap_src": "summary",
-   "reason": "時価総額 660億 < 3000億"
+   "reason": "時価総額 639億 < 3000億"
   },
   {
    "code": "4112",
    "name": "保土谷化学工業",
    "sector": "化学",
-   "mcap_oku": 346,
+   "mcap_oku": 325,
    "mcap_src": "summary",
-   "reason": "時価総額 346億 < 3000億"
+   "reason": "時価総額 325億 < 3000億"
   },
   {
    "code": "4113",
@@ -8507,9 +8745,9 @@
    "code": "4116",
    "name": "大日精化工業",
    "sector": "化学",
-   "mcap_oku": 894,
+   "mcap_oku": 887,
    "mcap_src": "summary",
-   "reason": "時価総額 894億 < 3000億"
+   "reason": "時価総額 887億 < 3000億"
   },
   {
    "code": "4119",
@@ -8587,9 +8825,9 @@
    "code": "4189",
    "name": "ＫＨネオケム",
    "sector": "化学",
-   "mcap_oku": 1140,
+   "mcap_oku": 1119,
    "mcap_src": "summary",
-   "reason": "時価総額 1140億 < 3000億"
+   "reason": "時価総額 1119億 < 3000億"
   },
   {
    "code": "4193",
@@ -8627,41 +8865,41 @@
    "code": "4206",
    "name": "アイカ工業",
    "sector": "卸売業",
-   "mcap_oku": 2661,
+   "mcap_oku": 2606,
    "mcap_src": "summary",
-   "reason": "時価総額 2661億 < 3000億"
+   "reason": "時価総額 2606億 < 3000億"
   },
   {
    "code": "4212",
    "name": "積水樹脂",
    "sector": "建設業",
-   "mcap_oku": 885,
+   "mcap_oku": 860,
    "mcap_src": "summary",
-   "reason": "時価総額 885億 < 3000億"
+   "reason": "時価総額 860億 < 3000億"
   },
   {
    "code": "4216",
    "name": "旭有機材",
    "sector": "建設業",
-   "mcap_oku": 1129,
+   "mcap_oku": 1127,
    "mcap_src": "summary",
-   "reason": "時価総額 1129億 < 3000億"
+   "reason": "時価総額 1127億 < 3000億"
   },
   {
    "code": "4218",
    "name": "ニチバン",
    "sector": "その他製品",
-   "mcap_oku": 387,
+   "mcap_oku": 384,
    "mcap_src": "summary",
-   "reason": "時価総額 387億 < 3000億"
+   "reason": "時価総額 384億 < 3000億"
   },
   {
    "code": "4220",
    "name": "リケンテクノス",
    "sector": "化学",
-   "mcap_oku": 1150,
+   "mcap_oku": 1086,
    "mcap_src": "summary",
-   "reason": "時価総額 1150億 < 3000億"
+   "reason": "時価総額 1086億 < 3000億"
   },
   {
    "code": "4221",
@@ -8795,9 +9033,9 @@
    "code": "4246",
    "name": "ダイキョーニシカワ",
    "sector": "輸送用機器",
-   "mcap_oku": 718,
+   "mcap_oku": 676,
    "mcap_src": "summary",
-   "reason": "時価総額 718億 < 3000億"
+   "reason": "時価総額 676億 < 3000億"
   },
   {
    "code": "4247",
@@ -8819,9 +9057,9 @@
    "code": "4249",
    "name": "森六",
    "sector": "化学",
-   "mcap_oku": 424,
+   "mcap_oku": 403,
    "mcap_src": "summary",
-   "reason": "時価総額 424億 < 3000億"
+   "reason": "時価総額 403億 < 3000億"
   },
   {
    "code": "4251",
@@ -8830,6 +9068,14 @@
    "mcap_oku": 215,
    "mcap_src": "rejected_cache",
    "reason": "時価総額 215億 < 3000億"
+  },
+  {
+   "code": "4272",
+   "name": "日本化薬",
+   "sector": "化学",
+   "mcap_oku": 2941,
+   "mcap_src": "summary",
+   "reason": "時価総額 2941億 < 3000億"
   },
   {
    "code": "4274",
@@ -8843,9 +9089,9 @@
    "code": "4275",
    "name": "カーリット",
    "sector": "化学",
-   "mcap_oku": 439,
+   "mcap_oku": 428,
    "mcap_src": "summary",
-   "reason": "時価総額 439億 < 3000億"
+   "reason": "時価総額 428億 < 3000億"
   },
   {
    "code": "4284",
@@ -8891,9 +9137,9 @@
    "code": "4290",
    "name": "プレステージ・インターナショナル",
    "sector": "サービス業",
-   "mcap_oku": 863,
+   "mcap_oku": 833,
    "mcap_src": "summary",
-   "reason": "時価総額 863億 < 3000億"
+   "reason": "時価総額 833億 < 3000億"
   },
   {
    "code": "4293",
@@ -8915,9 +9161,9 @@
    "code": "4301",
    "name": "アミューズ",
    "sector": "情報・通信業",
-   "mcap_oku": 308,
+   "mcap_oku": 296,
    "mcap_src": "summary",
-   "reason": "時価総額 308億 < 3000億"
+   "reason": "時価総額 296億 < 3000億"
   },
   {
    "code": "4310",
@@ -8939,9 +9185,9 @@
    "code": "4318",
    "name": "クイック",
    "sector": "サービス業",
-   "mcap_oku": 458,
+   "mcap_oku": 456,
    "mcap_src": "summary",
-   "reason": "時価総額 458億 < 3000億"
+   "reason": "時価総額 456億 < 3000億"
   },
   {
    "code": "4320",
@@ -8955,9 +9201,9 @@
    "code": "4323",
    "name": "日本システム技術",
    "sector": "情報・通信業",
-   "mcap_oku": 466,
+   "mcap_oku": 457,
    "mcap_src": "summary",
-   "reason": "時価総額 466億 < 3000億"
+   "reason": "時価総額 457億 < 3000億"
   },
   {
    "code": "4326",
@@ -9029,7 +9275,7 @@
    "sector": "その他金融業",
    "mcap_oku": 342,
    "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 342億 < 3000億"
   },
   {
    "code": "4346",
@@ -9037,7 +9283,7 @@
    "sector": "その他金融業",
    "mcap_oku": 137,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 137億 < 3000億"
   },
   {
    "code": "4347",
@@ -9061,7 +9307,7 @@
    "sector": "その他金融業",
    "mcap_oku": 37,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 37億 < 3000億"
   },
   {
    "code": "4356",
@@ -9091,9 +9337,9 @@
    "code": "4362",
    "name": "日本精化",
    "sector": "化学",
-   "mcap_oku": 583,
+   "mcap_oku": 564,
    "mcap_src": "summary",
-   "reason": "時価総額 583億 < 3000億"
+   "reason": "時価総額 564億 < 3000億"
   },
   {
    "code": "4365",
@@ -9331,9 +9577,9 @@
    "code": "4463",
    "name": "日華化学",
    "sector": "化学",
-   "mcap_oku": 324,
+   "mcap_oku": 306,
    "mcap_src": "summary",
-   "reason": "時価総額 324億 < 3000億"
+   "reason": "時価総額 306億 < 3000億"
   },
   {
    "code": "4464",
@@ -9355,9 +9601,9 @@
    "code": "4471",
    "name": "三洋化成工業",
    "sector": "化学",
-   "mcap_oku": 1354,
+   "mcap_oku": 1311,
    "mcap_src": "summary",
-   "reason": "時価総額 1354億 < 3000億"
+   "reason": "時価総額 1311億 < 3000億"
   },
   {
    "code": "4480",
@@ -9371,9 +9617,9 @@
    "code": "4481",
    "name": "ベース",
    "sector": "情報・通信業",
-   "mcap_oku": 601,
+   "mcap_oku": 577,
    "mcap_src": "summary",
-   "reason": "時価総額 601億 < 3000億"
+   "reason": "時価総額 577億 < 3000億"
   },
   {
    "code": "4483",
@@ -9419,17 +9665,17 @@
    "code": "4516",
    "name": "日本新薬",
    "sector": "医薬品",
-   "mcap_oku": 2308,
+   "mcap_oku": 2279,
    "mcap_src": "summary",
-   "reason": "時価総額 2308億 < 3000億"
+   "reason": "時価総額 2279億 < 3000億"
   },
   {
    "code": "4521",
    "name": "科研製薬",
    "sector": "医薬品",
-   "mcap_oku": 1475,
+   "mcap_oku": 1452,
    "mcap_src": "summary",
-   "reason": "時価総額 1475億 < 3000億"
+   "reason": "時価総額 1452億 < 3000億"
   },
   {
    "code": "4524",
@@ -9443,9 +9689,9 @@
    "code": "4526",
    "name": "理研ビタミン",
    "sector": "食料品",
-   "mcap_oku": 948,
+   "mcap_oku": 961,
    "mcap_src": "summary",
-   "reason": "時価総額 948億 < 3000億"
+   "reason": "時価総額 961億 < 3000億"
   },
   {
    "code": "4531",
@@ -9483,9 +9729,9 @@
    "code": "4540",
    "name": "ツムラ",
    "sector": "医薬品",
-   "mcap_oku": 2753,
+   "mcap_oku": 2774,
    "mcap_src": "summary",
-   "reason": "時価総額 2753億 < 3000億"
+   "reason": "時価総額 2774億 < 3000億"
   },
   {
    "code": "4544",
@@ -9499,9 +9745,9 @@
    "code": "4547",
    "name": "キッセイ薬品工業",
    "sector": "医薬品",
-   "mcap_oku": 1661,
+   "mcap_oku": 1653,
    "mcap_src": "summary",
-   "reason": "時価総額 1661億 < 3000億"
+   "reason": "時価総額 1653億 < 3000億"
   },
   {
    "code": "4548",
@@ -9515,9 +9761,9 @@
    "code": "4549",
    "name": "栄研化学",
    "sector": "精密機器",
-   "mcap_oku": 751,
+   "mcap_oku": 731,
    "mcap_src": "summary",
-   "reason": "時価総額 751億 < 3000億"
+   "reason": "時価総額 731億 < 3000億"
   },
   {
    "code": "4552",
@@ -9531,17 +9777,17 @@
    "code": "4553",
    "name": "東和薬品",
    "sector": "医薬品",
-   "mcap_oku": 1762,
+   "mcap_oku": 1730,
    "mcap_src": "summary",
-   "reason": "時価総額 1762億 < 3000億"
+   "reason": "時価総額 1730億 < 3000億"
   },
   {
    "code": "4554",
    "name": "富士製薬工業",
    "sector": "医薬品",
-   "mcap_oku": 457,
+   "mcap_oku": 454,
    "mcap_src": "summary",
-   "reason": "時価総額 457億 < 3000億"
+   "reason": "時価総額 454億 < 3000億"
   },
   {
    "code": "4558",
@@ -9555,9 +9801,9 @@
    "code": "4559",
    "name": "ゼリア新薬工業",
    "sector": "医薬品",
-   "mcap_oku": 875,
+   "mcap_oku": 873,
    "mcap_src": "summary",
-   "reason": "時価総額 875億 < 3000億"
+   "reason": "時価総額 873億 < 3000億"
   },
   {
    "code": "4565",
@@ -9611,9 +9857,9 @@
    "code": "4611",
    "name": "大日本塗料",
    "sector": "化学",
-   "mcap_oku": 441,
+   "mcap_oku": 434,
    "mcap_src": "summary",
-   "reason": "時価総額 441億 < 3000億"
+   "reason": "時価総額 434億 < 3000億"
   },
   {
    "code": "4615",
@@ -9635,17 +9881,17 @@
    "code": "4617",
    "name": "中国塗料",
    "sector": "化学",
-   "mcap_oku": 1802,
+   "mcap_oku": 1726,
    "mcap_src": "summary",
-   "reason": "時価総額 1802億 < 3000億"
+   "reason": "時価総額 1726億 < 3000億"
   },
   {
    "code": "4619",
    "name": "日本特殊塗料",
    "sector": "輸送用機器",
-   "mcap_oku": 570,
+   "mcap_oku": 555,
    "mcap_src": "summary",
-   "reason": "時価総額 570億 < 3000億"
+   "reason": "時価総額 555億 < 3000億"
   },
   {
    "code": "4620",
@@ -9707,17 +9953,17 @@
    "code": "4633",
    "name": "サカタインクス",
    "sector": "化学",
-   "mcap_oku": 1263,
+   "mcap_oku": 1240,
    "mcap_src": "summary",
-   "reason": "時価総額 1263億 < 3000億"
+   "reason": "時価総額 1240億 < 3000億"
   },
   {
    "code": "4634",
    "name": "ａｒｔｉｅｎｃｅ",
    "sector": "化学",
-   "mcap_oku": 2364,
+   "mcap_oku": 2378,
    "mcap_src": "summary",
-   "reason": "時価総額 2364億 < 3000億"
+   "reason": "時価総額 2378億 < 3000億"
   },
   {
    "code": "4635",
@@ -9819,9 +10065,9 @@
    "code": "4665",
    "name": "ダスキン",
    "sector": "卸売業",
-   "mcap_oku": 2171,
+   "mcap_oku": 2164,
    "mcap_src": "summary",
-   "reason": "時価総額 2171億 < 3000億"
+   "reason": "時価総額 2164億 < 3000億"
   },
   {
    "code": "4667",
@@ -9859,9 +10105,9 @@
    "code": "4674",
    "name": "クレスコ",
    "sector": "情報・通信業",
-   "mcap_oku": 742,
+   "mcap_oku": 689,
    "mcap_src": "summary",
-   "reason": "時価総額 742億 < 3000億"
+   "reason": "時価総額 689億 < 3000億"
   },
   {
    "code": "4678",
@@ -9899,9 +10145,9 @@
    "code": "4687",
    "name": "ＴＤＣソフト",
    "sector": "情報・通信業",
-   "mcap_oku": 492,
+   "mcap_oku": 477,
    "mcap_src": "summary",
-   "reason": "時価総額 492億 < 3000億"
+   "reason": "時価総額 477億 < 3000億"
   },
   {
    "code": "4691",
@@ -9939,9 +10185,9 @@
    "code": "4709",
    "name": "ＩＤホールディングス",
    "sector": "情報・通信業",
-   "mcap_oku": 360,
+   "mcap_oku": 358,
    "mcap_src": "summary",
-   "reason": "時価総額 360億 < 3000億"
+   "reason": "時価総額 358億 < 3000億"
   },
   {
    "code": "4712",
@@ -9963,9 +10209,9 @@
    "code": "4718",
    "name": "早稲田アカデミー",
    "sector": "サービス業",
-   "mcap_oku": 487,
+   "mcap_oku": 454,
    "mcap_src": "summary",
-   "reason": "時価総額 487億 < 3000億"
+   "reason": "時価総額 454億 < 3000億"
   },
   {
    "code": "4719",
@@ -9981,7 +10227,7 @@
    "sector": "その他金融業",
    "mcap_oku": 784,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 784億 < 3000億"
   },
   {
    "code": "4720",
@@ -10003,9 +10249,9 @@
    "code": "4725",
    "name": "ＣＡＣ　Ｈｏｌｄｉｎｇｓ",
    "sector": "情報・通信業",
-   "mcap_oku": 336,
+   "mcap_oku": 331,
    "mcap_src": "summary",
-   "reason": "時価総額 336億 < 3000億"
+   "reason": "時価総額 331億 < 3000億"
   },
   {
    "code": "4728",
@@ -10107,17 +10353,17 @@
    "code": "4763",
    "name": "クリーク・アンド・リバー社",
    "sector": "サービス業",
-   "mcap_oku": 312,
+   "mcap_oku": 308,
    "mcap_src": "summary",
-   "reason": "時価総額 312億 < 3000億"
+   "reason": "時価総額 308億 < 3000億"
   },
   {
    "code": "4765",
    "name": "ＳＢＩグローバルアセットマネジメント",
    "sector": "証券・商品先物取引業",
-   "mcap_oku": 870,
+   "mcap_oku": 845,
    "mcap_src": "summary",
-   "reason": "金融は対象外（証券・商品先物取引業）"
+   "reason": "時価総額 845億 < 3000億"
   },
   {
    "code": "4766",
@@ -10195,9 +10441,9 @@
    "code": "4792",
    "name": "山田コンサルティンググループ",
    "sector": "サービス業",
-   "mcap_oku": 340,
+   "mcap_oku": 337,
    "mcap_src": "summary",
-   "reason": "時価総額 340億 < 3000億"
+   "reason": "時価総額 337億 < 3000億"
   },
   {
    "code": "4800",
@@ -10251,17 +10497,17 @@
    "code": "4820",
    "name": "イーエムシステムズ",
    "sector": "サービス業",
-   "mcap_oku": 406,
+   "mcap_oku": 403,
    "mcap_src": "summary",
-   "reason": "時価総額 406億 < 3000億"
+   "reason": "時価総額 403億 < 3000億"
   },
   {
    "code": "4825",
    "name": "ウェザーニューズ",
    "sector": "情報・通信業",
-   "mcap_oku": 907,
+   "mcap_oku": 878,
    "mcap_src": "summary",
-   "reason": "時価総額 907億 < 3000億"
+   "reason": "時価総額 878億 < 3000億"
   },
   {
    "code": "4826",
@@ -10275,9 +10521,9 @@
    "code": "4828",
    "name": "ビジネスエンジニアリング",
    "sector": "情報・通信業",
-   "mcap_oku": 828,
+   "mcap_oku": 796,
    "mcap_src": "summary",
-   "reason": "時価総額 828億 < 3000億"
+   "reason": "時価総額 796億 < 3000億"
   },
   {
    "code": "4829",
@@ -10291,9 +10537,9 @@
    "code": "4832",
    "name": "ＪＦＥシステムズ",
    "sector": "情報・通信業",
-   "mcap_oku": 607,
+   "mcap_oku": 604,
    "mcap_src": "summary",
-   "reason": "時価総額 607億 < 3000億"
+   "reason": "時価総額 604億 < 3000億"
   },
   {
    "code": "4838",
@@ -10347,9 +10593,9 @@
    "code": "4848",
    "name": "フルキャストホールディングス",
    "sector": "サービス業",
-   "mcap_oku": 635,
+   "mcap_oku": 630,
    "mcap_src": "summary",
-   "reason": "時価総額 635億 < 3000億"
+   "reason": "時価総額 630億 < 3000億"
   },
   {
    "code": "4849",
@@ -10395,9 +10641,9 @@
    "code": "4914",
    "name": "高砂香料工業",
    "sector": "化学",
-   "mcap_oku": 1265,
+   "mcap_oku": 1242,
    "mcap_src": "summary",
-   "reason": "時価総額 1265億 < 3000億"
+   "reason": "時価総額 1242億 < 3000億"
   },
   {
    "code": "4918",
@@ -10411,9 +10657,9 @@
    "code": "4919",
    "name": "ミルボン",
    "sector": "化学",
-   "mcap_oku": 991,
+   "mcap_oku": 1002,
    "mcap_src": "summary",
-   "reason": "時価総額 991億 < 3000億"
+   "reason": "時価総額 1002億 < 3000億"
   },
   {
    "code": "4920",
@@ -10451,9 +10697,9 @@
    "code": "4928",
    "name": "ノエビアホールディングス",
    "sector": "化学",
-   "mcap_oku": 1639,
+   "mcap_oku": 1628,
    "mcap_src": "summary",
-   "reason": "時価総額 1639億 < 3000億"
+   "reason": "時価総額 1628億 < 3000億"
   },
   {
    "code": "4929",
@@ -10467,9 +10713,9 @@
    "code": "4931",
    "name": "新日本製薬",
    "sector": "小売業",
-   "mcap_oku": 428,
+   "mcap_oku": 427,
    "mcap_src": "summary",
-   "reason": "時価総額 428億 < 3000億"
+   "reason": "時価総額 427億 < 3000億"
   },
   {
    "code": "4932",
@@ -10507,25 +10753,25 @@
    "code": "4951",
    "name": "エステー",
    "sector": "化学",
-   "mcap_oku": 315,
+   "mcap_oku": 295,
    "mcap_src": "summary",
-   "reason": "時価総額 315億 < 3000億"
+   "reason": "時価総額 295億 < 3000億"
   },
   {
    "code": "4956",
    "name": "コニシ",
    "sector": "化学",
-   "mcap_oku": 904,
+   "mcap_oku": 900,
    "mcap_src": "summary",
-   "reason": "時価総額 904億 < 3000億"
+   "reason": "時価総額 900億 < 3000億"
   },
   {
    "code": "4958",
    "name": "長谷川香料",
    "sector": "化学",
-   "mcap_oku": 1327,
+   "mcap_oku": 1313,
    "mcap_src": "summary",
-   "reason": "時価総額 1327億 < 3000億"
+   "reason": "時価総額 1313億 < 3000億"
   },
   {
    "code": "4960",
@@ -10539,9 +10785,9 @@
    "code": "4968",
    "name": "荒川化学工業",
    "sector": "化学",
-   "mcap_oku": 432,
+   "mcap_oku": 422,
    "mcap_src": "summary",
-   "reason": "時価総額 432億 < 3000億"
+   "reason": "時価総額 422億 < 3000億"
   },
   {
    "code": "4970",
@@ -10555,9 +10801,9 @@
    "code": "4971",
    "name": "メック",
    "sector": "化学",
-   "mcap_oku": 1196,
+   "mcap_oku": 1090,
    "mcap_src": "summary",
-   "reason": "時価総額 1196億 < 3000億"
+   "reason": "時価総額 1090億 < 3000億"
   },
   {
    "code": "4972",
@@ -10611,9 +10857,9 @@
    "code": "4985",
    "name": "アース製薬",
    "sector": "化学",
-   "mcap_oku": 1027,
+   "mcap_oku": 1026,
    "mcap_src": "summary",
-   "reason": "時価総額 1027億 < 3000億"
+   "reason": "時価総額 1026億 < 3000億"
   },
   {
    "code": "4990",
@@ -10627,9 +10873,9 @@
    "code": "4992",
    "name": "北興化学工業",
    "sector": "化学",
-   "mcap_oku": 504,
+   "mcap_oku": 476,
    "mcap_src": "summary",
-   "reason": "時価総額 504億 < 3000億"
+   "reason": "時価総額 476億 < 3000億"
   },
   {
    "code": "4994",
@@ -10651,9 +10897,9 @@
    "code": "4997",
    "name": "日本農薬",
    "sector": "化学",
-   "mcap_oku": 974,
+   "mcap_oku": 909,
    "mcap_src": "summary",
-   "reason": "時価総額 974億 < 3000億"
+   "reason": "時価総額 909億 < 3000億"
   },
   {
    "code": "4998",
@@ -10803,9 +11049,9 @@
    "code": "5161",
    "name": "西川ゴム工業",
    "sector": "輸送用機器",
-   "mcap_oku": 1296,
+   "mcap_oku": 1263,
    "mcap_src": "summary",
-   "reason": "時価総額 1296億 < 3000億"
+   "reason": "時価総額 1263億 < 3000億"
   },
   {
    "code": "5162",
@@ -10819,9 +11065,9 @@
    "code": "5184",
    "name": "ニチリン",
    "sector": "輸送用機器",
-   "mcap_oku": 537,
+   "mcap_oku": 532,
    "mcap_src": "summary",
-   "reason": "時価総額 537億 < 3000億"
+   "reason": "時価総額 532億 < 3000億"
   },
   {
    "code": "5185",
@@ -10835,9 +11081,9 @@
    "code": "5186",
    "name": "ニッタ",
    "sector": "機械",
-   "mcap_oku": 1893,
+   "mcap_oku": 1816,
    "mcap_src": "summary",
-   "reason": "時価総額 1893億 < 3000億"
+   "reason": "時価総額 1816億 < 3000億"
   },
   {
    "code": "5187",
@@ -10875,9 +11121,9 @@
    "code": "5195",
    "name": "バンドー化学",
    "sector": "機械",
-   "mcap_oku": 997,
+   "mcap_oku": 1000,
    "mcap_src": "summary",
-   "reason": "時価総額 997億 < 3000億"
+   "reason": "時価総額 1000億 < 3000億"
   },
   {
    "code": "5199",
@@ -10939,9 +11185,9 @@
    "code": "5232",
    "name": "住友大阪セメント",
    "sector": "ガラス・土石製品",
-   "mcap_oku": 1757,
+   "mcap_oku": 1773,
    "mcap_src": "summary",
-   "reason": "時価総額 1757億 < 3000億"
+   "reason": "時価総額 1773億 < 3000億"
   },
   {
    "code": "5237",
@@ -11075,49 +11321,49 @@
    "code": "5288",
    "name": "アジアパイルホールディングス",
    "sector": "ガラス・土石製品",
-   "mcap_oku": 577,
+   "mcap_oku": 550,
    "mcap_src": "summary",
-   "reason": "時価総額 577億 < 3000億"
+   "reason": "時価総額 550億 < 3000億"
   },
   {
    "code": "5290",
    "name": "ベルテクスコーポレーション",
    "sector": "ガラス・土石製品",
-   "mcap_oku": 579,
+   "mcap_oku": 581,
    "mcap_src": "summary",
-   "reason": "時価総額 579億 < 3000億"
+   "reason": "時価総額 581億 < 3000億"
   },
   {
    "code": "5302",
    "name": "日本カーボン",
    "sector": "化学",
-   "mcap_oku": 545,
+   "mcap_oku": 534,
    "mcap_src": "summary",
-   "reason": "時価総額 545億 < 3000億"
+   "reason": "時価総額 534億 < 3000億"
   },
   {
    "code": "5304",
    "name": "ＳＥＣカーボン",
    "sector": "化学",
-   "mcap_oku": 513,
+   "mcap_oku": 490,
    "mcap_src": "summary",
-   "reason": "時価総額 513億 < 3000億"
+   "reason": "時価総額 490億 < 3000億"
   },
   {
    "code": "5310",
    "name": "東洋炭素",
    "sector": "電気機器",
-   "mcap_oku": 1497,
+   "mcap_oku": 1487,
    "mcap_src": "summary",
-   "reason": "時価総額 1497億 < 3000億"
+   "reason": "時価総額 1487億 < 3000億"
   },
   {
    "code": "5331",
    "name": "ノリタケ",
    "sector": "卸売業",
-   "mcap_oku": 1970,
+   "mcap_oku": 1884,
    "mcap_src": "summary",
-   "reason": "時価総額 1970億 < 3000億"
+   "reason": "時価総額 1884億 < 3000億"
   },
   {
    "code": "5337",
@@ -11139,9 +11385,9 @@
    "code": "5351",
    "name": "品川リフラ",
    "sector": "ガラス・土石製品",
-   "mcap_oku": 930,
+   "mcap_oku": 928,
    "mcap_src": "summary",
-   "reason": "時価総額 930億 < 3000億"
+   "reason": "時価総額 928億 < 3000億"
   },
   {
    "code": "5355",
@@ -11163,17 +11409,17 @@
    "code": "5357",
    "name": "ヨータイ",
    "sector": "ガラス・土石製品",
-   "mcap_oku": 326,
+   "mcap_oku": 318,
    "mcap_src": "summary",
-   "reason": "時価総額 326億 < 3000億"
+   "reason": "時価総額 318億 < 3000億"
   },
   {
    "code": "5363",
    "name": "東京窯業",
    "sector": "ガラス・土石製品",
-   "mcap_oku": 304,
+   "mcap_oku": 298,
    "mcap_src": "summary",
-   "reason": "時価総額 304億 < 3000億"
+   "reason": "時価総額 298億 < 3000億"
   },
   {
    "code": "5367",
@@ -11211,9 +11457,9 @@
    "code": "5384",
    "name": "フジミインコーポレーテッド",
    "sector": "電気機器",
-   "mcap_oku": 2530,
+   "mcap_oku": 2363,
    "mcap_src": "summary",
-   "reason": "時価総額 2530億 < 3000億"
+   "reason": "時価総額 2363億 < 3000億"
   },
   {
    "code": "5388",
@@ -11251,9 +11497,9 @@
    "code": "5423",
    "name": "東京製鐵",
    "sector": "鉄鋼",
-   "mcap_oku": 1738,
+   "mcap_oku": 1742,
    "mcap_src": "summary",
-   "reason": "時価総額 1738億 < 3000億"
+   "reason": "時価総額 1742億 < 3000億"
   },
   {
    "code": "5440",
@@ -11299,9 +11545,9 @@
    "code": "5451",
    "name": "ヨドコウ",
    "sector": "鉄鋼",
-   "mcap_oku": 2033,
+   "mcap_oku": 2014,
    "mcap_src": "summary",
-   "reason": "時価総額 2033億 < 3000億"
+   "reason": "時価総額 2014億 < 3000億"
   },
   {
    "code": "5458",
@@ -11349,15 +11595,15 @@
    "sector": "その他金融業",
    "mcap_oku": 2064,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 2064億 < 3000億"
   },
   {
    "code": "5480",
    "name": "日本冶金工業",
    "sector": "鉄鋼",
-   "mcap_oku": 754,
+   "mcap_oku": 730,
    "mcap_src": "summary",
-   "reason": "時価総額 754億 < 3000億"
+   "reason": "時価総額 730億 < 3000億"
   },
   {
    "code": "5482",
@@ -11483,9 +11729,9 @@
    "code": "5602",
    "name": "栗本鐵工所",
    "sector": "鉄鋼",
-   "mcap_oku": 1007,
+   "mcap_oku": 973,
    "mcap_src": "summary",
-   "reason": "時価総額 1007億 < 3000億"
+   "reason": "時価総額 973億 < 3000億"
   },
   {
    "code": "5603",
@@ -11515,9 +11761,9 @@
    "code": "5632",
    "name": "三菱製鋼",
    "sector": "鉄鋼",
-   "mcap_oku": 354,
+   "mcap_oku": 351,
    "mcap_src": "summary",
-   "reason": "時価総額 354億 < 3000億"
+   "reason": "時価総額 351億 < 3000億"
   },
   {
    "code": "5644",
@@ -11720,52 +11966,12 @@
    "reason": "時価総額 452億 < 3000億"
   },
   {
-   "code": "5830",
-   "name": "いよぎんホールディングス",
-   "sector": "銀行業",
-   "mcap_oku": 11265,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "5831",
-   "name": "しずおかフィナンシャルグループ",
-   "sector": "銀行業",
-   "mcap_oku": 19488,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "5832",
-   "name": "ちゅうぎんフィナンシャルグループ",
-   "sector": "銀行業",
-   "mcap_oku": 6282,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "5838",
-   "name": "楽天銀行",
-   "sector": "銀行業",
-   "mcap_oku": 11619,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
    "code": "5843",
    "name": "ニッポンインシュア",
    "sector": "その他金融業",
    "mcap_oku": 68,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
-  },
-  {
-   "code": "5844",
-   "name": "京都フィナンシャルグループ",
-   "sector": "銀行業",
-   "mcap_oku": 13915,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 68億 < 3000億"
   },
   {
    "code": "5845",
@@ -11773,7 +11979,7 @@
    "sector": "その他金融業",
    "mcap_oku": 319,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 319億 < 3000億"
   },
   {
    "code": "5851",
@@ -11851,9 +12057,9 @@
    "code": "5902",
    "name": "ホッカンホールディングス",
    "sector": "その他製品",
-   "mcap_oku": 333,
+   "mcap_oku": 326,
    "mcap_src": "summary",
-   "reason": "時価総額 333億 < 3000億"
+   "reason": "時価総額 326億 < 3000億"
   },
   {
    "code": "5905",
@@ -11891,9 +12097,9 @@
    "code": "5911",
    "name": "横河ブリッジホールディングス",
    "sector": "建設業",
-   "mcap_oku": 1176,
+   "mcap_oku": 1177,
    "mcap_src": "summary",
-   "reason": "時価総額 1176億 < 3000億"
+   "reason": "時価総額 1177億 < 3000億"
   },
   {
    "code": "5915",
@@ -11947,9 +12153,9 @@
    "code": "5930",
    "name": "文化シヤッター",
    "sector": "建設業",
-   "mcap_oku": 1346,
+   "mcap_oku": 1320,
    "mcap_src": "summary",
-   "reason": "時価総額 1346億 < 3000億"
+   "reason": "時価総額 1320億 < 3000億"
   },
   {
    "code": "5932",
@@ -12027,9 +12233,9 @@
    "code": "5946",
    "name": "長府製作所",
    "sector": "その他製品",
-   "mcap_oku": 722,
+   "mcap_oku": 679,
    "mcap_src": "summary",
-   "reason": "時価総額 722億 < 3000億"
+   "reason": "時価総額 679億 < 3000億"
   },
   {
    "code": "5949",
@@ -12099,9 +12305,9 @@
    "code": "5959",
    "name": "岡部",
    "sector": "建設業",
-   "mcap_oku": 420,
+   "mcap_oku": 410,
    "mcap_src": "summary",
-   "reason": "時価総額 420億 < 3000億"
+   "reason": "時価総額 410億 < 3000億"
   },
   {
    "code": "5962",
@@ -12147,9 +12353,9 @@
    "code": "5970",
    "name": "ジーテクト",
    "sector": "輸送用機器",
-   "mcap_oku": 969,
+   "mcap_oku": 939,
    "mcap_src": "summary",
-   "reason": "時価総額 969億 < 3000億"
+   "reason": "時価総額 939億 < 3000億"
   },
   {
    "code": "5971",
@@ -12187,9 +12393,9 @@
    "code": "5976",
    "name": "高周波熱錬",
    "sector": "鉄鋼",
-   "mcap_oku": 479,
+   "mcap_oku": 467,
    "mcap_src": "summary",
-   "reason": "時価総額 479億 < 3000億"
+   "reason": "時価総額 467億 < 3000億"
   },
   {
    "code": "5981",
@@ -12203,9 +12409,9 @@
    "code": "5982",
    "name": "マルゼン",
    "sector": "機械",
-   "mcap_oku": 662,
+   "mcap_oku": 657,
    "mcap_src": "summary",
-   "reason": "時価総額 662億 < 3000億"
+   "reason": "時価総額 657億 < 3000億"
   },
   {
    "code": "5983",
@@ -12307,9 +12513,9 @@
    "code": "6013",
    "name": "タクマ",
    "sector": "機械",
-   "mcap_oku": 2186,
+   "mcap_oku": 2110,
    "mcap_src": "summary",
-   "reason": "時価総額 2186億 < 3000億"
+   "reason": "時価総額 2110億 < 3000億"
   },
   {
    "code": "6016",
@@ -12339,9 +12545,9 @@
    "code": "6023",
    "name": "ダイハツインフィニアース",
    "sector": "機械",
-   "mcap_oku": 857,
+   "mcap_oku": 804,
    "mcap_src": "summary",
-   "reason": "時価総額 857億 < 3000億"
+   "reason": "時価総額 804億 < 3000億"
   },
   {
    "code": "6027",
@@ -12371,9 +12577,9 @@
    "code": "6036",
    "name": "ＫｅｅＰｅｒ技研",
    "sector": "化学",
-   "mcap_oku": 974,
+   "mcap_oku": 961,
    "mcap_src": "summary",
-   "reason": "時価総額 974億 < 3000億"
+   "reason": "時価総額 961億 < 3000億"
   },
   {
    "code": "6037",
@@ -12491,9 +12697,9 @@
    "code": "6070",
    "name": "キャリアリンク",
    "sector": "サービス業",
-   "mcap_oku": 304,
+   "mcap_oku": 294,
    "mcap_src": "summary",
-   "reason": "時価総額 304億 < 3000億"
+   "reason": "時価総額 294億 < 3000億"
   },
   {
    "code": "6071",
@@ -12571,9 +12777,9 @@
    "code": "6088",
    "name": "シグマクシス・ホールディングス",
    "sector": "サービス業",
-   "mcap_oku": 440,
+   "mcap_oku": 445,
    "mcap_src": "summary",
-   "reason": "時価総額 440億 < 3000億"
+   "reason": "時価総額 445億 < 3000億"
   },
   {
    "code": "6089",
@@ -12619,9 +12825,9 @@
    "code": "6099",
    "name": "エラン",
    "sector": "サービス業",
-   "mcap_oku": 439,
+   "mcap_oku": 431,
    "mcap_src": "summary",
-   "reason": "時価総額 439億 < 3000億"
+   "reason": "時価総額 431億 < 3000億"
   },
   {
    "code": "6101",
@@ -12635,9 +12841,9 @@
    "code": "6103",
    "name": "オークマ",
    "sector": "機械",
-   "mcap_oku": 2733,
+   "mcap_oku": 2503,
    "mcap_src": "summary",
-   "reason": "時価総額 2733億 < 3000億"
+   "reason": "時価総額 2503億 < 3000億"
   },
   {
    "code": "6104",
@@ -12651,9 +12857,9 @@
    "code": "6118",
    "name": "アイダエンジニアリング",
    "sector": "機械",
-   "mcap_oku": 687,
+   "mcap_oku": 666,
    "mcap_src": "summary",
-   "reason": "時価総額 687億 < 3000億"
+   "reason": "時価総額 666億 < 3000億"
   },
   {
    "code": "6125",
@@ -12667,9 +12873,9 @@
    "code": "6136",
    "name": "オーエスジー",
    "sector": "金属製品",
-   "mcap_oku": 2997,
+   "mcap_oku": 2760,
    "mcap_src": "summary",
-   "reason": "時価総額 2997億 < 3000億"
+   "reason": "時価総額 2760億 < 3000億"
   },
   {
    "code": "6137",
@@ -12691,25 +12897,25 @@
    "code": "6140",
    "name": "旭ダイヤモンド工業",
    "sector": "金属製品",
-   "mcap_oku": 577,
+   "mcap_oku": 526,
    "mcap_src": "summary",
-   "reason": "時価総額 577億 < 3000億"
+   "reason": "時価総額 526億 < 3000億"
   },
   {
    "code": "6143",
    "name": "ソディック",
    "sector": "機械",
-   "mcap_oku": 890,
+   "mcap_oku": 801,
    "mcap_src": "summary",
-   "reason": "時価総額 890億 < 3000億"
+   "reason": "時価総額 801億 < 3000億"
   },
   {
    "code": "6144",
    "name": "西部電機",
    "sector": "機械",
-   "mcap_oku": 429,
+   "mcap_oku": 430,
    "mcap_src": "summary",
-   "reason": "時価総額 429億 < 3000億"
+   "reason": "時価総額 430億 < 3000億"
   },
   {
    "code": "6145",
@@ -12835,9 +13041,9 @@
    "code": "6183",
    "name": "ベルシステム２４ホールディングス",
    "sector": "サービス業",
-   "mcap_oku": 1021,
+   "mcap_oku": 1008,
    "mcap_src": "summary",
-   "reason": "時価総額 1021億 < 3000億"
+   "reason": "時価総額 1008億 < 3000億"
   },
   {
    "code": "6184",
@@ -12891,9 +13097,9 @@
    "code": "6196",
    "name": "ストライクグループ",
    "sector": "証券・商品先物取引業",
-   "mcap_oku": 813,
+   "mcap_oku": 804,
    "mcap_src": "summary",
-   "reason": "金融は対象外（証券・商品先物取引業）"
+   "reason": "時価総額 804億 < 3000億"
   },
   {
    "code": "6199",
@@ -12907,9 +13113,9 @@
    "code": "6200",
    "name": "インソース",
    "sector": "サービス業",
-   "mcap_oku": 583,
+   "mcap_oku": 568,
    "mcap_src": "summary",
-   "reason": "時価総額 583億 < 3000億"
+   "reason": "時価総額 568億 < 3000億"
   },
   {
    "code": "6203",
@@ -13083,9 +13289,9 @@
    "code": "6247",
    "name": "日阪製作所",
    "sector": "機械",
-   "mcap_oku": 453,
+   "mcap_oku": 437,
    "mcap_src": "summary",
-   "reason": "時価総額 453億 < 3000億"
+   "reason": "時価総額 437億 < 3000億"
   },
   {
    "code": "6248",
@@ -13099,25 +13305,25 @@
    "code": "6249",
    "name": "ゲームカードホールディングス",
    "sector": "その他製品",
-   "mcap_oku": 400,
+   "mcap_oku": 404,
    "mcap_src": "summary",
-   "reason": "時価総額 400億 < 3000億"
+   "reason": "時価総額 404億 < 3000億"
   },
   {
    "code": "6250",
    "name": "やまびこ",
    "sector": "金属製品",
-   "mcap_oku": 1848,
+   "mcap_oku": 1744,
    "mcap_src": "summary",
-   "reason": "時価総額 1848億 < 3000億"
+   "reason": "時価総額 1744億 < 3000億"
   },
   {
    "code": "6254",
    "name": "野村マイクロ・サイエンス",
    "sector": "機械",
-   "mcap_oku": 1355,
+   "mcap_oku": 1238,
    "mcap_src": "summary",
-   "reason": "時価総額 1355億 < 3000億"
+   "reason": "時価総額 1238億 < 3000億"
   },
   {
    "code": "6257",
@@ -13131,9 +13337,9 @@
    "code": "6258",
    "name": "平田機工",
    "sector": "機械",
-   "mcap_oku": 1116,
+   "mcap_oku": 1047,
    "mcap_src": "summary",
-   "reason": "時価総額 1116億 < 3000億"
+   "reason": "時価総額 1047億 < 3000億"
   },
   {
    "code": "6262",
@@ -13179,9 +13385,9 @@
    "code": "6272",
    "name": "レオン自動機",
    "sector": "機械",
-   "mcap_oku": 418,
+   "mcap_oku": 404,
    "mcap_src": "summary",
-   "reason": "時価総額 418億 < 3000億"
+   "reason": "時価総額 404億 < 3000億"
   },
   {
    "code": "6276",
@@ -13219,17 +13425,17 @@
    "code": "6282",
    "name": "オイレス工業",
    "sector": "金属製品",
-   "mcap_oku": 835,
+   "mcap_oku": 821,
    "mcap_src": "summary",
-   "reason": "時価総額 835億 < 3000億"
+   "reason": "時価総額 821億 < 3000億"
   },
   {
    "code": "6284",
    "name": "日精エー・エス・ビー機械",
    "sector": "機械",
-   "mcap_oku": 1315,
+   "mcap_oku": 1256,
    "mcap_src": "summary",
-   "reason": "時価総額 1315億 < 3000億"
+   "reason": "時価総額 1256億 < 3000億"
   },
   {
    "code": "6286",
@@ -13243,9 +13449,9 @@
    "code": "6287",
    "name": "サトー",
    "sector": "その他製品",
-   "mcap_oku": 902,
+   "mcap_oku": 850,
    "mcap_src": "summary",
-   "reason": "時価総額 902億 < 3000億"
+   "reason": "時価総額 850億 < 3000億"
   },
   {
    "code": "6289",
@@ -13291,9 +13497,9 @@
    "code": "6306",
    "name": "日工",
    "sector": "機械",
-   "mcap_oku": 385,
+   "mcap_oku": 378,
    "mcap_src": "summary",
-   "reason": "時価総額 385億 < 3000億"
+   "reason": "時価総額 378億 < 3000億"
   },
   {
    "code": "6307",
@@ -13307,9 +13513,9 @@
    "code": "6309",
    "name": "巴工業",
    "sector": "機械",
-   "mcap_oku": 605,
+   "mcap_oku": 592,
    "mcap_src": "summary",
-   "reason": "時価総額 605億 < 3000億"
+   "reason": "時価総額 592億 < 3000億"
   },
   {
    "code": "6310",
@@ -13371,9 +13577,9 @@
    "code": "6328",
    "name": "荏原実業",
    "sector": "卸売業",
-   "mcap_oku": 568,
+   "mcap_oku": 537,
    "mcap_src": "summary",
-   "reason": "時価総額 568億 < 3000億"
+   "reason": "時価総額 537億 < 3000億"
   },
   {
    "code": "6330",
@@ -13395,9 +13601,9 @@
    "code": "6332",
    "name": "月島ホールディングス",
    "sector": "機械",
-   "mcap_oku": 1124,
+   "mcap_oku": 1065,
    "mcap_src": "summary",
-   "reason": "時価総額 1124億 < 3000億"
+   "reason": "時価総額 1065億 < 3000億"
   },
   {
    "code": "6333",
@@ -13451,9 +13657,9 @@
    "code": "6339",
    "name": "新東工業",
    "sector": "機械",
-   "mcap_oku": 631,
+   "mcap_oku": 603,
    "mcap_src": "summary",
-   "reason": "時価総額 631億 < 3000億"
+   "reason": "時価総額 603億 < 3000億"
   },
   {
    "code": "6340",
@@ -13483,9 +13689,9 @@
    "code": "6345",
    "name": "アイチ　コーポレーション",
    "sector": "機械",
-   "mcap_oku": 950,
+   "mcap_oku": 927,
    "mcap_src": "summary",
-   "reason": "時価総額 950億 < 3000億"
+   "reason": "時価総額 927億 < 3000億"
   },
   {
    "code": "6346",
@@ -13555,17 +13761,17 @@
    "code": "6363",
    "name": "酉島製作所",
    "sector": "機械",
-   "mcap_oku": 801,
+   "mcap_oku": 744,
    "mcap_src": "summary",
-   "reason": "時価総額 801億 < 3000億"
+   "reason": "時価総額 744億 < 3000億"
   },
   {
    "code": "6364",
    "name": "ＡＩＲＭＡＮ",
    "sector": "機械",
-   "mcap_oku": 669,
+   "mcap_oku": 652,
    "mcap_src": "summary",
-   "reason": "時価総額 669億 < 3000億"
+   "reason": "時価総額 652億 < 3000億"
   },
   {
    "code": "6365",
@@ -13595,9 +13801,9 @@
    "code": "6371",
    "name": "椿本チエイン",
    "sector": "機械",
-   "mcap_oku": 2765,
+   "mcap_oku": 2677,
    "mcap_src": "summary",
-   "reason": "時価総額 2765億 < 3000億"
+   "reason": "時価総額 2677億 < 3000億"
   },
   {
    "code": "6376",
@@ -13699,9 +13905,9 @@
    "code": "6395",
    "name": "タダノ",
    "sector": "機械",
-   "mcap_oku": 1809,
+   "mcap_oku": 1702,
    "mcap_src": "summary",
-   "reason": "時価総額 1809億 < 3000億"
+   "reason": "時価総額 1702億 < 3000億"
   },
   {
    "code": "6396",
@@ -13747,9 +13953,9 @@
    "code": "6412",
    "name": "平和",
    "sector": "その他製品",
-   "mcap_oku": 2125,
+   "mcap_oku": 2140,
    "mcap_src": "summary",
-   "reason": "時価総額 2125億 < 3000億"
+   "reason": "時価総額 2140億 < 3000億"
   },
   {
    "code": "6413",
@@ -13779,9 +13985,9 @@
    "code": "6420",
    "name": "ガリレイホールディングス",
    "sector": "機械",
-   "mcap_oku": 1413,
+   "mcap_oku": 1367,
    "mcap_src": "summary",
-   "reason": "時価総額 1413億 < 3000億"
+   "reason": "時価総額 1367億 < 3000億"
   },
   {
    "code": "6424",
@@ -13827,9 +14033,9 @@
    "code": "6436",
    "name": "アマノ",
    "sector": "精密機器",
-   "mcap_oku": 2734,
+   "mcap_oku": 2684,
    "mcap_src": "summary",
-   "reason": "時価総額 2734億 < 3000億"
+   "reason": "時価総額 2684億 < 3000億"
   },
   {
    "code": "6440",
@@ -13859,41 +14065,41 @@
    "code": "6455",
    "name": "モリタホールディングス",
    "sector": "機械",
-   "mcap_oku": 1016,
+   "mcap_oku": 1007,
    "mcap_src": "summary",
-   "reason": "時価総額 1016億 < 3000億"
+   "reason": "時価総額 1007億 < 3000億"
   },
   {
    "code": "6457",
    "name": "グローリー",
    "sector": "その他製品",
-   "mcap_oku": 2342,
+   "mcap_oku": 2188,
    "mcap_src": "summary",
-   "reason": "時価総額 2342億 < 3000億"
+   "reason": "時価総額 2188億 < 3000億"
   },
   {
    "code": "6458",
    "name": "新晃工業",
    "sector": "建設業",
-   "mcap_oku": 841,
+   "mcap_oku": 816,
    "mcap_src": "summary",
-   "reason": "時価総額 841億 < 3000億"
+   "reason": "時価総額 816億 < 3000億"
   },
   {
    "code": "6459",
    "name": "だいわ",
    "sector": "機械",
-   "mcap_oku": 819,
+   "mcap_oku": 792,
    "mcap_src": "summary",
-   "reason": "時価総額 819億 < 3000億"
+   "reason": "時価総額 792億 < 3000億"
   },
   {
    "code": "6463",
    "name": "ＴＰＲ",
    "sector": "輸送用機器",
-   "mcap_oku": 1035,
+   "mcap_oku": 982,
    "mcap_src": "summary",
-   "reason": "時価総額 1035億 < 3000億"
+   "reason": "時価総額 982億 < 3000億"
   },
   {
    "code": "6464",
@@ -13979,17 +14185,17 @@
    "code": "6485",
    "name": "前澤給装工業",
    "sector": "建設業",
-   "mcap_oku": 331,
+   "mcap_oku": 316,
    "mcap_src": "summary",
-   "reason": "時価総額 331億 < 3000億"
+   "reason": "時価総額 316億 < 3000億"
   },
   {
    "code": "6486",
    "name": "イーグル工業",
    "sector": "機械",
-   "mcap_oku": 1392,
+   "mcap_oku": 1366,
    "mcap_src": "summary",
-   "reason": "時価総額 1392億 < 3000億"
+   "reason": "時価総額 1366億 < 3000億"
   },
   {
    "code": "6488",
@@ -14059,9 +14265,9 @@
    "code": "6498",
    "name": "キッツ",
    "sector": "機械",
-   "mcap_oku": 1691,
+   "mcap_oku": 1661,
    "mcap_src": "summary",
-   "reason": "時価総額 1691億 < 3000億"
+   "reason": "時価総額 1661億 < 3000億"
   },
   {
    "code": "6505",
@@ -14371,9 +14577,9 @@
    "code": "6625",
    "name": "ＪＡＬＣＯホールディングス",
    "sector": "電気機器",
-   "mcap_oku": 418,
+   "mcap_oku": 409,
    "mcap_src": "summary",
-   "reason": "時価総額 418億 < 3000億"
+   "reason": "時価総額 409億 < 3000億"
   },
   {
    "code": "6626",
@@ -14451,9 +14657,9 @@
    "code": "6638",
    "name": "ミマキエンジニアリング",
    "sector": "電気機器",
-   "mcap_oku": 569,
+   "mcap_oku": 567,
    "mcap_src": "summary",
-   "reason": "時価総額 569億 < 3000億"
+   "reason": "時価総額 567億 < 3000億"
   },
   {
    "code": "6643",
@@ -14467,9 +14673,9 @@
    "code": "6644",
    "name": "大崎電気工業",
    "sector": "精密機器",
-   "mcap_oku": 676,
+   "mcap_oku": 624,
    "mcap_src": "summary",
-   "reason": "時価総額 676億 < 3000億"
+   "reason": "時価総額 624億 < 3000億"
   },
   {
    "code": "6647",
@@ -14499,9 +14705,9 @@
    "code": "6652",
    "name": "ＩＤＥＣ",
    "sector": "電気機器",
-   "mcap_oku": 1083,
+   "mcap_oku": 1057,
    "mcap_src": "summary",
-   "reason": "時価総額 1083億 < 3000億"
+   "reason": "時価総額 1057億 < 3000億"
   },
   {
    "code": "6653",
@@ -14675,9 +14881,9 @@
    "code": "6727",
    "name": "ワコム",
    "sector": "電気機器",
-   "mcap_oku": 1106,
+   "mcap_oku": 1053,
    "mcap_src": "summary",
-   "reason": "時価総額 1106億 < 3000億"
+   "reason": "時価総額 1053億 < 3000億"
   },
   {
    "code": "6730",
@@ -14707,9 +14913,9 @@
    "code": "6737",
    "name": "ＥＩＺＯ",
    "sector": "電気機器",
-   "mcap_oku": 1230,
+   "mcap_oku": 1185,
    "mcap_src": "summary",
-   "reason": "時価総額 1230億 < 3000億"
+   "reason": "時価総額 1185億 < 3000億"
   },
   {
    "code": "6740",
@@ -14723,17 +14929,17 @@
    "code": "6741",
    "name": "日本信号",
    "sector": "電気機器",
-   "mcap_oku": 1135,
+   "mcap_oku": 1099,
    "mcap_src": "summary",
-   "reason": "時価総額 1135億 < 3000億"
+   "reason": "時価総額 1099億 < 3000億"
   },
   {
    "code": "6742",
    "name": "京三製作所",
    "sector": "精密機器",
-   "mcap_oku": 626,
+   "mcap_oku": 628,
    "mcap_src": "summary",
-   "reason": "時価総額 626億 < 3000億"
+   "reason": "時価総額 628億 < 3000億"
   },
   {
    "code": "6743",
@@ -14747,9 +14953,9 @@
    "code": "6744",
    "name": "能美防災",
    "sector": "サービス業",
-   "mcap_oku": 2460,
+   "mcap_oku": 2340,
    "mcap_src": "summary",
-   "reason": "時価総額 2460億 < 3000億"
+   "reason": "時価総額 2340億 < 3000億"
   },
   {
    "code": "6745",
@@ -14771,9 +14977,9 @@
    "code": "6750",
    "name": "エレコム",
    "sector": "電気機器",
-   "mcap_oku": 1618,
+   "mcap_oku": 1574,
    "mcap_src": "summary",
-   "reason": "時価総額 1618億 < 3000億"
+   "reason": "時価総額 1574億 < 3000億"
   },
   {
    "code": "6757",
@@ -14939,25 +15145,25 @@
    "code": "6807",
    "name": "日本航空電子工業",
    "sector": "電気機器",
-   "mcap_oku": 1686,
+   "mcap_oku": 1674,
    "mcap_src": "summary",
-   "reason": "時価総額 1686億 < 3000億"
+   "reason": "時価総額 1674億 < 3000億"
   },
   {
    "code": "6809",
    "name": "ＴＯＡ",
    "sector": "サービス業",
-   "mcap_oku": 611,
+   "mcap_oku": 596,
    "mcap_src": "summary",
-   "reason": "時価総額 611億 < 3000億"
+   "reason": "時価総額 596億 < 3000億"
   },
   {
    "code": "6810",
    "name": "マクセル",
    "sector": "電気機器",
-   "mcap_oku": 945,
+   "mcap_oku": 922,
    "mcap_src": "summary",
-   "reason": "時価総額 945億 < 3000億"
+   "reason": "時価総額 922億 < 3000億"
   },
   {
    "code": "6814",
@@ -15003,17 +15209,17 @@
    "code": "6823",
    "name": "リオン",
    "sector": "精密機器",
-   "mcap_oku": 409,
+   "mcap_oku": 396,
    "mcap_src": "summary",
-   "reason": "時価総額 409億 < 3000億"
+   "reason": "時価総額 396億 < 3000億"
   },
   {
    "code": "6824",
    "name": "新コスモス電機",
    "sector": "精密機器",
-   "mcap_oku": 516,
+   "mcap_oku": 524,
    "mcap_src": "summary",
-   "reason": "時価総額 516億 < 3000億"
+   "reason": "時価総額 524億 < 3000億"
   },
   {
    "code": "6832",
@@ -15131,9 +15337,9 @@
    "code": "6859",
    "name": "エスペック",
    "sector": "精密機器",
-   "mcap_oku": 842,
+   "mcap_oku": 802,
    "mcap_src": "summary",
-   "reason": "時価総額 842億 < 3000億"
+   "reason": "時価総額 802億 < 3000億"
   },
   {
    "code": "6862",
@@ -15195,17 +15401,17 @@
    "code": "6875",
    "name": "メガチップス",
    "sector": "電気機器",
-   "mcap_oku": 1542,
+   "mcap_oku": 1435,
    "mcap_src": "summary",
-   "reason": "時価総額 1542億 < 3000億"
+   "reason": "時価総額 1435億 < 3000億"
   },
   {
    "code": "6877",
    "name": "ＯＢＡＲＡ　ＧＲＯＵＰ",
    "sector": "金属製品",
-   "mcap_oku": 801,
+   "mcap_oku": 762,
    "mcap_src": "summary",
-   "reason": "時価総額 801億 < 3000億"
+   "reason": "時価総額 762億 < 3000億"
   },
   {
    "code": "6882",
@@ -15267,9 +15473,9 @@
    "code": "6905",
    "name": "コーセル",
    "sector": "電気機器",
-   "mcap_oku": 556,
+   "mcap_oku": 528,
    "mcap_src": "summary",
-   "reason": "時価総額 556億 < 3000億"
+   "reason": "時価総額 528億 < 3000億"
   },
   {
    "code": "6907",
@@ -15299,9 +15505,9 @@
    "code": "6914",
    "name": "オプテックスグループ",
    "sector": "電気機器",
-   "mcap_oku": 1121,
+   "mcap_oku": 1089,
    "mcap_src": "summary",
-   "reason": "時価総額 1121億 < 3000億"
+   "reason": "時価総額 1089億 < 3000億"
   },
   {
    "code": "6915",
@@ -15371,9 +15577,9 @@
    "code": "6932",
    "name": "遠藤照明",
    "sector": "その他製品",
-   "mcap_oku": 373,
+   "mcap_oku": 370,
    "mcap_src": "summary",
-   "reason": "時価総額 373億 < 3000億"
+   "reason": "時価総額 370億 < 3000億"
   },
   {
    "code": "6941",
@@ -15411,9 +15617,9 @@
    "code": "6947",
    "name": "図研",
    "sector": "情報・通信業",
-   "mcap_oku": 1033,
+   "mcap_oku": 985,
    "mcap_src": "summary",
-   "reason": "時価総額 1033億 < 3000億"
+   "reason": "時価総額 985億 < 3000億"
   },
   {
    "code": "6955",
@@ -15523,9 +15729,9 @@
    "code": "6995",
    "name": "東海理化電機製作所",
    "sector": "輸送用機器",
-   "mcap_oku": 2762,
+   "mcap_oku": 2697,
    "mcap_src": "summary",
-   "reason": "時価総額 2762億 < 3000億"
+   "reason": "時価総額 2697億 < 3000億"
   },
   {
    "code": "6996",
@@ -15563,9 +15769,9 @@
    "code": "7004",
    "name": "カナデビア",
    "sector": "機械",
-   "mcap_oku": 2007,
+   "mcap_oku": 1923,
    "mcap_src": "summary",
-   "reason": "時価総額 2007億 < 3000億"
+   "reason": "時価総額 1923億 < 3000億"
   },
   {
    "code": "7018",
@@ -15683,9 +15889,9 @@
    "code": "7059",
    "name": "コプロ・ホールディングス",
    "sector": "サービス業",
-   "mcap_oku": 358,
+   "mcap_oku": 343,
    "mcap_src": "summary",
-   "reason": "時価総額 358億 < 3000億"
+   "reason": "時価総額 343億 < 3000億"
   },
   {
    "code": "7060",
@@ -15731,9 +15937,9 @@
    "code": "7085",
    "name": "カーブスホールディングス",
    "sector": "その他製品",
-   "mcap_oku": 818,
+   "mcap_oku": 775,
    "mcap_src": "summary",
-   "reason": "時価総額 818億 < 3000億"
+   "reason": "時価総額 775億 < 3000億"
   },
   {
    "code": "7087",
@@ -15869,7 +16075,7 @@
    "sector": "銀行業",
    "mcap_oku": 44,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 44億 < 3000億"
   },
   {
    "code": "7157",
@@ -15877,7 +16083,7 @@
    "sector": "保険業",
    "mcap_oku": 1166,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（保険業）"
+   "reason": "時価総額 1166億 < 3000億"
   },
   {
    "code": "7161",
@@ -15885,7 +16091,7 @@
    "sector": "銀行業",
    "mcap_oku": 166,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 166億 < 3000億"
   },
   {
    "code": "7162",
@@ -15896,36 +16102,12 @@
    "reason": "時価総額 40億 < 3000億"
   },
   {
-   "code": "7164",
-   "name": "全国保証",
-   "sector": "その他金融業",
-   "mcap_oku": 4219,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
-  },
-  {
-   "code": "7167",
-   "name": "めぶきフィナンシャルグループ",
-   "sector": "銀行業",
-   "mcap_oku": 16021,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
    "code": "7172",
    "name": "ジャパンインベストメントアドバイザー",
    "sector": "その他金融業",
-   "mcap_oku": 1323,
+   "mcap_oku": 1292,
    "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
-  },
-  {
-   "code": "7173",
-   "name": "東京きらぼしフィナンシャルグループ",
-   "sector": "銀行業",
-   "mcap_oku": 4849,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 1292億 < 3000億"
   },
   {
    "code": "7175",
@@ -15944,44 +16126,20 @@
    "reason": "時価総額 1395億 < 3000億"
   },
   {
-   "code": "7180",
-   "name": "九州フィナンシャルグループ",
-   "sector": "銀行業",
-   "mcap_oku": 6790,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "7181",
-   "name": "かんぽ生命保険",
-   "sector": "保険業",
-   "mcap_oku": 18731,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（保険業）"
-  },
-  {
-   "code": "7182",
-   "name": "ゆうちょ銀行",
-   "sector": "銀行業",
-   "mcap_oku": 119006,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
    "code": "7183",
    "name": "あんしん保証",
    "sector": "その他金融業",
    "mcap_oku": 44,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 44億 < 3000億"
   },
   {
    "code": "7184",
    "name": "富山第一銀行",
    "sector": "銀行業",
-   "mcap_oku": 2057,
+   "mcap_oku": 2124,
    "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 2124億 < 3000億"
   },
   {
    "code": "7185",
@@ -15992,28 +16150,12 @@
    "reason": "時価総額 242億 < 3000億"
   },
   {
-   "code": "7186",
-   "name": "横浜フィナンシャルグループ",
-   "sector": "銀行業",
-   "mcap_oku": 21746,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
    "code": "7187",
    "name": "ジェイリース",
    "sector": "その他金融業",
    "mcap_oku": 244,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
-  },
-  {
-   "code": "7189",
-   "name": "西日本フィナンシャルホールディングス",
-   "sector": "銀行業",
-   "mcap_oku": 6879,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 244億 < 3000億"
   },
   {
    "code": "7191",
@@ -16021,7 +16163,7 @@
    "sector": "その他金融業",
    "mcap_oku": 259,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 259億 < 3000億"
   },
   {
    "code": "7192",
@@ -16029,7 +16171,7 @@
    "sector": "その他金融業",
    "mcap_oku": 100,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 100億 < 3000億"
   },
   {
    "code": "7196",
@@ -16037,7 +16179,7 @@
    "sector": "その他金融業",
    "mcap_oku": 68,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 68億 < 3000億"
   },
   {
    "code": "7198",
@@ -16045,15 +16187,15 @@
    "sector": "その他金融業",
    "mcap_oku": 371,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 371億 < 3000億"
   },
   {
    "code": "7199",
    "name": "プレミアグループ",
    "sector": "その他金融業",
-   "mcap_oku": 826,
+   "mcap_oku": 783,
    "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 783億 < 3000億"
   },
   {
    "code": "7208",
@@ -16139,9 +16281,9 @@
    "code": "7224",
    "name": "新明和工業",
    "sector": "卸売業",
-   "mcap_oku": 1306,
+   "mcap_oku": 1260,
    "mcap_src": "summary",
-   "reason": "時価総額 1306億 < 3000億"
+   "reason": "時価総額 1260億 < 3000億"
   },
   {
    "code": "7226",
@@ -16163,9 +16305,9 @@
    "code": "7231",
    "name": "トピー工業",
    "sector": "輸送用機器",
-   "mcap_oku": 669,
+   "mcap_oku": 654,
    "mcap_src": "summary",
-   "reason": "時価総額 669億 < 3000億"
+   "reason": "時価総額 654億 < 3000億"
   },
   {
    "code": "7235",
@@ -16195,9 +16337,9 @@
    "code": "7239",
    "name": "タチエス",
    "sector": "輸送用機器",
-   "mcap_oku": 815,
+   "mcap_oku": 792,
    "mcap_src": "summary",
-   "reason": "時価総額 815億 < 3000億"
+   "reason": "時価総額 792億 < 3000億"
   },
   {
    "code": "7241",
@@ -16211,17 +16353,17 @@
    "code": "7242",
    "name": "カヤバ",
    "sector": "輸送用機器",
-   "mcap_oku": 1943,
+   "mcap_oku": 1867,
    "mcap_src": "summary",
-   "reason": "時価総額 1943億 < 3000億"
+   "reason": "時価総額 1867億 < 3000億"
   },
   {
    "code": "7244",
    "name": "市光工業",
    "sector": "輸送用機器",
-   "mcap_oku": 575,
+   "mcap_oku": 538,
    "mcap_src": "summary",
-   "reason": "時価総額 575億 < 3000億"
+   "reason": "時価総額 538億 < 3000億"
   },
   {
    "code": "7245",
@@ -16235,9 +16377,9 @@
    "code": "7246",
    "name": "プレス工業",
    "sector": "輸送用機器",
-   "mcap_oku": 1015,
+   "mcap_oku": 970,
    "mcap_src": "summary",
-   "reason": "時価総額 1015億 < 3000億"
+   "reason": "時価総額 970億 < 3000億"
   },
   {
    "code": "7247",
@@ -16323,17 +16465,17 @@
    "code": "7278",
    "name": "エクセディ",
    "sector": "輸送用機器",
-   "mcap_oku": 2190,
+   "mcap_oku": 2087,
    "mcap_src": "summary",
-   "reason": "時価総額 2190億 < 3000億"
+   "reason": "時価総額 2087億 < 3000億"
   },
   {
    "code": "7279",
    "name": "ハイレックスコーポレーション",
    "sector": "卸売業",
-   "mcap_oku": 954,
+   "mcap_oku": 909,
    "mcap_src": "summary",
-   "reason": "時価総額 954億 < 3000億"
+   "reason": "時価総額 909億 < 3000億"
   },
   {
    "code": "7280",
@@ -16347,9 +16489,9 @@
    "code": "7283",
    "name": "愛三工業",
    "sector": "輸送用機器",
-   "mcap_oku": 1327,
+   "mcap_oku": 1214,
    "mcap_src": "summary",
-   "reason": "時価総額 1327億 < 3000億"
+   "reason": "時価総額 1214億 < 3000億"
   },
   {
    "code": "7284",
@@ -16363,9 +16505,9 @@
    "code": "7287",
    "name": "日本精機",
    "sector": "輸送用機器",
-   "mcap_oku": 1613,
+   "mcap_oku": 1501,
    "mcap_src": "summary",
-   "reason": "時価総額 1613億 < 3000億"
+   "reason": "時価総額 1501億 < 3000億"
   },
   {
    "code": "7291",
@@ -16379,9 +16521,9 @@
    "code": "7292",
    "name": "村上開明堂",
    "sector": "輸送用機器",
-   "mcap_oku": 798,
+   "mcap_oku": 782,
    "mcap_src": "summary",
-   "reason": "時価総額 798億 < 3000億"
+   "reason": "時価総額 782億 < 3000億"
   },
   {
    "code": "7294",
@@ -16427,9 +16569,9 @@
    "code": "7313",
    "name": "テイ・エス　テック",
    "sector": "輸送用機器",
-   "mcap_oku": 2159,
+   "mcap_oku": 2113,
    "mcap_src": "summary",
-   "reason": "時価総額 2159億 < 3000億"
+   "reason": "時価総額 2113億 < 3000億"
   },
   {
    "code": "7314",
@@ -16445,23 +16587,7 @@
    "sector": "銀行業",
    "mcap_oku": 2247,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "7327",
-   "name": "第四北越フィナンシャルグループ",
-   "sector": "銀行業",
-   "mcap_oku": 6947,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "7337",
-   "name": "ひろぎんホールディングス",
-   "sector": "銀行業",
-   "mcap_oku": 7096,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 2247億 < 3000億"
   },
   {
    "code": "7347",
@@ -16477,7 +16603,7 @@
    "sector": "銀行業",
    "mcap_oku": 1689,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 1689億 < 3000億"
   },
   {
    "code": "7354",
@@ -16536,20 +16662,12 @@
    "reason": "時価総額 141億 < 3000億"
   },
   {
-   "code": "7380",
-   "name": "十六フィナンシャルグループ",
-   "sector": "銀行業",
-   "mcap_oku": 4693,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
    "code": "7381",
    "name": "ＣＣＩグループ",
    "sector": "銀行業",
    "mcap_oku": 2840,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 2840億 < 3000億"
   },
   {
    "code": "7383",
@@ -16557,7 +16675,7 @@
    "sector": "その他金融業",
    "mcap_oku": 405,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 405億 < 3000億"
   },
   {
    "code": "7384",
@@ -16565,7 +16683,7 @@
    "sector": "銀行業",
    "mcap_oku": 1365,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 1365億 < 3000億"
   },
   {
    "code": "7388",
@@ -16573,15 +16691,7 @@
    "sector": "保険業",
    "mcap_oku": 536,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（保険業）"
-  },
-  {
-   "code": "7389",
-   "name": "あいちフィナンシャルグループ",
-   "sector": "銀行業",
-   "mcap_oku": 4687,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 536億 < 3000億"
   },
   {
    "code": "7399",
@@ -16699,9 +16809,9 @@
    "code": "7438",
    "name": "コンドーテック",
    "sector": "機械",
-   "mcap_oku": 435,
+   "mcap_oku": 440,
    "mcap_src": "summary",
-   "reason": "時価総額 435億 < 3000億"
+   "reason": "時価総額 440億 < 3000億"
   },
   {
    "code": "7442",
@@ -16755,9 +16865,9 @@
    "code": "7458",
    "name": "第一興商",
    "sector": "その他製品",
-   "mcap_oku": 1894,
+   "mcap_oku": 1895,
    "mcap_src": "summary",
-   "reason": "時価総額 1894億 < 3000億"
+   "reason": "時価総額 1895億 < 3000億"
   },
   {
    "code": "7460",
@@ -16827,9 +16937,9 @@
    "code": "7476",
    "name": "アズワン",
    "sector": "医薬品",
-   "mcap_oku": 1736,
+   "mcap_oku": 1751,
    "mcap_src": "summary",
-   "reason": "時価総額 1736億 < 3000億"
+   "reason": "時価総額 1751億 < 3000億"
   },
   {
    "code": "7477",
@@ -16859,17 +16969,17 @@
    "code": "7482",
    "name": "シモジマ",
    "sector": "その他製品",
-   "mcap_oku": 350,
+   "mcap_oku": 354,
    "mcap_src": "summary",
-   "reason": "時価総額 350億 < 3000億"
+   "reason": "時価総額 354億 < 3000億"
   },
   {
    "code": "7483",
    "name": "ドウシシャ",
    "sector": "卸売業",
-   "mcap_oku": 1080,
+   "mcap_oku": 1104,
    "mcap_src": "summary",
-   "reason": "時価総額 1080億 < 3000億"
+   "reason": "時価総額 1104億 < 3000億"
   },
   {
    "code": "7486",
@@ -16931,9 +17041,9 @@
    "code": "7504",
    "name": "高速",
    "sector": "その他製品",
-   "mcap_oku": 887,
+   "mcap_oku": 867,
    "mcap_src": "summary",
-   "reason": "時価総額 887億 < 3000億"
+   "reason": "時価総額 867億 < 3000億"
   },
   {
    "code": "7505",
@@ -16955,9 +17065,9 @@
    "code": "7508",
    "name": "Ｇ‐７ホールディングス",
    "sector": "小売業",
-   "mcap_oku": 622,
+   "mcap_oku": 621,
    "mcap_src": "summary",
-   "reason": "時価総額 622億 < 3000億"
+   "reason": "時価総額 621億 < 3000億"
   },
   {
    "code": "7509",
@@ -16971,9 +17081,9 @@
    "code": "7510",
    "name": "たけびし",
    "sector": "電気機器",
-   "mcap_oku": 443,
+   "mcap_oku": 423,
    "mcap_src": "summary",
-   "reason": "時価総額 443億 < 3000億"
+   "reason": "時価総額 423億 < 3000億"
   },
   {
    "code": "7512",
@@ -17011,9 +17121,9 @@
    "code": "7516",
    "name": "コーナン商事",
    "sector": "小売業",
-   "mcap_oku": 1287,
+   "mcap_oku": 1298,
    "mcap_src": "summary",
-   "reason": "時価総額 1287億 < 3000億"
+   "reason": "時価総額 1298億 < 3000億"
   },
   {
    "code": "7520",
@@ -17131,9 +17241,9 @@
    "code": "7552",
    "name": "ハピネット",
    "sector": "小売業",
-   "mcap_oku": 1583,
+   "mcap_oku": 1618,
    "mcap_src": "summary",
-   "reason": "時価総額 1583億 < 3000億"
+   "reason": "時価総額 1618億 < 3000億"
   },
   {
    "code": "7554",
@@ -17235,25 +17345,25 @@
    "code": "7593",
    "name": "ＶＴホールディングス",
    "sector": "小売業",
-   "mcap_oku": 602,
+   "mcap_oku": 584,
    "mcap_src": "summary",
-   "reason": "時価総額 602億 < 3000億"
+   "reason": "時価総額 584億 < 3000億"
   },
   {
    "code": "7595",
    "name": "アルゴグラフィックス",
    "sector": "情報・通信業",
-   "mcap_oku": 888,
+   "mcap_oku": 852,
    "mcap_src": "summary",
-   "reason": "時価総額 888億 < 3000億"
+   "reason": "時価総額 852億 < 3000億"
   },
   {
    "code": "7596",
    "name": "魚力",
    "sector": "小売業",
-   "mcap_oku": 325,
+   "mcap_oku": 323,
    "mcap_src": "summary",
-   "reason": "時価総額 325億 < 3000億"
+   "reason": "時価総額 323億 < 3000億"
   },
   {
    "code": "7599",
@@ -17331,9 +17441,9 @@
    "code": "7609",
    "name": "ダイトロン",
    "sector": "電気機器",
-   "mcap_oku": 872,
+   "mcap_oku": 823,
    "mcap_src": "summary",
-   "reason": "時価総額 872億 < 3000億"
+   "reason": "時価総額 823億 < 3000億"
   },
   {
    "code": "7610",
@@ -17355,9 +17465,9 @@
    "code": "7613",
    "name": "シークス",
    "sector": "電気機器",
-   "mcap_oku": 753,
+   "mcap_oku": 712,
    "mcap_src": "summary",
-   "reason": "時価総額 753億 < 3000億"
+   "reason": "時価総額 712億 < 3000億"
   },
   {
    "code": "7614",
@@ -17419,9 +17529,9 @@
    "code": "7628",
    "name": "オーハシテクニカ",
    "sector": "輸送用機器",
-   "mcap_oku": 300,
+   "mcap_oku": 288,
    "mcap_src": "summary",
-   "reason": "時価総額 300億 < 3000億"
+   "reason": "時価総額 288億 < 3000億"
   },
   {
    "code": "7630",
@@ -17691,9 +17801,9 @@
    "code": "7730",
    "name": "マニー",
    "sector": "精密機器",
-   "mcap_oku": 1464,
+   "mcap_oku": 1393,
    "mcap_src": "summary",
-   "reason": "時価総額 1464億 < 3000億"
+   "reason": "時価総額 1393億 < 3000億"
   },
   {
    "code": "7734",
@@ -17707,9 +17817,9 @@
    "code": "7740",
    "name": "タムロン",
    "sector": "その他製品",
-   "mcap_oku": 2230,
+   "mcap_oku": 2139,
    "mcap_src": "summary",
-   "reason": "時価総額 2230億 < 3000億"
+   "reason": "時価総額 2139億 < 3000億"
   },
   {
    "code": "7743",
@@ -17763,9 +17873,9 @@
    "code": "7769",
    "name": "リズム",
    "sector": "小売業",
-   "mcap_oku": 311,
+   "mcap_oku": 301,
    "mcap_src": "summary",
-   "reason": "時価総額 311億 < 3000億"
+   "reason": "時価総額 301億 < 3000億"
   },
   {
    "code": "7771",
@@ -17923,9 +18033,9 @@
    "code": "7818",
    "name": "トランザクション",
    "sector": "化学",
-   "mcap_oku": 658,
+   "mcap_oku": 660,
    "mcap_src": "summary",
-   "reason": "時価総額 658億 < 3000億"
+   "reason": "時価総額 660億 < 3000億"
   },
   {
    "code": "7819",
@@ -18027,9 +18137,9 @@
    "code": "7840",
    "name": "フランスベッドホールディングス",
    "sector": "その他製品",
-   "mcap_oku": 431,
+   "mcap_oku": 429,
    "mcap_src": "summary",
-   "reason": "時価総額 431億 < 3000億"
+   "reason": "時価総額 429億 < 3000億"
   },
   {
    "code": "7841",
@@ -18131,9 +18241,9 @@
    "code": "7864",
    "name": "フジシールインターナショナル",
    "sector": "その他製品",
-   "mcap_oku": 1752,
+   "mcap_oku": 1734,
    "mcap_src": "summary",
-   "reason": "時価総額 1752億 < 3000億"
+   "reason": "時価総額 1734億 < 3000億"
   },
   {
    "code": "7865",
@@ -18315,17 +18425,17 @@
    "code": "7914",
    "name": "共同印刷",
    "sector": "サービス業",
-   "mcap_oku": 483,
+   "mcap_oku": 478,
    "mcap_src": "summary",
-   "reason": "時価総額 483億 < 3000億"
+   "reason": "時価総額 478億 < 3000億"
   },
   {
    "code": "7915",
    "name": "ＮＩＳＳＨＡ",
    "sector": "電気機器",
-   "mcap_oku": 570,
+   "mcap_oku": 550,
    "mcap_src": "summary",
-   "reason": "時価総額 570億 < 3000億"
+   "reason": "時価総額 550億 < 3000億"
   },
   {
    "code": "7916",
@@ -18339,9 +18449,9 @@
    "code": "7917",
    "name": "ＺＡＣＲＯＳ",
    "sector": "その他製品",
-   "mcap_oku": 905,
+   "mcap_oku": 872,
    "mcap_src": "summary",
-   "reason": "時価総額 905億 < 3000億"
+   "reason": "時価総額 872億 < 3000億"
   },
   {
    "code": "7918",
@@ -18363,9 +18473,9 @@
    "code": "7921",
    "name": "ＴＡＫＡＲＡ　＆　ＣＯＭＰＡＮＹ",
    "sector": "サービス業",
-   "mcap_oku": 528,
+   "mcap_oku": 524,
    "mcap_src": "summary",
-   "reason": "時価総額 528億 < 3000億"
+   "reason": "時価総額 524億 < 3000億"
   },
   {
    "code": "7927",
@@ -18403,9 +18513,9 @@
    "code": "7937",
    "name": "ツツミ",
    "sector": "小売業",
-   "mcap_oku": 410,
+   "mcap_oku": 397,
    "mcap_src": "summary",
-   "reason": "時価総額 410億 < 3000億"
+   "reason": "時価総額 397億 < 3000億"
   },
   {
    "code": "7938",
@@ -18427,17 +18537,17 @@
    "code": "7942",
    "name": "ＪＳＰ",
    "sector": "その他製品",
-   "mcap_oku": 780,
+   "mcap_oku": 747,
    "mcap_src": "summary",
-   "reason": "時価総額 780億 < 3000億"
+   "reason": "時価総額 747億 < 3000億"
   },
   {
    "code": "7943",
    "name": "ニチハ",
    "sector": "建設業",
-   "mcap_oku": 989,
+   "mcap_oku": 958,
    "mcap_src": "summary",
-   "reason": "時価総額 989億 < 3000億"
+   "reason": "時価総額 958億 < 3000億"
   },
   {
    "code": "7944",
@@ -18467,17 +18577,17 @@
    "code": "7949",
    "name": "小松ウオール工業",
    "sector": "建設業",
-   "mcap_oku": 501,
+   "mcap_oku": 489,
    "mcap_src": "summary",
-   "reason": "時価総額 501億 < 3000億"
+   "reason": "時価総額 489億 < 3000億"
   },
   {
    "code": "7952",
    "name": "河合楽器製作所",
    "sector": "その他製品",
-   "mcap_oku": 299,
+   "mcap_oku": 276,
    "mcap_src": "summary",
-   "reason": "時価総額 299億 < 3000億"
+   "reason": "時価総額 276億 < 3000億"
   },
   {
    "code": "7953",
@@ -18491,17 +18601,17 @@
    "code": "7955",
    "name": "クリナップ",
    "sector": "その他製品",
-   "mcap_oku": 346,
+   "mcap_oku": 335,
    "mcap_src": "summary",
-   "reason": "時価総額 346億 < 3000億"
+   "reason": "時価総額 335億 < 3000億"
   },
   {
    "code": "7956",
    "name": "ピジョン",
    "sector": "化学",
-   "mcap_oku": 2442,
+   "mcap_oku": 2275,
    "mcap_src": "summary",
-   "reason": "時価総額 2442億 < 3000億"
+   "reason": "時価総額 2275億 < 3000億"
   },
   {
    "code": "7957",
@@ -18531,33 +18641,33 @@
    "code": "7965",
    "name": "象印マホービン",
    "sector": "その他製品",
-   "mcap_oku": 919,
+   "mcap_oku": 920,
    "mcap_src": "summary",
-   "reason": "時価総額 919億 < 3000億"
+   "reason": "時価総額 920億 < 3000億"
   },
   {
    "code": "7970",
    "name": "信越ポリマー",
    "sector": "化学",
-   "mcap_oku": 1787,
+   "mcap_oku": 1756,
    "mcap_src": "summary",
-   "reason": "時価総額 1787億 < 3000億"
+   "reason": "時価総額 1756億 < 3000億"
   },
   {
    "code": "7971",
    "name": "東リ",
    "sector": "建設業",
-   "mcap_oku": 405,
+   "mcap_oku": 396,
    "mcap_src": "summary",
-   "reason": "時価総額 405億 < 3000億"
+   "reason": "時価総額 396億 < 3000億"
   },
   {
    "code": "7972",
    "name": "イトーキ",
    "sector": "その他製品",
-   "mcap_oku": 1251,
+   "mcap_oku": 1176,
    "mcap_src": "summary",
-   "reason": "時価総額 1251億 < 3000億"
+   "reason": "時価総額 1176億 < 3000億"
   },
   {
    "code": "7975",
@@ -18579,9 +18689,9 @@
    "code": "7979",
    "name": "松風",
    "sector": "精密機器",
-   "mcap_oku": 811,
+   "mcap_oku": 767,
    "mcap_src": "summary",
-   "reason": "時価総額 811億 < 3000億"
+   "reason": "時価総額 767億 < 3000億"
   },
   {
    "code": "7980",
@@ -18595,9 +18705,9 @@
    "code": "7981",
    "name": "タカラスタンダード",
    "sector": "その他製品",
-   "mcap_oku": 1970,
+   "mcap_oku": 1940,
    "mcap_src": "summary",
-   "reason": "時価総額 1970億 < 3000億"
+   "reason": "時価総額 1940億 < 3000億"
   },
   {
    "code": "7983",
@@ -18635,9 +18745,9 @@
    "code": "7989",
    "name": "立川ブラインド工業",
    "sector": "その他製品",
-   "mcap_oku": 536,
+   "mcap_oku": 533,
    "mcap_src": "summary",
-   "reason": "時価総額 536億 < 3000億"
+   "reason": "時価総額 533億 < 3000億"
   },
   {
    "code": "7990",
@@ -18667,17 +18777,17 @@
    "code": "7994",
    "name": "オカムラ",
    "sector": "その他製品",
-   "mcap_oku": 2250,
+   "mcap_oku": 2203,
    "mcap_src": "summary",
-   "reason": "時価総額 2250億 < 3000億"
+   "reason": "時価総額 2203億 < 3000億"
   },
   {
    "code": "7995",
    "name": "バルカー",
    "sector": "機械",
-   "mcap_oku": 1164,
+   "mcap_oku": 1127,
    "mcap_src": "summary",
-   "reason": "時価総額 1164億 < 3000億"
+   "reason": "時価総額 1127億 < 3000億"
   },
   {
    "code": "7997",
@@ -18715,9 +18825,9 @@
    "code": "8008",
    "name": "ヨンドシーホールディングス",
    "sector": "繊維製品",
-   "mcap_oku": 452,
+   "mcap_oku": 443,
    "mcap_src": "summary",
-   "reason": "時価総額 452億 < 3000億"
+   "reason": "時価総額 443億 < 3000億"
   },
   {
    "code": "8011",
@@ -18739,9 +18849,9 @@
    "code": "8014",
    "name": "蝶理",
    "sector": "卸売業",
-   "mcap_oku": 1052,
+   "mcap_oku": 1034,
    "mcap_src": "summary",
-   "reason": "時価総額 1052億 < 3000億"
+   "reason": "時価総額 1034億 < 3000億"
   },
   {
    "code": "8016",
@@ -18795,17 +18905,17 @@
    "code": "8032",
    "name": "日本紙パルプ商事",
    "sector": "パルプ・紙",
-   "mcap_oku": 1352,
+   "mcap_oku": 1364,
    "mcap_src": "summary",
-   "reason": "時価総額 1352億 < 3000億"
+   "reason": "時価総額 1364億 < 3000億"
   },
   {
    "code": "8037",
    "name": "カメイ",
    "sector": "石油・石炭製品",
-   "mcap_oku": 1375,
+   "mcap_oku": 1411,
    "mcap_src": "summary",
-   "reason": "時価総額 1375億 < 3000億"
+   "reason": "時価総額 1411億 < 3000億"
   },
   {
    "code": "8039",
@@ -18835,9 +18945,9 @@
    "code": "8043",
    "name": "スターゼン",
    "sector": "食料品",
-   "mcap_oku": 845,
+   "mcap_oku": 868,
    "mcap_src": "summary",
-   "reason": "時価総額 845億 < 3000億"
+   "reason": "時価総額 868億 < 3000億"
   },
   {
    "code": "8045",
@@ -18859,57 +18969,57 @@
    "code": "8051",
    "name": "山善",
    "sector": "機械",
-   "mcap_oku": 1678,
+   "mcap_oku": 1672,
    "mcap_src": "summary",
-   "reason": "時価総額 1678億 < 3000億"
+   "reason": "時価総額 1672億 < 3000億"
   },
   {
    "code": "8052",
    "name": "椿本興業",
    "sector": "卸売業",
-   "mcap_oku": 544,
+   "mcap_oku": 529,
    "mcap_src": "summary",
-   "reason": "時価総額 544億 < 3000億"
+   "reason": "時価総額 529億 < 3000億"
   },
   {
    "code": "8057",
    "name": "内田洋行",
    "sector": "卸売業",
-   "mcap_oku": 1115,
+   "mcap_oku": 1024,
    "mcap_src": "summary",
-   "reason": "時価総額 1115億 < 3000億"
+   "reason": "時価総額 1024億 < 3000億"
   },
   {
    "code": "8059",
    "name": "第一実業",
    "sector": "機械",
-   "mcap_oku": 1166,
+   "mcap_oku": 1156,
    "mcap_src": "summary",
-   "reason": "時価総額 1166億 < 3000億"
+   "reason": "時価総額 1156億 < 3000億"
   },
   {
    "code": "8061",
    "name": "西華産業",
    "sector": "卸売業",
-   "mcap_oku": 1105,
+   "mcap_oku": 1035,
    "mcap_src": "summary",
-   "reason": "時価総額 1105億 < 3000億"
+   "reason": "時価総額 1035億 < 3000億"
   },
   {
    "code": "8065",
    "name": "佐藤商事",
    "sector": "鉄鋼",
-   "mcap_oku": 731,
+   "mcap_oku": 652,
    "mcap_src": "summary",
-   "reason": "時価総額 731億 < 3000億"
+   "reason": "時価総額 652億 < 3000億"
   },
   {
    "code": "8066",
    "name": "三谷商事",
    "sector": "卸売業",
-   "mcap_oku": 2964,
+   "mcap_oku": 2935,
    "mcap_src": "summary",
-   "reason": "時価総額 2964億 < 3000億"
+   "reason": "時価総額 2935億 < 3000億"
   },
   {
    "code": "8070",
@@ -18923,9 +19033,9 @@
    "code": "8074",
    "name": "ＹＵＡＳＡ",
    "sector": "機械",
-   "mcap_oku": 1360,
+   "mcap_oku": 1377,
    "mcap_src": "summary",
-   "reason": "時価総額 1360億 < 3000億"
+   "reason": "時価総額 1377億 < 3000億"
   },
   {
    "code": "8075",
@@ -18971,9 +19081,9 @@
    "code": "8084",
    "name": "ＲＹＯＤＥＮ",
    "sector": "電気機器",
-   "mcap_oku": 1011,
+   "mcap_oku": 1021,
    "mcap_src": "summary",
-   "reason": "時価総額 1011億 < 3000億"
+   "reason": "時価総額 1021億 < 3000億"
   },
   {
    "code": "8085",
@@ -19027,25 +19137,25 @@
    "code": "8097",
    "name": "三愛オブリ",
    "sector": "石油・石炭製品",
-   "mcap_oku": 1488,
+   "mcap_oku": 1493,
    "mcap_src": "summary",
-   "reason": "時価総額 1488億 < 3000億"
+   "reason": "時価総額 1493億 < 3000億"
   },
   {
    "code": "8098",
    "name": "稲畑産業",
    "sector": "化学",
-   "mcap_oku": 2359,
+   "mcap_oku": 2400,
    "mcap_src": "summary",
-   "reason": "時価総額 2359億 < 3000億"
+   "reason": "時価総額 2400億 < 3000億"
   },
   {
    "code": "8101",
    "name": "ＧＳＩクレオス",
    "sector": "繊維製品",
-   "mcap_oku": 322,
+   "mcap_oku": 312,
    "mcap_src": "summary",
-   "reason": "時価総額 322億 < 3000億"
+   "reason": "時価総額 312億 < 3000億"
   },
   {
    "code": "8103",
@@ -19083,9 +19193,9 @@
    "code": "8111",
    "name": "ゴールドウイン",
    "sector": "繊維製品",
-   "mcap_oku": 2878,
+   "mcap_oku": 2868,
    "mcap_src": "summary",
-   "reason": "時価総額 2878億 < 3000億"
+   "reason": "時価総額 2868億 < 3000億"
   },
   {
    "code": "8115",
@@ -19099,9 +19209,9 @@
    "code": "8117",
    "name": "中央自動車工業",
    "sector": "輸送用機器",
-   "mcap_oku": 1216,
+   "mcap_oku": 1153,
    "mcap_src": "summary",
-   "reason": "時価総額 1216億 < 3000億"
+   "reason": "時価総額 1153億 < 3000億"
   },
   {
    "code": "8118",
@@ -19147,25 +19257,25 @@
    "code": "8129",
    "name": "東邦ホールディングス",
    "sector": "医薬品",
-   "mcap_oku": 2552,
+   "mcap_oku": 2553,
    "mcap_src": "summary",
-   "reason": "時価総額 2552億 < 3000億"
+   "reason": "時価総額 2553億 < 3000億"
   },
   {
    "code": "8130",
    "name": "サンゲツ",
    "sector": "その他製品",
-   "mcap_oku": 1867,
+   "mcap_oku": 1864,
    "mcap_src": "summary",
-   "reason": "時価総額 1867億 < 3000億"
+   "reason": "時価総額 1864億 < 3000億"
   },
   {
    "code": "8131",
    "name": "ミツウロコグループホールディングス",
    "sector": "石油・石炭製品",
-   "mcap_oku": 1342,
+   "mcap_oku": 1349,
    "mcap_src": "summary",
-   "reason": "時価総額 1342億 < 3000億"
+   "reason": "時価総額 1349億 < 3000億"
   },
   {
    "code": "8132",
@@ -19195,9 +19305,9 @@
    "code": "8137",
    "name": "サンワテクノス",
    "sector": "電気機器",
-   "mcap_oku": 663,
+   "mcap_oku": 688,
    "mcap_src": "summary",
-   "reason": "時価総額 663億 < 3000億"
+   "reason": "時価総額 688億 < 3000億"
   },
   {
    "code": "8138",
@@ -19291,17 +19401,17 @@
    "code": "8154",
    "name": "加賀電子",
    "sector": "電気機器",
-   "mcap_oku": 2338,
+   "mcap_oku": 2273,
    "mcap_src": "summary",
-   "reason": "時価総額 2338億 < 3000億"
+   "reason": "時価総額 2273億 < 3000億"
   },
   {
    "code": "8157",
    "name": "都築電気",
    "sector": "卸売業",
-   "mcap_oku": 764,
+   "mcap_oku": 754,
    "mcap_src": "summary",
-   "reason": "時価総額 764億 < 3000億"
+   "reason": "時価総額 754億 < 3000億"
   },
   {
    "code": "8158",
@@ -19315,9 +19425,9 @@
    "code": "8159",
    "name": "立花エレテック",
    "sector": "電気機器",
-   "mcap_oku": 893,
+   "mcap_oku": 886,
    "mcap_src": "summary",
-   "reason": "時価総額 893億 < 3000億"
+   "reason": "時価総額 886億 < 3000億"
   },
   {
    "code": "8160",
@@ -19355,17 +19465,17 @@
    "code": "8167",
    "name": "リテールパートナーズ",
    "sector": "小売業",
-   "mcap_oku": 571,
+   "mcap_oku": 577,
    "mcap_src": "summary",
-   "reason": "時価総額 571億 < 3000億"
+   "reason": "時価総額 577億 < 3000億"
   },
   {
    "code": "8173",
    "name": "Ｊｏｓｈｉｎ",
    "sector": "小売業",
-   "mcap_oku": 1079,
+   "mcap_oku": 1084,
    "mcap_src": "summary",
-   "reason": "時価総額 1079億 < 3000億"
+   "reason": "時価総額 1084億 < 3000億"
   },
   {
    "code": "8179",
@@ -19395,17 +19505,17 @@
    "code": "8194",
    "name": "ライフコーポレーション",
    "sector": "小売業",
-   "mcap_oku": 2337,
+   "mcap_oku": 2331,
    "mcap_src": "summary",
-   "reason": "時価総額 2337億 < 3000億"
+   "reason": "時価総額 2331億 < 3000億"
   },
   {
    "code": "8198",
    "name": "マックスバリュ東海",
    "sector": "小売業",
-   "mcap_oku": 1075,
+   "mcap_oku": 1057,
    "mcap_src": "summary",
-   "reason": "時価総額 1075億 < 3000億"
+   "reason": "時価総額 1057億 < 3000億"
   },
   {
    "code": "8200",
@@ -19443,17 +19553,17 @@
    "code": "8214",
    "name": "ＡＯＫＩホールディングス",
    "sector": "小売業",
-   "mcap_oku": 1449,
+   "mcap_oku": 1426,
    "mcap_src": "summary",
-   "reason": "時価総額 1449億 < 3000億"
+   "reason": "時価総額 1426億 < 3000億"
   },
   {
    "code": "8217",
    "name": "オークワ",
    "sector": "小売業",
-   "mcap_oku": 321,
+   "mcap_oku": 324,
    "mcap_src": "summary",
-   "reason": "時価総額 321億 < 3000億"
+   "reason": "時価総額 324億 < 3000億"
   },
   {
    "code": "8218",
@@ -19520,22 +19630,6 @@
    "reason": "時価総額 19億 < 3000億"
   },
   {
-   "code": "8252",
-   "name": "丸井グループ",
-   "sector": "その他金融業",
-   "mcap_oku": 5129,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
-  },
-  {
-   "code": "8253",
-   "name": "クレディセゾン",
-   "sector": "その他金融業",
-   "mcap_oku": 6629,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
-  },
-  {
    "code": "8254",
    "name": "さいか屋",
    "sector": "小売業",
@@ -19547,9 +19641,9 @@
    "code": "8255",
    "name": "アクシアル　リテイリング",
    "sector": "小売業",
-   "mcap_oku": 1101,
+   "mcap_oku": 1140,
    "mcap_src": "summary",
-   "reason": "時価総額 1101億 < 3000億"
+   "reason": "時価総額 1140億 < 3000億"
   },
   {
    "code": "8260",
@@ -19563,9 +19657,9 @@
    "code": "8273",
    "name": "イズミ",
    "sector": "小売業",
-   "mcap_oku": 2113,
+   "mcap_oku": 2066,
    "mcap_src": "summary",
-   "reason": "時価総額 2113億 < 3000億"
+   "reason": "時価総額 2066億 < 3000億"
   },
   {
    "code": "8275",
@@ -19579,9 +19673,9 @@
    "code": "8276",
    "name": "平和堂",
    "sector": "小売業",
-   "mcap_oku": 1316,
+   "mcap_oku": 1333,
    "mcap_src": "summary",
-   "reason": "時価総額 1316億 < 3000億"
+   "reason": "時価総額 1333億 < 3000億"
   },
   {
    "code": "8278",
@@ -19595,17 +19689,17 @@
    "code": "8281",
    "name": "ゼビオホールディングス",
    "sector": "小売業",
-   "mcap_oku": 468,
+   "mcap_oku": 458,
    "mcap_src": "summary",
-   "reason": "時価総額 468億 < 3000億"
+   "reason": "時価総額 458億 < 3000億"
   },
   {
    "code": "8282",
    "name": "ケーズホールディングス",
    "sector": "小売業",
-   "mcap_oku": 2902,
+   "mcap_oku": 2856,
    "mcap_src": "summary",
-   "reason": "時価総額 2902億 < 3000億"
+   "reason": "時価総額 2856億 < 3000億"
   },
   {
    "code": "8285",
@@ -19619,73 +19713,9 @@
    "code": "8291",
    "name": "日産東京販売ホールディングス",
    "sector": "小売業",
-   "mcap_oku": 326,
+   "mcap_oku": 324,
    "mcap_src": "summary",
-   "reason": "時価総額 326億 < 3000億"
-  },
-  {
-   "code": "8303",
-   "name": "ＳＢＩ新生銀行",
-   "sector": "銀行業",
-   "mcap_oku": 13908,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8304",
-   "name": "あおぞら銀行",
-   "sector": "銀行業",
-   "mcap_oku": 4712,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8306",
-   "name": "三菱ＵＦＪフィナンシャル・グループ",
-   "sector": "銀行業",
-   "mcap_oku": 417701,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8308",
-   "name": "りそなホールディングス",
-   "sector": "銀行業",
-   "mcap_oku": 57091,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8309",
-   "name": "三井住友トラストグループ",
-   "sector": "銀行業",
-   "mcap_oku": 49075,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8316",
-   "name": "三井住友フィナンシャルグループ",
-   "sector": "銀行業",
-   "mcap_oku": 265054,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8331",
-   "name": "千葉銀行",
-   "sector": "銀行業",
-   "mcap_oku": 19777,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8334",
-   "name": "群馬銀行",
-   "sector": "銀行業",
-   "mcap_oku": 10939,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 324億 < 3000億"
   },
   {
    "code": "8336",
@@ -19693,7 +19723,7 @@
    "sector": "銀行業",
    "mcap_oku": 2750,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 2750億 < 3000億"
   },
   {
    "code": "8337",
@@ -19701,7 +19731,7 @@
    "sector": "銀行業",
    "mcap_oku": 1594,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 1594億 < 3000億"
   },
   {
    "code": "8338",
@@ -19709,15 +19739,7 @@
    "sector": "銀行業",
    "mcap_oku": 634,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8341",
-   "name": "七十七銀行",
-   "sector": "銀行業",
-   "mcap_oku": 8917,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 634億 < 3000億"
   },
   {
    "code": "8343",
@@ -19725,7 +19747,7 @@
    "sector": "銀行業",
    "mcap_oku": 1607,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 1607億 < 3000億"
   },
   {
    "code": "8344",
@@ -19733,7 +19755,7 @@
    "sector": "銀行業",
    "mcap_oku": 1431,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 1431億 < 3000億"
   },
   {
    "code": "8345",
@@ -19741,7 +19763,7 @@
    "sector": "銀行業",
    "mcap_oku": 1753,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 1753億 < 3000億"
   },
   {
    "code": "8346",
@@ -19749,7 +19771,7 @@
    "sector": "銀行業",
    "mcap_oku": 2479,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 2479億 < 3000億"
   },
   {
    "code": "8349",
@@ -19757,31 +19779,7 @@
    "sector": "銀行業",
    "mcap_oku": 161,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8354",
-   "name": "ふくおかフィナンシャルグループ",
-   "sector": "銀行業",
-   "mcap_oku": 14865,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8358",
-   "name": "スルガ銀行",
-   "sector": "銀行業",
-   "mcap_oku": 5038,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8359",
-   "name": "八十二長野銀行",
-   "sector": "銀行業",
-   "mcap_oku": 12556,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 161億 < 3000億"
   },
   {
    "code": "8360",
@@ -19789,15 +19787,7 @@
    "sector": "銀行業",
    "mcap_oku": 2206,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8361",
-   "name": "大垣共立銀行",
-   "sector": "銀行業",
-   "mcap_oku": 3393,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 2206億 < 3000億"
   },
   {
    "code": "8362",
@@ -19805,7 +19795,7 @@
    "sector": "銀行業",
    "mcap_oku": 1668,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 1668億 < 3000億"
   },
   {
    "code": "8364",
@@ -19813,7 +19803,7 @@
    "sector": "銀行業",
    "mcap_oku": 367,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 367億 < 3000億"
   },
   {
    "code": "8365",
@@ -19821,55 +19811,7 @@
    "sector": "銀行業",
    "mcap_oku": 126,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8366",
-   "name": "滋賀銀行",
-   "sector": "銀行業",
-   "mcap_oku": 6579,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8367",
-   "name": "南都銀行",
-   "sector": "銀行業",
-   "mcap_oku": 3078,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8368",
-   "name": "百五銀行",
-   "sector": "銀行業",
-   "mcap_oku": 5735,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8370",
-   "name": "紀陽銀行",
-   "sector": "銀行業",
-   "mcap_oku": 3311,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8377",
-   "name": "ほくほくフィナンシャルグループ",
-   "sector": "銀行業",
-   "mcap_oku": 9929,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8381",
-   "name": "山陰合同銀行",
-   "sector": "銀行業",
-   "mcap_oku": 3917,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 126億 < 3000億"
   },
   {
    "code": "8383",
@@ -19877,15 +19819,7 @@
    "sector": "銀行業",
    "mcap_oku": 183,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8386",
-   "name": "百十四銀行",
-   "sector": "銀行業",
-   "mcap_oku": 3523,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 183億 < 3000億"
   },
   {
    "code": "8387",
@@ -19893,15 +19827,7 @@
    "sector": "銀行業",
    "mcap_oku": 1581,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8388",
-   "name": "阿波銀行",
-   "sector": "銀行業",
-   "mcap_oku": 3864,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 1581億 < 3000億"
   },
   {
    "code": "8392",
@@ -19909,7 +19835,7 @@
    "sector": "銀行業",
    "mcap_oku": 2265,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 2265億 < 3000億"
   },
   {
    "code": "8393",
@@ -19917,7 +19843,7 @@
    "sector": "銀行業",
    "mcap_oku": 2225,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 2225億 < 3000億"
   },
   {
    "code": "8395",
@@ -19925,31 +19851,15 @@
    "sector": "銀行業",
    "mcap_oku": 1110,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 1110億 < 3000億"
   },
   {
    "code": "8399",
    "name": "琉球銀行",
    "sector": "銀行業",
-   "mcap_oku": 1333,
+   "mcap_oku": 1339,
    "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8410",
-   "name": "セブン銀行",
-   "sector": "銀行業",
-   "mcap_oku": 3934,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8411",
-   "name": "みずほフィナンシャルグループ",
-   "sector": "銀行業",
-   "mcap_oku": 213181,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 1339億 < 3000億"
   },
   {
    "code": "8416",
@@ -19957,47 +19867,7 @@
    "sector": "銀行業",
    "mcap_oku": 118,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8418",
-   "name": "山口フィナンシャルグループ",
-   "sector": "銀行業",
-   "mcap_oku": 6527,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8424",
-   "name": "芙蓉総合リース",
-   "sector": "その他金融業",
-   "mcap_oku": 4003,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
-  },
-  {
-   "code": "8425",
-   "name": "みずほリース",
-   "sector": "その他金融業",
-   "mcap_oku": 3833,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
-  },
-  {
-   "code": "8439",
-   "name": "東京センチュリー",
-   "sector": "その他金融業",
-   "mcap_oku": 13238,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
-  },
-  {
-   "code": "8473",
-   "name": "ＳＢＩホールディングス",
-   "sector": "その他金融業",
-   "mcap_oku": 21745,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 118億 < 3000億"
   },
   {
    "code": "8508",
@@ -20005,15 +19875,15 @@
    "sector": "その他金融業",
    "mcap_oku": 1032,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 1032億 < 3000億"
   },
   {
    "code": "8511",
    "name": "日本証券金融",
    "sector": "その他金融業",
-   "mcap_oku": 2016,
+   "mcap_oku": 1969,
    "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 1969億 < 3000億"
   },
   {
    "code": "8518",
@@ -20024,28 +19894,12 @@
    "reason": "時価総額 42億 < 3000億"
   },
   {
-   "code": "8522",
-   "name": "名古屋銀行",
-   "sector": "銀行業",
-   "mcap_oku": 3518,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8524",
-   "name": "北洋銀行",
-   "sector": "銀行業",
-   "mcap_oku": 4991,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
    "code": "8537",
    "name": "大光銀行",
    "sector": "銀行業",
-   "mcap_oku": 301,
+   "mcap_oku": 302,
    "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 302億 < 3000億"
   },
   {
    "code": "8541",
@@ -20053,7 +19907,7 @@
    "sector": "銀行業",
    "mcap_oku": 1254,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 1254億 < 3000億"
   },
   {
    "code": "8542",
@@ -20061,31 +19915,23 @@
    "sector": "銀行業",
    "mcap_oku": 229,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
-  },
-  {
-   "code": "8544",
-   "name": "京葉銀行",
-   "sector": "銀行業",
-   "mcap_oku": 3332,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 229億 < 3000億"
   },
   {
    "code": "8550",
    "name": "栃木銀行",
    "sector": "銀行業",
-   "mcap_oku": 1160,
+   "mcap_oku": 1126,
    "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 1126億 < 3000億"
   },
   {
    "code": "8551",
    "name": "北日本銀行",
    "sector": "銀行業",
-   "mcap_oku": 658,
+   "mcap_oku": 686,
    "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 686億 < 3000億"
   },
   {
    "code": "8558",
@@ -20093,7 +19939,7 @@
    "sector": "銀行業",
    "mcap_oku": 532,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 532億 < 3000億"
   },
   {
    "code": "8562",
@@ -20101,7 +19947,7 @@
    "sector": "銀行業",
    "mcap_oku": 139,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 139億 < 3000億"
   },
   {
    "code": "8563",
@@ -20109,31 +19955,15 @@
    "sector": "銀行業",
    "mcap_oku": 149,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 149億 < 3000億"
   },
   {
    "code": "8566",
    "name": "リコーリース",
    "sector": "その他金融業",
-   "mcap_oku": 2102,
+   "mcap_oku": 2127,
    "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
-  },
-  {
-   "code": "8570",
-   "name": "イオンフィナンシャルサービス",
-   "sector": "その他金融業",
-   "mcap_oku": 3490,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
-  },
-  {
-   "code": "8572",
-   "name": "アコム",
-   "sector": "その他金融業",
-   "mcap_oku": 7595,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 2127億 < 3000億"
   },
   {
    "code": "8584",
@@ -20141,31 +19971,15 @@
    "sector": "その他金融業",
    "mcap_oku": 1679,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 1679億 < 3000億"
   },
   {
    "code": "8585",
    "name": "オリエントコーポレーション",
    "sector": "その他金融業",
-   "mcap_oku": 1460,
+   "mcap_oku": 1459,
    "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
-  },
-  {
-   "code": "8591",
-   "name": "オリックス",
-   "sector": "その他金融業",
-   "mcap_oku": 64490,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
-  },
-  {
-   "code": "8593",
-   "name": "三菱ＨＣキャピタル",
-   "sector": "その他金融業",
-   "mcap_oku": 19937,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 1459億 < 3000億"
   },
   {
    "code": "8595",
@@ -20179,25 +19993,25 @@
    "code": "8596",
    "name": "九州リースサービス",
    "sector": "その他金融業",
-   "mcap_oku": 358,
+   "mcap_oku": 348,
    "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 348億 < 3000億"
   },
   {
    "code": "8600",
    "name": "トモニホールディングス",
    "sector": "銀行業",
-   "mcap_oku": 2176,
+   "mcap_oku": 2195,
    "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 2195億 < 3000億"
   },
   {
    "code": "8609",
    "name": "岡三証券グループ",
    "sector": "証券・商品先物取引業",
-   "mcap_oku": 2496,
+   "mcap_oku": 2454,
    "mcap_src": "summary",
-   "reason": "金融は対象外（証券・商品先物取引業）"
+   "reason": "時価総額 2454億 < 3000億"
   },
   {
    "code": "8613",
@@ -20246,30 +20060,6 @@
    "mcap_oku": 557,
    "mcap_src": "rejected_cache",
    "reason": "時価総額 557億 < 3000億"
-  },
-  {
-   "code": "8628",
-   "name": "松井証券",
-   "sector": "証券・商品先物取引業",
-   "mcap_oku": 3065,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（証券・商品先物取引業）"
-  },
-  {
-   "code": "8630",
-   "name": "ＳＯＭＰＯホールディングス",
-   "sector": "保険業",
-   "mcap_oku": 60142,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（保険業）"
-  },
-  {
-   "code": "8697",
-   "name": "日本取引所グループ",
-   "sector": "その他金融業",
-   "mcap_oku": 22803,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
   },
   {
    "code": "8698",
@@ -20341,15 +20131,15 @@
    "sector": "銀行業",
    "mcap_oku": 506,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 506億 < 3000億"
   },
   {
    "code": "8714",
    "name": "池田泉州ホールディングス",
    "sector": "銀行業",
-   "mcap_oku": 3024,
+   "mcap_oku": 2985,
    "mcap_src": "summary",
-   "reason": "金融は対象外（銀行業）"
+   "reason": "時価総額 2985億 < 3000億"
   },
   {
    "code": "8715",
@@ -20357,23 +20147,7 @@
    "sector": "保険業",
    "mcap_oku": 784,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（保険業）"
-  },
-  {
-   "code": "8725",
-   "name": "ＭＳ＆ＡＤインシュアランスグループホールディングス",
-   "sector": "保険業",
-   "mcap_oku": 73832,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（保険業）"
-  },
-  {
-   "code": "8729",
-   "name": "ソニーフィナンシャルグループ",
-   "sector": "保険業",
-   "mcap_oku": 11076,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（保険業）"
+   "reason": "時価総額 784億 < 3000億"
   },
   {
    "code": "8737",
@@ -20387,9 +20161,9 @@
    "code": "8739",
    "name": "スパークス・グループ",
    "sector": "証券・商品先物取引業",
-   "mcap_oku": 1048,
+   "mcap_oku": 1005,
    "mcap_src": "summary",
-   "reason": "金融は対象外（証券・商品先物取引業）"
+   "reason": "時価総額 1005億 < 3000億"
   },
   {
    "code": "8742",
@@ -20416,22 +20190,6 @@
    "reason": "時価総額 125億 < 3000億"
   },
   {
-   "code": "8750",
-   "name": "第一ライフグループ",
-   "sector": "保険業",
-   "mcap_oku": 67631,
-   "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（保険業）"
-  },
-  {
-   "code": "8766",
-   "name": "東京海上ホールディングス",
-   "sector": "保険業",
-   "mcap_oku": 150519,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（保険業）"
-  },
-  {
    "code": "8769",
    "name": "アドバンテッジリスクマネジメント",
    "sector": "サービス業",
@@ -20443,9 +20201,9 @@
    "code": "8771",
    "name": "イー・ギャランティ",
    "sector": "その他金融業",
-   "mcap_oku": 762,
+   "mcap_oku": 773,
    "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 773億 < 3000億"
   },
   {
    "code": "8772",
@@ -20453,7 +20211,7 @@
    "sector": "その他金融業",
    "mcap_oku": 293,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 293億 < 3000億"
   },
   {
    "code": "8783",
@@ -20461,7 +20219,7 @@
    "sector": "その他金融業",
    "mcap_oku": 23,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 23億 < 3000億"
   },
   {
    "code": "8789",
@@ -20469,23 +20227,15 @@
    "sector": "その他金融業",
    "mcap_oku": 306,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 306億 < 3000億"
   },
   {
    "code": "8793",
    "name": "ＮＥＣキャピタルソリューション",
    "sector": "その他金融業",
-   "mcap_oku": 907,
+   "mcap_oku": 899,
    "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
-  },
-  {
-   "code": "8795",
-   "name": "Ｔ＆Ｄホールディングス",
-   "sector": "保険業",
-   "mcap_oku": 23217,
-   "mcap_src": "summary",
-   "reason": "金融は対象外（保険業）"
+   "reason": "時価総額 899億 < 3000億"
   },
   {
    "code": "8798",
@@ -20493,15 +20243,15 @@
    "sector": "保険業",
    "mcap_oku": 51,
    "mcap_src": "rejected_cache",
-   "reason": "金融は対象外（保険業）"
+   "reason": "時価総額 51億 < 3000億"
   },
   {
    "code": "8803",
    "name": "平和不動産",
    "sector": "不動産業",
-   "mcap_oku": 1553,
+   "mcap_oku": 1540,
    "mcap_src": "summary",
-   "reason": "時価総額 1553億 < 3000億"
+   "reason": "時価総額 1540億 < 3000億"
   },
   {
    "code": "8818",
@@ -20539,9 +20289,9 @@
    "code": "8844",
    "name": "コスモスイニシア",
    "sector": "不動産業",
-   "mcap_oku": 420,
+   "mcap_oku": 410,
    "mcap_src": "summary",
-   "reason": "時価総額 420億 < 3000億"
+   "reason": "時価総額 410億 < 3000億"
   },
   {
    "code": "8848",
@@ -20555,9 +20305,9 @@
    "code": "8850",
    "name": "スターツコーポレーション",
    "sector": "不動産業",
-   "mcap_oku": 2242,
+   "mcap_oku": 2204,
    "mcap_src": "summary",
-   "reason": "時価総額 2242億 < 3000億"
+   "reason": "時価総額 2204億 < 3000億"
   },
   {
    "code": "8860",
@@ -20571,9 +20321,9 @@
    "code": "8864",
    "name": "空港施設",
    "sector": "不動産業",
-   "mcap_oku": 478,
+   "mcap_oku": 466,
    "mcap_src": "summary",
-   "reason": "時価総額 478億 < 3000億"
+   "reason": "時価総額 466億 < 3000億"
   },
   {
    "code": "8869",
@@ -20587,25 +20337,25 @@
    "code": "8871",
    "name": "ゴールドクレスト",
    "sector": "不動産業",
-   "mcap_oku": 1070,
+   "mcap_oku": 1050,
    "mcap_src": "summary",
-   "reason": "時価総額 1070億 < 3000億"
+   "reason": "時価総額 1050億 < 3000億"
   },
   {
    "code": "8877",
    "name": "エスリード",
    "sector": "不動産業",
-   "mcap_oku": 807,
+   "mcap_oku": 785,
    "mcap_src": "summary",
-   "reason": "時価総額 807億 < 3000億"
+   "reason": "時価総額 785億 < 3000億"
   },
   {
    "code": "8881",
    "name": "日神グループホールディングス",
    "sector": "不動産業",
-   "mcap_oku": 310,
+   "mcap_oku": 305,
    "mcap_src": "summary",
-   "reason": "時価総額 310億 < 3000億"
+   "reason": "時価総額 305億 < 3000億"
   },
   {
    "code": "8887",
@@ -20627,9 +20377,9 @@
    "code": "8892",
    "name": "エスコン",
    "sector": "不動産業",
-   "mcap_oku": 1054,
+   "mcap_oku": 1052,
    "mcap_src": "summary",
-   "reason": "時価総額 1054億 < 3000億"
+   "reason": "時価総額 1052億 < 3000億"
   },
   {
    "code": "8894",
@@ -20707,9 +20457,9 @@
    "code": "8919",
    "name": "カチタス",
    "sector": "建設業",
-   "mcap_oku": 2810,
+   "mcap_oku": 2657,
    "mcap_src": "summary",
-   "reason": "時価総額 2810億 < 3000億"
+   "reason": "時価総額 2657億 < 3000億"
   },
   {
    "code": "8920",
@@ -20723,9 +20473,9 @@
    "code": "8923",
    "name": "トーセイ",
    "sector": "不動産業",
-   "mcap_oku": 1673,
+   "mcap_oku": 1623,
    "mcap_src": "summary",
-   "reason": "時価総額 1673億 < 3000億"
+   "reason": "時価総額 1623億 < 3000億"
   },
   {
    "code": "8927",
@@ -20747,9 +20497,9 @@
    "code": "8929",
    "name": "青山財産ネットワークス",
    "sector": "不動産業",
-   "mcap_oku": 335,
+   "mcap_oku": 320,
    "mcap_src": "summary",
-   "reason": "時価総額 335億 < 3000億"
+   "reason": "時価総額 320億 < 3000億"
   },
   {
    "code": "8931",
@@ -20763,17 +20513,17 @@
    "code": "8934",
    "name": "サンフロンティア不動産",
    "sector": "不動産業",
-   "mcap_oku": 1390,
+   "mcap_oku": 1340,
    "mcap_src": "summary",
-   "reason": "時価総額 1390億 < 3000億"
+   "reason": "時価総額 1340億 < 3000億"
   },
   {
    "code": "8935",
    "name": "ＦＪネクストホールディングス",
    "sector": "不動産業",
-   "mcap_oku": 654,
+   "mcap_oku": 633,
    "mcap_src": "summary",
-   "reason": "時価総額 654億 < 3000億"
+   "reason": "時価総額 633億 < 3000億"
   },
   {
    "code": "8944",
@@ -20827,9 +20577,9 @@
    "code": "9003",
    "name": "相鉄ホールディングス",
    "sector": "卸売業",
-   "mcap_oku": 2495,
+   "mcap_oku": 2523,
    "mcap_src": "summary",
-   "reason": "時価総額 2495億 < 3000億"
+   "reason": "時価総額 2523億 < 3000億"
   },
   {
    "code": "9010",
@@ -20859,9 +20609,9 @@
    "code": "9025",
    "name": "鴻池運輸",
    "sector": "陸運業",
-   "mcap_oku": 1509,
+   "mcap_oku": 1547,
    "mcap_src": "summary",
-   "reason": "時価総額 1509億 < 3000億"
+   "reason": "時価総額 1547億 < 3000億"
   },
   {
    "code": "9028",
@@ -20883,9 +20633,9 @@
    "code": "9031",
    "name": "西日本鉄道",
    "sector": "陸運業",
-   "mcap_oku": 2302,
+   "mcap_oku": 2360,
    "mcap_src": "summary",
-   "reason": "時価総額 2302億 < 3000億"
+   "reason": "時価総額 2360億 < 3000億"
   },
   {
    "code": "9033",
@@ -20915,17 +20665,17 @@
    "code": "9037",
    "name": "ハマキョウレックス",
    "sector": "陸運業",
-   "mcap_oku": 1365,
+   "mcap_oku": 1336,
    "mcap_src": "summary",
-   "reason": "時価総額 1365億 < 3000億"
+   "reason": "時価総額 1336億 < 3000億"
   },
   {
    "code": "9039",
    "name": "サカイ引越センター",
    "sector": "陸運業",
-   "mcap_oku": 1198,
+   "mcap_oku": 1190,
    "mcap_src": "summary",
-   "reason": "時価総額 1198億 < 3000億"
+   "reason": "時価総額 1190億 < 3000億"
   },
   {
    "code": "9046",
@@ -20955,9 +20705,9 @@
    "code": "9052",
    "name": "山陽電気鉄道",
    "sector": "陸運業",
-   "mcap_oku": 445,
+   "mcap_oku": 443,
    "mcap_src": "summary",
-   "reason": "時価総額 445億 < 3000億"
+   "reason": "時価総額 443億 < 3000億"
   },
   {
    "code": "9057",
@@ -20995,9 +20745,9 @@
    "code": "9068",
    "name": "丸全昭和運輸",
    "sector": "陸運業",
-   "mcap_oku": 1400,
+   "mcap_oku": 1386,
    "mcap_src": "summary",
-   "reason": "時価総額 1400億 < 3000億"
+   "reason": "時価総額 1386億 < 3000億"
   },
   {
    "code": "9073",
@@ -21027,9 +20777,9 @@
    "code": "9081",
    "name": "神奈川中央交通",
    "sector": "陸運業",
-   "mcap_oku": 489,
+   "mcap_oku": 491,
    "mcap_src": "summary",
-   "reason": "時価総額 489億 < 3000億"
+   "reason": "時価総額 491億 < 3000億"
   },
   {
    "code": "9082",
@@ -21059,9 +20809,9 @@
    "code": "9090",
    "name": "ＡＺ－ＣＯＭ丸和ホールディングス",
    "sector": "陸運業",
-   "mcap_oku": 1209,
+   "mcap_oku": 1183,
    "mcap_src": "summary",
-   "reason": "時価総額 1209億 < 3000億"
+   "reason": "時価総額 1183億 < 3000億"
   },
   {
    "code": "9110",
@@ -21275,9 +21025,9 @@
    "code": "9274",
    "name": "ＫＰＰグループホールディングス",
    "sector": "パルプ・紙",
-   "mcap_oku": 660,
+   "mcap_oku": 665,
    "mcap_src": "summary",
-   "reason": "時価総額 660億 < 3000億"
+   "reason": "時価総額 665億 < 3000億"
   },
   {
    "code": "9278",
@@ -21307,17 +21057,17 @@
    "code": "9304",
    "name": "澁澤倉庫",
    "sector": "陸運業",
-   "mcap_oku": 1123,
+   "mcap_oku": 1133,
    "mcap_src": "summary",
-   "reason": "時価総額 1123億 < 3000億"
+   "reason": "時価総額 1133億 < 3000億"
   },
   {
    "code": "9305",
    "name": "ヤマタネ",
    "sector": "海運業",
-   "mcap_oku": 435,
+   "mcap_oku": 433,
    "mcap_src": "summary",
-   "reason": "時価総額 435億 < 3000億"
+   "reason": "時価総額 433億 < 3000億"
   },
   {
    "code": "9306",
@@ -21347,9 +21097,9 @@
    "code": "9310",
    "name": "日本トランスシティ",
    "sector": "陸運業",
-   "mcap_oku": 844,
+   "mcap_oku": 833,
    "mcap_src": "summary",
-   "reason": "時価総額 844億 < 3000億"
+   "reason": "時価総額 833億 < 3000億"
   },
   {
    "code": "9311",
@@ -21379,9 +21129,9 @@
    "code": "9319",
    "name": "中央倉庫",
    "sector": "サービス業",
-   "mcap_oku": 316,
+   "mcap_oku": 313,
    "mcap_src": "summary",
-   "reason": "時価総額 316億 < 3000億"
+   "reason": "時価総額 313億 < 3000億"
   },
   {
    "code": "9322",
@@ -21395,9 +21145,9 @@
    "code": "9324",
    "name": "安田倉庫",
    "sector": "サービス業",
-   "mcap_oku": 734,
+   "mcap_oku": 756,
    "mcap_src": "summary",
-   "reason": "時価総額 734億 < 3000億"
+   "reason": "時価総額 756億 < 3000億"
   },
   {
    "code": "9325",
@@ -21539,9 +21289,9 @@
    "code": "9368",
    "name": "キムラユニティー",
    "sector": "サービス業",
-   "mcap_oku": 396,
+   "mcap_oku": 393,
    "mcap_src": "summary",
-   "reason": "時価総額 396億 < 3000億"
+   "reason": "時価総額 393億 < 3000億"
   },
   {
    "code": "9369",
@@ -21571,9 +21321,9 @@
    "code": "9381",
    "name": "エーアイテイー",
    "sector": "陸運業",
-   "mcap_oku": 545,
+   "mcap_oku": 543,
    "mcap_src": "summary",
-   "reason": "時価総額 545億 < 3000億"
+   "reason": "時価総額 543億 < 3000億"
   },
   {
    "code": "9385",
@@ -21603,9 +21353,9 @@
    "code": "9413",
    "name": "テレビ東京ホールディングス",
    "sector": "情報・通信業",
-   "mcap_oku": 906,
+   "mcap_oku": 887,
    "mcap_src": "summary",
-   "reason": "時価総額 906億 < 3000億"
+   "reason": "時価総額 887億 < 3000億"
   },
   {
    "code": "9414",
@@ -21683,9 +21433,9 @@
    "code": "9438",
    "name": "エムティーアイ",
    "sector": "サービス業",
-   "mcap_oku": 322,
+   "mcap_oku": 324,
    "mcap_src": "summary",
-   "reason": "時価総額 322億 < 3000億"
+   "reason": "時価総額 324億 < 3000億"
   },
   {
    "code": "9439",
@@ -21747,17 +21497,17 @@
    "code": "9470",
    "name": "学研ホールディングス",
    "sector": "サービス業",
-   "mcap_oku": 420,
+   "mcap_oku": 435,
    "mcap_src": "summary",
-   "reason": "時価総額 420億 < 3000億"
+   "reason": "時価総額 435億 < 3000億"
   },
   {
    "code": "9474",
    "name": "ゼンリン",
    "sector": "情報・通信業",
-   "mcap_oku": 485,
+   "mcap_oku": 487,
    "mcap_src": "summary",
-   "reason": "時価総額 485億 < 3000億"
+   "reason": "時価総額 487億 < 3000億"
   },
   {
    "code": "9475",
@@ -21795,9 +21545,9 @@
    "code": "9509",
    "name": "北海道電力",
    "sector": "電気・ガス業",
-   "mcap_oku": 2342,
+   "mcap_oku": 2308,
    "mcap_src": "summary",
-   "reason": "時価総額 2342億 < 3000億"
+   "reason": "時価総額 2308億 < 3000億"
   },
   {
    "code": "9511",
@@ -21834,26 +21584,26 @@
   {
    "code": "9534",
    "name": "北海道瓦斯",
-   "sector": "サービス業",
-   "mcap_oku": 827,
-   "mcap_src": "fast_info",
-   "reason": "時価総額 827億 < 3000億"
+   "sector": "電気・ガス業",
+   "mcap_oku": 834,
+   "mcap_src": "summary",
+   "reason": "時価総額 834億 < 3000億"
   },
   {
    "code": "9535",
    "name": "広島ガス",
    "sector": "石油・石炭製品",
-   "mcap_oku": 299,
+   "mcap_oku": 304,
    "mcap_src": "summary",
-   "reason": "時価総額 299億 < 3000億"
+   "reason": "時価総額 304億 < 3000億"
   },
   {
    "code": "9536",
    "name": "西部ガスホールディングス",
    "sector": "電気・ガス業",
-   "mcap_oku": 900,
+   "mcap_oku": 922,
    "mcap_src": "summary",
-   "reason": "時価総額 900億 < 3000億"
+   "reason": "時価総額 922億 < 3000億"
   },
   {
    "code": "9537",
@@ -21875,17 +21625,17 @@
    "code": "9543",
    "name": "静岡ガス",
    "sector": "電気・ガス業",
-   "mcap_oku": 997,
+   "mcap_oku": 1032,
    "mcap_src": "summary",
-   "reason": "時価総額 997億 < 3000億"
+   "reason": "時価総額 1032億 < 3000億"
   },
   {
    "code": "9551",
    "name": "メタウォーター",
    "sector": "機械",
-   "mcap_oku": 1395,
+   "mcap_oku": 1319,
    "mcap_src": "summary",
-   "reason": "時価総額 1395億 < 3000億"
+   "reason": "時価総額 1319億 < 3000億"
   },
   {
    "code": "9552",
@@ -21947,25 +21697,25 @@
    "code": "9619",
    "name": "イチネンホールディングス",
    "sector": "その他金融業",
-   "mcap_oku": 640,
+   "mcap_oku": 631,
    "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 631億 < 3000億"
   },
   {
    "code": "9621",
    "name": "建設技術研究所",
    "sector": "建設業",
-   "mcap_oku": 869,
+   "mcap_oku": 881,
    "mcap_src": "summary",
-   "reason": "時価総額 869億 < 3000億"
+   "reason": "時価総額 881億 < 3000億"
   },
   {
    "code": "9622",
    "name": "スペース",
    "sector": "建設業",
-   "mcap_oku": 348,
+   "mcap_oku": 341,
    "mcap_src": "summary",
-   "reason": "時価総額 348億 < 3000億"
+   "reason": "時価総額 341億 < 3000億"
   },
   {
    "code": "9625",
@@ -22003,9 +21753,9 @@
    "code": "9632",
    "name": "スバル興業",
    "sector": "サービス業",
-   "mcap_oku": 466,
+   "mcap_oku": 457,
    "mcap_src": "summary",
-   "reason": "時価総額 466億 < 3000億"
+   "reason": "時価総額 457億 < 3000億"
   },
   {
    "code": "9633",
@@ -22043,9 +21793,9 @@
    "code": "9640",
    "name": "セゾンテクノロジー",
    "sector": "情報・通信業",
-   "mcap_oku": 320,
+   "mcap_oku": 316,
    "mcap_src": "summary",
-   "reason": "時価総額 320億 < 3000億"
+   "reason": "時価総額 316億 < 3000億"
   },
   {
    "code": "9644",
@@ -22083,9 +21833,9 @@
    "code": "9658",
    "name": "ビジネスブレイン太田昭和",
    "sector": "情報・通信業",
-   "mcap_oku": 350,
+   "mcap_oku": 343,
    "mcap_src": "summary",
-   "reason": "時価総額 350億 < 3000億"
+   "reason": "時価総額 343億 < 3000億"
   },
   {
    "code": "9661",
@@ -22107,9 +21857,9 @@
    "code": "9672",
    "name": "東京都競馬",
    "sector": "サービス業",
-   "mcap_oku": 1275,
+   "mcap_oku": 1269,
    "mcap_src": "summary",
-   "reason": "時価総額 1275億 < 3000億"
+   "reason": "時価総額 1269億 < 3000億"
   },
   {
    "code": "9678",
@@ -22171,9 +21921,9 @@
    "code": "9692",
    "name": "シーイーシー",
    "sector": "情報・通信業",
-   "mcap_oku": 727,
+   "mcap_oku": 644,
    "mcap_src": "summary",
-   "reason": "時価総額 727億 < 3000億"
+   "reason": "時価総額 644億 < 3000億"
   },
   {
    "code": "9698",
@@ -22187,9 +21937,9 @@
    "code": "9699",
    "name": "ニシオホールディングス",
    "sector": "その他金融業",
-   "mcap_oku": 1285,
+   "mcap_oku": 1263,
    "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 1263億 < 3000億"
   },
   {
    "code": "9701",
@@ -22307,25 +22057,25 @@
    "code": "9733",
    "name": "ナガセ",
    "sector": "サービス業",
-   "mcap_oku": 557,
+   "mcap_oku": 545,
    "mcap_src": "summary",
-   "reason": "時価総額 557億 < 3000億"
+   "reason": "時価総額 545億 < 3000億"
   },
   {
    "code": "9739",
    "name": "ＮＳＷ",
    "sector": "情報・通信業",
-   "mcap_oku": 401,
+   "mcap_oku": 393,
    "mcap_src": "summary",
-   "reason": "時価総額 401億 < 3000億"
+   "reason": "時価総額 393億 < 3000億"
   },
   {
    "code": "9740",
    "name": "セントラル警備保障",
    "sector": "サービス業",
-   "mcap_oku": 377,
+   "mcap_oku": 368,
    "mcap_src": "summary",
-   "reason": "時価総額 377億 < 3000億"
+   "reason": "時価総額 368億 < 3000億"
   },
   {
    "code": "9742",
@@ -22355,9 +22105,9 @@
    "code": "9746",
    "name": "ＴＫＣ",
    "sector": "情報・通信業",
-   "mcap_oku": 1985,
+   "mcap_oku": 1982,
    "mcap_src": "summary",
-   "reason": "時価総額 1985億 < 3000億"
+   "reason": "時価総額 1982億 < 3000億"
   },
   {
    "code": "9753",
@@ -22371,17 +22121,17 @@
    "code": "9755",
    "name": "応用地質",
    "sector": "建設業",
-   "mcap_oku": 636,
+   "mcap_oku": 624,
    "mcap_src": "summary",
-   "reason": "時価総額 636億 < 3000億"
+   "reason": "時価総額 624億 < 3000億"
   },
   {
    "code": "9757",
    "name": "船井総研ホールディングス",
    "sector": "サービス業",
-   "mcap_oku": 1088,
+   "mcap_oku": 1079,
    "mcap_src": "summary",
-   "reason": "時価総額 1088億 < 3000億"
+   "reason": "時価総額 1079億 < 3000億"
   },
   {
    "code": "9759",
@@ -22499,9 +22249,9 @@
    "code": "9793",
    "name": "ダイセキ",
    "sector": "サービス業",
-   "mcap_oku": 1745,
+   "mcap_oku": 1740,
    "mcap_src": "summary",
-   "reason": "時価総額 1745億 < 3000億"
+   "reason": "時価総額 1740億 < 3000億"
   },
   {
    "code": "9795",
@@ -22555,17 +22305,17 @@
    "code": "9823",
    "name": "マミーマートホールディングス",
    "sector": "小売業",
-   "mcap_oku": 509,
+   "mcap_oku": 502,
    "mcap_src": "summary",
-   "reason": "時価総額 509億 < 3000億"
+   "reason": "時価総額 502億 < 3000億"
   },
   {
    "code": "9824",
    "name": "泉州電業",
    "sector": "電気機器",
-   "mcap_oku": 1337,
+   "mcap_oku": 1317,
    "mcap_src": "summary",
-   "reason": "時価総額 1337億 < 3000億"
+   "reason": "時価総額 1317億 < 3000億"
   },
   {
    "code": "9827",
@@ -22587,9 +22337,9 @@
    "code": "9830",
    "name": "トラスコ中山",
    "sector": "卸売業",
-   "mcap_oku": 1569,
+   "mcap_oku": 1568,
    "mcap_src": "summary",
-   "reason": "時価総額 1569億 < 3000億"
+   "reason": "時価総額 1568億 < 3000億"
   },
   {
    "code": "9832",
@@ -22611,25 +22361,25 @@
    "code": "9837",
    "name": "モリト",
    "sector": "小売業",
-   "mcap_oku": 442,
+   "mcap_oku": 439,
    "mcap_src": "summary",
-   "reason": "時価総額 442億 < 3000億"
+   "reason": "時価総額 439億 < 3000億"
   },
   {
    "code": "9842",
    "name": "アークランズ",
    "sector": "小売業",
-   "mcap_oku": 1174,
+   "mcap_oku": 1175,
    "mcap_src": "summary",
-   "reason": "時価総額 1174億 < 3000億"
+   "reason": "時価総額 1175億 < 3000億"
   },
   {
    "code": "9845",
    "name": "パーカーコーポレーション",
    "sector": "卸売業",
-   "mcap_oku": 349,
+   "mcap_oku": 337,
    "mcap_src": "summary",
-   "reason": "時価総額 349億 < 3000億"
+   "reason": "時価総額 337億 < 3000億"
   },
   {
    "code": "9846",
@@ -22707,9 +22457,9 @@
    "code": "9869",
    "name": "加藤産業",
    "sector": "卸売業",
-   "mcap_oku": 2001,
+   "mcap_oku": 2049,
    "mcap_src": "summary",
-   "reason": "時価総額 2001億 < 3000億"
+   "reason": "時価総額 2049億 < 3000億"
   },
   {
    "code": "9872",
@@ -22739,17 +22489,17 @@
    "code": "9880",
    "name": "イノテック",
    "sector": "電気機器",
-   "mcap_oku": 407,
+   "mcap_oku": 389,
    "mcap_src": "summary",
-   "reason": "時価総額 407億 < 3000億"
+   "reason": "時価総額 389億 < 3000億"
   },
   {
    "code": "9882",
    "name": "イエローハット",
    "sector": "小売業",
-   "mcap_oku": 1483,
+   "mcap_oku": 1448,
    "mcap_src": "summary",
-   "reason": "時価総額 1483億 < 3000億"
+   "reason": "時価総額 1448億 < 3000億"
   },
   {
    "code": "9885",
@@ -22779,9 +22529,9 @@
    "code": "9889",
    "name": "ＪＢＣＣホールディングス",
    "sector": "情報・通信業",
-   "mcap_oku": 995,
+   "mcap_oku": 972,
    "mcap_src": "summary",
-   "reason": "時価総額 995億 < 3000億"
+   "reason": "時価総額 972億 < 3000億"
   },
   {
    "code": "9890",
@@ -22803,9 +22553,9 @@
    "code": "9896",
    "name": "ＪＫホールディングス",
    "sector": "卸売業",
-   "mcap_oku": 386,
+   "mcap_oku": 369,
    "mcap_src": "summary",
-   "reason": "時価総額 386億 < 3000億"
+   "reason": "時価総額 369億 < 3000億"
   },
   {
    "code": "9900",
@@ -22843,25 +22593,25 @@
    "code": "9906",
    "name": "藤井産業",
    "sector": "機械",
-   "mcap_oku": 371,
+   "mcap_oku": 359,
    "mcap_src": "summary",
-   "reason": "時価総額 371億 < 3000億"
+   "reason": "時価総額 359億 < 3000億"
   },
   {
    "code": "9908",
    "name": "日本電計",
    "sector": "その他金融業",
-   "mcap_oku": 326,
+   "mcap_oku": 318,
    "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 318億 < 3000億"
   },
   {
    "code": "9913",
    "name": "日邦産業",
    "sector": "電気機器",
-   "mcap_oku": 330,
+   "mcap_oku": 324,
    "mcap_src": "summary",
-   "reason": "時価総額 330億 < 3000億"
+   "reason": "時価総額 324億 < 3000億"
   },
   {
    "code": "9914",
@@ -22875,9 +22625,9 @@
    "code": "9928",
    "name": "ミロク情報サービス",
    "sector": "情報・通信業",
-   "mcap_oku": 608,
+   "mcap_oku": 604,
    "mcap_src": "summary",
-   "reason": "時価総額 608億 < 3000億"
+   "reason": "時価総額 604億 < 3000億"
   },
   {
    "code": "9929",
@@ -22931,9 +22681,9 @@
    "code": "9948",
    "name": "アークス",
    "sector": "小売業",
-   "mcap_oku": 1947,
+   "mcap_oku": 1990,
    "mcap_src": "summary",
-   "reason": "時価総額 1947億 < 3000億"
+   "reason": "時価総額 1990億 < 3000億"
   },
   {
    "code": "9950",
@@ -22955,9 +22705,9 @@
    "code": "9956",
    "name": "バローホールディングス",
    "sector": "小売業",
-   "mcap_oku": 1861,
+   "mcap_oku": 1890,
    "mcap_src": "summary",
-   "reason": "時価総額 1861億 < 3000億"
+   "reason": "時価総額 1890億 < 3000億"
   },
   {
    "code": "9959",
@@ -22971,9 +22721,9 @@
    "code": "9960",
    "name": "東テク",
    "sector": "電気機器",
-   "mcap_oku": 1679,
+   "mcap_oku": 1685,
    "mcap_src": "summary",
-   "reason": "時価総額 1679億 < 3000億"
+   "reason": "時価総額 1685億 < 3000億"
   },
   {
    "code": "9969",
@@ -23067,9 +22817,9 @@
    "code": "9991",
    "name": "ジェコス",
    "sector": "その他金融業",
-   "mcap_oku": 601,
+   "mcap_oku": 602,
    "mcap_src": "summary",
-   "reason": "金融は対象外（その他金融業）"
+   "reason": "時価総額 602億 < 3000億"
   },
   {
    "code": "9993",
@@ -23099,9 +22849,9 @@
    "code": "9997",
    "name": "ベルーナ",
    "sector": "小売業",
-   "mcap_oku": 1002,
+   "mcap_oku": 993,
    "mcap_src": "summary",
-   "reason": "時価総額 1002億 < 3000億"
+   "reason": "時価総額 993億 < 3000億"
   }
  ]
 }

@@ -1,0 +1,25 @@
+{
+  "_meta": {
+    "説明": "『10年保有できる優良企業』ツールのv2追加。銀行・保険・証券（analyze.py/analyze_us.pyがis_simpleと判定する業種）は業績・財務・キャッシュフローを構造的に採点できない（バランスシートの構造が製造業等と根本的に異なるため）。v1ではこれらを対象外としていたが、v2では専用の品質サブスコアを設けて対象化する。REIT（is_reit）はFFO系の指標設計が別途必要な規模のため、v2でも引き続き対象外のまま。",
+    "対象": "JP: 銀行業・保険業・証券商品先物取引業（sector_rules.jsonのoverridesで_simple=true）。US: GICS Financialsのうち industry が Banks/Insurance 系（sector_map_us.jsonのfinancial_like_industries）。その他金融業（JP）や資産運用・取引所・決済網（US Financialsの一部）はis_simpleではなく既存の業績/財務/CFロジックで普通に採点できるため、この専用スコアの対象外（universe側で母集団に含めるだけでよい）。",
+    "設計": "4つの別概念の指標を均等ウェイト（各25%）で合成。ROE（収益性の水準）・増収率（トップラインの成長）・EPS成長率（1株あたり実質成長。自社株買いの効果も反映）・利益の安定度（下方リスク）。買い時スコアと同じ『複合>単一・均等ウェイトが定石』の考え方を踏襲。",
+    "ROEについて": "yfinance の returnOnEquity（%換算）をそのまま使用。銀行・保険・証券の標準的な収益性指標。",
+    "増収率・EPS成長率について": "analyze.cagr_of() で損益計算書の年次データ（直近〜4年）から年率換算。売上高の概念が業態で異なる（銀行=受取利息総額、保険=保険料収入、証券=手数料・トレーディング収益）点は割り切り、あくまで『事業規模が拡大しているか』の方向性のみ見る。",
+    "利益の安定度について": "直近の年次純利益の推移で、前年比の最大下落率（％）。0＝一度も減益していない、マイナスが大きいほど下方リスクが大きい。黒字/赤字の安定性を見る簡易指標。",
+    "買い時スコアとの関係": "この業種は EV/EBIT（EBITの概念が成立しない）・FCF利回り（『フリーCF』がバランスシートの資金繰りで数兆円単位に振れ、株価の割安度と無関係）が構造的に使えないため、買い時スコアは PER割安度・PBR割安度のみを均等50%で合成する（analyze_long.py の _buytiming が is_simple かつ is_reit でない場合に自動で切替）。",
+    "校正": "good/warnは初回バッチ後に実分布で再校正すること。ここは仮値（買い時スコアのbuytiming_long.jsonと同じ運用）。"
+  },
+  "weights": {
+    "roe": 0.25,
+    "rev_growth": 0.25,
+    "eps_growth": 0.25,
+    "profit_stability": 0.25
+  },
+  "missing_fill": 60,
+  "rules": {
+    "roe": {"dir": "higher_better", "good": 10.0, "warn": 5.0, "_note": "自己資本利益率(%)。yfinanceのreturnOnEquity。高いほど良い。"},
+    "rev_growth": {"dir": "higher_better", "good": 6.0, "warn": 0.0, "_note": "売上高の年率成長(CAGR %、直近〜4年)。高いほど良い。"},
+    "eps_growth": {"dir": "higher_better", "good": 8.0, "warn": 0.0, "_note": "EPSの年率成長(CAGR %、直近〜4年)。高いほど良い。自社株買いの効果も含む。"},
+    "profit_stability": {"dir": "higher_better", "good": 0.0, "warn": -30.0, "_note": "直近数年の純利益、前年比の最大下落率(%)。0＝減益なし。低い(マイナスが大きい)ほど下方リスクが大きい。"}
+  }
+}

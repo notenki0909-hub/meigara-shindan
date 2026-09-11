@@ -20,9 +20,12 @@ import analyze  # score_metric の直線補間だけ流用（無改変）
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 # sel_score の score_groups.選定 から「配当の持続力」を除いたもの
-QUALITY_W = {"業績": 0.28, "財務": 0.27, "キャッシュフロー": 0.15}
+# 「金融品質」は業績/財務/CFの合計ウェイトと揃えてある（is_simple金融銘柄はこれだけが
+# 唯一のグループになるため、quality_score() の再正規化で実質100%になる）。
+QUALITY_W = {"業績": 0.28, "財務": 0.27, "キャッシュフロー": 0.15, "金融品質": 0.70}
 
 _BT_CACHE = None
+_FQ_CACHE = None
 
 
 def load_bt_cfg():
@@ -31,6 +34,15 @@ def load_bt_cfg():
         with open(os.path.join(HERE, "buytiming_long.json"), encoding="utf-8") as f:
             _BT_CACHE = json.load(f)
     return _BT_CACHE
+
+
+def load_fq_cfg():
+    """financial_quality_long.json（銀行・保険・証券向けの品質サブスコア設定）。"""
+    global _FQ_CACHE
+    if _FQ_CACHE is None:
+        with open(os.path.join(HERE, "financial_quality_long.json"), encoding="utf-8") as f:
+            _FQ_CACHE = json.load(f)
+    return _FQ_CACHE
 
 
 def is_num(x):
@@ -52,6 +64,41 @@ def quality_score(group_scores):
 def quality_coverage(group_scores):
     got = sum(1 for g in QUALITY_W if is_num(group_scores.get(g)))
     return got, len(QUALITY_W), ("高" if got >= 3 else "中" if got == 2 else "低")
+
+
+# ------------------------------------------------------- 金融品質スコア（v2・銀行/保険/証券）
+def worst_yoy_decline_pct(series):
+    """新しい年→古い年の順の系列（analyze.row()と同じ並び）から、前年比の最大下落率(%)を返す。
+    一度も減益していなければ 0.0。前年がゼロ/符号違いの年は比較から除く。2点未満なら None。"""
+    xs = [v for v in series if is_num(v)]
+    if len(xs) < 2:
+        return None
+    worst = 0.0
+    for newer, older in zip(xs, xs[1:]):
+        if not (is_num(older) and older > 0):
+            continue
+        yoy = (newer - older) / older * 100.0
+        if yoy < worst:
+            worst = yoy
+    return round(worst, 1)
+
+
+def financial_quality_score(raw_vals):
+    """raw_vals: {"roe": %|None, "rev_growth": %|None, "eps_growth": %|None,
+    "profit_stability": %|None}。financial_quality_long.json の均等ウェイトで合成。
+    返り値: (score 0..110|None, {key: (raw, score)})"""
+    cfg = load_fq_cfg()
+    rules, w, fill = cfg["rules"], cfg["weights"], cfg.get("missing_fill", 60)
+    parts = {}
+    num = den = 0.0
+    for k, wt in w.items():
+        v = raw_vals.get(k)
+        s = score_val(k, v, rules)
+        parts[k] = (v, s)
+        num += wt * (s if is_num(s) else fill)
+        den += wt
+    total = round(num / den, 1) if den > 0 else None
+    return total, parts
 
 
 # ---------------------------------------------------------------- 買い時の素材

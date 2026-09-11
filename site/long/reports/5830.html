@@ -1,0 +1,250 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=JSON.parse(localStorage.getItem("pp_theme")||"{}");if(t.pal&&t.pal!=="genko"&&t.pal!=="custom"){document.documentElement.setAttribute("data-pal",t.pal);document.documentElement.setAttribute("data-hl","on");}if(t.pal==="custom")document.documentElement.setAttribute("data-hl","on");if(t.mode==="dark"||t.mode==="light")document.documentElement.setAttribute("data-mode",t.mode);}catch(e){}</script>
+<title>いよぎんホールディングス（5830）10年保有できるか</title>
+<style>
+
+:root{
+  --bg:#ffffff;--fg:#1d232b;--muted:#6b7683;--line:#e4e8ec;--card:#f7f9fa;--accent:#2f9e91;
+  --hi:#2f9e91;--mid:#e0912f;--lo:#d1584f;--na:#c3ccd3;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-mode]){
+    --bg:#161a1e;--fg:#e7ecef;--muted:#9aa6af;--line:#2c333a;--card:#1e242a;--accent:#4fb8ab;
+    --hi:#4fb8ab;--mid:#e0a45a;--lo:#e07b73;--na:#4a555e;
+  }
+}
+:root[data-mode="dark"]{
+  --bg:#161a1e;--fg:#e7ecef;--muted:#9aa6af;--line:#2c333a;--card:#1e242a;--accent:#4fb8ab;
+  --hi:#4fb8ab;--mid:#e0a45a;--lo:#e07b73;--na:#4a555e;
+}
+:root[data-pal="blueplus"]{--bg:#f7f8fa;--card:#ffffff;--line:#dfe1e6;--muted:#5b6472;--fg:#161a1f;--accent:#2563eb;}
+:root[data-pal="blueplus"][data-mode="dark"]{--bg:#0d0f14;--card:#191d26;--line:#30363f;--muted:#9aa3ae;--fg:#e9ebef;--accent:#7db0ff;}
+:root[data-pal="teal"]{--bg:#f2f8f6;--card:#ffffff;--line:#d7e6e1;--muted:#556661;--fg:#132019;--accent:#0d7c72;}
+:root[data-pal="teal"][data-mode="dark"]{--bg:#0b120f;--card:#152019;--line:#28372f;--muted:#8fa39c;--fg:#e2ece7;--accent:#3fd9c8;}
+:root[data-pal="slate"]{--bg:#f5f6f9;--card:#ffffff;--line:#dde1e8;--muted:#5b6577;--fg:#171d28;--accent:#334c86;}
+:root[data-pal="slate"][data-mode="dark"]{--bg:#0d0f13;--card:#181c23;--line:#2c323d;--muted:#96a0ae;--fg:#e6e8ec;--accent:#8fb0e6;}
+:root[data-pal="sand"]{--bg:#f8f4ea;--card:#fffdf8;--line:#e7dcc7;--muted:#6a5f48;--fg:#221c11;--accent:#b1500a;}
+:root[data-pal="sand"][data-mode="dark"]{--bg:#131009;--card:#201b11;--line:#372c1b;--muted:#a89d84;--fg:#ece4d3;--accent:#ffab2e;}
+:root[data-pal="violet"]{--bg:#f8f6fd;--card:#ffffff;--line:#e4dcf1;--muted:#635a75;--fg:#1b1626;--accent:#6d28d9;}
+:root[data-pal="violet"][data-mode="dark"]{--bg:#0f0d16;--card:#1c1727;--line:#302742;--muted:#a89fb8;--fg:#ebe5f4;--accent:#b79bff;}
+:root[data-pal="rose"]{--bg:#fdf5f8;--card:#ffffff;--line:#efd9e2;--muted:#7a5a65;--fg:#24171d;--accent:#c2255c;}
+:root[data-pal="rose"][data-mode="dark"]{--bg:#140f12;--card:#211820;--line:#3a2b33;--muted:#b499a3;--fg:#efe3e9;--accent:#f472b6;}
+
+#theme-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:10px 0 4px;font-size:12px}
+#theme-bar .tb-lbl{color:var(--muted)}
+#theme-bar .sw{width:20px;height:20px;border-radius:50%;border:1px solid var(--line);cursor:pointer;padding:0;background:var(--tb-c,#ccc)}
+#theme-bar .sw[data-pal="genko"]{background:linear-gradient(135deg,#fff 48%,#2f9e91 52%)}
+#theme-bar .sw.custom{background:conic-gradient(#e74c8b,#f0b429,#28a48b,#4f7be0,#9b5de5,#e74c8b)}
+#theme-bar .sw[aria-pressed="true"]{outline:2px solid var(--fg);outline-offset:1px}
+#theme-bar .tb-btn{border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:7px;padding:3px 9px;font:inherit;font-size:12px;cursor:pointer}
+#theme-bar .tb-reset{color:var(--accent);border:0;background:none;text-decoration:underline;text-underline-offset:2px;cursor:pointer;font:inherit;font-size:12px}
+#theme-bar .tb-sep{width:1px;align-self:stretch;background:var(--line);margin:0 3px}
+#cust-panel{display:none;flex-wrap:wrap;gap:10px 16px;align-items:center;width:100%;margin-top:4px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--card)}
+#cust-panel.open{display:flex}
+#cust-panel label{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--fg)}
+#cust-panel input[type=color]{width:40px;height:24px;border:1px solid var(--line);border-radius:5px;padding:0;background:none;cursor:pointer}
+#cust-panel .cc-more{border:0;background:none;color:var(--accent);font:inherit;font-size:11.5px;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+#cust-panel .cc-adv{display:none;gap:10px 16px;flex-wrap:wrap;align-items:center}
+#cust-panel .cc-adv.open{display:flex}
+#cust-panel .cc-warn{font-size:11px;color:var(--lo);flex-basis:100%}
+@media print{#theme-bar{display:none}}
+
+/* analyze.THEME_CSS は --hi/--mid/--lo/--na のみ定義。ここで別名・派生色を補う */
+:root{--t1:var(--hi);--t2:var(--mid);--t3:var(--lo);--gC:var(--lo);
+  --field:color-mix(in srgb,var(--fg) 4%,var(--card));
+  --th:color-mix(in srgb,var(--fg) 6%,var(--card));
+  --wbg:color-mix(in srgb,var(--mid) 12%,var(--bg));
+  --wbd:color-mix(in srgb,var(--mid) 34%,var(--line));
+  --wfg:var(--fg);--info:color-mix(in srgb,var(--accent) 12%,var(--card))}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font-family:"Segoe UI","Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+  line-height:1.6;font-size:14px}
+.wrap{max-width:820px;margin:0 auto;padding:24px 20px 60px}
+.topbar{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.topbar a{font-size:12.5px;color:var(--accent);white-space:nowrap}
+h1{font-size:20px;margin:0 0 2px}
+h1 small{font-size:13px;color:var(--muted);font-weight:normal}
+.sub{color:var(--muted);font-size:12.5px;margin-bottom:10px}
+.ohlc{font-size:12px;color:var(--muted);margin:2px 0 12px}
+.ohlc b{color:var(--fg)}
+.formula{font-size:11.5px;color:var(--muted);background:var(--field);border:1px solid var(--line);
+  border-radius:8px;padding:8px 12px;margin:6px 0 12px}
+.score2{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+.sblk{flex:1;min-width:250px;background:var(--card);border:1px solid var(--line);
+  border-radius:12px;padding:13px 16px}
+.sblk .hd{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.sblk .hd b{font-size:13px}
+.sblk .num{font-size:26px;font-weight:700;line-height:1.1}
+.sblk .num.hi{color:var(--t1)} .sblk .num.mid{color:var(--t2)} .sblk .num.lo{color:var(--t3)} .sblk .num.xlo{color:var(--gC)} .sblk .num.na{color:var(--muted)}
+.sblk .lab{font-size:12.5px;font-weight:700}
+.sblk .cov{font-size:11px;color:var(--muted);margin-top:4px} .sblk .cov b{font-weight:700}
+h2{font-size:15px;margin:22px 0 6px;border-bottom:2px solid var(--line);padding-bottom:4px}
+.domhead{display:flex;align-items:center;gap:8px;margin:14px 0 4px;font-weight:700;font-size:13px}
+.bar{flex:1;max-width:200px;height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.bar .fill{height:100%} .bar .fill.hi{background:var(--t1)} .bar .fill.mid{background:var(--t2)}
+.bar .fill.lo{background:var(--t3)} .bar .fill.na{background:var(--line)}
+.sc{font-weight:700;font-size:11.5px} .sc.hi{color:var(--t1)} .sc.mid{color:var(--t2)}
+.sc.lo{color:var(--t3)} .sc.na{color:var(--muted);font-weight:400}
+details.m,div.plain{border:1px solid var(--line);border-radius:8px;margin:4px 0;background:var(--card)}
+details.m>summary{padding:8px 12px 8px 26px;cursor:pointer;display:grid;position:relative;
+  grid-template-columns:minmax(130px,1.2fr) minmax(120px,1.5fr) 1.4fr auto;gap:10px;
+  align-items:center;font-size:12.5px}
+div.plain{padding:8px 12px;display:grid;grid-template-columns:minmax(150px,1fr) 2fr;
+  gap:10px;align-items:center;font-size:12.5px}
+details.m>summary{list-style:none} details.m>summary::-webkit-details-marker{display:none}
+details.m>summary::before{content:"▸";color:var(--muted);position:absolute;left:11px}
+details.m[open]>summary::before{content:"▾"}
+@media(max-width:600px){details.m>summary{grid-template-columns:1fr auto}
+  details.m>summary .mr{display:none}}
+.mn{font-weight:700} .mv,.mv2{color:var(--fg)}
+.mr{color:var(--muted);font-size:11px}
+.mt{white-space:nowrap;text-align:right}
+.mbody{padding:10px 14px;border-top:1px solid var(--line);font-size:12px}
+.mbody p{margin:6px 0} .mbody .what{color:var(--fg)} .mbody .rule,.mbody .why{color:var(--muted)}
+.figwrap{margin:8px 0;overflow-x:auto}
+.figwrap svg{max-width:100%;height:auto}
+.chart .cm{fill:var(--muted);font-size:9px} .chart .cx{fill:var(--muted);font-size:8px;text-anchor:middle}
+.chart .ct{fill:var(--fg);font-size:9px;font-weight:700}
+table.subt{width:100%;border-collapse:collapse;margin:6px 0}
+table.subt th,table.subt td{padding:4px 6px;border-bottom:1px solid var(--line);font-size:11.5px}
+table.subt th{background:var(--th);color:var(--muted);font-weight:700;text-align:left}
+table.subt td.n,table.subt th.n{text-align:right;font-variant-numeric:tabular-nums}
+table.subt tr:last-child td{border-bottom:none}
+.warn{margin:14px 0;padding:10px 12px;background:var(--wbg);border:1px solid var(--wbd);
+  border-radius:8px;font-size:12px;color:var(--wfg)}
+.warn ul{margin:4px 0 0;padding-left:18px}
+.disc{margin-top:26px;padding:12px;background:var(--wbg);border:1px solid var(--wbd);
+  border-radius:8px;font-size:11.5px;color:var(--wfg)}
+.chartwrap{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;margin:8px 0;overflow-x:auto}
+.cobox{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:8px 0}
+.legend{font-size:11px;color:var(--muted);margin:4px 0 8px}
+.mv2{color:var(--fg)}
+</style></head><body><div class="wrap">
+<div class="topbar">
+  <h1>いよぎんホールディングス（5830）<small>10年保有できる優良企業か</small></h1>
+  <span><a href="../index.html">ランキング</a>　・　<a href="../watchlist.html">ウォッチリスト</a></span>
+</div>
+<div class="sub">現在株価 3830円（2026-09-10 終値）　｜　銀行業</div>
+<div class="ohlc">前回の値動き（2026-09-10）　終値 <b>3830.0円</b>　／　高値 3847.0円　／　安値 3716.0円　／　始値 3721.0円</div>
+<div class="formula">配当を評価しないレポートです。<b>品質スコア</b>＝業績×0.28＋財務×0.27＋CF×0.15（取得できたグループで再正規化）。
+<b>買い時スコア</b>＝EV/EBIT対業種・FCF利回り・PER割安度・PBR割安度を均等25%で合成（欠損は中立60）。
+配当利回り・連続増配・累進配当宣言などは一切見ていません。</div>
+
+<div class="score2">
+  <div class="sblk"><div class="hd"><b>品質スコア</b><span class="num hi">101</span>
+    <span class="lab">長期保有の質あり</span></div>
+    <div class="cov">採点できた指標グループ <b>1/4</b>　カバレッジ <b>低</b></div></div>
+  <div class="sblk"><div class="hd"><b>買い時スコア</b><span class="num mid">66</span>
+    <span class="lab">ほぼ妥当</span></div>
+    <div class="cov">実データで採点 <b>2/2</b>　カバレッジ <b>高</b>（欠損は中立60で補完）</div></div>
+</div>
+<div class="warn"><b>データ上の注意</b><ul><li>銀行・保険・証券は業績・財務・CFの代わりに、専用の品質サブスコア（ROE・増収率・EPS成長率・利益の安定度）で評価しています。買い時スコアもEV/EBIT・FCF利回りが構造的に使えないため、PER割安度・PBR割安度のみで合成しています。</li></ul></div>
+
+<h2>会社概要</h2>
+<div class="cobox"><details class="chartbox"><summary>企業概要</summary><div class="mbody"><div class="plain"><span class="mn">本社所在地</span><span class="mv2">Matsuyama、Japan</span></div><div class="plain"><span class="mn">従業員数</span><span class="mv2">3,098名</span></div><div class="plain"><span class="mn">Webサイト</span><span class="mv2"><a href="https://www.iyogin-hd.co.jp" target="_blank" rel="noopener">https://www.iyogin-hd.co.jp</a></span></div><p class="rule"><b>事業内容（English・出典 Yahoo Finance）</b></p><p style="white-space:pre-wrap">Iyogin Holdings, Inc., together with its subsidiaries, provides banking products and services in Japan. It operates in two segments, Banking and Leasing. The company offers deposit, lending, securities investment, foreign exchange, banking outsourcing, credit guarantee, credit card, and investment fund management services. It also engages in the leasing of office equipment, industrial machinery, machine tools, medical equipment, and others; automotive maintenance lease; and installment payment sales contracts and loans. In addition, the company is involved in information processing outsourcing, software development and sale, and office automation equipment sale; mortgage and consumer loan debt guarantees; cash management and verification work, as well as ATM maintenance management work; and investment activities in stocks and corporate bonds, as well as management and administration of investment partnership assets. Further, it engages in business consulting, industry survey, contract research, and publication; warranty services; intermediation, brokerage, and agency services for the buying and selling of securities; printing and binding services for documents and other forms; manufacturing and sale of wood products, textiles, and office supplies; and debt management and collection services, as well as debt purchase services. The company was formerly known as The Iyo Bank, Ltd. and changed its name to Iyogin Holdings, Inc. in October 2022. Iyogin Holdings, Inc. was founded in 1878 and is headquartered in Matsuyama, Japan.</p><p class="rule" style="margin-top:10px">※ 事業内容は yfinance（Yahoo Finance）由来の英語の説明文です。日本語の要約ではありません。</p></div></details></div>
+
+<h2>① 品質の指標（銀行・保険・証券向け代替指標）</h2>
+<div class="domhead"><b>金融品質（銀行・保険・証券向け代替指標）</b> <div class="bar"><div class="fill hi" style="width:100%"></div></div><span class="sc hi">101</span></div><details class="m"><summary><span class="mn">ROE（自己資本利益率）</span><span class="mv">7.8%</span><span class="mr">クリックで図解・判定ルール</span><span class="mt"><span class="sc hi">83 / 110</span></span></summary><div class="mbody"><p class="what"><b>見るポイント：</b>自己資本利益率（ROE）。銀行・保険・証券は貸借対照表の構造上、通常の営業利益率や自己資本比率では収益性・健全性を測れないため、代わりにROEを収益性の物差しにする。</p><div class="figwrap"><svg viewBox="0 0 476 64" class="chart trend" role="img" aria-label="ROE"><rect x="46" y="16" width="33" height="14" fill="var(--lo)" opacity="0.18"/><text x="63" y="42" class="cx" style="text-anchor:middle">割高</text><rect x="79" y="16" width="223" height="14" fill="var(--na)" opacity="0.18"/><text x="191" y="42" class="cx" style="text-anchor:middle">妥当</text><rect x="303" y="16" width="33" height="14" fill="var(--hi)" opacity="0.18"/><text x="319" y="42" class="cx" style="text-anchor:middle">割安</text><line x1="79" y1="13" x2="79" y2="33" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 2"/><line x1="303" y1="13" x2="303" y2="33" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 2"/><path d="M 206 8 L 201 0 L 211 0 Z" fill="var(--fg)"/><text x="206" y="-3" class="ct" style="text-anchor:middle">現在 7.83%</text><text x="46" y="60" class="cm">閾値：割安 10.00%／割高 5.00%</text></svg></div><p class="rule"><b>判定ルール：</b>10%以上＝良好 ／ 5%未満＝弱い。自己資本に対する利益創出力。</p><p class="why"><b>この銘柄：</b>ROE 7.8%（やや弱い）。</p><p class="rule">この指標の点：<b>83 / 110</b></p></div></details><details class="m"><summary><span class="mn">増収率（売上高の年率成長）</span><span class="mv">14.2%</span><span class="mr">クリックで図解・判定ルール</span><span class="mt"><span class="sc hi">110 / 110</span></span></summary><div class="mbody"><p class="what"><b>見るポイント：</b>売上高（銀行＝受取利息等、保険＝保険料収入、証券＝手数料・トレーディング収益）の年率成長率。事業規模が拡大しているかを見る。</p><div class="figwrap"><svg viewBox="0 0 476 64" class="chart trend" role="img" aria-label="増収率"><rect x="46" y="16" width="33" height="14" fill="var(--lo)" opacity="0.18"/><text x="63" y="42" class="cx" style="text-anchor:middle">割高</text><rect x="79" y="16" width="94" height="14" fill="var(--na)" opacity="0.18"/><text x="127" y="42" class="cx" style="text-anchor:middle">妥当</text><rect x="174" y="16" width="162" height="14" fill="var(--hi)" opacity="0.18"/><text x="255" y="42" class="cx" style="text-anchor:middle">割安</text><line x1="79" y1="13" x2="79" y2="33" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 2"/><line x1="174" y1="13" x2="174" y2="33" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 2"/><path d="M 303 8 L 298 0 L 308 0 Z" fill="var(--fg)"/><text x="303" y="-3" class="ct" style="text-anchor:middle">現在 14.20%</text><text x="46" y="60" class="cm">閾値：割安 6.00%／割高 0.00%</text></svg></div><p class="rule"><b>判定ルール：</b>6%以上＝良好 ／ 0%未満（減収）＝弱い。</p><p class="why"><b>この銘柄：</b>増収率 14.2%（良好）。</p><p class="rule">この指標の点：<b>110 / 110</b></p></div></details><details class="m"><summary><span class="mn">EPS成長率（1株利益の年率成長）</span><span class="mv">41.8%</span><span class="mr">クリックで図解・判定ルール</span><span class="mt"><span class="sc hi">110 / 110</span></span></summary><div class="mbody"><p class="what"><b>見るポイント：</b>1株当たり利益（EPS）の年率成長率。利益成長に加え、自社株買いによる1株当たり価値の向上も反映する。</p><div class="figwrap"><svg viewBox="0 0 476 64" class="chart trend" role="img" aria-label="EPS成長率"><rect x="46" y="16" width="33" height="14" fill="var(--lo)" opacity="0.18"/><text x="63" y="42" class="cx" style="text-anchor:middle">割高</text><rect x="79" y="16" width="43" height="14" fill="var(--na)" opacity="0.18"/><text x="101" y="42" class="cx" style="text-anchor:middle">妥当</text><rect x="122" y="16" width="214" height="14" fill="var(--hi)" opacity="0.18"/><text x="229" y="42" class="cx" style="text-anchor:middle">割安</text><line x1="79" y1="13" x2="79" y2="33" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 2"/><line x1="122" y1="13" x2="122" y2="33" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 2"/><path d="M 303 8 L 298 0 L 308 0 Z" fill="var(--fg)"/><text x="303" y="-3" class="ct" style="text-anchor:middle">現在 41.79%</text><text x="46" y="60" class="cm">閾値：割安 8.00%／割高 0.00%</text></svg></div><p class="rule"><b>判定ルール：</b>8%以上＝良好 ／ 0%未満（減益）＝弱い。自社株買いの効果を含む。</p><p class="why"><b>この銘柄：</b>EPS成長率 41.8%（良好）。</p><p class="rule">この指標の点：<b>110 / 110</b></p></div></details><details class="m"><summary><span class="mn">利益の安定度（純利益の最大減益率）</span><span class="mv">0.0%</span><span class="mr">クリックで図解・判定ルール</span><span class="mt"><span class="sc hi">100 / 110</span></span></summary><div class="mbody"><p class="what"><b>見るポイント：</b>直近数年の純利益について、前年比で最も大きく減益した年の下落率。0＝一度も減益していない。金融業は市況で利益が振れやすいため、下方リスクを別途見る。</p><div class="figwrap"><svg viewBox="0 0 476 64" class="chart trend" role="img" aria-label="利益の安定度"><rect x="46" y="16" width="33" height="14" fill="var(--lo)" opacity="0.18"/><text x="63" y="42" class="cx" style="text-anchor:middle">割高</text><rect x="79" y="16" width="223" height="14" fill="var(--na)" opacity="0.18"/><text x="191" y="42" class="cx" style="text-anchor:middle">妥当</text><rect x="303" y="16" width="33" height="14" fill="var(--hi)" opacity="0.18"/><text x="319" y="42" class="cx" style="text-anchor:middle">割安</text><line x1="79" y1="13" x2="79" y2="33" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 2"/><line x1="303" y1="13" x2="303" y2="33" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 2"/><path d="M 303 8 L 298 0 L 308 0 Z" fill="var(--fg)"/><text x="303" y="-3" class="ct" style="text-anchor:middle">現在 0.00%</text><text x="46" y="60" class="cm">閾値：割安 0.00%／割高 -30.00%</text></svg></div><p class="rule"><b>判定ルール：</b>0%（減益なし）＝良好 ／ -30%（最大30%の減益年）＝弱い。</p><p class="why"><b>この銘柄：</b>最大減益率 0.0%（良好）。</p><p class="rule">この指標の点：<b>100 / 110</b></p></div></details>
+
+<h2>② 買い時の指標（割安さ・配当は不使用）</h2>
+<p class="sub">買い時スコア＝<b>PER割安度・PBR割安度</b>を均等50%で合成。<b>PER割安度＝「PER 自社レンジ」と「PER 対業種」の平均＝71</b>、<b>PBR割安度＝同様に61</b>。銀行・保険・証券はEBITの概念が成立せず、「FCF」もバランスシートの資金繰りで株価の割安度と無関係に振れるため、EV/EBIT・FCF利回りは使わずPER・PBRのみで判定しています。配当利回り・増配・累進配当宣言は一切使っていません。</p><div class="domhead"><b>EV/EBIT（対業種）（対象外・銀行/保険/証券）</b> <div class="bar"><div class="fill na" style="width:100%"></div></div><span class="sc na">評価対象外</span></div><details class="m"><summary><span class="mn">EV/EBIT（対業種中央値）</span><span class="mv">対象外（銀行・保険・証券）</span><span class="mr">クリックで図解・判定ルール</span><span class="mt"><span class="sc na">―（不採点）</span></span></summary><div class="mbody"><p class="what"><b>見るポイント：</b>企業価値（EV＝時価総額＋有利子負債−現金）が、本業の利益（EBIT＝営業利益）の何倍かを、同じ業種の中央値と比べた倍率。1.0未満なら業種平均より割安。PERと違い借金の多寡に左右されないので、レバレッジの異なる会社を同じ土俵で比較できる。40年のバックテストで単一の割安指標として最良クラスの成績。</p><p class="rule"><b>判定ルール：</b>対業種 0.85倍以下＝割安 ／ 1.2倍超＝割高。EV＝時価総額＋有利子負債−現金、EBIT＝営業利益。</p><p class="why"><b>この銘柄：</b>銀行・保険・証券はEBITの概念が成立しないため、この指標は使いません（買い時スコアはPER・PBRのみで合成）。</p><p class="rule">この指標の点：<b></b></p></div></details><div class="domhead"><b>FCF利回り（対象外・銀行/保険/証券）</b> <div class="bar"><div class="fill na" style="width:100%"></div></div><span class="sc na">評価対象外</span></div><details class="m"><summary><span class="mn">FCF利回り（FCF÷時価総額）</span><span class="mv">対象外（銀行・保険・証券）</span><span class="mr">クリックで図解・判定ルール</span><span class="mt"><span class="sc na">―（不採点）</span></span></summary><div class="mbody"><p class="what"><b>見るポイント：</b>1年間に事業が生み出すフリーCF（営業CF−設備投資）が、時価総額の何％にあたるか。配当利回りの『配当なし版』で、株価に対して現金をどれだけ生んでいるかを見る。高いほど割安。利益より改ざんしにくく、40年研究で割安指標2位。負のFCF（先行投資が重い年）は中立扱い。資本集約型（インフラ・製造）は構造的に低めに出る点に注意。</p><p class="rule"><b>判定ルール：</b>6%以上＝割安 ／ 3%未満＝割高。負のFCF（先行投資の重い年）は中立扱い。資本集約業種は構造的に低め。</p><p class="why"><b>この銘柄：</b>銀行・保険・証券は「FCF」がバランスシートの資金繰りで大きく振れ株価の割安度と無関係なため、この指標は使いません（買い時スコアはPER・PBRのみで合成）。</p><p class="rule">この指標の点：<b></b></p></div></details><div class="domhead"><b>PER割安度</b> <div class="bar"><div class="fill mid" style="width:71%"></div></div><span class="sc mid">71</span></div><details class="m"><summary><span class="mn">PER 自社過去レンジ内の位置</span><span class="mv">過去 10.0〜11.0倍 ／ 現在 15.0倍 ＝ 割安度 0/100</span><span class="mr">クリックで図解・判定ルール</span><span class="mt"><span class="sc lo">40 / 110</span></span></summary><div class="mbody"><p class="what"><b>見るポイント：</b>今のPERが、その銘柄自身の過去数年のレンジの中でどの位置にあるか。下限（＝低PER）に近いほど、その銘柄の物差しで割安。業種平均比（PER対業種）と違い、成長性の高い銘柄でも『自分史比で安いか』を見られる。</p><div class="figwrap"><svg viewBox="0 0 476 156" class="chart trend" role="img" aria-label="PERの自社過去レンジ"><rect x="46" y="18" width="290" height="94" fill="var(--lo)" opacity="0.14"/><text x="341" y="68" class="cm">割高（高PER）</text><rect x="46" y="112" width="290" height="6" fill="var(--na)" opacity="0.14"/><text x="341" y="118" class="cm">標準</text><rect x="46" y="118" width="290" height="16" fill="var(--hi)" opacity="0.14"/><text x="341" y="129" class="cm">割安（低PER）</text><line x1="46" y1="86" x2="336" y2="86" stroke="var(--line)" stroke-width="1"/><text x="42" y="89" class="cm" style="text-anchor:end">12.0</text><line x1="46" y1="48" x2="336" y2="48" stroke="var(--line)" stroke-width="1"/><text x="42" y="51" class="cm" style="text-anchor:end">14.0</text><polyline points="46,124 191,115 336,106" fill="none" stroke="var(--muted)" stroke-width="1.5"/><circle cx="46" cy="124" r="2.2" fill="var(--muted)"/><text x="46" y="150" class="cx">23</text><circle cx="191" cy="115" r="2.2" fill="var(--muted)"/><text x="191" y="150" class="cx">24</text><circle cx="336" cy="106" r="2.2" fill="var(--muted)"/><text x="336" y="150" class="cx">25</text><line x1="46" y1="28" x2="346" y2="28" stroke="var(--fg)" stroke-dasharray="3 2" stroke-width="1"/><path d="M 346 23 L 356 28 L 346 33 Z" fill="var(--fg)"/><text x="349" y="150" class="cx">現在</text><text x="42" y="12" class="ct" style="text-anchor:start">現在 15.0倍　割安度 0/100（過去3年の10.0倍〜11.0倍のうち）</text></svg></div><p class="rule"><b>判定ルール：</b>0＝レンジ上端（高PER＝割高）／100＝下端（低PER＝割安）。自社の物差しで割安か。グラフの折れ線＝年次の実績PER、点線＋▶＝現在値（レンジを外れる年もある）。</p><p class="why"><b>この銘柄：</b>現在 15.0倍 は過去3年のレンジ（10.0〜11.0倍）を上回る過去最高水準。グラフでは点線＋▶が現在値（上端の外側）、折れ線が年次実績。過去レンジ内の位置は割安度 0/100（上端寄り＝自社史比で割高）。</p><p class="rule">この指標の点：<b>40 / 110</b></p></div></details><details class="m"><summary><span class="mn">PER 対業種平均</span><span class="mv">15.0倍</span><span class="mr">クリックで図解・判定ルール</span><span class="mt"><span class="sc hi">102 / 110</span></span></summary><div class="mbody"><p class="what"><b>見るポイント：</b>株価が1株利益の何倍か（PER）を、同じ業種の平均と比べた倍率。1.0未満＝業種平均より安い。業種をまたいだ比較はしない。</p><p class="rule"><b>判定ルール：</b>1.0未満＝業種平均より安い。0.95以下で割安・1.2超で割高。業種をまたいだ比較はしない。</p><p class="why"><b>この銘柄：</b>業種平均の 0.90 倍＝割安。</p><p class="rule">この指標の点：<b>102 / 110</b></p></div></details><div class="domhead"><b>PBR割安度</b> <div class="bar"><div class="fill lo" style="width:61%"></div></div><span class="sc lo">61</span></div><details class="m"><summary><span class="mn">PBR 自社過去レンジ内の位置</span><span class="mv">割安度 0/100</span><span class="mr">クリックで図解・判定ルール</span><span class="mt"><span class="sc lo">40 / 110</span></span></summary><div class="mbody"><p class="what"><b>見るポイント：</b>今のPBRが、その銘柄自身の過去数年のレンジのどこにあるか。下限（＝低PBR）に近いほど、その銘柄の物差しで割安。業種平均比（PBR対業種）と違い、常に高PBRで取引される優良企業でも『自分史比で安いか』を見られる。</p><div class="figwrap"><svg viewBox="0 0 476 156" class="chart trend" role="img" aria-label="PBRの自社過去レンジ"><rect x="46" y="18" width="290" height="79" fill="var(--lo)" opacity="0.14"/><text x="341" y="61" class="cm">割高（高PER）</text><rect x="46" y="97" width="290" height="14" fill="var(--na)" opacity="0.14"/><text x="341" y="107" class="cm">標準</text><rect x="46" y="111" width="290" height="23" fill="var(--hi)" opacity="0.14"/><text x="341" y="125" class="cm">割安（低PER）</text><line x1="46" y1="106" x2="336" y2="106" stroke="var(--line)" stroke-width="1"/><text x="42" y="109" class="cm" style="text-anchor:end">0.5</text><line x1="46" y1="49" x2="336" y2="49" stroke="var(--line)" stroke-width="1"/><text x="42" y="52" class="cm" style="text-anchor:end">1.0</text><polyline points="46,124 191,110 336,83" fill="none" stroke="var(--muted)" stroke-width="1.5"/><circle cx="46" cy="124" r="2.2" fill="var(--muted)"/><text x="46" y="150" class="cx">23</text><circle cx="191" cy="110" r="2.2" fill="var(--muted)"/><text x="191" y="150" class="cx">24</text><circle cx="336" cy="83" r="2.2" fill="var(--muted)"/><text x="336" y="150" class="cx">25</text><line x1="46" y1="28" x2="346" y2="28" stroke="var(--fg)" stroke-dasharray="3 2" stroke-width="1"/><path d="M 346 23 L 356 28 L 346 33 Z" fill="var(--fg)"/><text x="349" y="150" class="cx">現在</text><text x="42" y="12" class="ct" style="text-anchor:start">現在 1.2倍　割安度 0/100（過去3年の0.3倍〜0.7倍のうち）</text></svg></div><p class="rule"><b>判定ルール：</b>0＝レンジ上端（高PBR＝割高）／100＝下端（低PBR＝割安）。常に高PBRの優良企業でも自社史比で見られる。グラフの折れ線＝年次の実績PBR、点線＋▶＝現在値。</p><p class="why"><b>この銘柄：</b>現在 1.2倍 は過去3年のレンジ（0.3〜0.7倍）を上回る過去最高水準。グラフでは点線＋▶が現在値（上端の外側）、折れ線が年次実績。過去レンジ内の位置は割安度 0/100（上端寄り＝自社史比で割高）。</p><p class="rule">この指標の点：<b>40 / 110</b></p></div></details><details class="m"><summary><span class="mn">PBR 対業種平均</span><span class="mv">1.19倍</span><span class="mr">クリックで図解・判定ルール</span><span class="mt"><span class="sc hi">81 / 110</span></span></summary><div class="mbody"><p class="what"><b>見るポイント：</b>株価が1株純資産の何倍か（PBR）を業種平均と比べた倍率。1倍割れは東証が是正を求めているテーマでもある。</p><p class="rule"><b>判定ルール：</b>1.0未満＝業種平均より安い。1.0以下で割安・1.4超で割高。1倍割れは東証改革の是正テーマ。</p><p class="why"><b>この銘柄：</b>業種平均の 1.19 倍＝ほぼ妥当。</p><p class="rule">この指標の点：<b>81 / 110</b></p></div></details>
+
+<h2>株価</h2>
+<div class="chartwrap"><svg viewBox="0 0 620 184" class="chart" role="img" aria-label="株価の推移"><line x1="52" y1="143" x2="606" y2="143" stroke="var(--line)" stroke-width="1"/><text x="48" y="146" class="cm" style="text-anchor:end">1,000</text><line x1="52" y1="107" x2="606" y2="107" stroke="var(--line)" stroke-width="1"/><text x="48" y="110" class="cm" style="text-anchor:end">2,000</text><line x1="52" y1="72" x2="606" y2="72" stroke="var(--line)" stroke-width="1"/><text x="48" y="75" class="cm" style="text-anchor:end">3,000</text><line x1="52" y1="36" x2="606" y2="36" stroke="var(--line)" stroke-width="1"/><text x="48" y="39" class="cm" style="text-anchor:end">4,000</text><text x="76" y="178" class="cx">23</text><text x="221" y="178" class="cx">24</text><text x="365" y="178" class="cx">25</text><text x="510" y="178" class="cx">26</text><path d="M 52.0,152.1 L 63.9,152.6 L 76.1,152.1 L 88.4,149.2 L 99.5,151.3 L 111.8,149.9 L 123.6,151.5 L 135.9,149.3 L 147.8,142.4 L 160.0,142.1 L 172.3,139.9 L 184.2,139.7 L 196.4,144.1 L 208.3,144.4 L 220.6,142.2 L 232.8,138.1 L 244.3,136.4 L 256.6,135.2 L 268.5,125.6 L 280.7,125.1 L 292.6,124.0 L 304.9,130.1 L 317.1,129.8 L 329.0,125.9 L 341.3,123.2 L 353.1,123.5 L 365.4,119.3 L 377.7,120.0 L 388.8,115.6 L 401.0,119.6 L 412.9,122.1 L 425.2,121.8 L 437.0,115.3 L 449.3,105.1 L 461.6,98.3 L 473.4,92.6 L 485.7,86.9 L 497.6,87.5 L 509.8,76.1 L 522.1,57.6 L 533.2,77.6 L 545.5,70.9 L 557.3,69.6 L 569.6,66.3 L 581.5,49.1 L 593.7,35.4 L 606.0,42.6" fill="none" stroke="var(--accent)" stroke-width="2"/><text x="52" y="14" class="ct">株価（円）　2022年〜　高値 4,020 / 安値 715 / 直近 3,816</text></svg></div>
+
+<h2>直近決算とアナリスト予想</h2><div class="legend">※ yfinance（Yahoo Finance）のアナリスト集計。日本株は対象アナリストが少なく、予想が古い・欠損することがある。四半期のEPS実績/予想もyfinance換算で誤差あり。会社の正式な業績予想は決算短信・決算説明資料で必ず確認すること。</div><div class="plain"><span class="mn">直近決算 EPS（開示 2026-08-06）</span><span class="mv2">実績 84.8円（前年同期比 -19.1%） ／ 事前予想 77.1円 ／ サプライズ +9.9%</span></div><div class="plain"><span class="mn">決算の評価（機械判定）</span><span class="mv2">前年同期比 減益／市場予想を上回る</span></div><div class="plain"><span class="mn">今後の見通し（アナリスト予想）</span><span class="mv2">今期予想EPS 274.1円（前期比 +7.9%） ／ 予想PER 14.0倍 ／ 2名 ／ 来期予想EPS 314.8円（前期比 +14.9%） ／ 予想PER 12.2倍 ／ 2名 ／ 今期予想 売上 0円</span></div><div class="plain"><span class="mn">次回決算 予定日</span><span class="mv2">2026-11-06</span></div><div class="plain"><span class="mn">アナリスト目標株価</span><span class="mv2">平均 3,425円（現在株価比 -10.6%） ／ 高値 3,850 ・ 安値 3,000</span></div><div class="plain"><span class="mn">アナリスト・レーティング</span><span class="mv2">中立（3.00／1=強気・5=弱気） ／ 対象 2名</span></div>
+
+<h2>参考（採点しない）</h2>
+<div class="plain"><span class="mn">予想配当利回り（採点しない・参考）</span><span class="mv2">2.09%</span></div><div class="plain"><span class="mn">自社株買い（直近期）</span><span class="mv2">179億円（時価総額比 1.64%）</span></div><div class="plain"><span class="mn">総還元利回り（配当＋自社株買い）</span><span class="mv2">2.09%（配当）＋1.64%（自社株買い）＝3.73%</span></div><div class="plain"><span class="mn">総還元性向（（配当＋自社株買い）÷純利益）</span><span class="mv2">46.1%</span></div><div class="plain"><span class="mn">インタレストカバレッジレシオ（EBIT÷支払利息）</span><span class="mv2">データなし</span></div><div class="plain"><span class="mn">益回り（1÷PER）</span><span class="mv2">6.7%</span></div><div class="plain"><span class="mn">ROIC（投下資本利益率）</span><span class="mv2">―</span></div><div class="plain"><span class="mn">RSI(14)</span><span class="mv2">46　中立</span></div><div class="plain"><span class="mn">MACD(12,26,9)</span><span class="mv2">シグナル下（下向き継続）</span></div>
+
+<div class="disc">本レポートは公開データを機械的なルールで評価した教育目的の一般情報です。
+特定銘柄の売買を推奨するものではなく、運営者は投資助言業の登録を受けていません。
+数値は yfinance 由来で誤り・遅延・欠損があり得ます。市場が織り込む成長率（リバースDCF）は
+割引率・ターミナル成長の前提に強く依存する参考値です。投資判断はご自身の責任で行ってください。</div>
+<script>
+<script>
+(function(){
+  var PALS=['genko','blueplus','teal','slate','sand','violet','rose','custom'];
+  var TKEY='pp_theme',CKEY='pp_custom',root=document.documentElement;
+  var bar=document.getElementById('theme-bar'); if(!bar) return;
+  function readT(){try{return JSON.parse(localStorage.getItem(TKEY)||'null')||{};}catch(e){return {};}}
+  function readC(){try{return JSON.parse(localStorage.getItem(CKEY)||'null')||null;}catch(e){return null;}}
+  function saveT(o){try{localStorage.setItem(TKEY,JSON.stringify(o));}catch(e){}}
+  function h2r(h){h=h.replace('#','');return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
+  function r2h(a){return '#'+a.map(function(x){x=Math.max(0,Math.min(255,Math.round(x)));return x.toString(16).padStart(2,'0');}).join('');}
+  function mix(a,b,t){var A=h2r(a),B=h2r(b);return r2h([0,1,2].map(function(i){return A[i]+(B[i]-A[i])*t;}));}
+  function lum(h){var c=h2r(h).map(function(x){x/=255;return x<=0.03928?x/12.92:Math.pow((x+0.055)/1.055,2.4);});return 0.2126*c[0]+0.7152*c[1]+0.0722*c[2];}
+  function cr(a,b){var L1=lum(a),L2=lum(b);return (Math.max(L1,L2)+0.05)/(Math.min(L1,L2)+0.05);}
+  function deriv(bg){var d=lum(bg)<0.35;return{dark:d,fg:d?mix(bg,'#ffffff',0.9):mix(bg,'#000000',0.86),card:d?mix(bg,'#ffffff',0.06):mix(bg,'#ffffff',0.72),line:d?mix(bg,'#ffffff',0.15):mix(bg,'#000000',0.1),muted:d?mix(bg,'#ffffff',0.55):mix(bg,'#000000',0.55)};}
+  var CD={bg:'#ffffff',accent:'#2f9e91',card:'#f7f9fa',line:'#e4e8ec',muted:'#6b7683',fg:'#1d232b'};
+  var CVARS=['--bg','--card','--line','--muted','--fg','--accent','--hi','--mid','--lo','--na'];
+  function clearCP(){CVARS.forEach(function(p){root.style.removeProperty(p);});}
+  function applyCustom(c){
+    var bg=c.bg,ac=c.accent,card,line,muted,fg;
+    if(c.adv){card=c.card;line=c.line;muted=c.muted;fg=c.fg;}
+    else if(bg.toLowerCase()===CD.bg){card=CD.card;line=CD.line;muted=CD.muted;fg=CD.fg;}
+    else{var d=deriv(bg);card=d.card;line=d.line;muted=d.muted;fg=d.fg;}
+    var dark=lum(bg)<0.35,S=root.style;
+    S.setProperty('--bg',bg);S.setProperty('--card',card);S.setProperty('--line',line);
+    S.setProperty('--muted',muted);S.setProperty('--fg',fg);S.setProperty('--accent',ac);
+    S.setProperty('--hi',dark?'#4fb8ab':'#2f9e91');S.setProperty('--mid',dark?'#e0a45a':'#e0912f');
+    S.setProperty('--lo',dark?'#e07b73':'#d1584f');S.setProperty('--na',dark?'#4a555e':'#c3ccd3');
+  }
+  function apply(){
+    var t=readT();
+    var pal=(t.pal&&PALS.indexOf(t.pal)>=0)?t.pal:'genko';
+    var mode=(t.mode==='dark')?'dark':(t.mode==='light'?'light':'');
+    clearCP();
+    if(pal==='custom'){
+      applyCustom(readC()||Object.assign({},CD));
+      root.removeAttribute('data-pal');root.removeAttribute('data-mode');root.setAttribute('data-hl','on');
+    }else{
+      if(pal==='genko'){root.removeAttribute('data-pal');root.removeAttribute('data-hl');}
+      else{root.setAttribute('data-pal',pal);root.setAttribute('data-hl','on');}
+      if(mode)root.setAttribute('data-mode',mode);else root.removeAttribute('data-mode');
+    }
+    bar.querySelectorAll('.sw').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.pal===pal?'true':'false');});
+    var mb=bar.querySelector('.tb-mode');
+    if(mb){mb.textContent=(mode==='dark')?'☀ ライトへ':'🌙 ダークへ';mb.style.display=(pal==='custom')?'none':'';}
+    var cp=document.getElementById('cust-panel');
+    if(cp)cp.classList.toggle('open',pal==='custom');
+  }
+  bar.querySelectorAll('.sw').forEach(function(b){
+    b.addEventListener('click',function(){var t=readT();t.pal=b.dataset.pal;if(!('mode' in t))t.mode='';saveT(t);apply();});
+  });
+  var mBtn=bar.querySelector('.tb-mode');
+  if(mBtn)mBtn.addEventListener('click',function(){var t=readT();t.mode=(t.mode==='dark')?'light':'dark';saveT(t);apply();});
+  var rBtn=bar.querySelector('.tb-reset');
+  if(rBtn)rBtn.addEventListener('click',function(){try{localStorage.removeItem(TKEY);}catch(e){}apply();});
+  var cp=document.getElementById('cust-panel');
+  if(cp){
+    var q=function(s){return cp.querySelector(s);};
+    var ci={bg:q('#cc-bg'),accent:q('#cc-accent'),card:q('#cc-card'),line:q('#cc-line'),muted:q('#cc-muted'),fg:q('#cc-fg')};
+    var adv=q('.cc-adv'),more=q('.cc-more'),warn=q('.cc-warn'),advOpen=false;
+    var sv=readC();
+    if(sv){ci.bg.value=sv.bg||CD.bg;ci.accent.value=sv.accent||CD.accent;ci.card.value=sv.card||CD.card;ci.line.value=sv.line||CD.line;ci.muted.value=sv.muted||CD.muted;ci.fg.value=sv.fg||CD.fg;advOpen=!!sv.adv;}
+    if(advOpen){adv.classList.add('open');more.textContent='－ かんたんに戻す';}
+    function push(){
+      var c={bg:ci.bg.value,accent:ci.accent.value,adv:advOpen,card:ci.card.value,line:ci.line.value,muted:ci.muted.value,fg:ci.fg.value};
+      try{localStorage.setItem(CKEY,JSON.stringify(c));}catch(e){}
+      var t=readT();t.pal='custom';saveT(t);apply();
+      var bg=c.bg,fg=advOpen?c.fg:(bg.toLowerCase()===CD.bg?CD.fg:deriv(bg).fg),m=[];
+      if(cr(fg,bg)<4.5)m.push('文字と背景の差が小さめ');
+      if(cr(c.accent,bg)<2.4)m.push('アクセントが埋もれ気味');
+      warn.textContent=m.length?'⚠ '+m.join(' ／ '):'';
+    }
+    cp.addEventListener('input',push);
+    more.addEventListener('click',function(){
+      advOpen=!advOpen;adv.classList.toggle('open',advOpen);
+      more.textContent=advOpen?'－ かんたんに戻す':'＋ くわしく（面・枠・文字色も指定）';
+      if(advOpen){var d=deriv(ci.bg.value);ci.card.value=d.card;ci.line.value=d.line;ci.muted.value=d.muted;ci.fg.value=d.fg;}
+      push();
+    });
+  }
+  apply();
+})();
+</script>
+</script>
+</div></body></html>
