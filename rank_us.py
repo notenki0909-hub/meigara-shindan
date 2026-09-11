@@ -196,7 +196,7 @@ def main():
     unchanged = old_html is not None and _mask(old_html, prev_gen) == _mask(new_html, gen)
 
     os.makedirs(SITE, exist_ok=True)
-    for fn in ("terms.html", "guide.html", "watchlist.html"):
+    for fn in ("terms.html", "guide.html", "watchlist.html", "portfolio.html"):
         src = os.path.join(HERE, "site_us_" + fn)
         if os.path.isfile(src):
             shutil.copyfile(src, os.path.join(SITE, fn))
@@ -609,6 +609,7 @@ body.wlon{{padding-bottom:60px}}
   <button type="button" class="sumbtn" data-tier="2軍"><b>{c['2軍']}</b>2軍</button>
   <button type="button" class="sumbtn" data-tier="3軍"><b>{c['3軍']}</b>3軍</button>
   <a class="sumbtn wlnav" href="watchlist.html"><b id="wlnav-n">☆</b>ウォッチリスト</a>
+  <a class="sumbtn wlnav" href="portfolio.html"><b id="pfnav-n">💼</b>ポートフォリオ</a>
 </div>
 <div class="sub" style="margin:-14px 0 14px">クリックでその軍だけ表示（もう一度押すと解除）</div>
 <div class="searchbar">
@@ -630,6 +631,7 @@ body.wlon{{padding-bottom:60px}}
 <div class="disc">{DISC}</div>
 <div id="wlbar" hidden><span><b id="wlcount">0</b> 銘柄を選択中</span>
 <button type="button" id="wlgo">ウォッチリストを作成 →</button>
+<button type="button" id="pfgo">ポートフォリオに追加 →</button>
 <button type="button" id="wlclear2" class="ghost">選択をクリア</button></div>
 <script>
 {THEME_JS}
@@ -757,10 +759,28 @@ body.wlon{{padding-bottom:60px}}
     wlSave();
     location.href = 'watchlist.html?codes=' + encodeURIComponent(Array.from(wlSet).join(','));
   }});
+  document.getElementById('pfgo').addEventListener('click', function(){{
+    if (!wlSet.size) return;
+    location.href = 'portfolio.html?add=' + encodeURIComponent(Array.from(wlSet).join(','));
+  }});
   document.getElementById('wlclear2').addEventListener('click', function(){{
     wlSet.clear(); wlSave(); wlSync();
   }});
   wlSync();
+  // ポートフォリオの保有銘柄数バッジ（保有記録はチェック選択と別のlocalStorageキー）
+  try {{
+    var pfNav = document.getElementById('pfnav-n');
+    if (pfNav) {{
+      var pfRaw = localStorage.getItem('pf_lots_us') || '';
+      var pfCodes = {{}};
+      pfRaw.split(';').forEach(function(chunk){{
+        var c = chunk.split(':')[0];
+        if (c) pfCodes[c] = 1;
+      }});
+      var pfN = Object.keys(pfCodes).length;
+      pfNav.textContent = pfN ? String(pfN) : '💼';
+    }}
+  }} catch(e) {{}}
 }})();
 </script>
 </div></body></html>"""

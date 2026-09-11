@@ -12,6 +12,8 @@
   site/us/reports/<TICKER>.html   … 個別レポート
   site/us/reports/<TICKER>.md
   site/us/summaries/<TICKER>.json … ランキング集計用サマリ（generate_us() の summary + 生成時刻）
+  site/us/portfolio_data/<TICKER>.json … ポートフォリオ機能用（直近10年の日次終値 prices・
+                                     配当 divs）。日本株版と同じ analyze.portfolio_data() を再利用
   site/us/batch_log.json          … 直近の実行結果（ok/skip/fail 件数、失敗ティッカー）
 
 レート制限対策：--sleep 秒（既定1.5）を銘柄間に必ず入れる。config は 1 回だけ読んで
@@ -32,6 +34,7 @@ import analyze_us
 SITE = os.path.join(os.path.dirname(__file__), "site", "us")
 REP = os.path.join(SITE, "reports")
 SUM = os.path.join(SITE, "summaries")
+PFD = os.path.join(SITE, "portfolio_data")
 
 
 def load_codes(spec):
@@ -71,6 +74,9 @@ def run_one(ticker, cfg):
     s["_generated_at"] = dt.datetime.now().isoformat(timespec="seconds")
     json.dump(s, open(os.path.join(SUM, f"{ticker}.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
+    pd = r.get("portfolio_data") or {"prices": [], "divs": []}
+    json.dump(pd, open(os.path.join(PFD, f"{ticker}.json"), "w", encoding="utf-8"),
+              ensure_ascii=False, separators=(",", ":"))
     return ticker, "ok", None
 
 
@@ -92,6 +98,7 @@ def main():
 
     os.makedirs(REP, exist_ok=True)
     os.makedirs(SUM, exist_ok=True)
+    os.makedirs(PFD, exist_ok=True)
     cfg = analyze_us.load_config_us()
 
     codes = load_codes(args.codes)

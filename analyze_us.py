@@ -1258,7 +1258,7 @@ def generate_us(ticker, cfg=None, log=None):
     副作用なし（ファイル書き出し・print はしない）。日本版 analyze.generate の米国版。"""
     log = log or (lambda *_: None)
     ticker = str(ticker).strip().upper()
-    res = {"code": ticker, "name": None, "ok": False, "error": None, "html": None, "md": None, "summary": None}
+    res = {"code": ticker, "name": None, "ok": False, "error": None, "html": None, "md": None, "summary": None, "portfolio_data": None}
     if not ticker or not all(c.isalnum() or c in ".-" for c in ticker):
         res["error"] = "invalid ticker"
         return res
@@ -1357,6 +1357,10 @@ def generate_us(ticker, cfg=None, log=None):
         "next_earn": ea.get("next_earn"),
         "warnings": warnings,
     }
+    try:
+        res["portfolio_data"] = analyze.portfolio_data(yd)
+    except Exception:
+        res["portfolio_data"] = {"prices": [], "divs": []}
     res["ok"] = True
     res["name"] = name
     return res
