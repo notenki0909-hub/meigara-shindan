@@ -92,8 +92,14 @@ tr:last-child td{border-bottom:none}
 .stat .val{font-size:19px;font-weight:700;margin-top:2px}
 
 /* 追加フォーム */
-.addrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:6px 0;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--field)}
-.addrow .nm{font-weight:700;min-width:9em}
+.addrow{margin:6px 0;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--field)}
+.addrow-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.addrow-body{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.addrow.collapsed .addrow-body{display:none}
+.addrow.collapsed .addrow-head{margin:0}
+.addrow.added .addrow-head .nm{color:var(--muted)}
+.addrow .nm{font-weight:700}
+.addrow .fold{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:12px;cursor:pointer}
 .addrow input{padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);font-size:13px}
 .addrow input.code{width:6em}
 .addrow input.shares{width:6em}
@@ -101,6 +107,7 @@ tr:last-child td{border-bottom:none}
 .addrow input.date{width:9.5em}
 .addrow label{font-size:11px;color:var(--muted);display:flex;flex-direction:column;gap:2px}
 #addcodes{margin-bottom:8px}
+.foldall{margin-left:10px;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:3px 10px;font-size:12px;cursor:pointer}
 
 /* 円グラフ */
 .chartwrap{display:flex;gap:22px;flex-wrap:wrap;align-items:center}
@@ -404,7 +411,7 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
     return best;
   }
 
-  function addOneLot(code, shares, price, date, clearInputs){
+  function addOneLot(code, shares, price, date, clearInputs, onDone){
     code = (code || '').trim().toUpperCase();
     shares = parseFloat(shares);
     date = (date || '').trim();
@@ -416,6 +423,7 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
       lots.push({code:code, shares:shares, price:p, date:date});
       persist();
       if (clearInputs) { $('in-code').value=''; $('in-shares').value=''; $('in-price').value=''; $('in-date').value=''; }
+      if (onDone) onDone();
       render();
     };
 
@@ -435,31 +443,59 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
     });
   }
 
-  // add パラメータで来た銘柄は、専用の入力行を表示
+  // add パラメータで来た銘柄は、専用の入力行を表示（行数が多くなっても良いよう折りたたみ可能）
+  var addRowState = {}; // code -> {collapsed:bool, done:bool}
   function renderAddCodes(byCode){
     var box = $('addcodes');
     if (!addCodes.length) { box.innerHTML = ''; return; }
-    box.innerHTML = '<p class="note">ランキングでチェックした銘柄です。株数・購入日を入れてください（取得単価は空欄なら購入日の終値を自動取得）。</p>'
+    box.innerHTML = '<p class="note">ランキングでチェックした銘柄です。株数・購入日を入れてください（取得単価は空欄なら購入日の終値を自動取得）。'
+      + '追加すると一覧に即反映されます。'
+      + '<button type="button" id="addcodes-foldall" class="foldall">すべて折りたたむ</button></p>'
       + addCodes.map(function(c){
         var nm = (byCode && byCode[c]) ? byCode[c].name : c;
-        return '<div class="addrow" data-code="' + c + '">'
-          + '<span class="nm">' + c + ' ' + (nm || '') + '</span>'
+        var st = addRowState[c] || (addRowState[c] = {collapsed:false, done:false});
+        var cls = 'addrow' + (st.collapsed ? ' collapsed' : '') + (st.done ? ' added' : '');
+        var label = c + ' ' + (nm || '') + (st.done ? '（追加済み）' : '');
+        return '<div class="' + cls + '" data-code="' + c + '">'
+          + '<div class="addrow-head"><span class="nm">' + label + '</span>'
+          + '<button type="button" class="fold">' + (st.collapsed ? '▼ 開く' : '▲ 折りたたむ') + '</button></div>'
+          + '<div class="addrow-body">'
           + '<label>株数<input class="shares" type="number" min="1" step="1" placeholder="100"></label>'
           + '<label>取得単価（円・空欄で自動取得）<input class="price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
           + '<label>購入日<input class="date" type="date"></label>'
           + '<button type="button" class="add1">追加</button>'
+          + '</div>'
           + '</div>';
       }).join('');
     box.querySelectorAll('.addrow').forEach(function(row){
+      var code = row.dataset.code;
+      row.querySelector('.fold').addEventListener('click', function(){
+        var st = addRowState[code];
+        st.collapsed = !st.collapsed;
+        row.classList.toggle('collapsed', st.collapsed);
+        row.querySelector('.fold').textContent = st.collapsed ? '▼ 開く' : '▲ 折りたたむ';
+      });
       row.querySelector('.add1').addEventListener('click', function(){
-        var code = row.dataset.code;
         var sh = row.querySelector('.shares').value;
         var pr = row.querySelector('.price').value;
         var dt = row.querySelector('.date').value;
-        addOneLot(code, sh, pr, dt, false);
-        row.querySelectorAll('input').forEach(function(i){ i.value=''; });
+        addOneLot(code, sh, pr, dt, false, function(){
+          addRowState[code].done = true;
+          addRowState[code].collapsed = true;
+        });
       });
     });
+    var foldAllBtn = $('addcodes-foldall');
+    if (foldAllBtn) {
+      foldAllBtn.addEventListener('click', function(){
+        var anyOpen = addCodes.some(function(c){ return !(addRowState[c] && addRowState[c].collapsed); });
+        addCodes.forEach(function(c){
+          addRowState[c] = addRowState[c] || {collapsed:false, done:false};
+          addRowState[c].collapsed = anyOpen;
+        });
+        renderAddCodes(byCode);
+      });
+    }
   }
 
   var DISC = 'このページは、あなたが入力した保有株数・取得単価をもとに、公開ランキングの現在値・予想利回りと突き合わせて'
@@ -625,6 +661,35 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
     });
   });
 
+  // 表示中の保有銘柄（円グラフ用）。render() のたびに更新される。
+  var lastFound = [];
+  document.querySelectorAll('.dimbtn').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.dimbtn').forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active');
+      drawPie(b.dataset.dim, lastFound);
+    });
+  });
+
+  // クリック委譲は #holdtable に一度だけ登録する（render() 内で毎回登録すると
+  // 呼ぶたびにリスナーが積み重なり、行の開閉トグルが偶数回発火して
+  // 「見た目上クリックが効かない」状態になるため）。
+  $('holdtable').addEventListener('click', function(e){
+    var del = e.target.closest('button.del');
+    if (del) {
+      if (!confirm(del.dataset.code + ' の保有記録をすべて削除します。よろしいですか？')) return;
+      lots = lots.filter(function(l){ return l.code !== del.dataset.code; });
+      persist();
+      render();
+      return;
+    }
+    var tr = e.target.closest('tr.hrow');
+    if (!tr) return;
+    var idx = tr.dataset.idx;
+    var d = $('holdtable').querySelector('tr.detail[data-idx="' + idx + '"]');
+    if (d) d.hidden = !d.hidden;
+  });
+
   function render(){
     fetch('ranking.json', {cache:'no-cache'}).then(function(r){ return r.json(); }).then(function(j){
       $('asof').textContent = '対象データ：' + (j.generated_at || '') + ' 時点のランキング';
@@ -648,6 +713,7 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
       var holdings = aggregate(byCode);
       var found = holdings.filter(function(h){ return !h.missing; });
       var missing = holdings.filter(function(h){ return h.missing; });
+      lastFound = found;
 
       if (missing.length) {
         $('missbox').innerHTML = '<div class="miss">次の銘柄は現在のランキングに見つかりませんでした'
@@ -719,30 +785,6 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
         + '<th>コード</th><th>銘柄</th><th class="n">保有株数</th><th class="n">平均取得単価</th><th class="n">現在値</th>'
         + '<th class="n">評価額</th><th class="n">評価損益</th><th class="n">利回り</th><th class="n">YOC</th><th class="n">予想年間配当</th><th></th>'
         + '</tr></thead><tbody>' + rows + '</tbody></table>';
-
-      $('holdtable').addEventListener('click', function(e){
-        var del = e.target.closest('button.del');
-        if (del) {
-          if (!confirm(del.dataset.code + ' の保有記録をすべて削除します。よろしいですか？')) return;
-          lots = lots.filter(function(l){ return l.code !== del.dataset.code; });
-          persist();
-          render();
-          return;
-        }
-        var tr = e.target.closest('tr.hrow');
-        if (!tr) return;
-        var idx = tr.dataset.idx;
-        var d = $('holdtable').querySelector('tr.detail[data-idx="' + idx + '"]');
-        if (d) d.hidden = !d.hidden;
-      });
-
-      document.querySelectorAll('.dimbtn').forEach(function(b){
-        b.addEventListener('click', function(){
-          document.querySelectorAll('.dimbtn').forEach(function(x){ x.classList.remove('active'); });
-          b.classList.add('active');
-          drawPie(b.dataset.dim, found);
-        });
-      });
 
       persist();
     }).catch(function(){
