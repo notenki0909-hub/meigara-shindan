@@ -46,8 +46,6 @@ MK = {
         "title": "10年保有できる優良企業ランキング（日本株）",
         "screen_line": "母集団＝時価総額3,000億円以上（TOPIX500相当）／金融・REITを除く。"
                        "品質スコア（配当は不使用）＋買い時スコア（EV/EBIT・FCF利回り・PER/PBR割安度）。",
-        "nav": [("../index.html", "配当株ランキング（日本）"),
-                ("../us/long/index.html", "10年保有（米国株）")],
         "unit_price": "円",
     },
     "us": {
@@ -61,8 +59,6 @@ MK = {
         "title": "10年保有できる優良企業ランキング（米国株）",
         "screen_line": "母集団＝S&P500 メンバーシップ（黒字継続・流動性・業種代表性を"
                        "委員会が審査済み）／金融・REITは対象外。品質スコア（配当は不使用）＋買い時スコア。",
-        "nav": [("../index.html", "配当株ランキング（米国）"),
-                ("../../long/index.html", "10年保有（日本株）")],
         "unit_price": "$",
     },
 }
@@ -401,8 +397,6 @@ def render(out, m):
                '<th>業種</th><th>区分</th><th class="n">利回り</th>'
                f'<th class="n">終値</th></tr></thead><tbody>{etr}</tbody></table></section>')
 
-    nav = " ・ ".join(f'<a href="{u}">{html.escape(t)}</a>' for u, t in m["nav"])
-
     return f"""<!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 {th.THEME_HEAD}
@@ -485,7 +479,7 @@ section.grp[hidden]{{display:none}}
 .formula{{font-size:11.5px;color:var(--muted);background:var(--field);border:1px solid var(--line);
   border-radius:8px;padding:8px 12px;margin:6px 0 4px}}
 </style></head><body><div class="wrap">
-<div class="topbar"><h1>{html.escape(m["title"])}</h1><span class="topbar">{nav}</span></div>
+<div class="topbar"><h1>{html.escape(m["title"])}</h1></div>
 {th.THEME_BAR}
 <div class="sub">生成 {gen}　｜　{html.escape(m["screen_line"])}</div>
 <div class="formula">品質スコア ＝ 業績×0.28 ＋ 財務×0.27 ＋ キャッシュフロー×0.15（取得できた
