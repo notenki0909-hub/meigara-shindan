@@ -303,6 +303,7 @@ THEME_CSS = """
 
 :root[data-hl="on"] .sumbtn.active{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 24%,transparent)}
 :root[data-hl="on"] tr.r:has(.wlc:checked)>td{background:color-mix(in srgb,var(--accent) 10%,transparent)}
+:root[data-hl="on"] tr.r:has(.pfc:checked)>td{background:color-mix(in srgb,var(--accent) 10%,transparent)}
 """
 
 THEME_BAR = """
@@ -485,6 +486,7 @@ def render_index(out):
             trs.append(
                 f'<tr class="{tcls} r" data-tier="{s["tier"]}">'
                 f'<td class="wl"><input type="checkbox" class="wlc" data-code="{s["code"]}" aria-label="ウォッチリストに追加"></td>'
+                f'<td class="pf"><input type="checkbox" class="pfc" data-code="{s["code"]}" aria-label="ポートフォリオに追加"></td>'
                 f'<td class="tier">{s["tier"]}<span class="dir {dcls}">{s["dir"]}</span></td>'
                 f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
                 f'<td class="nm">{html.escape(s["name"])}</td>'
@@ -496,7 +498,8 @@ def render_index(out):
                 f'<td class="cv">{s["cov_sel"]}</td>'
                 f'</tr>')
         secs.append('<section class="grp">' + head + '<table><thead><tr>'
-                    '<th class="wl" title="ウォッチリストに入れる銘柄にチェック">☑</th>'
+                    '<th class="wl" title="ウォッチリストに追加する銘柄にチェック">☆</th>'
+                    '<th class="pf" title="ポートフォリオに追加する銘柄にチェック">💼</th>'
                     '<th class="hdr" data-term="tier">軍</th><th>ティッカー</th><th>銘柄</th>'
                     '<th class="n"><span class="hdr" data-term="price">終値</span><span class="sortbtn">▼</span></th>'
                     '<th class="n"><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>'
@@ -509,6 +512,7 @@ def render_index(out):
     gt = "".join(
         f'<tr class="r" data-tier="{s.get("tier","―")}">'
         f'<td class="wl"><input type="checkbox" class="wlc" data-code="{s["code"]}" aria-label="ウォッチリストに追加"></td>'
+        f'<td class="pf"><input type="checkbox" class="pfc" data-code="{s["code"]}" aria-label="ポートフォリオに追加"></td>'
         f'<td class="n">{i+1}</td>'
         f'<td class="tier">{s.get("tier","―")}</td>'
         f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
@@ -575,9 +579,9 @@ section.grp[hidden],details[hidden]{{display:none}}
 a.sumbtn{{text-decoration:none;color:inherit}}
 a.sumbtn.wlnav{{border-color:var(--accent);color:var(--accent)}}
 a.sumbtn.wlnav b{{color:var(--accent)}}
-td.wl,th.wl{{width:34px;text-align:center;padding-left:4px;padding-right:4px}}
-th.wl{{color:var(--muted);cursor:default}}
-.wlc{{width:16px;height:16px;cursor:pointer;accent-color:var(--accent)}}
+td.wl,th.wl,td.pf,th.pf{{width:34px;text-align:center;padding-left:4px;padding-right:4px}}
+th.wl,th.pf{{color:var(--muted);cursor:default}}
+.wlc,.pfc{{width:16px;height:16px;cursor:pointer;accent-color:var(--accent)}}
 #wlbar{{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;gap:10px;
   align-items:center;justify-content:center;flex-wrap:wrap;
   background:var(--card);border-top:1px solid var(--line);
@@ -587,6 +591,7 @@ th.wl{{color:var(--muted);cursor:default}}
 #wlbar button{{padding:8px 16px;border:1px solid var(--accent);border-radius:8px;
   background:var(--accent);color:#fff;font-size:13px;cursor:pointer}}
 #wlbar button.ghost{{background:var(--card);color:var(--muted);border-color:var(--line)}}
+#wlbar button:disabled{{opacity:.4;cursor:default}}
 body.wlon{{padding-bottom:60px}}
 .hdr{{cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px}}
 .hdr:hover{{color:var(--accent)}}
@@ -602,7 +607,7 @@ body.wlon{{padding-bottom:60px}}
 <div class="topbar"><h1>米国株 配当株 軍分けランキング</h1><a href="terms.html">利用規約・免責事項</a></div>
 {THEME_BAR}
 <div class="sub">生成 {gen}　｜　スクリーン：{scr}　｜　<a href="guide.html">使い方・見方</a></div>
-<div class="sub">表の見出し（軍・終値・選定・買い時・利回り・増配・カバレッジ・業種級）をクリックすると説明が出ます。左端の□にチェックを入れて下部の「ウォッチリストを作成」を押すと、その銘柄だけの一覧を作れます。</div>
+<div class="sub">表の見出し（軍・終値・選定・買い時・利回り・増配・カバレッジ・業種級）をクリックすると説明が出ます。各行の☆にチェックを入れて下部の「ウォッチリストを作成」を、💼にチェックを入れて「ポートフォリオに追加」を押すと、それぞれ選んだ銘柄だけの一覧・保有記録の入力画面を作れます（☆と💼は別々に選べます）。</div>
 <div class="summary">
   <button type="button" class="sumbtn" data-tier=""><b>{c['total']}</b>銘柄</button>
   <button type="button" class="sumbtn" data-tier="1軍"><b>{c['1軍']}</b>1軍</button>
@@ -622,17 +627,20 @@ body.wlon{{padding-bottom:60px}}
   <div id="terminfo-body"></div>
 </div>
 <details id="topbox"><summary>全体 選定スコア 上位50（業種横断）</summary>
-<table><thead><tr><th class="wl">☑</th><th class="n">#</th><th class="hdr" data-term="tier">軍</th><th>ティッカー</th><th>銘柄</th>
+<table><thead><tr><th class="wl" title="ウォッチリストに追加する銘柄にチェック">☆</th><th class="pf" title="ポートフォリオに追加する銘柄にチェック">💼</th><th class="n">#</th><th class="hdr" data-term="tier">軍</th><th>ティッカー</th><th>銘柄</th>
 <th class="n"><span class="hdr" data-term="price">終値</span><span class="sortbtn">▼</span></th><th>業種</th>
 <th class="n"><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>
 <th class="n"><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th></tr></thead><tbody>{gt}</tbody></table>
 </details>
 {"".join(secs)}
 <div class="disc">{DISC}</div>
-<div id="wlbar" hidden><span><b id="wlcount">0</b> 銘柄を選択中</span>
+<div id="wlbar" hidden>
+<span>☆ <b id="wlcount">0</b>銘柄</span>
 <button type="button" id="wlgo">ウォッチリストを作成 →</button>
+<span>💼 <b id="pfcount">0</b>銘柄</span>
 <button type="button" id="pfgo">ポートフォリオに追加 →</button>
-<button type="button" id="wlclear2" class="ghost">選択をクリア</button></div>
+<button type="button" id="wlclear2" class="ghost">選択をクリア</button>
+</div>
 <script>
 {THEME_JS}
 (function(){{
@@ -725,57 +733,76 @@ body.wlon{{padding-bottom:60px}}
     }});
   }});
 
-  // ---- ウォッチリスト選択 ----
+  // ---- ウォッチリスト／ポートフォリオ選択（別々のチェックボックス列） ----
   var WL_KEY = 'wl_codes_us';
-  var wlSet;
-  try {{
-    wlSet = new Set((localStorage.getItem(WL_KEY) || '').split(',').map(function(s){{return s.trim();}}).filter(Boolean));
-  }} catch(e) {{ wlSet = new Set(); }}
+  var PF_SEL_KEY = 'pf_sel_codes_us';
+  function loadCodes(key){{
+    try {{ return new Set((localStorage.getItem(key) || '').split(',').map(function(s){{return s.trim();}}).filter(Boolean)); }}
+    catch(e) {{ return new Set(); }}
+  }}
+  var wlSet = loadCodes(WL_KEY);
+  var pfSelSet = loadCodes(PF_SEL_KEY);
   var wlBar = document.getElementById('wlbar');
   var wlCount = document.getElementById('wlcount');
+  var pfCount = document.getElementById('pfcount');
   var wlNav = document.getElementById('wlnav-n');
+  var wlGoBtn = document.getElementById('wlgo');
+  var pfGoBtn = document.getElementById('pfgo');
   function wlSave(){{ try {{ localStorage.setItem(WL_KEY, Array.from(wlSet).join(',')); }} catch(e) {{}} }}
+  function pfSelSave(){{ try {{ localStorage.setItem(PF_SEL_KEY, Array.from(pfSelSet).join(',')); }} catch(e) {{}} }}
   function wlBadge(){{
     wlCount.textContent = String(wlSet.size);
+    pfCount.textContent = String(pfSelSet.size);
     if (wlNav) wlNav.textContent = wlSet.size ? String(wlSet.size) : '☆';
-    wlBar.hidden = wlSet.size === 0;
-    document.body.classList.toggle('wlon', wlSet.size > 0);
+    wlGoBtn.disabled = wlSet.size === 0;
+    pfGoBtn.disabled = pfSelSet.size === 0;
+    wlBar.hidden = (wlSet.size === 0 && pfSelSet.size === 0);
+    document.body.classList.toggle('wlon', wlSet.size > 0 || pfSelSet.size > 0);
   }}
   function wlSync(){{
     document.querySelectorAll('.wlc').forEach(function(cb){{ cb.checked = wlSet.has(cb.dataset.code); }});
+    document.querySelectorAll('.pfc').forEach(function(cb){{ cb.checked = pfSelSet.has(cb.dataset.code); }});
     wlBadge();
   }}
   document.addEventListener('change', function(e){{
     var cb = e.target;
-    if (!cb.classList || !cb.classList.contains('wlc')) return;
+    if (!cb.classList) return;
     var code = cb.dataset.code;
-    if (cb.checked) wlSet.add(code); else wlSet.delete(code);
-    document.querySelectorAll('.wlc[data-code="' + code + '"]').forEach(function(o){{ o.checked = cb.checked; }});
-    wlBadge();
-    wlSave();
+    if (cb.classList.contains('wlc')) {{
+      if (cb.checked) wlSet.add(code); else wlSet.delete(code);
+      document.querySelectorAll('.wlc[data-code="' + code + '"]').forEach(function(o){{ o.checked = cb.checked; }});
+      wlBadge();
+      wlSave();
+    }} else if (cb.classList.contains('pfc')) {{
+      if (cb.checked) pfSelSet.add(code); else pfSelSet.delete(code);
+      document.querySelectorAll('.pfc[data-code="' + code + '"]').forEach(function(o){{ o.checked = cb.checked; }});
+      wlBadge();
+      pfSelSave();
+    }}
   }});
-  // チェックボックス本体（16px）は特にスマホで狙いにくいため、セル全体（td.wl）を
+  // チェックボックス本体（16px）は特にスマホで狙いにくいため、セル全体（td.wl / td.pf）を
   // タップ範囲にする。input自体へのクリックは通常のchangeイベントに任せ、二重発火を防ぐ。
   document.addEventListener('click', function(e){{
     if (e.target.tagName === 'INPUT') return;
-    var td = e.target.closest('td.wl');
+    var td = e.target.closest('td.wl, td.pf');
     if (!td) return;
-    var cb = td.querySelector('.wlc');
+    var cb = td.querySelector('input[type=checkbox]');
     if (!cb) return;
     cb.checked = !cb.checked;
     cb.dispatchEvent(new Event('change', {{bubbles: true}}));
   }});
-  document.getElementById('wlgo').addEventListener('click', function(){{
+  wlGoBtn.addEventListener('click', function(){{
     if (!wlSet.size) return;
     wlSave();
     location.href = 'watchlist.html?codes=' + encodeURIComponent(Array.from(wlSet).join(','));
   }});
-  document.getElementById('pfgo').addEventListener('click', function(){{
-    if (!wlSet.size) return;
-    location.href = 'portfolio.html?add=' + encodeURIComponent(Array.from(wlSet).join(','));
+  pfGoBtn.addEventListener('click', function(){{
+    if (!pfSelSet.size) return;
+    pfSelSave();
+    location.href = 'portfolio.html?add=' + encodeURIComponent(Array.from(pfSelSet).join(','));
   }});
   document.getElementById('wlclear2').addEventListener('click', function(){{
-    wlSet.clear(); wlSave(); wlSync();
+    wlSet.clear(); pfSelSet.clear(); wlSave(); pfSelSave(); wlSync();
   }});
   wlSync();
   // ポートフォリオの保有銘柄数バッジ（保有記録はチェック選択と別のlocalStorageキー）
