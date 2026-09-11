@@ -326,23 +326,23 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
         w = "下端寄り＝自社史比で割安" if pos >= 0.6 else "中ほど" if pos >= 0.2 else "上端寄り＝自社史比で割高"
         return f"{head}過去レンジ内の位置は割安度 {pos*100:.0f}/100（{w}）。"
 
-    bt_rows = [
-        _detail_row(
-            "ev_ebit_vs_sector", "EV/EBIT（対業種中央値）",
-            (f"{_f(btd['ev_ebit'],1)}倍 ／ 業種中央値 {_f(btd['ev_median'],1)}倍（対業種 {_f(btd['ev_vs'],2)}倍）"
-             if LC.is_num(btd["ev_ebit"]) else "算出不可（EBIT≤0 等）"),
-            "対業種 0.85倍以下＝割安 ／ 1.2倍超＝割高。EV＝時価総額＋有利子負債−現金、EBIT＝営業利益。",
-            (_why_vs(btd["ev_vs"], "mul") if LC.is_num(btd["ev_vs"]) else
-             "この業種の EV/EBIT 中央値が未算出のため中立（60点）扱いです。"),
-            btd["ev_score"], figure=ev_fig),
-        _detail_row(
-            "fcf_yield", "FCF利回り（FCF÷時価総額）",
-            (f"{_f(btd['fcf_yield'],2)}%" if LC.is_num(btd["fcf_yield"]) else "算出不可"),
-            "6%以上＝割安 ／ 3%未満＝割高。負のFCF（先行投資の重い年）は中立扱い。資本集約業種は構造的に低め。",
-            ("負のFCFのため中立扱い。" if LC.is_num(btd["fcf_yield"]) and btd["fcf_yield"] <= 0 else
-             f"時価総額に対して年 {_f(btd['fcf_yield'],2)}% の現金を生んでいます。" if LC.is_num(btd["fcf_yield"]) else
-             "FCFまたは時価総額が取得できませんでした。"),
-            btd["fcf_score"], figure=fcf_fig),
+    bt_ev = [_detail_row(
+        "ev_ebit_vs_sector", "EV/EBIT（対業種中央値）",
+        (f"{_f(btd['ev_ebit'],1)}倍 ／ 業種中央値 {_f(btd['ev_median'],1)}倍（対業種 {_f(btd['ev_vs'],2)}倍）"
+         if LC.is_num(btd["ev_ebit"]) else "算出不可（EBIT≤0 等）"),
+        "対業種 0.85倍以下＝割安 ／ 1.2倍超＝割高。EV＝時価総額＋有利子負債−現金、EBIT＝営業利益。",
+        (_why_vs(btd["ev_vs"], "mul") if LC.is_num(btd["ev_vs"]) else
+         "この業種の EV/EBIT 中央値が未算出のため中立（60点）扱いです。"),
+        btd["ev_score"], figure=ev_fig)]
+    bt_fcf = [_detail_row(
+        "fcf_yield", "FCF利回り（FCF÷時価総額）",
+        (f"{_f(btd['fcf_yield'],2)}%" if LC.is_num(btd["fcf_yield"]) else "算出不可"),
+        "6%以上＝割安 ／ 3%未満＝割高。負のFCF（先行投資の重い年）は中立扱い。資本集約業種は構造的に低め。",
+        ("負のFCFのため中立扱い。" if LC.is_num(btd["fcf_yield"]) and btd["fcf_yield"] <= 0 else
+         f"時価総額に対して年 {_f(btd['fcf_yield'],2)}% の現金を生んでいます。" if LC.is_num(btd["fcf_yield"]) else
+         "FCFまたは時価総額が取得できませんでした。"),
+        btd["fcf_score"], figure=fcf_fig)]
+    bt_per = [
         _detail_row(
             "per_band_pos", "PER 自社過去レンジ内の位置",
             btd.get("per_band_disp") or "履歴不足で算出不可",
@@ -354,6 +354,8 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
             "per_vs_sector", "PER 対業種平均", btd.get("per_vs_disp") or "―",
             "1.0未満＝業種平均より安い。0.95以下で割安・1.2超で割高。業種をまたいだ比較はしない。",
             _why_vs(btd["per_vs"], "mul"), btd.get("per_vs_score")),
+    ]
+    bt_pbr = [
         _detail_row(
             "pbr_band_pos", "PBR 自社過去レンジ内の位置",
             (f"割安度 {btd['pbr_band']*100:.0f}/100" if LC.is_num(btd["pbr_band"]) else "履歴不足で算出不可"),
@@ -382,7 +384,14 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
                    '均等25%で合成（欠損は中立60）。各行の点はその指標単体の点。'
                    f'<b>PER割安度＝「PER 自社レンジ」と「PER 対業種」の平均＝{_pc}</b>、'
                    f'<b>PBR割安度＝同様に{_bc}</b>。配当利回り・増配・累進配当宣言は一切使っていません。</p>')
-    bt_html = bt_note + "".join(bt_rows)
+    _pbr_head_note = "（参考・買い時スコアには不使用）" if btd.get("pbr_unreliable") else ""
+    bt_blocks = [
+        f'<div class="domhead"><b>EV/EBIT（対業種）</b> {analyze.bar(btd.get("ev_score"))}</div>' + "".join(bt_ev),
+        f'<div class="domhead"><b>FCF利回り</b> {analyze.bar(btd.get("fcf_score"))}</div>' + "".join(bt_fcf),
+        f'<div class="domhead"><b>PER割安度</b> {analyze.bar(btd.get("per_score"))}</div>' + "".join(bt_per),
+        f'<div class="domhead"><b>PBR割安度{_pbr_head_note}</b> {analyze.bar(btd.get("pbr_score"))}</div>' + "".join(bt_pbr),
+    ]
+    bt_html = bt_note + "".join(bt_blocks)
 
     # 参考欄
     ref_rows = []
