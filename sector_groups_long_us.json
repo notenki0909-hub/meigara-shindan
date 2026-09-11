@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "For the US '10-year hold / quality' ranking (dividend-agnostic score). The tiering unit is the GICS 11 sector. rank_long_us.py uses this. Separate from sector_groups_us.json (the dividend version).",
-    "difference_from_dividend_version": "v2 (2026-09-12): Financials was un-excluded. The bank/insurance sub-industries within it (financial_like_industries in sector_map_us.json) are is_simple and now scored via the financial_quality_long.json substitute quality score (ROE / revenue CAGR / EPS CAGR / worst-year profit decline); the rest of Financials (asset managers, exchanges, data providers, payment networks) was already scored normally by analyze_us.py all along. Real Estate stays routed to '対象外' — REIT support needs an FFO-based metric design that's out of scope for this pass.",
+    "difference_from_dividend_version": "v2 (2026-09-12): Financials and Real Estate were un-excluded. Financials: the bank/insurance sub-industries within it (financial_like_industries in sector_map_us.json) are is_simple and now scored via financial_quality_long.json (ROE / revenue CAGR / EPS CAGR / worst-year profit decline); the rest of Financials (asset managers, exchanges, data providers, payment networks) was already scored normally by analyze_us.py all along. Real Estate: analyze_us.classify_sector_us flags the WHOLE GICS Real Estate sector is_reit=True (even non-REIT real-estate-services names like CBRE/CoStar) — analyze_long.py locally re-derives an accurate is_reit from the yfinance `industry` string containing 'REIT' (without touching analyze_us.py), so CBRE/CoStar score normally while the ~28 actual REITs get reit_quality_long_us.json's FFO-based substitute score. JP J-REITs are out of scope: they aren't in the dividend tool's universe.json at all, and building that ticker list is a separate task.",
     "quality_score": "sel_score with the '配当の持続力' group (weight 0.30) removed; 業績 0.28 / 財務 0.27 / CF 0.15 renormalized over the groups that resolved.",
     "grade_a/grade_b calibration": "Calibrated 2026-09-09 from the first full S&P500 batch (universe 503, scored 403, excluded 100 = Financials+Real Estate). Quality-score distribution min 33.4 / median 92.5 / p75 100.9 / max 108.4. The 9 scored GICS-sector medians were [87.5, 88.3, 88.3, 89.4, 93.2, 94.5, 95.4, 96.6, 98.3] with a clear gap at 89.4->93.2: grade_a=95 (A = Communication Services, Health Care, Information Technology), grade_b=91 (B = Consumer Discretionary, Industrials), C = Consumer Staples, Utilities, Energy, Materials. Re-check with rank_long_us.py's printed distribution after a universe rebuild.",
     "score_floor_tier2": "Quality score >= this guarantees at least Tier 2. Set to the first batch's p60 (~97). Independent of analyze_us.SEL_TIERS[0]=85.",
@@ -14,8 +14,8 @@
   "cap_low_coverage_at": "2軍",
   "min_group_for_tiers": 6,
   "score_floor_tier2": 97,
-  "exclude_groups": ["Real Estate"],
-  "_exclude_note": "REITはv2でも引き続き対象外（FFO系の指標設計が別途必要な規模のため）。Financialsはv2（2026-09-12）で対象化。",
+  "exclude_groups": [],
+  "_exclude_note": "Financials・Real EstateともにV2（2026-09-12）で対象化済み。JPのJ-REITは配当株ツールの母集団に無く別タスク規模のため引き続き対象外（母集団自体が存在しない）。",
   "groups": {
     "Information Technology": ["Information Technology"],
     "Health Care": ["Health Care"],

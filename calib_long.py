@@ -226,15 +226,42 @@ def main():
         if s and _num(v) and 0 < v < 80:
             by_sec.setdefault(s, []).append(v)
     ev_med = {s: round(st.median(vs), 2) for s, vs in by_sec.items() if len(vs) >= 3}
-    out = {"_meta": {"説明": "業種ごとの EV/EBIT 中央値。calib_long.py が生成。"
-                     "analyze_long.py の買い時スコア『EV/EBIT 対業種』の基準。",
-                     "算出": f"{c['sumdir']} の {len(rows)} 銘柄、0<EV/EBIT<80 の中央値、n>=3 の業種のみ"},
-           **{s: {"ev_ebit": m, "n": len(by_sec[s])} for s, m in sorted(ev_med.items())}}
+
+    # 1b) REIT（米国のみ）：業種(Real Estate)ごとの P/FFO 中央値。
+    #     analyze_long.py の買い時スコア「P/FFO 対業種」の基準。
+    by_sec_pfo = {}
+    if args.market == "us":
+        for r in rows:
+            s = r.get(c["seckey"])
+            v = r.get("current_pfo")
+            if s and _num(v) and 0 < v < 100:
+                by_sec_pfo.setdefault(s, []).append(v)
+    pfo_med = {s: round(st.median(vs), 2) for s, vs in by_sec_pfo.items() if len(vs) >= 3}
+
+    sectors = sorted(set(ev_med) | set(pfo_med))
+    entry = {}
+    for s in sectors:
+        d = {}
+        if s in ev_med:
+            d["ev_ebit"] = ev_med[s]
+            d["n"] = len(by_sec[s])
+        if s in pfo_med:
+            d["pfo"] = pfo_med[s]
+            d["n_pfo"] = len(by_sec_pfo[s])
+        entry[s] = d
+    out = {"_meta": {"説明": "業種ごとの EV/EBIT 中央値（と米国REITのみ P/FFO 中央値）。"
+                     "calib_long.py が生成。analyze_long.py の買い時スコア"
+                     "『EV/EBIT 対業種』『P/FFO 対業種』の基準。",
+                     "算出": f"{c['sumdir']} の {len(rows)} 銘柄、0<EV/EBIT<80 または 0<P/FFO<100 の"
+                             "中央値、それぞれ n>=3 の業種のみ"},
+           **entry}
     op = os.path.join(HERE, c["out"])
     json.dump(out, open(op, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print(f"-> {op}  （{len(ev_med)} 業種）")
+    print(f"-> {op}  （EV/EBIT {len(ev_med)} 業種・P/FFO {len(pfo_med)} 業種）")
     for s, m in sorted(ev_med.items(), key=lambda x: x[1]):
         print(f"    EV/EBIT中央値 {m:6.1f} (n={len(by_sec[s]):3}) {s}")
+    for s, m in sorted(pfo_med.items(), key=lambda x: x[1]):
+        print(f"    P/FFO中央値   {m:6.1f} (n={len(by_sec_pfo[s]):3}) {s}")
 
     # 2) スコア分布
     gcfg = json.load(open(os.path.join(HERE, c["groups"]), encoding="utf-8"))

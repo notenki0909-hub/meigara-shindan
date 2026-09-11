@@ -1,7 +1,7 @@
 {
  "_meta": {
-  "説明": "業種ごとの EV/EBIT 中央値。calib_long.py が生成。analyze_long.py の買い時スコア『EV/EBIT 対業種』の基準。",
-  "算出": "site/us/long_summaries の 503 銘柄、0<EV/EBIT<80 の中央値、n>=3 の業種のみ"
+  "説明": "業種ごとの EV/EBIT 中央値（と米国REITのみ P/FFO 中央値）。calib_long.py が生成。analyze_long.py の買い時スコア『EV/EBIT 対業種』『P/FFO 対業種』の基準。",
+  "算出": "site/us/long_summaries の 503 銘柄、0<EV/EBIT<80 または 0<P/FFO<100 の中央値、それぞれ n>=3 の業種のみ"
  },
  "Communication Services": {
   "ev_ebit": 16.32,
@@ -40,8 +40,8 @@
   "n": 18
  },
  "Real Estate": {
-  "ev_ebit": 33.12,
-  "n": 27
+  "pfo": 16.23,
+  "n_pfo": 27
  },
  "Utilities": {
   "ev_ebit": 22.14,

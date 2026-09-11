@@ -62,6 +62,25 @@ analyze.METRIC_HELP.setdefault("fq_eps_growth", {"what":
 analyze.METRIC_HELP.setdefault("fq_profit_stability", {"what":
     "直近数年の純利益について、前年比で最も大きく減益した年の下落率。0＝一度も減益して"
     "いない。金融業は市況で利益が振れやすいため、下方リスクを別途見る。", "unit": "%"})
+# v2：米国REIT向けの品質・買い時サブスコア（FFOベース）
+analyze.METRIC_HELP.setdefault("rq_ffo_growth", {"what":
+    "FFO（Funds From Operations＝純利益＋減価償却費－不動産等売却益）の年率成長率。"
+    "REITは不動産の減価償却が非現金で大きく純利益を歪めるため、業界標準のFFOで"
+    "実質的な収益成長を見る。", "unit": "%"})
+analyze.METRIC_HELP.setdefault("rq_rev_growth", {"what":
+    "賃貸収入等、売上高の年率成長率。物件ポートフォリオが拡大しているかを見る。", "unit": "%"})
+analyze.METRIC_HELP.setdefault("rq_ffo_stability", {"what":
+    "直近数年のFFOについて、前年比で最も大きく減少した年の下落率。0＝一度も減少して"
+    "いない。", "unit": "%"})
+analyze.METRIC_HELP.setdefault("rq_interest_coverage", {"what":
+    "(FFO＋支払利息)÷支払利息。REITは事業構造上、高いレバレッジ（借入依存度）が"
+    "前提のため、通常の自己資本比率の代わりに利払いの余力を見る。", "unit": "倍"})
+analyze.METRIC_HELP.setdefault("ffo_band_pos", {"what":
+    "今のP/FFO（株価÷FFO、REIT版のPER）が、その銘柄自身の過去数年のレンジのどこに"
+    "あるか。下限に近いほど自社の物差しで割安。", "unit": ""})
+analyze.METRIC_HELP.setdefault("ffo_vs_sector", {"what":
+    "現在のP/FFOを、S&P500のREIT業種平均のP/FFOと比べた倍率。1.0未満なら業種平均"
+    "より安い。", "unit": "倍"})
 
 _SEC_AVG_LONG = {"jp": None, "us": None}
 
@@ -145,6 +164,57 @@ def _raw_financial_quality(yd, info):
     }
 
 
+def _raw_reit_quality(yd, info):
+    """米国REIT向けの品質・買い時サブスコアの素材（analyze_long.py内でのみ完結。
+    analyze_us.py本体は無改変）。FFO(近似) = 純利益 + 減価償却費 − 不動産等売却益
+    （NAREIT定義の簡易近似。各社公表FFOとは非支配持分等の調整分だけ厳密には一致しない）。"""
+    isr = yd.get("is_rows") or {}
+    ni = analyze.row(isr, "Net Income") or []
+    da = analyze.row(isr, "Reconciled Depreciation",
+                     "Depreciation And Amortization In Income Statement") or []
+    gain = analyze.row(isr, "Gain On Sale Of Business", "Gain On Sale Of Security") or []
+    rev = analyze.row(isr, "Total Revenue") or []
+    ie = analyze.row(isr, "Interest Expense", "Interest Expense Non Operating") or []
+
+    n = max(len(ni), len(da), len(gain))
+    ffo = []
+    for i in range(n):
+        nv = ni[i] if i < len(ni) else None
+        dv = da[i] if i < len(da) else None
+        gv = gain[i] if i < len(gain) else None
+        ffo.append(nv + dv - gv if (LC.is_num(nv) and LC.is_num(dv) and LC.is_num(gv)) else
+                   nv + dv if (LC.is_num(nv) and LC.is_num(dv)) else None)
+    ffo0 = ffo[0] if ffo and LC.is_num(ffo[0]) else None
+    ie0 = ie[0] if ie and LC.is_num(ie[0]) and ie[0] > 0 else None
+    cov = ((ffo0 + ie0) / ie0) if (LC.is_num(ffo0) and LC.is_num(ie0)) else None
+    return {
+        "ffo_series": ffo, "ffo0": ffo0,
+        "ffo_growth": analyze.cagr_of(ffo),
+        "rev_growth": analyze.cagr_of(rev),
+        "ffo_stability": LC.worst_yoy_decline_pct(ffo),
+        "interest_coverage": cov,
+        "shares": info.get("sharesOutstanding"),
+    }
+
+
+def _ffo_pairs(yd, ffo_series, shares):
+    """過去P/FFO ≈ 暦年平均株価 ÷（その年のFFO ÷ 現在の発行株数）。-> [(year, p_ffo)]
+    _pbr_pairs と同じ簡易近似（過去の発行株数は追わず現在株数で代用）。"""
+    pm = analyze.yearly_price_mean(yd["hist_m"])
+    is_years = yd.get("is_years", []) or []
+    if not (ffo_series and shares and len(is_years) == len(ffo_series)):
+        return []
+    ffo_ps = {y: (f / shares) for y, f in zip(is_years, ffo_series) if LC.is_num(f) and f > 0}
+    out = []
+    for y in sorted(pm):
+        if y == analyze.TODAY.year or y not in ffo_ps or pm[y] <= 0:
+            continue
+        r = pm[y] / ffo_ps[y]
+        if 0 < r < 60:
+            out.append((y, r))
+    return out
+
+
 def _pbr_pairs(yd, raw):
     """過去PBR ≈ 暦年平均株価 ÷ （その年の自己資本 ÷ 現在の発行株数）。-> [(year, pbr)]"""
     pm = analyze.yearly_price_mean(yd["hist_m"])
@@ -206,10 +276,42 @@ def _score(key, v):
     return LC.score_val(key, v, LC.load_bt_cfg()["rules"])
 
 
-def _buytiming(raw, rowmap, seckey, market, pbr_pairs, is_fin_simple=False):
+def _buytiming(raw, rowmap, seckey, market, pbr_pairs, is_fin_simple=False,
+               is_reit=False, reit_q=None, ffo_pairs=None):
     bt = LC.load_bt_cfg()
     rules = bt["rules"]
     sec = _sector_avg_long(market).get(seckey, {}) if isinstance(_sector_avg_long(market), dict) else {}
+
+    if is_reit:
+        # REIT：不動産の減価償却でEBIT/純利益(PER)/簿価(PBR)が歪み、「FCF」も取得・
+        # 開発投資で構造的に振れるため、いずれも使わずP/FFO割安度のみで判定する。
+        r_rules = LC.load_reit_cfg()["rules"]
+        ffo0 = reit_q.get("ffo0") if reit_q else None
+        current_pfo = (raw["mcap"] / ffo0) if (LC.is_num(ffo0) and ffo0 > 0
+                                               and LC.is_num(raw.get("mcap"))) else None
+        ffo_band = (LC.price_band_pos(ffo_pairs, current_pfo, low_is_cheap=True)
+                   if ffo_pairs and len(ffo_pairs) >= 3 else None)
+        sec_pfo = sec.get("pfo")
+        ffo_vs = (current_pfo / sec_pfo) if (LC.is_num(current_pfo) and LC.is_num(sec_pfo)
+                                             and sec_pfo > 0) else None
+        ffo_cheap_sc, _ = LC.composite(["ffo_band_pos", "ffo_vs_sector"],
+                                       {"ffo_band_pos": ffo_band, "ffo_vs_sector": ffo_vs}, r_rules)
+        comp = {"ffo_cheap": ffo_cheap_sc}
+        total, scored, poss, cov = LC.buytiming_score(comp, weights={"ffo_cheap": 1.0})
+        d = {
+            "is_reit": True, "is_fin_simple": False, "pbr_unreliable": False,
+            "current_pfo": current_pfo, "sec_pfo": sec_pfo, "ffo_vs": ffo_vs,
+            "ffo_band": ffo_band, "ffo_cheap": ffo_cheap_sc, "ffo_pairs": ffo_pairs or [],
+            "ffo_band_score": LC.score_val("ffo_band_pos", ffo_band, r_rules),
+            "ffo_vs_score": LC.score_val("ffo_vs_sector", ffo_vs, r_rules),
+            "ev_ebit": None, "ev_median": None, "ev_vs": None, "ev_score": None,
+            "fcf_yield": None, "fcf_score": None,
+            "per_band": None, "per_vs": None, "per_score": None, "per_band_disp": None,
+            "per_vs_disp": None, "per_band_score": None, "per_vs_score": None, "per_rb": None,
+            "pbr_band": None, "pbr_vs": None, "pbr_score": None, "pbr_vs_disp": None,
+            "pbr_band_score": None, "pbr_vs_score": None, "pbr": None, "pbr_pairs": [],
+        }
+        return total, (scored, poss, cov), comp, d
 
     if is_fin_simple:
         # 銀行・保険・証券：EBITの概念が成立せず、「FCF」もバランスシートの
@@ -371,6 +473,47 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
                        fqp["profit_stability"][1],
                        figure=_fq_gauge("profit_stability", fq['profit_stability'], "利益の安定度")),
         ]
+    elif extras.get("reit_q") and extras.get("reit_parts"):
+        rq, rqp = extras["reit_q"], extras["reit_parts"]
+        rq_rules = LC.load_reit_cfg()["rules"]
+
+        def _rq_why(key, v, lab, unit="%"):
+            if not LC.is_num(v):
+                return "データを取得できませんでした。"
+            r = rq_rules[key]
+            good, warn = r["good"], r["warn"]
+            w = "良好" if v >= good else "弱い" if v < warn else "やや弱い"
+            return f"{lab} {v:.1f}{unit}（{w}）。"
+
+        def _rq_gauge(key, v, title, kind="pct"):
+            r = rq_rules[key]
+            return _gauge_svg(v, r["good"], r["warn"], "higher_better", kind, title) if LC.is_num(v) else ""
+
+        q_blocks = [
+            f'<div class="domhead"><b>REIT品質（FFOベースの代替指標）</b> '
+            f'{analyze.bar(groups.get("REIT品質"))}</div>',
+            _detail_row("rq_ffo_growth", "FFO成長率（FFOの年率成長）",
+                       f"{rq['ffo_growth']:.1f}%" if LC.is_num(rq['ffo_growth']) else "算出不可（データ不足）",
+                       "6%以上＝良好 ／ 0%未満（減少）＝弱い。",
+                       _rq_why("ffo_growth", rq['ffo_growth'], "FFO成長率"),
+                       rqp["ffo_growth"][1], figure=_rq_gauge("ffo_growth", rq['ffo_growth'], "FFO成長率")),
+            _detail_row("rq_rev_growth", "増収率（賃貸収入等の年率成長）",
+                       f"{rq['rev_growth']:.1f}%" if LC.is_num(rq['rev_growth']) else "算出不可（データ不足）",
+                       "5%以上＝良好 ／ 0%未満（減収）＝弱い。",
+                       _rq_why("rev_growth", rq['rev_growth'], "増収率"),
+                       rqp["rev_growth"][1], figure=_rq_gauge("rev_growth", rq['rev_growth'], "増収率")),
+            _detail_row("rq_ffo_stability", "FFOの安定度（最大減少率）",
+                       f"{rq['ffo_stability']:.1f}%" if LC.is_num(rq['ffo_stability']) else "算出不可（データ不足）",
+                       "0%（減少なし）＝良好 ／ -20%（最大20%の減少年）＝弱い。",
+                       _rq_why("ffo_stability", rq['ffo_stability'], "最大減少率"),
+                       rqp["ffo_stability"][1], figure=_rq_gauge("ffo_stability", rq['ffo_stability'], "FFOの安定度")),
+            _detail_row("rq_interest_coverage", "利払い余裕度（(FFO＋支払利息)÷支払利息）",
+                       f"{rq['interest_coverage']:.2f}倍" if LC.is_num(rq['interest_coverage']) else "算出不可（データ不足）",
+                       "4.0倍以上＝良好 ／ 2.0倍未満＝弱い。REITは高レバレッジが前提のため利払い余力を見る。",
+                       _rq_why("interest_coverage", rq['interest_coverage'], "利払い余裕度", unit="倍"),
+                       rqp["interest_coverage"][1],
+                       figure=_rq_gauge("interest_coverage", rq['interest_coverage'], "利払い余裕度", kind="mul")),
+        ]
     else:
         q_blocks = []
         for gname in ("業績", "財務", "キャッシュフロー"):
@@ -505,6 +648,40 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
         f'<div class="domhead"><b>PBR割安度{_pbr_head_note}</b> {analyze.bar(btd.get("pbr_score"))}</div>' + "".join(bt_pbr),
     ]
     bt_html = bt_note + "".join(bt_blocks)
+
+    if btd.get("is_reit"):
+        # REIT：上のEV/EBIT・FCF・PER・PBRの行は算出不可のプレースホルダなので使わず、
+        # P/FFO割安度のみの専用セクションで完全に置き換える。
+        _fpc = f"{btd['ffo_cheap']:.0f}" if LC.is_num(btd.get("ffo_cheap")) else "―"
+        bt_note = ('<p class="sub">買い時スコア＝<b>P/FFO割安度</b>のみ（100%）で合成。'
+                   f'<b>P/FFO割安度＝「P/FFO 自社レンジ」と「P/FFO 対業種」の平均＝{_fpc}</b>。'
+                   'REITは不動産の減価償却でPER・PBR・EV/EBIT・FCF利回りが軒並み歪むため、'
+                   '業界標準のFFO（純利益＋減価償却－不動産等売却益）ベースの指標のみで'
+                   '判定しています。配当利回り・増配・累進配当宣言は一切使っていません。</p>')
+        ffo_pairs_ = btd.get("ffo_pairs") or []
+        ffo_rb_fig = (analyze.svg_rangeband(
+            {"hist": ffo_pairs_, "current": btd.get("current_pfo"), "kind": "per", "low_is_cheap": True},
+            "P/FFOの自社過去レンジ")
+            if len(ffo_pairs_) >= 3 and LC.is_num(btd.get("current_pfo")) else "")
+        bt_rows_reit = [
+            _detail_row(
+                "ffo_band_pos", "P/FFO 自社過去レンジ内の位置",
+                (f"割安度 {btd['ffo_band']*100:.0f}/100" if LC.is_num(btd.get("ffo_band"))
+                 else "履歴不足で算出不可"),
+                "0＝レンジ上端（高P/FFO＝割高）／100＝下端（低P/FFO＝割安）。"
+                "自社の物差しで割安か。P/FFO＝株価÷FFO（REIT版のPER）。",
+                _why_band(btd.get("ffo_band"),
+                          {"hist": ffo_pairs_, "current": btd.get("current_pfo")}, "per"),
+                btd.get("ffo_band_score"), figure=ffo_rb_fig),
+            _detail_row(
+                "ffo_vs_sector", "P/FFO 対業種平均",
+                f"{btd['current_pfo']:.1f}倍" if LC.is_num(btd.get("current_pfo")) else "―",
+                "1.0未満＝業種平均より安い。0.95以下で割安・1.2超で割高。",
+                _why_vs(btd.get("ffo_vs"), "mul"), btd.get("ffo_vs_score")),
+        ]
+        bt_blocks = [f'<div class="domhead"><b>P/FFO割安度</b> {analyze.bar(btd.get("ffo_cheap"))}</div>'
+                    + "".join(bt_rows_reit)]
+        bt_html = bt_note + "".join(bt_blocks)
 
     # 参考欄
     ref_rows = []
@@ -663,7 +840,7 @@ table.subt tr:last-child td{{border-bottom:none}}
 <h2>会社概要</h2>
 <div class="cobox">{comp_html}</div>
 
-<h2>① 品質の指標（{'銀行・保険・証券向け代替指標' if is_fin_simple else '業績・財務・キャッシュフロー'}）</h2>
+<h2>① 品質の指標（{'REIT向け代替指標(FFO)' if extras.get('reit_q') else '銀行・保険・証券向け代替指標' if is_fin_simple else '業績・財務・キャッシュフロー'}）</h2>
 {q_html}
 
 <h2>② 買い時の指標（割安さ・配当は不使用）</h2>
@@ -727,6 +904,13 @@ def generate_long(code, cfg=None, market="jp", name=None):
             import analyze_us
             gics_sector, industry, ysector, is_simple, is_reit, src = \
                 analyze_us.classify_sector_us(info, smap)
+            # analyze_us.classify_sector_us は GICS Real Estate セクター全体を
+            # is_reit=True にする（CBRE・CoStar等の不動産サービス/データ会社もREIT構造
+            # ではないのに含まれてしまう）。analyze_us.py 本体は無改変のまま、ここで
+            # ローカルにのみ「実際にREIT構造か」を industry 文字列で判定し直す。
+            if gics_sector == "Real Estate" and "REIT" not in (industry or "").upper():
+                is_simple = False
+                is_reit = False
             seckey = gics_sector
             jp_sector = None
             rate_sensitive = set(smap.get("rate_sensitive", []))
@@ -765,13 +949,25 @@ def generate_long(code, cfg=None, market="jp", name=None):
         groups = dict(groups)
         groups["金融品質"] = fq_score
 
+    # 米国REIT：v2でFFOベースの専用品質・買い時サブスコアを追加（JPはJ-REITが
+    # 配当株ツールの母集団に無く別タスク規模のため対象外）。
+    is_reit_us = bool(is_reit and market == "us")
+    reit_q = reit_parts = ffo_pairs = None
+    if is_reit_us:
+        reit_q = _raw_reit_quality(yd, info)
+        rq_score, reit_parts = LC.reit_quality_score(reit_q)
+        groups = dict(groups)
+        groups["REIT品質"] = rq_score
+        ffo_pairs = _ffo_pairs(yd, reit_q["ffo_series"], reit_q["shares"])
+
     q_score = LC.quality_score(groups)
     q_cov = LC.quality_coverage(groups)
 
     raw = _raw_valuation(yd)
     pbr_pairs = _pbr_pairs(yd, raw)
     bt_score, bt_cov, bt_comp, btd = _buytiming(raw, rowmap, seckey, market, pbr_pairs,
-                                                is_fin_simple=is_fin_simple)
+                                                is_fin_simple=is_fin_simple, is_reit=is_reit_us,
+                                                reit_q=reit_q, ffo_pairs=ffo_pairs)
 
     ig = LC.implied_fcf_growth(raw["mcap"], raw["fcf"])
     hg = None
@@ -793,10 +989,17 @@ def generate_long(code, cfg=None, market="jp", name=None):
     extras = {"implied_growth": ig, "hist_growth": hg,
               "ref_src": M.get("参考", []), "drawdown": dd,
               "div_yield": rowmap.get("div_yield", {}).get("v"),
-              "fin_q": fin_q, "fq_parts": fq_parts}
+              "fin_q": fin_q, "fq_parts": fq_parts,
+              "reit_q": reit_q, "reit_parts": reit_parts}
 
     warnings = []
-    if is_reit:
+    if is_reit_us:
+        warnings.append("REITは業績・財務・CFの代わりに、専用のFFOベース品質サブスコア"
+                        "（FFO成長率・増収率・FFOの安定度・利払い余裕度）で評価しています。"
+                        "買い時スコアもPER・PBR・EV/EBIT・FCF利回りが構造的に使えないため、"
+                        "P/FFO割安度のみで合成しています（FFOはyfinanceのデータから算出した"
+                        "近似値で、各社が公表するFFOとは厳密には一致しません）。")
+    elif is_reit:
         warnings.append("REIT は業績・財務・CFを構造的に採点できないため、"
                         "品質スコアは算出していません（本ツールの対象外）。")
     elif is_fin_simple:
@@ -806,7 +1009,7 @@ def generate_long(code, cfg=None, market="jp", name=None):
                         "PER割安度・PBR割安度のみで合成しています。")
     if not yd.get("is_rows"):
         warnings.append("損益計算書を取得できず、業績の評価が限定的です。")
-    if not is_fin_simple and not LC.is_num(btd["ev_median"]):
+    if not is_fin_simple and not is_reit_us and not LC.is_num(btd["ev_median"]):
         warnings.append("この業種の EV/EBIT 中央値が未算出のため EV/EBIT対業種 は中立扱いです。")
 
     pd_ = yd.get("price_date")
@@ -831,8 +1034,9 @@ def generate_long(code, cfg=None, market="jp", name=None):
         "q_score": q_score,
         "groups": {"業績": groups.get("業績"), "財務": groups.get("財務"),
                    "キャッシュフロー": groups.get("キャッシュフロー"),
-                   "金融品質": groups.get("金融品質")},
-        "is_fin_simple": is_fin_simple,
+                   "金融品質": groups.get("金融品質"), "REIT品質": groups.get("REIT品質")},
+        "is_fin_simple": is_fin_simple, "is_reit_us": is_reit_us,
+        "current_pfo": btd.get("current_pfo"),
         "q_cov": q_cov[2],
         "bt_score": bt_score, "bt_cov": bt_cov[2], "bt_components": bt_comp,
         "ev_ebit": btd["ev_ebit"], "fcf_yield": btd["fcf_yield"],

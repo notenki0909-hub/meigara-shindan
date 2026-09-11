@@ -1,0 +1,30 @@
+{
+  "_meta": {
+    "説明": "『10年保有できる優良企業』ツールのv2追加（米国REITのみ・2026-09-12）。REITは会計上、不動産の減価償却が大きく非現金で純利益を歪めるため、業界標準の代替指標FFO（Funds From Operations = 純利益＋減価償却－不動産売却益）を使う。日本のJ-REITは配当株ツールの母集団（universe.json）にそもそも含まれておらず、別途ティッカー一覧の調達が必要な規模のため対象外（別タスク）。",
+    "対象": "米国のS&P500構成銘柄のうちGICS Real EstateセクターでかつyfinanceのindustryがREIT系（'REIT'を含む）の銘柄。CBRE・CoStar Group等の不動産サービス/データ会社はGICS Real Estateに分類されるがREIT構造ではなく減価償却の歪みが無いため、analyze_long.py側でローカルにis_simple判定を上書きし通常の業績/財務/CFロジックで採点する（analyze_us.py本体は無改変）。",
+    "FFOの近似式": "FFO ≈ 純利益 + 減価償却費 − 不動産等売却益（+売却損）。yfinanceの損益計算書項目（Net Income・Depreciation And Amortization・Gain On Sale）から算出。各社が独自定義する公表FFO（非支配持分調整等を含む）とは厳密には一致しない近似値。Realty Income/Prologisで実際の公表FFOと概ね近い値になることを確認したが、非支配持分の大きい銘柄（例：Simon Property）ではズレが大きくなる点に注意。",
+    "設計": "品質サブスコア＝FFO成長率・増収率・FFOの安定度・利払い余裕度を均等25%で合成。買い時スコア＝P/FFO割安度（自社レンジ位置＋対業種平均の合成）のみ100%（PER/PBR/EV-EBIT/FCF利回りはいずれもREITでは減価償却や資本構成の歪みで機能しないため使わない）。",
+    "利払い余裕度について": "(FFO＋支払利息)÷支払利息。EBITDA代わりにFFO（減価償却を足し戻し済み）を使うことでREIT向けに調整したインタレスト・カバレッジ・レシオ。",
+    "校正": "銀行・保険・証券向け(financial_quality_long.json)と同様、初回バッチ後に実分布で再校正すること。ここは仮値。母集団が28銘柄程度と小さいため分布の外れ値に注意。"
+  },
+  "weights": {
+    "ffo_growth": 0.25,
+    "rev_growth": 0.25,
+    "ffo_stability": 0.25,
+    "interest_coverage": 0.25
+  },
+  "missing_fill": 60,
+  "rules": {
+    "ffo_growth": {"dir": "higher_better", "good": 6.0, "warn": 0.0, "_note": "FFOの年率成長(CAGR %、直近〜4年)。高いほど良い。"},
+    "rev_growth": {"dir": "higher_better", "good": 5.0, "warn": 0.0, "_note": "賃貸収入等、売上高の年率成長(CAGR %)。高いほど良い。"},
+    "ffo_stability": {"dir": "higher_better", "good": 0.0, "warn": -20.0, "_note": "直近数年のFFO、前年比の最大下落率(%)。0＝減少なし。REITは業績が比較的安定しやすいため銀行(-30)より厳しめ。"},
+    "interest_coverage": {"dir": "higher_better", "good": 4.0, "warn": 2.0, "_note": "(FFO+支払利息)÷支払利息。REITは事業構造上高レバレッジが前提のため、この比率で利払い余力を見る。"},
+    "ffo_band_pos": {"dir": "higher_better", "good": 0.6, "warn": 0.2, "_note": "現P/FFOが自社過去レンジのどこか。1=下端(割安)。per_band_posと同じ考え方。"},
+    "ffo_vs_sector": {"dir": "lower_better", "good": 0.95, "warn": 1.2, "_note": "現P/FFO ÷ 業種(Real Estate)平均P/FFO。per_vs_sectorと同じ考え方。"}
+  },
+  "composite": {
+    "ffo_cheap": ["ffo_band_pos", "ffo_vs_sector"]
+  },
+  "buytiming_weights": {"ffo_cheap": 1.0},
+  "_buytiming_note": "REITはEV/EBIT(減価償却でEBITが歪む)・FCF利回り(取得・開発投資で構造的に振れる)・PER(純利益が歪む)・PBR(減価償却で簿価が過小評価されがち)のいずれも機能しないため、P/FFO割安度のみで買い時スコアを合成する。"
+}

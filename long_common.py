@@ -22,7 +22,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # sel_score の score_groups.選定 から「配当の持続力」を除いたもの
 # 「金融品質」は業績/財務/CFの合計ウェイトと揃えてある（is_simple金融銘柄はこれだけが
 # 唯一のグループになるため、quality_score() の再正規化で実質100%になる）。
-QUALITY_W = {"業績": 0.28, "財務": 0.27, "キャッシュフロー": 0.15, "金融品質": 0.70}
+QUALITY_W = {"業績": 0.28, "財務": 0.27, "キャッシュフロー": 0.15, "金融品質": 0.70, "REIT品質": 0.70}
 
 _BT_CACHE = None
 _FQ_CACHE = None
@@ -43,6 +43,18 @@ def load_fq_cfg():
         with open(os.path.join(HERE, "financial_quality_long.json"), encoding="utf-8") as f:
             _FQ_CACHE = json.load(f)
     return _FQ_CACHE
+
+
+_REIT_CACHE = None
+
+
+def load_reit_cfg():
+    """reit_quality_long_us.json（米国REIT向けの品質・買い時サブスコア設定。JPは母集団未整備のため対象外）。"""
+    global _REIT_CACHE
+    if _REIT_CACHE is None:
+        with open(os.path.join(HERE, "reit_quality_long_us.json"), encoding="utf-8") as f:
+            _REIT_CACHE = json.load(f)
+    return _REIT_CACHE
 
 
 def is_num(x):
@@ -83,11 +95,10 @@ def worst_yoy_decline_pct(series):
     return round(worst, 1)
 
 
-def financial_quality_score(raw_vals):
-    """raw_vals: {"roe": %|None, "rev_growth": %|None, "eps_growth": %|None,
-    "profit_stability": %|None}。financial_quality_long.json の均等ウェイトで合成。
+def weighted_metric_score(raw_vals, cfg):
+    """raw_vals: {key: value|None}。cfg: {"weights":{...},"rules":{...},"missing_fill":N}の
+    均等/指定ウェイトで合成する共通ロジック（financial_quality_score・reit_quality_scoreが使う）。
     返り値: (score 0..110|None, {key: (raw, score)})"""
-    cfg = load_fq_cfg()
     rules, w, fill = cfg["rules"], cfg["weights"], cfg.get("missing_fill", 60)
     parts = {}
     num = den = 0.0
@@ -99,6 +110,20 @@ def financial_quality_score(raw_vals):
         den += wt
     total = round(num / den, 1) if den > 0 else None
     return total, parts
+
+
+def financial_quality_score(raw_vals):
+    """raw_vals: {"roe": %|None, "rev_growth": %|None, "eps_growth": %|None,
+    "profit_stability": %|None}。financial_quality_long.json の均等ウェイトで合成。
+    返り値: (score 0..110|None, {key: (raw, score)})"""
+    return weighted_metric_score(raw_vals, load_fq_cfg())
+
+
+def reit_quality_score(raw_vals):
+    """raw_vals: {"ffo_growth": %|None, "rev_growth": %|None, "ffo_stability": %|None,
+    "interest_coverage": 倍|None}。reit_quality_long_us.json の均等ウェイトで合成。
+    返り値: (score 0..110|None, {key: (raw, score)})"""
+    return weighted_metric_score(raw_vals, load_reit_cfg())
 
 
 # ---------------------------------------------------------------- 買い時の素材

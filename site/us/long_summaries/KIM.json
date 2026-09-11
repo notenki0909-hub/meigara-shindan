@@ -5,29 +5,31 @@
  "gics_sector": "Real Estate",
  "is_simple": true,
  "is_reit": true,
- "price": 23.290000915527344,
- "price_date": "2026-09-10",
- "mcap": 15622684672,
- "q_score": null,
+ "price": 23.190000534057617,
+ "price_date": "2026-09-11",
+ "mcap": 15555605504,
+ "q_score": 97.7,
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null
+  "キャッシュフロー": null,
+  "金融品質": null,
+  "REIT品質": 97.7
  },
+ "is_fin_simple": false,
+ "is_reit_us": true,
+ "current_pfo": 13.908542046331391,
  "q_cov": "低",
- "bt_score": 97.4,
+ "bt_score": 101.4,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 83.1093010613869,
-  "fcf_yield": 103.89719444331196,
-  "per_cheap": 105.1,
-  "pbr_cheap": 87.5
+  "ffo_cheap": 101.4
  },
- "ev_ebit": 33.04692455241007,
- "fcf_yield": 7.169158332993589,
- "per_band_pos": 0.6042187805701074,
- "pbr_band_pos": 0.24979940317902272,
- "div_yield": 4.808930682580184,
- "implied_fcf_growth": 0.0278,
- "_generated_at": "2026-09-11T19:24:23"
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "div_yield": 4.829667849102161,
+ "implied_fcf_growth": 0.0272,
+ "_generated_at": "2026-09-12T07:51:24"
 }
