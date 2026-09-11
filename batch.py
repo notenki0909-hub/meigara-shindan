@@ -11,6 +11,9 @@
   site/reports/<code>.html   … 個別レポート
   site/reports/<code>.md
   site/summaries/<code>.json … ランキング集計用サマリ（generate() の summary + 生成時刻）
+  site/portfolio_data/<code>.json … ポートフォリオ機能用（直近10年の日次終値 prices・
+                                     配当支払履歴 divs）。保有銘柄だけをクライアント側で
+                                     都度フェッチする想定の軽量ファイル
   site/batch_log.json        … 直近の実行結果（ok/skip/fail 件数、失敗コード）
 
 レート制限対策：--sleep 秒（既定1.5）を銘柄間に必ず入れる。--jgb で10年国債を
@@ -30,6 +33,7 @@ import analyze
 SITE = os.path.join(os.path.dirname(__file__), "site")
 REP = os.path.join(SITE, "reports")
 SUM = os.path.join(SITE, "summaries")
+PFD = os.path.join(SITE, "portfolio_data")
 
 
 def load_codes(spec):
@@ -68,6 +72,9 @@ def run_one(code, name, jgb, cfg):
     s["_generated_at"] = dt.datetime.now().isoformat(timespec="seconds")
     json.dump(s, open(os.path.join(SUM, f"{code}.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
+    pd = r.get("portfolio_data") or {"prices": [], "divs": []}
+    json.dump(pd, open(os.path.join(PFD, f"{code}.json"), "w", encoding="utf-8"),
+              ensure_ascii=False, separators=(",", ":"))
     return code, "ok", None
 
 
@@ -84,6 +91,7 @@ def main():
 
     os.makedirs(REP, exist_ok=True)
     os.makedirs(SUM, exist_ok=True)
+    os.makedirs(PFD, exist_ok=True)
     cfg = analyze.load_config()
     jgb = args.jgb if args.jgb is not None else cfg["rules"].get("market", {}).get("jgb_10y")
 

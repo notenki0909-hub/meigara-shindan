@@ -182,9 +182,11 @@ def fetch_yf(code, suffix=".T"):
     except Exception:
         d["hist_m"] = None
 
-    # 日足1年（テクニカル用）
+    # 日足10年（テクニカル指標は直近部分だけ使うので後方互換。ポートフォリオ機能の
+    # 「購入日の終値」ルックアップ用に長期分を保持。上場が浅い銘柄はyfinanceが
+    # 取得できる範囲だけ返す＝エラーにはならない）
     try:
-        d["hist_d"] = tk.history(period="1y", interval="1d", auto_adjust=False)
+        d["hist_d"] = tk.history(period="10y", interval="1d", auto_adjust=False)
     except Exception:
         d["hist_d"] = None
 
@@ -356,6 +358,22 @@ def classify_sector(info, smap):
         src = "既定（分類不明）"
     is_reit = industry.startswith("REIT")
     return jp, industry, sector, src, is_reit
+
+
+def portfolio_data(yd):
+    """ポートフォリオ機能用に持ち出す軽量データ：
+    prices = [[日付, 終値], ...]（直近10年・日次）／divs = [[権利落ち日, 1株配当], ...]。
+    site/portfolio_data/<code>.json として銘柄ごとに書き出す想定（保有銘柄だけを
+    クライアント側で都度フェッチするので ranking.json 等は肥大化させない）。"""
+    prices = []
+    hd = yd.get("hist_d")
+    if hd is not None and not getattr(hd, "empty", True):
+        for idx, r in hd.iterrows():
+            c = r.get("Close")
+            if is_num(c):
+                prices.append([idx.date().isoformat(), round(float(c), 2)])
+    divs = [[d0.isoformat(), round(float(v), 4)] for d0, v in (yd.get("divs") or [])]
+    return {"prices": prices, "divs": divs}
 
 
 # ====================================================================
@@ -2795,7 +2813,7 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
     log = log or (lambda *_: None)
     code = re.sub(r"\D", "", str(code))
     res = {"code": code, "name": name, "ok": False, "error": None,
-           "html": None, "md": None, "summary": None}
+           "html": None, "md": None, "summary": None, "portfolio_data": None}
     if not code:
         res["error"] = "証券コードが不正"
         return res
@@ -2919,6 +2937,10 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
         "interest_coverage": gref("インタレストカバレッジレシオ（EBIT÷支払利息）"),
         "warnings": warnings,
     }
+    try:
+        res["portfolio_data"] = portfolio_data(yd)
+    except Exception:
+        res["portfolio_data"] = {"prices": [], "divs": []}
     res["ok"] = True
     res["name"] = name
     return res
