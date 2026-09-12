@@ -3,7 +3,10 @@
 site/us/summaries/*.json を読み、GICS11 セクターごとに
   - 業種級 A/B/C（セクター内の銘柄選定スコア中央値）
   - 1軍/2軍/3軍（セクター内パーセンタイル。カバレッジ低は2軍止まり）
-  - 方向フラグ ↑改善中／→横ばい／↓悪化中（前回 ranking.json との差）
+  - 方向フラグ ↑改善中／→横ばい／↓悪化中（約1四半期(91日)前のスコアとの差。
+    site/us/score_history.json に1銘柄1日1点で選定スコアを蓄積し、そこから
+    91日以上前で最も新しい点を基準にする。履歴が91日分無い銘柄は→扱い。
+    JP版rank.pyと同一ロジック）
 を付けて site/us/ranking.json と site/us/index.html を書き出す。
 
   python rank_us.py
@@ -80,20 +83,48 @@ def grade_of(median, ga, gb):
     return "A" if median >= ga else "B" if median >= gb else "C"
 
 
-def load_prev_scores():
-    if not os.path.isfile(RANKING):
+HIST = os.path.join(SITE, "score_history.json")
+HIST_KEEP_DAYS = 400   # 4四半期分の遡及に余裕を持たせた保持期間
+QUARTER_DAYS = 91      # 方向フラグの比較基準（約1四半期前）
+
+
+def load_history():
+    if not os.path.isfile(HIST):
         return {}
     try:
-        j = json.load(open(RANKING, encoding="utf-8"))
-        out = {}
-        for grp in j.get("groups", []):
-            for s in grp.get("stocks", []):
-                out[s["code"]] = s.get("sel")
-        for s in j.get("global_top", []):
-            out.setdefault(s["code"], s.get("sel"))
-        return out
+        return json.load(open(HIST, encoding="utf-8"))
     except Exception:
         return {}
+
+
+def update_history(hist, rows, today_str):
+    """当日ぶんのselスコアを1銘柄1日1点で記録する（rank_us.pyが同日に複数回
+    （nightly-us＋earnings-watch-us等）走っても、その日の最新値で上書きするだけで
+    点は増やさない＝比較基準が実行回数でブレる問題を解消。rank.py（JP）と同じ設計）。"""
+    cutoff = (dt.date.fromisoformat(today_str) - dt.timedelta(days=HIST_KEEP_DAYS)).isoformat()
+    for r in rows:
+        if not isinstance(r["sel"], (int, float)):
+            continue
+        h = hist.setdefault(r["code"], [])
+        if h and h[-1][0] == today_str:
+            h[-1][1] = r["sel"]
+        else:
+            h.append([today_str, r["sel"]])
+        while len(h) > 1 and h[0][0] < cutoff:
+            h.pop(0)
+
+
+def quarter_ago_scores(hist, today_str):
+    """各銘柄について「約1四半期(91日)以上前」に記録された点のうち、
+    最も新しいもの（＝91日前に一番近い過去の値）を返す。無ければ対象外
+    （方向フラグは→＝履歴不足として扱われる）。"""
+    target = (dt.date.fromisoformat(today_str) - dt.timedelta(days=QUARTER_DAYS)).isoformat()
+    out = {}
+    for code, h in hist.items():
+        cand = [pt for pt in h if pt[0] <= target]
+        if cand:
+            out[code] = cand[-1][1]
+    return out
 
 
 def direction(now, prev, thr=2.0):
@@ -111,7 +142,6 @@ def main():
     c1, c2 = gcfg["tier1_pct"], gcfg["tier2_pct"]
     cap = gcfg.get("cap_low_coverage_at", "2軍")
     min_n = gcfg.get("min_group_for_tiers", 6)
-    prev = load_prev_scores()
 
     rows = []
     for p in sorted(glob.glob(os.path.join(SUM, "*.json"))):
@@ -135,6 +165,12 @@ def main():
             "asof": s.get("_generated_at") or s.get("asof"),
         })
 
+    today_str = dt.date.today().isoformat()
+    hist = load_history()
+    update_history(hist, rows, today_str)
+    json.dump(hist, open(HIST, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    quarter_ago = quarter_ago_scores(hist, today_str)
+
     groups_out = []
     for gname in list(gcfg["groups"].keys()):
         gr = [r for r in rows if r["group"] == gname]
@@ -151,7 +187,7 @@ def main():
             if t == "1軍" and r["cov_sel"] == "低":
                 t = cap
             r["tier"] = t
-            r["dir"] = direction(r["sel"], prev.get(r["code"]))
+            r["dir"] = direction(r["sel"], quarter_ago.get(r["code"]))
         groups_out.append({
             "name": gname, "name_jp": gics_jp(gname), "grade": grade_of(median, ga, gb),
             "median": median, "count": n, "tiered": tiered, "stocks": gr,
