@@ -1613,7 +1613,7 @@ def generate_us(ticker, cfg=None, log=None):
         "interest_coverage": gv("interest_coverage"),
         "per_vs_sector": gv("per_vs_sector"), "pbr_vs_sector": gv("pbr_vs_sector"),
         "per_band_pos": gv("per_band_pos"), "yield_band_pos": gv("yield_band_pos"),
-        "next_earn": ea.get("next_earn"),
+        "next_earn": ea.get("next_earn"), "earn_disc_date": ea.get("disc_date"),
         "warnings": warnings,
     }
     try:

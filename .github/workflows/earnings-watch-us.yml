@@ -1,0 +1,47 @@
+name: earnings-watch-us
+
+# 米国株には日本株のTDnetに相当する外部の決算開示フィードが無いため、検知は
+# yfinance自身が持つ次回決算予定日（next_earn。毎晩のnightly-us.ymlで
+# site/us/summaries/*.json に既に書き出し済み）を使う。予定日を過ぎても
+# 実績（earn_disc_date）が反映されていない銘柄だけを狙い撃ちで再取得する。
+# 検知にAPI呼び出しが要らないため、日本株側（tdnet-watch.yml + earnings-retry.yml
+# の2本）と違って1本のワークフローで検知〜再取得〜期限管理を完結できる。
+on:
+  schedule:
+    - cron: "20 */6 * * *"   # 6時間おき（毎時ちょうどの混雑を避けて20分ずらし）
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: earnings-watch-us
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - run: pip install -r requirements.txt
+
+      - name: 検知・反映確認・再取得
+        run: python earnings_watch_us.py --sleep 2.0
+
+      - name: ランキング再生成（反映があった場合のみ意味を持つが軽いので毎回実行）
+        run: python rank_us.py
+
+      - name: コミット
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pending_earnings_us.json site/us
+          git diff --cached --quiet || git commit -m "chore(earnings-us): watch $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          git push
