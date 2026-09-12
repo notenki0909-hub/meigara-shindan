@@ -49,6 +49,7 @@ MK = {
                        "専用の品質スコア（ROE・増収率・EPS成長率・利益の安定度）で評価。"
                        "品質スコア（配当は不使用）＋買い時スコア（EV/EBIT・FCF利回り・PER/PBR割安度）。",
         "terms_src": "long_terms.html",
+        "guide_src": "long_guide.html",
         "unit_price": "円",
         "watch": None,
     },
@@ -66,6 +67,7 @@ MK = {
                        "利益の安定度）、REITは専用のFFOベース品質スコアで評価。"
                        "品質スコア（配当は不使用）＋買い時スコア。",
         "terms_src": "long_us_terms.html",
+        "guide_src": "long_us_guide.html",
         "unit_price": "$",
         "watch": "universe_long_watch_us.json",
     },
@@ -515,7 +517,7 @@ section.grp[hidden]{{display:none}}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>{html.escape(m["title"])}</h1><a href="terms.html">利用規約・免責事項</a></div>
 {th.THEME_BAR}
-<div class="sub">生成 {gen}　｜　{html.escape(m["screen_line"])}</div>
+<div class="sub">生成 {gen}　｜　{html.escape(m["screen_line"])}　｜　<a href="guide.html">使い方・見方</a></div>
 <div class="formula">品質スコア ＝ 業績×0.28 ＋ 財務×0.27 ＋ キャッシュフロー×0.15（取得できた
 グループだけで再正規化・0〜110）。既存の銘柄診断エンジンの「銘柄選定スコア」から
 <b>配当の持続力（連続増配・増配率・配当性向・累進配当宣言など）を除いた</b>もの。
@@ -727,6 +729,9 @@ def main():
     terms_src = os.path.join(HERE, m["terms_src"])
     if os.path.isfile(terms_src):
         shutil.copyfile(terms_src, os.path.join(m["out_dir"], "terms.html"))
+    guide_src = os.path.join(HERE, m["guide_src"])
+    if os.path.isfile(guide_src):
+        shutil.copyfile(guide_src, os.path.join(m["out_dir"], "guide.html"))
 
     idx = os.path.join(m["out_dir"], "index.html")
     rjson = os.path.join(m["out_dir"], "ranking.json")
