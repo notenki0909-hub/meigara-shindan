@@ -75,6 +75,23 @@ MK = {
     },
 }
 
+NAV_ITEMS = [
+    ("利用規約・免責事項", "terms.html"),
+    ("使い方・見方", "guide.html"),
+    ("ランキング", "index.html"),
+    ("ウォッチリスト", "watchlist.html"),
+    ("ポートフォリオ", "portfolio.html"),
+]
+
+
+def _pagenav(current, exclude=()):
+    """右上のページ間リンク。当該ページ自身と exclude で指定したページは含めない。"""
+    excl = set(exclude) | {current}
+    links = "".join(f'<a href="{href}">{label}</a>'
+                     for label, href in NAV_ITEMS if href not in excl)
+    return f'<span class="pagenav">{links}</span>'
+
+
 TERMS = {
     "grade": ("業種級（A/B/C）",
               "業種グループ内の<b>品質スコア中央値</b>で A＞B＞C。Aが最も質の高い企業が揃う"
@@ -516,10 +533,11 @@ tr[hidden]{{display:none}}
 section.grp[hidden]{{display:none}}
 .topbar{{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}}
 .topbar a{{font-size:12.5px;color:var(--accent);white-space:nowrap}}
+.pagenav{{display:flex;gap:14px;flex-wrap:wrap}}
 .formula{{font-size:11.5px;color:var(--muted);background:var(--field);border:1px solid var(--line);
   border-radius:8px;padding:8px 12px;margin:6px 0 4px}}
 </style></head><body><div class="wrap">
-<div class="topbar"><h1>{html.escape(m["title"])}</h1><span><a href="guide.html">使い方・見方</a>　・　<a href="terms.html">利用規約・免責事項</a></span></div>
+<div class="topbar"><h1>{html.escape(m["title"])}</h1>{_pagenav("index.html", exclude=("watchlist.html", "portfolio.html"))}</div>
 {th.THEME_BAR}
 <div class="sub">生成 {gen}　｜　{html.escape(m["screen_line"])}</div>
 <div class="formula">品質スコア ＝ 業績×0.28 ＋ 財務×0.27 ＋ キャッシュフロー×0.15（取得できた
@@ -675,7 +693,15 @@ body{{margin:0;font:14px/1.6 -apple-system,"Hiragino Kaku Gothic ProN","Meiryo",
 .wrap{{max-width:900px;margin:0 auto;padding:20px 16px 60px}}
 h1{{font-size:19px;margin:0 0 4px}}
 .sub{{color:var(--muted);font-size:12px;margin-bottom:12px}} .sub a{{color:var(--accent)}}
+.topbar{{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}}
+.topbar a{{font-size:12.5px;color:var(--accent);white-space:nowrap}}
+.pagenav{{display:flex;gap:14px;flex-wrap:wrap}}
 .box{{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:12px 0}}
+.box h2{{font-size:14px;margin:0 0 8px}}
+.codewrap{{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0}}
+#codestr{{flex:1;min-width:220px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;
+  font:12px/1.4 monospace;background:var(--field);color:var(--fg)}}
+#copystat{{font-size:12px;color:var(--gA)}}
 textarea{{width:100%;min-height:52px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;
   font:12px/1.5 monospace;background:var(--field);color:var(--fg);resize:vertical}}
 button{{padding:7px 13px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);
@@ -692,16 +718,30 @@ tr:last-child td{{border-bottom:none}}
 td.bt.t1{{color:var(--t1)}} td.bt.t2{{color:var(--t2)}} td.bt.t3{{color:var(--t3)}} td.bt.t4{{color:var(--gC)}}
 .empty{{color:var(--muted);font-size:13px;padding:14px 0}}
 </style></head><body><div class="wrap">
-<h1>ウォッチリスト</h1>
-<div class="sub"><a href="index.html">← ランキングに戻る</a>　｜　{html.escape(m['title'])}</div>
-<div class="box"><b>銘柄リストを貼り付けて表示</b>
-（コード／ティッカーをカンマ・空白・改行区切りで。保存・共有した文字列の復元にも。URL の <code>?codes=</code> でも可）
-<textarea id="codestr" placeholder="例：7203, 9433, 6146"></textarea>
-<div style="margin-top:6px">
-  <button id="show">表示</button>
-  <button id="copy" class="ghost">コピー</button>
-  <button id="clear" class="ghost">クリア</button>
-  <span id="stat" class="sub"></span></div></div>
+<div class="topbar"><h1>ウォッチリスト</h1>{_pagenav("watchlist.html")}</div>
+<div class="sub">{html.escape(m['title'])}</div>
+
+<div class="box">
+  <h2>あなたの銘柄リスト</h2>
+  <div class="codewrap">
+    <input id="codestr" readonly value="">
+    <button type="button" id="copy">コピー</button>
+    <span id="copystat"></span>
+  </div>
+  <p>この<b>銘柄リストをコピーして控えておく</b>と、別の端末でも下の貼り付け欄から復元できます。</p>
+  <p><b>同じ端末・同じブラウザ</b>なら、一度作成すれば次回からこのページを開くだけで復元されます（貼り付け不要）。</p>
+</div>
+
+<div class="box">
+  <h2>銘柄リストを貼り付けて表示</h2>
+  <p class="sub" style="margin:0 0 8px">コード／ティッカーをカンマ・空白・改行区切りで。URL の <code>?codes=</code> でも可。</p>
+  <textarea id="paste" placeholder="例：7203, 9433, 6146"></textarea>
+  <div style="margin-top:8px">
+    <button type="button" id="show">表示</button>
+    <button type="button" id="clear" class="ghost">クリア</button>
+  </div>
+</div>
+
 <div id="tbl"></div>
 {th.THEME_BAR}
 <script>
@@ -712,19 +752,27 @@ td.bt.t1{{color:var(--t1)}} td.bt.t2{{color:var(--t2)}} td.bt.t3{{color:var(--t3
   var codes=(params.get('codes')||localStorage.getItem(LS)||'').split(/[\\s,]+/).filter(Boolean);
   codes=Array.from(new Set(codes));
   try{{localStorage.setItem(LS,codes.join(','));}}catch(e){{}}
-  var ta=document.getElementById('codestr');
-  ta.value=codes.join(', ');
+  var codestr=document.getElementById('codestr');
+  codestr.value=codes.join(',');
+  document.getElementById('copy').onclick=function(){{
+    codestr.select();
+    var ok=false;
+    try{{ok=document.execCommand('copy');}}catch(e){{}}
+    if(navigator.clipboard){{navigator.clipboard.writeText(codestr.value).then(function(){{}},function(){{}});ok=true;}}
+    var st=document.getElementById('copystat');
+    st.textContent=ok?'コピーしました':'手動でコピーしてください';
+    setTimeout(function(){{st.textContent='';}},2500);
+  }};
   document.getElementById('show').onclick=function(){{
-    var v=(ta.value||'').split(/[\\s,]+/).filter(Boolean);
+    var v=(document.getElementById('paste').value||'').split(/[\\s,]+/).filter(Boolean);
     v=Array.from(new Set(v.map(function(x){{return x.toUpperCase();}})));
+    if(!v.length)return;
     try{{localStorage.setItem(LS,v.join(','));}}catch(e){{}}
     location.href='watchlist.html?codes='+encodeURIComponent(v.join(','));
   }};
-  document.getElementById('copy').onclick=function(){{
-    navigator.clipboard.writeText(codes.join(',')).then(function(){{
-      document.getElementById('stat').textContent=' コピーしました';}});
-  }};
   document.getElementById('clear').onclick=function(){{
+    if(!codes.length)return;
+    if(!confirm('銘柄リストをすべて削除します。よろしいですか？（事前に上の文字列を控えてください）'))return;
     try{{localStorage.removeItem(LS);}}catch(e){{}}location.href='watchlist.html';
   }};
   var tbl=document.getElementById('tbl');
