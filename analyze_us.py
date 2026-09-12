@@ -160,15 +160,10 @@ def raw_financial_quality_us(yd, info):
                      "Net Income Continuous Operations") or []
     eps = analyze.row(isr, "Basic EPS", "Diluted EPS") or []
     roe = info.get("returnOnEquity")
-
-    def cagr_or_none(series):
-        xs = [x for x in series if is_num(x)]
-        return cagr(xs[-1], xs[0], len(xs) - 1) if len(xs) >= 2 else None
-
     return {
         "roe": (roe * 100.0 if is_num(roe) else None),
-        "rev_growth": cagr_or_none(rev),
-        "eps_growth": cagr_or_none(eps),
+        "rev_growth": analyze.cagr_of(rev),
+        "eps_growth": analyze.cagr_of(eps),
         "profit_stability": worst_yoy_decline_pct(ni),
     }
 
@@ -189,6 +184,105 @@ def financial_quality_score_us(raw_vals):
         den += wt
     total = round(num / den, 1) if den > 0 else None
     return total, parts
+
+
+# ---------------------------------------------------------------- REIT品質スコア
+# REIT（is_reit）向け。会計上の減価償却が純利益を大きく歪めるため業績・財務・CFを
+# 構造的に採点できず、金融品質と同じ理由で「配当の持続力」のみでsel_scoreが決まって
+# いた。設計・分離方針は上の金融品質スコアと同一（analyze.py・DOMAIN_KEYS・
+# build_metrics_us・score_all・sector_rules_us.jsonは無改変。10年保有ツール
+# （reit_quality_long_us.json）とは別ファイル・別実装で完全独立）。
+_REIT_US_CACHE = None
+
+
+def load_reit_cfg_us():
+    global _REIT_US_CACHE
+    if _REIT_US_CACHE is None:
+        _REIT_US_CACHE = analyze.load_json("reit_quality_us.json")
+    return _REIT_US_CACHE
+
+
+def raw_reit_quality_us(yd, info):
+    """FFO(近似) = 純利益 + 減価償却費 − 不動産等売却益（NAREIT定義の簡易近似）。
+    FFO成長率・増収率・FFOの安定度・利払い余裕度((FFO+支払利息)÷支払利息)。"""
+    isr = yd.get("is_rows") or {}
+    ni = analyze.row(isr, "Net Income") or []
+    da = analyze.row(isr, "Reconciled Depreciation",
+                     "Depreciation And Amortization In Income Statement") or []
+    gain = analyze.row(isr, "Gain On Sale Of Business", "Gain On Sale Of Security") or []
+    rev = analyze.row(isr, "Total Revenue") or []
+    ie = analyze.row(isr, "Interest Expense", "Interest Expense Non Operating") or []
+
+    n = max(len(ni), len(da), len(gain))
+    ffo = []
+    for i in range(n):
+        nv = ni[i] if i < len(ni) else None
+        dv = da[i] if i < len(da) else None
+        gv = gain[i] if i < len(gain) else None
+        ffo.append(nv + dv - gv if (is_num(nv) and is_num(dv) and is_num(gv)) else
+                   nv + dv if (is_num(nv) and is_num(dv)) else None)
+    ffo0 = ffo[0] if ffo and is_num(ffo[0]) else None
+    ie0 = ie[0] if ie and is_num(ie[0]) and ie[0] > 0 else None
+    cov = ((ffo0 + ie0) / ie0) if (is_num(ffo0) and is_num(ie0)) else None
+    return {
+        "ffo_growth": analyze.cagr_of(ffo),
+        "rev_growth": analyze.cagr_of(rev),
+        "ffo_stability": worst_yoy_decline_pct(ffo),
+        "interest_coverage": cov,
+    }
+
+
+def reit_quality_score_us(raw_vals):
+    """raw_vals: {"ffo_growth":%, "rev_growth":%, "ffo_stability":%, "interest_coverage":倍}
+    （Noneも可）。reit_quality_us.json の均等ウェイトで合成。
+    返り値: (score 0..110|None, {key: (raw, score)})"""
+    cfg = load_reit_cfg_us()
+    rules, w, fill = cfg["rules"], cfg["weights"], cfg.get("missing_fill", 60)
+    parts = {}
+    num = den = 0.0
+    for k, wt in w.items():
+        v = raw_vals.get(k)
+        s = analyze.score_metric(k, v, rules.get(k))
+        parts[k] = (v, s)
+        num += wt * (s if is_num(s) else fill)
+        den += wt
+    total = round(num / den, 1) if den > 0 else None
+    return total, parts
+
+
+_REIT_METRIC_LABELS = {
+    "ffo_growth": "FFO成長率（CAGR）",
+    "rev_growth": "増収率（賃貸収入等のCAGR）",
+    "ffo_stability": "FFOの安定度（最大下落率）",
+    "interest_coverage": "利払い余裕度（(FFO+支払利息)÷支払利息）",
+}
+
+
+def _reit_quality_html(rq_score, rq_parts):
+    rows = []
+    for k, label in _REIT_METRIC_LABELS.items():
+        raw, sc = (rq_parts or {}).get(k, (None, None))
+        raw_s = f"{raw:.1f}倍" if (k == "interest_coverage" and is_num(raw)) else (f"{raw:.1f}%" if is_num(raw) else "―")
+        sc_s = f"{sc:.0f} / 110" if is_num(sc) else "―"
+        rows.append(f'<div class="plain"><span class="mn">{label}</span>'
+                    f'<span class="mv2">{raw_s}（点数 {sc_s}）</span></div>')
+    note = ('<p class="rule">REITは会計上の減価償却が純利益を大きく歪め業績・財務・CFを構造的に採点'
+            'できないため、代わりに業界標準のFFO（純利益＋減価償却－不動産売却益の簡易近似）を'
+            'ベースにしたFFO成長率・増収率・FFOの安定度・利払い余裕度を均等ウェイトで合成した'
+            '品質スコアを使用しています。「配当の持続力」と合わせて銘柄選定スコアを算出します。</p>')
+    return (f'<div class="domhead"><b>REIT品質</b> {analyze.bar(rq_score)}</div>'
+            f'<div class="plain" style="grid-template-columns:1fr">{note}</div>' + "".join(rows))
+
+
+def _reit_quality_md(rq_score, rq_parts):
+    lines = [f"### REIT品質（{rq_score:.0f} / 110）" if is_num(rq_score) else "### REIT品質（―）",
+             "業績・財務・CFの代役として、FFO成長率・増収率・FFOの安定度・利払い余裕度を均等ウェイトで合成。", ""]
+    for k, label in _REIT_METRIC_LABELS.items():
+        raw, sc = (rq_parts or {}).get(k, (None, None))
+        raw_s = f"{raw:.1f}倍" if (k == "interest_coverage" and is_num(raw)) else (f"{raw:.1f}%" if is_num(raw) else "―")
+        sc_s = f"{sc:.0f}/110" if is_num(sc) else "―"
+        lines.append(f"- {label}：{raw_s}（点数 {sc_s}）")
+    return "\n".join(lines) + "\n"
 
 
 # ---------------------------------------------------------------- 連続非減配年数
@@ -1208,7 +1302,7 @@ a{color:var(--accent)}
 """
 
 
-def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warnings, rules, fq_score=None, fq_parts=None):
+def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warnings, rules, fq_score=None, fq_parts=None, rq_score=None, rq_parts=None):
     rowmap = {r["key"]: r for dom in detail for r in detail[dom] if r.get("key")}
     sg = rules["score_groups"]
     gk = meta["gics_sector"]
@@ -1313,6 +1407,7 @@ def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warni
 <div class="legend">各行をクリックすると「見るポイント／判定ルール／この評価になった理由」が開きます。ラベルは3段階（◎良好／△注意／▲弱い）＋対象外「―」。点は good/warn の2閾値の間を直線補間（warn=60・good=100・別格ライン=最大110・下限20）。ラベルの◎△▲は閾値どおりなので『△なのに94点（＝基準ぎりぎり）』とズレることがあります。グループスコア＝その指標の点の平均、銘柄選定＝業績28・財務27・CF15・配当の持続力30％、買い時＝配当利回りセオリー38・利回り水準とChowder24・株価バリュエーション20・金利スプレッド18％の加重平均。{simple_legend}</div>
 {sel_blocks}
 {_financial_quality_html(fq_score, fq_parts) if fq_score is not None else ""}
+{_reit_quality_html(rq_score, rq_parts) if rq_score is not None else ""}
 
 <h2>② 買い時の指標</h2>
 {tim_blocks}
@@ -1331,7 +1426,7 @@ def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warni
 </div></body></html>"""
 
 
-def render_md_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, rules, fq_score=None, fq_parts=None):
+def render_md_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, rules, fq_score=None, fq_parts=None, rq_score=None, rq_parts=None):
     sg = rules["score_groups"]
     rowmap = {r["key"]: r for dom in detail for r in detail[dom] if r.get("key")}
     L = [f"# {meta['name']}（{meta['code']}）｜米国株 配当スクリーニング", ""]
@@ -1365,6 +1460,9 @@ def render_md_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, rules, 
         if head == "選定" and fq_score is not None:
             L.append("")
             L.append(_financial_quality_md(fq_score, fq_parts))
+        if head == "選定" and rq_score is not None:
+            L.append("")
+            L.append(_reit_quality_md(rq_score, rq_parts))
     L.append("")
     L.append("### 参考")
     for it in M.get("参考", []):
@@ -1431,6 +1529,22 @@ def generate_us(ticker, cfg=None, log=None):
                 else:
                     sel_score = round(fq_score, 1)
 
+        # REIT：業績・財務・CFの代役としてREIT品質スコア（FFOベース）をsel_scoreに
+        # 合成する。金融品質と同じ「呼び出し側で後から合成」方式で完全に独立。
+        rq_score = rq_parts = None
+        if is_reit:
+            reit_q = raw_reit_quality_us(yd, info)
+            rq_score, rq_parts = reit_quality_score_us(reit_q)
+            if rq_score is not None:
+                div_w = rules["score_groups"]["選定"]["配当の持続力"]["weight"]
+                div_score = groups.get("配当の持続力")
+                groups = dict(groups)
+                groups["REIT品質"] = rq_score
+                if div_score is not None:
+                    sel_score = round((rq_score * 0.70 + div_score * div_w) / (0.70 + div_w), 1)
+                else:
+                    sel_score = round(rq_score, 1)
+
         vd = verdicts_us(sel_score, tim_score, groups, dom_scores, ctx, sec_avg, is_simple, coverage)
     except Exception as e:
         import traceback
@@ -1449,7 +1563,9 @@ def generate_us(ticker, cfg=None, log=None):
     if not yd["divs"]:
         warnings.append("配当履歴を取得できませんでした（無配、またはyfinance未収録）。")
     if is_reit:
-        warnings.append("REIT：FFO・NAV倍率・LTV・分配金の内訳が重要で、株式向けのこのツールでは正しく評価できません。参考程度に。")
+        warnings.append("REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。"
+                         "代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。"
+                         "NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。")
     if is_simple and not is_reit:
         warnings.append("銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。"
                          "代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。")
@@ -1464,8 +1580,8 @@ def generate_us(ticker, cfg=None, log=None):
 
     log("[3/3] rendering")
     try:
-        res["html"] = render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warnings, rules, fq_score, fq_parts)
-        res["md"] = render_md_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, rules, fq_score, fq_parts)
+        res["html"] = render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warnings, rules, fq_score, fq_parts, rq_score, rq_parts)
+        res["md"] = render_md_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, rules, fq_score, fq_parts, rq_score, rq_parts)
     except Exception as e:
         import traceback
         res["error"] = f"render failed: {e}\n{traceback.format_exc()}"
