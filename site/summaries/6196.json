@@ -1,15 +1,15 @@
 {
  "code": "6196",
  "name": "ストライクグループ",
- "asof": "2026-09-11",
+ "asof": "2026-09-12",
  "jp_sector": "証券・商品先物取引業",
  "industry": "Capital Markets",
  "is_simple": true,
  "is_reit": false,
- "price": 1395.0,
+ "price": 1394.0,
  "price_date": "2026-09-11",
- "mcap": 80363560960,
- "sel_score": 92.3,
+ "mcap": 80305954816,
+ "sel_score": 90.6,
  "tim_score": 94.1,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
@@ -32,26 +32,27 @@
   "配当利回りセオリー": 108.7,
   "利回り水準とChowder": 108.9,
   "株価バリュエーション": 48.8,
-  "金利スプレッド": null
+  "金利スプレッド": null,
+  "金融品質": 89.8
  },
- "div_yield": 4.659498207885305,
+ "div_yield": 4.66284074605452,
  "streak_up": 9,
  "streak_flat": 9,
  "payout_ni": 71.550006,
  "roe": 25.704,
  "div_policy": null,
- "per_vs_sector": 1.49970972972973,
- "pbr_vs_sector": 2.8831506153846154,
- "per_band_pos": 0.8573907949981411,
- "yield_band_pos": 0.9471435300705324,
+ "per_vs_sector": 1.4964918918918917,
+ "pbr_vs_sector": 2.881083846153846,
+ "per_band_pos": 0.8604057279587847,
+ "yield_band_pos": 0.9478906874660025,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 103000.0,
- "total_yield": 4.6596263754263765,
+ "total_yield": 4.66296900553445,
  "total_payout": 36.923423403382166,
  "interest_coverage": null,
  "warnings": [
-  "銀行・保険・証券は自己資本比率・D/E・ROA・営業CFが構造的に別水準です。財務・CF・業績は採点から外し、銘柄選定は配当の持続力のみ、買い時は通常どおりの簡易判定にしています。"
+  "銀行・保険・証券は自己資本比率・D/E・ROA・営業CFが構造的に別水準のため財務・CF・業績は参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。買い時は通常どおりの判定です。"
  ],
- "_generated_at": "2026-09-11T13:31:55"
+ "_generated_at": "2026-09-12T14:56:25"
 }

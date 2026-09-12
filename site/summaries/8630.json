@@ -1,19 +1,19 @@
 {
  "code": "8630",
  "name": "ＳＯＭＰＯホールディングス",
- "asof": "2026-09-11",
+ "asof": "2026-09-12",
  "jp_sector": "保険業",
  "industry": "Insurance - Property & Casualty",
  "is_simple": true,
  "is_reit": false,
- "price": 6769.0,
+ "price": 6774.0,
  "price_date": "2026-09-11",
- "mcap": 6002645663744,
- "sel_score": 100.3,
- "tim_score": 62.7,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
+ "mcap": 6007079567360,
+ "sel_score": 81.8,
+ "tim_score": 62.6,
+ "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "選定は上位水準、買い時は中位（妥当水準）。",
+ "comment": "選定・買い時とも中位水準。",
  "cov_sel": [
   6,
   6,
@@ -32,26 +32,27 @@
   "配当利回りセオリー": 40.0,
   "利回り水準とChowder": 97.7,
   "株価バリュエーション": 63.6,
-  "金利スプレッド": null
+  "金利スプレッド": null,
+  "金融品質": 73.9
  },
- "div_yield": 2.954646181119811,
+ "div_yield": 2.952465308532625,
  "streak_up": 12,
  "streak_flat": 13,
  "payout_ni": 59.78,
  "roe": 14.430000000000001,
  "div_policy": 100.0,
- "per_vs_sector": 1.9430172661870504,
- "pbr_vs_sector": 0.7097124374999999,
+ "per_vs_sector": 1.9443749640287769,
+ "pbr_vs_sector": 0.710236625,
  "per_band_pos": null,
  "yield_band_pos": 0.0,
  "next_earn": "2026-11-19",
  "earn_disc_date": "2026-08-14",
  "buyback_yen": 229290000000.0,
- "total_yield": 6.774461856479634,
+ "total_yield": 6.769461528224263,
  "total_payout": 151.89567806788082,
  "interest_coverage": 19.322367691112838,
  "warnings": [
-  "銀行・保険・証券は自己資本比率・D/E・ROA・営業CFが構造的に別水準です。財務・CF・業績は採点から外し、銘柄選定は配当の持続力のみ、買い時は通常どおりの簡易判定にしています。"
+  "銀行・保険・証券は自己資本比率・D/E・ROA・営業CFが構造的に別水準のため財務・CF・業績は参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。買い時は通常どおりの判定です。"
  ],
- "_generated_at": "2026-09-11T13:39:47"
+ "_generated_at": "2026-09-12T15:05:06"
 }
