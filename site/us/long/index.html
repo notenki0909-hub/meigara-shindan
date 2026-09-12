@@ -159,7 +159,7 @@ section.grp[hidden]{display:none}
   </div>
 </div>
 
-<div class="sub">生成 2026-09-12T20:59:38　｜　母集団＝S&amp;P500 メンバーシップ（黒字継続・流動性・業種代表性を委員会が審査済み）。金融は専用の品質スコア（ROE・増収率・EPS成長率・利益の安定度）、REITは専用のFFOベース品質スコアで評価。品質スコア（配当は不使用）＋買い時スコア。</div>
+<div class="sub">生成 2026-09-12T23:00:27　｜　母集団＝S&amp;P500 メンバーシップ（黒字継続・流動性・業種代表性を委員会が審査済み）。金融は専用の品質スコア（ROE・増収率・EPS成長率・利益の安定度）、REITは専用のFFOベース品質スコアで評価。品質スコア（配当は不使用）＋買い時スコア。</div>
 <div class="formula">品質スコア ＝ 業績×0.28 ＋ 財務×0.27 ＋ キャッシュフロー×0.15（取得できた
 グループだけで再正規化・0〜110）。既存の銘柄診断エンジンの「銘柄選定スコア」から
 <b>配当の持続力（連続増配・増配率・配当性向・累進配当宣言など）を除いた</b>もの。
@@ -307,10 +307,19 @@ section.grp[hidden]{display:none}
     btns.forEach(function(x){x.classList.toggle('active',x.dataset.tier===activeTier&&activeTier!=='');});
     apply();
   });});
-  // ---- ウォッチリスト／ポートフォリオ選択（別々のチェックボックス列） ----
-  var wlSet=new Set(), pfSet=new Set();
+  // ---- ウォッチリスト／ポートフォリオ選択（別々のチェックボックス列）。選択状態は
+  // localStorageに保存し、ウォッチリスト／ポートフォリオページへ移動して戻っても維持する ----
+  function loadCodes(key){
+    try { return new Set((localStorage.getItem(key)||'').split(',').map(function(s){return s.trim();}).filter(Boolean)); }
+    catch(e) { return new Set(); }
+  }
+  var WL_KEY='wl_codes_long_us';
+  var PF_SEL_KEY='pf_sel_codes_long_us';
+  var wlSet=loadCodes(WL_KEY), pfSet=loadCodes(PF_SEL_KEY);
   var bar=document.getElementById('wlbar'),cnt=document.getElementById('wlcount');
   var pfCnt=document.getElementById('pfcount'),pfNav=document.getElementById('pfnav-n');
+  function wlSave(){ try { localStorage.setItem(WL_KEY, Array.from(wlSet).join(',')); } catch(e) {} }
+  function pfSave(){ try { localStorage.setItem(PF_SEL_KEY, Array.from(pfSet).join(',')); } catch(e) {} }
   function sync(){
     cnt.textContent=wlSet.size;
     pfCnt.textContent=pfSet.size;
@@ -318,12 +327,17 @@ section.grp[hidden]{display:none}
     bar.hidden=(wlSet.size===0&&pfSet.size===0);
     document.body.classList.toggle('wlon',wlSet.size>0||pfSet.size>0);
   }
+  function wlSync(){
+    document.querySelectorAll('.wlc').forEach(function(cb){cb.checked=wlSet.has(cb.dataset.code);});
+    document.querySelectorAll('.pfc').forEach(function(cb){cb.checked=pfSet.has(cb.dataset.code);});
+    sync();
+  }
   document.querySelectorAll('.wlc').forEach(function(cb){
     cb.addEventListener('change',function(){
       var c=cb.dataset.code;
       if(cb.checked)wlSet.add(c);else wlSet.delete(c);
       document.querySelectorAll('.wlc[data-code="'+c+'"]').forEach(function(o){o.checked=cb.checked;});
-      sync();
+      sync();wlSave();
     });
   });
   document.querySelectorAll('.pfc').forEach(function(cb){
@@ -331,22 +345,25 @@ section.grp[hidden]{display:none}
       var c=cb.dataset.code;
       if(cb.checked)pfSet.add(c);else pfSet.delete(c);
       document.querySelectorAll('.pfc[data-code="'+c+'"]').forEach(function(o){o.checked=cb.checked;});
-      sync();
+      sync();pfSave();
     });
   });
   document.getElementById('wlclear').addEventListener('click',function(){
-    wlSet.clear();pfSet.clear();
+    wlSet.clear();pfSet.clear();wlSave();pfSave();
     document.querySelectorAll('.wlc,.pfc').forEach(function(o){o.checked=false;});
     sync();
   });
   document.getElementById('wlgo').addEventListener('click',function(){
     if(!wlSet.size)return;
+    wlSave();
     location.href='watchlist.html?codes='+encodeURIComponent(Array.from(wlSet).join(','));
   });
   document.getElementById('pfgo').addEventListener('click',function(){
     if(!pfSet.size)return;
+    pfSave();
     location.href='portfolio.html?add='+encodeURIComponent(Array.from(pfSet).join(','));
   });
+  wlSync();
   // ---- 見出しクリックで用語説明 ----
   var TERMS={"grade": ["業種級（A/B/C）", "業種グループ内の<b>品質スコア中央値</b>で A＞B＞C。Aが最も質の高い企業が揃う業種という序列（業種選びの目安）。個別銘柄の良し悪しは「品質」と「軍」で見る。"], "tier": ["軍（1〜3軍）", "業種グループ内で品質スコアの高い順に、上位25%を1軍・続く45%を2軍・残りを3軍。カバレッジ「低」は最高2軍まで。品質スコアが十分高い銘柄は、強い業種にいるだけで3軍に落ちないよう最低2軍を保証（1軍はグループ内上位の意味を残す）。6銘柄未満のグループは軍分けせず「―」。矢印は前回比の方向（↑改善／→横ばい／↓悪化）。"], "q": ["品質スコア（0〜110）", "配当を評価しない、長期保有できる優良企業かのスコア。<b>業績×0.28＋財務×0.27＋キャッシュフロー×0.15</b>（取得できたグループで再正規化）。既存の「銘柄選定スコア」から配当の持続力（連続増配・増配率・配当性向・累進配当宣言など）を除いたもの。"], "perf": ["業績", "売上・EPSの伸び（年率）、営業利益率、利益の安定度（営業利益のブレ）の平均点（0〜110）。品質スコアの28%。"], "fin": ["財務", "自己資本比率・D/E・ネットD/E・有利子負債÷営業CF（米国株はICRを含み自己資本比率は参考）の平均点。品質スコアの27%。"], "cf": ["CF（キャッシュフロー）", "営業CFの継続黒字・フリーCFの継続黒字・FCF配当性向の平均点。品質スコアの15%。"], "bt": ["買い時スコア（0〜110）", "今の株価が割高すぎないか。配当利回りは使わず、<b>EV/EBIT対業種・FCF利回り・PER割安度・PBR割安度を均等25%</b>で合成（欠損は中立60）。色＝買い場（割安圏）／ほぼ妥当／やや割高／割高で見送りの4段階。品質とは別物で、質の評価には混ぜない。"], "yield": ["利回り", "予想年間配当 ÷ 現在株価（予想配当利回り）。<b>採点には使わず参考表示のみ。</b>"], "cov": ["カバレッジ", "品質スコアの算出に使えたグループ数（業績・財務・CFの3つ中）。高＝3/3・中＝2/3・低＝1以下。低い銘柄は財務やCFの履歴が短く点がぶれやすい。"], "price": ["終値", "前営業日の終値。夜間更新のため当日ザラ場とはずれる。"]};
   var tibox=document.getElementById('terminfo'),tibody=document.getElementById('terminfo-body');

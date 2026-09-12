@@ -586,10 +586,19 @@ section.grp[hidden]{{display:none}}
     btns.forEach(function(x){{x.classList.toggle('active',x.dataset.tier===activeTier&&activeTier!=='');}});
     apply();
   }});}});
-  // ---- ウォッチリスト／ポートフォリオ選択（別々のチェックボックス列） ----
-  var wlSet=new Set(), pfSet=new Set();
+  // ---- ウォッチリスト／ポートフォリオ選択（別々のチェックボックス列）。選択状態は
+  // localStorageに保存し、ウォッチリスト／ポートフォリオページへ移動して戻っても維持する ----
+  function loadCodes(key){{
+    try {{ return new Set((localStorage.getItem(key)||'').split(',').map(function(s){{return s.trim();}}).filter(Boolean)); }}
+    catch(e) {{ return new Set(); }}
+  }}
+  var WL_KEY='wl_codes_long{"_us" if out["market"]=="us" else ""}';
+  var PF_SEL_KEY='pf_sel_codes_long{"_us" if out["market"]=="us" else ""}';
+  var wlSet=loadCodes(WL_KEY), pfSet=loadCodes(PF_SEL_KEY);
   var bar=document.getElementById('wlbar'),cnt=document.getElementById('wlcount');
   var pfCnt=document.getElementById('pfcount'),pfNav=document.getElementById('pfnav-n');
+  function wlSave(){{ try {{ localStorage.setItem(WL_KEY, Array.from(wlSet).join(',')); }} catch(e) {{}} }}
+  function pfSave(){{ try {{ localStorage.setItem(PF_SEL_KEY, Array.from(pfSet).join(',')); }} catch(e) {{}} }}
   function sync(){{
     cnt.textContent=wlSet.size;
     pfCnt.textContent=pfSet.size;
@@ -597,12 +606,17 @@ section.grp[hidden]{{display:none}}
     bar.hidden=(wlSet.size===0&&pfSet.size===0);
     document.body.classList.toggle('wlon',wlSet.size>0||pfSet.size>0);
   }}
+  function wlSync(){{
+    document.querySelectorAll('.wlc').forEach(function(cb){{cb.checked=wlSet.has(cb.dataset.code);}});
+    document.querySelectorAll('.pfc').forEach(function(cb){{cb.checked=pfSet.has(cb.dataset.code);}});
+    sync();
+  }}
   document.querySelectorAll('.wlc').forEach(function(cb){{
     cb.addEventListener('change',function(){{
       var c=cb.dataset.code;
       if(cb.checked)wlSet.add(c);else wlSet.delete(c);
       document.querySelectorAll('.wlc[data-code="'+c+'"]').forEach(function(o){{o.checked=cb.checked;}});
-      sync();
+      sync();wlSave();
     }});
   }});
   document.querySelectorAll('.pfc').forEach(function(cb){{
@@ -610,22 +624,25 @@ section.grp[hidden]{{display:none}}
       var c=cb.dataset.code;
       if(cb.checked)pfSet.add(c);else pfSet.delete(c);
       document.querySelectorAll('.pfc[data-code="'+c+'"]').forEach(function(o){{o.checked=cb.checked;}});
-      sync();
+      sync();pfSave();
     }});
   }});
   document.getElementById('wlclear').addEventListener('click',function(){{
-    wlSet.clear();pfSet.clear();
+    wlSet.clear();pfSet.clear();wlSave();pfSave();
     document.querySelectorAll('.wlc,.pfc').forEach(function(o){{o.checked=false;}});
     sync();
   }});
   document.getElementById('wlgo').addEventListener('click',function(){{
     if(!wlSet.size)return;
+    wlSave();
     location.href='watchlist.html?codes='+encodeURIComponent(Array.from(wlSet).join(','));
   }});
   document.getElementById('pfgo').addEventListener('click',function(){{
     if(!pfSet.size)return;
+    pfSave();
     location.href='portfolio.html?add='+encodeURIComponent(Array.from(pfSet).join(','));
   }});
+  wlSync();
   // ---- 見出しクリックで用語説明 ----
   var TERMS={terms_json};
   var tibox=document.getElementById('terminfo'),tibody=document.getElementById('terminfo-body');
