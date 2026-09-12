@@ -7,6 +7,8 @@
   python batch_long.py us [...]
   python batch_long.py us --only-codes JPM,BAC,...   # 特定銘柄だけ再診断（スコアリング変更の
                                                        # 部分反映用。--only-stale の鮮度チェックより優先）
+  python batch_long.py jp --only-missing-pfd         # portfolio_data が無い銘柄だけ穴埋め
+                                                       # （ポートフォリオ機能の後付け導入時用）
 
 出力（配当株ツールとは完全に別ディレクトリ。既存 site/summaries・site/reports は触らない）:
   site/long_summaries/<code>.json          site/us/long_summaries/<TICKER>.json
@@ -77,6 +79,10 @@ def main():
                     help="カンマ区切りのコード/ティッカーだけ診断する（--only-staleより優先、"
                          "鮮度に関わらず必ず再診断）。スコアリングロジック変更を一部銘柄だけ"
                          "反映したいときに使う。")
+    ap.add_argument("--only-missing-pfd", action="store_true",
+                    help="portfolio_data/<code>.json が無い銘柄だけ診断する（--only-codes/"
+                         "--only-staleより優先）。ポートフォリオ機能を後から追加した際、"
+                         "既存サマリの鮮度に関わらず株価履歴ファイルだけ穴埋めしたい場合に使う。")
     args = ap.parse_args()
 
     c = CFG[args.market]
@@ -98,7 +104,10 @@ def main():
 
     counts = {"skip": 0, "ok": 0, "fail": 0}
     failed = []
-    if args.only_codes:
+    if args.only_missing_pfd:
+        todo = [(code, name) for code, name in codes
+                if not os.path.isfile(os.path.join(c["pfd"], f"{code}.json"))]
+    elif args.only_codes:
         want = {x.strip().upper() if args.market == "us" else x.strip()
                 for x in args.only_codes.split(",") if x.strip()}
         todo = [(code, name) for code, name in codes if code in want]
