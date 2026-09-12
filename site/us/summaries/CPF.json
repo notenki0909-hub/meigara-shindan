@@ -1,19 +1,19 @@
 {
  "code": "CPF",
  "name": "Central Pacific Financial Corp.",
- "asof": "2026-09-11",
+ "asof": "2026-09-12",
  "gics_sector": "Financials",
  "industry": "Banks - Regional",
  "is_simple": true,
  "is_reit": false,
- "price": 37.790000915527344,
+ "price": 37.83000183105469,
  "price_date": "2026-09-11",
- "mcap": 972995456,
- "sel_score": 86.2,
+ "mcap": 974025408,
+ "sel_score": 83.2,
  "tim_score": 61.4,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
+ "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "選定は上位水準だが、買い時は最下位（割高水準）。",
+ "comment": "選定は中位、買い時は最下位（割高水準）。",
  "cov_sel": [
   6,
   6,
@@ -31,24 +31,25 @@
   "配当の持続力": 86.2,
   "配当利回りセオリー": 40.0,
   "利回り水準とChowder": 73.7,
-  "株価バリュエーション": 87.2,
-  "金利スプレッド": null
+  "株価バリュエーション": 87.4,
+  "金利スプレッド": null,
+  "金融品質": 81.9
  },
- "div_yield": 3.1754431620215655,
- "total_yield": 5.573809963849672,
+ "div_yield": 3.1720854927765787,
+ "total_yield": 5.567916218375063,
  "streak_up": 2,
  "streak_flat": 13,
  "payout_ni": 36.330003,
  "roe": 14.246,
- "chowder": 6.624785515140277,
+ "chowder": 6.62142784589529,
  "interest_coverage": null,
- "per_vs_sector": 0.702377225433526,
- "pbr_vs_sector": 0.65414576,
- "per_band_pos": 0.02993152981525483,
+ "per_vs_sector": 0.7008671098265895,
+ "pbr_vs_sector": 0.6548382,
+ "per_band_pos": 0.036378368630403175,
  "yield_band_pos": 0.0,
  "next_earn": "2026-10-28",
  "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
- "_generated_at": "2026-09-11T23:38:55"
+ "_generated_at": "2026-09-12T12:15:08"
 }

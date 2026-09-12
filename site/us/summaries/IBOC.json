@@ -1,19 +1,19 @@
 {
  "code": "IBOC",
  "name": "International Bancshares Corporation",
- "asof": "2026-09-11",
+ "asof": "2026-09-12",
  "gics_sector": "Financials",
  "industry": "Banks - Regional",
  "is_simple": true,
  "is_reit": false,
- "price": 70.68000030517578,
+ "price": 70.94000244140625,
  "price_date": "2026-09-11",
- "mcap": 4395696128,
- "sel_score": 84.7,
+ "mcap": 4411866112,
+ "sel_score": 94.2,
  "tim_score": 57.9,
- "sel_label": "選定スコア中位（一部に弱点）",
+ "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "選定は中位、買い時は最下位（割高水準）。",
+ "comment": "選定は上位水準だが、買い時は最下位（割高水準）。",
  "cov_sel": [
   6,
   6,
@@ -30,25 +30,26 @@
   "キャッシュフロー": null,
   "配当の持続力": 84.7,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 62.3,
+  "利回り水準とChowder": 62.2,
   "株価バリュエーション": 86.7,
-  "金利スプレッド": null
+  "金利スプレッド": null,
+  "金融品質": 98.2
  },
- "div_yield": 2.065647982026235,
- "total_yield": 2.1704777943203024,
+ "div_yield": 2.058077177550007,
+ "total_yield": 2.162522776827522,
  "streak_up": 4,
  "streak_flat": 17,
  "payout_ni": 21.540001,
  "roe": 12.920000000000002,
- "chowder": 6.954903547150375,
+ "chowder": 6.947332742674147,
  "interest_coverage": null,
- "per_vs_sector": 0.6152935838150289,
- "pbr_vs_sector": 0.5208932,
+ "per_vs_sector": 0.6184883815028902,
+ "pbr_vs_sector": 0.52280936,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.0,
  "next_earn": "2026-11-05",
  "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
- "_generated_at": "2026-09-11T23:43:12"
+ "_generated_at": "2026-09-12T12:18:10"
 }

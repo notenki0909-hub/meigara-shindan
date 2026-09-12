@@ -1,19 +1,19 @@
 {
  "code": "CFG",
  "name": "Citizens Financial Group, Inc.",
- "asof": "2026-09-11",
+ "asof": "2026-09-12",
  "gics_sector": "Financials",
  "industry": "Banks - Regional",
  "is_simple": true,
  "is_reit": false,
- "price": 69.30999755859375,
+ "price": 70.4800033569336,
  "price_date": "2026-09-11",
- "mcap": 29191763968,
- "sel_score": 77.1,
- "tim_score": 56.2,
- "sel_label": "選定スコア中位（一部に弱点）",
+ "mcap": 29684541440,
+ "sel_score": 66.7,
+ "tim_score": 56.0,
+ "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "選定は中位、買い時は最下位（割高水準）。",
+ "comment": "選定は下位、買い時は最下位水準。",
  "cov_sel": [
   6,
   6,
@@ -30,25 +30,26 @@
   "キャッシュフロー": null,
   "配当の持続力": 77.1,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 58.5,
-  "株価バリュエーション": 84.4,
-  "金利スプレッド": null
+  "利回り水準とChowder": 57.7,
+  "株価バリュエーション": 84.3,
+  "金利スプレッド": null,
+  "金融品質": 62.3
  },
- "div_yield": 2.654739669330515,
- "total_yield": 6.080363420934562,
+ "div_yield": 2.610669569184955,
+ "total_yield": 5.979426341194569,
  "streak_up": 1,
  "streak_flat": 12,
  "payout_ni": 39.220002,
  "roe": 8.270001,
- "chowder": 4.626700318877438,
+ "chowder": 4.582630218731877,
  "interest_coverage": null,
- "per_vs_sector": 0.8728449132947977,
- "pbr_vs_sector": 0.48680443999999995,
+ "per_vs_sector": 0.8780147976878612,
+ "pbr_vs_sector": 0.49502204,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.0,
  "next_earn": "2026-10-16",
  "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
- "_generated_at": "2026-09-11T23:38:19"
+ "_generated_at": "2026-09-12T12:14:37"
 }

@@ -1,15 +1,15 @@
 {
  "code": "FFBC",
  "name": "First Financial Bancorp.",
- "asof": "2026-09-11",
+ "asof": "2026-09-12",
  "gics_sector": "Financials",
  "industry": "Banks - Regional",
  "is_simple": true,
  "is_reit": false,
- "price": 32.349998474121094,
+ "price": 32.5,
  "price_date": "2026-09-11",
- "mcap": 3395341312,
- "sel_score": 75.8,
+ "mcap": 3411084800,
+ "sel_score": 84.0,
  "tim_score": 57.9,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア最下位（割高水準）",
@@ -30,25 +30,26 @@
   "キャッシュフロー": null,
   "配当の持続力": 75.8,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 62.4,
+  "利回り水準とChowder": 62.3,
   "株価バリュエーション": 86.7,
-  "金利スプレッド": null
+  "金利スプレッド": null,
+  "金融品質": 87.5
  },
- "div_yield": 3.1221021565363163,
+ "div_yield": 3.1076923076923078,
  "total_yield": null,
  "streak_up": 3,
  "streak_flat": 12,
  "payout_ni": 35.339999999999996,
  "roe": 10.286,
- "chowder": 4.393697067105412,
+ "chowder": 4.379287218261403,
  "interest_coverage": null,
- "per_vs_sector": 0.6607569364161849,
- "pbr_vs_sector": 0.45460928,
+ "per_vs_sector": 0.6638207514450867,
+ "pbr_vs_sector": 0.45671723999999997,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.0,
  "next_earn": "2026-10-22",
  "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
- "_generated_at": "2026-09-11T23:41:06"
+ "_generated_at": "2026-09-12T12:16:43"
 }

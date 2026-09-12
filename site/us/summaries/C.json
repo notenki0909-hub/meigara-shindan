@@ -1,16 +1,16 @@
 {
  "code": "C",
  "name": "Citigroup Inc.",
- "asof": "2026-09-11",
+ "asof": "2026-09-12",
  "gics_sector": "Financials",
  "industry": "Banks - Diversified",
  "is_simple": true,
  "is_reit": false,
- "price": 137.93499755859375,
+ "price": 138.82000732421875,
  "price_date": "2026-09-11",
- "mcap": 231352074240,
- "sel_score": 83.6,
- "tim_score": 53.4,
+ "mcap": 232861794304,
+ "sel_score": 70.6,
+ "tim_score": 53.3,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア最下位（割高水準）",
  "comment": "選定は中位、買い時は最下位（割高水準）。",
@@ -30,25 +30,26 @@
   "キャッシュフロー": null,
   "配当の持続力": 83.6,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 48.6,
+  "利回り水準とChowder": 48.4,
   "株価バリュエーション": 84.5,
-  "金利スプレッド": null
+  "金利スプレッド": null,
+  "金融品質": 65.0
  },
- "div_yield": 1.9429441747454677,
- "total_yield": 9.8313541057789,
+ "div_yield": 1.9305574546907858,
+ "total_yield": 9.76782421394916,
  "streak_up": 4,
  "streak_flat": 15,
  "payout_ni": 25.86,
  "roe": 8.529,
- "chowder": 4.548662110576155,
+ "chowder": 4.536275390521473,
  "interest_coverage": null,
- "per_vs_sector": 0.8590791329479769,
- "pbr_vs_sector": 0.48081715999999997,
+ "per_vs_sector": 0.8646851445086705,
+ "pbr_vs_sector": 0.48395476000000004,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.0,
  "next_earn": "2026-10-13",
  "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
- "_generated_at": "2026-09-11T23:37:59"
+ "_generated_at": "2026-09-12T12:14:18"
 }

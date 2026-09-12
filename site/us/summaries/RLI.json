@@ -1,19 +1,19 @@
 {
  "code": "RLI",
  "name": "RLI Corp.",
- "asof": "2026-09-11",
+ "asof": "2026-09-12",
  "gics_sector": "Financials",
  "industry": "Insurance - Property & Casualty",
  "is_simple": true,
  "is_reit": false,
- "price": 60.040000915527344,
+ "price": 60.47999954223633,
  "price_date": "2026-09-11",
- "mcap": 5510049280,
- "sel_score": 108.0,
- "tim_score": 106.6,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
+ "mcap": 5550429184,
+ "sel_score": 77.0,
+ "tim_score": 106.5,
+ "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "選定・買い時とも上位水準。",
+ "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
  "cov_sel": [
   5,
   6,
@@ -31,24 +31,25 @@
   "配当の持続力": 108.0,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 110.0,
-  "株価バリュエーション": 95.9,
-  "金利スプレッド": null
+  "株価バリュエーション": 95.5,
+  "金利スプレッド": null,
+  "金融品質": 63.7
  },
- "div_yield": 7.794803345497077,
+ "div_yield": 7.738095296663674,
  "total_yield": null,
  "streak_up": 39,
  "streak_flat": 39,
  "payout_ni": 13.87,
  "roe": 25.163999999999998,
- "chowder": 29.747168242455654,
+ "chowder": 29.69046019362225,
  "interest_coverage": 95.43467711832774,
- "per_vs_sector": 0.7291008670520231,
- "pbr_vs_sector": 1.22906856,
- "per_band_pos": 0.6725246674649826,
+ "per_vs_sector": 0.7329043352601156,
+ "pbr_vs_sector": 1.2380756,
+ "per_band_pos": 0.666591182646598,
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-19",
  "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
- "_generated_at": "2026-09-11T23:49:58"
+ "_generated_at": "2026-09-12T12:22:49"
 }

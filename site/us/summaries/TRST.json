@@ -1,19 +1,19 @@
 {
  "code": "TRST",
  "name": "TrustCo Bank Corp NY",
- "asof": "2026-09-11",
+ "asof": "2026-09-12",
  "gics_sector": "Financials",
  "industry": "Banks - Regional",
  "is_simple": true,
  "is_reit": false,
- "price": 57.83000183105469,
+ "price": 58.45000076293945,
  "price_date": "2026-09-11",
- "mcap": 984714240,
- "sel_score": 82.1,
- "tim_score": 56.3,
- "sel_label": "選定スコア中位（一部に弱点）",
+ "mcap": 995271424,
+ "sel_score": 64.6,
+ "tim_score": 56.1,
+ "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "選定は中位、買い時は最下位（割高水準）。",
+ "comment": "選定は下位、買い時は最下位水準。",
  "cov_sel": [
   6,
   6,
@@ -30,25 +30,26 @@
   "キャッシュフロー": null,
   "配当の持続力": 82.1,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 59.3,
-  "株価バリュエーション": 83.6,
-  "金利スプレッド": null
+  "利回り水準とChowder": 58.7,
+  "株価バリュエーション": 83.4,
+  "金利スプレッド": null,
+  "金融品質": 57.1
  },
- "div_yield": 2.766729983295281,
- "total_yield": 6.6393255497004136,
+ "div_yield": 2.737382342370283,
+ "total_yield": 6.568899964642537,
  "streak_up": 2,
  "streak_flat": 17,
  "payout_ni": 42.220002,
  "roe": 9.649000000000001,
- "chowder": 4.472258600398817,
+ "chowder": 4.442910959473819,
  "interest_coverage": null,
- "per_vs_sector": 0.9285485549132948,
- "pbr_vs_sector": 0.60044128,
+ "per_vs_sector": 0.9385036416184971,
+ "pbr_vs_sector": 0.6068786,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.0,
  "next_earn": "2026-10-20",
  "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
- "_generated_at": "2026-09-11T23:52:27"
+ "_generated_at": "2026-09-12T12:24:46"
 }

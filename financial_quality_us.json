@@ -1,0 +1,21 @@
+{
+  "_meta": {
+    "説明": "配当株ツール（analyze_us.py）の追加。銀行・保険・証券（is_simple かつ is_reit でない業種）は業績・財務・キャッシュフローを構造的に採点できず、従来は配当の持続力のみでsel_scoreが決まっていた＝事業の健全性を一切見ない盲点があった。本ファイルはこの穴を埋める品質サブスコアの設定値。10年保有ツール（financial_quality_long.json）と設計思想・4指標構成は同じだが、しきい値は配当ツール自身のUS母集団（fin_like約109銘柄）の実データ分布で別途校正した値であり、ファイルも完全に別（10年保有ツール側には一切依存しない・参照されない）。",
+    "対象": "US: GICS Financialsのうち industry が Banks/Insurance 系（sector_map_us.jsonのfinancial_like_industries）。REIT（is_reit）は対象外（別途REIT品質スコアで対応予定）。",
+    "設計": "ROE・増収率(売上高CAGR)・EPS成長率(CAGR)・利益の安定度(純利益の最大下落率)を均等ウェイト25%で合成。sel_score内では『金融品質』として業績28%+財務27%+キャッシュフロー15%=70%の代役、配当の持続力30%と再正規化。analyze.score_metric()の直線補間をそのまま再利用。",
+    "校正": "2026-09-12、配当ツール自身のfin_like企業109銘柄（is_simpleかつis_reitでない全銘柄）の実データ分布から校正。good≈p75・warn≈p25（10年保有ツールと同じ校正方針）。ROE分布：p25=9.0/中央値=11.1/p75=14.2。増収率：p25=2.1/中央値=4.9/p75=8.3。EPS成長率：p25=-4.6/中央値=1.7/p75=8.5（n=104、5銘柄はEPS系列不足）。利益の安定度：p25=-32.4/中央値=-16.4/p75=-4.4。JPM(roe17.8/rev12.5/eps18.3/stab-2.4→総合約106)・BANC(roe-0.7/rev-6.3/eps-14.7/stab-548.3→総合約22)で実在銘柄の妥当性を確認済み。"
+  },
+  "weights": {
+    "roe": 0.25,
+    "rev_growth": 0.25,
+    "eps_growth": 0.25,
+    "profit_stability": 0.25
+  },
+  "missing_fill": 60,
+  "rules": {
+    "roe": {"dir": "higher_better", "good": 14.0, "warn": 9.0, "_note": "自己資本利益率(%)。yfinanceのreturnOnEquity。高いほど良い。fin_like109銘柄のp75/p25で校正。"},
+    "rev_growth": {"dir": "higher_better", "good": 8.0, "warn": 2.0, "_note": "売上高の年率成長(CAGR %、直近〜4年)。高いほど良い。fin_like109銘柄のp75/p25で校正。"},
+    "eps_growth": {"dir": "higher_better", "good": 8.5, "warn": -4.5, "_note": "EPSの年率成長(CAGR %、直近〜4年)。高いほど良い。自社株買いの効果も含む。fin_like109銘柄のp75/p25で校正。"},
+    "profit_stability": {"dir": "higher_better", "good": -4.0, "warn": -32.0, "_note": "直近数年の純利益、前年比の最大下落率(%)。0＝減益なし。fin_like109銘柄のp75/p25で校正。"}
+  }
+}

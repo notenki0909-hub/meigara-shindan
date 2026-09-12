@@ -1,19 +1,19 @@
 {
  "code": "VLY",
  "name": "Valley National Bancorp",
- "asof": "2026-09-11",
+ "asof": "2026-09-12",
  "gics_sector": "Financials",
  "industry": "Banks - Regional",
  "is_simple": true,
  "is_reit": false,
- "price": 13.774999618530273,
+ "price": 13.800000190734863,
  "price_date": "2026-09-11",
- "mcap": 7612136960,
- "sel_score": 72.5,
- "tim_score": 59.4,
- "sel_label": "選定スコア中位（一部に弱点）",
+ "mcap": 7625952768,
+ "sel_score": 67.2,
+ "tim_score": 59.0,
+ "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "選定は中位、買い時は最下位（割高水準）。",
+ "comment": "選定は下位、買い時は最下位水準。",
  "cov_sel": [
   6,
   6,
@@ -31,24 +31,25 @@
   "配当の持続力": 72.5,
   "配当利回りセオリー": 40.0,
   "利回り水準とChowder": 60.6,
-  "株価バリュエーション": 94.9,
-  "金利スプレッド": null
+  "株価バリュエーション": 93.2,
+  "金利スプレッド": null,
+  "金融品質": 64.9
  },
- "div_yield": 3.194192465951922,
- "total_yield": 4.150586188011279,
+ "div_yield": 3.1884057530333236,
+ "total_yield": 4.143066792969101,
  "streak_up": 0,
  "streak_flat": 12,
  "payout_ni": 37.29,
  "roe": 8.953,
- "chowder": 3.194192465951922,
+ "chowder": 3.1884057530333236,
  "interest_coverage": null,
- "per_vs_sector": 0.6691115028901733,
- "pbr_vs_sector": 0.40866276,
- "per_band_pos": 0.24606471936438948,
+ "per_vs_sector": 0.6760067052023121,
+ "pbr_vs_sector": 0.40940447999999996,
+ "per_band_pos": 0.196402377174637,
  "yield_band_pos": 0.0,
  "next_earn": "2026-10-29",
  "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
- "_generated_at": "2026-09-11T23:53:22"
+ "_generated_at": "2026-09-12T12:25:34"
 }

@@ -1,19 +1,19 @@
 {
  "code": "ASB",
  "name": "Associated Banc-Corp",
- "asof": "2026-09-11",
+ "asof": "2026-09-12",
  "gics_sector": "Financials",
  "industry": "Banks - Regional",
  "is_simple": true,
  "is_reit": false,
- "price": 30.030000686645508,
+ "price": 30.040000915527344,
  "price_date": "2026-09-11",
- "mcap": 5671155712,
- "sel_score": 86.3,
- "tim_score": 69.2,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
+ "mcap": 5673043968,
+ "sel_score": 74.8,
+ "tim_score": 69.1,
+ "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "選定は上位水準だが、買い時は下位（やや割高水準）。",
+ "comment": "選定は中位、買い時は下位（やや割高水準）。",
  "cov_sel": [
   6,
   6,
@@ -31,24 +31,25 @@
   "配当の持続力": 86.3,
   "配当利回りセオリー": 40.0,
   "利回り水準とChowder": 82.9,
-  "株価バリュエーション": 108.1,
-  "金利スプレッド": null
+  "株価バリュエーション": 108.0,
+  "金利スプレッド": null,
+  "金融品質": 69.9
  },
- "div_yield": 3.1968031237072756,
- "total_yield": 3.7086035656980316,
+ "div_yield": 3.1957389172507864,
+ "total_yield": 3.7073690079696604,
  "streak_up": 4,
  "streak_flat": 16,
  "payout_ni": 33.220002,
  "roe": 9.6949995,
- "chowder": 8.448738505133907,
+ "chowder": 8.447674298677418,
  "interest_coverage": null,
- "per_vs_sector": 0.6069364739884392,
- "pbr_vs_sector": 0.41115864,
- "per_band_pos": 0.7747016385395142,
+ "per_vs_sector": 0.6135746242774567,
+ "pbr_vs_sector": 0.41129556,
+ "per_band_pos": 0.7589975715692285,
  "yield_band_pos": 0.0,
  "next_earn": "2026-10-22",
  "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
- "_generated_at": "2026-09-11T23:36:40"
+ "_generated_at": "2026-09-12T12:13:23"
 }

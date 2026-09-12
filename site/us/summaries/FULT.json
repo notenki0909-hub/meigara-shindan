@@ -1,15 +1,15 @@
 {
  "code": "FULT",
  "name": "Fulton Financial Corporation",
- "asof": "2026-09-11",
+ "asof": "2026-09-12",
  "gics_sector": "Financials",
  "industry": "Banks - Regional",
  "is_simple": true,
  "is_reit": false,
- "price": 23.454999923706055,
+ "price": 23.600000381469727,
  "price_date": "2026-09-11",
- "mcap": 4477900800,
- "sel_score": 93.7,
+ "mcap": 4505583616,
+ "sel_score": 94.1,
  "tim_score": 70.6,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア下位（やや割高水準）",
@@ -30,25 +30,26 @@
   "キャッシュフロー": null,
   "配当の持続力": 93.7,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 105.8,
+  "利回り水準とChowder": 105.7,
   "株価バリュエーション": 86.7,
-  "金利スプレッド": null
+  "金利スプレッド": null,
+  "金融品質": 94.2
  },
- "div_yield": 3.240247292569228,
- "total_yield": 4.71522413886292,
+ "div_yield": 3.220338930997381,
+ "total_yield": 4.686253352504368,
  "streak_up": 6,
  "streak_flat": 17,
  "payout_ni": 36.060002000000004,
  "roe": 11.100999999999999,
- "chowder": 32.79655815050314,
+ "chowder": 32.77664978893129,
  "interest_coverage": null,
- "per_vs_sector": 0.651817514450867,
- "pbr_vs_sector": 0.49579871999999997,
+ "per_vs_sector": 0.6558470520231213,
+ "pbr_vs_sector": 0.49886379999999997,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.0,
  "next_earn": "2026-10-20",
  "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
- "_generated_at": "2026-09-11T23:41:36"
+ "_generated_at": "2026-09-12T12:17:04"
 }

@@ -1,15 +1,15 @@
 {
  "code": "JPM",
  "name": "JPMorgan Chase & Co.",
- "asof": "2026-09-11",
+ "asof": "2026-09-12",
  "gics_sector": "Financials",
  "industry": "Banks - Diversified",
  "is_simple": true,
  "is_reit": false,
- "price": 355.3699951171875,
+ "price": 356.2300109863281,
  "price_date": "2026-09-11",
- "mcap": 944639639552,
- "sel_score": 93.5,
+ "mcap": 946925731840,
+ "sel_score": 102.1,
  "tim_score": 60.0,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア最下位（割高水準）",
@@ -30,25 +30,26 @@
   "キャッシュフロー": null,
   "配当の持続力": 93.5,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 76.2,
+  "利回り水準とChowder": 76.1,
   "株価バリュエーション": 78.6,
-  "金利スプレッド": null
+  "金利スプレッド": null,
+  "金融品質": 105.8
  },
- "div_yield": 1.688381147097528,
- "total_yield": 5.3502008031522905,
+ "div_yield": 1.684305031849289,
+ "total_yield": 5.337284229360923,
  "streak_up": 3,
  "streak_flat": 17,
  "payout_ni": 25.71,
  "roe": 17.788999999999998,
- "chowder": 10.731457760541717,
+ "chowder": 10.727381645293478,
  "interest_coverage": null,
- "per_vs_sector": 0.8804808670520231,
- "pbr_vs_sector": 1.06872568,
+ "per_vs_sector": 0.8758541040462428,
+ "pbr_vs_sector": 1.071312,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.0,
  "next_earn": "2026-10-13",
  "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
- "_generated_at": "2026-09-11T23:43:51"
+ "_generated_at": "2026-09-12T12:18:37"
 }

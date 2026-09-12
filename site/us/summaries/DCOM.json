@@ -1,19 +1,19 @@
 {
  "code": "DCOM",
  "name": "Dime Commercial Bancshares, Inc.",
- "asof": "2026-09-11",
+ "asof": "2026-09-12",
  "gics_sector": "Financials",
  "industry": "Banks - Regional",
  "is_simple": true,
  "is_reit": false,
- "price": 40.5099983215332,
+ "price": 40.709999084472656,
  "price_date": "2026-09-11",
- "mcap": 1788783616,
- "sel_score": 72.2,
- "tim_score": 54.7,
- "sel_label": "選定スコア中位（一部に弱点）",
+ "mcap": 1797614976,
+ "sel_score": 51.9,
+ "tim_score": 54.6,
+ "sel_label": "選定スコア基準未達",
  "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "選定は中位、買い時は最下位（割高水準）。",
+ "comment": "選定・買い時とも最下位水準。",
  "cov_sel": [
   6,
   6,
@@ -30,25 +30,26 @@
   "キャッシュフロー": null,
   "配当の持続力": 72.2,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 52.9,
-  "株価バリュエーション": 84.7,
-  "金利スプレッド": null
+  "利回り水準とChowder": 52.8,
+  "株価バリュエーション": 84.6,
+  "金利スプレッド": null,
+  "金融品質": 43.2
  },
- "div_yield": 2.468526392084413,
- "total_yield": 2.468526392084413,
+ "div_yield": 2.4563989744264414,
+ "total_yield": 2.4563989744264414,
  "streak_up": 0,
  "streak_flat": 25,
  "payout_ni": 36.230000000000004,
  "roe": 8.735999999999999,
- "chowder": 3.288308241801063,
+ "chowder": 3.276180824143091,
  "interest_coverage": null,
- "per_vs_sector": 0.848412485549133,
- "pbr_vs_sector": 0.50968796,
+ "per_vs_sector": 0.8526011560693642,
+ "pbr_vs_sector": 0.51220432,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.0,
  "next_earn": "2026-10-22",
  "warnings": [
-  "銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
- "_generated_at": "2026-09-11T23:39:25"
+ "_generated_at": "2026-09-12T12:15:34"
 }

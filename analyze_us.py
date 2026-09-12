@@ -118,6 +118,79 @@ def classify_sector_us(info, smap):
     return gics, industry, ysector, is_simple, is_reit, src
 
 
+# ---------------------------------------------------------------- 金融品質スコア
+# 銀行・保険・証券（is_simple かつ REIT でない）向け。従来は業績・財務・CFを
+# 構造的に採点できず「配当の持続力」のみでsel_scoreが決まっていた＝事業の健全性を
+# 一切見ない盲点があったため追加。10年保有ツール（analyze_long.py/long_common.py）の
+# 同名スコアと設計思想は同じだが、このファイル内で完結する独立実装（import・共有
+# なし）。analyze.py（DOMAIN_KEYS・build_metrics_us・score_all）には一切手を
+# 入れず、generate_us() が score_all() の結果を受け取った後に別途合成する
+# （10年保有ツール自身が採用しているのと同じ「呼び出し側で後から合成」方式）。
+_FQ_US_CACHE = None
+
+
+def load_fq_cfg_us():
+    global _FQ_US_CACHE
+    if _FQ_US_CACHE is None:
+        _FQ_US_CACHE = analyze.load_json("financial_quality_us.json")
+    return _FQ_US_CACHE
+
+
+def worst_yoy_decline_pct(series):
+    """新しい年→古い年の順の系列（analyze.row()と同じ並び）から、前年比の最大下落率(%)を返す。
+    一度も減益していなければ 0.0。前年がゼロ/符号違いの年は比較から除く。2点未満なら None。"""
+    xs = [v for v in series if is_num(v)]
+    if len(xs) < 2:
+        return None
+    worst = 0.0
+    for newer, older in zip(xs, xs[1:]):
+        if not (is_num(older) and older > 0):
+            continue
+        yoy = (newer - older) / older * 100.0
+        if yoy < worst:
+            worst = yoy
+    return round(worst, 1)
+
+
+def raw_financial_quality_us(yd, info):
+    """ROE・増収率(売上高CAGR)・EPS成長率(CAGR)・利益の安定度(純利益の最大下落率)。"""
+    isr = yd.get("is_rows") or {}
+    rev = analyze.row(isr, "Total Revenue", "Operating Revenue") or []
+    ni = analyze.row(isr, "Net Income", "Net Income Common Stockholders",
+                     "Net Income Continuous Operations") or []
+    eps = analyze.row(isr, "Basic EPS", "Diluted EPS") or []
+    roe = info.get("returnOnEquity")
+
+    def cagr_or_none(series):
+        xs = [x for x in series if is_num(x)]
+        return cagr(xs[-1], xs[0], len(xs) - 1) if len(xs) >= 2 else None
+
+    return {
+        "roe": (roe * 100.0 if is_num(roe) else None),
+        "rev_growth": cagr_or_none(rev),
+        "eps_growth": cagr_or_none(eps),
+        "profit_stability": worst_yoy_decline_pct(ni),
+    }
+
+
+def financial_quality_score_us(raw_vals):
+    """raw_vals: {"roe":%, "rev_growth":%, "eps_growth":%, "profit_stability":%}（Noneも可）。
+    financial_quality_us.json の均等ウェイトで合成。
+    返り値: (score 0..110|None, {key: (raw, score)})"""
+    cfg = load_fq_cfg_us()
+    rules, w, fill = cfg["rules"], cfg["weights"], cfg.get("missing_fill", 60)
+    parts = {}
+    num = den = 0.0
+    for k, wt in w.items():
+        v = raw_vals.get(k)
+        s = analyze.score_metric(k, v, rules.get(k))
+        parts[k] = (v, s)
+        num += wt * (s if is_num(s) else fill)
+        den += wt
+    total = round(num / den, 1) if den > 0 else None
+    return total, parts
+
+
 # ---------------------------------------------------------------- 連続非減配年数
 def nocut_streak_rate(divs, max_years=60):
     """連続非減配年数を『1回あたり配当額の前年同期比』で数える。
@@ -839,6 +912,46 @@ def _group_section_us(head, sg, groups, rowmap, gics_key, gics_disp, is_simple, 
     return "".join(out)
 
 
+# 金融品質スコアの内訳表示。既存の _group_section_us / _metric_details_html_us は
+# rowmap（= score_all() が M から作る辞書）に登録された key を前提にしており、
+# 金融品質はそこを一切経由しない独立計算のため、専用の簡易表示を別に用意する
+# （rowmap に同名キーを混ぜると既存の「配当の持続力」グループのroe表示等と
+# 衝突するリスクがあるため、意図的に完全分離）。
+_FQ_METRIC_LABELS = {
+    "roe": "ROE（自己資本利益率）",
+    "rev_growth": "増収率（売上高CAGR）",
+    "eps_growth": "EPS成長率（CAGR）",
+    "profit_stability": "利益の安定度（純利益の最大下落率）",
+}
+
+
+def _financial_quality_html(fq_score, fq_parts):
+    rows = []
+    for k, label in _FQ_METRIC_LABELS.items():
+        raw, sc = (fq_parts or {}).get(k, (None, None))
+        raw_s = f"{raw:.1f}%" if is_num(raw) else "―"
+        sc_s = f"{sc:.0f} / 110" if is_num(sc) else "―"
+        rows.append(f'<div class="plain"><span class="mn">{label}</span>'
+                    f'<span class="mv2">{raw_s}（点数 {sc_s}）</span></div>')
+    note = ('<p class="rule">銀行・保険・証券は業績・財務・キャッシュフローの構造がバランスシートの'
+            '性質上ほかの業種と根本的に異なり採点できないため、代わりにROE・増収率・EPS成長率・'
+            '利益の安定度を均等ウェイトで合成した品質スコアを使用しています。「配当の持続力」と'
+            '合わせて銘柄選定スコアを算出します。</p>')
+    return (f'<div class="domhead"><b>金融品質</b> {analyze.bar(fq_score)}</div>'
+            f'<div class="plain" style="grid-template-columns:1fr">{note}</div>' + "".join(rows))
+
+
+def _financial_quality_md(fq_score, fq_parts):
+    lines = [f"### 金融品質（{fq_score:.0f} / 110）" if is_num(fq_score) else "### 金融品質（―）",
+             "業績・財務・CFの代役として、ROE・増収率・EPS成長率・利益の安定度を均等ウェイトで合成。", ""]
+    for k, label in _FQ_METRIC_LABELS.items():
+        raw, sc = (fq_parts or {}).get(k, (None, None))
+        raw_s = f"{raw:.1f}%" if is_num(raw) else "―"
+        sc_s = f"{sc:.0f}/110" if is_num(sc) else "―"
+        lines.append(f"- {label}：{raw_s}（点数 {sc_s}）")
+    return "\n".join(lines) + "\n"
+
+
 def svg_price_us(hist_m):
     """日本版 svg_price の米国版（$ 表記）。"""
     import math
@@ -1095,7 +1208,7 @@ a{color:var(--accent)}
 """
 
 
-def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warnings, rules):
+def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warnings, rules, fq_score=None, fq_parts=None):
     rowmap = {r["key"]: r for dom in detail for r in detail[dom] if r.get("key")}
     sg = rules["score_groups"]
     gk = meta["gics_sector"]
@@ -1199,6 +1312,7 @@ def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warni
 {sel_chart}
 <div class="legend">各行をクリックすると「見るポイント／判定ルール／この評価になった理由」が開きます。ラベルは3段階（◎良好／△注意／▲弱い）＋対象外「―」。点は good/warn の2閾値の間を直線補間（warn=60・good=100・別格ライン=最大110・下限20）。ラベルの◎△▲は閾値どおりなので『△なのに94点（＝基準ぎりぎり）』とズレることがあります。グループスコア＝その指標の点の平均、銘柄選定＝業績28・財務27・CF15・配当の持続力30％、買い時＝配当利回りセオリー38・利回り水準とChowder24・株価バリュエーション20・金利スプレッド18％の加重平均。{simple_legend}</div>
 {sel_blocks}
+{_financial_quality_html(fq_score, fq_parts) if fq_score is not None else ""}
 
 <h2>② 買い時の指標</h2>
 {tim_blocks}
@@ -1217,7 +1331,7 @@ def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warni
 </div></body></html>"""
 
 
-def render_md_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, rules):
+def render_md_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, rules, fq_score=None, fq_parts=None):
     sg = rules["score_groups"]
     rowmap = {r["key"]: r for dom in detail for r in detail[dom] if r.get("key")}
     L = [f"# {meta['name']}（{meta['code']}）｜米国株 配当スクリーニング", ""]
@@ -1248,6 +1362,9 @@ def render_md_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, rules):
                 sc = it.get("score")
                 sc_txt = f"{sc:.0f}" if is_num(sc) else "―"
                 L.append(f"- {mark} {sc_txt}  {it['name']}：{it.get('disp', '―')}")
+        if head == "選定" and fq_score is not None:
+            L.append("")
+            L.append(_financial_quality_md(fq_score, fq_parts))
     L.append("")
     L.append("### 参考")
     for it in M.get("参考", []):
@@ -1294,6 +1411,26 @@ def generate_us(ticker, cfg=None, log=None):
         ctx["company"] = analyze.build_company_overview(info)
         ctx["hist_m"] = yd.get("hist_m")
         dom_scores, detail, groups, sel_score, tim_score, coverage = analyze.score_all(M, gics, rules, is_simple)
+
+        # 銀行・保険・証券（is_simpleだがREITではない）：業績・財務・CFの代役として
+        # 金融品質スコアをsel_scoreに合成する。score_all()自体・analyze.py・
+        # build_metrics_us()には一切手を入れず、その結果を受け取った後にここで
+        # 独立に計算・合成するだけ（10年保有ツールと同じ「呼び出し側で後から合成」方式）。
+        fq_score = fq_parts = None
+        is_fin_simple = bool(is_simple and not is_reit)
+        if is_fin_simple:
+            fin_q = raw_financial_quality_us(yd, info)
+            fq_score, fq_parts = financial_quality_score_us(fin_q)
+            if fq_score is not None:
+                div_w = rules["score_groups"]["選定"]["配当の持続力"]["weight"]
+                div_score = groups.get("配当の持続力")
+                groups = dict(groups)
+                groups["金融品質"] = fq_score
+                if div_score is not None:
+                    sel_score = round((fq_score * 0.70 + div_score * div_w) / (0.70 + div_w), 1)
+                else:
+                    sel_score = round(fq_score, 1)
+
         vd = verdicts_us(sel_score, tim_score, groups, dom_scores, ctx, sec_avg, is_simple, coverage)
     except Exception as e:
         import traceback
@@ -1314,7 +1451,8 @@ def generate_us(ticker, cfg=None, log=None):
     if is_reit:
         warnings.append("REIT：FFO・NAV倍率・LTV・分配金の内訳が重要で、株式向けのこのツールでは正しく評価できません。参考程度に。")
     if is_simple and not is_reit:
-        warnings.append("銀行・保険は簡易判定です。業績・財務・CFの指標は構造的に別基準のため参考表示のみです。")
+        warnings.append("銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。"
+                         "代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。")
 
     pdate = yd.get("price_date")
     meta = {
@@ -1326,8 +1464,8 @@ def generate_us(ticker, cfg=None, log=None):
 
     log("[3/3] rendering")
     try:
-        res["html"] = render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warnings, rules)
-        res["md"] = render_md_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, rules)
+        res["html"] = render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warnings, rules, fq_score, fq_parts)
+        res["md"] = render_md_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, rules, fq_score, fq_parts)
     except Exception as e:
         import traceback
         res["error"] = f"render failed: {e}\n{traceback.format_exc()}"
