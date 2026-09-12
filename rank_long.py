@@ -50,6 +50,7 @@ MK = {
                        "品質スコア（配当は不使用）＋買い時スコア（EV/EBIT・FCF利回り・PER/PBR割安度）。",
         "terms_src": "long_terms.html",
         "guide_src": "long_guide.html",
+        "portfolio_src": "long_portfolio.html",
         "unit_price": "円",
         "watch": None,
     },
@@ -68,6 +69,7 @@ MK = {
                        "品質スコア（配当は不使用）＋買い時スコア。",
         "terms_src": "long_us_terms.html",
         "guide_src": "long_us_guide.html",
+        "portfolio_src": "long_us_portfolio.html",
         "unit_price": "$",
         "watch": "universe_long_watch_us.json",
     },
@@ -369,6 +371,7 @@ def render(out, m):
             f'<tr class="{tcls} r" data-tier="{s.get("tier","―")}">'
             + rk +
             f'<td class="wl"><input type="checkbox" class="wlc" data-code="{s["code"]}" aria-label="ウォッチ"></td>'
+            f'<td class="pf"><input type="checkbox" class="pfc" data-code="{s["code"]}" aria-label="ポートフォリオに追加"></td>'
             f'<td class="tier">{s.get("tier","―")}<span class="dir {dcls}">{s.get("dir","")}</span></td>'
             f'<td class="code">{codecell}</td>'
             f'<td class="nm">{html.escape(str(s["name"]))}'
@@ -385,7 +388,8 @@ def render(out, m):
             f'<td class="cv">{s.get("cov","―")}</td>'
             f'</tr>')
 
-    thead = ('<thead><tr>{rk}<th class="wl">☑</th>'
+    thead = ('<thead><tr>{rk}<th class="wl" title="ウォッチリストに追加する銘柄にチェック">☑</th>'
+             '<th class="pf" title="ポートフォリオに追加する銘柄にチェック">💼</th>'
              '<th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>業種</th>'
              '<th class="n hdr" data-term="q">品質</th>'
              '<th class="n hdr" data-term="perf">業績</th>'
@@ -476,9 +480,9 @@ td.bt.t1,td.bt.t1 b{{color:var(--t1)}}
 td.bt.t2,td.bt.t2 b{{color:var(--t2)}}
 td.bt.t3,td.bt.t3 b{{color:var(--t3)}}
 td.bt.t4,td.bt.t4 b{{color:var(--gC)}}
-td.wl,th.wl{{width:30px;text-align:center;padding-left:2px;padding-right:2px}}
-th.wl{{cursor:default}}
-.wlc{{width:15px;height:15px;cursor:pointer;accent-color:var(--accent)}}
+td.wl,th.wl,td.pf,th.pf{{width:30px;text-align:center;padding-left:2px;padding-right:2px}}
+th.wl,th.pf{{cursor:default}}
+.wlc,.pfc{{width:15px;height:15px;cursor:pointer;accent-color:var(--accent)}}
 #wlbar{{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;gap:10px;
   align-items:center;justify-content:center;flex-wrap:wrap;background:var(--card);
   border-top:1px solid var(--line);box-shadow:0 -2px 10px rgba(0,0,0,.06);
@@ -529,8 +533,9 @@ section.grp[hidden]{{display:none}}
   <button type="button" class="sumbtn" data-tier="3軍"><b>{c['3軍']}</b>3軍</button>
   <span class="sumbtn" style="cursor:default"><b>{c['excluded']}</b>対象外</span>
   <a class="sumbtn wlnav" href="watchlist.html"><b>☆</b>ウォッチリスト</a>
+  <a class="sumbtn wlnav" href="portfolio.html"><b id="pfnav-n">💼</b>ポートフォリオ</a>
 </div>
-<div class="sub" style="margin:-4px 0 12px">見出し（軍・品質・業績・財務・CF・買い時・利回り・カバレッジ・業種級）をクリックすると説明が出ます。数字ボタンでその軍だけ表示（もう一度で解除）。左端□で選んで下部の「ウォッチリストを作成」。</div>
+<div class="sub" style="margin:-4px 0 12px">見出し（軍・品質・業績・財務・CF・買い時・利回り・カバレッジ・業種級）をクリックすると説明が出ます。数字ボタンでその軍だけ表示（もう一度で解除）。☆にチェックを入れて下部の「ウォッチリストを作成」を、💼にチェックを入れて「ポートフォリオに追加」を押すと、それぞれ選んだ銘柄だけの一覧・保有記録の入力画面を作れます（☆と💼は別々に選べます）。</div>
 <div id="terminfo" class="terminfo" hidden>
   <button type="button" id="terminfo-close" class="ticlose" aria-label="閉じる">✕</button>
   <div id="terminfo-body"></div>
@@ -541,7 +546,7 @@ section.grp[hidden]{{display:none}}
   <span class="hit" id="qhit"></span>
 </div>
 <details id="topbox"><summary>全体 品質スコア 上位50（業種横断）</summary>
-<table><thead><tr><th class="n">#</th><th class="wl">☑</th>
+<table><thead><tr><th class="n">#</th><th class="wl">☑</th><th class="pf">💼</th>
 <th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>業種</th>
 <th class="n hdr" data-term="q">品質</th><th class="n hdr" data-term="perf">業績</th>
 <th class="n hdr" data-term="fin">財務</th><th class="n hdr" data-term="cf">CF</th>
@@ -551,8 +556,10 @@ section.grp[hidden]{{display:none}}
 {"".join(secs)}
 {exc}
 <div class="disc">{DISC}</div>
-<div id="wlbar" hidden><span><b id="wlcount">0</b> 銘柄を選択中</span>
+<div id="wlbar" hidden><span>☆ <b id="wlcount">0</b>銘柄</span>
 <button type="button" id="wlgo">ウォッチリストを作成 →</button>
+<span>💼 <b id="pfcount">0</b>銘柄</span>
+<button type="button" id="pfgo">ポートフォリオに追加 →</button>
 <button type="button" id="wlclear" class="ghost">選択をクリア</button></div>
 <script>
 {th.THEME_JS}
@@ -579,13 +586,16 @@ section.grp[hidden]{{display:none}}
     btns.forEach(function(x){{x.classList.toggle('active',x.dataset.tier===activeTier&&activeTier!=='');}});
     apply();
   }});}});
-  // ---- ウォッチリスト選択 ----
-  var wlSet=new Set();
+  // ---- ウォッチリスト／ポートフォリオ選択（別々のチェックボックス列） ----
+  var wlSet=new Set(), pfSet=new Set();
   var bar=document.getElementById('wlbar'),cnt=document.getElementById('wlcount');
+  var pfCnt=document.getElementById('pfcount'),pfNav=document.getElementById('pfnav-n');
   function sync(){{
     cnt.textContent=wlSet.size;
-    bar.hidden=(wlSet.size===0);
-    document.body.classList.toggle('wlon',wlSet.size>0);
+    pfCnt.textContent=pfSet.size;
+    if(pfNav)pfNav.textContent=pfSet.size?String(pfSet.size):'💼';
+    bar.hidden=(wlSet.size===0&&pfSet.size===0);
+    document.body.classList.toggle('wlon',wlSet.size>0||pfSet.size>0);
   }}
   document.querySelectorAll('.wlc').forEach(function(cb){{
     cb.addEventListener('change',function(){{
@@ -595,12 +605,26 @@ section.grp[hidden]{{display:none}}
       sync();
     }});
   }});
+  document.querySelectorAll('.pfc').forEach(function(cb){{
+    cb.addEventListener('change',function(){{
+      var c=cb.dataset.code;
+      if(cb.checked)pfSet.add(c);else pfSet.delete(c);
+      document.querySelectorAll('.pfc[data-code="'+c+'"]').forEach(function(o){{o.checked=cb.checked;}});
+      sync();
+    }});
+  }});
   document.getElementById('wlclear').addEventListener('click',function(){{
-    wlSet.clear();document.querySelectorAll('.wlc').forEach(function(o){{o.checked=false;}});sync();
+    wlSet.clear();pfSet.clear();
+    document.querySelectorAll('.wlc,.pfc').forEach(function(o){{o.checked=false;}});
+    sync();
   }});
   document.getElementById('wlgo').addEventListener('click',function(){{
     if(!wlSet.size)return;
     location.href='watchlist.html?codes='+encodeURIComponent(Array.from(wlSet).join(','));
+  }});
+  document.getElementById('pfgo').addEventListener('click',function(){{
+    if(!pfSet.size)return;
+    location.href='portfolio.html?add='+encodeURIComponent(Array.from(pfSet).join(','));
   }});
   // ---- 見出しクリックで用語説明 ----
   var TERMS={terms_json};
@@ -732,6 +756,9 @@ def main():
     guide_src = os.path.join(HERE, m["guide_src"])
     if os.path.isfile(guide_src):
         shutil.copyfile(guide_src, os.path.join(m["out_dir"], "guide.html"))
+    portfolio_src = os.path.join(HERE, m["portfolio_src"])
+    if os.path.isfile(portfolio_src):
+        shutil.copyfile(portfolio_src, os.path.join(m["out_dir"], "portfolio.html"))
 
     idx = os.path.join(m["out_dir"], "index.html")
     rjson = os.path.join(m["out_dir"], "ranking.json")

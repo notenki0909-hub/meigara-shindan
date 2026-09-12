@@ -865,7 +865,7 @@ table.subt tr:last-child td{{border-bottom:none}}
 # ---------------------------------------------------------------- オーケストレーション
 def generate_long(code, cfg=None, market="jp", name=None):
     res = {"code": str(code), "name": None, "ok": False, "error": None,
-           "html": None, "md": None, "summary": None}
+           "html": None, "md": None, "summary": None, "portfolio_data": None}
     code = re.sub(r"\D", "", str(code)) if market == "jp" else str(code).upper()
     res["code"] = code
     if not code:
@@ -1045,6 +1045,10 @@ def generate_long(code, cfg=None, market="jp", name=None):
         "implied_fcf_growth": ig,
         "_generated_at": dt.datetime.now().isoformat(timespec="seconds"),
     }
+    try:
+        res["portfolio_data"] = analyze.portfolio_data(yd)
+    except Exception:
+        res["portfolio_data"] = {"prices": [], "divs": []}
     res["ok"] = True
     return res
 

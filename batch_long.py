@@ -11,6 +11,8 @@
 出力（配当株ツールとは完全に別ディレクトリ。既存 site/summaries・site/reports は触らない）:
   site/long_summaries/<code>.json          site/us/long_summaries/<TICKER>.json
   site/long/reports/<code>.html            site/us/long/reports/<TICKER>.html
+  site/long/portfolio_data/<code>.json     site/us/long/portfolio_data/<TICKER>.json
+                                            … ポートフォリオ機能用（直近10年の日次終値・配当履歴）
 
 analyze_long は配当を評価しない独自エンジン（品質スコア＋買い時スコア）。既存の
 配当株バッチ（batch.py / batch_us.py）とはサマリのスキーマが違うため流用しない。
@@ -30,12 +32,14 @@ CFG = {
         "universe": "universe_long.json",
         "sum": os.path.join(HERE, "site", "long_summaries"),
         "rep": os.path.join(HERE, "site", "long", "reports"),
+        "pfd": os.path.join(HERE, "site", "long", "portfolio_data"),
         "log": os.path.join(HERE, "site", "long", "batch_log.json"),
     },
     "us": {
         "universe": "universe_long_us.json",
         "sum": os.path.join(HERE, "site", "us", "long_summaries"),
         "rep": os.path.join(HERE, "site", "us", "long", "reports"),
+        "pfd": os.path.join(HERE, "site", "us", "long", "portfolio_data"),
         "log": os.path.join(HERE, "site", "us", "long", "batch_log.json"),
     },
 }
@@ -78,6 +82,7 @@ def main():
     c = CFG[args.market]
     os.makedirs(c["sum"], exist_ok=True)
     os.makedirs(c["rep"], exist_ok=True)
+    os.makedirs(c["pfd"], exist_ok=True)
 
     import analyze_long
     if args.market == "jp":
@@ -120,6 +125,9 @@ def main():
                 s["_generated_at"] = dt.datetime.now().isoformat(timespec="seconds")
                 json.dump(s, open(os.path.join(c["sum"], f"{code}.json"), "w",
                                   encoding="utf-8"), ensure_ascii=False, indent=1)
+                pd_ = r.get("portfolio_data") or {"prices": [], "divs": []}
+                json.dump(pd_, open(os.path.join(c["pfd"], f"{code}.json"), "w",
+                                    encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
                 counts["ok"] += 1
                 if i % 25 == 0:
                     print(f"  [{i}/{len(todo)}] ok {code}")
