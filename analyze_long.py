@@ -819,7 +819,7 @@ table.subt tr:last-child td{{border-bottom:none}}
 </style></head><body><div class="wrap">
 <div class="topbar">
   <h1>{meta['name']}（{meta['code']}）<small>10年保有できる優良企業か</small></h1>
-  <span><a href="../index.html">ランキング</a>　・　<a href="../watchlist.html">ウォッチリスト</a></span>
+  <span><a href="../index.html">ランキング</a>　・　<a href="../watchlist.html">ウォッチリスト</a>　・　<a href="../portfolio.html">ポートフォリオ</a></span>
 </div>
 <div class="sub">現在株価 {_f(meta.get('price'),0)}{unit}（{meta.get('price_date') or '―'} 終値）　｜　{seckey}</div>
 {ohlc_line}
