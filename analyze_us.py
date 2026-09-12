@@ -107,7 +107,12 @@ def classify_sector_us(info, smap):
         else:
             gics, src = "Industrials", "既定（分類不明）"
 
-    is_reit = "REIT" in industry.upper() or gics == "Real Estate"
+    # industry 文字列に "REIT" を含む銘柄だけをREIT扱いにする。以前は
+    # gics == "Real Estate" も対象にしていたが、GICS不動産セクター全体には
+    # ホームビルダー・不動産サービス会社等の非REIT企業も含まれてしまい、
+    # 例えば CCS（Century Communities：分譲住宅開発）や AGNT（不動産サービス業）が
+    # 誤ってREIT扱い＝簡易判定（業績・財務・CF不採点）になっていた。
+    is_reit = "REIT" in industry.upper()
     fin_like = industry in set(smap.get("financial_like_industries", []))
     is_simple = bool(fin_like or is_reit)
     return gics, industry, ysector, is_simple, is_reit, src
