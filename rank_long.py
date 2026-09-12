@@ -212,14 +212,16 @@ def build(market):
     univ = json.load(open(os.path.join(HERE, m["universe"]), encoding="utf-8"))
     items = univ.get("tickers") or univ.get("codes") or []
 
-    watch = {}
+    watch, watch_new = {}, {}
     if m.get("watch"):
         wp = os.path.join(HERE, m["watch"])
         if os.path.isfile(wp):
             try:
-                watch = json.load(open(wp, encoding="utf-8")).get("excluded", {}) or {}
+                wd = json.load(open(wp, encoding="utf-8"))
+                watch = wd.get("excluded", {}) or {}
+                watch_new = wd.get("new", {}) or {}
             except Exception:
-                watch = {}
+                watch, watch_new = {}, {}
 
     rows, excluded, missing = [], [], []
     for it in items:
@@ -246,7 +248,7 @@ def build(market):
             "yield": s.get("div_yield"), "price": s.get("price"),
             "price_date": s.get("price_date"),
             "is_simple": s.get("is_simple"), "is_reit": s.get("is_reit"),
-            "asof": s.get("_generated_at"),
+            "asof": s.get("_generated_at"), "new": code in watch_new,
         }
         if q is None:
             if code in watch:
@@ -367,7 +369,9 @@ def render(out, m):
             f'<td class="wl"><input type="checkbox" class="wlc" data-code="{s["code"]}" aria-label="ウォッチ"></td>'
             f'<td class="tier">{s.get("tier","―")}<span class="dir {dcls}">{s.get("dir","")}</span></td>'
             f'<td class="code">{codecell}</td>'
-            f'<td class="nm">{html.escape(str(s["name"]))}</td>'
+            f'<td class="nm">{html.escape(str(s["name"]))}'
+            f'{" <span class=\"newbadge\" title=\"月次チェックで新規追加（次の四半期見直しで正式反映）\">NEW!</span>" if s.get("new") else ""}'
+            f'</td>'
             f'<td class="sec">{html.escape(str(s["sector"]))}</td>'
             f'<td class="n" data-v="{_v(s["q"])}"><b>{_num(s["q"],0)}</b></td>'
             f'<td class="n" data-v="{_v(s["perf"])}">{_num(s["perf"],0)}</td>'
@@ -406,7 +410,9 @@ def render(out, m):
     if out["excluded"]:
         etr = "".join(
             f'<tr class="r"><td class="code">{_code_cell(s["code"], m["report_dirs"])}</td>'
-            f'<td class="nm">{html.escape(str(s["name"]))}</td>'
+            f'<td class="nm">{html.escape(str(s["name"]))}'
+            f'{" <span class=\"newbadge\" title=\"月次チェックで新規追加（次の四半期見直しで正式反映）\">NEW!</span>" if s.get("new") else ""}'
+            f'</td>'
             f'<td class="sec">{html.escape(str(s["sector"]))}</td>'
             f'<td>{html.escape(s["why"])}</td>'
             f'<td class="n" data-v="{_v(s["yield"])}">{_num(s["yield"],2)}%</td>'
@@ -443,6 +449,9 @@ h1{{font-size:20px;margin:0 0 4px}}
 .sumbtn b{{display:block;font-size:19px}}
 h2{{font-size:15px;margin:26px 0 6px;border-bottom:2px solid var(--line);padding-bottom:4px}}
 .grade{{font-size:11px;padding:1px 7px;border-radius:10px;vertical-align:middle}}
+.newbadge{{font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;vertical-align:middle;
+  background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent);
+  border:1px solid color-mix(in srgb,var(--accent) 45%,transparent)}}
 .gradeA{{background:color-mix(in srgb,var(--gA) 15%,transparent);color:var(--gA)}}
 .gradeB{{background:color-mix(in srgb,var(--gB) 15%,transparent);color:var(--gB)}}
 .gradeC{{background:color-mix(in srgb,var(--gC) 15%,transparent);color:var(--gC)}}

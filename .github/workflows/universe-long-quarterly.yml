@@ -5,6 +5,8 @@ name: universe-long-quarterly
 #       時価総額3,000億円以上を再抽出（v2で銀行・保険・証券・その他金融業も対象。
 #       J-REITはuniverse.jsonに存在しないため引き続き対象外＝母集団構築自体が別タスク）。
 #   US: S&P500 の構成銘柄入れ替えに追従（Wikipedia を取り直す。v2で金融・REITも対象）。
+#       monthly-check-long-us.yml が付けた universe_long_watch_us.json の暫定フラグ
+#       （NEW!バッジ・暫定対象外）は、ここで正式なリストに置き換わるためリセットする。
 # 既存の universe-quarterly / universe-quarterly-us が走った数日後に動かす。
 # 銘柄の出入りは人間が確認してからマージ＝直接 main には入れず PR を作る。
 on:
@@ -37,6 +39,13 @@ jobs:
         run: |
           python build_universe_long.py jp
           python build_universe_long.py us
+
+      - name: 月次チェックの暫定フラグをリセット（NEW!バッジ・暫定対象外）
+        # monthly-check-long-us.yml が付けた universe_long_watch_us.json の
+        # フラグは、この四半期フルリビルドで正式な universe_long_us.json に
+        # 置き換わることで役目を終える。次回チェックまで残り続けないよう空にする。
+        run: |
+          python -c "import json; json.dump({'excluded': {}, 'new': {}}, open('universe_long_watch_us.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
 
       - name: 母集団の全銘柄を診断（2パス：診断→業種中央値算出→再診断）
         run: |
@@ -72,6 +81,7 @@ jobs:
           add-paths: |
             universe_long.json
             universe_long_us.json
+            universe_long_watch_us.json
             sector_averages_long.json
             sector_averages_long_us.json
             pbr_reliability_long.json

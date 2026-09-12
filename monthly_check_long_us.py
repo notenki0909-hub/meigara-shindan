@@ -13,12 +13,16 @@ S&P500の構成銘柄入れ替えは不定期（M&A・破産等のたびに随�
    Wikipediaから取得（universe_candidates_us.json を上書き）。
 2. 現在の universe_long_us.json と比較し、新規追加／除外を検出。
 3. 新規追加：batch_long.py --only-codes で診断し、universe_long_us.json に追記。
+   universe_long_watch_us.json の "new" にも記録し、rank_long.py が銘柄名の
+   横に「NEW!」バッジを表示する。
 4. 除外：universe_long_us.json からは削除しない（四半期のフル再構築まで温存）。
-   代わりに universe_long_watch_us.json に理由付きで記録するだけ。
+   代わりに universe_long_watch_us.json の "excluded" に理由付きで記録するだけ。
    rank_long.py がこのファイルを見て、対象銘柄を「対象外」として表示する。
    （四半期フル再構築が universe_long_us.json を作り直すタイミングで、実際に
    外れていればこのwatchの記録も自然に不要になる＝手で消さなくてよい設計。
    このスクリプト自身も、fresh一覧に戻ってきた銘柄はwatchから自動的に外す。）
+   "new"バッジ・"excluded"フラグとも、次の四半期フル再構築で
+   universe_long_watch_us.json 自体がリセットされ消える（quarterly側で対応）。
 5. calib_long.py us・rank_long.py us でランキングへ反映。
 
 配当株ツール（build_universe_us.py の screen/all サブコマンド、universe_us.json、
@@ -69,8 +73,9 @@ def main():
     added = sorted(set(fresh) - set(current))
     removed = sorted(set(current) - set(fresh))
 
-    watch = _load(WATCH_PATH, {"excluded": {}})
+    watch = _load(WATCH_PATH, {"excluded": {}, "new": {}})
     watch.setdefault("excluded", {})
+    watch.setdefault("new", {})
     back = [t for t in list(watch["excluded"]) if t in fresh]
 
     print(f"追加候補: {len(added)} 件 {added}")
@@ -105,18 +110,25 @@ def main():
             "reason": "S&P500から除外（月次チェック検知・次回四半期見直しで正式反映）",
             "detected_at": today,
         }
+        watch["new"].pop(t, None)  # 対象外になった銘柄は NEW! バッジも外す
     for t in back:
         del watch["excluded"][t]
+
+    # 4) 新規追加分に NEW! バッジを立てる（次の四半期フル再構築が正式反映＆クリアする）
+    for t in added:
+        watch["new"][t] = {"detected_at": today}
+
     watch["_meta"] = {
-        "説明": "月次チェック(monthly_check_long_us.py)で検知した暫定除外銘柄。"
-                "universe_long_us.json からは削除せず、rank_long.py がここに載っている"
-                "銘柄を「対象外」として表示するだけにとどめる。次の四半期フル再構築"
-                "(universe-long-quarterly.yml)で universe_long_us.json が正式に作り直され"
-                "れば、このファイルの記録の要否も次回チェック時に自動で見直される。",
+        "説明": "月次チェック(monthly_check_long_us.py)が書く暫定フラグ。"
+                "excluded: universe_long_us.json からは削除せず、rank_long.py が"
+                "『対象外』として表示するだけにとどめる。"
+                "new: 月次チェックで新規追加した銘柄にNEW!バッジを表示する。"
+                "どちらも次の四半期フル再構築(universe-long-quarterly.yml)で"
+                "universe_long_us.json・このファイル自体が正式に作り直され、フラグは消える。",
         "updated_at": today,
     }
     _save(WATCH_PATH, watch)
-    print(f"-> {WATCH_PATH} 更新（暫定除外 {len(watch['excluded'])} 件）")
+    print(f"-> {WATCH_PATH} 更新（暫定除外 {len(watch['excluded'])} 件・NEW! {len(watch['new'])} 件）")
 
     # 4) 新規追加分を診断（既存銘柄は再診断しない＝軽量）
     if added:
