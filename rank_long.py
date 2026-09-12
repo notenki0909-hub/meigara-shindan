@@ -50,6 +50,7 @@ MK = {
                        "品質スコア（配当は不使用）＋買い時スコア（EV/EBIT・FCF利回り・PER/PBR割安度）。",
         "terms_src": "long_terms.html",
         "unit_price": "円",
+        "watch": None,
     },
     "us": {
         "theme": _us,
@@ -66,6 +67,7 @@ MK = {
                        "品質スコア（配当は不使用）＋買い時スコア。",
         "terms_src": "long_us_terms.html",
         "unit_price": "$",
+        "watch": "universe_long_watch_us.json",
     },
 }
 
@@ -210,6 +212,15 @@ def build(market):
     univ = json.load(open(os.path.join(HERE, m["universe"]), encoding="utf-8"))
     items = univ.get("tickers") or univ.get("codes") or []
 
+    watch = {}
+    if m.get("watch"):
+        wp = os.path.join(HERE, m["watch"])
+        if os.path.isfile(wp):
+            try:
+                watch = json.load(open(wp, encoding="utf-8")).get("excluded", {}) or {}
+            except Exception:
+                watch = {}
+
     rows, excluded, missing = [], [], []
     for it in items:
         code = str(it.get("ticker") or it.get("code"))
@@ -222,6 +233,8 @@ def build(market):
         sec = s.get(m["seckey"]) or it.get(m["seckey"]) or ""
         grp = gmap.get(sec, "その他")
         if grp in excl_groups:
+            q = None
+        if code in watch:
             q = None
         rec = {
             "code": code, "name": s.get("name") or it.get("name") or code,
@@ -236,7 +249,9 @@ def build(market):
             "asof": s.get("_generated_at"),
         }
         if q is None:
-            if s.get("is_reit") or grp == "Real Estate":
+            if code in watch:
+                rec["why"] = watch[code].get("reason", "対象外（月次チェック検知）")
+            elif s.get("is_reit") or grp == "Real Estate":
                 rec["why"] = "REIT・不動産（採点対象外）"
             elif s.get("is_simple"):
                 rec["why"] = "金融（銀行・保険・証券／採点対象外）"

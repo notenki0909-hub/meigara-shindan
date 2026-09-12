@@ -1,0 +1,60 @@
+name: monthly-check-long-us
+
+# 『10年保有できる優良企業』米国版の月次軽量チェック。S&P500の構成銘柄入れ替えは
+# 不定期（M&A・破産等のたびに随時）に起きるため、四半期に1回のフル再構築
+# （universe-long-quarterly.yml、全銘柄2パス診断で数時間）を待たずに追従する。
+# 新規追加銘柄だけを診断するので数分で終わる想定。除外銘柄は universe_long_us.json
+# からは削除せず universe_long_watch_us.json に記録するだけ（rank_long.py が
+# 「対象外」として表示する）。四半期のフル再構築が来るとそちらが正式なリストになる。
+#
+# 配当株ツール（build_universe_us.py の screen/all サブコマンド、universe_us.json、
+# batch_us.py、rank_us.py）には一切触れない。直接 main には反映せず PR を作る。
+on:
+  schedule:
+    - cron: "0 2 1 * *"   # 毎月1日 2:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - run: pip install -r requirements.txt
+
+      - name: S&P500入れ替えチェック（新規銘柄のみ診断・除外銘柄は暫定フラグ）
+        run: python monthly_check_long_us.py
+
+      - name: 日付を取得
+        id: today
+        run: echo "date=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: PRを作成（銘柄の出入りは人間が確認してからマージ）
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(universe-long-us): monthly S&P500 check ${{ steps.today.outputs.date }}"
+          branch: monthly-check-long-us-update
+          title: "月次S&P500入れ替えチェック（10年保有・米国株）${{ steps.today.outputs.date }}"
+          body: |
+            S&P500の構成銘柄をチェックし、前回からの入れ替えを反映しました。
+            - 新規追加銘柄：診断して `universe_long_us.json` に追加
+            - 除外銘柄：`universe_long_us.json` からは削除せず、`universe_long_watch_us.json`
+              に記録し、ランキング上は「対象外」として表示（次の四半期フル再構築で正式反映）
+            変化が無かった場合はこのPRは作られません。
+          add-paths: |
+            universe_long_us.json
+            universe_long_watch_us.json
+            sector_averages_long_us.json
+            pbr_reliability_long_us.json
+            site/us/long
+            site/us/long_summaries
