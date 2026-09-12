@@ -312,6 +312,13 @@ td.q,th.q{color:var(--accent)}
 })();
 (function(){
   var PF_KEY = 'pf_lots_long_us';
+  var PF_SEL_KEY = 'pf_sel_codes_long_us';
+  function unselectCode(code){
+    try {
+      var set = new Set((localStorage.getItem(PF_SEL_KEY) || '').split(',').map(function(s){ return s.trim(); }).filter(Boolean));
+      if (set.delete(code)) localStorage.setItem(PF_SEL_KEY, Array.from(set).join(','));
+    } catch (e) {}
+  }
   var $ = function(id){ return document.getElementById(id); };
 
   function isCode(t){ return /^[A-Z0-9.\-]{1,7}$/.test(t) && /[A-Z]/.test(t); }
@@ -374,6 +381,7 @@ td.q,th.q{color:var(--accent)}
   $('clearall').addEventListener('click', function(){
     if (!lots.length) return;
     if (!confirm('保有記録をすべて削除します。よろしいですか？（事前に上の文字列を控えてください）')) return;
+    Array.from(new Set(lots.map(function(l){ return l.code; }))).forEach(unselectCode);
     lots = [];
     persist();
     render();
@@ -598,6 +606,7 @@ td.q,th.q{color:var(--accent)}
     if (del) {
       if (!confirm(del.dataset.code + ' の保有記録をすべて削除します。よろしいですか？')) return;
       lots = lots.filter(function(l){ return l.code !== del.dataset.code; });
+      unselectCode(del.dataset.code);
       persist();
       render();
       return;
