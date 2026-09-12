@@ -12,13 +12,18 @@
  "groups": {
   "業績": 75.70256811726057,
   "財務": 99.15311290393251,
-  "キャッシュフロー": 103.33333333333333
+  "キャッシュフロー": 103.33333333333333,
+  "金融品質": null,
+  "REIT品質": null
  },
+ "is_fin_simple": false,
+ "is_reit_us": false,
+ "current_pfo": null,
  "q_cov": "高",
- "bt_score": 84.8,
+ "bt_score": 84.7,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 64.52402511902234,
+  "ev_ebit_vs_sector": 64.15868398397046,
   "fcf_yield": 110.0,
   "per_cheap": 93.3,
   "pbr_cheap": 71.4
@@ -29,5 +34,5 @@
  "pbr_band_pos": 0.0,
  "div_yield": 2.339572192513369,
  "implied_fcf_growth": -0.0752,
- "_generated_at": "2026-09-11T18:50:38"
+ "_generated_at": "2026-09-12T20:11:25"
 }

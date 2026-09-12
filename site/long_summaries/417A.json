@@ -12,8 +12,13 @@
  "groups": {
   "業績": null,
   "財務": null,
-  "キャッシュフロー": null
+  "キャッシュフロー": null,
+  "金融品質": null,
+  "REIT品質": null
  },
+ "is_fin_simple": false,
+ "is_reit_us": false,
+ "current_pfo": null,
  "q_cov": "低",
  "bt_score": 60.0,
  "bt_cov": "低",
@@ -29,5 +34,5 @@
  "pbr_band_pos": null,
  "div_yield": null,
  "implied_fcf_growth": null,
- "_generated_at": "2026-09-11T18:13:05"
+ "_generated_at": "2026-09-12T19:47:09"
 }
