@@ -515,9 +515,9 @@ section.grp[hidden]{{display:none}}
 .formula{{font-size:11.5px;color:var(--muted);background:var(--field);border:1px solid var(--line);
   border-radius:8px;padding:8px 12px;margin:6px 0 4px}}
 </style></head><body><div class="wrap">
-<div class="topbar"><h1>{html.escape(m["title"])}</h1><a href="terms.html">利用規約・免責事項</a></div>
+<div class="topbar"><h1>{html.escape(m["title"])}</h1><span><a href="guide.html">使い方・見方</a>　・　<a href="terms.html">利用規約・免責事項</a></span></div>
 {th.THEME_BAR}
-<div class="sub">生成 {gen}　｜　{html.escape(m["screen_line"])}　｜　<a href="guide.html">使い方・見方</a></div>
+<div class="sub">生成 {gen}　｜　{html.escape(m["screen_line"])}</div>
 <div class="formula">品質スコア ＝ 業績×0.28 ＋ 財務×0.27 ＋ キャッシュフロー×0.15（取得できた
 グループだけで再正規化・0〜110）。既存の銘柄診断エンジンの「銘柄選定スコア」から
 <b>配当の持続力（連続増配・増配率・配当性向・累進配当宣言など）を除いた</b>もの。
