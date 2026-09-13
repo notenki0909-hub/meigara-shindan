@@ -5,29 +5,34 @@
  "gics_sector": "Health Care",
  "is_simple": false,
  "is_reit": false,
- "price": 134.67999267578125,
- "price_date": "2026-09-10",
- "mcap": 9340622848,
+ "price": 131.9600067138672,
+ "price_date": "2026-09-11",
+ "mcap": 9151980544,
  "q_score": 103.1,
  "groups": {
   "業績": 109.46273613023364,
   "財務": 98.21781085661797,
-  "キャッシュフロー": 100.0
+  "キャッシュフロー": 100.0,
+  "金融品質": null,
+  "REIT品質": null
  },
+ "is_fin_simple": false,
+ "is_reit_us": false,
+ "current_pfo": null,
  "q_cov": "高",
- "bt_score": 77.8,
+ "bt_score": 81.4,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 87.0195333593236,
-  "fcf_yield": 69.94670493876399,
-  "per_cheap": 76.4,
-  "pbr_cheap": 73.7
+  "ev_ebit_vs_sector": 89.18942252913631,
+  "fcf_yield": 70.976215595125,
+  "per_cheap": 84.1,
+  "pbr_cheap": 76.3
  },
- "ev_ebit": 20.20625337273111,
- "fcf_yield": 3.7460028704072985,
+ "ev_ebit": 19.8081058336851,
+ "fcf_yield": 3.8232161696343745,
  "per_band_pos": null,
  "pbr_band_pos": null,
  "div_yield": null,
- "implied_fcf_growth": 0.1164,
- "_generated_at": "2026-09-11T19:36:11"
+ "implied_fcf_growth": 0.1136,
+ "_generated_at": "2026-09-13T00:06:52"
 }

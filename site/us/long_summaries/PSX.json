@@ -5,29 +5,34 @@
  "gics_sector": "Energy",
  "is_simple": false,
  "is_reit": false,
- "price": 258.510009765625,
- "price_date": "2026-09-10",
- "mcap": 103645716480,
+ "price": 259.4700012207031,
+ "price_date": "2026-09-11",
+ "mcap": 103533961216,
  "q_score": 71.9,
  "groups": {
   "業績": 38.94966164880427,
   "財務": 90.4403879811008,
-  "キャッシュフロー": 99.80945401245879
+  "キャッシュフロー": 99.80945401245879,
+  "金融品質": null,
+  "REIT品質": null
  },
+ "is_fin_simple": false,
+ "is_reit_us": false,
+ "current_pfo": null,
  "q_cov": "高",
- "bt_score": 46.0,
+ "bt_score": 45.9,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 55.106773248741085,
+  "fcf_yield": 55.14466773926884,
   "per_cheap": 75.0,
-  "pbr_cheap": 33.8
+  "pbr_cheap": 33.5
  },
- "ev_ebit": 36.156674498669034,
- "fcf_yield": 2.633007993655581,
+ "ev_ebit": 36.12362059035788,
+ "fcf_yield": 2.635850080445163,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
- "div_yield": 1.9651076585412386,
- "implied_fcf_growth": 0.1643,
- "_generated_at": "2026-09-11T19:36:51"
+ "div_yield": 1.9578371203224347,
+ "implied_fcf_growth": 0.1642,
+ "_generated_at": "2026-09-13T00:07:15"
 }

@@ -5,29 +5,34 @@
  "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
- "price": 26.59000015258789,
- "price_date": "2026-09-10",
- "mcap": 12201200640,
+ "price": 26.219999313354492,
+ "price_date": "2026-09-11",
+ "mcap": 12031420416,
  "q_score": 97.4,
  "groups": {
   "業績": 91.77064938501937,
   "財務": 100.31879413611554,
-  "キャッシュフロー": 102.4648500684335
+  "キャッシュフロー": 102.4648500684335,
+  "金融品質": null,
+  "REIT品質": null
  },
+ "is_fin_simple": false,
+ "is_reit_us": false,
+ "current_pfo": null,
  "q_cov": "高",
- "bt_score": 106.2,
+ "bt_score": 106.3,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 104.53882128810226,
-  "fcf_yield": 104.39650616766406,
-  "per_cheap": 109.6,
-  "pbr_cheap": 106.8
+  "ev_ebit_vs_sector": 104.77172057170951,
+  "fcf_yield": 104.74077510173399,
+  "per_cheap": 109.5,
+  "pbr_cheap": 106.9
  },
- "ev_ebit": 12.495833888888889,
- "fcf_yield": 7.318951850299217,
- "per_band_pos": 0.9830628939173045,
- "pbr_band_pos": 0.7433383233394852,
- "div_yield": 3.459947328772243,
- "implied_fcf_growth": 0.025,
- "_generated_at": "2026-09-11T19:00:34"
+ "ev_ebit": 12.348455222222222,
+ "fcf_yield": 7.422232530520194,
+ "per_band_pos": 0.9791407742433846,
+ "pbr_band_pos": 0.7559343781107062,
+ "div_yield": 3.508772021711768,
+ "implied_fcf_growth": 0.023,
+ "_generated_at": "2026-09-12T23:44:28"
 }

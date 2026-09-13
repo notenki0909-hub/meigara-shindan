@@ -5,29 +5,34 @@
  "gics_sector": "Consumer Discretionary",
  "is_simple": false,
  "is_reit": false,
- "price": 232.41000366210938,
- "price_date": "2026-09-10",
- "mcap": 20707336192,
+ "price": 234.39999389648438,
+ "price_date": "2026-09-11",
+ "mcap": 20884639744,
  "q_score": 93.5,
  "groups": {
   "業績": 84.04848578062811,
   "財務": 99.23981732266238,
-  "キャッシュフロー": 100.92140177509378
+  "キャッシュフロー": 100.92140177509378,
+  "金融品質": null,
+  "REIT品質": null
  },
+ "is_fin_simple": false,
+ "is_reit_us": false,
+ "current_pfo": null,
  "q_cov": "高",
- "bt_score": 64.4,
+ "bt_score": 63.1,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 60.06918575487462,
-  "fcf_yield": 66.91413022221467,
-  "per_cheap": 66.3,
+  "ev_ebit_vs_sector": 59.078947604019355,
+  "fcf_yield": 66.51584506961686,
+  "per_cheap": 63.6,
   "pbr_cheap": 75.0
  },
- "ev_ebit": 19.55013238171101,
- "fcf_yield": 3.5185597666660997,
+ "ev_ebit": 19.69136509797674,
+ "fcf_yield": 3.4886883802212645,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
- "div_yield": 2.5816444668720604,
- "implied_fcf_growth": 0.1249,
- "_generated_at": "2026-09-11T19:35:25"
+ "div_yield": 2.5597270291097862,
+ "implied_fcf_growth": 0.126,
+ "_generated_at": "2026-09-13T00:06:25"
 }
