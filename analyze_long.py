@@ -233,6 +233,44 @@ def _pbr_pairs(yd, raw):
     return out
 
 
+def _recent_quarter_decel_us(yd, rev_cagr):
+    """直近四半期（対前年同期比）が年次の増収トレンドから大きく下振れ、かつ営業利益
+    （取れなければ純利益）が前年同期比マイナスの場合にのみ、業績グループへの減点係数
+    （1.0〜0.6）を返す。米国株専用（日本株はyfinanceの四半期データがEPS2列のみ・
+    符号なしの極端な振れが多く、信頼できるしきい値を引けないため今回は対象外＝常に1.0）。
+    売上高は営業利益・純利益と違って四半期ごとの振れが小さく、低base効果による異常値も
+    出にくいため「下げ止まりの判定」の主軸に使い、営業利益・純利益は「実際に減益方向か」
+    の確認用（両方そろって初めて発動＝片方だけのブレでは減点しない）。
+    戻り値: (factor, detail dict or None)。"""
+    qr = yd.get("q_rows") or {}
+
+    def qrow(*labels):
+        for lb in labels:
+            if lb in qr:
+                return qr[lb]
+        return None
+
+    def yoy(s):
+        if s and len(s) >= 5 and LC.is_num(s[0]) and LC.is_num(s[4]) and s[4] != 0:
+            return (s[0] / s[4] - 1) * 100
+        return None
+
+    rev_yoy = yoy(qrow("Total Revenue", "Operating Revenue"))
+    profit_yoy = yoy(qrow("Operating Income", "Total Operating Income As Reported", "EBIT"))
+    if profit_yoy is None:
+        profit_yoy = yoy(qrow("Net Income", "Net Income Common Stockholders"))
+
+    if rev_yoy is None or profit_yoy is None or not LC.is_num(rev_cagr):
+        return 1.0, None
+    gap = rev_yoy - rev_cagr  # 年次の増収率に対して直近四半期がどれだけ下振れているか（pt）
+    detail = {"rev_yoy_q": rev_yoy, "profit_yoy_q": profit_yoy, "gap": gap}
+    if profit_yoy >= 0 or gap >= -5:
+        return 1.0, detail
+    frac = min(1.0, (-5 - gap) / 20.0)  # gap: -5で0・-25以上で1（線形補間）
+    factor = 1.0 - frac * 0.4  # 1.0（無補正）〜0.6（最大40%減点）
+    return factor, detail
+
+
 # ---------------------------------------------------------------- 図解（履歴なし指標用の簡易ゲージ）
 def _gauge_svg(value, good, warn, direction, kind, title):
     """good/warn の2閾値に対して value がどこにいるかを1本帯で示す。"""
@@ -960,6 +998,16 @@ def generate_long(code, cfg=None, market="jp", name=None):
         groups["REIT品質"] = rq_score
         ffo_pairs = _ffo_pairs(yd, reit_q["ffo_series"], reit_q["shares"])
 
+    # 直近四半期の急減速チェック（米国株・通常の業績/財務/CF採点の銘柄のみ）。
+    # 年次データだけだと、直近1年以内に始まった急減速が確定決算に反映されるまで
+    # （最大1年程度）品質スコアに出ない問題への対応。詳細は_recent_quarter_decel_usを参照。
+    decel_factor, decel_detail = 1.0, None
+    if market == "us" and not is_fin_simple and not is_reit_us:
+        decel_factor, decel_detail = _recent_quarter_decel_us(yd, rowmap.get("rev_cagr", {}).get("v"))
+        if decel_factor < 1.0 and LC.is_num(groups.get("業績")):
+            groups = dict(groups)
+            groups["業績"] = groups["業績"] * decel_factor
+
     q_score = LC.quality_score(groups)
     q_cov = LC.quality_coverage(groups)
 
@@ -1011,6 +1059,14 @@ def generate_long(code, cfg=None, market="jp", name=None):
         warnings.append("損益計算書を取得できず、業績の評価が限定的です。")
     if not is_fin_simple and not is_reit_us and not LC.is_num(btd["ev_median"]):
         warnings.append("この業種の EV/EBIT 中央値が未算出のため EV/EBIT対業種 は中立扱いです。")
+    if decel_detail and decel_factor < 1.0:
+        warnings.append(
+            "直近四半期の増収率が年次トレンドから大きく下振れ（年率"
+            f"{rowmap.get('rev_cagr', {}).get('v', 0):+.1f}%に対し直近四半期は"
+            f"{decel_detail['rev_yoy_q']:+.1f}%）、かつ営業利益/純利益も前年同期比マイナス"
+            f"（{decel_detail['profit_yoy_q']:+.1f}%）だったため、業績スコアを"
+            f"{(1 - decel_factor) * 100:.0f}%減点しています。年次決算にはまだ反映されて"
+            "いない直近の変化のため、最新の決算内容もあわせてご確認ください。")
 
     pd_ = yd.get("price_date")
     meta = {"code": code, "name": name, "jp_sector": jp_sector, "gics_sector": seckey,
@@ -1037,6 +1093,8 @@ def generate_long(code, cfg=None, market="jp", name=None):
                    "金融品質": groups.get("金融品質"), "REIT品質": groups.get("REIT品質")},
         "is_fin_simple": is_fin_simple, "is_reit_us": is_reit_us,
         "current_pfo": btd.get("current_pfo"),
+        "quarter_decel_factor": decel_factor if decel_factor < 1.0 else None,
+        "quarter_decel_detail": decel_detail if decel_factor < 1.0 else None,
         "q_cov": q_cov[2],
         "bt_score": bt_score, "bt_cov": bt_cov[2], "bt_components": bt_comp,
         "ev_ebit": btd["ev_ebit"], "fcf_yield": btd["fcf_yield"],

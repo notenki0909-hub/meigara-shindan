@@ -5,29 +5,36 @@
  "gics_sector": "Information Technology",
  "is_simple": false,
  "is_reit": false,
- "price": 325.6499938964844,
- "price_date": "2026-09-10",
- "mcap": 55440203776,
+ "price": 322.6300048828125,
+ "price_date": "2026-09-14",
+ "mcap": 54926065664,
  "q_score": 90.1,
  "groups": {
   "業績": 71.3494172398895,
   "財務": 103.9560914387751,
-  "キャッシュフロー": 100.0
+  "キャッシュフロー": 100.0,
+  "金融品質": null,
+  "REIT品質": null
  },
+ "is_fin_simple": false,
+ "is_reit_us": false,
+ "current_pfo": null,
+ "quarter_decel_factor": null,
+ "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 41.8,
+ "bt_score": 42.6,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 50.80796756990621,
-  "per_cheap": 54.5,
-  "pbr_cheap": 74.6
+  "fcf_yield": 51.096347050385376,
+  "per_cheap": 56.8,
+  "pbr_cheap": 74.7
  },
- "ev_ebit": 64.32100887671233,
- "fcf_yield": 2.310597567742966,
+ "ev_ebit": 63.734093223744296,
+ "fcf_yield": 2.332226028778903,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
  "div_yield": null,
- "implied_fcf_growth": 0.1822,
- "_generated_at": "2026-09-11T19:24:10"
+ "implied_fcf_growth": 0.1809,
+ "_generated_at": "2026-09-15T01:02:54"
 }

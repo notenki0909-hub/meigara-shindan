@@ -5,29 +5,36 @@
  "gics_sector": "Utilities",
  "is_simple": false,
  "is_reit": false,
- "price": 111.6500015258789,
- "price_date": "2026-09-10",
- "mcap": 23470000128,
+ "price": 108.33419799804688,
+ "price_date": "2026-09-14",
+ "mcap": 22772983808,
  "q_score": 64.8,
  "groups": {
   "業績": 62.366851889436724,
   "財務": 46.81333697346023,
-  "キャッシュフロー": 101.8082788671024
+  "キャッシュフロー": 101.8082788671024,
+  "金融品質": null,
+  "REIT品質": null
  },
+ "is_fin_simple": false,
+ "is_reit_us": false,
+ "current_pfo": null,
+ "quarter_decel_factor": null,
+ "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 68.4,
+ "bt_score": 72.2,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 100.7966884031764,
-  "fcf_yield": 63.45973559595884,
-  "per_cheap": 40.9,
-  "pbr_cheap": 62.3
+  "ev_ebit_vs_sector": 101.25939002882092,
+  "fcf_yield": 64.78991460230525,
+  "per_cheap": 50.6,
+  "pbr_cheap": 62.4
  },
- "ev_ebit": 18.2016461563786,
- "fcf_yield": 3.259480169696913,
- "per_band_pos": 0.1741848510449791,
- "pbr_band_pos": 0.7806500839522892,
- "div_yield": 1.7017465060756014,
- "implied_fcf_growth": 0.1353,
- "_generated_at": "2026-09-11T19:31:58"
+ "ev_ebit": 17.843098666666666,
+ "fcf_yield": 3.359243595172893,
+ "per_band_pos": 0.23787547688354743,
+ "pbr_band_pos": 0.7912764922542714,
+ "div_yield": 1.7538321555989684,
+ "implied_fcf_growth": 0.1312,
+ "_generated_at": "2026-09-15T01:10:43"
 }
