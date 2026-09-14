@@ -81,6 +81,17 @@ analyze.METRIC_HELP.setdefault("ffo_band_pos", {"what":
 analyze.METRIC_HELP.setdefault("ffo_vs_sector", {"what":
     "現在のP/FFOを、S&P500のREIT業種平均のP/FFOと比べた倍率。1.0未満なら業種平均"
     "より安い。", "unit": "倍"})
+analyze.METRIC_HELP.setdefault("q_rev_trend_us", {"what":
+    "直近4四半期の売上高の推移（yfinanceの四半期決算）。品質スコアは年次決算だけで"
+    "計算するため、直近1年以内に始まった変化はここでしか確認できない。急減速を検知した"
+    "場合のみ品質スコアの業績グループを減点する（下の「データ上の注意」参照）。",
+    "unit": ""})
+analyze.METRIC_HELP.setdefault("q_opinc_trend_us", {"what":
+    "直近4四半期の営業利益の推移（yfinanceの四半期決算）。売上高と同様、参考表示のみで"
+    "採点には使わない。", "unit": ""})
+analyze.METRIC_HELP.setdefault("q_netinc_trend_us", {"what":
+    "直近4四半期の純利益の推移（yfinanceの四半期決算。営業利益が取得できない銘柄の代替）。"
+    "参考表示のみで採点には使わない。", "unit": ""})
 
 _SEC_AVG_LONG = {"jp": None, "us": None}
 
@@ -269,6 +280,49 @@ def _recent_quarter_decel_us(yd, rev_cagr):
     frac = min(1.0, (-5 - gap) / 20.0)  # gap: -5で0・-25以上で1（線形補間）
     factor = 1.0 - frac * 0.4  # 1.0（無補正）〜0.6（最大40%減点）
     return factor, detail
+
+
+def _recent_quarters_trend_us(yd):
+    """直近四半期（最大4件・古い順）の売上高・営業利益（取れなければ純利益）の推移を、
+    _metric_details_html にそのまま渡せる「行」の形で返す（採点はしない参考表示・米国株専用）。
+    戻り値: [row, ...]（データが取れた指標だけ。0件ならは空リスト）。"""
+    qr = yd.get("q_rows") or {}
+    qd = yd.get("q_dates") or []
+
+    def qrow(*labels):
+        for lb in labels:
+            if lb in qr:
+                return qr[lb]
+        return None
+
+    def qlabel(d):
+        try:
+            y, m = d[2:4], int(d[5:7])
+            return f"{y}Q{(m - 1) // 3 + 1}"
+        except Exception:
+            return d
+
+    def build_row(name, s, key):
+        pairs = [(qlabel(d), v) for d, v in zip(qd, s or []) if LC.is_num(v)][:4][::-1]
+        if len(pairs) < 2:
+            return None
+        yoy = None
+        if s and len(s) >= 5 and LC.is_num(s[0]) and LC.is_num(s[4]) and s[4] != 0:
+            yoy = (s[0] / s[4] - 1) * 100
+        disp = " ← ".join(analyze._fmt_usd_big(v) for _, v in pairs[::-1])
+        ref = (f"直近四半期は前年同期比 {yoy:+.1f}%（参考値・品質スコアの採点には使わず、"
+               "急減速の判定にのみ利用）" if LC.is_num(yoy) else "参考値（採点には使いません）")
+        return {"name": name, "v": None, "disp": disp, "ref": ref, "key": key,
+                "series": pairs, "series_kind": "usd"}
+
+    rows = [build_row("売上高（直近四半期）", qrow("Total Revenue", "Operating Revenue"), "q_rev_trend_us"),
+            build_row("営業利益（直近四半期）",
+                      qrow("Operating Income", "Total Operating Income As Reported", "EBIT"),
+                      "q_opinc_trend_us")]
+    if rows[1] is None:
+        rows[1] = build_row("純利益（直近四半期）",
+                            qrow("Net Income", "Net Income Common Stockholders"), "q_netinc_trend_us")
+    return [r for r in rows if r]
 
 
 # ---------------------------------------------------------------- 図解（履歴なし指標用の簡易ゲージ）
@@ -560,6 +614,8 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
             q_blocks += ([mdh(r) for r in rows] if rows else
                          ['<div class="plain"><span class="mn">―</span>'
                           '<span class="mv2">この業種では評価対象外</span></div>'])
+            if gname == "業績" and extras.get("quarter_trend_rows"):
+                q_blocks += [mdh(r) for r in extras["quarter_trend_rows"]]
     q_html = "".join(q_blocks)
 
     # 買い時の指標（6行）
@@ -1002,11 +1058,13 @@ def generate_long(code, cfg=None, market="jp", name=None):
     # 年次データだけだと、直近1年以内に始まった急減速が確定決算に反映されるまで
     # （最大1年程度）品質スコアに出ない問題への対応。詳細は_recent_quarter_decel_usを参照。
     decel_factor, decel_detail = 1.0, None
+    quarter_trend_rows = []
     if market == "us" and not is_fin_simple and not is_reit_us:
         decel_factor, decel_detail = _recent_quarter_decel_us(yd, rowmap.get("rev_cagr", {}).get("v"))
         if decel_factor < 1.0 and LC.is_num(groups.get("業績")):
             groups = dict(groups)
             groups["業績"] = groups["業績"] * decel_factor
+        quarter_trend_rows = _recent_quarters_trend_us(yd)
 
     q_score = LC.quality_score(groups)
     q_cov = LC.quality_coverage(groups)
@@ -1038,7 +1096,8 @@ def generate_long(code, cfg=None, market="jp", name=None):
               "ref_src": M.get("参考", []), "drawdown": dd,
               "div_yield": rowmap.get("div_yield", {}).get("v"),
               "fin_q": fin_q, "fq_parts": fq_parts,
-              "reit_q": reit_q, "reit_parts": reit_parts}
+              "reit_q": reit_q, "reit_parts": reit_parts,
+              "quarter_trend_rows": quarter_trend_rows}
 
     warnings = []
     if is_reit_us:
