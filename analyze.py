@@ -2749,12 +2749,12 @@ svg.trend{{width:100%;height:auto;border:1px solid var(--line);border-radius:8px
 .meta2 b{{color:var(--fg)}}
 .topbar{{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}}
 .topbar a{{font-size:12.5px;white-space:nowrap}}
-.topbar .blk{{display:flex;flex-direction:column;align-items:flex-end;gap:2px}}
+.topbar .blk{{display:flex;gap:10px;flex-wrap:wrap}}
 @media print{{body{{font-size:11px}} .wrap{{max-width:none}} .topbar a{{display:none}}}}
 </style></head><body><div class="wrap">
 
 <div class="topbar"><h1>{meta['name']}（{meta['code']}）　配当株スクリーニング</h1>
-<span class="blk"><a href="../index.html">← 一覧へ戻る</a><a href="../watchlist.html">← ウォッチリストへ戻る</a></span></div>
+<span class="blk"><a href="../terms.html">利用規約・免責事項</a><a href="../guide.html">使い方・見方</a><a href="../index.html">ランキング</a><a href="../watchlist.html">ウォッチリスト</a><a href="../portfolio.html">ポートフォリオ</a></span></div>
 {THEME_BAR}
 {f'<div class="meta2">前回の値動き（{meta["price_date"] or "―"}）　終値 <b>{fmt_num(meta["ohlc"]["close"],1)}円</b>　／　高値 {fmt_num(meta["ohlc"]["high"],1)}円　／　安値 {fmt_num(meta["ohlc"]["low"],1)}円　／　始値 {fmt_num(meta["ohlc"]["open"],1)}円</div>' if meta.get("ohlc") else ""}
 <div class="sub">東証33業種：<b>{meta['jp_sector']}</b>

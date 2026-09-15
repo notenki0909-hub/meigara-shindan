@@ -599,6 +599,7 @@ tr:last-child td{{border-bottom:none}}
 details{{margin:14px 0}}summary{{cursor:pointer;font-weight:600;font-size:13px}}
 .topbar{{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}}
 .topbar a{{font-size:12.5px;color:var(--accent);white-space:nowrap}}
+.pagenav{{display:flex;gap:10px;flex-wrap:wrap}}
 .searchbar{{display:flex;align-items:center;gap:8px;margin:16px 0 6px}}
 .searchbar input{{flex:1;max-width:360px;padding:8px 10px;border:1px solid var(--line);
   border-radius:8px;font-size:13.5px;background:var(--card)}}
@@ -640,9 +641,9 @@ body.wlon{{padding-bottom:60px}}
 .ticlose{{position:absolute;top:6px;right:8px;border:none;background:none;cursor:pointer;
   font-size:15px;line-height:1;color:var(--muted);padding:4px}}
 </style></head><body><div class="wrap">
-<div class="topbar"><h1>米国株 配当株 軍分けランキング</h1><a href="terms.html">利用規約・免責事項</a></div>
+<div class="topbar"><h1>米国株 配当株 軍分けランキング</h1><span class="pagenav"><a href="terms.html">利用規約・免責事項</a><a href="guide.html">使い方・見方</a></span></div>
 {THEME_BAR}
-<div class="sub">生成 {gen}　｜　スクリーン：{scr}　｜　<a href="guide.html">使い方・見方</a></div>
+<div class="sub">生成 {gen}　｜　スクリーン：{scr}</div>
 <div class="sub">表の見出し（軍・終値・選定・買い時・利回り・増配・カバレッジ・業種級）をクリックすると説明が出ます。各行の☆にチェックを入れて下部の「ウォッチリストを作成」を、💼にチェックを入れて「ポートフォリオに追加」を押すと、それぞれ選んだ銘柄だけの一覧・保有記録の入力画面を作れます（☆と💼は別々に選べます）。</div>
 <div class="summary">
   <button type="button" class="sumbtn" data-tier=""><b>{c['total']}</b>銘柄</button>

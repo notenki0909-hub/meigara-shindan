@@ -1385,7 +1385,7 @@ svg.trend{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;
 .disc{margin-top:30px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:11.5px}
 .topbar{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
 .topbar a{font-size:12.5px;white-space:nowrap}
-.topbar .blk{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.topbar .blk{display:flex;gap:10px;flex-wrap:wrap}
 .meta2{color:var(--muted);font-size:12px;margin:4px 0 12px}
 .meta2 b{color:var(--fg)}
 a{color:var(--accent)}
@@ -1463,7 +1463,7 @@ def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warni
 <title>{analyze.html.escape(meta['name'])}（{meta['code']}）｜米国株 配当スクリーニング</title>
 <style>{analyze.THEME_CSS}{_US_CSS}</style></head><body><div class="wrap">
 <div class="topbar"><h1>{analyze.html.escape(meta['name'])}（{meta['code']}）</h1>
-<span class="blk"><a href="../index.html">← 一覧へ戻る</a><a href="../watchlist.html">← ウォッチリストへ戻る</a></span></div>
+<span class="blk"><a href="../terms.html">利用規約・免責事項</a><a href="../guide.html">使い方・見方</a><a href="../index.html">ランキング</a><a href="../watchlist.html">ウォッチリスト</a><a href="../portfolio.html">ポートフォリオ</a></span></div>
 {analyze.THEME_BAR}
 {f'<div class="meta2">前回の値動き（{meta["price_date"] or "―"}）　終値 <b>${fmt_num(meta["ohlc"]["close"],2)}</b>　／　高値 ${fmt_num(meta["ohlc"]["high"],2)}　／　安値 ${fmt_num(meta["ohlc"]["low"],2)}　／　始値 ${fmt_num(meta["ohlc"]["open"],2)}</div>' if meta.get("ohlc") else ""}
 <div class="sub">GICS業種：<b>{gics_jp(meta['gics_sector'])}</b>（{analyze.html.escape(meta['gics_sector'])}／yfinance：{analyze.html.escape(meta['industry'] or '―')}）{simple_note}<br>
