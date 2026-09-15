@@ -628,6 +628,11 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
     pbr_rb_fig = analyze.svg_rangeband(
         {"hist": btd["pbr_pairs"], "current": btd["pbr"], "kind": "per", "low_is_cheap": True},
         "PBRの自社過去レンジ") if len(btd["pbr_pairs"]) >= 3 and LC.is_num(btd["pbr"]) else ""
+    # svg_rangeband は kind="per"（pct以外）だとゾーン注記を「高PER」「低PER」固定で
+    # 出す（analyze.py側の元々の想定がPER専用のため）。PBRのグラフではラベルだけ
+    # 差し替える（analyze.pyは無改変のまま、ここで文字列置換のみ行う）。
+    if pbr_rb_fig:
+        pbr_rb_fig = pbr_rb_fig.replace("高PER", "高PBR").replace("低PER", "低PBR")
 
     def _why_vs(vs, kind):
         if not LC.is_num(vs):
