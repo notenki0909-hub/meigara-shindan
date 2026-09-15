@@ -270,10 +270,12 @@ def build(market):
             "price_date": s.get("price_date"),
             "is_simple": s.get("is_simple"), "is_reit": s.get("is_reit"),
             "asof": s.get("_generated_at"), "new": code in watch_new,
+            "new_at": watch_new.get(code, {}).get("detected_at"),
         }
         if q is None:
             if code in watch:
                 rec["why"] = watch[code].get("reason", "対象外（月次チェック検知）")
+                rec["detected_at"] = watch[code].get("detected_at")
             elif s.get("is_reit") or grp == "Real Estate":
                 rec["why"] = "REIT・不動産（採点対象外）"
             elif s.get("is_simple"):
@@ -309,6 +311,8 @@ def build(market):
 
     global_top = sorted(rows, key=lambda r: -r["q"])[:50]
     excluded.sort(key=lambda r: (r["group"], r["name"]))
+    new_additions = sorted((r for r in rows if r["new"]), key=lambda r: r["code"])
+    watch_excluded = sorted((r for r in excluded if "detected_at" in r), key=lambda r: r["code"])
     tt = tuple(LC.load_bt_cfg()[f"tim_tiers_{market}"])
     bt_vals = [r["bt"] for r in rows if isinstance(r.get("bt"), (int, float))]
     bt_counts = {
@@ -332,6 +336,7 @@ def build(market):
         "buytiming_counts": bt_counts, "tim_tiers": list(tt),
         "groups": groups_out, "global_top": global_top, "excluded": excluded,
         "missing": sorted(missing),
+        "new_additions": new_additions, "watch_excluded": watch_excluded,
     }
     _print_dist(out)
     return out, m
@@ -428,6 +433,39 @@ def render(out, m):
                     + thead.format(rk="") + '<tbody>' + trs + '</tbody></table></section>')
 
     gt = "".join(row_html(s, with_rank=i + 1) for i, s in enumerate(out["global_top"]))
+
+    watch_change_html = ""
+    new_adds, watch_exc = out.get("new_additions") or [], out.get("watch_excluded") or []
+    if m.get("watch") and not (new_adds or watch_exc):
+        watch_change_html = (
+            '<section class="grp"><h2>直近の構成銘柄変更</h2>'
+            '<p class="sub" style="margin:4px 0 0">データ不足（月次チェックが未実施、'
+            'または前回チェック以降にS&amp;P500の構成銘柄変更なし。月次チェックは毎月1日に'
+            '自動実行されます）</p></section>')
+    elif m.get("watch"):
+        new_rows = "".join(
+            f'<tr><td class="code">{_code_cell(s["code"], m["report_dirs"])}</td>'
+            f'<td class="nm">{html.escape(str(s["name"]))}</td>'
+            f'<td class="sec">{html.escape(str(s["sector"]))}</td>'
+            f'<td class="n" data-v="{_v(s["q"])}">{_num(s["q"],0)}</td>'
+            f'<td class="sec">{s.get("new_at") or "―"}</td></tr>'
+            for s in new_adds) or '<tr><td colspan="5" class="sec">なし</td></tr>'
+        exc_rows = "".join(
+            f'<tr><td class="code">{html.escape(str(s["code"]))}</td>'
+            f'<td class="nm">{html.escape(str(s["name"]))}</td>'
+            f'<td class="sec">{html.escape(str(s["sector"]))}</td>'
+            f'<td class="sec">{html.escape(str(s.get("why","")))}</td>'
+            f'<td class="sec">{s.get("detected_at") or "―"}</td></tr>'
+            for s in watch_exc) or '<tr><td colspan="5" class="sec">なし</td></tr>'
+        watch_change_html = (
+            '<section class="grp">'
+            f'<h2>直近の構成銘柄変更 <span class="gmeta">新規追加 {len(new_adds)}／除外 {len(watch_exc)}'
+            '・月次S&amp;P500チェックで検知、次の四半期フル再構築で正式なリストに置き換わります</span></h2>'
+            '<table><thead><tr><th>コード</th><th>銘柄</th><th>業種</th><th class="n">品質</th>'
+            '<th>検知日</th></tr></thead><tbody>' + new_rows + '</tbody></table>'
+            '<table style="margin-top:8px"><thead><tr><th>コード</th><th>銘柄</th><th>業種</th>'
+            '<th>除外理由</th><th>検知日</th></tr></thead><tbody>' + exc_rows + '</tbody></table>'
+            '</section>')
 
     exc = ""
     if out["excluded"]:
@@ -563,6 +601,7 @@ section.grp[hidden]{{display:none}}
   <button id="qclear" type="button">クリア</button>
   <span class="hit" id="qhit"></span>
 </div>
+{watch_change_html}
 <details id="topbox"><summary>全体 品質スコア 上位50（業種横断）</summary>
 <table><thead><tr><th class="n">#</th><th class="wl">☑</th><th class="pf">💼</th>
 <th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>業種</th>
