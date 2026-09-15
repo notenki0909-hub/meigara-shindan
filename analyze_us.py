@@ -118,6 +118,51 @@ def classify_sector_us(info, smap):
     return gics, industry, ysector, is_simple, is_reit, src
 
 
+# ---------------------------------------------------------------- 直近四半期の急減速チェック
+# 通常銘柄（is_simpleでもREITでもない）向け。品質の元データ（業績・財務・CF）が
+# yfinanceの年次決算のみのため、直近1年以内に始まった急激な業績悪化は、翌年の
+# 本決算が出るまで（最大1年程度）スコアに反映されない構造的な弱点への対処。
+# 10年保有ツール（analyze_long.py）の _recent_quarter_decel_us と同じ設計思想の
+# 独立実装（import・共有なし）。しきい値は10年保有側のUS26銘柄校正をいったん
+# そのまま流用し、配当株ツール自身のUS501銘柄の実データで発動件数・既知の
+# 好悪銘柄との整合性を確認したうえで採用（2026-09-15）。analyze.py（DOMAIN_KEYS・
+# build_metrics_us・score_all）には一切手を入れず、generate_us() が score_all()
+# の結果を受け取った後に別途合成する（金融品質/REIT品質と同じ「呼び出し側で
+# 後から合成」方式）。
+def _recent_quarter_decel_us(yd, rev_cagr):
+    """直近四半期（対前年同期比）が年次の増収トレンドから大きく下振れ、かつ営業利益
+    （取れなければ純利益）が前年同期比マイナスの場合にのみ、業績グループへの減点係数
+    （1.0〜0.6）を返す。売上高は営業利益・純利益と違って四半期ごとの振れが小さく、
+    低base効果による異常値も出にくいため「下げ止まりの判定」の主軸に使い、営業利益・
+    純利益は「実際に減益方向か」の確認用（両方そろって初めて発動）。
+    戻り値: (factor, detail dict or None)。"""
+    qr = yd.get("q_rows") or {}
+
+    def qrow(*labels):
+        for lb in labels:
+            if lb in qr:
+                return qr[lb]
+        return None
+
+    def yoy(s):
+        if s and len(s) >= 5 and is_num(s[0]) and is_num(s[4]) and s[4] != 0:
+            return (s[0] / s[4] - 1) * 100
+        return None
+
+    rev_yoy = yoy(qrow("Total Revenue", "Operating Revenue"))
+    profit_yoy = yoy(qrow("Operating Income", "Total Operating Income As Reported", "EBIT"))
+    if profit_yoy is None:
+        profit_yoy = yoy(qrow("Net Income", "Net Income Common Stockholders"))
+    if rev_yoy is None or profit_yoy is None or not is_num(rev_cagr):
+        return 1.0, None
+    gap = rev_yoy - rev_cagr  # 年次の増収率に対して直近四半期がどれだけ下振れているか（pt）
+    if profit_yoy >= 0 or gap >= -5:
+        return 1.0, {"rev_yoy_q": rev_yoy, "profit_yoy_q": profit_yoy, "gap": gap}
+    frac = min(1.0, (-5 - gap) / 20.0)  # gap: -5で0・-25以上で1（線形補間）
+    factor = 1.0 - frac * 0.4  # 1.0（無補正）〜0.6（最大40%減点）
+    return factor, {"rev_yoy_q": rev_yoy, "profit_yoy_q": profit_yoy, "gap": gap}
+
+
 # ---------------------------------------------------------------- 金融品質スコア
 # 銀行・保険・証券（is_simple かつ REIT でない）向け。従来は業績・財務・CFを
 # 構造的に採点できず「配当の持続力」のみでsel_scoreが決まっていた＝事業の健全性を
@@ -1510,6 +1555,22 @@ def generate_us(ticker, cfg=None, log=None):
         ctx["hist_m"] = yd.get("hist_m")
         dom_scores, detail, groups, sel_score, tim_score, coverage = analyze.score_all(M, gics, rules, is_simple)
 
+        # 直近四半期の急減速チェック（通常銘柄のみ＝業績/財務/CFが実際に採点されている
+        # is_simple/REIT以外）。年次データだけだと、直近1年以内に始まった急減速が
+        # 確定決算に反映されるまで（最大1年程度）品質スコアに出ない問題への対応。
+        # 詳細は _recent_quarter_decel_us を参照。
+        decel_factor, decel_detail = 1.0, None
+        if not is_simple and not is_reit:
+            _rowmap0 = {r["key"]: r for dom in detail for r in detail[dom] if r.get("key")}
+            decel_factor, decel_detail = _recent_quarter_decel_us(yd, _rowmap0.get("rev_cagr", {}).get("v"))
+            if decel_factor < 1.0 and is_num(groups.get("業績")):
+                groups = dict(groups)
+                groups["業績"] = round(groups["業績"] * decel_factor, 1)
+                sel_w = rules["score_groups"]["選定"]
+                _num = sum(sel_w[g]["weight"] * groups[g] for g in sel_w if is_num(groups.get(g)))
+                _den = sum(sel_w[g]["weight"] for g in sel_w if is_num(groups.get(g)))
+                sel_score = round(_num / _den, 1) if _den else sel_score
+
         # 銀行・保険・証券（is_simpleだがREITではない）：業績・財務・CFの代役として
         # 金融品質スコアをsel_scoreに合成する。score_all()自体・analyze.py・
         # build_metrics_us()には一切手を入れず、その結果を受け取った後にここで
@@ -1569,6 +1630,14 @@ def generate_us(ticker, cfg=None, log=None):
     if is_simple and not is_reit:
         warnings.append("銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。"
                          "代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。")
+    if decel_detail and decel_factor < 1.0:
+        warnings.append(
+            "直近四半期の増収率が年次トレンドから大きく下振れ（年率"
+            f"{_rowmap0.get('rev_cagr', {}).get('v', 0):+.1f}%に対し直近四半期は"
+            f"{decel_detail['rev_yoy_q']:+.1f}%）、かつ営業利益/純利益も前年同期比マイナス"
+            f"（{decel_detail['profit_yoy_q']:+.1f}%）だったため、業績スコアを"
+            f"{(1 - decel_factor) * 100:.0f}%減点しています。年次決算にはまだ反映されて"
+            "いない直近の変化のため、最新の決算内容もあわせてご確認ください。")
 
     pdate = yd.get("price_date")
     meta = {
@@ -1614,6 +1683,8 @@ def generate_us(ticker, cfg=None, log=None):
         "per_vs_sector": gv("per_vs_sector"), "pbr_vs_sector": gv("pbr_vs_sector"),
         "per_band_pos": gv("per_band_pos"), "yield_band_pos": gv("yield_band_pos"),
         "next_earn": ea.get("next_earn"), "earn_disc_date": ea.get("disc_date"),
+        "quarter_decel_factor": decel_factor if decel_factor < 1.0 else None,
+        "quarter_decel_detail": decel_detail if decel_factor < 1.0 else None,
         "warnings": warnings,
     }
     try:
