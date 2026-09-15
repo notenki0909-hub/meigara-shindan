@@ -163,6 +163,50 @@ def _recent_quarter_decel_us(yd, rev_cagr):
     return factor, {"rev_yoy_q": rev_yoy, "profit_yoy_q": profit_yoy, "gap": gap}
 
 
+def _recent_quarters_trend_us(yd):
+    """直近四半期（最大4件・古い順）の売上高・営業利益（取れなければ純利益）の推移を、
+    _metric_details_html_us にそのまま渡せる「行」の形で返す（採点はしない参考表示・
+    米国株専用。10年保有ツール analyze_long.py の同名関数と同じ設計の独立実装）。
+    戻り値: [row, ...]（データが取れた指標だけ。0件なら空リスト）。"""
+    qr = yd.get("q_rows") or {}
+    qd = yd.get("q_dates") or []
+
+    def qrow(*labels):
+        for lb in labels:
+            if lb in qr:
+                return qr[lb]
+        return None
+
+    def qlabel(d):
+        try:
+            y, m = d[2:4], int(d[5:7])
+            return f"{y}Q{(m - 1) // 3 + 1}"
+        except Exception:
+            return d
+
+    def build_row(name, s, key):
+        pairs = [(qlabel(d), v) for d, v in zip(qd, s or []) if is_num(v)][:4][::-1]
+        if len(pairs) < 2:
+            return None
+        yoy = None
+        if s and len(s) >= 5 and is_num(s[0]) and is_num(s[4]) and s[4] != 0:
+            yoy = (s[0] / s[4] - 1) * 100
+        disp = " ← ".join(analyze._fmt_usd_big(v) for _, v in pairs[::-1])
+        ref = (f"直近四半期は前年同期比 {yoy:+.1f}%（参考値・採点には使わず、急減速の判定にのみ利用）"
+               if is_num(yoy) else "参考値（採点には使いません）")
+        return {"name": name, "v": None, "disp": disp, "ref": ref, "key": key,
+                "series": pairs, "series_kind": "usd"}
+
+    rows = [build_row("売上高（直近四半期）", qrow("Total Revenue", "Operating Revenue"), "q_rev_trend_us"),
+            build_row("営業利益（直近四半期）",
+                      qrow("Operating Income", "Total Operating Income As Reported", "EBIT"),
+                      "q_opinc_trend_us")]
+    if rows[1] is None:
+        rows[1] = build_row("純利益（直近四半期）",
+                            qrow("Net Income", "Net Income Common Stockholders"), "q_netinc_trend_us")
+    return [r for r in rows if r]
+
+
 # ---------------------------------------------------------------- 金融品質スコア
 # 銀行・保険・証券（is_simple かつ REIT でない）向け。従来は業績・財務・CFを
 # 構造的に採点できず「配当の持続力」のみでsel_scoreが決まっていた＝事業の健全性を
@@ -1035,7 +1079,7 @@ def _metric_details_html_us(it, gics_key, gics_disp, is_simple, rules):
         '</div></details>')
 
 
-def _group_section_us(head, sg, groups, rowmap, gics_key, gics_disp, is_simple, rules):
+def _group_section_us(head, sg, groups, rowmap, gics_key, gics_disp, is_simple, rules, quarter_trend_rows=None):
     out = []
     for gname, gdef in sg[head].items():
         out.append(f'<div class="domhead"><b>{analyze.html.escape(gname)}</b> {analyze.bar(groups.get(gname))}</div>')
@@ -1048,6 +1092,8 @@ def _group_section_us(head, sg, groups, rowmap, gics_key, gics_disp, is_simple, 
             out.append(_metric_details_html_us(it, gics_key, gics_disp, is_simple, rules))
         if not got:
             out.append('<div class="plain"><span class="mn">―</span><span class="mv2">この業種では評価対象外</span></div>')
+        if gname == "業績" and quarter_trend_rows:
+            out += [_metric_details_html_us(r, gics_key, gics_disp, is_simple, rules) for r in quarter_trend_rows]
     return "".join(out)
 
 
@@ -1347,13 +1393,13 @@ a{color:var(--accent)}
 """
 
 
-def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warnings, rules, fq_score=None, fq_parts=None, rq_score=None, rq_parts=None):
+def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warnings, rules, fq_score=None, fq_parts=None, rq_score=None, rq_parts=None, quarter_trend_rows=None):
     rowmap = {r["key"]: r for dom in detail for r in detail[dom] if r.get("key")}
     sg = rules["score_groups"]
     gk = meta["gics_sector"]
     gd = gics_jp(gk)
     is_simple = meta["is_simple"]
-    sel_blocks = _group_section_us("選定", sg, groups, rowmap, gk, gd, is_simple, rules)
+    sel_blocks = _group_section_us("選定", sg, groups, rowmap, gk, gd, is_simple, rules, quarter_trend_rows)
     tim_blocks = _group_section_us("買い時", sg, groups, rowmap, gk, gd, is_simple, rules)
     sel_chart = (
         '<details class="chartbox"><summary>銘柄選定の指標スコアを一覧グラフで見る</summary>'
@@ -1471,7 +1517,7 @@ def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warni
 </div></body></html>"""
 
 
-def render_md_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, rules, fq_score=None, fq_parts=None, rq_score=None, rq_parts=None):
+def render_md_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, rules, fq_score=None, fq_parts=None, rq_score=None, rq_parts=None, quarter_trend_rows=None):
     sg = rules["score_groups"]
     rowmap = {r["key"]: r for dom in detail for r in detail[dom] if r.get("key")}
     L = [f"# {meta['name']}（{meta['code']}）｜米国株 配当スクリーニング", ""]
@@ -1502,6 +1548,9 @@ def render_md_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, rules, 
                 sc = it.get("score")
                 sc_txt = f"{sc:.0f}" if is_num(sc) else "―"
                 L.append(f"- {mark} {sc_txt}  {it['name']}：{it.get('disp', '―')}")
+            if head == "選定" and gname == "業績" and quarter_trend_rows:
+                for r in quarter_trend_rows:
+                    L.append(f"- ―  {r['name']}：{r.get('disp', '―')}")
         if head == "選定" and fq_score is not None:
             L.append("")
             L.append(_financial_quality_md(fq_score, fq_parts))
@@ -1560,9 +1609,11 @@ def generate_us(ticker, cfg=None, log=None):
         # 確定決算に反映されるまで（最大1年程度）品質スコアに出ない問題への対応。
         # 詳細は _recent_quarter_decel_us を参照。
         decel_factor, decel_detail = 1.0, None
+        quarter_trend_rows = []
         if not is_simple and not is_reit:
             _rowmap0 = {r["key"]: r for dom in detail for r in detail[dom] if r.get("key")}
             decel_factor, decel_detail = _recent_quarter_decel_us(yd, _rowmap0.get("rev_cagr", {}).get("v"))
+            quarter_trend_rows = _recent_quarters_trend_us(yd)
             if decel_factor < 1.0 and is_num(groups.get("業績")):
                 groups = dict(groups)
                 groups["業績"] = round(groups["業績"] * decel_factor, 1)
@@ -1649,8 +1700,8 @@ def generate_us(ticker, cfg=None, log=None):
 
     log("[3/3] rendering")
     try:
-        res["html"] = render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warnings, rules, fq_score, fq_parts, rq_score, rq_parts)
-        res["md"] = render_md_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, rules, fq_score, fq_parts, rq_score, rq_parts)
+        res["html"] = render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warnings, rules, fq_score, fq_parts, rq_score, rq_parts, quarter_trend_rows)
+        res["md"] = render_md_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, rules, fq_score, fq_parts, rq_score, rq_parts, quarter_trend_rows)
     except Exception as e:
         import traceback
         res["error"] = f"render failed: {e}\n{traceback.format_exc()}"
