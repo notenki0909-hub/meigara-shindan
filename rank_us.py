@@ -751,7 +751,7 @@ body.wlon{{padding-bottom:60px}}
       <div class="fgrp"><span class="flbl">評価</span>
         <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_gy" value="{v}">{lab}</label>' for v, lab in zip(("cheap","normal","expensive"), _zone_labels("higher_better",80,62,"点",("良好","注意","弱い"))))}</span></div>
       <div class="fgrp"><span class="flbl">直近四半期の急減速</span>
-        <span class="fchecks"><label><input type="checkbox" id="f_nd">フラグが無い銘柄のみ</label></span></div>
+        <span class="fchecks"><label><input type="checkbox" id="f_nd">フラグが無い銘柄のみ</label><label><input type="checkbox" id="f_hd">フラグのある銘柄のみ</label></span></div>
     </div></div>
     <div class="fsec"><span class="fsech">財務</span><div class="fsecbody">
       <div class="fgrp"><span class="flbl">評価</span>
@@ -864,6 +864,7 @@ body.wlon{{padding-bottom:60px}}
   var dpEl = document.getElementById('f_dp');  // JP版のみ存在（累進配当宣言）
   var ocfEl = document.getElementById('f_ocf');
   var ndEl = document.getElementById('f_nd');
+  var hdEl = document.getElementById('f_hd');
   var grdEls = document.querySelectorAll('.f_grd');
   var covEls = document.querySelectorAll('.f_cov');
   var grpEls = document.querySelectorAll('.f_grp');
@@ -910,7 +911,7 @@ body.wlon{{padding-bottom:60px}}
 
   var allFilterEls = Object.keys(numEls).map(function(k){{ return numEls[k]; }})
     .concat([].concat.apply([], Object.keys(bandEls).map(function(k){{ return Array.prototype.slice.call(bandEls[k]); }})))
-    .concat(dpEl ? [dpEl] : [], [ocfEl], ndEl ? [ndEl] : [],
+    .concat(dpEl ? [dpEl] : [], [ocfEl], ndEl ? [ndEl] : [], hdEl ? [hdEl] : [],
             Array.prototype.slice.call(grdEls), Array.prototype.slice.call(covEls), Array.prototype.slice.call(grpEls));
 
   // 数値入力と良好/注意/弱いチェックボックスの両方を持つ項目：どちらか一方しか
@@ -971,6 +972,7 @@ body.wlon{{padding-bottom:60px}}
     if (dpEl && dpEl.checked && tr.dataset.divpolicy !== '1') return false;
     if (ocfEl && ocfEl.checked && tr.dataset.ocf !== '1') return false;
     if (ndEl && ndEl.checked && tr.dataset.decel === '1') return false;
+    if (hdEl && hdEl.checked && tr.dataset.decel !== '1') return false;
     if (!bandOk(tr)) return false;
     var grds = checkedVals(grdEls);
     if (grds.length && grds.indexOf(tr.dataset.grade) === -1) return false;
@@ -985,6 +987,7 @@ body.wlon{{padding-bottom:60px}}
     if (dpEl && dpEl.checked) return true;
     if (ocfEl && ocfEl.checked) return true;
     if (ndEl && ndEl.checked) return true;
+    if (hdEl && hdEl.checked) return true;
     if (Object.keys(bandEls).some(function(id){{ return checkedVals(bandEls[id]).length; }})) return true;
     if (checkedVals(grdEls).length || checkedVals(covEls).length || checkedVals(grpEls).length) return true;
     return Object.keys(numEls).some(function(id){{ return numEls[id].value !== ''; }});
@@ -1029,6 +1032,7 @@ body.wlon{{padding-bottom:60px}}
       if (dpEl && dpEl.checked) p.set('dp', '1');
       if (ocfEl && ocfEl.checked) p.set('ocf', '1');
       if (ndEl && ndEl.checked) p.set('nd', '1');
+      if (hdEl && hdEl.checked) p.set('hd', '1');
       Object.keys(bandEls).forEach(function(id){{ var sel = checkedVals(bandEls[id]); if (sel.length) p.set(id, sel.join(',')); }});
       var grds2 = checkedVals(grdEls); if (grds2.length) p.set('grd', grds2.join(','));
       var covs2 = checkedVals(covEls); if (covs2.length) p.set('cov', covs2.join(','));
@@ -1059,6 +1063,7 @@ body.wlon{{padding-bottom:60px}}
     if (p.get('dp') === '1' && dpEl) dpEl.checked = true;
     if (p.get('ocf') === '1' && ocfEl) ocfEl.checked = true;
     if (p.get('nd') === '1' && ndEl) ndEl.checked = true;
+    if (p.get('hd') === '1' && hdEl) hdEl.checked = true;
     Object.keys(bandEls).forEach(function(id){{
       if (!p.has(id)) return;
       var vals = p.get(id).split(',');
@@ -1089,11 +1094,18 @@ body.wlon{{padding-bottom:60px}}
     }});
   }});
   allFilterEls.forEach(function(el){{ el.addEventListener('input', apply); el.addEventListener('change', apply); }});
+  // 「フラグが無い銘柄のみ」「フラグのある銘柄のみ」は同時にチェックすると
+  // 該当銘柄が0件になってしまう（互いに排他）ため、片方を選ぶと自動でもう片方を外す
+  if (ndEl && hdEl) {{
+    ndEl.addEventListener('change', function(){{ if (ndEl.checked) {{ hdEl.checked = false; apply(); }} }});
+    hdEl.addEventListener('change', function(){{ if (hdEl.checked) {{ ndEl.checked = false; apply(); }} }});
+  }}
   document.getElementById('fclear').addEventListener('click', function(){{
     Object.keys(numEls).forEach(function(id){{ numEls[id].value = ''; }});
     if (dpEl) dpEl.checked = false;
     if (ocfEl) ocfEl.checked = false;
     if (ndEl) ndEl.checked = false;
+    if (hdEl) hdEl.checked = false;
     Object.keys(bandEls).forEach(function(id){{
       Array.prototype.forEach.call(bandEls[id], function(e){{ e.checked = false; }});
     }});
