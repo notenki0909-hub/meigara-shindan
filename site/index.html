@@ -108,9 +108,6 @@ details{margin:14px 0}summary{cursor:pointer;font-weight:600;font-size:13px}
 .fsecbody{display:flex;flex-wrap:wrap;gap:12px 22px}
 .fgrp{display:flex;flex-direction:column;gap:4px;min-width:120px}
 .fgrp.wide{min-width:220px}
-.frange{display:flex;align-items:center;gap:6px}
-.frange input[type=number]{width:64px}
-.frange .frangesep{font-size:12px;color:var(--muted)}
 .fgrp label.flbl{font-size:11.5px;color:var(--muted)}
 .fgrp input[type=number]{width:88px;padding:6px 8px;border:1px solid var(--line);
   border-radius:6px;font-size:13px;background:var(--card)}
@@ -190,7 +187,7 @@ body.wlon{padding-bottom:60px}
   </div>
 </div>
 
-<div class="sub">生成 2026-09-17T06:15:15　｜　スクリーン：利回り≥2.0% ・ 時価総額≥300億 ・ 直近5年減配なし（累進配当/DOE宣言は例外）</div>
+<div class="sub">生成 2026-09-17T06:39:59　｜　スクリーン：利回り≥2.0% ・ 時価総額≥300億 ・ 直近5年減配なし（累進配当/DOE宣言は例外）</div>
 <div class="sub">表の見出し（軍・終値・選定・買い時・利回り・増配・カバレッジ・業種級）をクリックすると説明が出ます。各行の☆にチェックを入れて下部の「ウォッチリストを作成」を、💼にチェックを入れて「ポートフォリオに追加」を押すと、それぞれ選んだ銘柄だけの一覧・保有記録の入力画面を作れます（☆と💼は別々に選べます）。</div>
 <div class="summary">
   <button type="button" class="sumbtn" data-tier=""><b>677</b>銘柄</button>
@@ -215,31 +212,31 @@ body.wlon{padding-bottom:60px}
     </div></div>
     <div class="fsec"><span class="fsech">業績</span><div class="fsecbody">
       <div class="fgrp"><span class="flbl">評価</span>
-        <span class="fchecks"><label><input type="checkbox" class="f_gy" value="cheap">良好</label><label><input type="checkbox" class="f_gy" value="normal">注意</label><label><input type="checkbox" class="f_gy" value="expensive">弱い</label></span></div>
+        <span class="fchecks"><label><input type="checkbox" class="f_gy" value="cheap">良好（80点以上）</label><label><input type="checkbox" class="f_gy" value="normal">注意（62点〜80点）</label><label><input type="checkbox" class="f_gy" value="expensive">弱い（62点未満）</label></span></div>
     </div></div>
     <div class="fsec"><span class="fsech">財務</span><div class="fsecbody">
       <div class="fgrp"><span class="flbl">評価</span>
-        <span class="fchecks"><label><input type="checkbox" class="f_gz" value="cheap">良好</label><label><input type="checkbox" class="f_gz" value="normal">注意</label><label><input type="checkbox" class="f_gz" value="expensive">弱い</label></span></div>
+        <span class="fchecks"><label><input type="checkbox" class="f_gz" value="cheap">良好（80点以上）</label><label><input type="checkbox" class="f_gz" value="normal">注意（62点〜80点）</label><label><input type="checkbox" class="f_gz" value="expensive">弱い（62点未満）</label></span></div>
     </div></div>
     <div class="fsec"><span class="fsech">キャッシュフロー</span><div class="fsecbody">
       <div class="fgrp"><span class="flbl">営業CF</span>
         <span class="fchecks"><label><input type="checkbox" id="f_ocf">直近プラスのみ</label></span></div>
       <div class="fgrp"><span class="flbl">フリーCF（営業CF＋投資CF）</span>
-        <span class="fchecks"><label><input type="checkbox" class="f_fcfpos" value="cheap">良好</label><label><input type="checkbox" class="f_fcfpos" value="expensive">弱い</label></span></div>
+        <span class="fchecks"><label><input type="checkbox" class="f_fcfpos" value="cheap">良好（黒字）</label><label><input type="checkbox" class="f_fcfpos" value="expensive">弱い（赤字）</label></span></div>
       <div class="fgrp"><span class="flbl">FCF配当性向（配当支払÷フリーCF）</span>
-        <span class="fchecks"><label><input type="checkbox" class="f_fcfpayout" value="cheap">良好</label><label><input type="checkbox" class="f_fcfpayout" value="normal">注意</label><label><input type="checkbox" class="f_fcfpayout" value="expensive">弱い</label></span></div>
+        <span class="fchecks"><label><input type="checkbox" class="f_fcfpayout" value="cheap">良好（70%以下）</label><label><input type="checkbox" class="f_fcfpayout" value="normal">注意（70%〜100%）</label><label><input type="checkbox" class="f_fcfpayout" value="expensive">弱い（100%超）</label></span></div>
     </div></div>
     <div class="fsec"><span class="fsech">配当の持続力</span><div class="fsecbody">
       <div class="fgrp"><label class="flbl" for="f_dg">増配率(%) 以上</label><input id="f_dg" type="number" step="0.1">
-        <span class="fchecks"><label><input type="checkbox" class="f_dg" value="cheap">良好</label><label><input type="checkbox" class="f_dg" value="normal">注意</label><label><input type="checkbox" class="f_dg" value="expensive">弱い</label></span></div>
+        <span class="fchecks"><label><input type="checkbox" class="f_dg" value="cheap">良好（3%以上）</label><label><input type="checkbox" class="f_dg" value="normal">注意（0%〜3%）</label><label><input type="checkbox" class="f_dg" value="expensive">弱い（0%未満）</label></span></div>
       <div class="fgrp"><label class="flbl" for="f_strup">連続増配年数 以上</label><input id="f_strup" type="number" min="0">
-        <span class="fchecks"><label><input type="checkbox" class="f_strup" value="cheap">良好</label><label><input type="checkbox" class="f_strup" value="normal">注意</label><label><input type="checkbox" class="f_strup" value="expensive">弱い</label></span></div>
+        <span class="fchecks"><label><input type="checkbox" class="f_strup" value="cheap">良好（10年以上）</label><label><input type="checkbox" class="f_strup" value="normal">注意（3年〜10年）</label><label><input type="checkbox" class="f_strup" value="expensive">弱い（3年未満）</label></span></div>
       <div class="fgrp"><label class="flbl" for="f_strflat">連続非減配年数 以上</label><input id="f_strflat" type="number" min="0">
-        <span class="fchecks"><label><input type="checkbox" class="f_strflat" value="cheap">良好</label><label><input type="checkbox" class="f_strflat" value="normal">注意</label><label><input type="checkbox" class="f_strflat" value="expensive">弱い</label></span></div>
+        <span class="fchecks"><label><input type="checkbox" class="f_strflat" value="cheap">良好（15年以上）</label><label><input type="checkbox" class="f_strflat" value="normal">注意（5年〜15年）</label><label><input type="checkbox" class="f_strflat" value="expensive">弱い（5年未満）</label></span></div>
       <div class="fgrp"><label class="flbl" for="f_pay">配当性向（純利益ベース）(%) 以下</label><input id="f_pay" type="number" step="1" min="0">
-        <span class="fchecks"><label><input type="checkbox" class="f_pay" value="cheap">良好</label><label><input type="checkbox" class="f_pay" value="normal">注意</label><label><input type="checkbox" class="f_pay" value="expensive">弱い</label></span></div>
+        <span class="fchecks"><label><input type="checkbox" class="f_pay" value="cheap">良好（50%以下）</label><label><input type="checkbox" class="f_pay" value="normal">注意（50%〜80%）</label><label><input type="checkbox" class="f_pay" value="expensive">弱い（80%超）</label></span></div>
       <div class="fgrp"><label class="flbl" for="f_roe">ROE（配当の原資の効率）(%) 以上</label><input id="f_roe" type="number" step="0.1">
-        <span class="fchecks"><label><input type="checkbox" class="f_roe" value="cheap">良好</label><label><input type="checkbox" class="f_roe" value="normal">注意</label><label><input type="checkbox" class="f_roe" value="expensive">弱い</label></span></div>
+        <span class="fchecks"><label><input type="checkbox" class="f_roe" value="cheap">良好（10%以上）</label><label><input type="checkbox" class="f_roe" value="normal">注意（6%〜10%）</label><label><input type="checkbox" class="f_roe" value="expensive">弱い（6%未満）</label></span></div>
       <div class="fgrp"><span class="flbl">累進配当・DOE</span>
         <span class="fchecks"><label><input type="checkbox" id="f_dp">宣言ありのみ</label></span></div>
     </div></div>
@@ -249,23 +246,22 @@ body.wlon{padding-bottom:60px}
       <div class="fgrp"><label class="flbl" for="f_tim">買い時スコア 以上</label><input id="f_tim" type="number" min="0" max="110"></div>
     </div></div>
     <div class="fsec"><span class="fsech">配当利回りセオリー</span><div class="fsecbody">
-      <div class="fgrp"><span class="flbl">過去レンジ内の位置(%)</span>
-        <span class="frange"><input id="f_yldband" type="number" step="1" min="0" max="100" placeholder="以上"><span class="frangesep">〜</span><input id="f_yldband2" type="number" step="1" min="0" max="100" placeholder="以下"></span>
-        <span class="fchecks"><label><input type="checkbox" class="f_yldband" value="cheap">割安</label><label><input type="checkbox" class="f_yldband" value="normal">標準</label><label><input type="checkbox" class="f_yldband" value="expensive">割高</label></span></div>
+      <div class="fgrp"><label class="flbl" for="f_yldband">過去レンジ内の位置(%) 以上</label><input id="f_yldband" type="number" step="1" min="0" max="100">
+        <span class="fchecks"><label><input type="checkbox" class="f_yldband" value="cheap">割安（60%以上）</label><label><input type="checkbox" class="f_yldband" value="normal">標準（20%〜60%）</label><label><input type="checkbox" class="f_yldband" value="expensive">割高（20%未満）</label></span></div>
     </div></div>
     <div class="fsec"><span class="fsech">利回り水準とChowder</span><div class="fsecbody">
       <div class="fgrp"><label class="flbl" for="f_yld">予想配当利回り(%) 以上</label><input id="f_yld" type="number" step="0.1" min="0">
-        <span class="fchecks"><label><input type="checkbox" class="f_yld" value="cheap">良好</label><label><input type="checkbox" class="f_yld" value="normal">注意</label><label><input type="checkbox" class="f_yld" value="expensive">弱い</label></span></div>
+        <span class="fchecks"><label><input type="checkbox" class="f_yld" value="cheap">良好（3.5%以上）</label><label><input type="checkbox" class="f_yld" value="normal">注意（2%〜3.5%）</label><label><input type="checkbox" class="f_yld" value="expensive">弱い（2%未満）</label></span></div>
       <div class="fgrp"><label class="flbl" for="f_chow">Chowderルール(%) 以上</label><input id="f_chow" type="number" step="0.5">
-        <span class="fchecks"><label><input type="checkbox" class="f_chow" value="cheap">良好</label><label><input type="checkbox" class="f_chow" value="normal">注意</label><label><input type="checkbox" class="f_chow" value="expensive">弱い</label></span></div>
+        <span class="fchecks"><label><input type="checkbox" class="f_chow" value="cheap">良好（12%以上）</label><label><input type="checkbox" class="f_chow" value="normal">注意（8%〜12%）</label><label><input type="checkbox" class="f_chow" value="expensive">弱い（8%未満）</label></span></div>
     </div></div>
     <div class="fsec"><span class="fsech">株価バリュエーション</span><div class="fsecbody">
       <div class="fgrp"><span class="flbl">PER（実績・対業種平均）</span>
-        <span class="fchecks"><label><input type="checkbox" class="f_pervs" value="expensive">割高</label><label><input type="checkbox" class="f_pervs" value="normal">標準</label><label><input type="checkbox" class="f_pervs" value="cheap">割安</label></span></div>
+        <span class="fchecks"><label><input type="checkbox" class="f_pervs" value="expensive">割高（1.20倍超）</label><label><input type="checkbox" class="f_pervs" value="normal">標準（0.95倍〜1.20倍）</label><label><input type="checkbox" class="f_pervs" value="cheap">割安（0.95倍以下）</label></span></div>
       <div class="fgrp"><span class="flbl">PBR（実績・対業種平均）</span>
-        <span class="fchecks"><label><input type="checkbox" class="f_pbrvs" value="expensive">割高</label><label><input type="checkbox" class="f_pbrvs" value="normal">標準</label><label><input type="checkbox" class="f_pbrvs" value="cheap">割安</label></span></div>
+        <span class="fchecks"><label><input type="checkbox" class="f_pbrvs" value="expensive">割高（1.40倍超）</label><label><input type="checkbox" class="f_pbrvs" value="normal">標準（1.00倍〜1.40倍）</label><label><input type="checkbox" class="f_pbrvs" value="cheap">割安（1.00倍以下）</label></span></div>
       <div class="fgrp"><span class="flbl">PERの自社過去レンジ内の位置</span>
-        <span class="fchecks"><label><input type="checkbox" class="f_perband" value="expensive">割高</label><label><input type="checkbox" class="f_perband" value="normal">標準</label><label><input type="checkbox" class="f_perband" value="cheap">割安</label></span></div>
+        <span class="fchecks"><label><input type="checkbox" class="f_perband" value="expensive">割高（20%未満）</label><label><input type="checkbox" class="f_perband" value="normal">標準（20%〜60%）</label><label><input type="checkbox" class="f_perband" value="cheap">割安（60%以上）</label></span></div>
     </div></div>
   </div>
   <div class="fmaj"><h3 class="fmajh">銘柄属性</h3>
@@ -408,7 +404,7 @@ body.wlon{padding-bottom:60px}
     ['dg','dgr5','ge',false], ['roe','roe','ge',false],
     ['mc','mcap','ge',false],
     ['pay','payout','le',false], ['pr','price','le',false],
-    ['chow','chowder','ge',false], ['yldband','yldband','ge',true], ['yldband2','yldband','le',true]
+    ['chow','chowder','ge',false], ['yldband','yldband','ge',true]
   ];
   var numEls = {};
   NUM_FILTERS.forEach(function(f){ var id='f_'+f[0]; numEls[id] = document.getElementById(id); });
@@ -469,7 +465,7 @@ body.wlon{padding-bottom:60px}
   // yldbandのように「以上」「以下」2つの数値入力を持つ項目にも対応。
   var PAIRED_NUM_IDS = {
     dg: ['dg'], strup: ['strup'], strflat: ['strflat'], pay: ['pay'],
-    roe: ['roe'], yld: ['yld'], chow: ['chow'], yldband: ['yldband','yldband2']
+    roe: ['roe'], yld: ['yld'], chow: ['chow'], yldband: ['yldband']
   };
   function syncPairDisabled(){
     Object.keys(PAIRED_NUM_IDS).forEach(function(key){
