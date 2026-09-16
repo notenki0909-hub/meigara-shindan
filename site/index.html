@@ -97,7 +97,15 @@ details{margin:14px 0}summary{cursor:pointer;font-weight:600;font-size:13px}
 .searchbar .hit{font-size:12px;color:var(--muted);white-space:nowrap}
 #filterbox{margin:6px 0 14px}
 #filterbox summary{font-size:13px}
-.fpanel{display:flex;flex-wrap:wrap;gap:14px 22px;padding:12px 4px 4px}
+.fpanel{padding:12px 4px 4px}
+.fmaj{width:100%}
+.fmaj+.fmaj{margin-top:14px}
+.fmajh{font-size:13.5px;font-weight:800;color:var(--fg);margin:0 0 6px;
+  padding-bottom:4px;border-bottom:2px solid var(--accent)}
+.fsec{width:100%;margin-top:10px}
+.fsec:first-child{margin-top:0}
+.fsech{font-size:11.5px;font-weight:700;color:var(--muted);margin:0 0 6px}
+.fsecbody{display:flex;flex-wrap:wrap;gap:12px 22px}
 .fgrp{display:flex;flex-direction:column;gap:4px;min-width:120px}
 .fgrp.wide{min-width:220px}
 .fgrp label.flbl{font-size:11.5px;color:var(--muted)}
@@ -177,7 +185,7 @@ body.wlon{padding-bottom:60px}
   </div>
 </div>
 
-<div class="sub">生成 2026-09-17T00:36:30　｜　スクリーン：利回り≥2.0% ・ 時価総額≥300億 ・ 直近5年減配なし（累進配当/DOE宣言は例外）</div>
+<div class="sub">生成 2026-09-17T01:09:58　｜　スクリーン：利回り≥2.0% ・ 時価総額≥300億 ・ 直近5年減配なし（累進配当/DOE宣言は例外）</div>
 <div class="sub">表の見出し（軍・終値・選定・買い時・利回り・増配・カバレッジ・業種級）をクリックすると説明が出ます。各行の☆にチェックを入れて下部の「ウォッチリストを作成」を、💼にチェックを入れて「ポートフォリオに追加」を押すと、それぞれ選んだ銘柄だけの一覧・保有記録の入力画面を作れます（☆と💼は別々に選べます）。</div>
 <div class="summary">
   <button type="button" class="sumbtn" data-tier=""><b>677</b>銘柄</button>
@@ -196,42 +204,68 @@ body.wlon{padding-bottom:60px}
 <details id="filterbox">
 <summary>詳しい条件で絞り込む</summary>
 <div class="fpanel">
-  <div class="fgrp"><label class="flbl" for="f_sel">選定スコア 以上</label><input id="f_sel" type="number" min="0" max="110"></div>
-  <div class="fgrp"><label class="flbl" for="f_tim">買い時スコア 以上</label><input id="f_tim" type="number" min="0" max="110"></div>
-  <div class="fgrp"><label class="flbl" for="f_yld">予想配当利回り(%) 以上</label><input id="f_yld" type="number" step="0.1" min="0"></div>
-  <div class="fgrp"><label class="flbl" for="f_str">増配年数 以上</label><input id="f_str" type="number" min="0"></div>
-  <div class="fgrp"><label class="flbl" for="f_dg">増配率(%) 以上</label><input id="f_dg" type="number" step="0.1"></div>
-  <div class="fgrp"><label class="flbl" for="f_pay">配当性向（純利益ベース）(%) 以下</label><input id="f_pay" type="number" step="1" min="0"></div>
-  <div class="fgrp"><label class="flbl" for="f_roe">ROE（配当の原資の効率）(%) 以上</label><input id="f_roe" type="number" step="0.1"></div>
-  <div class="fgrp"><label class="flbl" for="f_mc">時価総額(億円) 以上</label><input id="f_mc" type="number" min="0"></div>
-  <div class="fgrp"><label class="flbl" for="f_pr">終値(円) 以下</label><input id="f_pr" type="number" min="0"></div>
-  <div class="fgrp"><span class="flbl">業績</span>
-    <span class="fchecks"><label><input type="checkbox" class="f_gy" value="cheap">良好</label><label><input type="checkbox" class="f_gy" value="normal">注意</label><label><input type="checkbox" class="f_gy" value="expensive">弱い</label></span></div>
-  <div class="fgrp"><span class="flbl">財務</span>
-    <span class="fchecks"><label><input type="checkbox" class="f_gz" value="cheap">良好</label><label><input type="checkbox" class="f_gz" value="normal">注意</label><label><input type="checkbox" class="f_gz" value="expensive">弱い</label></span></div>
-  <div class="fgrp"><span class="flbl">フリーCF（営業CF＋投資CF）</span>
-    <span class="fchecks"><label><input type="checkbox" class="f_fcfpos" value="cheap">良好</label><label><input type="checkbox" class="f_fcfpos" value="expensive">弱い</label></span></div>
-  <div class="fgrp"><span class="flbl">FCF配当性向（配当支払÷フリーCF）</span>
-    <span class="fchecks"><label><input type="checkbox" class="f_fcfpayout" value="cheap">良好</label><label><input type="checkbox" class="f_fcfpayout" value="normal">注意</label><label><input type="checkbox" class="f_fcfpayout" value="expensive">弱い</label></span></div>
-  <div class="fgrp"><span class="flbl">PER（実績・対業種平均）</span>
-    <span class="fchecks"><label><input type="checkbox" class="f_pervs" value="expensive">割高</label><label><input type="checkbox" class="f_pervs" value="normal">標準</label><label><input type="checkbox" class="f_pervs" value="cheap">割安</label></span></div>
-  <div class="fgrp"><span class="flbl">PBR（実績・対業種平均）</span>
-    <span class="fchecks"><label><input type="checkbox" class="f_pbrvs" value="expensive">割高</label><label><input type="checkbox" class="f_pbrvs" value="normal">標準</label><label><input type="checkbox" class="f_pbrvs" value="cheap">割安</label></span></div>
-  <div class="fgrp"><span class="flbl">PERの自社過去レンジ内の位置</span>
-    <span class="fchecks"><label><input type="checkbox" class="f_perband" value="expensive">割高</label><label><input type="checkbox" class="f_perband" value="normal">標準</label><label><input type="checkbox" class="f_perband" value="cheap">割安</label></span></div>
-  <div class="fgrp"><span class="flbl">配当利回りセオリー（過去レンジ内の位置）</span>
-    <span class="fchecks"><label><input type="checkbox" class="f_yldband" value="cheap">割安</label><label><input type="checkbox" class="f_yldband" value="normal">標準</label><label><input type="checkbox" class="f_yldband" value="expensive">割高</label></span></div>
-  <div class="fgrp"><label class="flbl" for="f_chow">Chowderルール(%) 以上</label><input id="f_chow" type="number" step="0.5"></div>
-  <div class="fgrp"><span class="flbl">累進配当・DOE</span>
-    <span class="fchecks"><label><input type="checkbox" id="f_dp">宣言ありのみ</label></span></div>
-  <div class="fgrp"><span class="flbl">営業CF</span>
-    <span class="fchecks"><label><input type="checkbox" id="f_ocf">直近プラスのみ</label></span></div>
-  <div class="fgrp"><span class="flbl">業種級</span>
-    <span class="fchecks"><label><input type="checkbox" class="f_grd" value="A">A</label><label><input type="checkbox" class="f_grd" value="B">B</label><label><input type="checkbox" class="f_grd" value="C">C</label></span></div>
-  <div class="fgrp"><span class="flbl">カバレッジ</span>
-    <span class="fchecks"><label><input type="checkbox" class="f_cov" value="高">高</label><label><input type="checkbox" class="f_cov" value="中">中</label><label><input type="checkbox" class="f_cov" value="低">低</label></span></div>
-  <div class="fgrp wide"><span class="flbl">業種グループ</span>
-    <span class="fchecks"><label><input type="checkbox" class="f_grp" value="資源・エネルギー">資源・エネルギー</label><label><input type="checkbox" class="f_grp" value="素材">素材</label><label><input type="checkbox" class="f_grp" value="機械・電機">機械・電機</label><label><input type="checkbox" class="f_grp" value="自動車・輸送機">自動車・輸送機</label><label><input type="checkbox" class="f_grp" value="商社・卸">商社・卸</label><label><input type="checkbox" class="f_grp" value="情報通信・サービス">情報通信・サービス</label><label><input type="checkbox" class="f_grp" value="金融">金融</label><label><input type="checkbox" class="f_grp" value="生活必需・小売">生活必需・小売</label><label><input type="checkbox" class="f_grp" value="医薬・ヘルスケア">医薬・ヘルスケア</label><label><input type="checkbox" class="f_grp" value="建設・不動産">建設・不動産</label><label><input type="checkbox" class="f_grp" value="インフラ・運輸">インフラ・運輸</label></span></div>
+  <div class="fmaj"><h3 class="fmajh">① 銘柄選定</h3>
+    <div class="fsec"><div class="fsecbody">
+      <div class="fgrp"><label class="flbl" for="f_sel">選定スコア 以上</label><input id="f_sel" type="number" min="0" max="110"></div>
+    </div></div>
+    <div class="fsec"><span class="fsech">業績</span><div class="fsecbody">
+      <div class="fgrp"><span class="flbl">評価</span>
+        <span class="fchecks"><label><input type="checkbox" class="f_gy" value="cheap">良好</label><label><input type="checkbox" class="f_gy" value="normal">注意</label><label><input type="checkbox" class="f_gy" value="expensive">弱い</label></span></div>
+    </div></div>
+    <div class="fsec"><span class="fsech">財務</span><div class="fsecbody">
+      <div class="fgrp"><span class="flbl">評価</span>
+        <span class="fchecks"><label><input type="checkbox" class="f_gz" value="cheap">良好</label><label><input type="checkbox" class="f_gz" value="normal">注意</label><label><input type="checkbox" class="f_gz" value="expensive">弱い</label></span></div>
+    </div></div>
+    <div class="fsec"><span class="fsech">キャッシュフロー</span><div class="fsecbody">
+      <div class="fgrp"><span class="flbl">営業CF</span>
+        <span class="fchecks"><label><input type="checkbox" id="f_ocf">直近プラスのみ</label></span></div>
+      <div class="fgrp"><span class="flbl">フリーCF（営業CF＋投資CF）</span>
+        <span class="fchecks"><label><input type="checkbox" class="f_fcfpos" value="cheap">良好</label><label><input type="checkbox" class="f_fcfpos" value="expensive">弱い</label></span></div>
+      <div class="fgrp"><span class="flbl">FCF配当性向（配当支払÷フリーCF）</span>
+        <span class="fchecks"><label><input type="checkbox" class="f_fcfpayout" value="cheap">良好</label><label><input type="checkbox" class="f_fcfpayout" value="normal">注意</label><label><input type="checkbox" class="f_fcfpayout" value="expensive">弱い</label></span></div>
+    </div></div>
+    <div class="fsec"><span class="fsech">配当の持続力</span><div class="fsecbody">
+      <div class="fgrp"><label class="flbl" for="f_dg">増配率(%) 以上</label><input id="f_dg" type="number" step="0.1"></div>
+      <div class="fgrp"><label class="flbl" for="f_str">増配年数 以上</label><input id="f_str" type="number" min="0"></div>
+      <div class="fgrp"><label class="flbl" for="f_pay">配当性向（純利益ベース）(%) 以下</label><input id="f_pay" type="number" step="1" min="0"></div>
+      <div class="fgrp"><label class="flbl" for="f_roe">ROE（配当の原資の効率）(%) 以上</label><input id="f_roe" type="number" step="0.1"></div>
+      <div class="fgrp"><span class="flbl">累進配当・DOE</span>
+        <span class="fchecks"><label><input type="checkbox" id="f_dp">宣言ありのみ</label></span></div>
+    </div></div>
+  </div>
+  <div class="fmaj"><h3 class="fmajh">② 買い時</h3>
+    <div class="fsec"><div class="fsecbody">
+      <div class="fgrp"><label class="flbl" for="f_tim">買い時スコア 以上</label><input id="f_tim" type="number" min="0" max="110"></div>
+    </div></div>
+    <div class="fsec"><span class="fsech">配当利回りセオリー</span><div class="fsecbody">
+      <div class="fgrp"><span class="flbl">過去レンジ内の位置</span>
+        <span class="fchecks"><label><input type="checkbox" class="f_yldband" value="cheap">割安</label><label><input type="checkbox" class="f_yldband" value="normal">標準</label><label><input type="checkbox" class="f_yldband" value="expensive">割高</label></span></div>
+    </div></div>
+    <div class="fsec"><span class="fsech">利回り水準とChowder</span><div class="fsecbody">
+      <div class="fgrp"><label class="flbl" for="f_yld">予想配当利回り(%) 以上</label><input id="f_yld" type="number" step="0.1" min="0"></div>
+      <div class="fgrp"><label class="flbl" for="f_chow">Chowderルール(%) 以上</label><input id="f_chow" type="number" step="0.5"></div>
+    </div></div>
+    <div class="fsec"><span class="fsech">株価バリュエーション</span><div class="fsecbody">
+      <div class="fgrp"><span class="flbl">PER（実績・対業種平均）</span>
+        <span class="fchecks"><label><input type="checkbox" class="f_pervs" value="expensive">割高</label><label><input type="checkbox" class="f_pervs" value="normal">標準</label><label><input type="checkbox" class="f_pervs" value="cheap">割安</label></span></div>
+      <div class="fgrp"><span class="flbl">PBR（実績・対業種平均）</span>
+        <span class="fchecks"><label><input type="checkbox" class="f_pbrvs" value="expensive">割高</label><label><input type="checkbox" class="f_pbrvs" value="normal">標準</label><label><input type="checkbox" class="f_pbrvs" value="cheap">割安</label></span></div>
+      <div class="fgrp"><span class="flbl">PERの自社過去レンジ内の位置</span>
+        <span class="fchecks"><label><input type="checkbox" class="f_perband" value="expensive">割高</label><label><input type="checkbox" class="f_perband" value="normal">標準</label><label><input type="checkbox" class="f_perband" value="cheap">割安</label></span></div>
+    </div></div>
+  </div>
+  <div class="fmaj"><h3 class="fmajh">銘柄属性</h3>
+    <div class="fsec"><div class="fsecbody">
+      <div class="fgrp"><label class="flbl" for="f_mc">時価総額(億円) 以上</label><input id="f_mc" type="number" min="0"></div>
+      <div class="fgrp"><label class="flbl" for="f_pr">終値(円) 以下</label><input id="f_pr" type="number" min="0"></div>
+      <div class="fgrp"><span class="flbl">業種級</span>
+        <span class="fchecks"><label><input type="checkbox" class="f_grd" value="A">A</label><label><input type="checkbox" class="f_grd" value="B">B</label><label><input type="checkbox" class="f_grd" value="C">C</label></span></div>
+      <div class="fgrp"><span class="flbl">カバレッジ</span>
+        <span class="fchecks"><label><input type="checkbox" class="f_cov" value="高">高</label><label><input type="checkbox" class="f_cov" value="中">中</label><label><input type="checkbox" class="f_cov" value="低">低</label></span></div>
+      <div class="fgrp wide"><span class="flbl">業種グループ</span>
+        <span class="fchecks"><label><input type="checkbox" class="f_grp" value="資源・エネルギー">資源・エネルギー</label><label><input type="checkbox" class="f_grp" value="素材">素材</label><label><input type="checkbox" class="f_grp" value="機械・電機">機械・電機</label><label><input type="checkbox" class="f_grp" value="自動車・輸送機">自動車・輸送機</label><label><input type="checkbox" class="f_grp" value="商社・卸">商社・卸</label><label><input type="checkbox" class="f_grp" value="情報通信・サービス">情報通信・サービス</label><label><input type="checkbox" class="f_grp" value="金融">金融</label><label><input type="checkbox" class="f_grp" value="生活必需・小売">生活必需・小売</label><label><input type="checkbox" class="f_grp" value="医薬・ヘルスケア">医薬・ヘルスケア</label><label><input type="checkbox" class="f_grp" value="建設・不動産">建設・不動産</label><label><input type="checkbox" class="f_grp" value="インフラ・運輸">インフラ・運輸</label></span></div>
+    </div></div>
+  </div>
 </div>
 <div class="fbar">
   <button type="button" id="fclear">条件をクリア</button>
@@ -493,11 +527,16 @@ body.wlon{padding-bottom:60px}
       var qs = p.toString();
       var url = location.pathname + (qs ? '?' + qs : '');
       history.replaceState(null, '', url);
+      try { if (qs) localStorage.setItem('pp_filters', qs); else localStorage.removeItem('pp_filters'); } catch(e){}
     }, 300);
   }
 
   function restoreFromUrl(){
-    var p = new URLSearchParams(location.search);
+    var qs = location.search;
+    if (!qs) {
+      try { var saved = localStorage.getItem('pp_filters'); if (saved) qs = '?' + saved; } catch(e){}
+    }
+    var p = new URLSearchParams(qs);
     if (!p.toString()) return;
     if (p.has('q')) q.value = p.get('q');
     if (p.has('t')) {

@@ -643,7 +643,15 @@ details{{margin:14px 0}}summary{{cursor:pointer;font-weight:600;font-size:13px}}
 .searchbar .hit{{font-size:12px;color:var(--muted);white-space:nowrap}}
 #filterbox{{margin:6px 0 14px}}
 #filterbox summary{{font-size:13px}}
-.fpanel{{display:flex;flex-wrap:wrap;gap:14px 22px;padding:12px 4px 4px}}
+.fpanel{{padding:12px 4px 4px}}
+.fmaj{{width:100%}}
+.fmaj+.fmaj{{margin-top:14px}}
+.fmajh{{font-size:13.5px;font-weight:800;color:var(--fg);margin:0 0 6px;
+  padding-bottom:4px;border-bottom:2px solid var(--accent)}}
+.fsec{{width:100%;margin-top:10px}}
+.fsec:first-child{{margin-top:0}}
+.fsech{{font-size:11.5px;font-weight:700;color:var(--muted);margin:0 0 6px}}
+.fsecbody{{display:flex;flex-wrap:wrap;gap:12px 22px}}
 .fgrp{{display:flex;flex-direction:column;gap:4px;min-width:120px}}
 .fgrp.wide{{min-width:220px}}
 .fgrp label.flbl{{font-size:11.5px;color:var(--muted)}}
@@ -715,42 +723,68 @@ body.wlon{{padding-bottom:60px}}
 <details id="filterbox">
 <summary>詳しい条件で絞り込む</summary>
 <div class="fpanel">
-  <div class="fgrp"><label class="flbl" for="f_sel">選定スコア 以上</label><input id="f_sel" type="number" min="0" max="110"></div>
-  <div class="fgrp"><label class="flbl" for="f_tim">買い時スコア 以上</label><input id="f_tim" type="number" min="0" max="110"></div>
-  <div class="fgrp"><label class="flbl" for="f_yld">予想配当利回り(%) 以上</label><input id="f_yld" type="number" step="0.1" min="0"></div>
-  <div class="fgrp"><label class="flbl" for="f_str">増配年数 以上</label><input id="f_str" type="number" min="0"></div>
-  <div class="fgrp"><label class="flbl" for="f_dg">増配率(%) 以上</label><input id="f_dg" type="number" step="0.1"></div>
-  <div class="fgrp"><label class="flbl" for="f_pay">配当性向（純利益ベース）(%) 以下</label><input id="f_pay" type="number" step="1" min="0"></div>
-  <div class="fgrp"><label class="flbl" for="f_roe">ROE（配当の原資の効率）(%) 以上</label><input id="f_roe" type="number" step="0.1"></div>
-  <div class="fgrp"><label class="flbl" for="f_mc">時価総額(百万＄) 以上</label><input id="f_mc" type="number" min="0"></div>
-  <div class="fgrp"><label class="flbl" for="f_pr">終値(＄) 以下</label><input id="f_pr" type="number" min="0"></div>
-  <div class="fgrp"><span class="flbl">業績</span>
-    <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_gy" value="{v}">{lab}</label>' for v, lab in (("cheap","良好"),("normal","注意"),("expensive","弱い")))}</span></div>
-  <div class="fgrp"><span class="flbl">財務</span>
-    <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_gz" value="{v}">{lab}</label>' for v, lab in (("cheap","良好"),("normal","注意"),("expensive","弱い")))}</span></div>
-  <div class="fgrp"><span class="flbl">フリーCF（営業CF＋投資CF）</span>
-    <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_fcfpos" value="{v}">{lab}</label>' for v, lab in (("cheap","良好"),("expensive","弱い")))}</span></div>
-  <div class="fgrp"><span class="flbl">FCF配当性向（配当支払÷フリーCF）</span>
-    <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_fcfpayout" value="{v}">{lab}</label>' for v, lab in (("cheap","良好"),("normal","注意"),("expensive","弱い")))}</span></div>
-  <div class="fgrp"><span class="flbl">PER（実績・対業種平均）</span>
-    <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_pervs" value="{v}">{lab}</label>' for v, lab in (("expensive","割高"),("normal","標準"),("cheap","割安")))}</span></div>
-  <div class="fgrp"><span class="flbl">PBR（実績・対業種平均）</span>
-    <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_pbrvs" value="{v}">{lab}</label>' for v, lab in (("expensive","割高"),("normal","標準"),("cheap","割安")))}</span></div>
-  <div class="fgrp"><span class="flbl">PERの自社過去レンジ内の位置</span>
-    <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_perband" value="{v}">{lab}</label>' for v, lab in (("expensive","割高"),("normal","標準"),("cheap","割安")))}</span></div>
-  <div class="fgrp"><span class="flbl">配当利回りセオリー（過去レンジ内の位置）</span>
-    <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_yldband" value="{v}">{lab}</label>' for v, lab in (("cheap","割安"),("normal","標準"),("expensive","割高")))}</span></div>
-  <div class="fgrp"><label class="flbl" for="f_chow">Chowderルール(%) 以上</label><input id="f_chow" type="number" step="0.5"></div>
-  <div class="fgrp"><span class="flbl">直近四半期の急減速</span>
-    <span class="fchecks"><label><input type="checkbox" id="f_nd">フラグが無い銘柄のみ</label></span></div>
-  <div class="fgrp"><span class="flbl">営業CF</span>
-    <span class="fchecks"><label><input type="checkbox" id="f_ocf">直近プラスのみ</label></span></div>
-  <div class="fgrp"><span class="flbl">業種級</span>
-    <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_grd" value="{x}">{x}</label>' for x in ("A","B","C"))}</span></div>
-  <div class="fgrp"><span class="flbl">カバレッジ</span>
-    <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_cov" value="{x}">{x}</label>' for x in ("高","中","低"))}</span></div>
-  <div class="fgrp wide"><span class="flbl">業種グループ</span>
-    <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_grp" value="{html.escape(g["name"])}">{html.escape(g["name_jp"])}</label>' for g in out["groups"])}</span></div>
+  <div class="fmaj"><h3 class="fmajh">① 銘柄選定</h3>
+    <div class="fsec"><div class="fsecbody">
+      <div class="fgrp"><label class="flbl" for="f_sel">選定スコア 以上</label><input id="f_sel" type="number" min="0" max="110"></div>
+    </div></div>
+    <div class="fsec"><span class="fsech">業績</span><div class="fsecbody">
+      <div class="fgrp"><span class="flbl">評価</span>
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_gy" value="{v}">{lab}</label>' for v, lab in (("cheap","良好"),("normal","注意"),("expensive","弱い")))}</span></div>
+      <div class="fgrp"><span class="flbl">直近四半期の急減速</span>
+        <span class="fchecks"><label><input type="checkbox" id="f_nd">フラグが無い銘柄のみ</label></span></div>
+    </div></div>
+    <div class="fsec"><span class="fsech">財務</span><div class="fsecbody">
+      <div class="fgrp"><span class="flbl">評価</span>
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_gz" value="{v}">{lab}</label>' for v, lab in (("cheap","良好"),("normal","注意"),("expensive","弱い")))}</span></div>
+    </div></div>
+    <div class="fsec"><span class="fsech">キャッシュフロー</span><div class="fsecbody">
+      <div class="fgrp"><span class="flbl">営業CF</span>
+        <span class="fchecks"><label><input type="checkbox" id="f_ocf">直近プラスのみ</label></span></div>
+      <div class="fgrp"><span class="flbl">フリーCF（営業CF＋投資CF）</span>
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_fcfpos" value="{v}">{lab}</label>' for v, lab in (("cheap","良好"),("expensive","弱い")))}</span></div>
+      <div class="fgrp"><span class="flbl">FCF配当性向（配当支払÷フリーCF）</span>
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_fcfpayout" value="{v}">{lab}</label>' for v, lab in (("cheap","良好"),("normal","注意"),("expensive","弱い")))}</span></div>
+    </div></div>
+    <div class="fsec"><span class="fsech">配当の持続力</span><div class="fsecbody">
+      <div class="fgrp"><label class="flbl" for="f_dg">増配率(%) 以上</label><input id="f_dg" type="number" step="0.1"></div>
+      <div class="fgrp"><label class="flbl" for="f_str">増配年数 以上</label><input id="f_str" type="number" min="0"></div>
+      <div class="fgrp"><label class="flbl" for="f_pay">配当性向（純利益ベース）(%) 以下</label><input id="f_pay" type="number" step="1" min="0"></div>
+      <div class="fgrp"><label class="flbl" for="f_roe">ROE（配当の原資の効率）(%) 以上</label><input id="f_roe" type="number" step="0.1"></div>
+    </div></div>
+  </div>
+  <div class="fmaj"><h3 class="fmajh">② 買い時</h3>
+    <div class="fsec"><div class="fsecbody">
+      <div class="fgrp"><label class="flbl" for="f_tim">買い時スコア 以上</label><input id="f_tim" type="number" min="0" max="110"></div>
+    </div></div>
+    <div class="fsec"><span class="fsech">配当利回りセオリー</span><div class="fsecbody">
+      <div class="fgrp"><span class="flbl">過去レンジ内の位置</span>
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_yldband" value="{v}">{lab}</label>' for v, lab in (("cheap","割安"),("normal","標準"),("expensive","割高")))}</span></div>
+    </div></div>
+    <div class="fsec"><span class="fsech">利回り水準とChowder</span><div class="fsecbody">
+      <div class="fgrp"><label class="flbl" for="f_yld">予想配当利回り(%) 以上</label><input id="f_yld" type="number" step="0.1" min="0"></div>
+      <div class="fgrp"><label class="flbl" for="f_chow">Chowderルール(%) 以上</label><input id="f_chow" type="number" step="0.5"></div>
+    </div></div>
+    <div class="fsec"><span class="fsech">株価バリュエーション</span><div class="fsecbody">
+      <div class="fgrp"><span class="flbl">PER（実績・対業種平均）</span>
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_pervs" value="{v}">{lab}</label>' for v, lab in (("expensive","割高"),("normal","標準"),("cheap","割安")))}</span></div>
+      <div class="fgrp"><span class="flbl">PBR（実績・対業種平均）</span>
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_pbrvs" value="{v}">{lab}</label>' for v, lab in (("expensive","割高"),("normal","標準"),("cheap","割安")))}</span></div>
+      <div class="fgrp"><span class="flbl">PERの自社過去レンジ内の位置</span>
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_perband" value="{v}">{lab}</label>' for v, lab in (("expensive","割高"),("normal","標準"),("cheap","割安")))}</span></div>
+    </div></div>
+  </div>
+  <div class="fmaj"><h3 class="fmajh">銘柄属性</h3>
+    <div class="fsec"><div class="fsecbody">
+      <div class="fgrp"><label class="flbl" for="f_mc">時価総額(百万＄) 以上</label><input id="f_mc" type="number" min="0"></div>
+      <div class="fgrp"><label class="flbl" for="f_pr">終値(＄) 以下</label><input id="f_pr" type="number" min="0"></div>
+      <div class="fgrp"><span class="flbl">業種級</span>
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_grd" value="{x}">{x}</label>' for x in ("A","B","C"))}</span></div>
+      <div class="fgrp"><span class="flbl">カバレッジ</span>
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_cov" value="{x}">{x}</label>' for x in ("高","中","低"))}</span></div>
+      <div class="fgrp wide"><span class="flbl">業種グループ</span>
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_grp" value="{html.escape(g["name"])}">{html.escape(g["name_jp"])}</label>' for g in out["groups"])}</span></div>
+    </div></div>
+  </div>
 </div>
 <div class="fbar">
   <button type="button" id="fclear">条件をクリア</button>
@@ -928,11 +962,16 @@ body.wlon{{padding-bottom:60px}}
       var qs = p.toString();
       var url = location.pathname + (qs ? '?' + qs : '');
       history.replaceState(null, '', url);
+      try {{ if (qs) localStorage.setItem('pp_filters_us', qs); else localStorage.removeItem('pp_filters_us'); }} catch(e){{}}
     }}, 300);
   }}
 
   function restoreFromUrl(){{
-    var p = new URLSearchParams(location.search);
+    var qs = location.search;
+    if (!qs) {{
+      try {{ var saved = localStorage.getItem('pp_filters_us'); if (saved) qs = '?' + saved; }} catch(e){{}}
+    }}
+    var p = new URLSearchParams(qs);
     if (!p.toString()) return;
     if (p.has('q')) q.value = p.get('q');
     if (p.has('t')) {{
