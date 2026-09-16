@@ -293,12 +293,14 @@ def _filter_attrs(s, grade):
     """詳しい条件で絞り込むパネル用のdata-*属性一式。JP版rank.pyの_filter_attrsと
     同じ設計。米国株のみ：累進配当宣言の代わりに急減速フラグ（data-decel）を持つ。"""
     streak_v = _streak_val(s.get("streak_up"), s.get("streak_flat"))
+    mcap = s.get("mcap")
+    mcap_mil = mcap / 1e6 if isinstance(mcap, (int, float)) else None  # ＄→百万＄（フィルタ表記の単位に合わせる）
     return (
         f'data-sel="{_v(s.get("sel"))}" data-tim="{_v(s.get("tim"))}" '
         f'data-yld="{_v(s.get("yield"))}" data-price="{_v(s.get("price"))}" '
         f'data-grade="{html.escape(grade or "―")}" data-group="{html.escape(s.get("group") or "")}" '
         f'data-payout="{_v(s.get("payout_ni"))}" data-roe="{_v(s.get("roe"))}" '
-        f'data-mcap="{_v(s.get("mcap"))}" data-dgr5="{_v(s.get("dgr5"))}" '
+        f'data-mcap="{_v(mcap_mil)}" data-dgr5="{_v(s.get("dgr5"))}" '
         f'data-ggyo="{_v(s.get("g_gyoseki"))}" data-gzai="{_v(s.get("g_zaimu"))}" '
         f'data-gcf="{_v(s.get("g_cf"))}" data-cov="{html.escape(s.get("cov_sel") or "")}" '
         f'data-streak="{_v(streak_v)}" '

@@ -298,12 +298,14 @@ def _filter_attrs(s, grade):
     sel/tim/yield/price は既存の<td data-v>とは別に<tr>側にも複製する（グループ表と
     全体上位表でカラム構成が違い、tdの位置に頼らずJSから一律に読めるようにするため）。"""
     streak_v = _streak_val(s.get("streak_up"), s.get("streak_flat"))
+    mcap = s.get("mcap")
+    mcap_oku = mcap / 1e8 if isinstance(mcap, (int, float)) else None  # 円→億円（フィルタ表記の単位に合わせる）
     return (
         f'data-sel="{_v(s.get("sel"))}" data-tim="{_v(s.get("tim"))}" '
         f'data-yld="{_v(s.get("yield"))}" data-price="{_v(s.get("price"))}" '
         f'data-grade="{html.escape(grade or "―")}" data-group="{html.escape(s.get("group") or "")}" '
         f'data-payout="{_v(s.get("payout_ni"))}" data-roe="{_v(s.get("roe"))}" '
-        f'data-mcap="{_v(s.get("mcap"))}" data-dgr5="{_v(s.get("dgr5"))}" '
+        f'data-mcap="{_v(mcap_oku)}" data-dgr5="{_v(s.get("dgr5"))}" '
         f'data-divpolicy="{1 if s.get("div_policy") else 0}" '
         f'data-ocf="{1 if s.get("ocf_positive") else 0}" '
         f'data-ggyo="{_v(s.get("g_gyoseki"))}" data-gzai="{_v(s.get("g_zaimu"))}" '
