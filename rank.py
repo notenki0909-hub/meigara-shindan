@@ -737,7 +737,7 @@ body.wlon{{padding-bottom:60px}}
   <div class="fgrp"><label class="flbl" for="f_gc">CFスコア 以上</label><input id="f_gc" type="number" min="0" max="110"></div>
   <div class="fgrp"><label class="flbl" for="f_pervs">PER対業種(%) 以下</label><input id="f_pervs" type="number" step="1" min="0"></div>
   <div class="fgrp"><label class="flbl" for="f_pbrvs">PBR対業種(%) 以下</label><input id="f_pbrvs" type="number" step="1" min="0"></div>
-  <div class="fgrp"><label class="flbl" for="f_perband">PER自社レンジ位置(%) 以下</label><input id="f_perband" type="number" step="1" min="0" max="100"></div>
+  <div class="fgrp"><label class="flbl" for="f_perband">PER自社レンジ位置(%) 以上</label><input id="f_perband" type="number" step="1" min="0" max="100"></div>
   <div class="fgrp"><label class="flbl" for="f_yldband">利回り自社レンジ位置(%) 以上</label><input id="f_yldband" type="number" step="1" min="0" max="100"></div>
   <div class="fgrp"><label class="flbl" for="f_chow">Chowderスコア(%) 以上</label><input id="f_chow" type="number" step="0.5"></div>
   <div class="fgrp"><span class="flbl">累進配当・DOE</span>
@@ -793,7 +793,7 @@ body.wlon{{padding-bottom:60px}}
     ['mc','mcap','ge',false], ['gy','ggyo','ge',false], ['gz','gzai','ge',false],
     ['gc','gcf','ge',false], ['pay','payout','le',false], ['pr','price','le',false],
     ['pervs','pervs','le',true], ['pbrvs','pbrvs','le',true],
-    ['perband','perband','le',true], ['yldband','yldband','ge',true],
+    ['perband','perband','ge',true], ['yldband','yldband','ge',true],
     ['chow','chowder','ge',false]
   ];
   var numEls = {{}};
