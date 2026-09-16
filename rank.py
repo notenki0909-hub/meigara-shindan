@@ -297,7 +297,6 @@ def _filter_attrs(s, grade):
     扱いになるよう空文字にする（フィルタ未入力なら比較自体スキップされるため実害なし）。
     sel/tim/yield/price は既存の<td data-v>とは別に<tr>側にも複製する（グループ表と
     全体上位表でカラム構成が違い、tdの位置に頼らずJSから一律に読めるようにするため）。"""
-    streak_v = _streak_val(s.get("streak_up"), s.get("streak_flat"))
     mcap = s.get("mcap")
     mcap_oku = mcap / 1e8 if isinstance(mcap, (int, float)) else None  # 円→億円（フィルタ表記の単位に合わせる）
     return (
@@ -310,7 +309,7 @@ def _filter_attrs(s, grade):
         f'data-ocf="{1 if s.get("ocf_positive") else 0}" '
         f'data-ggyo="{_v(s.get("g_gyoseki"))}" data-gzai="{_v(s.get("g_zaimu"))}" '
         f'data-cov="{html.escape(s.get("cov_sel") or "")}" '
-        f'data-streak="{_v(streak_v)}" '
+        f'data-streakup="{_v(s.get("streak_up"))}" data-streakflat="{_v(s.get("streak_flat"))}" '
         f'data-pervs="{_v(s.get("per_vs_sector"))}" data-pbrvs="{_v(s.get("pbr_vs_sector"))}" '
         f'data-perband="{_v(s.get("per_band_pos"))}" data-yldband="{_v(s.get("yield_band_pos"))}" '
         f'data-chowder="{_v(s.get("chowder"))}" '
@@ -672,6 +671,8 @@ details{{margin:14px 0}}summary{{cursor:pointer;font-weight:600;font-size:13px}}
 .fchecks{{display:flex;flex-wrap:wrap;gap:6px 10px}}
 .fchecks label{{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;white-space:nowrap}}
 .fchecks input{{accent-color:var(--accent)}}
+.fgrp input[type=number]:disabled{{opacity:.4;cursor:not-allowed}}
+.fchecks label:has(input:disabled){{opacity:.4;cursor:not-allowed}}
 .fbar{{display:flex;align-items:center;gap:10px;margin:10px 4px 2px}}
 .fbar button{{padding:7px 14px;border:1px solid var(--line);border-radius:8px;
   background:var(--card);font-size:12.5px;cursor:pointer;color:var(--muted)}}
@@ -756,10 +757,16 @@ body.wlon{{padding-bottom:60px}}
         <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_fcfpayout" value="{v}">{lab}</label>' for v, lab in (("cheap","良好"),("normal","注意"),("expensive","弱い")))}</span></div>
     </div></div>
     <div class="fsec"><span class="fsech">配当の持続力</span><div class="fsecbody">
-      <div class="fgrp"><label class="flbl" for="f_dg">増配率(%) 以上</label><input id="f_dg" type="number" step="0.1"></div>
-      <div class="fgrp"><label class="flbl" for="f_str">増配年数 以上</label><input id="f_str" type="number" min="0"></div>
-      <div class="fgrp"><label class="flbl" for="f_pay">配当性向（純利益ベース）(%) 以下</label><input id="f_pay" type="number" step="1" min="0"></div>
-      <div class="fgrp"><label class="flbl" for="f_roe">ROE（配当の原資の効率）(%) 以上</label><input id="f_roe" type="number" step="0.1"></div>
+      <div class="fgrp"><label class="flbl" for="f_dg">増配率(%) 以上</label><input id="f_dg" type="number" step="0.1">
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_dg" value="{v}">{lab}</label>' for v, lab in (("cheap","良好"),("normal","注意"),("expensive","弱い")))}</span></div>
+      <div class="fgrp"><label class="flbl" for="f_strup">連続増配年数 以上</label><input id="f_strup" type="number" min="0">
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_strup" value="{v}">{lab}</label>' for v, lab in (("cheap","良好"),("normal","注意"),("expensive","弱い")))}</span></div>
+      <div class="fgrp"><label class="flbl" for="f_strflat">連続非減配年数 以上</label><input id="f_strflat" type="number" min="0">
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_strflat" value="{v}">{lab}</label>' for v, lab in (("cheap","良好"),("normal","注意"),("expensive","弱い")))}</span></div>
+      <div class="fgrp"><label class="flbl" for="f_pay">配当性向（純利益ベース）(%) 以下</label><input id="f_pay" type="number" step="1" min="0">
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_pay" value="{v}">{lab}</label>' for v, lab in (("cheap","良好"),("normal","注意"),("expensive","弱い")))}</span></div>
+      <div class="fgrp"><label class="flbl" for="f_roe">ROE（配当の原資の効率）(%) 以上</label><input id="f_roe" type="number" step="0.1">
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_roe" value="{v}">{lab}</label>' for v, lab in (("cheap","良好"),("normal","注意"),("expensive","弱い")))}</span></div>
       <div class="fgrp"><span class="flbl">累進配当・DOE</span>
         <span class="fchecks"><label><input type="checkbox" id="f_dp">宣言ありのみ</label></span></div>
     </div></div>
@@ -769,12 +776,14 @@ body.wlon{{padding-bottom:60px}}
       <div class="fgrp"><label class="flbl" for="f_tim">買い時スコア 以上</label><input id="f_tim" type="number" min="0" max="110"></div>
     </div></div>
     <div class="fsec"><span class="fsech">配当利回りセオリー</span><div class="fsecbody">
-      <div class="fgrp"><span class="flbl">過去レンジ内の位置</span>
+      <div class="fgrp"><label class="flbl" for="f_yldband">過去レンジ内の位置(%) 以上</label><input id="f_yldband" type="number" step="1" min="0" max="100">
         <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_yldband" value="{v}">{lab}</label>' for v, lab in (("cheap","割安"),("normal","標準"),("expensive","割高")))}</span></div>
     </div></div>
     <div class="fsec"><span class="fsech">利回り水準とChowder</span><div class="fsecbody">
-      <div class="fgrp"><label class="flbl" for="f_yld">予想配当利回り(%) 以上</label><input id="f_yld" type="number" step="0.1" min="0"></div>
-      <div class="fgrp"><label class="flbl" for="f_chow">Chowderルール(%) 以上</label><input id="f_chow" type="number" step="0.5"></div>
+      <div class="fgrp"><label class="flbl" for="f_yld">予想配当利回り(%) 以上</label><input id="f_yld" type="number" step="0.1" min="0">
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_yld" value="{v}">{lab}</label>' for v, lab in (("cheap","良好"),("normal","注意"),("expensive","弱い")))}</span></div>
+      <div class="fgrp"><label class="flbl" for="f_chow">Chowderルール(%) 以上</label><input id="f_chow" type="number" step="0.5">
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_chow" value="{v}">{lab}</label>' for v, lab in (("cheap","良好"),("normal","注意"),("expensive","弱い")))}</span></div>
     </div></div>
     <div class="fsec"><span class="fsech">株価バリュエーション</span><div class="fsecbody">
       <div class="fgrp"><span class="flbl">PER（実績・対業種平均）</span>
@@ -838,10 +847,11 @@ body.wlon{{padding-bottom:60px}}
   // 数値フィルタ：id接尾辞 -> [data属性名, 比較方向('ge'=以上/'le'=以下), 割合系(0-1値を%表示にする)か]
   var NUM_FILTERS = [
     ['sel','sel','ge',false], ['tim','tim','ge',false], ['yld','yld','ge',false],
-    ['str','streak','ge',false], ['dg','dgr5','ge',false], ['roe','roe','ge',false],
+    ['strup','streakup','ge',false], ['strflat','streakflat','ge',false],
+    ['dg','dgr5','ge',false], ['roe','roe','ge',false],
     ['mc','mcap','ge',false],
     ['pay','payout','le',false], ['pr','price','le',false],
-    ['chow','chowder','ge',false]
+    ['chow','chowder','ge',false], ['yldband','yldband','ge',true]
   ];
   var numEls = {{}};
   NUM_FILTERS.forEach(function(f){{ var id='f_'+f[0]; numEls[id] = document.getElementById(id); }});
@@ -865,7 +875,14 @@ body.wlon{{padding-bottom:60px}}
     ['gy','ggyo','higher_better',80,62],
     ['gz','gzai','higher_better',80,62],
     ['fcfpos','fcfpos','higher_better',1,1],
-    ['fcfpayout','fcfpayout','lower_better',70,100]
+    ['fcfpayout','fcfpayout','lower_better',70,100],
+    ['dg','dgr5','higher_better',3,0],
+    ['strup','streakup','higher_better',10,3],
+    ['strflat','streakflat','higher_better',15,5],
+    ['pay','payout','lower_better',50,80],
+    ['roe','roe','higher_better',10,6],
+    ['yld','yld','higher_better',3.5,2.0],
+    ['chow','chowder','higher_better',12,8]
   ];
   var bandEls = {{}};
   BAND_FILTERS.forEach(function(f){{ bandEls[f[0]] = document.querySelectorAll('.f_'+f[0]); }});
@@ -889,6 +906,38 @@ body.wlon{{padding-bottom:60px}}
     .concat([].concat.apply([], Object.keys(bandEls).map(function(k){{ return Array.prototype.slice.call(bandEls[k]); }})))
     .concat([dpEl, ocfEl], ndEl ? [ndEl] : [],
             Array.prototype.slice.call(grdEls), Array.prototype.slice.call(covEls), Array.prototype.slice.call(grpEls));
+
+  // 数値入力と良好/注意/弱いチェックボックスの両方を持つ項目：どちらか一方しか
+  // 使えないよう、片方に値が入るともう片方を無効化する（同時指定の矛盾を防ぐ）
+  var PAIRED_KEYS = ['dg','strup','strflat','pay','roe','yld','chow','yldband'];
+  function syncPairDisabled(){{
+    PAIRED_KEYS.forEach(function(key){{
+      var numEl = numEls['f_'+key];
+      var boxes = bandEls[key];
+      if (!numEl || !boxes) return;
+      var hasNum = numEl.value !== '';
+      var anyChecked = checkedVals(boxes).length > 0;
+      numEl.disabled = anyChecked;
+      Array.prototype.forEach.call(boxes, function(b){{ b.disabled = hasNum; }});
+    }});
+  }}
+  PAIRED_KEYS.forEach(function(key){{
+    var numEl = numEls['f_'+key];
+    var boxes = bandEls[key];
+    if (!numEl || !boxes) return;
+    numEl.addEventListener('input', function(){{
+      if (numEl.value !== '') Array.prototype.forEach.call(boxes, function(b){{ b.checked = false; }});
+      syncPairDisabled();
+      apply();
+    }});
+    Array.prototype.forEach.call(boxes, function(b){{
+      b.addEventListener('change', function(){{
+        if (b.checked) numEl.value = '';
+        syncPairDisabled();
+        apply();
+      }});
+    }});
+  }});
 
   function numOk(tr){{
     for (var i = 0; i < NUM_FILTERS.length; i++) {{
@@ -1039,9 +1088,11 @@ body.wlon{{padding-bottom:60px}}
     grdEls.forEach(function(e){{ e.checked = false; }});
     covEls.forEach(function(e){{ e.checked = false; }});
     grpEls.forEach(function(e){{ e.checked = false; }});
+    syncPairDisabled();
     apply();
   }});
   restoreFromUrl();
+  syncPairDisabled();
   apply();
   var TERMS = {terms_json};
   var tibox = document.getElementById('terminfo');
