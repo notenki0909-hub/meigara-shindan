@@ -1731,6 +1731,7 @@ def generate_us(ticker, cfg=None, log=None):
         "streak_up": gv("streak_up"), "streak_flat": gv("streak_flat"),
         "payout_ni": gv("payout_ni"), "roe": gv("roe"), "chowder": gv("chowder"), "dgr5": gv("dgr5"),
         "ocf_positive": gv("ocf_positive"),
+        "fcf_positive": gv("fcf_positive"), "fcf_payout": gv("fcf_payout"),
         "interest_coverage": gv("interest_coverage"),
         "per_vs_sector": gv("per_vs_sector"), "pbr_vs_sector": gv("pbr_vs_sector"),
         "per_band_pos": gv("per_band_pos"), "yield_band_pos": gv("yield_band_pos"),
