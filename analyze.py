@@ -3054,6 +3054,7 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
         "groups": {g: (round(v, 1) if is_num(v) else None) for g, v in groups.items()},
         "div_yield": gv("div_yield"), "streak_up": gv("streak_up"), "streak_flat": gv("streak_flat"),
         "payout_ni": gv("payout_ni"), "roe": gv("roe"), "div_policy": gv("div_policy"),
+        "dgr5": gv("dgr5"), "chowder": gv("chowder"),
         "per_vs_sector": gv("per_vs_sector"), "pbr_vs_sector": gv("pbr_vs_sector"),
         "per_band_pos": gv("per_band_pos"), "yield_band_pos": gv("yield_band_pos"),
         "next_earn": ea.get("next_earn"), "earn_disc_date": ea.get("disc_date"),

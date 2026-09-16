@@ -1729,7 +1729,7 @@ def generate_us(ticker, cfg=None, log=None):
         "groups": {g: (round(v, 1) if is_num(v) else None) for g, v in groups.items()},
         "div_yield": gv("div_yield"), "total_yield": gv("total_yield"),
         "streak_up": gv("streak_up"), "streak_flat": gv("streak_flat"),
-        "payout_ni": gv("payout_ni"), "roe": gv("roe"), "chowder": gv("chowder"),
+        "payout_ni": gv("payout_ni"), "roe": gv("roe"), "chowder": gv("chowder"), "dgr5": gv("dgr5"),
         "interest_coverage": gv("interest_coverage"),
         "per_vs_sector": gv("per_vs_sector"), "pbr_vs_sector": gv("pbr_vs_sector"),
         "per_band_pos": gv("per_band_pos"), "yield_band_pos": gv("yield_band_pos"),

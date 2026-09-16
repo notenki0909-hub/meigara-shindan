@@ -1,16 +1,16 @@
 {
  "code": "9913",
  "name": "日邦産業",
- "asof": "2026-09-15",
+ "asof": "2026-09-16",
  "jp_sector": "電気機器",
  "industry": "Electronic Components",
  "is_simple": false,
  "is_reit": false,
  "price": 3610.0,
  "price_date": "2026-09-15",
- "mcap": 32731090944,
+ "mcap": 33139095552,
  "sel_score": 84.9,
- "tim_score": 103.1,
+ "tim_score": 103.0,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -31,7 +31,7 @@
   "配当の持続力": 85.9,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 107.6,
-  "株価バリュエーション": 84.6,
+  "株価バリュエーション": 84.4,
   "金利スプレッド": null
  },
  "div_yield": 4.265927977839335,
@@ -40,8 +40,10 @@
  "payout_ni": 48.96,
  "roe": 8.813,
  "div_policy": null,
- "per_vs_sector": 0.77085268707483,
- "pbr_vs_sector": 0.7349678076923076,
+ "dgr5": 98.47698007047241,
+ "chowder": 102.74290804831175,
+ "per_vs_sector": 0.7809028571428571,
+ "pbr_vs_sector": 0.7441294615384615,
  "per_band_pos": 0.0,
  "yield_band_pos": 1.0,
  "next_earn": null,
@@ -53,5 +55,5 @@
  "warnings": [
   "yfinance の業種『Electronic Components』が対応表に無く、sector（industry未対応） で 電気機器 に割り当てました。業種平均との比較は目安です。"
  ],
- "_generated_at": "2026-09-15T21:28:59"
+ "_generated_at": "2026-09-16T18:36:24"
 }

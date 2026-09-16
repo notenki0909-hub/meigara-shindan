@@ -153,6 +153,7 @@ def main():
             continue
         sec = s.get("jp_sector") or ""
         grp = gmap.get(sec, "その他")
+        sgroups = s.get("groups") or {}
         rows.append({
             "code": s["code"], "name": s.get("name") or s["code"],
             "sector": sec, "group": grp,
@@ -164,6 +165,13 @@ def main():
             "streak_flat": s.get("streak_flat"), "next_earn": s.get("next_earn"),
             "price": s.get("price"), "price_date": s.get("price_date"),
             "asof": s.get("_generated_at") or s.get("asof"),
+            "payout_ni": s.get("payout_ni"), "roe": s.get("roe"), "mcap": s.get("mcap"),
+            "dgr5": s.get("dgr5"), "div_policy": s.get("div_policy"),
+            "g_gyoseki": sgroups.get("業績"), "g_zaimu": sgroups.get("財務"),
+            "g_cf": sgroups.get("キャッシュフロー"),
+            "per_vs_sector": s.get("per_vs_sector"), "pbr_vs_sector": s.get("pbr_vs_sector"),
+            "per_band_pos": s.get("per_band_pos"), "yield_band_pos": s.get("yield_band_pos"),
+            "chowder": s.get("chowder"),
         })
 
     today_str = dt.date.today().isoformat()
@@ -282,6 +290,28 @@ def _streak_val(u, f):
 def _v(x):
     """並べ替え用の生の値。data-v 属性に埋め込む（欠損は空文字＝JS側でNaN扱い＝常に末尾）。"""
     return x if isinstance(x, (int, float)) else ""
+
+
+def _filter_attrs(s, grade):
+    """詳しい条件で絞り込むパネル用のdata-*属性一式。欠損はJS側で「条件を満たさない」
+    扱いになるよう空文字にする（フィルタ未入力なら比較自体スキップされるため実害なし）。
+    sel/tim/yield/price は既存の<td data-v>とは別に<tr>側にも複製する（グループ表と
+    全体上位表でカラム構成が違い、tdの位置に頼らずJSから一律に読めるようにするため）。"""
+    streak_v = _streak_val(s.get("streak_up"), s.get("streak_flat"))
+    return (
+        f'data-sel="{_v(s.get("sel"))}" data-tim="{_v(s.get("tim"))}" '
+        f'data-yld="{_v(s.get("yield"))}" data-price="{_v(s.get("price"))}" '
+        f'data-grade="{html.escape(grade or "―")}" data-group="{html.escape(s.get("group") or "")}" '
+        f'data-payout="{_v(s.get("payout_ni"))}" data-roe="{_v(s.get("roe"))}" '
+        f'data-mcap="{_v(s.get("mcap"))}" data-dgr5="{_v(s.get("dgr5"))}" '
+        f'data-divpolicy="{1 if s.get("div_policy") else 0}" '
+        f'data-ggyo="{_v(s.get("g_gyoseki"))}" data-gzai="{_v(s.get("g_zaimu"))}" '
+        f'data-gcf="{_v(s.get("g_cf"))}" data-cov="{html.escape(s.get("cov_sel") or "")}" '
+        f'data-streak="{_v(streak_v)}" '
+        f'data-pervs="{_v(s.get("per_vs_sector"))}" data-pbrvs="{_v(s.get("pbr_vs_sector"))}" '
+        f'data-perband="{_v(s.get("per_band_pos"))}" data-yldband="{_v(s.get("yield_band_pos"))}" '
+        f'data-chowder="{_v(s.get("chowder"))}"'
+    )
 
 
 # ======================================================================
@@ -526,8 +556,9 @@ def render_index(out):
             tcls = TIER_CLASS.get(s["tier"], "t0")
             dcls = DIR_CLASS.get(s["dir"], "fl")
             streak_v = _streak_val(s["streak_up"], s["streak_flat"])
+            fattrs = _filter_attrs(s, g["grade"])
             trs.append(
-                f'<tr class="{tcls} r" data-tier="{s["tier"]}">'
+                f'<tr class="{tcls} r" data-tier="{s["tier"]}" {fattrs}>'
                 f'<td class="wl"><input type="checkbox" class="wlc" data-code="{s["code"]}" aria-label="ウォッチリストに追加"></td>'
                 f'<td class="pf"><input type="checkbox" class="pfc" data-code="{s["code"]}" aria-label="ポートフォリオに追加"></td>'
                 f'<td class="tier">{s["tier"]}<span class="dir {dcls}">{s["dir"]}</span></td>'
@@ -553,8 +584,9 @@ def render_index(out):
                     '<th class="hdr" data-term="cov">カバレッジ</th>'
                     '</tr></thead><tbody>' + "".join(trs) + '</tbody></table></section>')
 
+    grade_by_group = {g["name"]: g["grade"] for g in out["groups"]}
     gt = "".join(
-        f'<tr class="r" data-tier="{s.get("tier","―")}">'
+        f'<tr class="r" data-tier="{s.get("tier","―")}" {_filter_attrs(s, grade_by_group.get(s["group"], "―"))}>'
         f'<td class="wl"><input type="checkbox" class="wlc" data-code="{s["code"]}" aria-label="ウォッチリストに追加"></td>'
         f'<td class="pf"><input type="checkbox" class="pfc" data-code="{s["code"]}" aria-label="ポートフォリオに追加"></td>'
         f'<td class="n">{i+1}</td>'
@@ -617,6 +649,24 @@ details{{margin:14px 0}}summary{{cursor:pointer;font-weight:600;font-size:13px}}
 .searchbar button{{padding:8px 12px;border:1px solid var(--line);border-radius:8px;
   background:var(--card);font-size:12.5px;cursor:pointer;color:var(--muted)}}
 .searchbar .hit{{font-size:12px;color:var(--muted);white-space:nowrap}}
+#filterbox{{margin:6px 0 14px}}
+#filterbox summary{{font-size:13px}}
+.fpanel{{display:flex;flex-wrap:wrap;gap:14px 22px;padding:12px 4px 4px}}
+.fgrp{{display:flex;flex-direction:column;gap:4px;min-width:120px}}
+.fgrp.wide{{min-width:220px}}
+.fgrp label.flbl{{font-size:11.5px;color:var(--muted)}}
+.fgrp input[type=number]{{width:88px;padding:6px 8px;border:1px solid var(--line);
+  border-radius:6px;font-size:13px;background:var(--card)}}
+.fchecks{{display:flex;flex-wrap:wrap;gap:6px 10px}}
+.fchecks label{{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;white-space:nowrap}}
+.fchecks input{{accent-color:var(--accent)}}
+.fbar{{display:flex;align-items:center;gap:10px;margin:10px 4px 2px}}
+.fbar button{{padding:7px 14px;border:1px solid var(--line);border-radius:8px;
+  background:var(--card);font-size:12.5px;cursor:pointer;color:var(--muted)}}
+.fbar button:hover{{border-color:var(--accent);color:var(--fg)}}
+.fbar .fhit{{font-size:12px;color:var(--muted)}}
+.fempty{{padding:20px;text-align:center;color:var(--muted);font-size:13px}}
+.fempty[hidden]{{display:none}}
 tr[hidden]{{display:none}}
 section.grp[hidden],details[hidden]{{display:none}}
 .sumbtn{{font:inherit;background:var(--card);border:1px solid var(--line);border-radius:8px;
@@ -670,10 +720,45 @@ body.wlon{{padding-bottom:60px}}
   <button id="qclear" type="button">クリア</button>
   <span class="hit" id="qhit"></span>
 </div>
+<details id="filterbox">
+<summary>詳しい条件で絞り込む</summary>
+<div class="fpanel">
+  <div class="fgrp"><label class="flbl" for="f_sel">選定スコア 以上</label><input id="f_sel" type="number" min="0" max="110"></div>
+  <div class="fgrp"><label class="flbl" for="f_tim">買い時スコア 以上</label><input id="f_tim" type="number" min="0" max="110"></div>
+  <div class="fgrp"><label class="flbl" for="f_yld">利回り(%) 以上</label><input id="f_yld" type="number" step="0.1" min="0"></div>
+  <div class="fgrp"><label class="flbl" for="f_str">増配年数 以上</label><input id="f_str" type="number" min="0"></div>
+  <div class="fgrp"><label class="flbl" for="f_dg">配当成長率(%) 以上</label><input id="f_dg" type="number" step="0.1"></div>
+  <div class="fgrp"><label class="flbl" for="f_pay">配当性向(%) 以下</label><input id="f_pay" type="number" step="1" min="0"></div>
+  <div class="fgrp"><label class="flbl" for="f_roe">ROE(%) 以上</label><input id="f_roe" type="number" step="0.1"></div>
+  <div class="fgrp"><label class="flbl" for="f_mc">時価総額(億円) 以上</label><input id="f_mc" type="number" min="0"></div>
+  <div class="fgrp"><label class="flbl" for="f_pr">株価(円) 以下</label><input id="f_pr" type="number" min="0"></div>
+  <div class="fgrp"><label class="flbl" for="f_gy">業績スコア 以上</label><input id="f_gy" type="number" min="0" max="110"></div>
+  <div class="fgrp"><label class="flbl" for="f_gz">財務スコア 以上</label><input id="f_gz" type="number" min="0" max="110"></div>
+  <div class="fgrp"><label class="flbl" for="f_gc">CFスコア 以上</label><input id="f_gc" type="number" min="0" max="110"></div>
+  <div class="fgrp"><label class="flbl" for="f_pervs">PER対業種(%) 以下</label><input id="f_pervs" type="number" step="1" min="0"></div>
+  <div class="fgrp"><label class="flbl" for="f_pbrvs">PBR対業種(%) 以下</label><input id="f_pbrvs" type="number" step="1" min="0"></div>
+  <div class="fgrp"><label class="flbl" for="f_perband">PER自社レンジ位置(%) 以下</label><input id="f_perband" type="number" step="1" min="0" max="100"></div>
+  <div class="fgrp"><label class="flbl" for="f_yldband">利回り自社レンジ位置(%) 以上</label><input id="f_yldband" type="number" step="1" min="0" max="100"></div>
+  <div class="fgrp"><label class="flbl" for="f_chow">Chowderスコア(%) 以上</label><input id="f_chow" type="number" step="0.5"></div>
+  <div class="fgrp"><span class="flbl">累進配当・DOE</span>
+    <span class="fchecks"><label><input type="checkbox" id="f_dp">宣言ありのみ</label></span></div>
+  <div class="fgrp"><span class="flbl">業種級</span>
+    <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_grd" value="{x}">{x}</label>' for x in ("A","B","C"))}</span></div>
+  <div class="fgrp"><span class="flbl">カバレッジ</span>
+    <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_cov" value="{x}">{x}</label>' for x in ("高","中","低"))}</span></div>
+  <div class="fgrp wide"><span class="flbl">業種グループ</span>
+    <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_grp" value="{html.escape(g["name"])}">{html.escape(g["name"])}</label>' for g in out["groups"])}</span></div>
+</div>
+<div class="fbar">
+  <button type="button" id="fclear">条件をクリア</button>
+  <span class="fhit" id="fhit"></span>
+</div>
+</details>
 <div id="terminfo" class="terminfo" hidden>
   <button type="button" id="terminfo-close" class="ticlose" aria-label="閉じる">✕</button>
   <div id="terminfo-body"></div>
 </div>
+<div class="fempty" id="fempty" hidden>条件に合う銘柄がありません。条件を緩めてください。</div>
 <details id="topbox"><summary>全体 選定スコア 上位50（業種横断）</summary>
 <table><thead><tr><th class="wl" title="ウォッチリストに追加する銘柄にチェック">☆</th><th class="pf" title="ポートフォリオに追加する銘柄にチェック">💼</th><th class="n">#</th><th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th>
 <th class="n"><span class="hdr" data-term="price">終値</span><span class="sortbtn">▼</span></th><th>グループ</th>
@@ -695,16 +780,79 @@ body.wlon{{padding-bottom:60px}}
   var q = document.getElementById('q');
   var hit = document.getElementById('qhit');
   var topbox = document.getElementById('topbox');
+  var fempty = document.getElementById('fempty');
+  var fhit = document.getElementById('fhit');
+  var filterbox = document.getElementById('filterbox');
   var sumbtns = document.querySelectorAll('.sumbtn');
   var activeTier = '';
+
+  // 数値フィルタ：id接尾辞 -> [data属性名, 比較方向('ge'=以上/'le'=以下), 割合系(0-1値を%表示にする)か]
+  var NUM_FILTERS = [
+    ['sel','sel','ge',false], ['tim','tim','ge',false], ['yld','yld','ge',false],
+    ['str','streak','ge',false], ['dg','dgr5','ge',false], ['roe','roe','ge',false],
+    ['mc','mcap','ge',false], ['gy','ggyo','ge',false], ['gz','gzai','ge',false],
+    ['gc','gcf','ge',false], ['pay','payout','le',false], ['pr','price','le',false],
+    ['pervs','pervs','le',true], ['pbrvs','pbrvs','le',true],
+    ['perband','perband','le',true], ['yldband','yldband','ge',true],
+    ['chow','chowder','ge',false]
+  ];
+  var numEls = {{}};
+  NUM_FILTERS.forEach(function(f){{ var id='f_'+f[0]; numEls[id] = document.getElementById(id); }});
+  var dpEl = document.getElementById('f_dp');
+  var ndEl = document.getElementById('f_nd');  // US版のみ存在（急減速フラグなし）
+  var grdEls = document.querySelectorAll('.f_grd');
+  var covEls = document.querySelectorAll('.f_cov');
+  var grpEls = document.querySelectorAll('.f_grp');
+  var allFilterEls = Object.keys(numEls).map(function(k){{ return numEls[k]; }})
+    .concat([dpEl], ndEl ? [ndEl] : [], Array.prototype.slice.call(grdEls),
+            Array.prototype.slice.call(covEls), Array.prototype.slice.call(grpEls));
+
+  function checkedVals(els){{ return Array.prototype.filter.call(els, function(e){{ return e.checked; }}).map(function(e){{ return e.value; }}); }}
+
+  function numOk(tr){{
+    for (var i = 0; i < NUM_FILTERS.length; i++) {{
+      var id = 'f_' + NUM_FILTERS[i][0], attr = NUM_FILTERS[i][1], dir = NUM_FILTERS[i][2], pct = NUM_FILTERS[i][3];
+      var raw = numEls[id].value;
+      if (raw === '') continue;
+      var want = parseFloat(raw);
+      if (pct) want = want / 100;
+      var have = parseFloat(tr.dataset[attr]);
+      if (isNaN(have)) return false;
+      if (dir === 'ge' && have < want) return false;
+      if (dir === 'le' && have > want) return false;
+    }}
+    return true;
+  }}
+
+  function panelOk(tr){{
+    if (!numOk(tr)) return false;
+    if (dpEl && dpEl.checked && tr.dataset.divpolicy !== '1') return false;
+    if (ndEl && ndEl.checked && tr.dataset.decel === '1') return false;
+    var grds = checkedVals(grdEls);
+    if (grds.length && grds.indexOf(tr.dataset.grade) === -1) return false;
+    var covs = checkedVals(covEls);
+    if (covs.length && covs.indexOf(tr.dataset.cov) === -1) return false;
+    var grps = checkedVals(grpEls);
+    if (grps.length && grps.indexOf(tr.dataset.group) === -1) return false;
+    return true;
+  }}
+
+  function panelActive(){{
+    if (dpEl && dpEl.checked) return true;
+    if (ndEl && ndEl.checked) return true;
+    if (checkedVals(grdEls).length || checkedVals(covEls).length || checkedVals(grpEls).length) return true;
+    return Object.keys(numEls).some(function(id){{ return numEls[id].value !== ''; }});
+  }}
+
   function apply(){{
     var needle = q.value.trim().normalize('NFKC').toLowerCase();
-    var filtering = !!needle || !!activeTier;
+    var pActive = panelActive();
+    var filtering = !!needle || !!activeTier || pActive;
     var total = 0;
     document.querySelectorAll('tr.r').forEach(function(tr){{
       var textOk = !needle || tr.textContent.normalize('NFKC').toLowerCase().indexOf(needle) !== -1;
       var tierOk = !activeTier || tr.dataset.tier === activeTier;
-      var show = textOk && tierOk;
+      var show = textOk && tierOk && (!pActive || panelOk(tr));
       tr.hidden = !show;
       if (show) total++;
     }});
@@ -717,7 +865,58 @@ body.wlon{{padding-bottom:60px}}
       topbox.hidden = filtering && !anyTop;
     }}
     hit.textContent = filtering ? (total + '件ヒット') : '';
+    fhit.textContent = pActive ? (total + '件該当') : '';
+    fempty.hidden = !(filtering && total === 0);
+    syncUrl(needle);
   }}
+
+  var urlTimer = null;
+  function syncUrl(needle){{
+    clearTimeout(urlTimer);
+    urlTimer = setTimeout(function(){{
+      var p = new URLSearchParams();
+      if (needle) p.set('q', q.value.trim());
+      if (activeTier) p.set('t', activeTier);
+      Object.keys(numEls).forEach(function(id){{
+        if (numEls[id].value !== '') p.set(id.slice(2), numEls[id].value);
+      }});
+      if (dpEl && dpEl.checked) p.set('dp', '1');
+      if (ndEl && ndEl.checked) p.set('nd', '1');
+      var grds = checkedVals(grdEls); if (grds.length) p.set('grd', grds.join(','));
+      var covs = checkedVals(covEls); if (covs.length) p.set('cov', covs.join(','));
+      var grps = checkedVals(grpEls); if (grps.length) p.set('grp', grps.join(','));
+      var qs = p.toString();
+      var url = location.pathname + (qs ? '?' + qs : '');
+      history.replaceState(null, '', url);
+    }}, 300);
+  }}
+
+  function restoreFromUrl(){{
+    var p = new URLSearchParams(location.search);
+    if (!p.toString()) return;
+    if (p.has('q')) q.value = p.get('q');
+    if (p.has('t')) {{
+      activeTier = p.get('t');
+      sumbtns.forEach(function(b){{ b.classList.toggle('active', b.dataset.tier === activeTier); }});
+    }}
+    Object.keys(numEls).forEach(function(id){{
+      var key = id.slice(2);
+      if (p.has(key)) numEls[id].value = p.get(key);
+    }});
+    if (p.get('dp') === '1' && dpEl) dpEl.checked = true;
+    if (p.get('nd') === '1' && ndEl) ndEl.checked = true;
+    (p.get('grd') || '').split(',').forEach(function(v){{
+      grdEls.forEach(function(e){{ if (e.value === v) e.checked = true; }});
+    }});
+    (p.get('cov') || '').split(',').forEach(function(v){{
+      covEls.forEach(function(e){{ if (e.value === v) e.checked = true; }});
+    }});
+    (p.get('grp') || '').split(',').forEach(function(v){{
+      grpEls.forEach(function(e){{ if (e.value === v) e.checked = true; }});
+    }});
+    if (panelActive() && filterbox) filterbox.open = true;
+  }}
+
   q.addEventListener('input', apply);
   document.getElementById('qclear').addEventListener('click', function(){{
     q.value = ''; apply(); q.focus();
@@ -730,6 +929,18 @@ body.wlon{{padding-bottom:60px}}
       apply();
     }});
   }});
+  allFilterEls.forEach(function(el){{ el.addEventListener('input', apply); el.addEventListener('change', apply); }});
+  document.getElementById('fclear').addEventListener('click', function(){{
+    Object.keys(numEls).forEach(function(id){{ numEls[id].value = ''; }});
+    if (dpEl) dpEl.checked = false;
+    if (ndEl) ndEl.checked = false;
+    grdEls.forEach(function(e){{ e.checked = false; }});
+    covEls.forEach(function(e){{ e.checked = false; }});
+    grpEls.forEach(function(e){{ e.checked = false; }});
+    apply();
+  }});
+  restoreFromUrl();
+  apply();
   var TERMS = {terms_json};
   var tibox = document.getElementById('terminfo');
   var tibody = document.getElementById('terminfo-body');
