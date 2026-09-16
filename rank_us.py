@@ -653,6 +653,9 @@ details{{margin:14px 0}}summary{{cursor:pointer;font-weight:600;font-size:13px}}
 .fsecbody{{display:flex;flex-wrap:wrap;gap:12px 22px}}
 .fgrp{{display:flex;flex-direction:column;gap:4px;min-width:120px}}
 .fgrp.wide{{min-width:220px}}
+.frange{{display:flex;align-items:center;gap:6px}}
+.frange input[type=number]{{width:64px}}
+.frange .frangesep{{font-size:12px;color:var(--muted)}}
 .fgrp label.flbl{{font-size:11.5px;color:var(--muted)}}
 .fgrp input[type=number]{{width:88px;padding:6px 8px;border:1px solid var(--line);
   border-radius:6px;font-size:13px;background:var(--card)}}
@@ -764,7 +767,8 @@ body.wlon{{padding-bottom:60px}}
       <div class="fgrp"><label class="flbl" for="f_tim">買い時スコア 以上</label><input id="f_tim" type="number" min="0" max="110"></div>
     </div></div>
     <div class="fsec"><span class="fsech">配当利回りセオリー</span><div class="fsecbody">
-      <div class="fgrp"><label class="flbl" for="f_yldband">過去レンジ内の位置(%) 以上</label><input id="f_yldband" type="number" step="1" min="0" max="100">
+      <div class="fgrp"><span class="flbl">過去レンジ内の位置(%)</span>
+        <span class="frange"><input id="f_yldband" type="number" step="1" min="0" max="100" placeholder="以上"><span class="frangesep">〜</span><input id="f_yldband2" type="number" step="1" min="0" max="100" placeholder="以下"></span>
         <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_yldband" value="{v}">{lab}</label>' for v, lab in (("cheap","割安"),("normal","標準"),("expensive","割高")))}</span></div>
     </div></div>
     <div class="fsec"><span class="fsech">利回り水準とChowder</span><div class="fsecbody">
@@ -838,7 +842,7 @@ body.wlon{{padding-bottom:60px}}
     ['dg','dgr5','ge',false], ['roe','roe','ge',false],
     ['mc','mcap','ge',false],
     ['pay','payout','le',false], ['pr','price','le',false],
-    ['chow','chowder','ge',false], ['yldband','yldband','ge',true]
+    ['chow','chowder','ge',false], ['yldband','yldband','ge',true], ['yldband2','yldband','le',true]
   ];
   var numEls = {{}};
   NUM_FILTERS.forEach(function(f){{ var id='f_'+f[0]; numEls[id] = document.getElementById(id); }});
@@ -895,31 +899,37 @@ body.wlon{{padding-bottom:60px}}
             Array.prototype.slice.call(grdEls), Array.prototype.slice.call(covEls), Array.prototype.slice.call(grpEls));
 
   // 数値入力と良好/注意/弱いチェックボックスの両方を持つ項目：どちらか一方しか
-  // 使えないよう、片方に値が入るともう片方を無効化する（同時指定の矛盾を防ぐ）
-  var PAIRED_KEYS = ['dg','strup','strflat','pay','roe','yld','chow','yldband'];
+  // 使えないよう、片方に値が入るともう片方を無効化する（同時指定の矛盾を防ぐ）。
+  // yldbandのように「以上」「以下」2つの数値入力を持つ項目にも対応。
+  var PAIRED_NUM_IDS = {{
+    dg: ['dg'], strup: ['strup'], strflat: ['strflat'], pay: ['pay'],
+    roe: ['roe'], yld: ['yld'], chow: ['chow'], yldband: ['yldband','yldband2']
+  }};
   function syncPairDisabled(){{
-    PAIRED_KEYS.forEach(function(key){{
-      var numEl = numEls['f_'+key];
+    Object.keys(PAIRED_NUM_IDS).forEach(function(key){{
+      var numElList = PAIRED_NUM_IDS[key].map(function(id){{ return numEls['f_'+id]; }}).filter(Boolean);
       var boxes = bandEls[key];
-      if (!numEl || !boxes) return;
-      var hasNum = numEl.value !== '';
+      if (!numElList.length || !boxes) return;
+      var hasNum = numElList.some(function(el){{ return el.value !== ''; }});
       var anyChecked = checkedVals(boxes).length > 0;
-      numEl.disabled = anyChecked;
+      numElList.forEach(function(el){{ el.disabled = anyChecked; }});
       Array.prototype.forEach.call(boxes, function(b){{ b.disabled = hasNum; }});
     }});
   }}
-  PAIRED_KEYS.forEach(function(key){{
-    var numEl = numEls['f_'+key];
+  Object.keys(PAIRED_NUM_IDS).forEach(function(key){{
+    var numElList = PAIRED_NUM_IDS[key].map(function(id){{ return numEls['f_'+id]; }}).filter(Boolean);
     var boxes = bandEls[key];
-    if (!numEl || !boxes) return;
-    numEl.addEventListener('input', function(){{
-      if (numEl.value !== '') Array.prototype.forEach.call(boxes, function(b){{ b.checked = false; }});
-      syncPairDisabled();
-      apply();
+    if (!numElList.length || !boxes) return;
+    numElList.forEach(function(numEl){{
+      numEl.addEventListener('input', function(){{
+        if (numEl.value !== '') Array.prototype.forEach.call(boxes, function(b){{ b.checked = false; }});
+        syncPairDisabled();
+        apply();
+      }});
     }});
     Array.prototype.forEach.call(boxes, function(b){{
       b.addEventListener('change', function(){{
-        if (b.checked) numEl.value = '';
+        if (b.checked) numElList.forEach(function(el){{ el.value = ''; }});
         syncPairDisabled();
         apply();
       }});
