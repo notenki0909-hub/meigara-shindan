@@ -738,19 +738,23 @@ body.wlon{{padding-bottom:60px}}
   <div class="fgrp"><label class="flbl" for="f_gy">業績スコア 以上</label><input id="f_gy" type="number" min="0" max="110"></div>
   <div class="fgrp"><label class="flbl" for="f_gz">財務スコア 以上</label><input id="f_gz" type="number" min="0" max="110"></div>
   <div class="fgrp"><label class="flbl" for="f_gc">キャッシュフロースコア 以上</label><input id="f_gc" type="number" min="0" max="110"></div>
-  <div class="fgrp"><label class="flbl" for="f_pervs">PER（実績・対業種平均）(倍) 以下</label><input id="f_pervs" type="number" step="0.05" min="0"></div>
-  <div class="fgrp"><label class="flbl" for="f_pbrvs">PBR（実績・対業種平均）(倍) 以下</label><input id="f_pbrvs" type="number" step="0.05" min="0"></div>
-  <div class="fgrp"><label class="flbl" for="f_perband">PERの自社過去レンジ内の位置(%) 以上</label><input id="f_perband" type="number" step="1" min="0" max="100"></div>
-  <div class="fgrp"><label class="flbl" for="f_yldband">配当利回りセオリー（過去レンジ内の位置）(%) 以上</label><input id="f_yldband" type="number" step="1" min="0" max="100"></div>
+  <div class="fgrp"><label class="flbl" for="f_pervs">PER（実績・対業種平均）</label>
+    <select id="f_pervs"><option value="">指定なし</option><option value="expensive">割高</option><option value="normal">標準</option><option value="cheap">割安</option></select></div>
+  <div class="fgrp"><label class="flbl" for="f_pbrvs">PBR（実績・対業種平均）</label>
+    <select id="f_pbrvs"><option value="">指定なし</option><option value="expensive">割高</option><option value="normal">標準</option><option value="cheap">割安</option></select></div>
+  <div class="fgrp"><label class="flbl" for="f_perband">PERの自社過去レンジ内の位置</label>
+    <select id="f_perband"><option value="">指定なし</option><option value="expensive">割高</option><option value="normal">標準</option><option value="cheap">割安</option></select></div>
+  <div class="fgrp"><label class="flbl" for="f_yldband">配当利回りセオリー（過去レンジ内の位置）</label>
+    <select id="f_yldband"><option value="">指定なし</option><option value="cheap">割安</option><option value="normal">標準</option><option value="expensive">割高</option></select></div>
   <div class="fgrp"><label class="flbl" for="f_chow">Chowderルール(%) 以上</label><input id="f_chow" type="number" step="0.5"></div>
   <div class="fgrp"><span class="flbl">累進配当・DOE</span>
     <span class="fchecks"><label><input type="checkbox" id="f_dp">宣言ありのみ</label></span></div>
   <div class="fgrp"><span class="flbl">営業CF</span>
     <span class="fchecks"><label><input type="checkbox" id="f_ocf">直近プラスのみ</label></span></div>
-  <div class="fgrp"><span class="flbl">業種級</span>
-    <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_grd" value="{x}">{x}</label>' for x in ("A","B","C"))}</span></div>
-  <div class="fgrp"><span class="flbl">カバレッジ</span>
-    <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_cov" value="{x}">{x}</label>' for x in ("高","中","低"))}</span></div>
+  <div class="fgrp"><label class="flbl" for="f_grd">業種級</label>
+    <select id="f_grd"><option value="">指定なし</option>{"".join(f'<option value="{x}">{x}</option>' for x in ("A","B","C"))}</select></div>
+  <div class="fgrp"><label class="flbl" for="f_cov">カバレッジ</label>
+    <select id="f_cov"><option value="">指定なし</option>{"".join(f'<option value="{x}">{x}</option>' for x in ("高","中","低"))}</select></div>
   <div class="fgrp wide"><span class="flbl">業種グループ</span>
     <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_grp" value="{html.escape(g["name"])}">{html.escape(g["name"])}</label>' for g in out["groups"])}</span></div>
 </div>
@@ -797,8 +801,6 @@ body.wlon{{padding-bottom:60px}}
     ['str','streak','ge',false], ['dg','dgr5','ge',false], ['roe','roe','ge',false],
     ['mc','mcap','ge',false], ['gy','ggyo','ge',false], ['gz','gzai','ge',false],
     ['gc','gcf','ge',false], ['pay','payout','le',false], ['pr','price','le',false],
-    ['pervs','pervs','le',false], ['pbrvs','pbrvs','le',false],
-    ['perband','perband','ge',true], ['yldband','yldband','ge',true],
     ['chow','chowder','ge',false]
   ];
   var numEls = {{}};
@@ -806,12 +808,40 @@ body.wlon{{padding-bottom:60px}}
   var dpEl = document.getElementById('f_dp');
   var ocfEl = document.getElementById('f_ocf');
   var ndEl = document.getElementById('f_nd');  // US版のみ存在（急減速フラグなし）
-  var grdEls = document.querySelectorAll('.f_grd');
-  var covEls = document.querySelectorAll('.f_cov');
+  var grdEl = document.getElementById('f_grd');
+  var covEl = document.getElementById('f_cov');
   var grpEls = document.querySelectorAll('.f_grp');
+
+  // 割安/標準/割高の3択セレクト：id接尾辞 -> [data属性名, 比較方向('higher_better'/'lower_better')、good閾値、warn閾値]
+  // sector_rules.jsonの採点しきい値（good/warn）と同じ境界で◎/△/▲を3区分に分ける
+  var BAND_FILTERS = [
+    ['yldband','yldband','higher_better',0.6,0.2],
+    ['perband','perband','higher_better',0.6,0.2],
+    ['pervs','pervs','lower_better',0.95,1.20],
+    ['pbrvs','pbrvs','lower_better',1.00,1.40]
+  ];
+  var bandEls = {{}};
+  BAND_FILTERS.forEach(function(f){{ bandEls[f[0]] = document.getElementById('f_'+f[0]); }});
+
+  function bandOk(tr){{
+    for (var i = 0; i < BAND_FILTERS.length; i++) {{
+      var id = BAND_FILTERS[i][0], attr = BAND_FILTERS[i][1], dir = BAND_FILTERS[i][2], g = BAND_FILTERS[i][3], w = BAND_FILTERS[i][4];
+      var el = bandEls[id];
+      if (!el || !el.value) continue;
+      var v = parseFloat(tr.dataset[attr]);
+      if (isNaN(v)) return false;
+      var cheap = dir === 'higher_better' ? (v >= g) : (v < g);
+      var expensive = dir === 'higher_better' ? (v < w) : (v >= w);
+      if (el.value === 'cheap' && !cheap) return false;
+      if (el.value === 'expensive' && !expensive) return false;
+      if (el.value === 'normal' && (cheap || expensive)) return false;
+    }}
+    return true;
+  }}
+
   var allFilterEls = Object.keys(numEls).map(function(k){{ return numEls[k]; }})
-    .concat([dpEl, ocfEl], ndEl ? [ndEl] : [], Array.prototype.slice.call(grdEls),
-            Array.prototype.slice.call(covEls), Array.prototype.slice.call(grpEls));
+    .concat(Object.keys(bandEls).map(function(k){{ return bandEls[k]; }}))
+    .concat([dpEl, ocfEl, grdEl, covEl], ndEl ? [ndEl] : [], Array.prototype.slice.call(grpEls));
 
   function checkedVals(els){{ return Array.prototype.filter.call(els, function(e){{ return e.checked; }}).map(function(e){{ return e.value; }}); }}
 
@@ -835,10 +865,9 @@ body.wlon{{padding-bottom:60px}}
     if (dpEl && dpEl.checked && tr.dataset.divpolicy !== '1') return false;
     if (ocfEl && ocfEl.checked && tr.dataset.ocf !== '1') return false;
     if (ndEl && ndEl.checked && tr.dataset.decel === '1') return false;
-    var grds = checkedVals(grdEls);
-    if (grds.length && grds.indexOf(tr.dataset.grade) === -1) return false;
-    var covs = checkedVals(covEls);
-    if (covs.length && covs.indexOf(tr.dataset.cov) === -1) return false;
+    if (!bandOk(tr)) return false;
+    if (grdEl && grdEl.value && tr.dataset.grade !== grdEl.value) return false;
+    if (covEl && covEl.value && tr.dataset.cov !== covEl.value) return false;
     var grps = checkedVals(grpEls);
     if (grps.length && grps.indexOf(tr.dataset.group) === -1) return false;
     return true;
@@ -848,7 +877,8 @@ body.wlon{{padding-bottom:60px}}
     if (dpEl && dpEl.checked) return true;
     if (ocfEl && ocfEl.checked) return true;
     if (ndEl && ndEl.checked) return true;
-    if (checkedVals(grdEls).length || checkedVals(covEls).length || checkedVals(grpEls).length) return true;
+    if (Object.keys(bandEls).some(function(id){{ return bandEls[id] && bandEls[id].value; }})) return true;
+    if ((grdEl && grdEl.value) || (covEl && covEl.value) || checkedVals(grpEls).length) return true;
     return Object.keys(numEls).some(function(id){{ return numEls[id].value !== ''; }});
   }}
 
@@ -891,8 +921,9 @@ body.wlon{{padding-bottom:60px}}
       if (dpEl && dpEl.checked) p.set('dp', '1');
       if (ocfEl && ocfEl.checked) p.set('ocf', '1');
       if (ndEl && ndEl.checked) p.set('nd', '1');
-      var grds = checkedVals(grdEls); if (grds.length) p.set('grd', grds.join(','));
-      var covs = checkedVals(covEls); if (covs.length) p.set('cov', covs.join(','));
+      Object.keys(bandEls).forEach(function(id){{ if (bandEls[id] && bandEls[id].value) p.set(id, bandEls[id].value); }});
+      if (grdEl && grdEl.value) p.set('grd', grdEl.value);
+      if (covEl && covEl.value) p.set('cov', covEl.value);
       var grps = checkedVals(grpEls); if (grps.length) p.set('grp', grps.join(','));
       var qs = p.toString();
       var url = location.pathname + (qs ? '?' + qs : '');
@@ -915,12 +946,9 @@ body.wlon{{padding-bottom:60px}}
     if (p.get('dp') === '1' && dpEl) dpEl.checked = true;
     if (p.get('ocf') === '1' && ocfEl) ocfEl.checked = true;
     if (p.get('nd') === '1' && ndEl) ndEl.checked = true;
-    (p.get('grd') || '').split(',').forEach(function(v){{
-      grdEls.forEach(function(e){{ if (e.value === v) e.checked = true; }});
-    }});
-    (p.get('cov') || '').split(',').forEach(function(v){{
-      covEls.forEach(function(e){{ if (e.value === v) e.checked = true; }});
-    }});
+    Object.keys(bandEls).forEach(function(id){{ if (p.has(id) && bandEls[id]) bandEls[id].value = p.get(id); }});
+    if (p.has('grd') && grdEl) grdEl.value = p.get('grd');
+    if (p.has('cov') && covEl) covEl.value = p.get('cov');
     (p.get('grp') || '').split(',').forEach(function(v){{
       grpEls.forEach(function(e){{ if (e.value === v) e.checked = true; }});
     }});
@@ -945,8 +973,9 @@ body.wlon{{padding-bottom:60px}}
     if (dpEl) dpEl.checked = false;
     if (ocfEl) ocfEl.checked = false;
     if (ndEl) ndEl.checked = false;
-    grdEls.forEach(function(e){{ e.checked = false; }});
-    covEls.forEach(function(e){{ e.checked = false; }});
+    Object.keys(bandEls).forEach(function(id){{ if (bandEls[id]) bandEls[id].value = ''; }});
+    if (grdEl) grdEl.value = '';
+    if (covEl) covEl.value = '';
     grpEls.forEach(function(e){{ e.checked = false; }});
     apply();
   }});
