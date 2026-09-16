@@ -171,6 +171,7 @@ def main():
             "per_vs_sector": s.get("per_vs_sector"), "pbr_vs_sector": s.get("pbr_vs_sector"),
             "per_band_pos": s.get("per_band_pos"), "yield_band_pos": s.get("yield_band_pos"),
             "quarter_decel_factor": s.get("quarter_decel_factor"),
+            "ocf_positive": s.get("ocf_positive"),
         })
 
     today_str = dt.date.today().isoformat()
@@ -304,7 +305,8 @@ def _filter_attrs(s, grade):
         f'data-pervs="{_v(s.get("per_vs_sector"))}" data-pbrvs="{_v(s.get("pbr_vs_sector"))}" '
         f'data-perband="{_v(s.get("per_band_pos"))}" data-yldband="{_v(s.get("yield_band_pos"))}" '
         f'data-chowder="{_v(s.get("chowder"))}" '
-        f'data-decel="{1 if s.get("quarter_decel_factor") is not None else 0}"'
+        f'data-decel="{1 if s.get("quarter_decel_factor") is not None else 0}" '
+        f'data-ocf="{1 if s.get("ocf_positive") else 0}"'
     )
 
 
@@ -712,23 +714,25 @@ body.wlon{{padding-bottom:60px}}
 <div class="fpanel">
   <div class="fgrp"><label class="flbl" for="f_sel">選定スコア 以上</label><input id="f_sel" type="number" min="0" max="110"></div>
   <div class="fgrp"><label class="flbl" for="f_tim">買い時スコア 以上</label><input id="f_tim" type="number" min="0" max="110"></div>
-  <div class="fgrp"><label class="flbl" for="f_yld">利回り(%) 以上</label><input id="f_yld" type="number" step="0.1" min="0"></div>
+  <div class="fgrp"><label class="flbl" for="f_yld">予想配当利回り(%) 以上</label><input id="f_yld" type="number" step="0.1" min="0"></div>
   <div class="fgrp"><label class="flbl" for="f_str">増配年数 以上</label><input id="f_str" type="number" min="0"></div>
-  <div class="fgrp"><label class="flbl" for="f_dg">配当成長率(%) 以上</label><input id="f_dg" type="number" step="0.1"></div>
-  <div class="fgrp"><label class="flbl" for="f_pay">配当性向(%) 以下</label><input id="f_pay" type="number" step="1" min="0"></div>
-  <div class="fgrp"><label class="flbl" for="f_roe">ROE(%) 以上</label><input id="f_roe" type="number" step="0.1"></div>
+  <div class="fgrp"><label class="flbl" for="f_dg">増配率(%) 以上</label><input id="f_dg" type="number" step="0.1"></div>
+  <div class="fgrp"><label class="flbl" for="f_pay">配当性向（純利益ベース）(%) 以下</label><input id="f_pay" type="number" step="1" min="0"></div>
+  <div class="fgrp"><label class="flbl" for="f_roe">ROE（配当の原資の効率）(%) 以上</label><input id="f_roe" type="number" step="0.1"></div>
   <div class="fgrp"><label class="flbl" for="f_mc">時価総額(百万＄) 以上</label><input id="f_mc" type="number" min="0"></div>
-  <div class="fgrp"><label class="flbl" for="f_pr">株価(＄) 以下</label><input id="f_pr" type="number" min="0"></div>
+  <div class="fgrp"><label class="flbl" for="f_pr">終値(＄) 以下</label><input id="f_pr" type="number" min="0"></div>
   <div class="fgrp"><label class="flbl" for="f_gy">業績スコア 以上</label><input id="f_gy" type="number" min="0" max="110"></div>
   <div class="fgrp"><label class="flbl" for="f_gz">財務スコア 以上</label><input id="f_gz" type="number" min="0" max="110"></div>
-  <div class="fgrp"><label class="flbl" for="f_gc">CFスコア 以上</label><input id="f_gc" type="number" min="0" max="110"></div>
-  <div class="fgrp"><label class="flbl" for="f_pervs">PER対業種(倍) 以下</label><input id="f_pervs" type="number" step="0.05" min="0"></div>
-  <div class="fgrp"><label class="flbl" for="f_pbrvs">PBR対業種(倍) 以下</label><input id="f_pbrvs" type="number" step="0.05" min="0"></div>
-  <div class="fgrp"><label class="flbl" for="f_perband">PER自社レンジ位置(%) 以上</label><input id="f_perband" type="number" step="1" min="0" max="100"></div>
-  <div class="fgrp"><label class="flbl" for="f_yldband">利回り自社レンジ位置(%) 以上</label><input id="f_yldband" type="number" step="1" min="0" max="100"></div>
-  <div class="fgrp"><label class="flbl" for="f_chow">Chowderスコア(%) 以上</label><input id="f_chow" type="number" step="0.5"></div>
+  <div class="fgrp"><label class="flbl" for="f_gc">キャッシュフロースコア 以上</label><input id="f_gc" type="number" min="0" max="110"></div>
+  <div class="fgrp"><label class="flbl" for="f_pervs">PER（実績・対業種平均）(倍) 以下</label><input id="f_pervs" type="number" step="0.05" min="0"></div>
+  <div class="fgrp"><label class="flbl" for="f_pbrvs">PBR（実績・対業種平均）(倍) 以下</label><input id="f_pbrvs" type="number" step="0.05" min="0"></div>
+  <div class="fgrp"><label class="flbl" for="f_perband">PERの自社過去レンジ内の位置(%) 以上</label><input id="f_perband" type="number" step="1" min="0" max="100"></div>
+  <div class="fgrp"><label class="flbl" for="f_yldband">配当利回りセオリー（過去レンジ内の位置）(%) 以上</label><input id="f_yldband" type="number" step="1" min="0" max="100"></div>
+  <div class="fgrp"><label class="flbl" for="f_chow">Chowderルール(%) 以上</label><input id="f_chow" type="number" step="0.5"></div>
   <div class="fgrp"><span class="flbl">直近四半期の急減速</span>
     <span class="fchecks"><label><input type="checkbox" id="f_nd">フラグが無い銘柄のみ</label></span></div>
+  <div class="fgrp"><span class="flbl">営業CF</span>
+    <span class="fchecks"><label><input type="checkbox" id="f_ocf">直近プラスのみ</label></span></div>
   <div class="fgrp"><span class="flbl">業種級</span>
     <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_grd" value="{x}">{x}</label>' for x in ("A","B","C"))}</span></div>
   <div class="fgrp"><span class="flbl">カバレッジ</span>
@@ -785,12 +789,13 @@ body.wlon{{padding-bottom:60px}}
   var numEls = {{}};
   NUM_FILTERS.forEach(function(f){{ var id='f_'+f[0]; numEls[id] = document.getElementById(id); }});
   var dpEl = document.getElementById('f_dp');  // JP版のみ存在（累進配当宣言）
+  var ocfEl = document.getElementById('f_ocf');
   var ndEl = document.getElementById('f_nd');
   var grdEls = document.querySelectorAll('.f_grd');
   var covEls = document.querySelectorAll('.f_cov');
   var grpEls = document.querySelectorAll('.f_grp');
   var allFilterEls = Object.keys(numEls).map(function(k){{ return numEls[k]; }})
-    .concat(dpEl ? [dpEl] : [], ndEl ? [ndEl] : [], Array.prototype.slice.call(grdEls),
+    .concat(dpEl ? [dpEl] : [], [ocfEl], ndEl ? [ndEl] : [], Array.prototype.slice.call(grdEls),
             Array.prototype.slice.call(covEls), Array.prototype.slice.call(grpEls));
 
   function checkedVals(els){{ return Array.prototype.filter.call(els, function(e){{ return e.checked; }}).map(function(e){{ return e.value; }}); }}
@@ -813,6 +818,7 @@ body.wlon{{padding-bottom:60px}}
   function panelOk(tr){{
     if (!numOk(tr)) return false;
     if (dpEl && dpEl.checked && tr.dataset.divpolicy !== '1') return false;
+    if (ocfEl && ocfEl.checked && tr.dataset.ocf !== '1') return false;
     if (ndEl && ndEl.checked && tr.dataset.decel === '1') return false;
     var grds = checkedVals(grdEls);
     if (grds.length && grds.indexOf(tr.dataset.grade) === -1) return false;
@@ -825,6 +831,7 @@ body.wlon{{padding-bottom:60px}}
 
   function panelActive(){{
     if (dpEl && dpEl.checked) return true;
+    if (ocfEl && ocfEl.checked) return true;
     if (ndEl && ndEl.checked) return true;
     if (checkedVals(grdEls).length || checkedVals(covEls).length || checkedVals(grpEls).length) return true;
     return Object.keys(numEls).some(function(id){{ return numEls[id].value !== ''; }});
@@ -867,6 +874,7 @@ body.wlon{{padding-bottom:60px}}
         if (numEls[id].value !== '') p.set(id.slice(2), numEls[id].value);
       }});
       if (dpEl && dpEl.checked) p.set('dp', '1');
+      if (ocfEl && ocfEl.checked) p.set('ocf', '1');
       if (ndEl && ndEl.checked) p.set('nd', '1');
       var grds = checkedVals(grdEls); if (grds.length) p.set('grd', grds.join(','));
       var covs = checkedVals(covEls); if (covs.length) p.set('cov', covs.join(','));
@@ -890,6 +898,7 @@ body.wlon{{padding-bottom:60px}}
       if (p.has(key)) numEls[id].value = p.get(key);
     }});
     if (p.get('dp') === '1' && dpEl) dpEl.checked = true;
+    if (p.get('ocf') === '1' && ocfEl) ocfEl.checked = true;
     if (p.get('nd') === '1' && ndEl) ndEl.checked = true;
     (p.get('grd') || '').split(',').forEach(function(v){{
       grdEls.forEach(function(e){{ if (e.value === v) e.checked = true; }});
@@ -919,6 +928,7 @@ body.wlon{{padding-bottom:60px}}
   document.getElementById('fclear').addEventListener('click', function(){{
     Object.keys(numEls).forEach(function(id){{ numEls[id].value = ''; }});
     if (dpEl) dpEl.checked = false;
+    if (ocfEl) ocfEl.checked = false;
     if (ndEl) ndEl.checked = false;
     grdEls.forEach(function(e){{ e.checked = false; }});
     covEls.forEach(function(e){{ e.checked = false; }});
