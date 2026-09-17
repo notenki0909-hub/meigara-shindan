@@ -660,27 +660,34 @@ details{{margin:14px 0}}summary{{cursor:pointer;font-weight:600;font-size:13px}}
   background:var(--card);font-size:12.5px;cursor:pointer;color:var(--muted)}}
 .searchbar .hit{{font-size:12px;color:var(--muted);white-space:nowrap}}
 #filterbox{{margin:6px 0 14px}}
-#filterbox summary{{font-size:13px}}
-.fpanel{{padding:12px 4px 4px}}
+#filterbox summary{{font-size:14px;font-weight:700;display:flex;align-items:center;
+  gap:10px;flex-wrap:wrap}}
+.fclear-top{{padding:5px 12px;border:1px solid var(--line);border-radius:8px;
+  background:var(--card);font-size:12px;cursor:pointer;color:var(--muted)}}
+.fclear-top:hover{{border-color:var(--accent);color:var(--fg)}}
+#filterbox summary .fhit{{font-size:12px;font-weight:400;color:var(--muted)}}
+.fpanel{{padding:14px 4px 4px}}
 .fmaj{{width:100%}}
-.fmaj+.fmaj{{margin-top:14px}}
-.fmajh{{font-size:13.5px;font-weight:800;color:var(--fg);margin:0 0 6px;
-  padding-bottom:4px;border-bottom:2px solid var(--accent)}}
-.fsec{{width:100%;margin-top:10px}}
+.fmaj+.fmaj{{margin-top:24px}}
+.fmajh{{font-size:16px;font-weight:800;color:var(--fg);margin:0 0 10px;
+  padding-bottom:5px;border-bottom:2px solid var(--accent)}}
+.fsec{{width:100%;margin-top:16px}}
 .fsec:first-child{{margin-top:0}}
-.fsech{{font-size:11.5px;font-weight:700;color:var(--muted);margin:0 0 6px}}
-.fsecbody{{display:flex;flex-wrap:wrap;gap:12px 22px}}
-.fgrp{{display:flex;flex-direction:column;gap:4px;min-width:120px}}
+.fsech{{font-size:13px;font-weight:800;color:var(--accent);margin:0 0 8px;
+  padding-left:9px;border-left:3px solid var(--accent)}}
+.fsecbody{{display:flex;flex-wrap:wrap;gap:10px 14px}}
+.fgrp{{display:flex;flex-direction:column;gap:5px;min-width:130px;
+  padding:8px 10px;background:var(--card);border:1px solid var(--line);border-radius:6px}}
 .fgrp.wide{{min-width:220px}}
-.fgrp label.flbl{{font-size:11.5px;color:var(--muted)}}
+.fgrp .flbl{{font-size:12.5px;color:var(--muted);font-weight:600}}
 .fgrp input[type=number]{{width:88px;padding:6px 8px;border:1px solid var(--line);
-  border-radius:6px;font-size:13px;background:var(--card)}}
+  border-radius:6px;font-size:13px;background:var(--bg)}}
 .fchecks{{display:flex;flex-wrap:wrap;gap:6px 10px}}
 .fchecks label{{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;white-space:nowrap}}
 .fchecks input{{accent-color:var(--accent)}}
 .fgrp input[type=number]:disabled{{opacity:.4;cursor:not-allowed}}
 .fchecks label:has(input:disabled){{opacity:.4;cursor:not-allowed}}
-.fbar{{display:flex;align-items:center;gap:10px;margin:10px 4px 2px}}
+.fbar{{display:flex;align-items:center;gap:10px;margin:16px 4px 2px}}
 .fbar button{{padding:7px 14px;border:1px solid var(--line);border-radius:8px;
   background:var(--card);font-size:12.5px;cursor:pointer;color:var(--muted)}}
 .fbar button:hover{{border-color:var(--accent);color:var(--fg)}}
@@ -741,7 +748,7 @@ body.wlon{{padding-bottom:60px}}
   <span class="hit" id="qhit"></span>
 </div>
 <details id="filterbox">
-<summary>詳しい条件で絞り込む</summary>
+<summary><span>詳しい条件で絞り込む</span><button type="button" id="fclear2" class="fclear-top">条件をクリア</button><span class="fhit" id="fhit2"></span></summary>
 <div class="fpanel">
   <div class="fmaj"><h3 class="fmajh">① 銘柄選定</h3>
     <div class="fsec"><div class="fsecbody">
@@ -847,6 +854,7 @@ body.wlon{{padding-bottom:60px}}
   var topbox = document.getElementById('topbox');
   var fempty = document.getElementById('fempty');
   var fhit = document.getElementById('fhit');
+  var fhit2 = document.getElementById('fhit2');
   var filterbox = document.getElementById('filterbox');
   var sumbtns = document.querySelectorAll('.sumbtn');
   var activeTier = '';
@@ -1015,6 +1023,7 @@ body.wlon{{padding-bottom:60px}}
     }}
     hit.textContent = filtering ? (total + '件ヒット') : '';
     fhit.textContent = pActive ? (total + '件該当') : '';
+    fhit2.textContent = pActive ? (total + '件該当') : '';
     fempty.hidden = !(filtering && total === 0);
     syncUrl(needle);
   }}
@@ -1100,7 +1109,7 @@ body.wlon{{padding-bottom:60px}}
     ndEl.addEventListener('change', function(){{ if (ndEl.checked) {{ hdEl.checked = false; apply(); }} }});
     hdEl.addEventListener('change', function(){{ if (hdEl.checked) {{ ndEl.checked = false; apply(); }} }});
   }}
-  document.getElementById('fclear').addEventListener('click', function(){{
+  function clearAllFilters(){{
     Object.keys(numEls).forEach(function(id){{ numEls[id].value = ''; }});
     if (dpEl) dpEl.checked = false;
     if (ocfEl) ocfEl.checked = false;
@@ -1114,6 +1123,12 @@ body.wlon{{padding-bottom:60px}}
     grpEls.forEach(function(e){{ e.checked = false; }});
     syncPairDisabled();
     apply();
+  }}
+  document.getElementById('fclear').addEventListener('click', clearAllFilters);
+  document.getElementById('fclear2').addEventListener('click', function(e){{
+    e.preventDefault();
+    e.stopPropagation();
+    clearAllFilters();
   }});
   restoreFromUrl();
   syncPairDisabled();
