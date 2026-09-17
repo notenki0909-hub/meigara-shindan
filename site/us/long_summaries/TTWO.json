@@ -5,9 +5,9 @@
  "gics_sector": "Communication Services",
  "is_simple": false,
  "is_reit": false,
- "price": 211.91000366210938,
- "price_date": "2026-09-15",
- "mcap": 39604326400,
+ "price": 209.10000610351562,
+ "price_date": "2026-09-17",
+ "mcap": 39097614336,
  "q_score": 72.9,
  "groups": {
   "業績": 47.818425089080606,
@@ -26,19 +26,50 @@
   "gap": -5.553563682564233
  },
  "q_cov": "高",
- "bt_score": 51.8,
+ "bt_score": 51.9,
  "bt_cov": "中",
  "bt_components": {
   "ev_ebit_vs_sector": null,
-  "fcf_yield": 35.537023079714174,
+  "fcf_yield": 35.73838567348984,
   "per_cheap": null,
   "pbr_cheap": 20.0
  },
  "ev_ebit": null,
- "fcf_yield": 1.165276730978563,
+ "fcf_yield": 1.1803789255117378,
  "per_band_pos": null,
  "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": 1.871504406779661,
  "div_yield": null,
- "implied_fcf_growth": 0.2773,
- "_generated_at": "2026-09-17T00:36:20"
+ "implied_fcf_growth": 0.2755,
+ "metric_scores": {
+  "rev_cagr": 105.06128848830377,
+  "eps_cagr": null,
+  "op_margin": 20.0,
+  "earnings_stability": 20.0,
+  "equity_ratio": null,
+  "de": 106.5739553960523,
+  "net_de": 110.0,
+  "debt_to_ocf": 76.81883709754925,
+  "interest_coverage": 41.564077583916394,
+  "ocf_positive": 100.0,
+  "fcf_positive": 100.0,
+  "fcf_payout": null
+ },
+ "metric_raw": {
+  "rev_cagr": 7.555159639473397,
+  "eps_cagr": null,
+  "op_margin": -1.6315125292951145,
+  "earnings_stability": 0.0,
+  "equity_ratio": null,
+  "de": 0.8426044603947705,
+  "net_de": 0.27699450283403115,
+  "debt_to_ocf": 4.738587217683806,
+  "interest_coverage": -0.22628642281463113,
+  "ocf_positive": 1,
+  "fcf_positive": 1,
+  "fcf_payout": null
+ },
+ "_generated_at": "2026-09-18T00:34:29"
 }

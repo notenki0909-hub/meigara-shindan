@@ -5,9 +5,9 @@
  "gics_sector": "Consumer Discretionary",
  "is_simple": false,
  "is_reit": false,
- "price": 43.709999084472656,
- "price_date": "2026-09-15",
- "mcap": 23383232512,
+ "price": 45.849998474121094,
+ "price_date": "2026-09-17",
+ "mcap": 24049375232,
  "q_score": 71.2,
  "groups": {
   "業績": 44.73201772812924,
@@ -26,19 +26,50 @@
   "gap": -31.007705680005014
  },
  "q_cov": "高",
- "bt_score": 67.5,
+ "bt_score": 65.8,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 83.92737411945117,
-  "fcf_yield": 88.42509901823449,
+  "ev_ebit_vs_sector": 80.85865163331519,
+  "fcf_yield": 86.52979483105435,
   "per_cheap": 30.0,
-  "pbr_cheap": 109.8
+  "pbr_cheap": 109.6
  },
- "ev_ebit": 16.305859942446045,
- "fcf_yield": 5.131882426367587,
+ "ev_ebit": 16.60538454676259,
+ "fcf_yield": 4.989734612329076,
  "per_band_pos": 0.0,
- "pbr_band_pos": 0.9827307735081724,
- "div_yield": 4.140928935967368,
- "implied_fcf_growth": 0.0736,
- "_generated_at": "2026-09-17T00:33:59"
+ "pbr_band_pos": 0.9683318038818931,
+ "ev_ebit_vs_sector": 1.017486798208492,
+ "per_vs_sector": 1.6478579729729728,
+ "pbr_vs_sector": 0.14474022826086957,
+ "div_yield": 3.947655529414271,
+ "implied_fcf_growth": 0.0774,
+ "metric_scores": {
+  "rev_cagr": 110.0,
+  "eps_cagr": 20.0,
+  "op_margin": 72.18860680036471,
+  "earnings_stability": 96.02484472049689,
+  "equity_ratio": null,
+  "de": 102.48485840563103,
+  "net_de": 91.88628799039668,
+  "debt_to_ocf": 85.86084905660377,
+  "interest_coverage": 55.095238095238095,
+  "ocf_positive": 100.0,
+  "fcf_positive": 100.0,
+  "fcf_payout": 93.33333333333334
+ },
+ "metric_raw": {
+  "rev_cagr": 32.15380139788915,
+  "eps_cagr": -30.064162465234425,
+  "op_margin": 7.133006190063824,
+  "earnings_stability": 0.8571428571428571,
+  "equity_ratio": null,
+  "de": 0.7515141594368964,
+  "net_de": 0.7028428002400829,
+  "debt_to_ocf": 4.060436320754717,
+  "interest_coverage": 2.1416666666666666,
+  "ocf_positive": 1,
+  "fcf_positive": 1,
+  "fcf_payout": 75.0
+ },
+ "_generated_at": "2026-09-18T00:31:20"
 }

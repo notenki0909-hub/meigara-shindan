@@ -34,6 +34,14 @@ import long_common as LC
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out_long")
 
+# 「詳しい条件で絞り込む」フィルタで個別指標として公開するキー（業績4・財務5(USのみ
+# interest_coverageあり)・CF3）。rowmap[k]["score"]（0〜110・常に高いほど良い）を使う。
+_FILTER_METRIC_KEYS = (
+    "rev_cagr", "eps_cagr", "op_margin", "earnings_stability",
+    "equity_ratio", "de", "net_de", "debt_to_ocf", "interest_coverage",
+    "ocf_positive", "fcf_positive", "fcf_payout",
+)
+
 # 既存 analyze.py の指標説明テーブルに、買い時の新指標を追記（ファイルは書き換えない）
 analyze.METRIC_HELP.setdefault("ev_ebit_vs_sector", {"what":
     "企業価値（EV＝時価総額＋有利子負債−現金）が、本業の利益（EBIT＝営業利益）の何倍かを、"
@@ -1163,8 +1171,17 @@ def generate_long(code, cfg=None, market="jp", name=None):
         "bt_score": bt_score, "bt_cov": bt_cov[2], "bt_components": bt_comp,
         "ev_ebit": btd["ev_ebit"], "fcf_yield": btd["fcf_yield"],
         "per_band_pos": btd["per_band"], "pbr_band_pos": btd["pbr_band"],
+        # 「詳しい条件で絞り込む」フィルタ用（買い時内訳の実数値表示）。ev_ebit_vs_sector＝
+        # EV/EBIT÷業種中央値、per/pbr_vs_sector＝実績PER・PBR÷業種平均PER・PBR。
+        "ev_ebit_vs_sector": btd["ev_vs"], "per_vs_sector": btd["per_vs"], "pbr_vs_sector": btd["pbr_vs"],
         "div_yield": rowmap.get("div_yield", {}).get("v"),  # 表示のみ（採点には不使用）
         "implied_fcf_growth": ig,
+        # 「詳しい条件で絞り込む」フィルタ用の個別指標。score は0〜110（常に高いほど良い、
+        # sector_rules(_us).json の業種別しきい値をrule_for()経由で反映済み）、raw は
+        # 表示・CSV出力用の生値。is_fin_simple/is_reit_us銘柄はこれらのキーが元々
+        # 採点されないためNone（フィルタ側は欠損=対象外として扱う）。
+        "metric_scores": {k: rowmap.get(k, {}).get("score") for k in _FILTER_METRIC_KEYS},
+        "metric_raw": {k: rowmap.get(k, {}).get("v") for k in _FILTER_METRIC_KEYS},
         "_generated_at": dt.datetime.now().isoformat(timespec="seconds"),
     }
     try:

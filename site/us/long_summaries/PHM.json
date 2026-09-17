@@ -5,9 +5,9 @@
  "gics_sector": "Consumer Discretionary",
  "is_simple": false,
  "is_reit": false,
- "price": 119.47000122070312,
- "price_date": "2026-09-15",
- "mcap": 22391670784,
+ "price": 119.2699966430664,
+ "price_date": "2026-09-17",
+ "mcap": 22719305728,
  "q_score": 95.3,
  "groups": {
   "業績": 79.57448699620154,
@@ -26,19 +26,50 @@
   "gap": -12.210822842583601
  },
  "q_cov": "高",
- "bt_score": 97.0,
+ "bt_score": 96.9,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 110.0,
-  "fcf_yield": 106.02951512442768,
+  "fcf_yield": 105.65414367460258,
   "per_cheap": 75.0,
-  "pbr_cheap": 85.7
+  "pbr_cheap": 84.4
  },
- "ev_ebit": 7.6235850348974665,
- "fcf_yield": 7.808854537328303,
+ "ev_ebit": 7.73358195088067,
+ "fcf_yield": 7.696243102380773,
  "per_band_pos": 0.0,
- "pbr_band_pos": 0.2139275278765852,
- "div_yield": 0.8705114165678749,
- "implied_fcf_growth": 0.016,
- "_generated_at": "2026-09-17T00:29:44"
+ "pbr_band_pos": 0.18840320392579812,
+ "ev_ebit_vs_sector": 0.4738714430686685,
+ "per_vs_sector": 0.4115823986486486,
+ "pbr_vs_sector": 0.18695657608695654,
+ "div_yield": 0.8719711824192953,
+ "implied_fcf_growth": 0.018,
+ "metric_scores": {
+  "rev_cagr": 98.46838502055303,
+  "eps_cagr": 85.90706162007476,
+  "op_margin": 107.43622166719145,
+  "earnings_stability": 80.1257807506484,
+  "equity_ratio": null,
+  "de": 108.23134322266426,
+  "net_de": 104.85940640295495,
+  "debt_to_ocf": 105.90883059033476,
+  "interest_coverage": 110.0,
+  "ocf_positive": 100.0,
+  "fcf_positive": 100.0,
+  "fcf_payout": 110.0
+ },
+ "metric_raw": {
+  "rev_cagr": 2.6553866296244344,
+  "eps_cagr": 0.41979502652429446,
+  "op_margin": 17.205355167034014,
+  "earnings_stability": 0.7657232393162283,
+  "equity_ratio": null,
+  "de": 0.17686567773357273,
+  "net_de": 0.014059359704506015,
+  "debt_to_ocf": 1.2273508228995713,
+  "interest_coverage": 4813.100826446281,
+  "ocf_positive": 1,
+  "fcf_positive": 1,
+  "fcf_payout": 10.104699196412078
+ },
+ "_generated_at": "2026-09-18T00:25:32"
 }

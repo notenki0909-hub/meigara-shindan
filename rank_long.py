@@ -164,6 +164,87 @@ def _v(x):
     return x if isinstance(x, (int, float)) else -1e9
 
 
+def _fv(x):
+    """「詳しい条件で絞り込む」フィルタ用data-*属性の値。欠損は空文字（JS側でNaN扱い＝
+    常に対象外。_v()は列ソート用の別物で-1e9を返すため、ここでは流用しない）。"""
+    return x if isinstance(x, (int, float)) else ""
+
+
+# フィルタパネルで個別指標として出す業績/財務/CFの生キー（analyze_long.py の
+# _FILTER_METRIC_KEYS と対応。項目名は個別レポートページのM["業績"]等の"name"と一致させる）。
+# interest_coverageは米国株のみ・equity_ratioは日本株のみ値が入る（もう片方の市場では
+# _RAW_RULES_BY_MARKETに閾値が無いため、フィルタパネルにも表示しない）。
+FILTER_METRICS = (
+    ("業績", (("rev_cagr", "売上高（推移／年率）"), ("eps_cagr", "EPS（推移／年率）"),
+              ("op_margin", "営業利益率（直近）"), ("earnings_stability", "利益の安定度（営業利益のブレ）"))),
+    ("財務", (("equity_ratio", "自己資本比率"), ("de", "D/Eレシオ（有利子負債÷自己資本）"),
+              ("net_de", "ネットD/Eレシオ"), ("debt_to_ocf", "有利子負債 ÷ 営業CF（返済年数の目安）"),
+              ("interest_coverage", "インタレストカバレッジレシオ（EBIT÷支払利息）"))),
+    ("キャッシュフロー", (("ocf_positive", "営業CF（直近／推移）"), ("fcf_positive", "フリーCF（営業CF＋投資CF）"),
+                    ("fcf_payout", "FCF配当性向（配当支払÷フリーCF）"))),
+)
+# 買い時内訳（PER割安度・PBR割安度は「自社過去レンジ内の位置」＋「対業種平均」の2つの生数値
+# の平均で合成されるスコアのため、個別ページと同じくその2つに分解して実数値で絞り込む。
+# FCF利回りは単一の生数値（%）を持つため他の項目と同じ形式だが、買い時セクションの先頭に
+# 別途フォームを組む（FCF_YIELD_RULE参照）。key・label・rule・summary側の生値キー・
+# 倍率（band_posは0〜1の生値を%表示に揃えるため100倍する）の順。
+FILTER_BT_COMPONENTS = (
+    ("ev_ebit_vs_sector", "EV/EBIT（対業種中央値）",
+     {"dir": "lower_better", "good": 0.85, "warn": 1.2, "unit": "倍", "dec": 2}, "ev_ebit_vs_sector", 1),
+    ("per_band_pos", "PER 自社過去レンジ内の位置",
+     {"dir": "higher_better", "good": 60, "warn": 20, "unit": "%", "dec": 0}, "per_band_pos", 100),
+    ("per_vs_sector", "PER 対業種平均",
+     {"dir": "lower_better", "good": 0.95, "warn": 1.2, "unit": "倍", "dec": 2}, "per_vs_sector", 1),
+    ("pbr_band_pos", "PBR 自社過去レンジ内の位置",
+     {"dir": "higher_better", "good": 60, "warn": 20, "unit": "%", "dec": 0}, "pbr_band_pos", 100),
+    ("pbr_vs_sector", "PBR 対業種平均",
+     {"dir": "lower_better", "good": 1.0, "warn": 1.4, "unit": "倍", "dec": 2}, "pbr_vs_sector", 1),
+)
+
+# 個別ページのrule_block_htmlと同じ判定基準（sector_rules.json/sector_rules_us.jsonの
+# "default"）。業種別の上書き閾値はここでは使わない（フィルタパネルは全業種共通の1枚のため、
+# 個別ページのように銘柄ごとの業種別しきい値を出し分けられない。絞り込み自体は各銘柄の
+# 業種別しきい値で採点済みのスコアではなく生数値を比較するため、業種によっては表示中の
+# 閾値と実際の採点基準がわずかにずれる場合がある）。
+_RAW_RULES_COMMON = {
+    "rev_cagr": {"dir": "higher_better", "good": 3, "warn": -6, "unit": "%", "dec": 0},
+    "eps_cagr": {"dir": "higher_better", "good": 5, "warn": -8, "unit": "%", "dec": 0},
+    "earnings_stability": {"dir": "higher_better", "good": 0.88, "warn": 0.65, "unit": "", "dec": 2},
+    "de": {"dir": "lower_better", "good": 1.0, "warn": 2.0, "unit": "倍", "dec": 2},
+    "net_de": {"dir": "lower_better", "good": 0.5, "warn": 1.5, "unit": "倍", "dec": 2},
+    "debt_to_ocf": {"dir": "lower_better", "good": 3, "warn": 6, "unit": "年", "dec": 0},
+    "fcf_payout": {"dir": "lower_better", "good": 70, "warn": 100, "unit": "%", "dec": 0},
+}
+_RAW_RULES_BY_MARKET = {
+    "jp": dict(_RAW_RULES_COMMON,
+               op_margin={"dir": "higher_better", "good": 10, "warn": 4, "unit": "%", "dec": 0},
+               equity_ratio={"dir": "higher_better", "good": 40, "warn": 25, "unit": "%", "dec": 0}),
+    "us": dict(_RAW_RULES_COMMON,
+               op_margin={"dir": "higher_better", "good": 12, "warn": 5, "unit": "%", "dec": 0},
+               interest_coverage={"dir": "higher_better", "good": 10, "warn": 3, "unit": "倍", "dec": 2}),
+}
+_BINARY_METRIC_KEYS = ("ocf_positive", "fcf_positive")
+_PAIRED_NUM_METRIC_KEYS = ("rev_cagr", "eps_cagr", "op_margin")  # FCF利回りは買い時側で別途扱う
+FCF_YIELD_RULE = {"dir": "higher_better", "good": 6.0, "warn": 3.0, "unit": "%", "dec": 1}
+
+
+def _raw_zone_num(v, unit, dec):
+    if unit == "倍":
+        return f"{v:.2f}{unit}"
+    if dec == 0 or abs(v - round(v)) < 1e-9:
+        return f"{int(round(v))}{unit}"
+    return f"{v:.{dec}f}{unit}"
+
+
+def _raw_zone_labels(rule):
+    """個別ページのrule_block_htmlと同じ言い回しで、実数値の参照範囲を3段階分返す。"""
+    d, g, w, u, dec = rule["dir"], rule["good"], rule["warn"], rule["unit"], rule["dec"]
+    g_s, w_s = _raw_zone_num(g, u, dec), _raw_zone_num(w, u, dec)
+    if d == "higher_better":
+        return (f"良好（{g_s}以上）", f"注意（{w_s}〜{g_s}）", f"弱い（{w_s}未満）")
+    return (f"良好（{g_s}以下）", f"注意（{g_s}〜{w_s}）", f"弱い（{w_s}超）")
+
+
 def grade_of(median, ga, gb):
     if median is None:
         return "―"
@@ -271,6 +352,11 @@ def build(market):
             "is_simple": s.get("is_simple"), "is_reit": s.get("is_reit"),
             "asof": s.get("_generated_at"), "new": code in watch_new,
             "new_at": watch_new.get(code, {}).get("detected_at"),
+            "mcap": s.get("mcap"),
+            "metrics_raw": s.get("metric_raw") or {},
+            "bt_raw": {k: (s.get(sk) * scale) if isinstance(s.get(sk), (int, float)) else None
+                       for k, _lab, _rule, sk, scale in FILTER_BT_COMPONENTS},
+            "has_decel": (s.get("quarter_decel_factor") is not None) if market == "us" else None,
         }
         if q is None:
             if code in watch:
@@ -369,12 +455,138 @@ def _code_cell(code, report_dirs):
     return f'<a href="{href}">{code}</a>' if href else str(code)
 
 
+def _filter_attrs_long(s, unit, grade):
+    """「詳しい条件で絞り込む」パネル用のdata-*属性一式。欠損は_fv()で空文字にする
+    （JS側で必ず対象外になる。良好/注意/弱い全部にチェックしても対象外は救えない仕様
+    ＝配当株ツール側のbandOk()と同じ設計）。"""
+    mcap = s.get("mcap")
+    mcap_disp = (mcap / 1e8) if (unit != "$" and isinstance(mcap, (int, float))) else \
+                (mcap / 1e9) if isinstance(mcap, (int, float)) else None  # JP:億円 US:$十億（表示単位に揃える）
+    parts = [
+        f'data-q="{_fv(s.get("q"))}"', f'data-bt="{_fv(s.get("bt"))}"',
+        f'data-price="{_fv(s.get("price"))}"', f'data-mcap="{_fv(mcap_disp)}"',
+        f'data-tier="{html.escape(str(s.get("tier") or "―"))}"',
+        f'data-grade="{html.escape(str(grade or "―"))}"',
+        f'data-cov="{html.escape(str(s.get("cov") or ""))}"',
+        f'data-group="{html.escape(str(s.get("group") or ""))}"',
+    ]
+    metrics_raw = s.get("metrics_raw") or {}
+    for _, items in FILTER_METRICS:
+        for k, _lab in items:
+            parts.append(f'data-m_{k}="{_fv(metrics_raw.get(k))}"')
+    bt_raw = s.get("bt_raw") or {}
+    for k, _lab, _rule, _sk, _scale in FILTER_BT_COMPONENTS:
+        parts.append(f'data-bt_{k}="{_fv(bt_raw.get(k))}"')
+    parts.append(f'data-fcfy="{_fv(s.get("fcf_yield"))}"')
+    if s.get("has_decel") is not None:
+        parts.append(f'data-decel="{1 if s.get("has_decel") else 0}"')
+    return " ".join(parts)
+
+
 def render(out, m):
     th = m["theme"]
     gen = out["generated_at"]
     c = out["counts"]
     unit = m["unit_price"]
+    market = out["market"]
     terms_json = json.dumps(TERMS, ensure_ascii=False)
+    raw_rules = _RAW_RULES_BY_MARKET[market]
+
+    def _band_fgrp_raw(band_id, lab, rule, num_id=None):
+        """実数値（%・倍・年など）で絞り込む項目用。band_idはBAND_FILTERSのidと一致させる
+        （JS側は「.f_」+band_idのクラス名でチェックボックスを探す）。num_idを渡すと
+        「◯◯ 以上」の数値入力も併設し、チェックボックスとは片方しか使えない排他制御を
+        JS側で行う。"""
+        cheap, normal, expensive = _raw_zone_labels(rule)
+        checks = (f'<label><input type="checkbox" class="f_{band_id}" value="good">{cheap}</label>'
+                  f'<label><input type="checkbox" class="f_{band_id}" value="mid">{normal}</label>'
+                  f'<label><input type="checkbox" class="f_{band_id}" value="weak">{expensive}</label>')
+        if num_id:
+            return (f'<div class="fgrp"><label class="flbl" for="f_{num_id}">{html.escape(lab)}（{rule["unit"]}） 以上</label>'
+                    f'<input id="f_{num_id}" type="number" step="0.1">'
+                    f'<span class="fchecks">{checks}</span></div>')
+        return f'<div class="fgrp"><span class="flbl">{html.escape(lab)}</span><span class="fchecks">{checks}</span></div>'
+
+    def _binary_fgrp(k, lab, txt):
+        return (f'<div class="fgrp"><span class="flbl">{html.escape(lab)}</span>'
+                f'<span class="fchecks"><label><input type="checkbox" id="f_bin_{k}">{txt}</label></span></div>')
+
+    filter_metric_domains = []
+    band_filter_list = []
+    paired_num_map = {}
+    for dom, items in FILTER_METRICS:
+        body_parts = []
+        for k, lab in items:
+            if k in _BINARY_METRIC_KEYS:
+                body_parts.append(_binary_fgrp(k, lab, "直近プラスのみ"))
+                continue
+            rule = raw_rules.get(k)
+            if rule is None:
+                continue  # equity_ratio(米国株)・interest_coverage(日本株)は対象外
+            num_id = f"num_{k}" if k in _PAIRED_NUM_METRIC_KEYS else None
+            body_parts.append(_band_fgrp_raw(f"m_{k}", lab, rule, num_id))
+            band_filter_list.append([f"m_{k}", f"m_{k}", rule["dir"], rule["good"], rule["warn"]])
+            if num_id:
+                paired_num_map[f"m_{k}"] = [num_id]
+        if not body_parts:
+            continue
+        filter_metric_domains.append(
+            f'<div class="fsec"><span class="fsech">{html.escape(dom)}</span><div class="fsecbody">{"".join(body_parts)}</div></div>')
+
+    band_filter_list.append(["fcfy", "fcfy", FCF_YIELD_RULE["dir"], FCF_YIELD_RULE["good"], FCF_YIELD_RULE["warn"]])
+    paired_num_map["fcfy"] = ["num_fcfy"]
+    band_filter_list += [[f"bt_{k}", f"bt_{k}", rule["dir"], rule["good"], rule["warn"]]
+                          for k, _lab, rule, _sk, _scale in FILTER_BT_COMPONENTS]
+    band_filters_json = json.dumps(band_filter_list, ensure_ascii=False)
+    paired_num_json = json.dumps(paired_num_map, ensure_ascii=False)
+    filters_ls_key = f'pp_filters_long{"_us" if market == "us" else ""}'
+
+    fcfy_fgrp = _band_fgrp_raw("fcfy", "FCF利回り（FCF÷時価総額）", FCF_YIELD_RULE, "num_fcfy")
+    bt_body = fcfy_fgrp + "".join(_band_fgrp_raw(f"bt_{k}", lab, rule)
+                                   for k, lab, rule, _sk, _scale in FILTER_BT_COMPONENTS)
+    grade_opts = "".join(f'<label><input type="checkbox" class="f_grd" value="{x}">{x}</label>' for x in ("A", "B", "C"))
+    cov_opts = "".join(f'<label><input type="checkbox" class="f_cov" value="{x}">{x}</label>' for x in ("高", "中", "低"))
+    grp_opts = "".join(f'<label><input type="checkbox" class="f_grp" value="{html.escape(g["name"])}">{html.escape(g["name"])}</label>'
+                        for g in out["groups"])
+    decel_fgrp = ('<div class="fgrp"><span class="flbl">直近四半期の急減速</span>'
+                  '<span class="fchecks">'
+                  '<label><input type="checkbox" id="f_decel_none">フラグが無い銘柄のみ</label>'
+                  '<label><input type="checkbox" id="f_decel_flag">フラグがある銘柄のみ</label>'
+                  '</span></div>'
+                  if market == "us" else "")
+
+    filter_panel_html = f'''<details id="filterbox">
+<summary><span>詳しい条件で絞り込む</span><button type="button" id="fclear2" class="fclear-top">条件をクリア</button><span class="fhit" id="fhit2"></span></summary>
+<div class="fpanel">
+  <div class="fmaj"><h3 class="fmajh">① 銘柄選定（品質スコア）</h3>
+    <div class="fsec"><div class="fsecbody">
+      <div class="fgrp"><label class="flbl" for="f_qsc">品質スコア 以上</label><input id="f_qsc" type="number" min="0" max="110"></div>
+    </div></div>
+    {"".join(filter_metric_domains)}
+  </div>
+  <div class="fmaj"><h3 class="fmajh">② 買い時</h3>
+    <div class="fsec"><div class="fsecbody">
+      <div class="fgrp"><label class="flbl" for="f_bt">買い時スコア 以上</label><input id="f_bt" type="number" min="0" max="110"></div>
+    </div></div>
+    <div class="fsec"><span class="fsech">買い時の内訳</span><div class="fsecbody">{bt_body}</div></div>
+  </div>
+  <div class="fmaj"><h3 class="fmajh">銘柄属性</h3>
+    <div class="fsec"><div class="fsecbody">
+      <div class="fgrp"><label class="flbl" for="f_mc">時価総額（{"億円" if unit != "$" else "10億ドル"}） 以上</label><input id="f_mc" type="number" min="0"></div>
+      <div class="fgrp"><label class="flbl" for="f_pr">終値（{unit}） 以下</label><input id="f_pr" type="number" min="0"></div>
+      <div class="fgrp"><span class="flbl">業種級</span><span class="fchecks">{grade_opts}</span></div>
+      <div class="fgrp"><span class="flbl">カバレッジ</span><span class="fchecks">{cov_opts}</span></div>
+      <div class="fgrp wide"><span class="flbl">業種グループ</span><span class="fchecks">{grp_opts}</span></div>
+      {decel_fgrp}
+    </div></div>
+  </div>
+</div>
+<div class="fbar">
+  <button type="button" id="fclear">条件をクリア</button>
+  <span class="fhit" id="fhit"></span>
+</div>
+</details>
+<div class="fempty" id="fempty" hidden>条件に合う銘柄がありません。条件を緩めてください。</div>'''
 
     tt = tuple(LC.load_bt_cfg()[f"tim_tiers_{out['market']}"])
 
@@ -384,13 +596,17 @@ def render(out, m):
         cls = "t1" if v >= tt[0] else "t2" if v >= tt[1] else "t3" if v >= tt[2] else "t4"
         return f'<td class="n bt {cls}" data-v="{v}"><b>{v:.0f}</b></td>'
 
+    grade_by_group = {g["name"]: g["grade"] for g in out["groups"]}
+
     def row_html(s, with_rank=None):
         tcls = th.TIER_CLASS.get(s.get("tier", "―"), "t0")
         dcls = th.DIR_CLASS.get(s.get("dir", "→"), "fl")
         codecell = _code_cell(s["code"], m["report_dirs"])
         rk = f'<td class="n">{with_rank}</td>' if with_rank is not None else ""
+        grade = grade_by_group.get(s.get("group"))
+        fattrs = _filter_attrs_long(s, unit, grade)
         return (
-            f'<tr class="{tcls} r" data-tier="{s.get("tier","―")}">'
+            f'<tr class="{tcls} r" data-tier="{s.get("tier","―")}" {fattrs}>'
             + rk +
             f'<td class="wl"><input type="checkbox" class="wlc" data-code="{s["code"]}" aria-label="ウォッチ"></td>'
             f'<td class="pf"><input type="checkbox" class="pfc" data-code="{s["code"]}" aria-label="ポートフォリオに追加"></td>'
@@ -574,6 +790,41 @@ section.grp[hidden]{{display:none}}
 .pagenav{{display:flex;gap:14px;flex-wrap:wrap}}
 .formula{{font-size:11.5px;color:var(--muted);background:var(--field);border:1px solid var(--line);
   border-radius:8px;padding:8px 12px;margin:6px 0 4px}}
+#filterbox{{margin:6px 0 14px}}
+#filterbox summary{{font-size:14px;font-weight:700;display:flex;align-items:center;
+  gap:10px;flex-wrap:wrap}}
+.fclear-top{{padding:5px 12px;border:1px solid var(--line);border-radius:8px;
+  background:var(--card);font-size:12px;cursor:pointer;color:var(--muted)}}
+.fclear-top:hover{{border-color:var(--accent);color:var(--fg)}}
+#filterbox summary .fhit{{font-size:12px;font-weight:400;color:var(--muted)}}
+.fpanel{{padding:14px 4px 4px}}
+.fmaj{{width:100%}}
+.fmaj+.fmaj{{margin-top:24px}}
+.fmajh{{font-size:16px;font-weight:800;color:var(--fg);margin:0 0 10px;
+  padding-bottom:5px;border-bottom:2px solid var(--accent)}}
+.fsec{{width:100%;margin-top:16px}}
+.fsec:first-child{{margin-top:0}}
+.fsech{{font-size:13px;font-weight:800;color:var(--accent);margin:0 0 8px;
+  padding-left:9px;border-left:3px solid var(--accent)}}
+.fsecbody{{display:flex;flex-wrap:wrap;gap:10px 14px}}
+.fgrp{{display:flex;flex-direction:column;gap:5px;min-width:130px;
+  padding:8px 10px;background:var(--card);border:1px solid var(--line);border-radius:6px}}
+.fgrp.wide{{min-width:220px}}
+.fgrp .flbl{{font-size:12.5px;color:var(--muted);font-weight:600}}
+.fgrp input[type=number]{{width:88px;padding:6px 8px;border:1px solid var(--line);
+  border-radius:6px;font-size:13px;background:var(--bg);color:var(--fg)}}
+.fchecks{{display:flex;flex-wrap:wrap;gap:6px 10px}}
+.fchecks label{{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;white-space:nowrap}}
+.fchecks input{{accent-color:var(--accent)}}
+.fgrp input[type=number]:disabled{{opacity:.4;cursor:not-allowed}}
+.fchecks label:has(input:disabled){{opacity:.4;cursor:not-allowed}}
+.fbar{{display:flex;align-items:center;gap:10px;margin:16px 4px 2px}}
+.fbar button{{padding:7px 14px;border:1px solid var(--line);border-radius:8px;
+  background:var(--card);font-size:12.5px;cursor:pointer;color:var(--muted)}}
+.fbar button:hover{{border-color:var(--accent);color:var(--fg)}}
+.fbar .fhit{{font-size:12px;color:var(--muted)}}
+.fempty{{padding:20px;text-align:center;color:var(--muted);font-size:13px}}
+.fempty[hidden]{{display:none}}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>{html.escape(m["title"])}</h1>{_pagenav("index.html", exclude=("watchlist.html", "portfolio.html"))}</div>
 {th.THEME_BAR}
@@ -600,7 +851,9 @@ section.grp[hidden]{{display:none}}
   <input id="q" type="search" placeholder="コード・銘柄名・業種で検索" autocomplete="off">
   <button id="qclear" type="button">クリア</button>
   <span class="hit" id="qhit"></span>
+  <button id="csvExport" type="button">表示中の銘柄をCSV出力</button>
 </div>
+{filter_panel_html}
 {watch_change_html}
 <details id="topbox"><summary>全体 品質スコア 上位50（業種横断）</summary>
 <table><thead><tr><th class="n">#</th><th class="wl">☑</th><th class="pf">💼</th>
@@ -623,26 +876,272 @@ section.grp[hidden]{{display:none}}
 (function(){{
   var q=document.getElementById('q'),hit=document.getElementById('qhit');
   var btns=document.querySelectorAll('.sumbtn[data-tier]'),activeTier='';
+  var topbox=document.getElementById('topbox');
+  var filterbox=document.getElementById('filterbox');
+  var fempty=document.getElementById('fempty');
+  var fhit=document.getElementById('fhit'),fhit2=document.getElementById('fhit2');
+
+  var NUM_FILTERS=[['qsc','q','ge'],['bt','bt','ge'],['mc','mcap','ge'],['pr','price','le'],
+    ['num_rev_cagr','m_rev_cagr','ge'],['num_eps_cagr','m_eps_cagr','ge'],
+    ['num_op_margin','m_op_margin','ge'],['num_fcfy','fcfy','ge']];
+  var numEls={{}};
+  NUM_FILTERS.forEach(function(f){{ numEls['f_'+f[0]]=document.getElementById('f_'+f[0]); }});
+
+  // BAND_FILTERS: [id, data属性名, 方向(higher_better/lower_better), good閾値, warn閾値]。
+  // 業績・財務・CFの個別指標とFCF利回りは実数値としきい値を比較し、買い時内訳の一部
+  // （EV/EBIT対業種・PER割安度・PBR割安度）はスコア（0〜110・常にhigher_better＝good=100/
+  // warn=60）のまま据え置く（複数の生数値を合成した値のため単一の実数値しきい値を持たない）。
+  var BAND_FILTERS={band_filters_json};
+  var bandEls={{}};
+  BAND_FILTERS.forEach(function(f){{ bandEls[f[0]]=document.querySelectorAll('.f_'+f[0]); }});
+
+  var grdEls=document.querySelectorAll('.f_grd');
+  var covEls=document.querySelectorAll('.f_cov');
+  var grpEls=document.querySelectorAll('.f_grp');
+  var ocfEl=document.getElementById('f_bin_ocf_positive');
+  var fcfPosEl=document.getElementById('f_bin_fcf_positive');
+  var decelNoneEl=document.getElementById('f_decel_none');
+  var decelFlagEl=document.getElementById('f_decel_flag');
+
+  function checkedVals(els){{ return Array.prototype.filter.call(els,function(e){{return e.checked;}}).map(function(e){{return e.value;}}); }}
+
+  function bandOk(tr){{
+    for(var i=0;i<BAND_FILTERS.length;i++){{
+      var id=BAND_FILTERS[i][0],attr=BAND_FILTERS[i][1],dir=BAND_FILTERS[i][2],good=BAND_FILTERS[i][3],warn=BAND_FILTERS[i][4];
+      var sel=checkedVals(bandEls[id]);
+      if(!sel.length)continue;
+      var v=parseFloat(tr.dataset[attr]);
+      if(isNaN(v))return false;
+      var zone=(dir==='higher_better')?(v>=good?'good':(v>=warn?'mid':'weak')):(v<=good?'good':(v<=warn?'mid':'weak'));
+      if(sel.indexOf(zone)===-1)return false;
+    }}
+    return true;
+  }}
+
+  // 数値入力と良好/注意/弱いチェックボックスの両方を持つ項目：どちらか一方しか
+  // 使えないよう、片方に値が入るともう片方を無効化する（配当株ツール側と同じ設計）。
+  var PAIRED_NUM_IDS={paired_num_json};
+  function syncPairDisabled(){{
+    Object.keys(PAIRED_NUM_IDS).forEach(function(key){{
+      var numElList=PAIRED_NUM_IDS[key].map(function(id){{return numEls['f_'+id];}}).filter(Boolean);
+      var boxes=bandEls[key];
+      if(!numElList.length||!boxes)return;
+      var hasNum=numElList.some(function(el){{return el.value!=='';}});
+      var anyChecked=checkedVals(boxes).length>0;
+      numElList.forEach(function(el){{el.disabled=anyChecked;}});
+      Array.prototype.forEach.call(boxes,function(b){{b.disabled=hasNum;}});
+    }});
+  }}
+  Object.keys(PAIRED_NUM_IDS).forEach(function(key){{
+    var numElList=PAIRED_NUM_IDS[key].map(function(id){{return numEls['f_'+id];}}).filter(Boolean);
+    var boxes=bandEls[key];
+    if(!numElList.length||!boxes)return;
+    numElList.forEach(function(numEl){{
+      numEl.addEventListener('input',function(){{
+        if(numEl.value!=='')Array.prototype.forEach.call(boxes,function(b){{b.checked=false;}});
+        syncPairDisabled();apply();
+      }});
+    }});
+    Array.prototype.forEach.call(boxes,function(b){{
+      b.addEventListener('change',function(){{
+        if(b.checked)numElList.forEach(function(el){{el.value='';}});
+        syncPairDisabled();apply();
+      }});
+    }});
+  }});
+
+  function numOk(tr){{
+    for(var i=0;i<NUM_FILTERS.length;i++){{
+      var id='f_'+NUM_FILTERS[i][0],attr=NUM_FILTERS[i][1],dir=NUM_FILTERS[i][2];
+      var raw=numEls[id].value;
+      if(raw==='')continue;
+      var want=parseFloat(raw);
+      var have=parseFloat(tr.dataset[attr]);
+      if(isNaN(have))return false;
+      if(dir==='ge'&&have<want)return false;
+      if(dir==='le'&&have>want)return false;
+    }}
+    return true;
+  }}
+
+  function panelOk(tr){{
+    if(!numOk(tr))return false;
+    if(!bandOk(tr))return false;
+    if(ocfEl&&ocfEl.checked&&tr.dataset.m_ocf_positive!=='1')return false;
+    if(fcfPosEl&&fcfPosEl.checked&&tr.dataset.m_fcf_positive!=='1')return false;
+    if((decelNoneEl&&decelNoneEl.checked)||(decelFlagEl&&decelFlagEl.checked)){{
+      var want=[];
+      if(decelNoneEl&&decelNoneEl.checked)want.push('0');
+      if(decelFlagEl&&decelFlagEl.checked)want.push('1');
+      if(want.indexOf(tr.dataset.decel||'')===-1)return false;
+    }}
+    var grds=checkedVals(grdEls);
+    if(grds.length&&grds.indexOf(tr.dataset.grade)===-1)return false;
+    var covs=checkedVals(covEls);
+    if(covs.length&&covs.indexOf(tr.dataset.cov)===-1)return false;
+    var grps=checkedVals(grpEls);
+    if(grps.length&&grps.indexOf(tr.dataset.group)===-1)return false;
+    return true;
+  }}
+
+  function panelActive(){{
+    if(ocfEl&&ocfEl.checked)return true;
+    if(fcfPosEl&&fcfPosEl.checked)return true;
+    if((decelNoneEl&&decelNoneEl.checked)||(decelFlagEl&&decelFlagEl.checked))return true;
+    if(Object.keys(bandEls).some(function(id){{return checkedVals(bandEls[id]).length;}}))return true;
+    if(checkedVals(grdEls).length||checkedVals(covEls).length||checkedVals(grpEls).length)return true;
+    return Object.keys(numEls).some(function(id){{return numEls[id].value!=='';}});
+  }}
+
+  var allFilterEls=Object.keys(numEls).map(function(k){{return numEls[k];}})
+    .concat([].concat.apply([],Object.keys(bandEls).map(function(k){{return Array.prototype.slice.call(bandEls[k]);}})))
+    .concat(Array.prototype.slice.call(grdEls),Array.prototype.slice.call(covEls),Array.prototype.slice.call(grpEls))
+    .concat(ocfEl?[ocfEl]:[],fcfPosEl?[fcfPosEl]:[],decelNoneEl?[decelNoneEl]:[],decelFlagEl?[decelFlagEl]:[]);
+
   function apply(){{
     var needle=(q.value||'').trim().normalize('NFKC').toLowerCase();
+    var pActive=panelActive();
+    var filtering=!!needle||!!activeTier||pActive;
     var n=0;
     document.querySelectorAll('tr.r').forEach(function(tr){{
       var okT=!needle||tr.textContent.normalize('NFKC').toLowerCase().indexOf(needle)!==-1;
       var okTier=!activeTier||tr.dataset.tier===activeTier;
-      var show=okT&&okTier;tr.hidden=!show;if(show)n++;
+      var show=okT&&okTier&&(!pActive||panelOk(tr));
+      tr.hidden=!show;if(show)n++;
     }});
     document.querySelectorAll('section.grp').forEach(function(sec){{
-      var any=sec.querySelector('tbody tr.r:not([hidden])');sec.hidden=!any;
+      var any=sec.querySelector('tbody tr.r:not([hidden])');sec.hidden=filtering&&!any;
     }});
-    hit.textContent=(needle||activeTier)?(n+'件'):'';
+    if(topbox){{
+      var anyTop=topbox.querySelector('tbody tr.r:not([hidden])');
+      topbox.hidden=filtering&&!anyTop;
+    }}
+    hit.textContent=filtering?(n+'件'):'';
+    if(fhit)fhit.textContent=pActive?(n+'件該当'):'';
+    if(fhit2)fhit2.textContent=pActive?(n+'件該当'):'';
+    if(fempty)fempty.hidden=!(filtering&&n===0);
+    syncUrl(needle);
   }}
+
+  var urlTimer=null;
+  function syncUrl(needle){{
+    clearTimeout(urlTimer);
+    urlTimer=setTimeout(function(){{
+      var p=new URLSearchParams();
+      if(needle)p.set('q',q.value.trim());
+      if(activeTier)p.set('t',activeTier);
+      Object.keys(numEls).forEach(function(id){{ if(numEls[id].value!=='')p.set(id.slice(2),numEls[id].value); }});
+      if(ocfEl&&ocfEl.checked)p.set('ocf','1');
+      if(fcfPosEl&&fcfPosEl.checked)p.set('fcfpos','1');
+      if(decelNoneEl&&decelNoneEl.checked)p.set('dn','1');
+      if(decelFlagEl&&decelFlagEl.checked)p.set('df','1');
+      Object.keys(bandEls).forEach(function(id){{ var sel=checkedVals(bandEls[id]); if(sel.length)p.set(id,sel.join(',')); }});
+      var grds2=checkedVals(grdEls); if(grds2.length)p.set('grd',grds2.join(','));
+      var covs2=checkedVals(covEls); if(covs2.length)p.set('cov',covs2.join(','));
+      var grps2=checkedVals(grpEls); if(grps2.length)p.set('grp',grps2.join(','));
+      var qs=p.toString();
+      var url=location.pathname+(qs?'?'+qs:'');
+      history.replaceState(null,'',url);
+      try{{ if(qs)localStorage.setItem('{filters_ls_key}',qs);else localStorage.removeItem('{filters_ls_key}'); }}catch(e){{}}
+    }},300);
+  }}
+
+  function restoreFromUrl(){{
+    var qs=location.search;
+    if(!qs){{ try{{ var saved=localStorage.getItem('{filters_ls_key}'); if(saved)qs='?'+saved; }}catch(e){{}} }}
+    var p=new URLSearchParams(qs);
+    if(!p.toString())return;
+    if(p.has('q'))q.value=p.get('q');
+    if(p.has('t')){{
+      activeTier=p.get('t');
+      btns.forEach(function(b){{b.classList.toggle('active',b.dataset.tier===activeTier);}});
+    }}
+    Object.keys(numEls).forEach(function(id){{
+      var key=id.slice(2);
+      if(p.has(key))numEls[id].value=p.get(key);
+    }});
+    if(p.get('ocf')==='1'&&ocfEl)ocfEl.checked=true;
+    if(p.get('fcfpos')==='1'&&fcfPosEl)fcfPosEl.checked=true;
+    if(p.get('dn')==='1'&&decelNoneEl)decelNoneEl.checked=true;
+    if(p.get('df')==='1'&&decelFlagEl)decelFlagEl.checked=true;
+    Object.keys(bandEls).forEach(function(id){{
+      if(!p.has(id))return;
+      var vals=p.get(id).split(',');
+      Array.prototype.forEach.call(bandEls[id],function(e){{ if(vals.indexOf(e.value)!==-1)e.checked=true; }});
+    }});
+    (p.get('grd')||'').split(',').forEach(function(v){{ grdEls.forEach(function(e){{if(e.value===v)e.checked=true;}}); }});
+    (p.get('cov')||'').split(',').forEach(function(v){{ covEls.forEach(function(e){{if(e.value===v)e.checked=true;}}); }});
+    (p.get('grp')||'').split(',').forEach(function(v){{ grpEls.forEach(function(e){{if(e.value===v)e.checked=true;}}); }});
+    syncPairDisabled();
+    if(panelActive()&&filterbox)filterbox.open=true;
+  }}
+
   q.addEventListener('input',apply);
-  document.getElementById('qclear').addEventListener('click',function(){{q.value='';apply();}});
+  document.getElementById('qclear').addEventListener('click',function(){{q.value='';apply();q.focus();}});
   btns.forEach(function(b){{b.addEventListener('click',function(){{
     var t=b.dataset.tier;activeTier=(activeTier===t)?'':t;
     btns.forEach(function(x){{x.classList.toggle('active',x.dataset.tier===activeTier&&activeTier!=='');}});
     apply();
   }});}});
+  allFilterEls.forEach(function(el){{el.addEventListener('input',apply);el.addEventListener('change',apply);}});
+  function clearAllFilters(){{
+    Object.keys(numEls).forEach(function(id){{numEls[id].value='';}});
+    if(ocfEl)ocfEl.checked=false;
+    if(fcfPosEl)fcfPosEl.checked=false;
+    if(decelNoneEl)decelNoneEl.checked=false;
+    if(decelFlagEl)decelFlagEl.checked=false;
+    Object.keys(bandEls).forEach(function(id){{ Array.prototype.forEach.call(bandEls[id],function(e){{e.checked=false;}}); }});
+    grdEls.forEach(function(e){{e.checked=false;}});
+    covEls.forEach(function(e){{e.checked=false;}});
+    grpEls.forEach(function(e){{e.checked=false;}});
+    syncPairDisabled();
+    apply();
+  }}
+  document.getElementById('fclear').addEventListener('click',clearAllFilters);
+  document.getElementById('fclear2').addEventListener('click',function(e){{e.preventDefault();e.stopPropagation();clearAllFilters();}});
+
+  function csvCell(v){{
+    var s=v==null?'':String(v);
+    if(/[",\\r\\n]/.test(s))s='"'+s.replace(/"/g,'""')+'"';
+    return s;
+  }}
+  function csvNum(v,digits){{
+    var n=parseFloat(v);
+    return isNaN(n)?'':n.toFixed(digits);
+  }}
+  document.getElementById('csvExport').addEventListener('click',function(){{
+    var seen={{}};
+    var rows=[];
+    document.querySelectorAll('tr.r').forEach(function(tr){{
+      if(tr.hidden)return;
+      var codeEl=tr.querySelector('.code');
+      if(!codeEl)return;
+      var code=codeEl.textContent.trim();
+      if(seen[code])return;
+      seen[code]=true;
+      var nameEl=tr.querySelector('.nm');
+      rows.push([
+        code, nameEl?nameEl.textContent.trim():'', tr.dataset.group||'',
+        tr.dataset.grade||'', tr.dataset.tier||'', csvNum(tr.dataset.price,0),
+        csvNum(tr.dataset.q,0), csvNum(tr.dataset.bt,0), tr.dataset.cov||''
+      ]);
+    }});
+    var header=['コード','銘柄名','業種グループ','業種級','軍','終値','品質スコア','買い時スコア','カバレッジ'];
+    var lines=[header].concat(rows).map(function(r){{return r.map(csvCell).join(',');}});
+    var blob=new Blob(['﻿'+lines.join('\\r\\n')],{{type:'text/csv;charset=utf-8;'}});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;
+    a.download='meigara_shindan_long_'+new Date().toISOString().slice(0,10)+'.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){{URL.revokeObjectURL(url);}},1000);
+  }});
+
+  restoreFromUrl();
+  syncPairDisabled();
+  apply();
   // ---- ウォッチリスト／ポートフォリオ選択（別々のチェックボックス列）。選択状態は
   // localStorageに保存し、ウォッチリスト／ポートフォリオページへ移動して戻っても維持する ----
   function loadCodes(key){{

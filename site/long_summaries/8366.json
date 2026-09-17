@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": true,
  "is_reit": false,
- "price": 2902.0,
- "price_date": "2026-09-16",
- "mcap": 667109949440,
+ "price": 2900.0,
+ "price_date": "2026-09-17",
+ "mcap": 666650214400,
  "q_score": 91.0,
  "groups": {
   "業績": null,
@@ -22,19 +22,50 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "低",
- "bt_score": 49.1,
+ "bt_score": 49.2,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
   "per_cheap": 30.0,
-  "pbr_cheap": 68.3
+  "pbr_cheap": 68.4
  },
  "ev_ebit": null,
  "fcf_yield": null,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
- "div_yield": 1.722949689869056,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": 1.8818020359281438,
+ "pbr_vs_sector": 1.032462,
+ "div_yield": 1.7241379310344827,
  "implied_fcf_growth": null,
- "_generated_at": "2026-09-16T21:00:09"
+ "metric_scores": {
+  "rev_cagr": null,
+  "eps_cagr": null,
+  "op_margin": null,
+  "earnings_stability": null,
+  "equity_ratio": null,
+  "de": null,
+  "net_de": null,
+  "debt_to_ocf": null,
+  "interest_coverage": null,
+  "ocf_positive": null,
+  "fcf_positive": null,
+  "fcf_payout": null
+ },
+ "metric_raw": {
+  "rev_cagr": 6.468422634303317,
+  "eps_cagr": 14.105355762925843,
+  "op_margin": null,
+  "earnings_stability": null,
+  "equity_ratio": 6.637350692729406,
+  "de": 1.6968531935625826,
+  "net_de": null,
+  "debt_to_ocf": 366.4569367840475,
+  "interest_coverage": null,
+  "ocf_positive": 1,
+  "fcf_positive": 0,
+  "fcf_payout": null
+ },
+ "_generated_at": "2026-09-17T23:32:41"
 }
