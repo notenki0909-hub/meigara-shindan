@@ -655,7 +655,7 @@ details{{margin:14px 0}}summary{{cursor:pointer;font-weight:600;font-size:13px}}
 .pagenav{{display:flex;gap:10px;flex-wrap:wrap}}
 .searchbar{{display:flex;align-items:center;gap:8px;margin:16px 0 6px;flex-wrap:wrap}}
 .searchbar input{{flex:1;max-width:360px;padding:8px 10px;border:1px solid var(--line);
-  border-radius:8px;font-size:13.5px;background:var(--card)}}
+  border-radius:8px;font-size:13.5px;background:var(--card);color:var(--fg)}}
 .searchbar button{{padding:8px 12px;border:1px solid var(--line);border-radius:8px;
   background:var(--card);font-size:12.5px;cursor:pointer;color:var(--muted)}}
 .searchbar .hit{{font-size:12px;color:var(--muted);white-space:nowrap}}
@@ -681,7 +681,7 @@ details{{margin:14px 0}}summary{{cursor:pointer;font-weight:600;font-size:13px}}
 .fgrp.wide{{min-width:220px}}
 .fgrp .flbl{{font-size:12.5px;color:var(--muted);font-weight:600}}
 .fgrp input[type=number]{{width:88px;padding:6px 8px;border:1px solid var(--line);
-  border-radius:6px;font-size:13px;background:var(--bg)}}
+  border-radius:6px;font-size:13px;background:var(--bg);color:var(--fg)}}
 .fchecks{{display:flex;flex-wrap:wrap;gap:6px 10px}}
 .fchecks label{{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;white-space:nowrap}}
 .fchecks input{{accent-color:var(--accent)}}
