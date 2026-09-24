@@ -54,9 +54,10 @@
   "name": "H.B. Fuller Company",
   "target_date": "2026-09-23",
   "detected_at": "2026-09-23T04:48:45",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-09-24T03:32:36"
+  "next_retry_at": "2026-09-24T03:32:36",
+  "resolved_at": "2026-09-24T04:56:29"
  },
  "GIS": {
   "ticker": "GIS",
@@ -77,5 +78,23 @@
   "attempts": 2,
   "next_retry_at": "2026-09-23T17:42:14",
   "resolved_at": "2026-09-23T21:32:36"
+ },
+ "DRI": {
+  "ticker": "DRI",
+  "name": "Darden Restaurants",
+  "target_date": "2026-09-24",
+  "detected_at": "2026-09-24T04:56:29",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-09-24T10:56:29"
+ },
+ "SCHL": {
+  "ticker": "SCHL",
+  "name": "Scholastic Corporation",
+  "target_date": "2026-09-24",
+  "detected_at": "2026-09-24T04:56:29",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-09-24T10:56:29"
  }
 }
