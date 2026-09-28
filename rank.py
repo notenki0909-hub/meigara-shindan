@@ -681,6 +681,7 @@ details{{margin:14px 0}}summary{{cursor:pointer;font-weight:600;font-size:13px}}
 .fclear-top:hover{{border-color:var(--accent);color:var(--fg)}}
 #filterbox summary .fhit{{font-size:12px;font-weight:400;color:var(--muted)}}
 .fpanel{{padding:14px 4px 4px}}
+.furlnote{{font-size:12px;color:var(--muted);margin:0 0 14px}}
 .fmaj{{width:100%}}
 .fmaj+.fmaj{{margin-top:24px}}
 .fmajh{{font-size:16px;font-weight:800;color:var(--fg);margin:0 0 10px;
@@ -765,6 +766,7 @@ body.wlon{{padding-bottom:60px}}
 <details id="filterbox">
 <summary><span>詳しい条件で絞り込む</span><button type="button" id="fclear2" class="fclear-top">条件をクリア</button><span class="fhit" id="fhit2"></span></summary>
 <div class="fpanel">
+  <p class="furlnote">絞り込み条件はURLに反映されます。URLを保存（ブックマーク登録）しておけば、次回そのブックマークから開くだけで、この絞り込み状態を再開できます。</p>
   <div class="fmaj"><h3 class="fmajh">① 銘柄選定</h3>
     <div class="fsec"><div class="fsecbody">
       <div class="fgrp"><label class="flbl" for="f_sel">選定スコア 以上</label><input id="f_sel" type="number" min="0" max="110"></div>
