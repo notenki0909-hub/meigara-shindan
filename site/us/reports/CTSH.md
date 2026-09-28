@@ -1,7 +1,7 @@
 # Cognizant Technology Solutions Corporation（CTSH）｜米国株 配当スクリーニング
 
 - GICS業種：**情報技術**（Information Technology）
-- 株価：$57.33  ｜  時価総額：$25.82B  ｜  生成：2026-09-27
+- 株価：$57.33  ｜  時価総額：$25.82B  ｜  生成：2026-09-28
 
 ## 銘柄選定 99 ― 選定スコア上位（質・持続力とも高水準）
 成長性：横ばい〜微増  ／  安定性：高い
