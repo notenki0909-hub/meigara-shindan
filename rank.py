@@ -718,9 +718,9 @@ h2{{font-size:15px;margin:26px 0 6px;border-bottom:2px solid var(--line);padding
 .gradeC{{background:color-mix(in srgb,var(--gC) 15%,transparent);color:var(--gC)}}
 .grade―{{background:color-mix(in srgb,var(--muted) 15%,transparent);color:var(--muted)}}
 .gmeta{{font-size:11px;color:var(--muted);font-weight:normal}}
-table{{width:100%;border-collapse:collapse;background:var(--card);font-size:13px;
+table{{width:max-content;min-width:100%;border-collapse:collapse;background:var(--card);font-size:13px;
   border:1px solid var(--line);border-radius:8px;overflow:hidden}}
-th,td{{padding:6px 8px;text-align:left;border-bottom:1px solid var(--line)}}
+th,td{{padding:6px 8px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}}
 th{{background:var(--th);font-size:11px;color:var(--muted)}}
 td.n,th.n{{text-align:right;font-variant-numeric:tabular-nums}}
 tr:last-child td{{border-bottom:none}}
@@ -735,7 +735,6 @@ th.chgs:hover,th.chgd:hover{{color:var(--accent)}}
 .chgd{{display:none}}
 body.chgopen .chgs{{display:none}}
 body.chgopen .chgd{{display:table-cell}}
-body.chgopen table{{width:max-content;min-width:100%}}
 .code a{{color:var(--accent);text-decoration:none}}
 .sec{{color:var(--muted);font-size:11px}}
 .sk{{font-size:11px;color:var(--muted)}}
