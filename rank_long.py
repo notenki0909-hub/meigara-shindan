@@ -648,7 +648,7 @@ def render(out, m):
     thead = ('<thead><tr>{rk}<th class="wl" title="ウォッチリストに追加する銘柄にチェック">☑</th>'
              '<th class="pf" title="ポートフォリオに追加する銘柄にチェック">💼</th>'
              '<th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>業種</th>'
-             '<th class="n hdr" data-term="price">終値</th>'
+             '<th class="n hdr" data-term="price">終値<span class="sortbtn" data-col="price">▼</span></th>'
              '<th class="n pchg-hdr pchg-main"><span class="pchg-label">騰落率（展開）</span>'
              '<span class="sortbtn pchg-sortbtn" data-col="d" hidden>▼</span></th>'
              '<th class="n pchg-hdr pchg-extra" hidden><span class="pchg-label">W</span>'
@@ -663,12 +663,12 @@ def render(out, m):
              '<span class="sortbtn pchg-sortbtn" data-col="9m" hidden>▼</span></th>'
              '<th class="n pchg-hdr pchg-extra" hidden><span class="pchg-label">Y</span>'
              '<span class="sortbtn pchg-sortbtn" data-col="y" hidden>▼</span></th>'
-             '<th class="n hdr" data-term="q">品質</th>'
-             '<th class="n hdr" data-term="perf">業績</th>'
-             '<th class="n hdr" data-term="fin">財務</th>'
-             '<th class="n hdr" data-term="cf">CF</th>'
-             '<th class="n hdr" data-term="bt">買い時</th>'
-             '<th class="n hdr" data-term="yield">利回り</th>'
+             '<th class="n hdr" data-term="q">品質<span class="sortbtn" data-col="q">▼</span></th>'
+             '<th class="n hdr" data-term="perf">業績<span class="sortbtn" data-col="perf">▼</span></th>'
+             '<th class="n hdr" data-term="fin">財務<span class="sortbtn" data-col="fin">▼</span></th>'
+             '<th class="n hdr" data-term="cf">CF<span class="sortbtn" data-col="cf">▼</span></th>'
+             '<th class="n hdr" data-term="bt">買い時<span class="sortbtn" data-col="bt">▼</span></th>'
+             '<th class="n hdr" data-term="yield">利回り<span class="sortbtn" data-col="yield">▼</span></th>'
              '<th class="hdr" data-term="cov">カバレッジ</th></tr></thead>')
 
     secs = []
@@ -776,9 +776,10 @@ tr:last-child td{{border-bottom:none}}
 .pchg-label{{cursor:pointer}}
 .pchg-label:hover{{color:var(--accent)}}
 .pchg-extra[hidden]{{display:none}}
-.pchg-sortbtn{{cursor:pointer;color:var(--muted);font-size:10px;margin-left:4px;user-select:none;display:inline-block}}
-.pchg-sortbtn:hover{{color:var(--accent)}}
-.pchg-sortbtn.active{{color:var(--accent);font-weight:700}}
+.sortbtn{{cursor:pointer;color:var(--muted);font-size:10px;margin-left:4px;user-select:none;display:inline-block}}
+.sortbtn:hover{{color:var(--accent)}}
+.sortbtn.active{{color:var(--accent);font-weight:700}}
+.sortbtn[hidden]{{display:none}}
 .pchgv.pchg-pos{{color:var(--t1)}}
 .pchgv.pchg-neg{{color:var(--gC)}}
 .tier{{font-weight:700;white-space:nowrap}}
@@ -1238,8 +1239,11 @@ section.grp[hidden]{{display:none}}
   wlSync();
   // ---- 騰落率（展開）：D列の見出しクリックでW/M/3M/6M/9M/Y列を展開・
   // 展開後はいずれの列見出し（ラベル部分）をクリックしても折りたたむ。
-  // 展開中は各列見出しの▼をクリックするとその表（業種グループ／全体上位50）
-  // 単位で数値列としてソートできる（配当株ツール側のsortTable()と同じ設計）----
+  // ---- 列ソート：終値・騰落率（D/W/M/3M/6M/9M/Y・展開中のみ）・品質・業績・財務・
+  // CF・買い時・利回りの各見出しの▼をクリックすると、その表（業種グループ単位／
+  // 全体上位50単位）を該当列で昇順・降順にソートできる（配当株ツール側の
+  // sortTable()と同じ設計）。データ欠損（data-v無し、または列ソート用の旧来の
+  // 欠損値-1e9）は常に末尾に固定する。----
   (function(){{
     var pchgOpen=false;
     function togglePchg(){{
@@ -1251,7 +1255,7 @@ section.grp[hidden]{{display:none}}
     document.querySelectorAll('.pchg-label').forEach(function(el){{
       el.addEventListener('click',togglePchg);
     }});
-    function sortPchgTable(btn){{
+    function sortColTable(btn){{
       var th=btn.closest('th');
       var table=th.closest('table');
       var idx=Array.prototype.indexOf.call(th.parentNode.children,th);
@@ -1260,28 +1264,29 @@ section.grp[hidden]{{display:none}}
       var curCol=table.getAttribute('data-sort-col');
       var curDir=table.getAttribute('data-sort-dir')||'desc';
       var dir=(String(curCol)===String(idx)&&curDir==='desc')?'asc':'desc';
+      function missing(v){{return isNaN(v)||v<=-1e8;}}
       rows.sort(function(a,b){{
         var av=parseFloat(a.children[idx].getAttribute('data-v'));
         var bv=parseFloat(b.children[idx].getAttribute('data-v'));
-        var aNaN=isNaN(av),bNaN=isNaN(bv);
-        if(aNaN&&bNaN)return 0;
-        if(aNaN)return 1;
-        if(bNaN)return -1;
+        var aM=missing(av),bM=missing(bv);
+        if(aM&&bM)return 0;
+        if(aM)return 1;
+        if(bM)return -1;
         return dir==='asc'?av-bv:bv-av;
       }});
       rows.forEach(function(r){{tbody.appendChild(r);}});
       table.setAttribute('data-sort-col',idx);
       table.setAttribute('data-sort-dir',dir);
-      Array.prototype.forEach.call(table.querySelectorAll('.pchg-sortbtn'),function(b){{
+      Array.prototype.forEach.call(table.querySelectorAll('.sortbtn'),function(b){{
         b.textContent='▼';b.classList.remove('active');
       }});
       btn.textContent=dir==='asc'?'▲':'▼';
       btn.classList.add('active');
     }}
-    document.querySelectorAll('.pchg-sortbtn').forEach(function(btn){{
+    document.querySelectorAll('.sortbtn').forEach(function(btn){{
       btn.addEventListener('click',function(e){{
         e.stopPropagation();
-        sortPchgTable(btn);
+        sortColTable(btn);
       }});
     }});
   }})();
