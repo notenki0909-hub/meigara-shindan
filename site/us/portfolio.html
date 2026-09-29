@@ -539,7 +539,7 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
       + '<button type="button" id="addcodes-foldall" class="foldall">すべて折りたたむ</button></p>'
       + addCodes.map(function(c){
         var nm = (byCode && byCode[c]) ? byCode[c].name : c;
-        var st = addRowState[c] || (addRowState[c] = {collapsed:false, done:false});
+        var st = addRowState[c] || (addRowState[c] = {collapsed:true, done:false});
         var cls = 'addrow' + (st.collapsed ? ' collapsed' : '') + (st.done ? ' added' : '');
         var label = c + ' ' + (nm || '') + (st.done ? '（追加済み）' : '');
         return '<div class="' + cls + '" data-code="' + c + '">'
