@@ -558,6 +558,8 @@ def render(out, m):
     filter_panel_html = f'''<details id="filterbox">
 <summary><span>詳しい条件で絞り込む</span><button type="button" id="fclear2" class="fclear-top">条件をクリア</button><span class="fhit" id="fhit2"></span></summary>
 <div class="fpanel">
+  <p class="sub" style="margin:-4px 0 14px">絞り込み条件はURLに反映されます。URLを保存（ブックマーク登録）しておき、
+再度この絞り込み状態で再開したい場合は、ブックマークから呼び出せばOKです。</p>
   <div class="fmaj"><h3 class="fmajh">① 銘柄選定（品質スコア）</h3>
     <div class="fsec"><div class="fsecbody">
       <div class="fgrp"><label class="flbl" for="f_qsc">品質スコア 以上</label><input id="f_qsc" type="number" min="0" max="110"></div>
