@@ -714,7 +714,6 @@ th.chgs:hover,th.chgd:hover{{color:var(--accent)}}
 .chgd{{display:none}}
 body.chgopen .chgs{{display:none}}
 body.chgopen .chgd{{display:table-cell}}
-section.grp,#topbox{{overflow-x:auto}}
 body.chgopen table{{width:max-content;min-width:100%}}
 .code a{{color:var(--accent);text-decoration:none}}
 .sec{{color:var(--muted);font-size:11px}}
