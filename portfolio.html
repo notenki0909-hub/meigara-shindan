@@ -328,6 +328,7 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
 })();
 (function(){
   var PF_KEY = 'pf_lots';
+  var PF_PENDING_KEY = 'pf_pending_add';
   var $ = function(id){ return document.getElementById(id); };
 
   function isCode(t){ return /^[0-9]{3,4}[A-Z0-9]?$/.test(t); }
@@ -358,9 +359,15 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
   var lots = loadLots();
 
   var params = new URLSearchParams(location.search);
-  var addCodes = (params.get('add') || '').split(/[^0-9A-Za-z]+/).map(function(s){return s.trim().toUpperCase();}).filter(function(s){return isCode(s);});
-  // 重複除去
-  addCodes = addCodes.filter(function(c, i){ return addCodes.indexOf(c) === i; });
+  var urlAddCodes = (params.get('add') || '').split(/[^0-9A-Za-z]+/).map(function(s){return s.trim().toUpperCase();}).filter(function(s){return isCode(s);});
+  var pendingAddCodes = [];
+  try {
+    pendingAddCodes = (localStorage.getItem(PF_PENDING_KEY) || '').split(',').map(function(s){return s.trim().toUpperCase();}).filter(function(s){return isCode(s);});
+  } catch(e) {}
+  // ランキングページから新たに選んだ銘柄（URL）と、前回ページ離脱時にまだ未追加だった
+  // 銘柄（localStorage）を合わせて表示する（重複除去）。ページ移動後も入力フォームが
+  // 残るようにするための永続化。
+  var addCodes = pendingAddCodes.concat(urlAddCodes).filter(function(c, i, arr){ return arr.indexOf(c) === i; });
 
   function persist(){
     var s = lotsToStr(lots);
@@ -515,6 +522,15 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
 
   // add パラメータで来た銘柄は、専用の入力行を表示（行数が多くなっても良いよう折りたたみ可能）
   var addRowState = {}; // code -> {collapsed:bool, done:bool}
+  function persistPendingAdd(){
+    // まだ追加(done)していない銘柄だけをlocalStorageへ保存。追加済みの銘柄は
+    // 次回訪問時に再表示させない（保有一覧に載るのでフォームとしては不要）。
+    var pending = addCodes.filter(function(c){ return !(addRowState[c] && addRowState[c].done); });
+    try {
+      if (pending.length) localStorage.setItem(PF_PENDING_KEY, pending.join(','));
+      else localStorage.removeItem(PF_PENDING_KEY);
+    } catch(e) {}
+  }
   function renderAddCodes(byCode){
     var box = $('addcodes');
     if (!addCodes.length) { box.innerHTML = ''; return; }
@@ -775,6 +791,7 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
       });
 
       renderAddCodes(byCode);
+      persistPendingAdd();
       $('codestr').value = lotsToStr(lots);
 
       if (!lots.length) {
