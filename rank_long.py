@@ -560,19 +560,19 @@ def render(out, m):
 <div class="fpanel">
   <p class="sub" style="margin:-4px 0 14px">絞り込み条件はURLに反映されます。URLを保存（ブックマーク登録）しておき、
 再度この絞り込み状態で再開したい場合は、ブックマークから呼び出せばOKです。</p>
-  <div class="fmaj"><h3 class="fmajh">① 銘柄選定（品質スコア）</h3>
+  <details class="fmaj"><summary class="fmajh">① 銘柄選定（品質スコア）</summary>
     <div class="fsec"><div class="fsecbody">
       <div class="fgrp"><label class="flbl" for="f_qsc">品質スコア 以上</label><input id="f_qsc" type="number" min="0" max="110"></div>
     </div></div>
     {"".join(filter_metric_domains)}
-  </div>
-  <div class="fmaj"><h3 class="fmajh">② 買い時</h3>
+  </details>
+  <details class="fmaj"><summary class="fmajh">② 買い時</summary>
     <div class="fsec"><div class="fsecbody">
       <div class="fgrp"><label class="flbl" for="f_bt">買い時スコア 以上</label><input id="f_bt" type="number" min="0" max="110"></div>
     </div></div>
     <div class="fsec"><span class="fsech">買い時の内訳</span><div class="fsecbody">{bt_body}</div></div>
-  </div>
-  <div class="fmaj"><h3 class="fmajh">銘柄属性</h3>
+  </details>
+  <details class="fmaj"><summary class="fmajh">銘柄属性</summary>
     <div class="fsec"><div class="fsecbody">
       <div class="fgrp"><label class="flbl" for="f_mc">時価総額（{"億円" if unit != "$" else "10億ドル"}） 以上</label><input id="f_mc" type="number" min="0"></div>
       <div class="fgrp"><label class="flbl" for="f_pr">終値（{unit}） 以下</label><input id="f_pr" type="number" min="0"></div>
@@ -581,7 +581,7 @@ def render(out, m):
       <div class="fgrp wide"><span class="flbl">業種グループ</span><span class="fchecks">{grp_opts}</span></div>
       {decel_fgrp}
     </div></div>
-  </div>
+  </details>
 </div>
 <div class="fbar">
   <button type="button" id="fclear">条件をクリア</button>
@@ -802,8 +802,9 @@ section.grp[hidden]{{display:none}}
 .fpanel{{padding:14px 4px 4px}}
 .fmaj{{width:100%}}
 .fmaj+.fmaj{{margin-top:24px}}
-.fmajh{{font-size:16px;font-weight:800;color:var(--fg);margin:0 0 10px;
-  padding-bottom:5px;border-bottom:2px solid var(--accent)}}
+.fmajh{{display:block;font-size:16px;font-weight:800;color:var(--fg);margin:0 0 10px;
+  padding-bottom:5px;border-bottom:2px solid var(--accent);cursor:pointer}}
+.fmajh:hover{{color:var(--accent)}}
 .fsec{{width:100%;margin-top:16px}}
 .fsec:first-child{{margin-top:0}}
 .fsech{{font-size:13px;font-weight:800;color:var(--accent);margin:0 0 8px;

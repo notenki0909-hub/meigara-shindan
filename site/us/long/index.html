@@ -140,8 +140,9 @@ section.grp[hidden]{display:none}
 .fpanel{padding:14px 4px 4px}
 .fmaj{width:100%}
 .fmaj+.fmaj{margin-top:24px}
-.fmajh{font-size:16px;font-weight:800;color:var(--fg);margin:0 0 10px;
-  padding-bottom:5px;border-bottom:2px solid var(--accent)}
+.fmajh{display:block;font-size:16px;font-weight:800;color:var(--fg);margin:0 0 10px;
+  padding-bottom:5px;border-bottom:2px solid var(--accent);cursor:pointer}
+.fmajh:hover{color:var(--accent)}
 .fsec{width:100%;margin-top:16px}
 .fsec:first-child{margin-top:0}
 .fsech{font-size:13px;font-weight:800;color:var(--accent);margin:0 0 8px;
@@ -195,7 +196,7 @@ section.grp[hidden]{display:none}
   </div>
 </div>
 
-<div class="sub">生成 2026-09-29T18:42:16　｜　母集団＝S&amp;P500 メンバーシップ（黒字継続・流動性・業種代表性を委員会が審査済み）。金融は専用の品質スコア（ROE・増収率・EPS成長率・利益の安定度）、REITは専用のFFOベース品質スコアで評価。品質スコア（配当は不使用）＋買い時スコア。</div>
+<div class="sub">生成 2026-09-29T20:02:47　｜　母集団＝S&amp;P500 メンバーシップ（黒字継続・流動性・業種代表性を委員会が審査済み）。金融は専用の品質スコア（ROE・増収率・EPS成長率・利益の安定度）、REITは専用のFFOベース品質スコアで評価。品質スコア（配当は不使用）＋買い時スコア。</div>
 <div class="formula">品質スコア ＝ 業績×0.28 ＋ 財務×0.27 ＋ キャッシュフロー×0.15（取得できた
 グループだけで再正規化・0〜110）。既存の銘柄診断エンジンの「銘柄選定スコア」から
 <b>配当の持続力（連続増配・増配率・配当性向・累進配当宣言など）を除いた</b>もの。
@@ -225,19 +226,19 @@ section.grp[hidden]{display:none}
 <div class="fpanel">
   <p class="sub" style="margin:-4px 0 14px">絞り込み条件はURLに反映されます。URLを保存（ブックマーク登録）しておき、
 再度この絞り込み状態で再開したい場合は、ブックマークから呼び出せばOKです。</p>
-  <div class="fmaj"><h3 class="fmajh">① 銘柄選定（品質スコア）</h3>
+  <details class="fmaj"><summary class="fmajh">① 銘柄選定（品質スコア）</summary>
     <div class="fsec"><div class="fsecbody">
       <div class="fgrp"><label class="flbl" for="f_qsc">品質スコア 以上</label><input id="f_qsc" type="number" min="0" max="110"></div>
     </div></div>
     <div class="fsec"><span class="fsech">業績</span><div class="fsecbody"><div class="fgrp"><label class="flbl" for="f_num_rev_cagr">売上高（推移／年率）（%） 以上</label><input id="f_num_rev_cagr" type="number" step="0.1"><span class="fchecks"><label><input type="checkbox" class="f_m_rev_cagr" value="good">良好（3%以上）</label><label><input type="checkbox" class="f_m_rev_cagr" value="mid">注意（-6%〜3%）</label><label><input type="checkbox" class="f_m_rev_cagr" value="weak">弱い（-6%未満）</label></span></div><div class="fgrp"><label class="flbl" for="f_num_eps_cagr">EPS（推移／年率）（%） 以上</label><input id="f_num_eps_cagr" type="number" step="0.1"><span class="fchecks"><label><input type="checkbox" class="f_m_eps_cagr" value="good">良好（5%以上）</label><label><input type="checkbox" class="f_m_eps_cagr" value="mid">注意（-8%〜5%）</label><label><input type="checkbox" class="f_m_eps_cagr" value="weak">弱い（-8%未満）</label></span></div><div class="fgrp"><label class="flbl" for="f_num_op_margin">営業利益率（直近）（%） 以上</label><input id="f_num_op_margin" type="number" step="0.1"><span class="fchecks"><label><input type="checkbox" class="f_m_op_margin" value="good">良好（12%以上）</label><label><input type="checkbox" class="f_m_op_margin" value="mid">注意（5%〜12%）</label><label><input type="checkbox" class="f_m_op_margin" value="weak">弱い（5%未満）</label></span></div><div class="fgrp"><span class="flbl">利益の安定度（営業利益のブレ）</span><span class="fchecks"><label><input type="checkbox" class="f_m_earnings_stability" value="good">良好（0.88以上）</label><label><input type="checkbox" class="f_m_earnings_stability" value="mid">注意（0.65〜0.88）</label><label><input type="checkbox" class="f_m_earnings_stability" value="weak">弱い（0.65未満）</label></span></div></div></div><div class="fsec"><span class="fsech">財務</span><div class="fsecbody"><div class="fgrp"><span class="flbl">D/Eレシオ（有利子負債÷自己資本）</span><span class="fchecks"><label><input type="checkbox" class="f_m_de" value="good">良好（1.00倍以下）</label><label><input type="checkbox" class="f_m_de" value="mid">注意（1.00倍〜2.00倍）</label><label><input type="checkbox" class="f_m_de" value="weak">弱い（2.00倍超）</label></span></div><div class="fgrp"><span class="flbl">ネットD/Eレシオ</span><span class="fchecks"><label><input type="checkbox" class="f_m_net_de" value="good">良好（0.50倍以下）</label><label><input type="checkbox" class="f_m_net_de" value="mid">注意（0.50倍〜1.50倍）</label><label><input type="checkbox" class="f_m_net_de" value="weak">弱い（1.50倍超）</label></span></div><div class="fgrp"><span class="flbl">有利子負債 ÷ 営業CF（返済年数の目安）</span><span class="fchecks"><label><input type="checkbox" class="f_m_debt_to_ocf" value="good">良好（3年以下）</label><label><input type="checkbox" class="f_m_debt_to_ocf" value="mid">注意（3年〜6年）</label><label><input type="checkbox" class="f_m_debt_to_ocf" value="weak">弱い（6年超）</label></span></div><div class="fgrp"><span class="flbl">インタレストカバレッジレシオ（EBIT÷支払利息）</span><span class="fchecks"><label><input type="checkbox" class="f_m_interest_coverage" value="good">良好（10.00倍以上）</label><label><input type="checkbox" class="f_m_interest_coverage" value="mid">注意（3.00倍〜10.00倍）</label><label><input type="checkbox" class="f_m_interest_coverage" value="weak">弱い（3.00倍未満）</label></span></div></div></div><div class="fsec"><span class="fsech">キャッシュフロー</span><div class="fsecbody"><div class="fgrp"><span class="flbl">営業CF（直近／推移）</span><span class="fchecks"><label><input type="checkbox" id="f_bin_ocf_positive">直近プラスのみ</label></span></div><div class="fgrp"><span class="flbl">フリーCF（営業CF＋投資CF）</span><span class="fchecks"><label><input type="checkbox" id="f_bin_fcf_positive">直近プラスのみ</label></span></div><div class="fgrp"><span class="flbl">FCF配当性向（配当支払÷フリーCF）</span><span class="fchecks"><label><input type="checkbox" class="f_m_fcf_payout" value="good">良好（70%以下）</label><label><input type="checkbox" class="f_m_fcf_payout" value="mid">注意（70%〜100%）</label><label><input type="checkbox" class="f_m_fcf_payout" value="weak">弱い（100%超）</label></span></div></div></div>
-  </div>
-  <div class="fmaj"><h3 class="fmajh">② 買い時</h3>
+  </details>
+  <details class="fmaj"><summary class="fmajh">② 買い時</summary>
     <div class="fsec"><div class="fsecbody">
       <div class="fgrp"><label class="flbl" for="f_bt">買い時スコア 以上</label><input id="f_bt" type="number" min="0" max="110"></div>
     </div></div>
     <div class="fsec"><span class="fsech">買い時の内訳</span><div class="fsecbody"><div class="fgrp"><label class="flbl" for="f_num_fcfy">FCF利回り（FCF÷時価総額）（%） 以上</label><input id="f_num_fcfy" type="number" step="0.1"><span class="fchecks"><label><input type="checkbox" class="f_fcfy" value="good">良好（6%以上）</label><label><input type="checkbox" class="f_fcfy" value="mid">注意（3%〜6%）</label><label><input type="checkbox" class="f_fcfy" value="weak">弱い（3%未満）</label></span></div><div class="fgrp"><span class="flbl">EV/EBIT（対業種中央値）</span><span class="fchecks"><label><input type="checkbox" class="f_bt_ev_ebit_vs_sector" value="good">良好（0.85倍以下）</label><label><input type="checkbox" class="f_bt_ev_ebit_vs_sector" value="mid">注意（0.85倍〜1.20倍）</label><label><input type="checkbox" class="f_bt_ev_ebit_vs_sector" value="weak">弱い（1.20倍超）</label></span></div><div class="fgrp"><span class="flbl">PER 自社過去レンジ内の位置</span><span class="fchecks"><label><input type="checkbox" class="f_bt_per_band_pos" value="good">良好（60%以上）</label><label><input type="checkbox" class="f_bt_per_band_pos" value="mid">注意（20%〜60%）</label><label><input type="checkbox" class="f_bt_per_band_pos" value="weak">弱い（20%未満）</label></span></div><div class="fgrp"><span class="flbl">PER 対業種平均</span><span class="fchecks"><label><input type="checkbox" class="f_bt_per_vs_sector" value="good">良好（0.95倍以下）</label><label><input type="checkbox" class="f_bt_per_vs_sector" value="mid">注意（0.95倍〜1.20倍）</label><label><input type="checkbox" class="f_bt_per_vs_sector" value="weak">弱い（1.20倍超）</label></span></div><div class="fgrp"><span class="flbl">PBR 自社過去レンジ内の位置</span><span class="fchecks"><label><input type="checkbox" class="f_bt_pbr_band_pos" value="good">良好（60%以上）</label><label><input type="checkbox" class="f_bt_pbr_band_pos" value="mid">注意（20%〜60%）</label><label><input type="checkbox" class="f_bt_pbr_band_pos" value="weak">弱い（20%未満）</label></span></div><div class="fgrp"><span class="flbl">PBR 対業種平均</span><span class="fchecks"><label><input type="checkbox" class="f_bt_pbr_vs_sector" value="good">良好（1.00倍以下）</label><label><input type="checkbox" class="f_bt_pbr_vs_sector" value="mid">注意（1.00倍〜1.40倍）</label><label><input type="checkbox" class="f_bt_pbr_vs_sector" value="weak">弱い（1.40倍超）</label></span></div></div></div>
-  </div>
-  <div class="fmaj"><h3 class="fmajh">銘柄属性</h3>
+  </details>
+  <details class="fmaj"><summary class="fmajh">銘柄属性</summary>
     <div class="fsec"><div class="fsecbody">
       <div class="fgrp"><label class="flbl" for="f_mc">時価総額（10億ドル） 以上</label><input id="f_mc" type="number" min="0"></div>
       <div class="fgrp"><label class="flbl" for="f_pr">終値（$） 以下</label><input id="f_pr" type="number" min="0"></div>
@@ -246,7 +247,7 @@ section.grp[hidden]{display:none}
       <div class="fgrp wide"><span class="flbl">業種グループ</span><span class="fchecks"><label><input type="checkbox" class="f_grp" value="Information Technology">Information Technology</label><label><input type="checkbox" class="f_grp" value="Health Care">Health Care</label><label><input type="checkbox" class="f_grp" value="Consumer Discretionary">Consumer Discretionary</label><label><input type="checkbox" class="f_grp" value="Consumer Staples">Consumer Staples</label><label><input type="checkbox" class="f_grp" value="Communication Services">Communication Services</label><label><input type="checkbox" class="f_grp" value="Industrials">Industrials</label><label><input type="checkbox" class="f_grp" value="Energy">Energy</label><label><input type="checkbox" class="f_grp" value="Utilities">Utilities</label><label><input type="checkbox" class="f_grp" value="Materials">Materials</label><label><input type="checkbox" class="f_grp" value="Financials">Financials</label><label><input type="checkbox" class="f_grp" value="Real Estate">Real Estate</label></span></div>
       <div class="fgrp"><span class="flbl">直近四半期の急減速</span><span class="fchecks"><label><input type="checkbox" id="f_decel_none">フラグが無い銘柄のみ</label><label><input type="checkbox" id="f_decel_flag">フラグがある銘柄のみ</label></span></div>
     </div></div>
-  </div>
+  </details>
 </div>
 <div class="fbar">
   <button type="button" id="fclear">条件をクリア</button>
