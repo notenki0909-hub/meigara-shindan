@@ -195,7 +195,7 @@ body.wlon{padding-bottom:60px}
   </div>
 </div>
 
-<div class="sub">生成 2026-09-28T23:13:47　｜　スクリーン：利回り≥2.0% ・ 時価総額≥300億 ・ 直近5年減配なし（累進配当/DOE宣言は例外）</div>
+<div class="sub">生成 2026-09-29T19:40:38　｜　スクリーン：利回り≥2.0% ・ 時価総額≥300億 ・ 直近5年減配なし（累進配当/DOE宣言は例外）</div>
 <div class="sub">表の見出し（軍・終値・選定・買い時・利回り・増配・カバレッジ・業種級）をクリックすると説明が出ます。各行の☆にチェックを入れて下部の「ウォッチリストを作成」を、💼にチェックを入れて「ポートフォリオに追加」を押すと、それぞれ選んだ銘柄だけの一覧・保有記録の入力画面を作れます（☆と💼は別々に選べます）。</div>
 <div class="summary">
   <button type="button" class="sumbtn" data-tier=""><b>677</b>銘柄</button>
@@ -216,7 +216,7 @@ body.wlon{padding-bottom:60px}
 <summary><span>詳しい条件で絞り込む</span><button type="button" id="fclear2" class="fclear-top">条件をクリア</button><span class="fhit" id="fhit2"></span></summary>
 <div class="fpanel">
   <p class="furlnote">絞り込み条件はURLに反映されます。URLを保存（ブックマーク登録）しておけば、次回そのブックマークから開くだけで、この絞り込み状態を再開できます。</p>
-  <div class="fmaj"><h3 class="fmajh">① 銘柄選定</h3>
+  <details class="fmaj"><summary class="fmajh">① 銘柄選定</summary>
     <div class="fsec"><div class="fsecbody">
       <div class="fgrp"><label class="flbl" for="f_sel">選定スコア 以上</label><input id="f_sel" type="number" min="0" max="110"></div>
     </div></div>
@@ -250,8 +250,8 @@ body.wlon{padding-bottom:60px}
       <div class="fgrp"><span class="flbl">累進配当・DOE</span>
         <span class="fchecks"><label><input type="checkbox" id="f_dp">宣言ありのみ</label></span></div>
     </div></div>
-  </div>
-  <div class="fmaj"><h3 class="fmajh">② 買い時</h3>
+  </details>
+  <details class="fmaj"><summary class="fmajh">② 買い時</summary>
     <div class="fsec"><div class="fsecbody">
       <div class="fgrp"><label class="flbl" for="f_tim">買い時スコア 以上</label><input id="f_tim" type="number" min="0" max="110"></div>
     </div></div>
@@ -273,8 +273,8 @@ body.wlon{padding-bottom:60px}
       <div class="fgrp"><span class="flbl">PERの自社過去レンジ内の位置</span>
         <span class="fchecks"><label><input type="checkbox" class="f_perband" value="expensive">割高（20%未満）</label><label><input type="checkbox" class="f_perband" value="normal">標準（20%〜60%）</label><label><input type="checkbox" class="f_perband" value="cheap">割安（60%以上）</label></span></div>
     </div></div>
-  </div>
-  <div class="fmaj"><h3 class="fmajh">銘柄属性</h3>
+  </details>
+  <details class="fmaj"><summary class="fmajh">銘柄属性</summary>
     <div class="fsec"><div class="fsecbody">
       <div class="fgrp"><label class="flbl" for="f_mc">時価総額(億円) 以上</label><input id="f_mc" type="number" min="0"></div>
       <div class="fgrp"><label class="flbl" for="f_pr">終値(円) 以下</label><input id="f_pr" type="number" min="0"></div>
@@ -285,7 +285,7 @@ body.wlon{padding-bottom:60px}
       <div class="fgrp wide"><span class="flbl">業種グループ</span>
         <span class="fchecks"><label><input type="checkbox" class="f_grp" value="資源・エネルギー">資源・エネルギー</label><label><input type="checkbox" class="f_grp" value="素材">素材</label><label><input type="checkbox" class="f_grp" value="機械・電機">機械・電機</label><label><input type="checkbox" class="f_grp" value="自動車・輸送機">自動車・輸送機</label><label><input type="checkbox" class="f_grp" value="商社・卸">商社・卸</label><label><input type="checkbox" class="f_grp" value="情報通信・サービス">情報通信・サービス</label><label><input type="checkbox" class="f_grp" value="金融">金融</label><label><input type="checkbox" class="f_grp" value="生活必需・小売">生活必需・小売</label><label><input type="checkbox" class="f_grp" value="医薬・ヘルスケア">医薬・ヘルスケア</label><label><input type="checkbox" class="f_grp" value="建設・不動産">建設・不動産</label><label><input type="checkbox" class="f_grp" value="インフラ・運輸">インフラ・運輸</label></span></div>
     </div></div>
-  </div>
+  </details>
 </div>
 <div class="fbar">
   <button type="button" id="fclear">条件をクリア</button>

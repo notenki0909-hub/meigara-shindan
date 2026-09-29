@@ -753,7 +753,7 @@ body.wlon{{padding-bottom:60px}}
 <summary><span>詳しい条件で絞り込む</span><button type="button" id="fclear2" class="fclear-top">条件をクリア</button><span class="fhit" id="fhit2"></span></summary>
 <div class="fpanel">
   <p class="furlnote">絞り込み条件はURLに反映されます。URLを保存（ブックマーク登録）しておけば、次回そのブックマークから開くだけで、この絞り込み状態を再開できます。</p>
-  <div class="fmaj"><h3 class="fmajh">① 銘柄選定</h3>
+  <details class="fmaj"><summary class="fmajh">① 銘柄選定</summary>
     <div class="fsec"><div class="fsecbody">
       <div class="fgrp"><label class="flbl" for="f_sel">選定スコア 以上</label><input id="f_sel" type="number" min="0" max="110"></div>
     </div></div>
@@ -787,8 +787,8 @@ body.wlon{{padding-bottom:60px}}
       <div class="fgrp"><label class="flbl" for="f_roe">ROE（配当の原資の効率）(%) 以上</label><input id="f_roe" type="number" step="0.1">
         <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_roe" value="{v}">{lab}</label>' for v, lab in zip(("cheap","normal","expensive"), _zone_labels("higher_better",12,7,"%",("良好","注意","弱い"))))}</span></div>
     </div></div>
-  </div>
-  <div class="fmaj"><h3 class="fmajh">② 買い時</h3>
+  </details>
+  <details class="fmaj"><summary class="fmajh">② 買い時</summary>
     <div class="fsec"><div class="fsecbody">
       <div class="fgrp"><label class="flbl" for="f_tim">買い時スコア 以上</label><input id="f_tim" type="number" min="0" max="110"></div>
     </div></div>
@@ -810,8 +810,8 @@ body.wlon{{padding-bottom:60px}}
       <div class="fgrp"><span class="flbl">PERの自社過去レンジ内の位置</span>
         <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_perband" value="{v}">{lab}</label>' for v, lab in zip(("expensive","normal","cheap"), reversed(_zone_labels("higher_better",60,20,"%",("割安","標準","割高")))))}</span></div>
     </div></div>
-  </div>
-  <div class="fmaj"><h3 class="fmajh">銘柄属性</h3>
+  </details>
+  <details class="fmaj"><summary class="fmajh">銘柄属性</summary>
     <div class="fsec"><div class="fsecbody">
       <div class="fgrp"><label class="flbl" for="f_mc">時価総額(百万＄) 以上</label><input id="f_mc" type="number" min="0"></div>
       <div class="fgrp"><label class="flbl" for="f_pr">終値(＄) 以下</label><input id="f_pr" type="number" min="0"></div>
@@ -822,7 +822,7 @@ body.wlon{{padding-bottom:60px}}
       <div class="fgrp wide"><span class="flbl">業種グループ</span>
         <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_grp" value="{html.escape(g["name"])}">{html.escape(g["name_jp"])}</label>' for g in out["groups"])}</span></div>
     </div></div>
-  </div>
+  </details>
 </div>
 <div class="fbar">
   <button type="button" id="fclear">条件をクリア</button>
