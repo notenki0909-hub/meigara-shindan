@@ -10,6 +10,7 @@ site/summaries/*.json を読み、業種グループごとに
 
   python rank.py
 """
+import bisect
 import datetime as dt
 import glob
 import html
@@ -23,6 +24,7 @@ import analyze
 HERE = os.path.dirname(__file__)
 SITE = os.path.join(HERE, "site")
 SUM = os.path.join(SITE, "summaries")
+PFD = os.path.join(SITE, "portfolio_data")
 GROUPS_CFG = os.path.join(HERE, "sector_groups.json")
 SCREEN_CFG = os.path.join(HERE, "universe_screen.json")
 RANKING = os.path.join(SITE, "ranking.json")
@@ -42,6 +44,38 @@ def load_group_map(cfg):
         for s in secs:
             rev[s] = g
     return rev
+
+
+def _price_changes(code):
+    """当日(D)/週(W)/月(M)/3ヶ月/6ヶ月/9ヶ月/年(Y)の騰落率(%)。
+    site/portfolio_data/<code>.json の価格履歴（[日付, 終値] の日付昇順配列、
+    ポートフォリオ機能用に既に取得済みの10年分）から算出するため、新たな
+    yfinance呼び出しは発生しない。ファイルが無い/データ不足なら空dict
+    （表示側は「―」にフォールバック）。"""
+    try:
+        d = json.load(open(os.path.join(PFD, f"{code}.json"), encoding="utf-8"))
+        prices = d.get("prices") or []
+    except Exception:
+        return {}
+    if len(prices) < 2:
+        return {}
+    dates = [p[0] for p in prices]
+    latest_date = dt.date.fromisoformat(prices[-1][0])
+    latest_price = prices[-1][1]
+
+    def at_or_before(days_back):
+        target = (latest_date - dt.timedelta(days=days_back)).isoformat()
+        i = bisect.bisect_right(dates, target) - 1
+        return prices[i][1] if i >= 0 else None
+
+    def pct(base):
+        return (latest_price - base) / base * 100 if base else None
+
+    return {
+        "d": pct(prices[-2][1]), "w": pct(at_or_before(7)), "m": pct(at_or_before(30)),
+        "3m": pct(at_or_before(91)), "6m": pct(at_or_before(182)),
+        "9m": pct(at_or_before(274)), "y": pct(at_or_before(365)),
+    }
 
 
 TIER_RANK = {"1軍": 3, "2軍": 2, "3軍": 1, "―": 0}
@@ -172,6 +206,7 @@ def main():
             "per_band_pos": s.get("per_band_pos"), "yield_band_pos": s.get("yield_band_pos"),
             "chowder": s.get("chowder"), "ocf_positive": s.get("ocf_positive"),
             "fcf_positive": s.get("fcf_positive"), "fcf_payout": s.get("fcf_payout"),
+            "chg": _price_changes(s["code"]),
         })
 
     today_str = dt.date.today().isoformat()
@@ -268,6 +303,39 @@ def _num(v, d=1):
 
 def _price(v):
     return f"{v:,.0f}" if isinstance(v, (int, float)) else "―"
+
+
+def _chg(v):
+    return f"{v:+.2f}%" if isinstance(v, (int, float)) else "―"
+
+
+def _chg_cls(v):
+    if not isinstance(v, (int, float)):
+        return ""
+    return "chgpos" if v > 0 else ("chgneg" if v < 0 else "chgflat")
+
+
+_CHG_PERIODS = (("d", "D"), ("w", "W"), ("m", "M"), ("3m", "3M"), ("6m", "6M"), ("9m", "9M"), ("y", "Y"))
+
+
+def _chg_header_cells():
+    """騰落率列のth一式。折りたたみ時は「騰落率（展開）」の1列、展開時はD/W/M/3M/
+    6M/9M/Yの7列（CSSのdisplay切替のみでDOM上は常に両方存在。JS側のsortTable()が
+    列インデックスをth/tdの位置で数えるため、th/tdは常に同じ並び・同じ個数にする）。"""
+    return ('<th class="n chgs">騰落率（展開）</th>'
+            + "".join(f'<th class="n chgd">{lab}</th>' for _, lab in _CHG_PERIODS))
+
+
+def _chg_row_cells(chg):
+    """騰落率列のtd一式。折りたたみ時に見える「騰落率（展開）」列は常にD（前回終値比）
+    を表示する。"""
+    chg = chg or {}
+    d_v = chg.get("d")
+    out = f'<td class="n chgs {_chg_cls(d_v)}">{_chg(d_v)}</td>'
+    for key, _ in _CHG_PERIODS:
+        v = chg.get(key)
+        out += f'<td class="n chgd {_chg_cls(v)}">{_chg(v)}</td>'
+    return out
 
 
 def _streak(u, f):
@@ -588,8 +656,9 @@ def render_index(out):
                 f'<td class="tier">{s["tier"]}<span class="dir {dcls}">{s["dir"]}</span></td>'
                 f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
                 f'<td class="nm">{html.escape(s["name"])}</td>'
-                f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"])}</td>'
                 f'<td class="sec">{html.escape(s["sector"])}</td>'
+                f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"])}</td>'
+                f'{_chg_row_cells(s.get("chg"))}'
                 f'<td class="n" data-v="{_v(s["sel"])}">{_num(s["sel"],0)}</td>'
                 f'<td class="n" data-v="{_v(s["tim"])}">{_num(s["tim"],0)}</td>'
                 f'<td class="n" data-v="{_v(s["yield"])}">{_num(s["yield"],2)}%</td>'
@@ -599,8 +668,9 @@ def render_index(out):
         secs.append('<section class="grp">' + head + '<table><thead><tr>'
                     '<th class="wl" title="ウォッチリストに追加する銘柄にチェック">☆</th>'
                     '<th class="pf" title="ポートフォリオに追加する銘柄にチェック">💼</th>'
-                    '<th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th>'
-                    '<th class="n"><span class="hdr" data-term="price">終値</span><span class="sortbtn">▼</span></th><th>業種</th>'
+                    '<th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>業種</th>'
+                    '<th class="n"><span class="hdr" data-term="price">終値</span><span class="sortbtn">▼</span></th>'
+                    + _chg_header_cells() +
                     '<th><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>'
                     '<th><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th>'
                     '<th><span class="hdr" data-term="yield">利回り</span><span class="sortbtn">▼</span></th>'
@@ -617,8 +687,9 @@ def render_index(out):
         f'<td class="tier">{s.get("tier","―")}</td>'
         f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
         f'<td class="nm">{html.escape(s["name"])}</td>'
-        f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"])}</td>'
         f'<td class="sec">{html.escape(s["group"])}</td>'
+        f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"])}</td>'
+        f'{_chg_row_cells(s.get("chg"))}'
         f'<td class="n" data-v="{_v(s["sel"])}">{_num(s["sel"],0)}</td>'
         f'<td class="n" data-v="{_v(s["tim"])}">{_num(s["tim"],0)}</td></tr>'
         for i, s in enumerate(out["global_top"]))
@@ -657,6 +728,12 @@ tr:last-child td{{border-bottom:none}}
 .t1 .tier{{color:var(--t1)}}.t2 .tier{{color:var(--t2)}}.t3 .tier{{color:var(--t3)}}
 .dir{{font-weight:700;margin-left:3px}}
 .dir.up{{color:var(--t1)}}.dir.dn{{color:var(--gC)}}.dir.fl{{color:var(--t3)}}
+.chgpos{{color:var(--t1)}}.chgneg{{color:var(--gC)}}.chgflat{{color:var(--t3)}}
+th.chgs,th.chgd{{cursor:pointer;white-space:nowrap}}
+th.chgs:hover,th.chgd:hover{{color:var(--accent)}}
+.chgd{{display:none}}
+body.chgopen .chgs{{display:none}}
+body.chgopen .chgd{{display:table-cell}}
 .code a{{color:var(--accent);text-decoration:none}}
 .sec{{color:var(--muted);font-size:11px}}
 .sk{{font-size:11px;color:var(--muted)}}
@@ -849,8 +926,9 @@ body.wlon{{padding-bottom:60px}}
 </div>
 <div class="fempty" id="fempty" hidden>条件に合う銘柄がありません。条件を緩めてください。</div>
 <details id="topbox"><summary>全体 選定スコア 上位50（業種横断）</summary>
-<table><thead><tr><th class="wl" title="ウォッチリストに追加する銘柄にチェック">☆</th><th class="pf" title="ポートフォリオに追加する銘柄にチェック">💼</th><th class="n">#</th><th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th>
-<th class="n"><span class="hdr" data-term="price">終値</span><span class="sortbtn">▼</span></th><th>グループ</th>
+<table><thead><tr><th class="wl" title="ウォッチリストに追加する銘柄にチェック">☆</th><th class="pf" title="ポートフォリオに追加する銘柄にチェック">💼</th><th class="n">#</th><th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>グループ</th>
+<th class="n"><span class="hdr" data-term="price">終値</span><span class="sortbtn">▼</span></th>
+{_chg_header_cells()}
 <th class="n"><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>
 <th class="n"><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th></tr></thead><tbody>{gt}</tbody></table>
 </details>
@@ -1226,6 +1304,14 @@ body.wlon{{padding-bottom:60px}}
     btn.addEventListener('click', function(e){{
       e.stopPropagation();
       sortTable(btn);
+    }});
+  }});
+
+  // ---- 騰落率列の展開／折りたたみ（ページ全体で共通の状態。summary=D単独表示、
+  // detail=D/W/M/3M/6M/9M/Yの7列。どちらのthをクリックしても切り替わる） ----
+  document.querySelectorAll('th.chgs, th.chgd').forEach(function(th){{
+    th.addEventListener('click', function(){{
+      document.body.classList.toggle('chgopen');
     }});
   }});
 
