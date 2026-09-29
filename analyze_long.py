@@ -101,6 +101,30 @@ analyze.METRIC_HELP.setdefault("q_netinc_trend_us", {"what":
     "直近4四半期の純利益の推移（yfinanceの四半期決算。営業利益が取得できない銘柄の代替）。"
     "参考表示のみで採点には使わない。", "unit": ""})
 
+# ランキング一覧の「騰落率（展開）」欄用。yfinanceの日次終値（hist_d、株価チャート用に
+# 元々取得済みのデータを流用・追加のAPIアクセス無し）から、直近終値を基準に
+# 取引日ベースで遡った騰落率(%)を計算する（暦日ではなく取引日数で近似：
+# 週=5・月=21・3か月=63・6か月=126・9か月=189・年=252）。直近上場等で
+# 遡る分の取引日数が無い場合はNone。
+_PRICE_CHG_PERIODS = (("d", 1), ("w", 5), ("m", 21), ("3m", 63), ("6m", 126), ("9m", 189), ("y", 252))
+
+
+def _price_changes(hist_d):
+    out = {k: None for k, _ in _PRICE_CHG_PERIODS}
+    if hist_d is None or getattr(hist_d, "empty", True):
+        return out
+    closes = hist_d["Close"].dropna()
+    if closes.empty:
+        return out
+    latest = float(closes.iloc[-1])
+    for key, n in _PRICE_CHG_PERIODS:
+        if len(closes) > n:
+            base = float(closes.iloc[-1 - n])
+            if base != 0:
+                out[key] = (latest / base - 1) * 100
+    return out
+
+
 _SEC_AVG_LONG = {"jp": None, "us": None}
 
 
@@ -1174,6 +1198,8 @@ def generate_long(code, cfg=None, market="jp", name=None):
         # 「詳しい条件で絞り込む」フィルタ用（買い時内訳の実数値表示）。ev_ebit_vs_sector＝
         # EV/EBIT÷業種中央値、per/pbr_vs_sector＝実績PER・PBR÷業種平均PER・PBR。
         "ev_ebit_vs_sector": btd["ev_vs"], "per_vs_sector": btd["per_vs"], "pbr_vs_sector": btd["pbr_vs"],
+        # ランキング一覧の「騰落率（展開）」欄用（d/w/m/3m/6m/9m/y、単位%）。
+        "price_chg": _price_changes(yd.get("hist_d")),
         "div_yield": rowmap.get("div_yield", {}).get("v"),  # 表示のみ（採点には不使用）
         "implied_fcf_growth": ig,
         # 「詳しい条件で絞り込む」フィルタ用の個別指標。score は0〜110（常に高いほど良い、

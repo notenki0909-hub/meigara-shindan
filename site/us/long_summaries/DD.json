@@ -5,9 +5,9 @@
  "gics_sector": "Materials",
  "is_simple": false,
  "is_reit": false,
- "price": 130.97999572753906,
- "price_date": "2026-09-28",
- "mcap": 17687928832,
+ "price": 129.84500122070312,
+ "price_date": "2026-09-29",
+ "mcap": 17534654464,
  "q_score": 72.0,
  "groups": {
   "業績": 61.76849101890207,
@@ -22,23 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 48.2,
+ "bt_score": 48.3,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 81.52635401695241,
-  "fcf_yield": 32.965527819087356,
+  "ev_ebit_vs_sector": 81.90794138544538,
+  "fcf_yield": 33.07886242093748,
   "per_cheap": 30.0,
   "pbr_cheap": 75.0
  },
- "ev_ebit": 23.449917246511628,
- "fcf_yield": 0.9724145864315517,
+ "ev_ebit": 23.271691237209303,
+ "fcf_yield": 0.9809146815703114,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.0116444023516664,
- "per_vs_sector": 2.2219206324110674,
- "pbr_vs_sector": 0.4429598620689655,
- "div_yield": 1.83234087516113,
- "implied_fcf_growth": 0.303,
+ "ev_ebit_vs_sector": 1.0083055128773528,
+ "per_vs_sector": 2.202666798418972,
+ "pbr_vs_sector": 0.4391214482758621,
+ "price_chg": {
+  "d": -0.8665403449828468,
+  "w": -1.4833093974109812,
+  "m": -5.208785756591672,
+  "3m": -4.272337212490118,
+  "6m": -2.121967709707129,
+  "9m": 4.89982428600626,
+  "y": 35.78785394789059
+ },
+ "div_yield": 1.848357639829828,
+ "implied_fcf_growth": 0.3018,
  "metric_scores": {
   "rev_cagr": 20.0,
   "eps_cagr": null,
@@ -67,5 +76,5 @@
   "fcf_positive": 1,
   "fcf_payout": 347.09302325581393
  },
- "_generated_at": "2026-09-29T02:09:58"
+ "_generated_at": "2026-09-30T01:25:26"
 }

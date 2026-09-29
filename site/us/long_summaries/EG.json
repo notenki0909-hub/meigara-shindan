@@ -5,9 +5,9 @@
  "gics_sector": "Financials",
  "is_simple": true,
  "is_reit": false,
- "price": 369.79998779296875,
- "price_date": "2026-09-28",
- "mcap": 14179143680,
+ "price": 364.885009765625,
+ "price_date": "2026-09-29",
+ "mcap": 13990689792,
  "q_score": 91.1,
  "groups": {
   "業績": null,
@@ -22,23 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "低",
- "bt_score": 108.1,
+ "bt_score": 108.4,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": 108.3,
-  "pbr_cheap": 107.9
+  "per_cheap": 108.5,
+  "pbr_cheap": 108.3
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": 0.8679704645199453,
- "pbr_band_pos": 0.8350593257179897,
+ "per_band_pos": 0.8772641660391176,
+ "pbr_band_pos": 0.8608362256965236,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 0.45268364161849706,
- "pbr_vs_sector": 0.37099832,
- "div_yield": 2.1633316019682436,
- "implied_fcf_growth": -0.1337,
+ "per_vs_sector": 0.44562893641618495,
+ "pbr_vs_sector": 0.36606740000000004,
+ "price_chg": {
+  "d": -1.3290909111915328,
+  "w": -1.6376379742797043,
+  "m": -3.369872640971161,
+  "3m": 2.142876730362353,
+  "6m": 12.852202059542561,
+  "9m": 8.104468072544545,
+  "y": 4.518640278414443
+ },
+ "div_yield": 2.192471541962934,
+ "implied_fcf_growth": -0.1358,
  "metric_scores": {
   "rev_cagr": null,
   "eps_cagr": null,
@@ -67,5 +76,5 @@
   "fcf_positive": 1,
   "fcf_payout": 10.91916558018253
  },
- "_generated_at": "2026-09-29T02:11:54"
+ "_generated_at": "2026-09-30T01:27:42"
 }

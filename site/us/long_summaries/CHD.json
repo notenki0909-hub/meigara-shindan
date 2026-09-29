@@ -5,9 +5,9 @@
  "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
- "price": 95.62000274658203,
- "price_date": "2026-09-28",
- "mcap": 22681438208,
+ "price": 95.48999786376953,
+ "price_date": "2026-09-29",
+ "mcap": 22650599424,
  "q_score": 103.4,
  "groups": {
   "業績": 104.26165571001471,
@@ -22,23 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 69.8,
+ "bt_score": 69.3,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 48.885601979239595,
-  "fcf_yield": 84.25224538095274,
-  "per_cheap": 76.4,
+  "ev_ebit_vs_sector": 46.22819436877114,
+  "fcf_yield": 84.33972479285383,
+  "per_cheap": 77.3,
   "pbr_cheap": 107.6
  },
- "ev_ebit": 22.714864706755755,
- "fcf_yield": 4.818918403571456,
- "per_band_pos": 0.9575651154721081,
+ "ev_ebit": 22.686246681514476,
+ "fcf_yield": 4.825479359464037,
+ "per_band_pos": 0.9684240400394231,
  "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 1.2972509826816534,
- "per_vs_sector": 1.301483670886076,
- "pbr_vs_sector": 0.7901761818181818,
- "div_yield": 1.2863417325555,
- "implied_fcf_growth": 0.0821,
+ "ev_ebit_vs_sector": 1.3205032992732524,
+ "per_vs_sector": 1.291382700421941,
+ "pbr_vs_sector": 0.7891018181818181,
+ "price_chg": {
+  "d": -0.1359599237379716,
+  "w": -0.6554357727948545,
+  "m": -5.69820674573781,
+  "3m": -1.4347640679762685,
+  "6m": 1.6824556916694489,
+  "9m": 11.828081211282315,
+  "y": 10.138409717332241
+ },
+ "div_yield": 1.288093022847037,
+ "implied_fcf_growth": 0.082,
  "metric_scores": {
   "rev_cagr": 102.09879976496372,
   "eps_cagr": 110.0,
@@ -67,5 +76,5 @@
   "fcf_positive": 1,
   "fcf_payout": 26.276303751143644
  },
- "_generated_at": "2026-09-29T02:07:06"
+ "_generated_at": "2026-09-30T01:22:00"
 }

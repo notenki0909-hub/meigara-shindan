@@ -5,12 +5,12 @@
  "gics_sector": "Energy",
  "is_simple": false,
  "is_reit": false,
- "price": 140.6300048828125,
- "price_date": "2026-09-28",
- "mcap": 73764544512,
+ "price": 139.97500610351562,
+ "price_date": "2026-09-29",
+ "mcap": 73420972032,
  "q_score": 93.7,
  "groups": {
-  "業績": 77.11355846865241,
+  "業績": 77.1135584686524,
   "財務": 106.97716728369275,
   "キャッシュフロー": 100.81803542673107,
   "金融品質": null,
@@ -22,25 +22,34 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 92.8,
+ "bt_score": 93.3,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 105.81757410127094,
-  "fcf_yield": 82.3605829932519,
-  "per_cheap": 100.0,
-  "pbr_cheap": 83.2
+  "ev_ebit_vs_sector": 105.67671631559124,
+  "fcf_yield": 82.65239852715548,
+  "per_cheap": 100.3,
+  "pbr_cheap": 84.5
  },
- "ev_ebit": 10.865730277517242,
- "fcf_yield": 4.677043724493893,
- "per_band_pos": 0.4993055177572899,
- "pbr_band_pos": 0.4856571456612353,
- "ev_ebit_vs_sector": 0.6463849064555172,
- "per_vs_sector": 0.5054851388888888,
- "pbr_vs_sector": 1.2206575789473684,
- "div_yield": 2.901230077748969,
- "implied_fcf_growth": 0.0862,
+ "ev_ebit": 10.818340969931034,
+ "fcf_yield": 4.698929889536661,
+ "per_band_pos": 0.5065349443618326,
+ "pbr_band_pos": 0.5058525870965092,
+ "ev_ebit_vs_sector": 0.6513149289543068,
+ "per_vs_sector": 0.5043053703703704,
+ "pbr_vs_sector": 1.2149721578947368,
+ "price_chg": {
+  "d": -0.4657603331825855,
+  "w": 0.32611942167528607,
+  "m": -2.354377297732968,
+  "3m": 7.897179305773894,
+  "6m": -6.614846438392574,
+  "9m": 35.24155179083635,
+  "y": 19.320611215255724
+ },
+ "div_yield": 2.9148060882974494,
+ "implied_fcf_growth": 0.0856,
  "metric_scores": {
-  "rev_cagr": 48.82487507165176,
+  "rev_cagr": 48.824875071651704,
   "eps_cagr": 48.67986385346293,
   "op_margin": 110.0,
   "earnings_stability": 100.94949494949495,
@@ -54,7 +63,7 @@
   "fcf_payout": 102.45410628019323
  },
  "metric_raw": {
-  "rev_cagr": -8.514403108878355,
+  "rev_cagr": -8.514403108878366,
   "eps_cagr": -11.679044247624548,
   "op_margin": 32.1052165441502,
   "earnings_stability": 0.6237373737373737,
@@ -67,5 +76,5 @@
   "fcf_positive": 1,
   "fcf_payout": 62.63768115942029
  },
- "_generated_at": "2026-09-29T02:12:19"
+ "_generated_at": "2026-09-30T01:28:12"
 }

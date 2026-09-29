@@ -5,9 +5,9 @@
  "gics_sector": "Real Estate",
  "is_simple": false,
  "is_reit": false,
- "price": 130.35000610351562,
- "price_date": "2026-09-28",
- "mcap": 37746143232,
+ "price": 130.1300048828125,
+ "price_date": "2026-09-29",
+ "mcap": 37682434048,
  "q_score": 93.0,
  "groups": {
   "業績": 78.8793491592645,
@@ -22,23 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 66.8,
+ "bt_score": 67.6,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
-  "fcf_yield": 62.14117073868752,
-  "per_cheap": 93.1,
-  "pbr_cheap": 51.9
+  "fcf_yield": 62.212418248791224,
+  "per_cheap": 96.1,
+  "pbr_cheap": 52.2
  },
- "ev_ebit": 35.450651647604325,
- "fcf_yield": 3.160587805401564,
- "per_band_pos": 0.36999056692699045,
- "pbr_band_pos": 0.13807110758682373,
+ "ev_ebit": 35.40141734775889,
+ "fcf_yield": 3.1659313686593418,
+ "per_band_pos": 0.4213153253496604,
+ "pbr_band_pos": 0.14192443775874208,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 0.7199748946135831,
- "pbr_vs_sector": 1.4996204333333332,
+ "per_vs_sector": 0.6973778454332553,
+ "pbr_vs_sector": 1.4970893333333333,
+ "price_chg": {
+  "d": -0.1687772998862913,
+  "w": -7.741934018206475,
+  "m": -13.718340695295694,
+  "3m": -3.3855501343371563,
+  "6m": -2.2607740127945086,
+  "9m": -20.99447539403405,
+  "y": -17.639237415941455
+ },
  "div_yield": null,
- "implied_fcf_growth": 0.1394,
+ "implied_fcf_growth": 0.1392,
  "metric_scores": {
   "rev_cagr": 107.29724565879485,
   "eps_cagr": 72.88219042788552,
@@ -67,5 +76,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-09-29T02:06:31"
+ "_generated_at": "2026-09-30T01:21:15"
 }

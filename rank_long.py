@@ -353,6 +353,7 @@ def build(market):
             "asof": s.get("_generated_at"), "new": code in watch_new,
             "new_at": watch_new.get(code, {}).get("detected_at"),
             "mcap": s.get("mcap"),
+            "price_chg": s.get("price_chg") or {},
             "metrics_raw": s.get("metric_raw") or {},
             "bt_raw": {k: (s.get(sk) * scale) if isinstance(s.get(sk), (int, float)) else None
                        for k, _lab, _rule, sk, scale in FILTER_BT_COMPONENTS},
@@ -598,6 +599,21 @@ def render(out, m):
         cls = "t1" if v >= tt[0] else "t2" if v >= tt[1] else "t3" if v >= tt[2] else "t4"
         return f'<td class="n bt {cls}" data-v="{v}"><b>{v:.0f}</b></td>'
 
+    def _pchg_td(v, extra):
+        hid = ' hidden' if extra else ''
+        cls = 'n pchg pchg-extra' if extra else 'n pchg'
+        if not isinstance(v, (int, float)):
+            return f'<td class="{cls}"{hid}>―</td>'
+        scls = ' pchg-pos' if v > 0 else (' pchg-neg' if v < 0 else '')
+        return f'<td class="{cls}"{hid} data-v="{v}"><span class="pchgv{scls}">{v:+.1f}%</span></td>'
+
+    def _pchg_cells(s):
+        pc = s.get("price_chg") or {}
+        return (_pchg_td(pc.get("d"), False) + _pchg_td(pc.get("w"), True) +
+                _pchg_td(pc.get("m"), True) + _pchg_td(pc.get("3m"), True) +
+                _pchg_td(pc.get("6m"), True) + _pchg_td(pc.get("9m"), True) +
+                _pchg_td(pc.get("y"), True))
+
     grade_by_group = {g["name"]: g["grade"] for g in out["groups"]}
 
     def row_html(s, with_rank=None):
@@ -618,26 +634,34 @@ def render(out, m):
             f'{" <span class=\"newbadge\" title=\"月次チェックで新規追加（次の四半期見直しで正式反映）\">NEW!</span>" if s.get("new") else ""}'
             f'</td>'
             f'<td class="sec">{html.escape(str(s["sector"]))}</td>'
+            f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"], unit)}</td>'
+            + _pchg_cells(s) +
             f'<td class="n" data-v="{_v(s["q"])}"><b>{_num(s["q"],0)}</b></td>'
             f'<td class="n" data-v="{_v(s["perf"])}">{_num(s["perf"],0)}</td>'
             f'<td class="n" data-v="{_v(s["fin"])}">{_num(s["fin"],0)}</td>'
             f'<td class="n" data-v="{_v(s["cf"])}">{_num(s["cf"],0)}</td>'
             + _bt_cell(s.get("bt")) +
             f'<td class="n" data-v="{_v(s["yield"])}">{_num(s["yield"],2)}%</td>'
-            f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"], unit)}</td>'
             f'<td class="cv">{s.get("cov","―")}</td>'
             f'</tr>')
 
     thead = ('<thead><tr>{rk}<th class="wl" title="ウォッチリストに追加する銘柄にチェック">☑</th>'
              '<th class="pf" title="ポートフォリオに追加する銘柄にチェック">💼</th>'
              '<th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>業種</th>'
+             '<th class="n hdr" data-term="price">終値</th>'
+             '<th class="n pchg-hdr pchg-main">騰落率（展開）</th>'
+             '<th class="n pchg-hdr pchg-extra" hidden>W</th>'
+             '<th class="n pchg-hdr pchg-extra" hidden>M</th>'
+             '<th class="n pchg-hdr pchg-extra" hidden>3M</th>'
+             '<th class="n pchg-hdr pchg-extra" hidden>6M</th>'
+             '<th class="n pchg-hdr pchg-extra" hidden>9M</th>'
+             '<th class="n pchg-hdr pchg-extra" hidden>Y</th>'
              '<th class="n hdr" data-term="q">品質</th>'
              '<th class="n hdr" data-term="perf">業績</th>'
              '<th class="n hdr" data-term="fin">財務</th>'
              '<th class="n hdr" data-term="cf">CF</th>'
              '<th class="n hdr" data-term="bt">買い時</th>'
              '<th class="n hdr" data-term="yield">利回り</th>'
-             '<th class="n hdr" data-term="price">終値</th>'
              '<th class="hdr" data-term="cov">カバレッジ</th></tr></thead>')
 
     secs = []
@@ -736,12 +760,17 @@ h2{{font-size:15px;margin:26px 0 6px;border-bottom:2px solid var(--line);padding
 .gradeC{{background:color-mix(in srgb,var(--gC) 15%,transparent);color:var(--gC)}}
 .grade―{{background:color-mix(in srgb,var(--muted) 15%,transparent);color:var(--muted)}}
 .gmeta{{font-size:11px;color:var(--muted);font-weight:normal;margin-left:6px}}
-table{{width:100%;border-collapse:collapse;background:var(--card);font-size:13px;
-  border:1px solid var(--line);border-radius:8px;overflow:hidden}}
-th,td{{padding:6px 8px;text-align:left;border-bottom:1px solid var(--line)}}
+table{{width:100%;min-width:max-content;border-collapse:collapse;background:var(--card);font-size:13px;
+  border:1px solid var(--line);border-radius:8px}}
+th,td{{padding:6px 8px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}}
 th{{background:var(--th);font-size:11px;color:var(--muted)}}
 td.n,th.n{{text-align:right;font-variant-numeric:tabular-nums}}
 tr:last-child td{{border-bottom:none}}
+.pchg-hdr{{cursor:pointer}}
+.pchg-hdr:hover{{color:var(--accent)}}
+.pchg-extra[hidden]{{display:none}}
+.pchgv.pchg-pos{{color:var(--t1)}}
+.pchgv.pchg-neg{{color:var(--gC)}}
 .tier{{font-weight:700;white-space:nowrap}}
 .t1 .tier{{color:var(--t1)}}.t2 .tier{{color:var(--t2)}}.t3 .tier{{color:var(--t3)}}
 .dir{{font-weight:700;margin-left:3px}}
@@ -859,12 +888,7 @@ section.grp[hidden]{{display:none}}
 {filter_panel_html}
 {watch_change_html}
 <details id="topbox"><summary>全体 品質スコア 上位50（業種横断）</summary>
-<table><thead><tr><th class="n">#</th><th class="wl">☑</th><th class="pf">💼</th>
-<th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>業種</th>
-<th class="n hdr" data-term="q">品質</th><th class="n hdr" data-term="perf">業績</th>
-<th class="n hdr" data-term="fin">財務</th><th class="n hdr" data-term="cf">CF</th>
-<th class="n hdr" data-term="bt">買い時</th><th class="n hdr" data-term="yield">利回り</th>
-<th class="n hdr" data-term="price">終値</th><th class="hdr" data-term="cov">カバレッジ</th></tr></thead>
+<table>{thead.format(rk='<th class="n">#</th>')}
 <tbody>{gt}</tbody></table></details>
 {"".join(secs)}
 {exc}
@@ -1202,6 +1226,19 @@ section.grp[hidden]{{display:none}}
     location.href='portfolio.html?add='+encodeURIComponent(Array.from(pfSet).join(','));
   }});
   wlSync();
+  // ---- 騰落率（展開）：D列の見出しクリックでW/M/3M/6M/9M/Y列を展開・
+  // 展開後はいずれの列見出しをクリックしても折りたたむ ----
+  (function(){{
+    var pchgOpen=false;
+    function togglePchg(){{
+      pchgOpen=!pchgOpen;
+      document.querySelectorAll('.pchg-extra').forEach(function(el){{el.hidden=!pchgOpen;}});
+      document.querySelectorAll('.pchg-main').forEach(function(el){{el.textContent=pchgOpen?'D':'騰落率（展開）';}});
+    }}
+    document.querySelectorAll('.pchg-hdr').forEach(function(th){{
+      th.addEventListener('click',togglePchg);
+    }});
+  }})();
   // ---- 見出しクリックで用語説明 ----
   var TERMS={terms_json};
   var tibox=document.getElementById('terminfo'),tibody=document.getElementById('terminfo-body');

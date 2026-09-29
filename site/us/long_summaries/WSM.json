@@ -5,9 +5,9 @@
  "gics_sector": "Consumer Discretionary",
  "is_simple": false,
  "is_reit": false,
- "price": 231.02999877929688,
- "price_date": "2026-09-28",
- "mcap": 27210522624,
+ "price": 229.02000427246094,
+ "price_date": "2026-09-29",
+ "mcap": 26973788160,
  "q_score": 98.7,
  "groups": {
   "業績": 91.03567991547084,
@@ -22,23 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 68.8,
+ "bt_score": 69.2,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 61.63071123338975,
-  "fcf_yield": 71.71778651391183,
-  "per_cheap": 73.0,
-  "pbr_cheap": 40.9
+  "ev_ebit_vs_sector": 62.217589255143565,
+  "fcf_yield": 72.1716857733341,
+  "per_cheap": 73.1,
+  "pbr_cheap": 41.6
  },
- "ev_ebit": 19.528994127378116,
- "fcf_yield": 3.878833988543388,
+ "ev_ebit": 19.361775941886897,
+ "fcf_yield": 3.912876433000058,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.1857312767078396,
- "per_vs_sector": 0.8013416554054054,
- "pbr_vs_sector": 1.5813575000000002,
- "div_yield": 1.3158464338235634,
- "implied_fcf_growth": 0.1116,
+ "ev_ebit_vs_sector": 1.1805960940174938,
+ "per_vs_sector": 0.7935551013513513,
+ "pbr_vs_sector": 1.567599347826087,
+ "price_chg": {
+  "d": -0.8700145078371802,
+  "w": -1.577204920898767,
+  "m": -2.5819865413181597,
+  "3m": -1.7503224900143666,
+  "6m": 29.506903989564236,
+  "9m": 21.4380448166154,
+  "y": 13.742238554847596
+ },
+ "div_yield": 1.3273949625742594,
+ "implied_fcf_growth": 0.1104,
  "metric_scores": {
   "rev_cagr": 71.32569674616342,
   "eps_cagr": 92.69084594583398,
@@ -67,5 +76,5 @@
   "fcf_positive": 1,
   "fcf_payout": 29.98566489585969
  },
- "_generated_at": "2026-09-29T02:35:32"
+ "_generated_at": "2026-09-30T01:55:35"
 }

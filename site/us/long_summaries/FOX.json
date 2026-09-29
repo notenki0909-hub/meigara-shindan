@@ -5,9 +5,9 @@
  "gics_sector": "Communication Services",
  "is_simple": false,
  "is_reit": false,
- "price": 56.54999923706055,
- "price_date": "2026-09-28",
- "mcap": 23845644288,
+ "price": 55.92499923706055,
+ "price_date": "2026-09-29",
+ "mcap": 23582097408,
  "q_score": 101.8,
  "groups": {
   "業績": 105.65746173891506,
@@ -22,23 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 95.1,
+ "bt_score": 95.2,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 110.0,
-  "fcf_yield": 100.52086860909787,
-  "per_cheap": 74.8,
+  "fcf_yield": 100.75020405807211,
+  "per_cheap": 74.9,
   "pbr_cheap": 75.0
  },
- "ev_ebit": 7.782792988558352,
- "fcf_yield": 6.156260582729364,
+ "ev_ebit": 7.707407725400458,
+ "fcf_yield": 6.225061217421633,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 0.4910279488049434,
- "per_vs_sector": 0.7114281400966184,
- "pbr_vs_sector": 0.3458573898305084,
- "div_yield": 1.0256410394783733,
- "implied_fcf_growth": 0.0487,
+ "ev_ebit_vs_sector": 0.48322305488404127,
+ "per_vs_sector": 0.7035653140096619,
+ "pbr_vs_sector": 0.3420349152542373,
+ "price_chg": {
+  "d": -1.1052166373689332,
+  "w": -2.4337063244779356,
+  "m": -8.798109074711958,
+  "3m": 19.395813524502547,
+  "6m": 3.9884724924713177,
+  "9m": -14.513908892758142,
+  "y": 1.1484867263854115
+ },
+ "div_yield": 1.0371032774474207,
+ "implied_fcf_growth": 0.0472,
  "metric_scores": {
   "rev_cagr": 101.91129161683182,
   "eps_cagr": 110.0,
@@ -67,5 +76,5 @@
   "fcf_positive": 1,
   "fcf_payout": 19.55040871934605
  },
- "_generated_at": "2026-09-29T02:14:29"
+ "_generated_at": "2026-09-30T01:30:45"
 }

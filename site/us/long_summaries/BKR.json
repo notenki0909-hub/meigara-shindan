@@ -5,9 +5,9 @@
  "gics_sector": "Energy",
  "is_simple": false,
  "is_reit": false,
- "price": 57.119998931884766,
- "price_date": "2026-09-28",
- "mcap": 56701542400,
+ "price": 56.45500183105469,
+ "price_date": "2026-09-29",
+ "mcap": 56041414656,
  "q_score": 99.7,
  "groups": {
   "業績": 92.53893919648222,
@@ -26,23 +26,32 @@
   "gap": -11.874202400058586
  },
  "q_cov": "高",
- "bt_score": 70.2,
+ "bt_score": 70.6,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 84.23260353744652,
-  "fcf_yield": 79.65740125380904,
+  "ev_ebit_vs_sector": 84.14998611295111,
+  "fcf_yield": 80.36012273120778,
   "per_cheap": 72.0,
-  "pbr_cheap": 45.1
+  "pbr_cheap": 45.9
  },
- "ev_ebit": 16.60768692718583,
- "fcf_yield": 4.474305094035678,
+ "ev_ebit": 16.422101393308967,
+ "fcf_yield": 4.527009204840584,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 0.9879647190473428,
- "per_vs_sector": 0.8503037037037037,
- "pbr_vs_sector": 1.4985124736842106,
- "div_yield": 1.6106442878213185,
- "implied_fcf_growth": 0.0922,
+ "ev_ebit_vs_sector": 0.9886876215116778,
+ "per_vs_sector": 0.8513542592592591,
+ "pbr_vs_sector": 1.4810666315789474,
+ "price_chg": {
+  "d": -1.1642106324670665,
+  "w": -1.4058618827723413,
+  "m": -9.541736950676105,
+  "3m": 1.7207240199183627,
+  "6m": -6.962752888715318,
+  "9m": 24.762434985756208,
+  "y": 11.74782525636131
+ },
+ "div_yield": 1.629616455868978,
+ "implied_fcf_growth": 0.0906,
  "metric_scores": {
   "rev_cagr": 107.15882595021785,
   "eps_cagr": null,
@@ -71,5 +80,5 @@
   "fcf_positive": 1,
   "fcf_payout": 35.869136775719355
  },
- "_generated_at": "2026-09-29T02:05:15"
+ "_generated_at": "2026-09-30T01:19:17"
 }
