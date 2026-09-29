@@ -321,20 +321,23 @@ _CHG_PERIODS = (("d", "D"), ("w", "W"), ("m", "M"), ("3m", "3M"), ("6m", "6M"), 
 def _chg_header_cells():
     """騰落率列のth一式。折りたたみ時は「騰落率（展開）」の1列、展開時はD/W/M/3M/
     6M/9M/Yの7列（CSSのdisplay切替のみでDOM上は常に両方存在。JS側のsortTable()が
-    列インデックスをth/tdの位置で数えるため、th/tdは常に同じ並び・同じ個数にする）。"""
+    列インデックスをth/tdの位置で数えるため、th/tdは常に同じ並び・同じ個数にする）。
+    展開後の7列にはsortbtnを付け、既存の汎用sortTable()でソートできるようにする
+    （sortbtn側でe.stopPropagation()するため、展開/折りたたみのクリックとは競合しない）。"""
     return ('<th class="n chgs">騰落率（展開）</th>'
-            + "".join(f'<th class="n chgd">{lab}</th>' for _, lab in _CHG_PERIODS))
+            + "".join(f'<th class="n chgd">{lab}<span class="sortbtn">▼</span></th>' for _, lab in _CHG_PERIODS))
 
 
 def _chg_row_cells(chg):
     """騰落率列のtd一式。折りたたみ時に見える「騰落率（展開）」列は常にD（前回終値比）
-    を表示する。"""
+    を表示する。展開後の7列はdata-vに生値を持たせ、sortTable()のparseFloatで
+    ソートできるようにする。"""
     chg = chg or {}
     d_v = chg.get("d")
     out = f'<td class="n chgs {_chg_cls(d_v)}">{_chg(d_v)}</td>'
     for key, _ in _CHG_PERIODS:
         v = chg.get(key)
-        out += f'<td class="n chgd {_chg_cls(v)}">{_chg(v)}</td>'
+        out += f'<td class="n chgd {_chg_cls(v)}" data-v="{_v(v)}">{_chg(v)}</td>'
     return out
 
 

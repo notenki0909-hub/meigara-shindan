@@ -317,7 +317,7 @@ _CHG_PERIODS = (("d", "D"), ("w", "W"), ("m", "M"), ("3m", "3M"), ("6m", "6M"), 
 
 def _chg_header_cells():
     return ('<th class="n chgs">騰落率（展開）</th>'
-            + "".join(f'<th class="n chgd">{lab}</th>' for _, lab in _CHG_PERIODS))
+            + "".join(f'<th class="n chgd">{lab}<span class="sortbtn">▼</span></th>' for _, lab in _CHG_PERIODS))
 
 
 def _chg_row_cells(chg):
@@ -326,7 +326,7 @@ def _chg_row_cells(chg):
     out = f'<td class="n chgs {_chg_cls(d_v)}">{_chg(d_v)}</td>'
     for key, _ in _CHG_PERIODS:
         v = chg.get(key)
-        out += f'<td class="n chgd {_chg_cls(v)}">{_chg(v)}</td>'
+        out += f'<td class="n chgd {_chg_cls(v)}" data-v="{_v(v)}">{_chg(v)}</td>'
     return out
 
 
