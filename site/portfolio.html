@@ -166,10 +166,11 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
 <div class="priv">保有株数・取得単価・購入日は<b>この端末のブラウザ内（localStorage）だけ</b>に保存され、サーバーには送信されません。銘柄リスト（下の「保有記録」欄）をコピーして他人に渡すと保有内容が伝わるため、共有先にはご注意ください。</div>
 
 <div class="box" id="addbox">
-  <h2>保有銘柄を追加する</h2>
   <div id="addcodes"></div>
   <p class="note">1回の購入ごとに1行として追加してください（同じ銘柄を複数回に分けて買った場合は、そのつど追加すると加重平均取得単価を自動計算します）。<b>取得単価を空欄にすると、購入日の終値を自動で調べて入力します</b>（直近10年分のみ対応。それより前の購入日は手入力してください）。</p>
-  <div class="addrow">
+  <div class="addrow collapsed" id="manualaddrow">
+    <div class="addrow-head"><span class="nm">保有銘柄を追加する</span>
+      <button type="button" class="fold" id="manualaddrow-fold">▼ 開く</button></div>
     <div class="addrow-body">
       <label>証券コード<input class="code" id="in-code" placeholder="9433"></label>
       <label>株数<input class="shares" id="in-shares" type="number" min="1" step="1" placeholder="100"></label>
@@ -405,6 +406,16 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
   $('in-add').addEventListener('click', function(){
     addOneLot($('in-code').value, $('in-shares').value, $('in-price').value, $('in-date').value, true);
   });
+
+  // 「保有銘柄を追加する」行は既定で折りたたみ（ランキングから来た銘柄行と同じ見た目）
+  (function(){
+    var row = $('manualaddrow'), btn = $('manualaddrow-fold');
+    btn.addEventListener('click', function(){
+      var collapsed = !row.classList.contains('collapsed');
+      row.classList.toggle('collapsed', collapsed);
+      btn.textContent = collapsed ? '▼ 開く' : '▲ 折りたたむ';
+    });
+  })();
 
   // ---- 銘柄ごとの日次終値・配当履歴（site/portfolio_data/<code>.json）----
   var pdCache = {};
