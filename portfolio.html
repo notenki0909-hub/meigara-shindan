@@ -1024,7 +1024,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
             + '<span class="lottag">' + (isSell ? '売却' : '購入') + '</span>' + l.date + '　' + l.shares.toLocaleString('ja-JP') + '株　@' + yen(l.price)
             + '　（' + amtPart + '）</div>';
         }).join('');
-        var txform = '<div class="txform" data-code="' + h.code + '" data-type="s" hidden>'
+        var txform = '<div class="addrow txform" data-code="' + h.code + '" data-type="s" hidden>'
           + '<div class="txtypebtns">'
           + '<button type="button" class="txtype active" data-type="s">売却を記録</button>'
           + '<button type="button" class="txtype" data-type="b">買い足しを記録</button>'
