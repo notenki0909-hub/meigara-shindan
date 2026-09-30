@@ -726,7 +726,9 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
           h.hasSell = true;
           var avg = h.shares ? (h.cost / h.shares) : 0;
           var sellShares = Math.min(l.shares, h.shares); // 保有超過分は防御的に無視
-          h.realized += (l.price - avg) * sellShares;
+          var gain = (l.price - avg) * sellShares;
+          l.realized = gain; // このロット（売却）単体の実現損益（表示用）
+          h.realized += gain;
           h.cost -= avg * sellShares;
           h.shares -= sellShares;
         } else {
@@ -1019,9 +1021,13 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
           + '</tr>';
         var lotRows = h.lots.map(function(l){
           var isSell = l.type === 's';
+          var amtPart = isSell
+            ? ('売却額' + dollar(l.shares*l.price) + '、<span class="' + (l.realized >= 0 ? 'pos' : 'neg') + '">'
+                + (l.realized >= 0 ? '利確＋' : '損切－') + dollar(Math.abs(l.realized)) + '</span>')
+            : ('購入額' + dollar(l.shares*l.price));
           return '<div class="lotrow ' + (isSell ? 'txsell' : 'txbuy') + '" data-code="' + h.code + '">'
             + '<span class="lottag">' + (isSell ? '売却' : '購入') + '</span>' + l.date + '　' + l.shares.toLocaleString('ja-JP') + '株　@' + dollar(l.price)
-            + '　（' + (isSell ? '－' : '＋') + dollar(l.shares*l.price) + '）</div>';
+            + '　（' + amtPart + '）</div>';
         }).join('');
         var txform = '<div class="txform" data-code="' + h.code + '" data-type="s" hidden>'
           + '<div class="txtypebtns">'
