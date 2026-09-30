@@ -134,6 +134,19 @@ tr.detail .dnote{margin-top:8px;font-size:11.5px;color:var(--muted)}
 .divhist th:first-child,.divhist td:first-child{text-align:left}
 td.x{width:30px;text-align:center}
 td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--muted);border-color:var(--line);border-radius:6px}
+
+/* ロット内訳の売買記録フォーム */
+tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
+.lotrow{cursor:pointer;border-radius:5px;padding:2px 4px !important;margin:0 -4px}
+.lotrow:hover{background:color-mix(in srgb, var(--accent) 8%, transparent)}
+.lottag{display:inline-block;min-width:3.2em;text-align:center;font-size:10.5px;border-radius:4px;padding:1px 5px;margin-right:2px}
+.txbuy .lottag{background:var(--info);color:var(--accent)}
+.txsell .lottag{background:var(--wbg);color:var(--gC)}
+.txform{margin-top:6px}
+.txform[hidden]{display:none}
+.txtypebtns{display:flex;gap:6px}
+.txtypebtns button.txtype{background:var(--card);color:var(--fg);border-color:var(--line);padding:5px 12px;font-size:12.5px}
+.txtypebtns button.txtype.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>ポートフォリオ</h1><div class="nav"><a href="terms.html">利用規約・免責事項</a><a href="guide.html">使い方・見方</a><a href="index.html">ランキング</a><a href="watchlist.html">ウォッチリスト</a></div></div>
 <div id="theme-bar">
@@ -189,6 +202,7 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
     <div class="stat"><div class="lbl">取得金額合計</div><div class="val" id="st-cost">―</div></div>
     <div class="stat"><div class="lbl">評価額合計</div><div class="val" id="st-value">―</div></div>
     <div class="stat"><div class="lbl">評価損益</div><div class="val" id="st-gain">―</div></div>
+    <div class="stat"><div class="lbl">実現損益（累計）</div><div class="val" id="st-realized">―</div></div>
     <div class="stat"><div class="lbl">予想年間受取配当額</div><div class="val" id="st-div">―</div></div>
   </div>
 </div>
@@ -222,7 +236,7 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
 <div id="missbox"></div>
 <div class="box" id="holdbox" hidden>
   <h2>保有銘柄一覧</h2>
-  <p class="note">行をクリックすると購入ロットの内訳が開きます。</p>
+  <p class="note">行をクリックすると購入ロットの内訳が開きます。内訳の各行をクリックすると、その銘柄の売買を記録できます。</p>
   <div id="holdtable"></div>
 </div>
 
@@ -348,13 +362,14 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
       var shares = parseFloat(p[1]);
       var price = parseFloat(p[2]);
       var date = p[3].trim();
+      var type = (p[4] || 'b').trim().toLowerCase() === 's' ? 's' : 'b';
       if (!isCode(code) || !(shares > 0) || !(price >= 0) || !isDate(date)) return;
-      out.push({code:code, shares:shares, price:price, date:date});
+      out.push({code:code, shares:shares, price:price, date:date, type:type});
     });
     return out;
   }
   function lotsToStr(list){
-    return list.map(function(l){ return l.code+':'+l.shares+':'+l.price+':'+l.date; }).join(';');
+    return list.map(function(l){ return l.code+':'+l.shares+':'+l.price+':'+l.date+':'+(l.type === 's' ? 's' : 'b'); }).join(';');
   }
   function loadLots(){
     try { return parseLots(localStorage.getItem(PF_KEY) || ''); } catch(e) { return []; }
@@ -534,7 +549,7 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
     if (!isDate(date)) { alert('購入日を入力してください。'); return; }
 
     var finish = function(p){
-      lots.push({code:code, shares:shares, price:p, date:date});
+      lots.push({code:code, shares:shares, price:p, date:date, type:'b'});
       persist();
       if (clearInputs) { $('in-code').value=''; $('in-shares').value=''; $('in-price').value=''; $('in-date').value=''; }
       if (onDone) onDone();
@@ -551,6 +566,49 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
       var p = findPriceOnOrBefore(pd.prices || [], date);
       if (p == null) {
         alert('購入日（' + date + '）の終値が見つかりませんでした（データの対象期間外、またはティッカーをご確認ください）。取得単価を入力してください。');
+        return;
+      }
+      finish(p);
+    });
+  }
+
+  // 保有銘柄の「売却」「買い足し」を記録する（ロット内訳クリックで開くフォームから呼ばれる）。
+  // 売却時は移動平均法（総平均法に準ずる方法）に基づく取得費の減算・実現損益の計算をaggregate()側で行うため、
+  // ここでは取引記録（1件の売買）をlotsに追加するだけでよい。
+  function currentShares(code){
+    return lots.filter(function(l){ return l.code === code; })
+      .reduce(function(a, l){ return a + (l.type === 's' ? -l.shares : l.shares); }, 0);
+  }
+  function addTransaction(code, type, shares, price, date, onDone){
+    code = (code || '').trim().toUpperCase();
+    type = (type === 's') ? 's' : 'b';
+    shares = parseFloat(shares);
+    date = (date || '').trim();
+    if (!isCode(code)) { alert('ティッカーを確認してください。'); return; }
+    if (!(shares > 0)) { alert('株数は1以上の数値で入力してください。'); return; }
+    if (!isDate(date)) { alert('日付を入力してください。'); return; }
+    if (type === 's') {
+      var held = currentShares(code);
+      if (shares > held) { alert('現在の保有株数（' + held.toLocaleString('ja-JP') + '株）を超える売却は記録できません。'); return; }
+    }
+
+    var finish = function(p){
+      lots.push({code:code, shares:shares, price:p, date:date, type:type});
+      persist();
+      if (onDone) onDone();
+      render();
+    };
+
+    var priceNum = parseFloat(price);
+    if (price !== '' && price != null && !isNaN(priceNum) && priceNum >= 0) {
+      finish(priceNum);
+      return;
+    }
+    // 単価が空欄 → その日の終値を自動取得（直近10年分のみ）
+    loadPD(code).then(function(pd){
+      var p = findPriceOnOrBefore(pd.prices || [], date);
+      if (p == null) {
+        alert((type === 's' ? '売却日' : '購入日') + '（' + date + '）の終値が見つかりませんでした（データの対象期間外、またはティッカーをご確認ください）。単価を入力してください。');
         return;
       }
       finish(p);
@@ -633,7 +691,11 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
     + '評価額やYOC（取得価格に対する配当利回り）を機械計算したものです。銘柄選定／買い時のスコア・軍は公開データを'
     + '機械的なルールで算出した分類であり、特定銘柄の売買を推奨・勧誘するものではありません。運営者は投資助言・代理業の'
     + '登録を受けていません。数値は yfinance 由来で誤り・遅延・欠損があり得ます。保有株数・取得単価・購入日はあなたが'
-    + '入力した情報であり、正確性の検証は行っていません。詳しくは<a href="terms.html">利用規約・免責事項</a>をご確認ください。';
+    + '入力した情報であり、正確性の検証は行っていません。売却を記録した場合の取得費・実現損益は、複数回に分けて購入した'
+    + '株式の取得費を（日本の上場株式の取得費計算方法である）移動平均法（総平均法に準ずる方法）で機械計算した参考値です。'
+    + '米国株の場合、証券会社によっては先入先出法（FIFO）など別の方法で取得費を計算することが一般的であり、実際の値と'
+    + '一致しない場合があります。税務申告用の数値ではありません。実際の損益・取得費は証券会社の取引報告書をご確認ください。'
+    + '詳しくは<a href="terms.html">利用規約・免責事項</a>をご確認ください。';
   $('disc').innerHTML = DISC;
 
   var PALETTE = ['#2563eb','#e8635e','#23a79d','#efa63c','#7cb342','#9b59b6','#e91e8c','#607d8b','#c9a227','#3f51b5','#00897b','#d84315'];
@@ -645,17 +707,33 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
   }
   function pct(v, d){ return (typeof v === 'number' && isFinite(v)) ? v.toFixed(d == null ? 1 : d) + '%' : '―'; }
 
+  // 移動平均法（総平均法に準ずる方法＝国税庁が定める上場株式の取得費計算方法）で
+  // 取引履歴（買い・売り）を日付順にリプレイし、残存株数・残存取得原価・実現損益を求める。
+  // 生データ（lots）は買い・売りの取引ログのまま保持するので、将来FIFO等の別方式に
+  // 切り替える場合もデータ形式の移行は不要（このreplayロジックだけ差し替えればよい）。
   function aggregate(byCode){
-    var m = {};
-    lots.forEach(function(l){
-      if (!m[l.code]) m[l.code] = {code:l.code, shares:0, cost:0, lots:[]};
-      var h = m[l.code];
-      h.shares += l.shares;
-      h.cost += l.shares * l.price;
-      h.lots.push(l);
-    });
-    return Object.keys(m).map(function(c){
-      var h = m[c];
+    var byC = {};
+    lots.forEach(function(l){ (byC[l.code] = byC[l.code] || []).push(l); });
+    return Object.keys(byC).map(function(c){
+      var list = byC[c].slice().sort(function(a, b){
+        if (a.date !== b.date) return a.date < b.date ? -1 : 1;
+        var at = (a.type === 's') ? 1 : 0, bt = (b.type === 's') ? 1 : 0; // 同日は買いを先に処理
+        return at - bt;
+      });
+      var h = {code:c, shares:0, cost:0, realized:0, hasSell:false, lots:list};
+      list.forEach(function(l){
+        if (l.type === 's') {
+          h.hasSell = true;
+          var avg = h.shares ? (h.cost / h.shares) : 0;
+          var sellShares = Math.min(l.shares, h.shares); // 保有超過分は防御的に無視
+          h.realized += (l.price - avg) * sellShares;
+          h.cost -= avg * sellShares;
+          h.shares -= sellShares;
+        } else {
+          h.shares += l.shares;
+          h.cost += l.shares * l.price;
+        }
+      });
       h.avgPrice = h.shares ? (h.cost / h.shares) : 0;
       var s = byCode[c];
       if (s) {
@@ -818,6 +896,26 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
       render();
       return;
     }
+    var txsubmit = e.target.closest('button.tx-submit');
+    if (txsubmit) {
+      var form = txsubmit.closest('.txform');
+      addTransaction(form.dataset.code, form.dataset.type,
+        form.querySelector('.tx-shares').value, form.querySelector('.tx-price').value, form.querySelector('.tx-date').value);
+      return;
+    }
+    var txtype = e.target.closest('button.txtype');
+    if (txtype) {
+      var form2 = txtype.closest('.txform');
+      form2.dataset.type = txtype.dataset.type;
+      form2.querySelectorAll('.txtype').forEach(function(b){ b.classList.toggle('active', b === txtype); });
+      return;
+    }
+    var lotrow = e.target.closest('.lotrow');
+    if (lotrow) {
+      var tf = lotrow.parentNode.querySelector('.txform[data-code="' + lotrow.dataset.code + '"]');
+      if (tf) tf.hidden = !tf.hidden;
+      return;
+    }
     var tr = e.target.closest('tr.hrow');
     if (!tr) return;
     var idx = tr.dataset.idx;
@@ -869,6 +967,8 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
       var valueTotal = found.reduce(function(a,h){ return a + (h.value || 0); }, 0);
       var gainTotal = valueTotal - found.reduce(function(a,h){ return a + h.cost; }, 0);
       var divTotal = found.reduce(function(a,h){ return a + (h.annualDiv || 0); }, 0);
+      var realizedTotal = holdings.reduce(function(a,h){ return a + (h.realized || 0); }, 0);
+      var hasAnySell = holdings.some(function(h){ return h.hasSell; });
 
       $('summarybox').hidden = false;
       $('st-cost').textContent = dollar(costTotal);
@@ -876,6 +976,9 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
       var gainEl = $('st-gain');
       gainEl.textContent = (gainTotal >= 0 ? '+' : '') + dollar(gainTotal);
       gainEl.className = 'val ' + (gainTotal >= 0 ? 'pos' : 'neg');
+      var realizedEl = $('st-realized');
+      realizedEl.textContent = hasAnySell ? ((realizedTotal >= 0 ? '+' : '') + dollar(realizedTotal)) : '―';
+      realizedEl.className = 'val ' + (hasAnySell ? (realizedTotal >= 0 ? 'pos' : 'neg') : '');
       $('st-div').textContent = dollar(divTotal);
 
       if (!found.length) {
@@ -899,6 +1002,7 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
         var yv = (h.yieldPct != null) ? pct(h.yieldPct, 2) : '―';
         var yoc = (h.yoc != null) ? pct(h.yoc, 2) : '―';
         var gainCls = (h.gain != null) ? (h.gain >= 0 ? 'pos' : 'neg') : '';
+        var realizedCls = h.hasSell ? (h.realized >= 0 ? 'pos' : 'neg') : '';
         var main = '<tr class="hrow' + (h.missing ? '' : '') + '" data-idx="' + idx + '">'
           + '<td class="code">' + (h.missing ? h.code : ('<a href="reports/' + h.code + '.html" target="_blank" rel="noopener">' + h.code + '</a>')) + '</td>'
           + '<td>' + (h.name || h.code) + '</td>'
@@ -907,16 +1011,31 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
           + '<td class="n">' + (h.price != null ? dollar(h.price) : '―') + '</td>'
           + '<td class="n">' + (h.value != null ? dollar(h.value) : '―') + '</td>'
           + '<td class="n ' + gainCls + '">' + (h.gain != null ? ((h.gain>=0?'+':'')+dollar(h.gain)+'（'+pct(h.gainPct,1)+'）') : '―') + '</td>'
+          + '<td class="n ' + realizedCls + '">' + (h.hasSell ? ((h.realized>=0?'+':'')+dollar(h.realized)) : '―') + '</td>'
           + '<td class="n">' + yv + '</td>'
           + '<td class="n">' + yoc + '</td>'
           + '<td class="n">' + (h.annualDiv != null ? dollar(h.annualDiv) : '―') + '</td>'
           + '<td class="x"><button type="button" class="del" data-code="' + h.code + '" title="この銘柄の保有記録をすべて削除">✕</button></td>'
           + '</tr>';
         var lotRows = h.lots.map(function(l){
-          return '<div>' + l.date + '　' + l.shares.toLocaleString('ja-JP') + '株　@' + dollar(l.price) + '　（取得額 ' + dollar(l.shares*l.price) + '）</div>';
+          var isSell = l.type === 's';
+          return '<div class="lotrow ' + (isSell ? 'txsell' : 'txbuy') + '" data-code="' + h.code + '">'
+            + '<span class="lottag">' + (isSell ? '売却' : '購入') + '</span>' + l.date + '　' + l.shares.toLocaleString('ja-JP') + '株　@' + dollar(l.price)
+            + '　（' + (isSell ? '－' : '＋') + dollar(l.shares*l.price) + '）</div>';
         }).join('');
-        var detail = '<tr class="detail" data-idx="' + idx + '" hidden><td colspan="10"><div class="lots">'
-          + '<b>購入ロット内訳</b>' + lotRows
+        var txform = '<div class="txform" data-code="' + h.code + '" data-type="s" hidden>'
+          + '<div class="txtypebtns">'
+          + '<button type="button" class="txtype active" data-type="s">売却を記録</button>'
+          + '<button type="button" class="txtype" data-type="b">買い足しを記録</button>'
+          + '</div>'
+          + '<div class="addrow-body">'
+          + '<label>株数<input class="tx-shares" type="number" min="1" step="1" placeholder="100"></label>'
+          + '<label>単価（ドル・空欄で自動取得）<input class="tx-price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
+          + '<label>日付<input class="tx-date" type="date"></label>'
+          + '<button type="button" class="tx-submit">記録する</button>'
+          + '</div></div>';
+        var detail = '<tr class="detail" data-idx="' + idx + '" hidden><td colspan="12"><div class="lots">'
+          + '<b>購入ロット内訳</b><div class="lotnote">行をクリックすると、この銘柄の売買を記録できます。</div>' + lotRows + txform
           + '<div class="divhist" data-code="' + h.code + '"><b>配当推移・受取実績</b>'
           + '<div class="divhist-body">読み込み中…</div></div>'
           + '<div class="dnote">個別銘柄の詳しいレポート（業績・財務・配当推移など）は'
@@ -927,7 +1046,7 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
 
       $('holdtable').innerHTML = '<table><thead><tr>'
         + '<th>ティッカー</th><th>銘柄</th><th class="n">保有株数</th><th class="n">平均取得単価</th><th class="n">現在値</th>'
-        + '<th class="n">評価額</th><th class="n">評価損益</th><th class="n">利回り</th><th class="n">YOC</th><th class="n">予想年間配当</th><th></th>'
+        + '<th class="n">評価額</th><th class="n">評価損益</th><th class="n">実現損益</th><th class="n">利回り</th><th class="n">YOC</th><th class="n">予想年間配当</th><th></th>'
         + '</tr></thead><tbody>' + rows + '</tbody></table>';
 
       persist();
