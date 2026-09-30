@@ -168,8 +168,9 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
 <div class="box" id="addbox">
   <div id="addcodes"></div>
   <p class="note">1回の購入ごとに1行として追加してください（同じ銘柄を複数回に分けて買った場合は、そのつど追加すると加重平均取得単価を自動計算します）。<b>取得単価を空欄にすると、購入日の終値を自動で調べて入力します</b>（直近10年分のみ対応。それより前の購入日は手入力してください）。</p>
-  <div class="addrow collapsed" id="manualaddrow">
-    <div class="addrow-head"><span class="nm">保有銘柄を追加する</span>
+  <h2 id="manualadd-h2" style="cursor:pointer">保有銘柄を追加する<button type="button" class="fold" id="manualadd-toggle" style="margin-left:8px">▼ 開く</button></h2>
+  <div class="addrow collapsed" id="manualaddrow" hidden>
+    <div class="addrow-head"><span class="nm">ティッカーで追加</span>
       <button type="button" class="fold" id="manualaddrow-fold">▼ 開く</button></div>
     <div class="addrow-body">
       <label>ティッカー<input class="code" id="in-code" placeholder="AAPL"></label>
@@ -365,10 +366,13 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
   try {
     pendingAddCodes = (localStorage.getItem(PF_PENDING_KEY) || '').split(',').map(function(s){return s.trim().toUpperCase();}).filter(function(s){return isCode(s);});
   } catch(e) {}
-  // ランキングページから新たに選んだ銘柄（URL）と、前回ページ離脱時にまだ未追加だった
-  // 銘柄（localStorage）を合わせて表示する（重複除去）。ページ移動後も入力フォームが
-  // 残るようにするための永続化。
-  var addCodes = pendingAddCodes.concat(urlAddCodes).filter(function(c, i, arr){ return arr.indexOf(c) === i; });
+  // ランキングページから新たに選んだ銘柄（URL）・前回ページ離脱時にまだ未追加だった
+  // 銘柄（localStorage）・既にポートフォリオへ追加済みの銘柄（lots）をすべて合わせて
+  // 表示する（重複除去）。保有銘柄の追加フォームは、追加した後も消さずに常に
+  // 折りたたみ状態で残し、いつでも同じ銘柄をもう1ロット追加できるようにする。
+  var addCodes = pendingAddCodes.concat(urlAddCodes)
+    .concat(lots.map(function(l){ return l.code; }))
+    .filter(function(c, i, arr){ return arr.indexOf(c) === i; });
 
   function persist(){
     var s = lotsToStr(lots);
@@ -407,13 +411,22 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
     addOneLot($('in-code').value, $('in-shares').value, $('in-price').value, $('in-date').value, true);
   });
 
-  // 「保有銘柄を追加する」行は既定で折りたたみ（ランキングから来た銘柄行と同じ見た目）
+  // 見出し「保有銘柄を追加する」をクリックすると、ティッカーを直接入力する欄を
+  // 折りたたまれた状態で表示する（もう一度押すと隠れる）。表示された行自体も
+  // クリックで開閉できる（ランキングから来た銘柄行と同じ見た目・操作）。
   (function(){
-    var row = $('manualaddrow'), btn = $('manualaddrow-fold');
-    btn.addEventListener('click', function(){
+    var h2 = $('manualadd-h2'), h2btn = $('manualadd-toggle');
+    var row = $('manualaddrow'), rowBtn = $('manualaddrow-fold');
+    h2.addEventListener('click', function(){
+      var show = row.hidden;
+      row.hidden = !show;
+      h2btn.textContent = show ? '▲ 閉じる' : '▼ 開く';
+    });
+    rowBtn.addEventListener('click', function(e){
+      e.stopPropagation();
       var collapsed = !row.classList.contains('collapsed');
       row.classList.toggle('collapsed', collapsed);
-      btn.textContent = collapsed ? '▼ 開く' : '▲ 折りたたむ';
+      rowBtn.textContent = collapsed ? '▼ 開く' : '▲ 折りたたむ';
     });
   })();
 
@@ -531,28 +544,36 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
     });
   }
 
-  // add パラメータで来た銘柄は、専用の入力行を表示（行数が多くなっても良いよう折りたたみ可能）
-  var addRowState = {}; // code -> {collapsed:bool, done:bool}
+  // 銘柄ごとの入力行（ランキングから来た銘柄・保有中の銘柄の両方）。保有銘柄は
+  // 追加した後も行を消さず、常に折りたたみ状態でいつでも追加ロットを入力できる
+  // ようにする。
+  var addRowState = {}; // code -> {collapsed:bool}
   function persistPendingAdd(){
-    // まだ追加(done)していない銘柄だけをlocalStorageへ保存。追加済みの銘柄は
-    // 次回訪問時に再表示させない（保有一覧に載るのでフォームとしては不要）。
-    var pending = addCodes.filter(function(c){ return !(addRowState[c] && addRowState[c].done); });
+    // まだ保有（lots）になっていない銘柄だけをlocalStorageへ保存する。保有済みの
+    // 銘柄は次回訪問時もlotsから自動的に行が復元されるため、二重管理する必要が無い。
+    var heldSet = {};
+    lots.forEach(function(l){ heldSet[l.code] = true; });
+    var pending = addCodes.filter(function(c){ return !heldSet[c]; });
     try {
       if (pending.length) localStorage.setItem(PF_PENDING_KEY, pending.join(','));
       else localStorage.removeItem(PF_PENDING_KEY);
     } catch(e) {}
   }
   function renderAddCodes(byCode){
+    // 今回のセッション中に新規追加された保有銘柄など、addCodesにまだ無い保有銘柄が
+    // あれば追加する。
+    lots.forEach(function(l){
+      if (addCodes.indexOf(l.code) === -1) addCodes.push(l.code);
+    });
     var box = $('addcodes');
     if (!addCodes.length) { box.innerHTML = ''; return; }
-    box.innerHTML = '<p class="note">ランキングでチェックした銘柄です。株数・購入日を入れてください（取得単価は空欄なら購入日の終値を自動取得）。'
-      + '追加すると一覧に即反映されます。'
+    box.innerHTML = '<p class="note">ランキングでチェックした銘柄・保有中の銘柄の入力欄です。株数・購入日を入れてください（取得単価は空欄なら購入日の終値を自動取得）。保有銘柄の欄は追加後も消えず、いつでも追加ロットを入力できます。'
       + '<button type="button" id="addcodes-foldall" class="foldall">すべて折りたたむ</button></p>'
       + addCodes.map(function(c){
         var nm = (byCode && byCode[c]) ? byCode[c].name : c;
-        var st = addRowState[c] || (addRowState[c] = {collapsed:true, done:false});
-        var cls = 'addrow' + (st.collapsed ? ' collapsed' : '') + (st.done ? ' added' : '');
-        var label = c + ' ' + (nm || '') + (st.done ? '（追加済み）' : '');
+        var st = addRowState[c] || (addRowState[c] = {collapsed:true});
+        var cls = 'addrow' + (st.collapsed ? ' collapsed' : '');
+        var label = c + ' ' + (nm || '');
         return '<div class="' + cls + '" data-code="' + c + '">'
           + '<div class="addrow-head"><span class="nm">' + label + '</span>'
           + '<button type="button" class="fold">' + (st.collapsed ? '▼ 開く' : '▲ 折りたたむ') + '</button></div>'
@@ -577,7 +598,7 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
         var pr = row.querySelector('.price').value;
         var dt = row.querySelector('.date').value;
         addOneLot(code, sh, pr, dt, false, function(){
-          addRowState[code].done = true;
+          // 追加後も行は消さず、次の入力に備えて折りたたむだけにする
           addRowState[code].collapsed = true;
         });
       });
@@ -587,7 +608,7 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
       foldAllBtn.addEventListener('click', function(){
         var anyOpen = addCodes.some(function(c){ return !(addRowState[c] && addRowState[c].collapsed); });
         addCodes.forEach(function(c){
-          addRowState[c] = addRowState[c] || {collapsed:false, done:false};
+          addRowState[c] = addRowState[c] || {collapsed:true};
           addRowState[c].collapsed = anyOpen;
         });
         renderAddCodes(byCode);
