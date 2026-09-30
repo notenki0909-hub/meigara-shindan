@@ -163,10 +163,10 @@ td.q,th.q{color:var(--accent)}
 <div class="priv">保有株数・取得単価・購入日は<b>この端末のブラウザ内（localStorage）だけ</b>に保存され、サーバーには送信されません。銘柄リスト（下の「保有記録」欄）をコピーして他人に渡すと保有内容が伝わるため、共有先にはご注意ください。</div>
 
 <div class="box" id="addbox">
-  <h2>保有銘柄を追加する</h2>
-  <div id="addcodes"></div>
-  <p class="note">1回の購入ごとに1行として追加してください（同じ銘柄を複数回に分けて買った場合は、そのつど追加すると加重平均取得単価を自動計算します）。<b>取得単価を空欄にすると、購入日の終値を自動で調べて入力します</b>（直近10年分のみ対応。それより前の購入日は手入力してください）。</p>
-  <div class="addrow">
+  <h2 id="manualadd-h2" style="cursor:pointer">保有銘柄を追加する<button type="button" class="fold" id="manualadd-toggle" style="margin-left:8px">▼ 開く</button></h2>
+  <div class="addrow collapsed" id="manualaddrow" hidden>
+    <div class="addrow-head"><span class="nm">証券コードで追加</span>
+      <button type="button" class="fold" id="manualaddrow-fold">▼ 開く</button></div>
     <div class="addrow-body">
       <label>証券コード<input class="code" id="in-code" placeholder="9433"></label>
       <label>株数<input class="shares" id="in-shares" type="number" min="1" step="1" placeholder="100"></label>
@@ -175,6 +175,9 @@ td.q,th.q{color:var(--accent)}
       <button type="button" id="in-add" style="align-self:flex-end">追加</button>
     </div>
   </div>
+  <p class="note">1回の購入ごとに1行として追加してください（同じ銘柄を複数回に分けて買った場合は、そのつど追加すると加重平均取得単価を自動計算します）。<b>取得単価を空欄にすると、購入日の終値を自動で調べて入力します</b>（直近10年分のみ対応。それより前の購入日は手入力してください）。</p>
+  <h2 id="registered-h2" style="cursor:pointer">登録銘柄の追加入力<button type="button" class="fold" id="registered-toggle" style="margin-left:8px">▲ 閉じる</button></h2>
+  <div id="addcodes"></div>
 </div>
 
 <div class="box" id="summarybox" hidden>
@@ -312,21 +315,7 @@ td.q,th.q{color:var(--accent)}
 })();
 (function(){
   var PF_KEY = 'pf_lots_long';
-  var PF_SEL_KEY = 'pf_sel_codes_long';
-  function unselectCode(code){
-    try {
-      var set = new Set((localStorage.getItem(PF_SEL_KEY) || '').split(',').map(function(s){ return s.trim(); }).filter(Boolean));
-      if (set.delete(code)) localStorage.setItem(PF_SEL_KEY, Array.from(set).join(','));
-    } catch (e) {}
-    // 保有記録を全削除した銘柄は、追加フォーム一覧からもその場で消す
-    // （addCodesはこの関数より後で初期化されるが、実際に呼ばれるのは
-    // ページ読み込み完了後のクリック操作時のみのため参照して問題ない）。
-    if (typeof addCodes !== 'undefined') {
-      var i = addCodes.indexOf(code);
-      if (i !== -1) addCodes.splice(i, 1);
-      delete addRowState[code];
-    }
-  }
+  var PF_PENDING_KEY = 'pf_pending_add_long';
   var $ = function(id){ return document.getElementById(id); };
 
   function isCode(t){ return /^[0-9]{3,4}[A-Z0-9]?$/.test(t); }
@@ -356,25 +345,19 @@ td.q,th.q{color:var(--accent)}
   }
   var lots = loadLots();
 
-  // 「ポートフォリオに追加」の対象銘柄リストはlocalStorage（PF_SEL_KEY）を正とする
-  // （URLの?add=はランキングページからの初回遷移時にpfSave()で同じキーへ書き込み
-  // 済みだが、直接リンクで開かれた場合も拾えるよう念のため合流させる）。こうする
-  // ことで、入力フォームを表示したまま別ページへ移動して戻ってきても、URLの
-  // クエリが失われた状態（ブックマーク・履歴からの再訪問等）でもフォームが残る。
-  function loadSelCodes(){
-    try { return (localStorage.getItem(PF_SEL_KEY) || '').split(',').map(function(s){ return s.trim(); }).filter(Boolean); }
-    catch (e) { return []; }
-  }
-  function saveSelCodes(list){
-    try { localStorage.setItem(PF_SEL_KEY, list.join(',')); } catch (e) {}
-  }
   var params = new URLSearchParams(location.search);
-  var urlCodes = (params.get('add') || '').split(/[^0-9A-Za-z]+/).map(function(s){return s.trim().toUpperCase();}).filter(function(s){return isCode(s);});
-  var addCodes = loadSelCodes().filter(isCode);
-  urlCodes.forEach(function(c){ if (addCodes.indexOf(c) === -1) addCodes.push(c); });
-  // 重複除去
-  addCodes = addCodes.filter(function(c, i){ return addCodes.indexOf(c) === i; });
-  saveSelCodes(addCodes);
+  var urlAddCodes = (params.get('add') || '').split(/[^0-9A-Za-z]+/).map(function(s){return s.trim().toUpperCase();}).filter(function(s){return isCode(s);});
+  var pendingAddCodes = [];
+  try {
+    pendingAddCodes = (localStorage.getItem(PF_PENDING_KEY) || '').split(',').map(function(s){return s.trim().toUpperCase();}).filter(function(s){return isCode(s);});
+  } catch (e) {}
+  // ランキングページから新たに選んだ銘柄（URL）・前回ページ離脱時にまだ未追加だった
+  // 銘柄（localStorage）・既にポートフォリオへ追加済みの銘柄（lots）をすべて合わせて
+  // 表示する（重複除去）。保有銘柄の追加フォームは、追加した後も消さずに常に
+  // 折りたたみ状態で残し、いつでも同じ銘柄をもう1ロット追加できるようにする。
+  var addCodes = pendingAddCodes.concat(urlAddCodes)
+    .concat(lots.map(function(l){ return l.code; }))
+    .filter(function(c, i, arr){ return arr.indexOf(c) === i; });
 
   function persist(){
     var s = lotsToStr(lots);
@@ -404,7 +387,6 @@ td.q,th.q{color:var(--accent)}
   $('clearall').addEventListener('click', function(){
     if (!lots.length) return;
     if (!confirm('保有記録をすべて削除します。よろしいですか？（事前に上の文字列を控えてください）')) return;
-    Array.from(new Set(lots.map(function(l){ return l.code; }))).forEach(unselectCode);
     lots = [];
     persist();
     render();
@@ -413,6 +395,37 @@ td.q,th.q{color:var(--accent)}
   $('in-add').addEventListener('click', function(){
     addOneLot($('in-code').value, $('in-shares').value, $('in-price').value, $('in-date').value, true);
   });
+
+  // 見出し「保有銘柄を追加する」をクリックすると、証券コードを直接入力する欄を
+  // 折りたたまれた状態で表示する（もう一度押すと隠れる）。表示された行自体も
+  // クリックで開閉できる（ランキングから来た銘柄行と同じ見た目・操作）。
+  (function(){
+    var h2 = $('manualadd-h2'), h2btn = $('manualadd-toggle');
+    var row = $('manualaddrow'), rowBtn = $('manualaddrow-fold');
+    h2.addEventListener('click', function(){
+      var show = row.hidden;
+      row.hidden = !show;
+      h2btn.textContent = show ? '▲ 閉じる' : '▼ 開く';
+    });
+    rowBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var collapsed = !row.classList.contains('collapsed');
+      row.classList.toggle('collapsed', collapsed);
+      rowBtn.textContent = collapsed ? '▼ 開く' : '▲ 折りたたむ';
+    });
+  })();
+
+  // 見出し「登録銘柄の追加入力」をクリックすると、銘柄ごとの折りたたみ行の一覧
+  // （#addcodes）全体を見出しだけの表示まで隠す（既定は表示・各行は個別に折りたたみ済み）。
+  (function(){
+    var h2 = $('registered-h2'), h2btn = $('registered-toggle');
+    var box = $('addcodes');
+    h2.addEventListener('click', function(){
+      var show = box.hidden;
+      box.hidden = !show;
+      h2btn.textContent = show ? '▲ 閉じる' : '▼ 開く';
+    });
+  })();
 
   // ---- 銘柄ごとの日次終値（site/long/portfolio_data/<code>.json、取得単価の自動補完用）----
   var pdCache = {};
@@ -464,23 +477,36 @@ td.q,th.q{color:var(--accent)}
     });
   }
 
-  // add パラメータで来た銘柄は、専用の入力行を表示（行数が多くなっても良いよう折りたたみ可能）。
-  // デフォルトは折りたたみ状態（collapsed:true）。「追加済み」表示はlots（永続化済み）
-  // から動的に判定するため、addRowStateにはcollapsedのみ持たせる（ページ再訪問の
-  // たびに正しい状態を再現できる）。
+  // 銘柄ごとの入力行（ランキングから来た銘柄・保有中の銘柄の両方）。保有銘柄は
+  // 追加した後も行を消さず、常に折りたたみ状態でいつでも追加ロットを入力できる
+  // ようにする。
   var addRowState = {}; // code -> {collapsed:bool}
+  function persistPendingAdd(){
+    // まだ保有（lots）になっていない銘柄だけをlocalStorageへ保存する。保有済みの
+    // 銘柄は次回訪問時もlotsから自動的に行が復元されるため、二重管理する必要が無い。
+    var heldSet = {};
+    lots.forEach(function(l){ heldSet[l.code] = true; });
+    var pending = addCodes.filter(function(c){ return !heldSet[c]; });
+    try {
+      if (pending.length) localStorage.setItem(PF_PENDING_KEY, pending.join(','));
+      else localStorage.removeItem(PF_PENDING_KEY);
+    } catch (e) {}
+  }
   function renderAddCodes(byCode){
+    // 今回のセッション中に新規追加された保有銘柄など、addCodesにまだ無い保有銘柄が
+    // あれば追加する。
+    lots.forEach(function(l){
+      if (addCodes.indexOf(l.code) === -1) addCodes.push(l.code);
+    });
     var box = $('addcodes');
     if (!addCodes.length) { box.innerHTML = ''; return; }
-    box.innerHTML = '<p class="note">ランキングでチェックした銘柄です。株数・購入日を入れてください（取得単価は空欄なら購入日の終値を自動取得）。'
-      + '追加すると一覧に即反映されます。'
+    box.innerHTML = '<p class="note">ランキングでチェックした銘柄・保有中の銘柄の入力欄です。株数・購入日を入れてください（取得単価は空欄なら購入日の終値を自動取得）。保有銘柄の欄は追加後も消えず、いつでも追加ロットを入力できます。'
       + '<button type="button" id="addcodes-foldall" class="foldall">すべて折りたたむ</button></p>'
       + addCodes.map(function(c){
         var nm = (byCode && byCode[c]) ? byCode[c].name : c;
         var st = addRowState[c] || (addRowState[c] = {collapsed:true});
-        var done = lots.some(function(l){ return l.code === c; });
-        var cls = 'addrow' + (st.collapsed ? ' collapsed' : '') + (done ? ' added' : '');
-        var label = c + ' ' + (nm || '') + (done ? '（追加済み）' : '');
+        var cls = 'addrow' + (st.collapsed ? ' collapsed' : '');
+        var label = c + ' ' + (nm || '');
         return '<div class="' + cls + '" data-code="' + c + '">'
           + '<div class="addrow-head"><span class="nm">' + label + '</span>'
           + '<button type="button" class="fold">' + (st.collapsed ? '▼ 開く' : '▲ 折りたたむ') + '</button></div>'
@@ -628,7 +654,6 @@ td.q,th.q{color:var(--accent)}
     if (del) {
       if (!confirm(del.dataset.code + ' の保有記録をすべて削除します。よろしいですか？')) return;
       lots = lots.filter(function(l){ return l.code !== del.dataset.code; });
-      unselectCode(del.dataset.code);
       persist();
       render();
       return;
@@ -651,6 +676,7 @@ td.q,th.q{color:var(--accent)}
       (j.excluded || []).forEach(function(s){ byCode[String(s.code)] = s; });
 
       renderAddCodes(byCode);
+      persistPendingAdd();
       $('codestr').value = lotsToStr(lots);
 
       if (!lots.length) {
