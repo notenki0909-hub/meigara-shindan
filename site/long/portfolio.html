@@ -318,6 +318,14 @@ td.q,th.q{color:var(--accent)}
       var set = new Set((localStorage.getItem(PF_SEL_KEY) || '').split(',').map(function(s){ return s.trim(); }).filter(Boolean));
       if (set.delete(code)) localStorage.setItem(PF_SEL_KEY, Array.from(set).join(','));
     } catch (e) {}
+    // 保有記録を全削除した銘柄は、追加フォーム一覧からもその場で消す
+    // （addCodesはこの関数より後で初期化されるが、実際に呼ばれるのは
+    // ページ読み込み完了後のクリック操作時のみのため参照して問題ない）。
+    if (typeof addCodes !== 'undefined') {
+      var i = addCodes.indexOf(code);
+      if (i !== -1) addCodes.splice(i, 1);
+      delete addRowState[code];
+    }
   }
   var $ = function(id){ return document.getElementById(id); };
 
@@ -348,10 +356,25 @@ td.q,th.q{color:var(--accent)}
   }
   var lots = loadLots();
 
+  // 「ポートフォリオに追加」の対象銘柄リストはlocalStorage（PF_SEL_KEY）を正とする
+  // （URLの?add=はランキングページからの初回遷移時にpfSave()で同じキーへ書き込み
+  // 済みだが、直接リンクで開かれた場合も拾えるよう念のため合流させる）。こうする
+  // ことで、入力フォームを表示したまま別ページへ移動して戻ってきても、URLの
+  // クエリが失われた状態（ブックマーク・履歴からの再訪問等）でもフォームが残る。
+  function loadSelCodes(){
+    try { return (localStorage.getItem(PF_SEL_KEY) || '').split(',').map(function(s){ return s.trim(); }).filter(Boolean); }
+    catch (e) { return []; }
+  }
+  function saveSelCodes(list){
+    try { localStorage.setItem(PF_SEL_KEY, list.join(',')); } catch (e) {}
+  }
   var params = new URLSearchParams(location.search);
-  var addCodes = (params.get('add') || '').split(/[^0-9A-Za-z]+/).map(function(s){return s.trim().toUpperCase();}).filter(function(s){return isCode(s);});
+  var urlCodes = (params.get('add') || '').split(/[^0-9A-Za-z]+/).map(function(s){return s.trim().toUpperCase();}).filter(function(s){return isCode(s);});
+  var addCodes = loadSelCodes().filter(isCode);
+  urlCodes.forEach(function(c){ if (addCodes.indexOf(c) === -1) addCodes.push(c); });
   // 重複除去
   addCodes = addCodes.filter(function(c, i){ return addCodes.indexOf(c) === i; });
+  saveSelCodes(addCodes);
 
   function persist(){
     var s = lotsToStr(lots);
@@ -441,8 +464,11 @@ td.q,th.q{color:var(--accent)}
     });
   }
 
-  // add パラメータで来た銘柄は、専用の入力行を表示（行数が多くなっても良いよう折りたたみ可能）
-  var addRowState = {}; // code -> {collapsed:bool, done:bool}
+  // add パラメータで来た銘柄は、専用の入力行を表示（行数が多くなっても良いよう折りたたみ可能）。
+  // デフォルトは折りたたみ状態（collapsed:true）。「追加済み」表示はlots（永続化済み）
+  // から動的に判定するため、addRowStateにはcollapsedのみ持たせる（ページ再訪問の
+  // たびに正しい状態を再現できる）。
+  var addRowState = {}; // code -> {collapsed:bool}
   function renderAddCodes(byCode){
     var box = $('addcodes');
     if (!addCodes.length) { box.innerHTML = ''; return; }
@@ -451,9 +477,10 @@ td.q,th.q{color:var(--accent)}
       + '<button type="button" id="addcodes-foldall" class="foldall">すべて折りたたむ</button></p>'
       + addCodes.map(function(c){
         var nm = (byCode && byCode[c]) ? byCode[c].name : c;
-        var st = addRowState[c] || (addRowState[c] = {collapsed:false, done:false});
-        var cls = 'addrow' + (st.collapsed ? ' collapsed' : '') + (st.done ? ' added' : '');
-        var label = c + ' ' + (nm || '') + (st.done ? '（追加済み）' : '');
+        var st = addRowState[c] || (addRowState[c] = {collapsed:true});
+        var done = lots.some(function(l){ return l.code === c; });
+        var cls = 'addrow' + (st.collapsed ? ' collapsed' : '') + (done ? ' added' : '');
+        var label = c + ' ' + (nm || '') + (done ? '（追加済み）' : '');
         return '<div class="' + cls + '" data-code="' + c + '">'
           + '<div class="addrow-head"><span class="nm">' + label + '</span>'
           + '<button type="button" class="fold">' + (st.collapsed ? '▼ 開く' : '▲ 折りたたむ') + '</button></div>'
@@ -478,7 +505,6 @@ td.q,th.q{color:var(--accent)}
         var pr = row.querySelector('.price').value;
         var dt = row.querySelector('.date').value;
         addOneLot(code, sh, pr, dt, false, function(){
-          addRowState[code].done = true;
           addRowState[code].collapsed = true;
         });
       });
@@ -488,7 +514,7 @@ td.q,th.q{color:var(--accent)}
       foldAllBtn.addEventListener('click', function(){
         var anyOpen = addCodes.some(function(c){ return !(addRowState[c] && addRowState[c].collapsed); });
         addCodes.forEach(function(c){
-          addRowState[c] = addRowState[c] || {collapsed:false, done:false};
+          addRowState[c] = addRowState[c] || {collapsed:true};
           addRowState[c].collapsed = anyOpen;
         });
         renderAddCodes(byCode);
