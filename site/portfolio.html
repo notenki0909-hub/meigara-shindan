@@ -166,8 +166,6 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
 <div class="priv">保有株数・取得単価・購入日は<b>この端末のブラウザ内（localStorage）だけ</b>に保存され、サーバーには送信されません。銘柄リスト（下の「保有記録」欄）をコピーして他人に渡すと保有内容が伝わるため、共有先にはご注意ください。</div>
 
 <div class="box" id="addbox">
-  <div id="addcodes"></div>
-  <p class="note">1回の購入ごとに1行として追加してください（同じ銘柄を複数回に分けて買った場合は、そのつど追加すると加重平均取得単価を自動計算します）。<b>取得単価を空欄にすると、購入日の終値を自動で調べて入力します</b>（直近10年分のみ対応。それより前の購入日は手入力してください）。</p>
   <h2 id="manualadd-h2" style="cursor:pointer">保有銘柄を追加する<button type="button" class="fold" id="manualadd-toggle" style="margin-left:8px">▼ 開く</button></h2>
   <div class="addrow collapsed" id="manualaddrow" hidden>
     <div class="addrow-head"><span class="nm">証券コードで追加</span>
@@ -180,6 +178,9 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
       <button type="button" id="in-add" style="align-self:flex-end">追加</button>
     </div>
   </div>
+  <p class="note">1回の購入ごとに1行として追加してください（同じ銘柄を複数回に分けて買った場合は、そのつど追加すると加重平均取得単価を自動計算します）。<b>取得単価を空欄にすると、購入日の終値を自動で調べて入力します</b>（直近10年分のみ対応。それより前の購入日は手入力してください）。</p>
+  <h2 id="registered-h2" style="cursor:pointer">登録銘柄の追加入力<button type="button" class="fold" id="registered-toggle" style="margin-left:8px">▲ 閉じる</button></h2>
+  <div id="addcodes"></div>
 </div>
 
 <div class="box" id="summarybox" hidden>
@@ -427,6 +428,18 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
       var collapsed = !row.classList.contains('collapsed');
       row.classList.toggle('collapsed', collapsed);
       rowBtn.textContent = collapsed ? '▼ 開く' : '▲ 折りたたむ';
+    });
+  })();
+
+  // 見出し「登録銘柄の追加入力」をクリックすると、銘柄ごとの折りたたみ行の一覧
+  // （#addcodes）全体を見出しだけの表示まで隠す（既定は表示・各行は個別に折りたたみ済み）。
+  (function(){
+    var h2 = $('registered-h2'), h2btn = $('registered-toggle');
+    var box = $('addcodes');
+    h2.addEventListener('click', function(){
+      var show = box.hidden;
+      box.hidden = !show;
+      h2btn.textContent = show ? '▲ 閉じる' : '▼ 開く';
     });
   })();
 
