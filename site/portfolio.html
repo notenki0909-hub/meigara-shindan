@@ -873,6 +873,9 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
 
   // 表示中の保有銘柄（円グラフ用）。render() のたびに更新される。
   var lastFound = [];
+  // 展開中（購入ロット内訳を開いている）銘柄コード。売買記録の送信で
+  // render() が全体を再描画しても、開いていた行が閉じないように保持する。
+  var openDetail = {};
   document.querySelectorAll('.dimbtn').forEach(function(b){
     b.addEventListener('click', function(){
       document.querySelectorAll('.dimbtn').forEach(function(x){ x.classList.remove('active'); });
@@ -919,6 +922,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
     var d = $('holdtable').querySelector('tr.detail[data-idx="' + idx + '"]');
     if (!d) return;
     d.hidden = !d.hidden;
+    openDetail[tr.dataset.code] = !d.hidden;
     if (!d.hidden) {
       var dh = d.querySelector('.divhist');
       if (dh) renderDivHist(dh.dataset.code, dh.querySelector('.divhist-body'));
@@ -1000,7 +1004,8 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
         var yoc = (h.yoc != null) ? pct(h.yoc, 2) : '―';
         var gainCls = (h.gain != null) ? (h.gain >= 0 ? 'pos' : 'neg') : '';
         var realizedCls = h.hasSell ? (h.realized >= 0 ? 'pos' : 'neg') : '';
-        var main = '<tr class="hrow' + (h.missing ? '' : '') + '" data-idx="' + idx + '">'
+        var isOpen = !!openDetail[h.code];
+        var main = '<tr class="hrow' + (h.missing ? '' : '') + '" data-idx="' + idx + '" data-code="' + h.code + '">'
           + '<td class="code">' + (h.missing ? h.code : ('<a href="reports/' + h.code + '.html" target="_blank" rel="noopener">' + h.code + '</a>')) + '</td>'
           + '<td>' + (h.name || h.code) + '</td>'
           + '<td class="n">' + h.shares.toLocaleString('ja-JP') + '株</td>'
@@ -1035,7 +1040,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
           + '<label>日付<input class="tx-date" type="date"></label>'
           + '<button type="button" class="tx-submit">記録する</button>'
           + '</div></div>';
-        var detail = '<tr class="detail" data-idx="' + idx + '" hidden><td colspan="12"><div class="lots">'
+        var detail = '<tr class="detail" data-idx="' + idx + '"' + (isOpen ? '' : ' hidden') + '><td colspan="12"><div class="lots">'
           + '<b>購入ロット内訳</b><div class="lotnote">行をクリックすると、この銘柄の売買を記録できます。取得費・実現損益は移動平均法（総平均法に準ずる方法）で計算した参考値です。正確な損益は証券会社の取引履歴でご確認ください。</div>' + lotRows + txform
           + '<div class="divhist" data-code="' + h.code + '"><b>配当推移・受取実績</b>'
           + '<div class="divhist-body">読み込み中…</div></div>'
@@ -1049,6 +1054,12 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
         + '<th>コード</th><th>銘柄</th><th class="n">保有株数</th><th class="n">平均取得単価</th><th class="n">現在値</th>'
         + '<th class="n">評価額</th><th class="n">評価損益</th><th class="n">実現損益</th><th class="n">利回り</th><th class="n">YOC</th><th class="n">予想年間配当</th><th></th>'
         + '</tr></thead><tbody>' + rows + '</tbody></table>';
+
+      // 展開状態を保ったまま再描画した行は、クリック時ハンドラを経由しないため
+      // ここで配当推移・受取実績の遅延読み込みを行う。
+      $('holdtable').querySelectorAll('tr.detail:not([hidden]) .divhist').forEach(function(dh){
+        renderDivHist(dh.dataset.code, dh.querySelector('.divhist-body'));
+      });
 
       persist();
     }).catch(function(){
