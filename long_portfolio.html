@@ -147,6 +147,15 @@ td.q,th.q{color:var(--accent)}
 .txform input.price{width:7em}
 .txform input.date{width:9.5em}
 .txform label{font-size:11px;color:var(--muted);display:flex;flex-direction:column;gap:2px}
+.newtx-btn{background:var(--card);color:var(--accent);border:1px solid var(--accent);border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer;margin:8px 0}
+.editform{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+.editform .eftitle{font-weight:700;margin:0 0 6px}
+.editform .addrow-body{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.editform input{padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);font-size:13px}
+.editform input.efshares{width:6em}
+.editform input.efprice{width:7em}
+.editform input.efdate{width:9.5em}
+.editform label{font-size:11px;color:var(--muted);display:flex;flex-direction:column;gap:2px}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>ポートフォリオ</h1><div class="nav"><a href="terms.html">利用規約・免責事項</a><a href="guide.html">使い方・見方</a><a href="index.html">ランキング</a><a href="watchlist.html">ウォッチリスト</a></div></div>
 <div id="theme-bar">
@@ -384,8 +393,16 @@ td.q,th.q{color:var(--accent)}
     });
     return {shares:shares, cost:cost, realized:realized, sorted:sorted};
   }
-  function currentShares(code){
-    return computeReplay(lots.filter(function(l){ return l.code === code; })).shares;
+  // 指定コードの、指定日付「時点」の保有株数（それより後の取引は含めない）。
+  // excludeGidx を渡すと、そのグローバルインデックスの取引自身を除いて計算する
+  // （修正フォームで「自分自身」を保有数チェックに含めないようにするため）。
+  function sharesHeldAt(code, date, excludeGidx){
+    var codeLots = [];
+    lots.forEach(function(l, gidx){
+      if (l.code !== code || gidx === excludeGidx || l.date > date) return;
+      codeLots.push(l);
+    });
+    return computeReplay(codeLots).shares;
   }
   function loadLots(){
     try { return parseLots(localStorage.getItem(PF_KEY) || ''); } catch(e) { return []; }
@@ -492,6 +509,17 @@ td.q,th.q{color:var(--accent)}
     return best;
   }
 
+  // 単価が空欄なら、その日の終値を自動取得（直近10年分のみ）。指定済みならそのまま使う。
+  function resolvePrice(code, date, price){
+    var priceNum = parseFloat(price);
+    if (price !== '' && price != null && !isNaN(priceNum) && priceNum >= 0) {
+      return Promise.resolve(priceNum);
+    }
+    return loadPD(code).then(function(pd){
+      return findPriceOnOrBefore(pd.prices || [], date);
+    });
+  }
+
   function addOneLot(code, shares, price, date, type, clearInputs, onDone){
     code = (code || '').trim().toUpperCase();
     shares = parseFloat(shares);
@@ -501,32 +529,54 @@ td.q,th.q{color:var(--accent)}
     if (!(shares > 0)) { alert('株数は1以上の数値で入力してください。'); return; }
     if (!isDate(date)) { alert((type==='s'?'売却日':'購入日') + 'を入力してください。'); return; }
     if (type === 's') {
-      var cur = currentShares(code);
-      if (shares > cur) { alert('保有株数（' + cur.toLocaleString('ja-JP') + '株）を超える売却数は入力できません。'); return; }
+      var cur = sharesHeldAt(code, date);
+      if (shares > cur) { alert('売却できる保有株がありません（' + date + '時点の保有株数：' + cur.toLocaleString('ja-JP') + '株）。日付をご確認ください。'); return; }
     }
 
-    var finish = function(p){
+    resolvePrice(code, date, price).then(function(p){
+      if (p == null) {
+        alert((type==='s'?'売却日':'購入日') + '（' + date + '）の終値が見つかりませんでした（データの対象期間外、または銘柄コードをご確認ください）。単価を入力してください。');
+        return;
+      }
       lots.push({code:code, shares:shares, price:p, date:date, type:type});
       persist();
       if (clearInputs) { $('in-code').value=''; $('in-shares').value=''; $('in-price').value=''; $('in-date').value=''; }
       if (onDone) onDone();
       render();
-    };
+    });
+  }
 
-    var priceNum = parseFloat(price);
-    if (price !== '' && price != null && !isNaN(priceNum) && priceNum >= 0) {
-      finish(priceNum);
-      return;
+  // 既存の取引記録（グローバルインデックス gidx で識別）の修正。種別（買い/売り）は
+  // 記録の意味を変えないため変更不可（株数・単価・日付のみ）。
+  function updateLot(gidx, shares, price, date){
+    var l = lots[gidx];
+    if (!l) return;
+    shares = parseFloat(shares);
+    date = (date || '').trim();
+    if (!(shares > 0)) { alert('株数は1以上の数値で入力してください。'); return; }
+    if (!isDate(date)) { alert((l.type==='s'?'売却日':'購入日') + 'を入力してください。'); return; }
+    if (l.type === 's') {
+      var cur = sharesHeldAt(l.code, date, gidx);
+      if (shares > cur) { alert('売却できる保有株がありません（' + date + '時点の保有株数：' + cur.toLocaleString('ja-JP') + '株）。日付をご確認ください。'); return; }
     }
-    // 単価が空欄 → その日の終値を自動取得（直近10年分のみ）
-    loadPD(code).then(function(pd){
-      var p = findPriceOnOrBefore(pd.prices || [], date);
+    resolvePrice(l.code, date, price).then(function(p){
       if (p == null) {
-        alert((type==='s'?'売却日':'購入日') + '（' + date + '）の終値が見つかりませんでした（データの対象期間外、または銘柄コードをご確認ください）。単価を入力してください。');
+        alert((l.type==='s'?'売却日':'購入日') + '（' + date + '）の終値が見つかりませんでした（データの対象期間外、または銘柄コードをご確認ください）。単価を入力してください。');
         return;
       }
-      finish(p);
+      lots[gidx] = {code:l.code, shares:shares, price:p, date:date, type:l.type};
+      persist();
+      render();
     });
+  }
+
+  function deleteLot(gidx){
+    var l = lots[gidx];
+    if (!l) return;
+    if (!confirm(l.date + 'の記録（' + (l.type==='s'?'売却':'購入') + ' ' + l.shares.toLocaleString('ja-JP') + '株）を削除します。よろしいですか？')) return;
+    lots.splice(gidx, 1);
+    persist();
+    render();
   }
 
   // 銘柄ごとの入力行（ランキングから来た銘柄・保有中の銘柄の両方）。保有銘柄は
@@ -626,7 +676,7 @@ td.q,th.q{color:var(--accent)}
     } else {
       amtTxt = '（購入額' + yen(amt) + '）';
     }
-    return '<div class="lotrow" data-code="' + l.code + '">'
+    return '<div class="lotrow" data-code="' + l.code + '" data-gidx="' + lots.indexOf(l) + '">'
       + '<span class="txbadge ' + (isSell ? 'sell' : 'buy') + '">' + (isSell ? '売却' : '購入') + '</span> '
       + l.date + '　' + l.shares.toLocaleString('ja-JP') + '株　@' + yen(l.price) + '　' + amtTxt
       + '</div>';
@@ -713,6 +763,9 @@ td.q,th.q{color:var(--accent)}
 
   // 表示中の保有銘柄（円グラフ用）。render() のたびに更新される。
   var lastFound = [];
+  // コードごとの「購入ロット内訳」展開状態。render()は#holdtable全体を作り直すため、
+  // これが無いと記録の追加・修正・削除のたびに展開状態が失われてしまう。
+  var openDetail = {};
   document.querySelectorAll('.dimbtn').forEach(function(b){
     b.addEventListener('click', function(){
       document.querySelectorAll('.dimbtn').forEach(function(x){ x.classList.remove('active'); });
@@ -734,10 +787,13 @@ td.q,th.q{color:var(--accent)}
       return;
     }
 
-    var lotrow = e.target.closest('.lotrow');
-    if (lotrow) {
-      var form = $('holdtable').querySelector('.txform[data-code="' + lotrow.dataset.code + '"]');
-      if (form) form.hidden = !form.hidden;
+    var newtxBtn = e.target.closest('.newtx-btn');
+    if (newtxBtn) {
+      var ntCode = newtxBtn.dataset.code;
+      var ntEdf = $('holdtable').querySelector('.editform[data-code="' + ntCode + '"]');
+      if (ntEdf) ntEdf.hidden = true;
+      var ntForm = $('holdtable').querySelector('.txform[data-code="' + ntCode + '"]');
+      if (ntForm) ntForm.hidden = !ntForm.hidden;
       return;
     }
 
@@ -761,12 +817,55 @@ td.q,th.q{color:var(--accent)}
       return;
     }
 
+    var lotrow = e.target.closest('.lotrow');
+    if (lotrow) {
+      var lrCode = lotrow.dataset.code;
+      var lrGidx = parseInt(lotrow.dataset.gidx, 10);
+      var edf = $('holdtable').querySelector('.editform[data-code="' + lrCode + '"]');
+      if (!edf) return;
+      if (!edf.hidden && parseInt(edf.dataset.gidx, 10) === lrGidx) {
+        edf.hidden = true;
+        return;
+      }
+      var l = lots[lrGidx];
+      if (!l) return;
+      var lrForm = $('holdtable').querySelector('.txform[data-code="' + lrCode + '"]');
+      if (lrForm) lrForm.hidden = true;
+      edf.dataset.gidx = lrGidx;
+      edf.querySelector('.efshares').value = l.shares;
+      edf.querySelector('.efprice').value = l.price;
+      edf.querySelector('.efdate').value = l.date;
+      edf.querySelector('.eftitle').textContent = (l.type === 's' ? '売却記録の修正' : '購入記録の修正');
+      edf.hidden = false;
+      return;
+    }
+
+    var editSubmit = e.target.closest('.editsubmit');
+    if (editSubmit) {
+      var edf2 = editSubmit.closest('.editform');
+      var gidx2 = parseInt(edf2.dataset.gidx, 10);
+      var sh2 = edf2.querySelector('.efshares').value;
+      var pr2 = edf2.querySelector('.efprice').value;
+      var dt2 = edf2.querySelector('.efdate').value;
+      updateLot(gidx2, sh2, pr2, dt2);
+      return;
+    }
+
+    var editDelete = e.target.closest('.editdelete');
+    if (editDelete) {
+      var edf3 = editDelete.closest('.editform');
+      var gidx3 = parseInt(edf3.dataset.gidx, 10);
+      deleteLot(gidx3);
+      return;
+    }
+
     var tr = e.target.closest('tr.hrow');
     if (!tr) return;
     var idx = tr.dataset.idx;
     var d = $('holdtable').querySelector('tr.detail[data-idx="' + idx + '"]');
     if (!d) return;
     d.hidden = !d.hidden;
+    openDetail[d.dataset.code] = !d.hidden;
   });
 
   function render(){
@@ -840,10 +939,11 @@ td.q,th.q{color:var(--accent)}
           + '<td class="x"><button type="button" class="del" data-code="' + h.code + '" title="この銘柄の保有記録をすべて削除">✕</button></td>'
           + '</tr>';
         var lotRows = h.lots.map(fmtLotLine).join('');
-        var detail = '<tr class="detail" data-idx="' + idx + '" hidden><td colspan="11"><div class="lots">'
+        var detHidden = openDetail[h.code] ? '' : ' hidden';
+        var detail = '<tr class="detail" data-idx="' + idx + '" data-code="' + h.code + '"' + detHidden + '><td colspan="11"><div class="lots">'
           + '<b>購入ロット内訳</b>'
-          + '<p class="note" style="margin:4px 0 8px">行をクリックすると、この銘柄の売買を記録できます。取得費・実現損益は「総平均法に準ずる方法（移動平均法）」で計算しています（国税庁の定める上場株式の取得費計算方法）。</p>'
-          + lotRows
+          + '<p class="note" style="margin:4px 0 8px">各記録をクリックすると修正・削除できます。新しい買付・売却は「＋新規買付・売却を記録」ボタンから追加できます。取得費・実現損益は「総平均法に準ずる方法（移動平均法）」で計算した参考値です（国税庁の定める上場株式の取得費計算方法）。正確な損益は証券会社の取引履歴でご確認ください。</p>'
+          + '<button type="button" class="newtx-btn" data-code="' + h.code + '">＋ 新規買付・売却を記録</button>'
           + '<div class="txform" data-code="' + h.code + '" hidden>'
           + '<div class="txmodebtns">'
           + '<button type="button" class="txmode sell active" data-mode="s">売却を記録</button>'
@@ -854,6 +954,16 @@ td.q,th.q{color:var(--accent)}
           + '<label>単価（円・空欄で自動取得）<input class="price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
           + '<label>日付<input class="date" type="date"></label>'
           + '<button type="button" class="txsubmit">記録する</button>'
+          + '</div></div>'
+          + lotRows
+          + '<div class="editform" data-code="' + h.code + '" hidden>'
+          + '<p class="eftitle"></p>'
+          + '<div class="addrow-body">'
+          + '<label>株数<input class="efshares" type="number" min="1" step="1"></label>'
+          + '<label>単価（円・空欄で自動取得）<input class="efprice" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
+          + '<label>日付<input class="efdate" type="date"></label>'
+          + '<button type="button" class="editsubmit">修正する</button>'
+          + '<button type="button" class="editdelete ghost">削除する</button>'
           + '</div></div>'
           + '<div class="dnote">個別銘柄の詳しいレポート（業績・財務・品質/買い時の内訳など）は'
           + (h.missing ? 'コードをご確認ください。' : ('<a href="reports/' + h.code + '.html" target="_blank" rel="noopener">こちら</a>でご覧いただけます。'))
