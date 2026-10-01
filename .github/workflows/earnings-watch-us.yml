@@ -15,7 +15,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: earnings-watch-us
+  group: meigara-dividend-git-push
   cancel-in-progress: false
 
 jobs:
@@ -43,5 +43,24 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add pending_earnings_us.json site/us
-          git diff --cached --quiet || git commit -m "chore(earnings-us): watch $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
-          git push
+          if git diff --cached --quiet; then
+            echo "変更なし"
+            exit 0
+          fi
+          git commit -m "chore(earnings-us): watch $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          n=0
+          until git push; do
+            n=$((n+1))
+            if [ "$n" -ge 5 ]; then
+              echo "::error::pushが${n}回失敗しました"
+              exit 1
+            fi
+            echo "pushが拒否されました。取り込んで再試行します（${n}/5）"
+            sleep $((RANDOM % 10 + 5))
+            git fetch origin main
+            if ! git rebase origin/main; then
+              echo "::error::rebaseで競合が発生しました"
+              git rebase --abort
+              exit 1
+            fi
+          done
