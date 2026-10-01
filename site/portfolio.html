@@ -151,6 +151,7 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
 
 /* ロット内訳の売買記録フォーム */
 tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
+.lotyield{color:var(--muted);font-size:11px}
 .lotrow{cursor:pointer;border-radius:5px;padding:2px 4px !important;margin:0 -4px}
 .lotrow:hover{background:color-mix(in srgb, var(--accent) 8%, transparent)}
 .lottag{display:inline-block;min-width:3.2em;text-align:center;font-size:10.5px;font-weight:700;border-radius:4px;padding:2px 6px;margin-right:4px}
@@ -556,8 +557,25 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
     return sum > 0 ? (sum / price * 100) : null;
   }
   var priceCharts = {}; // code -> Chart インスタンス（再描画のたびにdestroyしてから作り直す）
+  // 購入ロット内訳の各行末尾に「売買時の配当利回り」を追記する。loadPD()の
+  // 解決（divsを含む）を待つ必要があるため、株価チャートと同じタイミング
+  // （行クリックでの展開時）で呼び出す後付け処理にしている。
+  function applyLotYields(code, h, divs, container){
+    if (!h || !h.lots || !divs || !divs.length) return;
+    var lotsDiv = container.closest('.lots');
+    if (!lotsDiv) return;
+    h.lots.forEach(function(l){
+      var gidx = lots.indexOf(l);
+      var row = lotsDiv.querySelector('.lotrow[data-gidx="' + gidx + '"]');
+      if (!row || row.querySelector('.lotyield')) return;
+      var y = yieldAtDate(divs, l.date, l.price);
+      if (y == null) return;
+      row.insertAdjacentHTML('beforeend', '<span class="lotyield">　配当利回り' + y.toFixed(2) + '%</span>');
+    });
+  }
   function renderPriceChart(code, container, h){
     loadPD(code).then(function(pd){
+      applyLotYields(code, h, pd.divs, container);
       var prices = pd.prices || [];
       if (prices.length < 2) {
         container.innerHTML = '<div class="pnote">株価データがありません。</div>';
@@ -707,6 +725,42 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
       container.innerHTML = '<div class="pnote">株価チャートの読み込みに失敗しました。</div>';
     });
   }
+  // チャートの色はChart.js（canvas描画）の性質上、生成時にgetComputedStyle()で
+  // 一度だけ解決した色コードを使っており、ページ内の円グラフ・棒グラフ（SVG）と
+  // 違ってCSS変数の変化に自動追従しない。配色テーマ切替（プリセット・ダーク/
+  // ライト・カスタム）はすべてdocumentElementの属性変更（data-pal/data-mode/
+  // data-hl）またはインラインstyleの書き換えとして現れるため、MutationObserver
+  // で検知し、開いている全チャートの色だけを更新する（ズーム/期間/足の選択
+  // 状態は保持したまま、destroy&再生成はしない）。
+  function refreshChartColors(){
+    var accent = cssVar('--accent') || '#2563eb';
+    var tick = cssVar('--muted') || '#666';
+    var grid = cssVar('--line') || '#e6e6e6';
+    var gA = cssVar('--gA') || '#166534';
+    var gC = cssVar('--gC') || '#b91c1c';
+    var cardBg = cssVar('--card') || '#fff';
+    Object.keys(priceCharts).forEach(function(code){
+      var ch = priceCharts[code];
+      if (!ch) return;
+      var line = ch.data.datasets[0], buy = ch.data.datasets[1], sell = ch.data.datasets[2];
+      if (line) { line.borderColor = accent; line.backgroundColor = accent; }
+      if (buy) { buy.backgroundColor = gA; buy.borderColor = gA; }
+      if (sell) { sell.backgroundColor = gC; sell.borderColor = gC; }
+      ch.options.scales.x.ticks.color = tick;
+      ch.options.scales.x.grid.color = grid;
+      ch.options.scales.y.ticks.color = tick;
+      ch.options.scales.y.grid.color = grid;
+      var ann = ch.options.plugins.annotation && ch.options.plugins.annotation.annotations.avgline;
+      if (ann) {
+        ann.borderColor = accent;
+        if (ann.label) { ann.label.color = accent; ann.label.backgroundColor = cardBg; }
+      }
+      ch.update();
+    });
+  }
+  new MutationObserver(refreshChartColors).observe(document.documentElement, {
+    attributes: true, attributeFilter: ['data-pal', 'data-mode', 'data-hl', 'style']
+  });
   // 期間ボタン（1M/6M/1Y/5Y/10Y）。既に読み込み済みの終値データセット（常にフル期間を
   // 保持）から表示範囲だけを絞り込む（追加のfetchは発生しない）。resetZoom()で
   // 直前のホイール/ピンチズームの状態をいったん解除してから、選んだ期間へ
