@@ -40,7 +40,7 @@ jobs:
             echo "変更なし"
             exit 0
           fi
-          git commit -m "chore(tdnet): detect $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          git commit -m "chore(tdnet): detect $(date -u +%Y-%m-%dT%H:%MZ)"
           n=0
           until git push; do
             n=$((n+1))
