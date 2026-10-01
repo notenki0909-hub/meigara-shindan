@@ -1,14 +1,4 @@
 {
- "LEN": {
-  "ticker": "LEN",
-  "name": "Lennar",
-  "target_date": "2026-09-17",
-  "detected_at": "2026-09-17T04:56:40",
-  "status": "resolved",
-  "attempts": 0,
-  "next_retry_at": "2026-09-17T04:56:40",
-  "resolved_at": "2026-09-17T04:56:40"
- },
  "KBH": {
   "ticker": "KBH",
   "name": "KB Home",
@@ -118,5 +108,32 @@
   "attempts": 1,
   "next_retry_at": "2026-09-29T11:47:46",
   "resolved_at": "2026-09-29T22:19:18"
+ },
+ "ACN": {
+  "ticker": "ACN",
+  "name": "Accenture",
+  "target_date": "2026-10-01",
+  "detected_at": "2026-10-01T06:00:32",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-01T12:00:32"
+ },
+ "MKC": {
+  "ticker": "MKC",
+  "name": "McCormick & Company",
+  "target_date": "2026-10-01",
+  "detected_at": "2026-10-01T06:00:32",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-01T12:00:32"
+ },
+ "NKE": {
+  "ticker": "NKE",
+  "name": "Nike, Inc.",
+  "target_date": "2026-10-01",
+  "detected_at": "2026-10-01T06:00:32",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-01T12:00:32"
  }
 }
