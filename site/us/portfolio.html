@@ -128,6 +128,9 @@ tr.detail td{background:var(--field);padding:10px 12px}
 tr.detail .lots{font-size:12px}
 tr.detail .lots div{padding:2px 0}
 tr.detail .dnote{margin-top:8px;font-size:11.5px;color:var(--muted)}
+.pricechart{margin:10px 0}
+.pricechart-wrap{position:relative;height:240px}
+.pricechart .pnote{font-size:11px;color:var(--muted);margin-top:4px}
 .divhist{margin-top:10px}
 .divhist table{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:6px}
 .divhist th,.divhist td{padding:3px 6px;text-align:right;border-bottom:1px solid var(--line)}
@@ -477,6 +480,96 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
       if (prices[i][0] <= dateStr) best = prices[i][1]; else break;
     }
     return best;
+  }
+
+  // ---- 株価チャート（Chart.js。行クリックで展開時に遅延読み込み。Phase 1：
+  // 終値の折れ線のみ。売買ポイント・平均取得線・ズーム・期間/足ボタンは後続フェーズで追加）----
+  var CHARTJS_URL = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js';
+  var chartJsPromise = null;
+  function loadChartJs(){
+    if (window.Chart) return Promise.resolve(window.Chart);
+    if (chartJsPromise) return chartJsPromise;
+    chartJsPromise = new Promise(function(resolve, reject){
+      var s = document.createElement('script');
+      s.src = CHARTJS_URL;
+      s.onload = function(){ resolve(window.Chart); };
+      s.onerror = function(){ reject(new Error('Chart.js load error')); };
+      document.head.appendChild(s);
+    });
+    return chartJsPromise;
+  }
+  function cssVar(name){
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+  var priceCharts = {}; // code -> Chart インスタンス（再描画のたびにdestroyしてから作り直す）
+  function renderPriceChart(code, container){
+    loadPD(code).then(function(pd){
+      var prices = pd.prices || [];
+      if (prices.length < 2) {
+        container.innerHTML = '<div class="pnote">株価データがありません。</div>';
+        return;
+      }
+      return loadChartJs().then(function(Chart){
+        container.innerHTML = '<div class="pricechart-wrap"><canvas></canvas></div>';
+        var canvas = container.querySelector('canvas');
+        var pts = prices.map(function(p){ return {x: Date.parse(p[0] + 'T00:00:00Z'), y: p[1]}; });
+        var accent = cssVar('--accent') || '#2563eb';
+        var tick = cssVar('--muted') || '#666';
+        var grid = cssVar('--line') || '#e6e6e6';
+        if (priceCharts[code]) { priceCharts[code].destroy(); delete priceCharts[code]; }
+        priceCharts[code] = new Chart(canvas, {
+          type: 'line',
+          data: { datasets: [{
+            label: '終値',
+            data: pts,
+            borderColor: accent,
+            backgroundColor: accent,
+            borderWidth: 1.5,
+            pointRadius: 0,
+            tension: 0
+          }] },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: false,
+            interaction: { mode: 'index', intersect: false },
+            scales: {
+              x: {
+                type: 'linear',
+                min: pts[0].x, max: pts[pts.length - 1].x,
+                ticks: {
+                  color: tick,
+                  maxTicksLimit: 8,
+                  callback: function(v){
+                    var d = new Date(v);
+                    return d.getUTCFullYear() + '/' + (d.getUTCMonth() + 1);
+                  }
+                },
+                grid: { color: grid }
+              },
+              y: {
+                ticks: { color: tick },
+                grid: { color: grid }
+              }
+            },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  title: function(items){
+                    var d = new Date(items[0].parsed.x);
+                    return d.getUTCFullYear() + '/' + String(d.getUTCMonth() + 1).padStart(2, '0') + '/' + String(d.getUTCDate()).padStart(2, '0');
+                  },
+                  label: function(item){ return dollar(item.parsed.y); }
+                }
+              }
+            }
+          }
+        });
+      });
+    }).catch(function(){
+      container.innerHTML = '<div class="pnote">株価チャートの読み込みに失敗しました。</div>';
+    });
   }
 
   // ---- 個別銘柄の配当推移グラフ・受取実績（行クリックで展開時に遅延読み込み）----
@@ -1034,6 +1127,8 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
     d.hidden = !d.hidden;
     openDetail[tr.dataset.code] = !d.hidden;
     if (!d.hidden) {
+      var pc = d.querySelector('.pricechart');
+      if (pc) renderPriceChart(pc.dataset.code, pc.querySelector('.pricechart-body'));
       var dh = d.querySelector('.divhist');
       if (dh) renderDivHist(dh.dataset.code, dh.querySelector('.divhist-body'));
     }
@@ -1163,6 +1258,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
         var detail = '<tr class="detail" data-idx="' + idx + '"' + (isOpen ? '' : ' hidden') + '><td colspan="12"><div class="lots">'
           + '<b>購入ロット内訳</b><div class="lotnote">各記録をクリックすると修正・削除できます。新しい買付・売却は「＋新規買付・売却を記録」ボタンから追加できます。取得費・実現損益は移動平均法で計算した参考値です。米国株の実際の取得費計算方法は証券会社により異なる場合があります（例：FIFO＝先入先出法を採用している証券会社が多い）。正確な損益は各証券会社の取引履歴でご確認ください。</div>'
           + newtxbtn + txform + lotRows + editform
+          + '<div class="pricechart" data-code="' + h.code + '"><b>株価チャート</b><div class="pricechart-body">読み込み中…</div></div>'
           + '<div class="divhist" data-code="' + h.code + '"><b>配当推移・受取実績</b>'
           + '<div class="divhist-body">読み込み中…</div></div>'
           + '<div class="dnote">個別銘柄の詳しいレポート（業績・財務・配当推移など）は'
@@ -1177,7 +1273,10 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
         + '</tr></thead><tbody>' + rows + '</tbody></table>';
 
       // 展開状態を保ったまま再描画した行は、クリック時ハンドラを経由しないため
-      // ここで配当推移・受取実績の遅延読み込みを行う。
+      // ここで株価チャート・配当推移・受取実績の遅延読み込みを行う。
+      $('holdtable').querySelectorAll('tr.detail:not([hidden]) .pricechart').forEach(function(pc){
+        renderPriceChart(pc.dataset.code, pc.querySelector('.pricechart-body'));
+      });
       $('holdtable').querySelectorAll('tr.detail:not([hidden]) .divhist').forEach(function(dh){
         renderDivHist(dh.dataset.code, dh.querySelector('.divhist-body'));
       });
