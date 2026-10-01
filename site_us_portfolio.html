@@ -482,40 +482,49 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
     return best;
   }
 
-  // ---- 株価チャート（Chart.js + chartjs-plugin-annotation。行クリックで展開時に
-  // 遅延読み込み。Phase 2：終値の折れ線＋売買ポイントのマーカー＋平均取得単価の
-  // 水平線＋ホバーで詳細表示。ズーム・期間/足ボタンは後続フェーズで追加）----
+  // ---- 株価チャート（Chart.js + chartjs-plugin-annotation + chartjs-plugin-zoom。
+  // 行クリックで展開時に遅延読み込み。Phase 3：終値の折れ線＋売買ポイントの
+  // マーカー＋平均取得単価の水平線＋ホバーで詳細表示＋軸上でのホイール/ピンチ
+  // ズーム＋本体ドラッグでのパン。期間/足ボタンは後続フェーズで追加）----
   var CHARTJS_URL = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js';
   var CHARTJS_ANNOTATION_URL = 'https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js';
-  var chartJsPromise = null;
-  function loadChartJs(){
-    if (window.Chart) return Promise.resolve(window.Chart);
-    if (chartJsPromise) return chartJsPromise;
-    chartJsPromise = new Promise(function(resolve, reject){
+  var HAMMERJS_URL = 'https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js';
+  var CHARTJS_ZOOM_URL = 'https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.2.0/dist/chartjs-plugin-zoom.min.js';
+  var scriptPromises = {};
+  function loadScript(url){
+    if (scriptPromises[url]) return scriptPromises[url];
+    scriptPromises[url] = new Promise(function(resolve, reject){
       var s = document.createElement('script');
-      s.src = CHARTJS_URL;
-      s.onload = function(){ resolve(window.Chart); };
-      s.onerror = function(){ reject(new Error('Chart.js load error')); };
+      s.src = url;
+      s.onload = resolve;
+      s.onerror = function(){ delete scriptPromises[url]; reject(new Error('script load error: ' + url)); };
       document.head.appendChild(s);
     });
-    return chartJsPromise;
+    return scriptPromises[url];
   }
-  // chartjs-plugin-annotationはCDN版（UMD）を読み込むだけで、既に読み込み済みの
-  // window.Chart へ自動でChart.register()する（公式配布物の挙動。手動registerは不要）。
-  var chartAnnotationPromise = null;
+  function loadChartJs(){
+    if (window.Chart) return Promise.resolve(window.Chart);
+    return loadScript(CHARTJS_URL).then(function(){ return window.Chart; });
+  }
+  // chartjs-plugin-annotation・chartjs-plugin-zoomはいずれもCDN版（UMD）を読み込む
+  // だけで、既に読み込み済みのwindow.Chart へ自動でChart.register()する（公式配布物の
+  // 挙動。手動registerは不要）。chartjs-plugin-zoomのピンチズームはHammer.jsに依存する
+  // （本体にタッチ処理を持たずwindow.Hammerを参照する実装のため、先に読み込んでおく
+  // 必要がある。既存の経済指標トラッカーではnpm経由の間接依存として自動解決されていた
+  // 点を確認した上で、CDN構成ではここで明示的に読み込む）。
   function loadChartAnnotation(){
-    if (window.Chart && window.Chart.registry.plugins.get('annotation')) return Promise.resolve(window.Chart);
-    if (chartAnnotationPromise) return chartAnnotationPromise;
-    chartAnnotationPromise = loadChartJs().then(function(Chart){
-      return new Promise(function(resolve, reject){
-        var s = document.createElement('script');
-        s.src = CHARTJS_ANNOTATION_URL;
-        s.onload = function(){ resolve(Chart); };
-        s.onerror = function(){ reject(new Error('chartjs-plugin-annotation load error')); };
-        document.head.appendChild(s);
-      });
+    return loadChartJs().then(function(Chart){
+      if (Chart.registry.plugins.get('annotation')) return Chart;
+      return loadScript(CHARTJS_ANNOTATION_URL).then(function(){ return Chart; });
     });
-    return chartAnnotationPromise;
+  }
+  function loadChartZoom(){
+    return loadChartAnnotation().then(function(Chart){
+      if (Chart.registry.plugins.get('zoom')) return Chart;
+      return loadScript(HAMMERJS_URL)
+        .then(function(){ return loadScript(CHARTJS_ZOOM_URL); })
+        .then(function(){ return Chart; });
+    });
   }
   function cssVar(name){
     return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -528,7 +537,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
         container.innerHTML = '<div class="pnote">株価データがありません。</div>';
         return;
       }
-      return loadChartAnnotation().then(function(Chart){
+      return loadChartZoom().then(function(Chart){
         container.innerHTML = '<div class="pricechart-wrap"><canvas></canvas></div>';
         var canvas = container.querySelector('canvas');
         var pts = prices.map(function(p){ return {x: Date.parse(p[0] + 'T00:00:00Z'), y: p[1]}; });
@@ -620,6 +629,23 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
             plugins: {
               legend: { display: false },
               annotation: { annotations: annotations },
+              // 縦軸・横軸の目盛り表示領域の上でのみ、ホイール／ピンチでその軸だけを
+              // 拡大縮小できるようにする（scaleMode:"xy"＝カーソル/指がどちらの軸の
+              // 上にあるかで自動判定。mode:""によりグラフ本体の上でのホイールは
+              // 反応しない＝誤操作防止。グラフ本体でのドラッグ／スワイプはpanで
+              // 平行移動）。既存の経済指標トラッカーで検証済みの設定を踏襲。
+              zoom: {
+                zoom: {
+                  wheel: { enabled: true },
+                  pinch: { enabled: true },
+                  mode: '',
+                  scaleMode: 'xy'
+                },
+                pan: {
+                  enabled: true,
+                  mode: 'xy'
+                }
+              },
               tooltip: {
                 callbacks: {
                   title: function(items){
