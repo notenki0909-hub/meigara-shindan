@@ -249,6 +249,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
   </div>
   <div id="monthavg" style="font-size:19px;font-weight:700;margin-bottom:4px">―</div>
   <svg id="monthchart" viewBox="0 0 760 260" style="width:100%;height:auto"></svg>
+  <div class="legend" id="monthlegend"></div>
   <p class="note" id="monthnote2"></p>
   <p class="note">確定月＝配当の権利が確定する月（権利落ち日ベース）。支払月＝実際に口座へ振り込まれる月の<b>目安</b>（権利確定から約3か月後として概算。証券会社・銘柄により前後します）。現在の保有株数と各社の過去の支払パターンから見積もった金額で、確定した将来の入金額ではありません。</p>
 </div>
@@ -1220,43 +1221,71 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
   }
 
   // ---- 月別配当受取見込み（確定月ベースで集計→表示時に支払月へシフト）----
+  // monthBase = {total:[12個の合計], byCode:{code:{name, arr:[12個], total}}}
   var monthBase = null;
   function buildMonthly(holdings){
-    var base = new Array(12).fill(0);
+    var total = new Array(12).fill(0);
+    var byCode = {};
     var jobs = holdings.filter(function(h){ return !h.missing && h.shares > 0; }).map(function(h){
       return loadPD(h.code).then(function(pd){
         var divs = pd.divs || [];
-        if (!divs.length) return;
-        var byMonth = {};
-        divs.forEach(function(d){
-          var m = parseInt(d[0].slice(5, 7), 10) - 1;
-          if (m < 0 || m > 11) return;
-          if (!(m in byMonth) || d[0] > byMonth[m].date) byMonth[m] = {date: d[0], amt: d[1]};
-        });
-        Object.keys(byMonth).forEach(function(mk){
-          base[+mk] += byMonth[mk].amt * h.shares;
-        });
+        var arr = new Array(12).fill(0);
+        if (divs.length) {
+          var byMonth = {};
+          divs.forEach(function(d){
+            var m = parseInt(d[0].slice(5, 7), 10) - 1;
+            if (m < 0 || m > 11) return;
+            if (!(m in byMonth) || d[0] > byMonth[m].date) byMonth[m] = {date: d[0], amt: d[1]};
+          });
+          Object.keys(byMonth).forEach(function(mk){
+            var amt = byMonth[mk].amt * h.shares;
+            arr[+mk] = amt;
+            total[+mk] += amt;
+          });
+        }
+        byCode[h.code] = {name: h.name, arr: arr, total: arr.reduce(function(a, b){ return a + b; }, 0)};
       });
     });
-    return Promise.all(jobs).then(function(){ return base; });
+    return Promise.all(jobs).then(function(){ return {total: total, byCode: byCode}; });
   }
 
   function drawMonthly(mode){
-    var svg = $('monthchart');
-    if (!monthBase) { svg.innerHTML = ''; return; }
-    var arr = monthBase;
-    if (mode === 'pay') {
-      arr = new Array(12).fill(0);
-      monthBase.forEach(function(v, m){ arr[(m + 3) % 12] += v; });
+    var svg = $('monthchart'), legend = $('monthlegend');
+    if (!monthBase) { svg.innerHTML = ''; if (legend) legend.innerHTML = ''; return; }
+    function shiftArr(src){
+      if (mode !== 'pay') return src.slice();
+      var out = new Array(12).fill(0);
+      src.forEach(function(v, m){ out[(m + 3) % 12] += v; });
+      return out;
     }
-    var total = arr.reduce(function(a, b){ return a + b; }, 0);
-    $('monthavg').textContent = '月平均 ' + yen(total / 12);
-    if (!total) {
+    var total = shiftArr(monthBase.total);
+    var grand = total.reduce(function(a, b){ return a + b; }, 0);
+    $('monthavg').textContent = '月平均 ' + yen(grand / 12);
+    if (!grand) {
       svg.innerHTML = '';
+      if (legend) legend.innerHTML = '';
       $('monthnote2').textContent = '配当履歴を取得できた保有銘柄がないため、まだ表示できません。';
       return;
     }
-    var big = Math.max.apply(null, arr);
+    // 銘柄別の内訳を年間合計の多い順に並べ、上位8銘柄＋その他にまとめる（円グラフと同じ方式）
+    var order = Object.keys(monthBase.byCode).map(function(c){
+      return {code: c, name: monthBase.byCode[c].name, total: monthBase.byCode[c].total};
+    }).filter(function(o){ return o.total > 0; }).sort(function(a, b){ return b.total - a.total; });
+    var grouped = order, otherCodes = [];
+    if (order.length > 9) { otherCodes = order.slice(8).map(function(o){ return o.code; }); grouped = order.slice(0, 8); }
+    var series = grouped.map(function(o, i){
+      return {code: o.code, name: o.name, color: PALETTE[i % PALETTE.length], arr: shiftArr(monthBase.byCode[o.code].arr), total: o.total};
+    });
+    if (otherCodes.length) {
+      var otherArr = new Array(12).fill(0), otherTotal = 0;
+      otherCodes.forEach(function(c){
+        shiftArr(monthBase.byCode[c].arr).forEach(function(v, m){ otherArr[m] += v; });
+        otherTotal += monthBase.byCode[c].total;
+      });
+      series.push({code: 'other', name: 'その他', color: PALETTE[8 % PALETTE.length], arr: otherArr, total: otherTotal});
+    }
+
+    var big = Math.max.apply(null, total);
     var useMan = big >= 10000;
     var unit = useMan ? 10000 : 1;
     var W = 760, H = 260, padL = 50, padR = 12, padT = 26, padB = 30;
@@ -1271,17 +1300,38 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
       parts.push('<line x1="' + padL + '" y1="' + gy + '" x2="' + (W - padR) + '" y2="' + gy + '" stroke="var(--line)" stroke-width="1"/>');
       parts.push('<text x="' + (padL - 8) + '" y="' + (gy + 4) + '" font-size="10" fill="var(--muted)" text-anchor="end">' + gv.toFixed(1) + '</text>');
     }
-    arr.forEach(function(v, i){
-      var vv = v / unit;
-      var h = (y0 - padT) * (scaleMax ? vv / scaleMax : 0);
-      var x = padL + i * bw + bw * 0.16, w = bw * 0.68;
-      var y = y0 - h;
-      parts.push('<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + Math.max(0, h) + '" fill="var(--accent)" rx="2"><title>' + monthNames[i] + ' ' + yen(v) + '</title></rect>');
-      if (v > 0) parts.push('<text x="' + (x + w / 2) + '" y="' + (y - 4) + '" font-size="10" fill="var(--fg)" text-anchor="middle">' + vv.toFixed(vv < 10 ? 2 : 1) + '</text>');
-      parts.push('<text x="' + (x + w / 2) + '" y="' + (y0 + 16) + '" font-size="11" fill="var(--muted)" text-anchor="middle">' + monthNames[i] + '</text>');
-    });
+    for (var mi = 0; mi < 12; mi++) {
+      var monthTotal = total[mi];
+      var x = padL + mi * bw + bw * 0.16, w = bw * 0.68;
+      var yCursor = y0;
+      series.forEach(function(s){
+        var v = s.arr[mi];
+        if (!v) return;
+        var vv = v / unit;
+        var hh = (y0 - padT) * (scaleMax ? vv / scaleMax : 0);
+        var yTop = yCursor - hh;
+        var segPct = monthTotal ? (v / monthTotal * 100) : 0;
+        var safeName = String(s.code + (s.name ? ' ' + s.name : '')).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+        parts.push('<rect x="' + x + '" y="' + yTop + '" width="' + w + '" height="' + Math.max(0, hh) + '" fill="' + s.color + '"><title>' + monthNames[mi] + '　' + safeName + '　' + yen(v) + '（このバーの' + segPct.toFixed(1) + '%）</title></rect>');
+        yCursor = yTop;
+      });
+      if (monthTotal > 0) {
+        var vvTotal = monthTotal / unit;
+        var topY = y0 - (y0 - padT) * (scaleMax ? vvTotal / scaleMax : 0);
+        parts.push('<text x="' + (x + w / 2) + '" y="' + (topY - 4) + '" font-size="10" fill="var(--fg)" text-anchor="middle">' + vvTotal.toFixed(vvTotal < 10 ? 2 : 1) + '</text>');
+      }
+      parts.push('<text x="' + (x + w / 2) + '" y="' + (y0 + 16) + '" font-size="11" fill="var(--muted)" text-anchor="middle">' + monthNames[mi] + '</text>');
+    }
     svg.innerHTML = parts.join('');
     $('monthnote2').textContent = '単位：' + (useMan ? '万円' : '円') + '（左軸）';
+    if (legend) {
+      legend.innerHTML = series.map(function(s){
+        var safe = String(s.code + (s.name ? ' ' + s.name : '')).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+        var pctOfGrand = grand ? (s.total / grand * 100) : 0;
+        return '<div class="lgitem"><span class="sw" style="background:' + s.color + '"></span>' + safe
+          + '<b>' + pctOfGrand.toFixed(1) + '%</b><span class="lv">(' + yen(s.total) + ')</span></div>';
+      }).join('');
+    }
   }
 
   document.querySelectorAll('.modebtn').forEach(function(b){
