@@ -664,6 +664,11 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
             }
           }
         });
+        // 期間（1M/6M/1Y/5Y/10Y）・足（日/週/月）ボタンから参照する生データと
+        // 現在の選択状態。チャートインスタンス自身に持たせ、コード単位の
+        // 別キャッシュを増やさない。
+        priceCharts[code]._rawPrices = prices;
+        priceCharts[code]._currentRange = '10y';
       });
     }).catch(function(){
       container.innerHTML = '<div class="pnote">株価チャートの読み込みに失敗しました。</div>';
@@ -676,6 +681,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
   function applyPriceChartRange(code, range){
     var ch = priceCharts[code];
     if (!ch) return;
+    ch._currentRange = range;
     var allPts = ch.data.datasets[0].data;
     if (!allPts.length) return;
     var maxX = allPts[allPts.length - 1].x;
@@ -693,6 +699,38 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
     ch.resetZoom('none');
     ch.zoomScale('x', { min: minX, max: maxX }, 'none');
     ch.update();
+  }
+  // 足ボタン（日足/週足/月足）。終値のみの折れ線チャートなので、始値・高値・安値は
+  // 使わず単純に「週（月曜始まり）/月の最後の終値」を代表値として間引く
+  // （ローソク足ではない。サーバー側の生データ拡張は不要で全てクライアント側で完結）。
+  function weekKey(dateStr){
+    var d = new Date(dateStr + 'T00:00:00Z');
+    var dow = (d.getUTCDay() + 6) % 7; // 月曜=0
+    d.setUTCDate(d.getUTCDate() - dow);
+    return d.toISOString().slice(0, 10);
+  }
+  function resamplePrices(prices, interval){
+    if (interval === 'd' || !prices.length) return prices;
+    var out = [];
+    var lastKey = null;
+    for (var i = 0; i < prices.length; i++) {
+      var key = (interval === 'm') ? prices[i][0].slice(0, 7) : weekKey(prices[i][0]);
+      if (key !== lastKey) {
+        out.push(prices[i]);
+        lastKey = key;
+      } else {
+        out[out.length - 1] = prices[i]; // 同じ週/月内では最後（最新）の終値で上書き
+      }
+    }
+    return out;
+  }
+  function applyPriceChartInterval(code, interval){
+    var ch = priceCharts[code];
+    if (!ch || !ch._rawPrices) return;
+    var resampled = resamplePrices(ch._rawPrices, interval);
+    ch.data.datasets[0].data = resampled.map(function(p){ return {x: Date.parse(p[0] + 'T00:00:00Z'), y: p[1]}; });
+    ch.update();
+    applyPriceChartRange(code, ch._currentRange || '10y');
   }
 
   // ---- 個別銘柄の配当推移グラフ・受取実績（行クリックで展開時に遅延読み込み）----
@@ -1228,6 +1266,13 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
       applyPriceChartRange(pgroup.dataset.code, pbtn.dataset.range);
       return;
     }
+    var ibtn = e.target.closest('.pchart-interval button');
+    if (ibtn) {
+      var igroup = ibtn.closest('.pchart-interval');
+      igroup.querySelectorAll('button').forEach(function(b){ b.classList.toggle('active', b === ibtn); });
+      applyPriceChartInterval(igroup.dataset.code, ibtn.dataset.interval);
+      return;
+    }
     var lotrow = e.target.closest('.lotrow');
     if (lotrow) {
       var lotsDiv = lotrow.parentNode;
@@ -1394,6 +1439,11 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
           + '<button type="button" class="pbtn" data-range="1y">1Y</button>'
           + '<button type="button" class="pbtn" data-range="5y">5Y</button>'
           + '<button type="button" class="pbtn active" data-range="10y">10Y</button>'
+          + '</div>'
+          + '<div class="dimbtns pchart-interval" data-code="' + h.code + '">'
+          + '<button type="button" class="pbtn active" data-interval="d">日足</button>'
+          + '<button type="button" class="pbtn" data-interval="w">週足</button>'
+          + '<button type="button" class="pbtn" data-interval="m">月足</button>'
           + '</div>'
           + '<div class="pricechart-body">読み込み中…</div></div>'
           + '<div class="divhist" data-code="' + h.code + '"><b>配当推移・受取実績</b>'
