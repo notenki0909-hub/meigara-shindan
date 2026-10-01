@@ -136,6 +136,7 @@ tr.detail .dnote{margin-top:8px;font-size:11.5px;color:var(--muted)}
 .pricechart-wrap canvas{touch-action:none}
 .pricechart .pnote{font-size:11px;color:var(--muted);margin-top:4px}
 .divhist{margin-top:10px}
+.divhist .pnote{font-size:11px;color:var(--muted);margin-top:4px}
 .divhist .dtotal{font-size:12.5px;font-weight:700;margin-top:6px}
 .divhist table{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:6px}
 .divhist th,.divhist td{padding:3px 6px;text-align:right;border-bottom:1px solid var(--line)}
@@ -823,7 +824,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
 
   // ---- 個別銘柄の配当推移グラフ・受取実績（行クリックで展開時に遅延読み込み）----
   var divHistCache = {};
-  function drawDivHistChart(divs){
+  function drawDivHistChart(divs, codeLots){
     var W = 700, H = 140, padL = 46, padR = 10, padT = 10, padB = 20;
     var n = divs.length;
     var bw = (W - padL - padR) / n;
@@ -842,11 +843,16 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
       var x = padL + i * bw + bw * 0.15, w = Math.max(1, bw * 0.7);
       var y = y0 - hh;
       var safeDate = String(d[0]).replace(/&/g,'&amp;').replace(/</g,'&lt;');
-      parts.push('<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + Math.max(0, hh) + '" fill="var(--accent)" rx="1"><title>' + safeDate + '　' + yen(d[1]) + '/株</title></rect>');
+      var sharesAt = (codeLots || []).reduce(function(a,l){ return l.date <= d[0] ? a + l.shares : a; }, 0);
+      var received = sharesAt > 0;
+      var fill = received ? 'var(--gA)' : 'var(--accent)';
+      var label = received ? '（受取あり・' + sharesAt.toLocaleString('ja-JP') + '株）' : '（保有前または受取なし）';
+      parts.push('<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + Math.max(0, hh) + '" fill="' + fill + '" rx="1"><title>' + safeDate + '　' + yen(d[1]) + '/株' + label + '</title></rect>');
     });
     parts.push('<text x="' + padL + '" y="' + (H - 4) + '" font-size="9" fill="var(--muted)">' + divs[0][0].slice(0,7) + '</text>');
     parts.push('<text x="' + (W - padR) + '" y="' + (H - 4) + '" font-size="9" fill="var(--muted)" text-anchor="end">' + divs[n-1][0].slice(0,7) + '</text>');
-    return '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;height:auto;display:block">' + parts.join('') + '</svg>';
+    return '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;height:auto;display:block">' + parts.join('') + '</svg>'
+      + '<div class="pnote"><span style="color:var(--gA)">■</span>受取あり（保有株数ベース）　<span style="color:var(--accent)">■</span>保有前・受取なし</div>';
   }
   function renderDivHist(code, container){
     if (divHistCache[code] !== undefined) { container.innerHTML = divHistCache[code]; return; }
@@ -858,7 +864,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
       if (!divs.length) {
         html = '<div class="dnote">この銘柄の配当履歴データがありません。</div>';
       } else {
-        var chartSvg = drawDivHistChart(divs);
+        var chartSvg = drawDivHistChart(divs, codeLots);
         var firstBuy = codeLots.length ? codeLots[0].date : null;
         var tableHtml = '<div class="dnote">配当データがありません。</div>';
         if (firstBuy) {
