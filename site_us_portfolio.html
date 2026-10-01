@@ -136,6 +136,7 @@ tr.detail .dnote{margin-top:8px;font-size:11.5px;color:var(--muted)}
 .pricechart-wrap canvas{touch-action:none}
 .pricechart .pnote{font-size:11px;color:var(--muted);margin-top:4px}
 .divhist{margin-top:10px}
+.divhist .dtotal{font-size:12.5px;font-weight:700;margin-top:6px}
 .divhist table{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:6px}
 .divhist th,.divhist td{padding:3px 6px;text-align:right;border-bottom:1px solid var(--line)}
 .divhist th:first-child,.divhist td:first-child{text-align:left}
@@ -863,12 +864,15 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
         if (firstBuy) {
           var actual = divs.filter(function(d){ return d[0] >= firstBuy; }).slice().reverse();
           if (actual.length) {
+            var totalReceived = 0;
             var rowsHtml = actual.map(function(d){
               var sharesAt = codeLots.reduce(function(a,l){ return l.date <= d[0] ? a + l.shares : a; }, 0);
               var received = sharesAt * d[1];
+              totalReceived += received;
               return '<tr><td>' + d[0] + '</td><td>' + dollar(d[1]) + '</td><td>' + sharesAt.toLocaleString('ja-JP') + '株</td><td>' + dollar(received) + '</td></tr>';
             }).join('');
-            tableHtml = '<table><thead><tr><th>確定日</th><th>1株配当</th><th>当時の保有株数</th><th>受取見込み額</th></tr></thead>'
+            tableHtml = '<div class="dtotal">受取見込み額合計　' + dollar(totalReceived) + '</div>'
+              + '<table><thead><tr><th>確定日</th><th>1株配当</th><th>当時の保有株数</th><th>受取見込み額</th></tr></thead>'
               + '<tbody>' + rowsHtml + '</tbody></table>';
           } else {
             tableHtml = '<div class="dnote">保有開始日以降の配当の確定はまだありません。</div>';
