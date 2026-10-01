@@ -1,0 +1,31 @@
+{
+ "excluded": {
+  "BLDR": {
+   "reason": "S&P500から除外（月次チェック検知・次回四半期見直しで正式反映）",
+   "detected_at": "2026-10-01"
+  },
+  "TAP": {
+   "reason": "S&P500から除外（月次チェック検知・次回四半期見直しで正式反映）",
+   "detected_at": "2026-10-01"
+  },
+  "TTD": {
+   "reason": "S&P500から除外（月次チェック検知・次回四半期見直しで正式反映）",
+   "detected_at": "2026-10-01"
+  }
+ },
+ "new": {
+  "BE": {
+   "detected_at": "2026-10-01"
+  },
+  "ILMN": {
+   "detected_at": "2026-10-01"
+  },
+  "P": {
+   "detected_at": "2026-10-01"
+  }
+ },
+ "_meta": {
+  "説明": "月次チェック(monthly_check_long_us.py)が書く暫定フラグ。excluded: universe_long_us.json からは削除せず、rank_long.py が『対象外』として表示するだけにとどめる。new: 月次チェックで新規追加した銘柄にNEW!バッジを表示する。どちらも次の四半期フル再構築(universe-long-quarterly.yml)でuniverse_long_us.json・このファイル自体が正式に作り直され、フラグは消える。",
+  "updated_at": "2026-10-01"
+ }
+}
