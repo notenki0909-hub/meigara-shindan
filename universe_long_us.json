@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-09T11:24:16",
+ "generated_at": "2026-10-01T08:41:57",
  "market": "us",
  "screen": {
   "_meta": {
@@ -21,7 +21,7 @@
   ]
  },
  "source": "universe_candidates_us.json の index に S&P500 を含む銘柄",
- "count": 503,
+ "count": 506,
  "tickers": [
   {
    "ticker": "A",
@@ -302,6 +302,11 @@
    "ticker": "BDX",
    "name": "Becton Dickinson",
    "gics_sector": "Health Care"
+  },
+  {
+   "ticker": "BE",
+   "name": "Bloom Energy",
+   "gics_sector": "Industrials"
   },
   {
    "ticker": "BEN",
@@ -1239,6 +1244,11 @@
    "gics_sector": "Materials"
   },
   {
+   "ticker": "ILMN",
+   "name": "Illumina, Inc.",
+   "gics_sector": "Health Care"
+  },
+  {
    "ticker": "INCY",
    "name": "Incyte",
    "gics_sector": "Health Care"
@@ -1787,6 +1797,11 @@
    "ticker": "OXY",
    "name": "Occidental Petroleum",
    "gics_sector": "Energy"
+  },
+  {
+   "ticker": "P",
+   "name": "Everpure",
+   "gics_sector": "Information Technology"
   },
   {
    "ticker": "PANW",
@@ -2538,5 +2553,6 @@
    "name": "Zoetis",
    "gics_sector": "Health Care"
   }
- ]
+ ],
+ "_monthly_check_note": "2026-10-01 の月次チェックで 3 銘柄を追加。次の四半期フル再構築(universe-long-quarterly.yml)で正式なリストに置き換わる。"
 }
