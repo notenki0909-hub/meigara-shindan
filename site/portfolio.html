@@ -482,9 +482,11 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
     return best;
   }
 
-  // ---- 株価チャート（Chart.js。行クリックで展開時に遅延読み込み。Phase 1：
-  // 終値の折れ線のみ。売買ポイント・平均取得線・ズーム・期間/足ボタンは後続フェーズで追加）----
+  // ---- 株価チャート（Chart.js + chartjs-plugin-annotation。行クリックで展開時に
+  // 遅延読み込み。Phase 2：終値の折れ線＋売買ポイントのマーカー＋平均取得単価の
+  // 水平線＋ホバーで詳細表示。ズーム・期間/足ボタンは後続フェーズで追加）----
   var CHARTJS_URL = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js';
+  var CHARTJS_ANNOTATION_URL = 'https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js';
   var chartJsPromise = null;
   function loadChartJs(){
     if (window.Chart) return Promise.resolve(window.Chart);
@@ -498,41 +500,104 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
     });
     return chartJsPromise;
   }
+  // chartjs-plugin-annotationはCDN版（UMD）を読み込むだけで、既に読み込み済みの
+  // window.Chart へ自動でChart.register()する（公式配布物の挙動。手動registerは不要）。
+  var chartAnnotationPromise = null;
+  function loadChartAnnotation(){
+    if (window.Chart && window.Chart.registry.plugins.get('annotation')) return Promise.resolve(window.Chart);
+    if (chartAnnotationPromise) return chartAnnotationPromise;
+    chartAnnotationPromise = loadChartJs().then(function(Chart){
+      return new Promise(function(resolve, reject){
+        var s = document.createElement('script');
+        s.src = CHARTJS_ANNOTATION_URL;
+        s.onload = function(){ resolve(Chart); };
+        s.onerror = function(){ reject(new Error('chartjs-plugin-annotation load error')); };
+        document.head.appendChild(s);
+      });
+    });
+    return chartAnnotationPromise;
+  }
   function cssVar(name){
     return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
   }
   var priceCharts = {}; // code -> Chart インスタンス（再描画のたびにdestroyしてから作り直す）
-  function renderPriceChart(code, container){
+  function renderPriceChart(code, container, h){
     loadPD(code).then(function(pd){
       var prices = pd.prices || [];
       if (prices.length < 2) {
         container.innerHTML = '<div class="pnote">株価データがありません。</div>';
         return;
       }
-      return loadChartJs().then(function(Chart){
+      return loadChartAnnotation().then(function(Chart){
         container.innerHTML = '<div class="pricechart-wrap"><canvas></canvas></div>';
         var canvas = container.querySelector('canvas');
         var pts = prices.map(function(p){ return {x: Date.parse(p[0] + 'T00:00:00Z'), y: p[1]}; });
         var accent = cssVar('--accent') || '#2563eb';
         var tick = cssVar('--muted') || '#666';
         var grid = cssVar('--line') || '#e6e6e6';
+        var gC = cssVar('--gC') || '#b91c1c';
+        var cardBg = cssVar('--card') || '#fff';
+
+        var lots = (h && h.lots) || [];
+        var buyPts = lots.filter(function(l){ return l.type !== 's'; }).map(function(l){
+          return {x: Date.parse(l.date + 'T00:00:00Z'), y: l.price, _lot: l};
+        });
+        var sellPts = lots.filter(function(l){ return l.type === 's'; }).map(function(l){
+          return {x: Date.parse(l.date + 'T00:00:00Z'), y: l.price, _lot: l};
+        });
+
+        var annotations = {};
+        if (h && h.avgPrice) {
+          annotations.avgline = {
+            type: 'line',
+            yMin: h.avgPrice, yMax: h.avgPrice,
+            borderColor: accent,
+            borderWidth: 1.25,
+            borderDash: [6, 4],
+            label: {
+              display: true,
+              content: '平均取得単価 ' + yen(h.avgPrice),
+              position: 'start',
+              color: accent,
+              backgroundColor: cardBg,
+              font: { size: 10, weight: '600' },
+              padding: 4,
+              borderRadius: 4
+            }
+          };
+        }
+
         if (priceCharts[code]) { priceCharts[code].destroy(); delete priceCharts[code]; }
         priceCharts[code] = new Chart(canvas, {
-          type: 'line',
-          data: { datasets: [{
-            label: '終値',
-            data: pts,
-            borderColor: accent,
-            backgroundColor: accent,
-            borderWidth: 1.5,
-            pointRadius: 0,
-            tension: 0
-          }] },
+          data: {
+            datasets: [
+              {
+                type: 'line', label: '終値', data: pts,
+                borderColor: accent, backgroundColor: accent,
+                borderWidth: 1.5, pointRadius: 0, tension: 0
+              },
+              {
+                type: 'scatter', label: '購入', data: buyPts,
+                pointStyle: 'triangle', pointRadius: 6, pointHoverRadius: 7, pointHitRadius: 10,
+                backgroundColor: accent, borderColor: accent
+              },
+              {
+                type: 'scatter', label: '売却', data: sellPts,
+                pointStyle: 'rectRot', pointRadius: 6, pointHoverRadius: 7, pointHitRadius: 10,
+                backgroundColor: gC, borderColor: gC
+              }
+            ]
+          },
           options: {
             responsive: true,
             maintainAspectRatio: false,
             animation: false,
-            interaction: { mode: 'index', intersect: false },
+            // 密な終値の折れ線とまばらな売買マーカーが混在するため、データセットごとに
+            // 個別検出する"nearest"を使う（"index"は配列長が異なるデータセット間で
+            // 整列がずれるため不採用）。axisは既定の2次元距離のままにする（'x'にすると
+            // x距離だけで判定され、マーカーの上にカーソルを置いても点数が多い折れ線側の
+            // 点に負けてマーカーの詳細が出ない不具合になるため明示的に指定しない）。
+            interaction: { mode: 'nearest', intersect: false },
             scales: {
               x: {
                 type: 'linear',
@@ -554,13 +619,20 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
             },
             plugins: {
               legend: { display: false },
+              annotation: { annotations: annotations },
               tooltip: {
                 callbacks: {
                   title: function(items){
                     var d = new Date(items[0].parsed.x);
                     return d.getUTCFullYear() + '/' + String(d.getUTCMonth() + 1).padStart(2, '0') + '/' + String(d.getUTCDate()).padStart(2, '0');
                   },
-                  label: function(item){ return yen(item.parsed.y); }
+                  label: function(item){
+                    var lot = item.raw && item.raw._lot;
+                    if (lot) {
+                      return (lot.type === 's' ? '売却 ' : '購入 ') + lot.shares.toLocaleString('ja-JP') + '株 @' + yen(lot.price);
+                    }
+                    return '終値 ' + yen(item.parsed.y);
+                  }
                 }
               }
             }
@@ -1039,6 +1111,9 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
   // 展開中（購入ロット内訳を開いている）銘柄コード。売買記録の送信で
   // render() が全体を再描画しても、開いていた行が閉じないように保持する。
   var openDetail = {};
+  // コード→集計済みholding（avgPrice・lots等）。株価チャートの売買マーカー・
+  // 平均取得単価線を、render()のクロージャ外（クリックハンドラ）からも参照できるようにする。
+  var holdingsByCode = {};
   document.querySelectorAll('.dimbtn').forEach(function(b){
     b.addEventListener('click', function(){
       document.querySelectorAll('.dimbtn').forEach(function(x){ x.classList.remove('active'); });
@@ -1123,7 +1198,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
     openDetail[tr.dataset.code] = !d.hidden;
     if (!d.hidden) {
       var pc = d.querySelector('.pricechart');
-      if (pc) renderPriceChart(pc.dataset.code, pc.querySelector('.pricechart-body'));
+      if (pc) renderPriceChart(pc.dataset.code, pc.querySelector('.pricechart-body'), holdingsByCode[pc.dataset.code]);
       var dh = d.querySelector('.divhist');
       if (dh) renderDivHist(dh.dataset.code, dh.querySelector('.divhist-body'));
     }
@@ -1200,6 +1275,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
 
       $('holdbox').hidden = false;
       var rows = holdings.map(function(h, idx){
+        holdingsByCode[h.code] = h;
         var yv = (h.yieldPct != null) ? pct(h.yieldPct, 2) : '―';
         var yoc = (h.yoc != null) ? pct(h.yoc, 2) : '―';
         var gainCls = (h.gain != null) ? (h.gain >= 0 ? 'pos' : 'neg') : '';
@@ -1270,7 +1346,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
       // 展開状態を保ったまま再描画した行は、クリック時ハンドラを経由しないため
       // ここで株価チャート・配当推移・受取実績の遅延読み込みを行う。
       $('holdtable').querySelectorAll('tr.detail:not([hidden]) .pricechart').forEach(function(pc){
-        renderPriceChart(pc.dataset.code, pc.querySelector('.pricechart-body'));
+        renderPriceChart(pc.dataset.code, pc.querySelector('.pricechart-body'), holdingsByCode[pc.dataset.code]);
       });
       $('holdtable').querySelectorAll('tr.detail:not([hidden]) .divhist').forEach(function(dh){
         renderDivHist(dh.dataset.code, dh.querySelector('.divhist-body'));
