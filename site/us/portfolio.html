@@ -529,6 +529,21 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
   function cssVar(name){
     return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
   }
+  // 売買ポイントの「当時の配当利回り」（参考値）。公式発表の予想利回りではなく、
+  // その売買日からさかのぼって直近1年間（365日）に実際に権利落ちした配当の
+  // 合計を、その売買単価で割った実績ベースの概算。直近1年に配当の確定が
+  // 無ければ（上場間もない等）nullを返し、ツールチップ側で行ごと省略する。
+  function yieldAtDate(divs, dateStr, price){
+    if (!price || !divs || !divs.length) return null;
+    var oneYearAgo = new Date(dateStr + 'T00:00:00Z');
+    oneYearAgo.setUTCDate(oneYearAgo.getUTCDate() - 365);
+    var fromStr = oneYearAgo.toISOString().slice(0, 10);
+    var sum = 0;
+    divs.forEach(function(d){
+      if (d[0] > fromStr && d[0] <= dateStr) sum += d[1];
+    });
+    return sum > 0 ? (sum / price * 100) : null;
+  }
   var priceCharts = {}; // code -> Chart インスタンス（再描画のたびにdestroyしてから作り直す）
   function renderPriceChart(code, container, h){
     loadPD(code).then(function(pd){
@@ -544,15 +559,16 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
         var accent = cssVar('--accent') || '#2563eb';
         var tick = cssVar('--muted') || '#666';
         var grid = cssVar('--line') || '#e6e6e6';
+        var gA = cssVar('--gA') || '#166534';
         var gC = cssVar('--gC') || '#b91c1c';
         var cardBg = cssVar('--card') || '#fff';
 
         var lots = (h && h.lots) || [];
         var buyPts = lots.filter(function(l){ return l.type !== 's'; }).map(function(l){
-          return {x: Date.parse(l.date + 'T00:00:00Z'), y: l.price, _lot: l};
+          return {x: Date.parse(l.date + 'T00:00:00Z'), y: l.price, _lot: l, _yield: yieldAtDate(pd.divs, l.date, l.price)};
         });
         var sellPts = lots.filter(function(l){ return l.type === 's'; }).map(function(l){
-          return {x: Date.parse(l.date + 'T00:00:00Z'), y: l.price, _lot: l};
+          return {x: Date.parse(l.date + 'T00:00:00Z'), y: l.price, _lot: l, _yield: yieldAtDate(pd.divs, l.date, l.price)};
         });
 
         var annotations = {};
@@ -588,7 +604,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
               {
                 type: 'scatter', label: '購入', data: buyPts,
                 pointStyle: 'triangle', pointRadius: 6, pointHoverRadius: 7, pointHitRadius: 10,
-                backgroundColor: accent, borderColor: accent
+                backgroundColor: gA, borderColor: gA
               },
               {
                 type: 'scatter', label: '売却', data: sellPts,
@@ -655,7 +671,9 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
                   label: function(item){
                     var lot = item.raw && item.raw._lot;
                     if (lot) {
-                      return (lot.type === 's' ? '売却 ' : '購入 ') + lot.shares.toLocaleString('ja-JP') + '株 @' + dollar(lot.price);
+                      var base = (lot.type === 's' ? '売却 ' : '購入 ') + lot.shares.toLocaleString('ja-JP') + '株 @' + dollar(lot.price);
+                      var y = item.raw._yield;
+                      return (y != null) ? [base, '配当利回り（当時・直近1年実績ベース）' + y.toFixed(2) + '%'] : base;
                     }
                     return '終値 ' + dollar(item.parsed.y);
                   }
