@@ -669,6 +669,31 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
       container.innerHTML = '<div class="pnote">株価チャートの読み込みに失敗しました。</div>';
     });
   }
+  // 期間ボタン（1M/6M/1Y/5Y/10Y）。既に読み込み済みの終値データセット（常にフル期間を
+  // 保持）から表示範囲だけを絞り込む（追加のfetchは発生しない）。resetZoom()で
+  // 直前のホイール/ピンチズームの状態をいったん解除してから、選んだ期間へ
+  // zoomScale()で切り替える（chartjs-plugin-zoom側の内部状態とscaleの食い違いを防ぐ）。
+  function applyPriceChartRange(code, range){
+    var ch = priceCharts[code];
+    if (!ch) return;
+    var allPts = ch.data.datasets[0].data;
+    if (!allPts.length) return;
+    var maxX = allPts[allPts.length - 1].x;
+    var minX;
+    if (range === '10y') {
+      minX = allPts[0].x;
+    } else {
+      var d = new Date(maxX);
+      if (range === '1m') d.setUTCMonth(d.getUTCMonth() - 1);
+      else if (range === '6m') d.setUTCMonth(d.getUTCMonth() - 6);
+      else if (range === '1y') d.setUTCFullYear(d.getUTCFullYear() - 1);
+      else if (range === '5y') d.setUTCFullYear(d.getUTCFullYear() - 5);
+      minX = Math.max(allPts[0].x, d.getTime());
+    }
+    ch.resetZoom('none');
+    ch.zoomScale('x', { min: minX, max: maxX }, 'none');
+    ch.update();
+  }
 
   // ---- 個別銘柄の配当推移グラフ・受取実績（行クリックで展開時に遅延読み込み）----
   var divHistCache = {};
@@ -1201,6 +1226,13 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
       deleteLot(parseInt(ef4.dataset.gidx, 10));
       return;
     }
+    var pbtn = e.target.closest('.pchart-period button');
+    if (pbtn) {
+      var pgroup = pbtn.closest('.pchart-period');
+      pgroup.querySelectorAll('button').forEach(function(b){ b.classList.toggle('active', b === pbtn); });
+      applyPriceChartRange(pgroup.dataset.code, pbtn.dataset.range);
+      return;
+    }
     var lotrow = e.target.closest('.lotrow');
     if (lotrow) {
       var lotsDiv = lotrow.parentNode;
@@ -1360,7 +1392,15 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
         var detail = '<tr class="detail" data-idx="' + idx + '"' + (isOpen ? '' : ' hidden') + '><td colspan="12"><div class="lots">'
           + '<b>購入ロット内訳</b><div class="lotnote">各記録をクリックすると修正・削除できます。新しい買付・売却は「＋新規買付・売却を記録」ボタンから追加できます。取得費・実現損益は移動平均法で計算した参考値です。米国株の実際の取得費計算方法は証券会社により異なる場合があります（例：FIFO＝先入先出法を採用している証券会社が多い）。正確な損益は各証券会社の取引履歴でご確認ください。</div>'
           + newtxbtn + txform + lotRows + editform
-          + '<div class="pricechart" data-code="' + h.code + '"><b>株価チャート</b><div class="pricechart-body">読み込み中…</div></div>'
+          + '<div class="pricechart" data-code="' + h.code + '"><b>株価チャート</b>'
+          + '<div class="dimbtns pchart-period" data-code="' + h.code + '">'
+          + '<button type="button" class="pbtn" data-range="1m">1M</button>'
+          + '<button type="button" class="pbtn" data-range="6m">6M</button>'
+          + '<button type="button" class="pbtn" data-range="1y">1Y</button>'
+          + '<button type="button" class="pbtn" data-range="5y">5Y</button>'
+          + '<button type="button" class="pbtn active" data-range="10y">10Y</button>'
+          + '</div>'
+          + '<div class="pricechart-body">読み込み中…</div></div>'
           + '<div class="divhist" data-code="' + h.code + '"><b>配当推移・受取実績</b>'
           + '<div class="divhist-body">読み込み中…</div></div>'
           + '<div class="dnote">個別銘柄の詳しいレポート（業績・財務・配当推移など）は'
