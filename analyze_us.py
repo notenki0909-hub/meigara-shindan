@@ -1741,7 +1741,7 @@ def generate_us(ticker, cfg=None, log=None):
         "warnings": warnings,
     }
     try:
-        res["portfolio_data"] = analyze.portfolio_data(yd)
+        res["portfolio_data"] = analyze.portfolio_data_with_open(yd)
     except Exception:
         res["portfolio_data"] = {"prices": [], "divs": []}
     res["ok"] = True

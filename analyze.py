@@ -479,6 +479,23 @@ def portfolio_data(yd):
     return {"prices": prices, "divs": divs}
 
 
+def portfolio_data_with_open(yd):
+    """配当株ツール専用。portfolio_data() に始値 opens を足したもの。
+    opens は prices と同じ並び・同じ長さ（欠損は None）。portfolio_data() は10年保有側
+    （analyze_long.py）も共有しているため、そちらは変更せずこの別関数を使う。"""
+    prices, opens = [], []
+    hd = yd.get("hist_d")
+    if hd is not None and not getattr(hd, "empty", True):
+        for idx, r in hd.iterrows():
+            c = r.get("Close")
+            if is_num(c):
+                prices.append([idx.date().isoformat(), round(float(c), 2)])
+                o = r.get("Open")
+                opens.append(round(float(o), 2) if is_num(o) else None)
+    divs = [[d0.isoformat(), round(float(v), 4)] for d0, v in (yd.get("divs") or [])]
+    return {"prices": prices, "opens": opens, "divs": divs}
+
+
 # ====================================================================
 # 指標の計算
 # ====================================================================
@@ -3066,7 +3083,7 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
         "warnings": warnings,
     }
     try:
-        res["portfolio_data"] = portfolio_data(yd)
+        res["portfolio_data"] = portfolio_data_with_open(yd)
     except Exception:
         res["portfolio_data"] = {"prices": [], "divs": []}
     res["ok"] = True
