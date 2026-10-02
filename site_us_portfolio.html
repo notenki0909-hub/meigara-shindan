@@ -167,6 +167,14 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
 .newtxbtn{background:var(--card);color:var(--accent);border:1px dashed var(--accent);border-radius:8px;padding:6px 12px;font-size:12.5px;margin-bottom:6px;cursor:pointer}
 .editform{margin:4px 0}
 .editform .ed-typelabel{font-weight:700}
+/* 6行以上は折りたたみ（直近5行のみ表示）。状態は親要素のクラスで持ち、ボタン文言もCSSで出し分ける */
+.moretoggle{background:var(--card);color:var(--accent);border:1px solid var(--accent);border-radius:8px;padding:3px 12px;font-size:12px;margin:4px 0;cursor:pointer}
+.lots:not(.lotsopen) .lothid{display:none}
+.lots.lotsopen .lottoggle .t-open{display:none}
+.lots:not(.lotsopen) .lottoggle .t-close{display:none}
+.divhist-body:not(.divopen) tr.divmore{display:none}
+.divhist-body.divopen .divtoggle .t-open{display:none}
+.divhist-body:not(.divopen) .divtoggle .t-close{display:none}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>ポートフォリオ</h1><div class="nav"><a href="terms.html">利用規約・免責事項</a><a href="guide.html">使い方・見方</a><a href="index.html">ランキング</a><a href="watchlist.html">ウォッチリスト</a></div></div>
 <div id="theme-bar">
@@ -857,6 +865,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
       + '<div class="pnote"><span style="color:var(--gA)">■</span>受取あり（保有株数ベース）　<span style="color:var(--accent)">■</span>保有前・受取なし</div>';
   }
   function renderDivHist(code, container){
+    container.classList.toggle('divopen', !!divOpen[code]);
     if (divHistCache[code] !== undefined) { container.innerHTML = divHistCache[code]; return; }
     var codeLots = lots.filter(function(l){ return l.code === code; })
       .slice().sort(function(a,b){ return a.date < b.date ? -1 : (a.date > b.date ? 1 : 0); });
@@ -873,15 +882,18 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
           var actual = divs.filter(function(d){ return d[0] >= firstBuy; }).slice().reverse();
           if (actual.length) {
             var totalReceived = 0;
-            var rowsHtml = actual.map(function(d){
+            var rowsHtml = actual.map(function(d, di){
               var sharesAt = codeLots.reduce(function(a,l){ return l.date <= d[0] ? a + l.shares : a; }, 0);
               var received = sharesAt * d[1];
               totalReceived += received;
-              return '<tr><td>' + d[0] + '</td><td>' + dollar(d[1]) + '</td><td>' + sharesAt.toLocaleString('ja-JP') + '株</td><td>' + dollar(received) + '</td></tr>';
+              return '<tr' + (di >= 5 ? ' class="divmore"' : '') + '><td>' + d[0] + '</td><td>' + dollar(d[1]) + '</td><td>' + sharesAt.toLocaleString('ja-JP') + '株</td><td>' + dollar(received) + '</td></tr>';
             }).join('');
             tableHtml = '<div class="dtotal">受取見込み額合計　' + dollar(totalReceived) + '</div>'
               + '<table><thead><tr><th>確定日</th><th>1株配当</th><th>当時の保有株数</th><th>受取見込み額</th></tr></thead>'
-              + '<tbody>' + rowsHtml + '</tbody></table>';
+              + '<tbody>' + rowsHtml + '</tbody></table>'
+              + (actual.length > 5
+                ? '<button type="button" class="moretoggle divtoggle" data-code="' + code + '"><span class="t-open">全部表示（過去' + (actual.length - 5) + '件を表示）</span><span class="t-close">折り畳み</span></button>'
+                : '');
           } else {
             tableHtml = '<div class="dnote">保有開始日以降の配当の確定はまだありません。</div>';
           }
@@ -1352,6 +1364,9 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
   // 展開中（購入ロット内訳を開いている）銘柄コード。売買記録の送信で
   // render() が全体を再描画しても、開いていた行が閉じないように保持する。
   var openDetail = {};
+  // 売買履歴・配当確定日の「全部表示」状態（render() の再描画後も維持する）
+  var lotsOpen = {};
+  var divOpen = {};
   // コード→集計済みholding（avgPrice・lots等）。株価チャートの売買マーカー・
   // 平均取得単価線を、render()のクロージャ外（クリックハンドラ）からも参照できるようにする。
   var holdingsByCode = {};
@@ -1409,6 +1424,18 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
     if (eddelete) {
       var ef4 = eddelete.closest('.editform');
       deleteLot(parseInt(ef4.dataset.gidx, 10));
+      return;
+    }
+    var lottoggle = e.target.closest('button.lottoggle');
+    if (lottoggle) {
+      var lotsBox = lottoggle.closest('.lots');
+      lotsOpen[lottoggle.dataset.code] = lotsBox.classList.toggle('lotsopen');
+      return;
+    }
+    var divtoggle = e.target.closest('button.divtoggle');
+    if (divtoggle) {
+      var divBody = divtoggle.closest('.divhist-body');
+      divOpen[divtoggle.dataset.code] = divBody.classList.toggle('divopen');
       return;
     }
     var pbtn = e.target.closest('.pchart-period button');
@@ -1550,13 +1577,15 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
           + '<td class="n">' + (h.annualDiv != null ? dollar(h.annualDiv) : '―') + '</td>'
           + '<td class="x"><button type="button" class="del" data-code="' + h.code + '" title="この銘柄の保有記録をすべて削除">✕</button></td>'
           + '</tr>';
-        var lotRows = h.lots.map(function(l){
+        var LOT_VISIBLE = 5;
+        var lotHidCount = Math.max(0, h.lots.length - LOT_VISIBLE);
+        var lotRows = h.lots.map(function(l, li){
           var isSell = l.type === 's';
           var amtPart = isSell
             ? ('売却額' + dollar(l.shares*l.price) + '、<span class="' + (l.realized >= 0 ? 'pos' : 'neg') + '">'
                 + (l.realized >= 0 ? '利確＋' : '損切－') + dollar(Math.abs(l.realized)) + '</span>')
             : ('購入額' + dollar(l.shares*l.price));
-          return '<div class="lotrow ' + (isSell ? 'txsell' : 'txbuy') + '" data-code="' + h.code + '" data-gidx="' + lots.indexOf(l) + '">'
+          return '<div class="lotrow ' + (isSell ? 'txsell' : 'txbuy') + (li < lotHidCount ? ' lothid' : '') + '" data-code="' + h.code + '" data-gidx="' + lots.indexOf(l) + '">'
             + '<span class="lottag">' + (isSell ? '売却' : '購入') + '</span>' + l.date + '　' + l.shares.toLocaleString('ja-JP') + '株　@' + dollar(l.price)
             + '　（' + amtPart + '）</div>';
         }).join('');
@@ -1581,9 +1610,12 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
           + '<button type="button" class="ed-update">修正する</button>'
           + '<button type="button" class="ed-delete ghost">削除する</button>'
           + '</div></div>';
-        var detail = '<tr class="detail" data-idx="' + idx + '"' + (isOpen ? '' : ' hidden') + '><td colspan="12"><div class="lots">'
+        var lotToggle = lotHidCount
+          ? '<button type="button" class="moretoggle lottoggle" data-code="' + h.code + '"><span class="t-open">全部表示（過去' + lotHidCount + '件を表示）</span><span class="t-close">折り畳み</span></button>'
+          : '';
+        var detail = '<tr class="detail" data-idx="' + idx + '"' + (isOpen ? '' : ' hidden') + '><td colspan="12"><div class="lots' + (lotsOpen[h.code] ? ' lotsopen' : '') + '">'
           + '<b>購入ロット内訳</b><div class="lotnote">各記録をクリックすると修正・削除できます。新しい買付・売却は「＋新規買付・売却を記録」ボタンから追加できます。取得費・実現損益は移動平均法で計算した参考値です。米国株の実際の取得費計算方法は証券会社により異なる場合があります（例：FIFO＝先入先出法を採用している証券会社が多い）。正確な損益は各証券会社の取引履歴でご確認ください。</div>'
-          + newtxbtn + txform + lotRows + editform
+          + newtxbtn + txform + lotToggle + lotRows + editform
           + '<div class="pricechart" data-code="' + h.code + '"><b>株価チャート</b>'
           + '<div class="dimbtns pchart-period" data-code="' + h.code + '">'
           + '<button type="button" class="pbtn" data-range="1m">1M</button>'
