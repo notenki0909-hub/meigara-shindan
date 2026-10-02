@@ -100,7 +100,7 @@ tr:last-child td{border-bottom:none}
 .addrow.added .addrow-head .nm{color:var(--muted)}
 .addrow .nm{font-weight:700}
 .addrow .fold{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:12px;cursor:pointer}
-.addrow input{padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);font-size:13px}
+.addrow input,.addrow select{padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);font-size:13px}
 .addrow input.code{width:6em}
 .addrow input.shares{width:6em}
 .addrow input.price{width:7em}
@@ -142,7 +142,7 @@ td.q,th.q{color:var(--accent)}
 .txmode{background:var(--card);color:var(--fg);border:1px solid var(--line);padding:5px 12px;font-size:12.5px;border-radius:7px;cursor:pointer}
 .txmode.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 .txform .addrow-body{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.txform input{padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);font-size:13px}
+.txform input,.txform select{padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);font-size:13px}
 .txform input.shares{width:6em}
 .txform input.price{width:7em}
 .txform input.date{width:9.5em}
@@ -151,7 +151,7 @@ td.q,th.q{color:var(--accent)}
 .editform{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
 .editform .eftitle{font-weight:700;margin:0 0 6px}
 .editform .addrow-body{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.editform input{padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);font-size:13px}
+.editform input,.editform select{padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);font-size:13px}
 .editform input.efshares{width:6em}
 .editform input.efprice{width:7em}
 .editform input.efdate{width:9.5em}
@@ -203,11 +203,12 @@ td.q,th.q{color:var(--accent)}
       <label>ティッカー<input class="code" id="in-code" placeholder="AAPL"></label>
       <label>株数<input class="shares" id="in-shares" type="number" min="1" step="1" placeholder="100"></label>
       <label>取得単価（$・空欄で自動取得）<input class="price" id="in-price" type="number" min="0" step="0.01" placeholder="空欄可"></label>
+      <label>空欄時に自動取得する価格<select class="pricesrc" id="in-pricesrc"><option value="close">終値</option><option value="open">始値</option></select></label>
       <label>購入日<input class="date" id="in-date" type="date"></label>
       <button type="button" id="in-add" style="align-self:flex-end">追加</button>
     </div>
   </div>
-  <p class="note">1回の購入ごとに1行として追加してください（同じ銘柄を複数回に分けて買った場合は、そのつど追加すると加重平均取得単価を自動計算します）。<b>取得単価を空欄にすると、購入日の終値を自動で調べて入力します</b>（直近10年分のみ対応。それより前の購入日は手入力してください）。</p>
+  <p class="note">1回の購入ごとに1行として追加してください（同じ銘柄を複数回に分けて買った場合は、そのつど追加すると加重平均取得単価を自動計算します）。<b>取得単価を空欄にすると、購入日の終値（「空欄時に自動取得する価格」で始値も選べます）を自動で調べて入力します</b>（直近10年分のみ対応。それより前の購入日は手入力してください）。</p>
   <h2 id="registered-h2" style="cursor:pointer">登録銘柄の追加入力<button type="button" class="fold" id="registered-toggle" style="margin-left:8px">▲ 閉じる</button></h2>
   <div id="addcodes"></div>
 </div>
@@ -465,7 +466,7 @@ td.q,th.q{color:var(--accent)}
   });
 
   $('in-add').addEventListener('click', function(){
-    addOneLot($('in-code').value, $('in-shares').value, $('in-price').value, $('in-date').value, 'b', true);
+    addOneLot($('in-code').value, $('in-shares').value, $('in-price').value, $('in-date').value, 'b', true, null, $('in-pricesrc').value);
   });
 
   // 見出し「保有銘柄を追加する」をクリックすると、ティッカーを直接入力する欄を
@@ -507,6 +508,26 @@ td.q,th.q{color:var(--accent)}
       .then(function(r){ return r.ok ? r.json() : {prices:[], divs:[]}; })
       .catch(function(){ return {prices:[], divs:[]}; })
       .then(function(d){ pdCache[code] = d; return d; });
+  }
+  // 単価が空欄のときの自動取得。src='open' なら始値、それ以外は終値。
+  // 始値は portfolio_data の opens（prices と同じ並び）から引く。まだ始値が保存されて
+  // いない銘柄（夜間更新前）は noOpen を返し、呼び出し側で案内を出す。
+  function lookupPrice(pd, dateStr, src){
+    var prices = pd.prices || [];
+    if (src === 'open') {
+      var opens = pd.opens;
+      if (!opens || opens.length !== prices.length) return {noOpen:true, label:'始値'};
+      var best = null;
+      for (var i = 0; i < prices.length; i++) {
+        if (prices[i][0] <= dateStr) best = opens[i]; else break;
+      }
+      return {price: best, label:'始値'};
+    }
+    return {price: findPriceOnOrBefore(prices, dateStr), label:'終値'};
+  }
+  function priceNotFoundMsg(r, what, date){
+    if (r.noOpen) return 'この銘柄の始値データはまだ保存されていません（夜間更新後に利用できます）。終値を選ぶか、単価を入力してください。';
+    return what + '（' + date + '）の' + r.label + 'が見つかりませんでした（データの対象期間外、またはティッカーをご確認ください）。単価を入力してください。';
   }
   function findPriceOnOrBefore(prices, dateStr){
     // prices は日付昇順の [[日付, 終値], ...] を想定（yfinanceの返却順）
@@ -799,18 +820,19 @@ td.q,th.q{color:var(--accent)}
     applyPriceChartRange(code, ch._currentRange || '10y');
   }
 
-  // 単価が空欄なら、その日の終値を自動取得（直近10年分のみ）。指定済みならそのまま使う。
-  function resolvePrice(code, date, price){
+  // 単価が空欄なら、その日の終値（または選択した始値）を自動取得（直近10年分のみ）。
+  // 指定済みならそのまま使う。戻り値は {price, label, noOpen} 形式。
+  function resolvePrice(code, date, price, src){
     var priceNum = parseFloat(price);
     if (price !== '' && price != null && !isNaN(priceNum) && priceNum >= 0) {
-      return Promise.resolve(priceNum);
+      return Promise.resolve({price: priceNum, label: ''});
     }
     return loadPD(code).then(function(pd){
-      return findPriceOnOrBefore(pd.prices || [], date);
+      return lookupPrice(pd, date, src);
     });
   }
 
-  function addOneLot(code, shares, price, date, type, clearInputs, onDone){
+  function addOneLot(code, shares, price, date, type, clearInputs, onDone, src){
     code = (code || '').trim().toUpperCase();
     shares = parseFloat(shares);
     date = (date || '').trim();
@@ -823,12 +845,12 @@ td.q,th.q{color:var(--accent)}
       if (shares > cur) { alert('売却できる保有株がありません（' + date + '時点の保有株数：' + cur.toLocaleString('ja-JP') + '株）。日付をご確認ください。'); return; }
     }
 
-    resolvePrice(code, date, price).then(function(p){
-      if (p == null) {
-        alert((type==='s'?'売却日':'購入日') + '（' + date + '）の終値が見つかりませんでした（データの対象期間外、またはティッカーをご確認ください）。単価を入力してください。');
+    resolvePrice(code, date, price, src).then(function(r){
+      if (r.price == null) {
+        alert(priceNotFoundMsg(r, (type==='s'?'売却日':'購入日'), date));
         return;
       }
-      lots.push({code:code, shares:shares, price:p, date:date, type:type});
+      lots.push({code:code, shares:shares, price:r.price, date:date, type:type});
       persist();
       if (clearInputs) { $('in-code').value=''; $('in-shares').value=''; $('in-price').value=''; $('in-date').value=''; }
       if (onDone) onDone();
@@ -838,7 +860,7 @@ td.q,th.q{color:var(--accent)}
 
   // 既存の取引記録（グローバルインデックス gidx で識別）の修正。種別（買い/売り）は
   // 記録の意味を変えないため変更不可（株数・単価・日付のみ）。
-  function updateLot(gidx, shares, price, date){
+  function updateLot(gidx, shares, price, date, src){
     var l = lots[gidx];
     if (!l) return;
     shares = parseFloat(shares);
@@ -849,12 +871,12 @@ td.q,th.q{color:var(--accent)}
       var cur = sharesHeldAt(l.code, date, gidx);
       if (shares > cur) { alert('売却できる保有株がありません（' + date + '時点の保有株数：' + cur.toLocaleString('ja-JP') + '株）。日付をご確認ください。'); return; }
     }
-    resolvePrice(l.code, date, price).then(function(p){
-      if (p == null) {
-        alert((l.type==='s'?'売却日':'購入日') + '（' + date + '）の終値が見つかりませんでした（データの対象期間外、またはティッカーをご確認ください）。単価を入力してください。');
+    resolvePrice(l.code, date, price, src).then(function(r){
+      if (r.price == null) {
+        alert(priceNotFoundMsg(r, (l.type==='s'?'売却日':'購入日'), date));
         return;
       }
-      lots[gidx] = {code:l.code, shares:shares, price:p, date:date, type:l.type};
+      lots[gidx] = {code:l.code, shares:shares, price:r.price, date:date, type:l.type};
       persist();
       render();
     });
@@ -892,7 +914,7 @@ td.q,th.q{color:var(--accent)}
     });
     var box = $('addcodes');
     if (!addCodes.length) { box.innerHTML = ''; return; }
-    box.innerHTML = '<p class="note">ランキングでチェックした銘柄・保有中の銘柄の入力欄です。株数・購入日を入れてください（取得単価は空欄なら購入日の終値を自動取得）。保有銘柄の欄は追加後も消えず、いつでも追加ロットを入力できます。'
+    box.innerHTML = '<p class="note">ランキングでチェックした銘柄・保有中の銘柄の入力欄です。株数・購入日を入れてください（取得単価は空欄なら購入日の終値、または選んだ始値を自動取得）。保有銘柄の欄は追加後も消えず、いつでも追加ロットを入力できます。'
       + '<button type="button" id="addcodes-foldall" class="foldall">すべて折りたたむ</button></p>'
       + addCodes.map(function(c){
         var nm = (byCode && byCode[c]) ? byCode[c].name : c;
@@ -905,6 +927,7 @@ td.q,th.q{color:var(--accent)}
           + '<div class="addrow-body">'
           + '<label>株数<input class="shares" type="number" min="1" step="1" placeholder="100"></label>'
           + '<label>取得単価（$・空欄で自動取得）<input class="price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
+          + '<label>空欄時に自動取得する価格<select class="pricesrc"><option value="close">終値</option><option value="open">始値</option></select></label>'
           + '<label>購入日<input class="date" type="date"></label>'
           + '<button type="button" class="add1">追加</button>'
           + '</div>'
@@ -924,7 +947,7 @@ td.q,th.q{color:var(--accent)}
         var dt = row.querySelector('.date').value;
         addOneLot(code, sh, pr, dt, 'b', false, function(){
           addRowState[code].collapsed = true;
-        });
+        }, row.querySelector('.pricesrc').value);
       });
     });
     var foldAllBtn = $('addcodes-foldall');
@@ -1110,7 +1133,7 @@ td.q,th.q{color:var(--accent)}
       var sh = form2.querySelector('.shares').value;
       var pr = form2.querySelector('.price').value;
       var dt = form2.querySelector('.date').value;
-      addOneLot(code2, sh, pr, dt, mode, false, function(){});
+      addOneLot(code2, sh, pr, dt, mode, false, function(){}, form2.querySelector('.pricesrc').value);
       return;
     }
 
@@ -1144,7 +1167,7 @@ td.q,th.q{color:var(--accent)}
       var sh2 = edf2.querySelector('.efshares').value;
       var pr2 = edf2.querySelector('.efprice').value;
       var dt2 = edf2.querySelector('.efdate').value;
-      updateLot(gidx2, sh2, pr2, dt2);
+      updateLot(gidx2, sh2, pr2, dt2, edf2.querySelector('.pricesrc').value);
       return;
     }
 
@@ -1270,6 +1293,7 @@ td.q,th.q{color:var(--accent)}
           + '<div class="addrow-body">'
           + '<label>株数<input class="shares" type="number" min="1" step="1" placeholder="100"></label>'
           + '<label>単価（$・空欄で自動取得）<input class="price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
+          + '<label>空欄時に自動取得する価格<select class="pricesrc"><option value="close">終値</option><option value="open">始値</option></select></label>'
           + '<label>日付<input class="date" type="date"></label>'
           + '<button type="button" class="txsubmit">記録する</button>'
           + '</div></div>'
@@ -1279,6 +1303,7 @@ td.q,th.q{color:var(--accent)}
           + '<div class="addrow-body">'
           + '<label>株数<input class="efshares" type="number" min="1" step="1"></label>'
           + '<label>単価（$・空欄で自動取得）<input class="efprice" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
+          + '<label>空欄時に自動取得する価格<select class="pricesrc"><option value="close">終値</option><option value="open">始値</option></select></label>'
           + '<label>日付<input class="efdate" type="date"></label>'
           + '<button type="button" class="editsubmit">修正する</button>'
           + '<button type="button" class="editdelete ghost">削除する</button>'

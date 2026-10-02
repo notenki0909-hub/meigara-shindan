@@ -1211,7 +1211,7 @@ def generate_long(code, cfg=None, market="jp", name=None):
         "_generated_at": dt.datetime.now().isoformat(timespec="seconds"),
     }
     try:
-        res["portfolio_data"] = analyze.portfolio_data(yd)
+        res["portfolio_data"] = analyze.portfolio_data_with_open(yd)
     except Exception:
         res["portfolio_data"] = {"prices": [], "divs": []}
     res["ok"] = True
