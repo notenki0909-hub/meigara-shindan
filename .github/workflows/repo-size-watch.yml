@@ -1,0 +1,77 @@
+name: repo-size-watch
+
+# 毎週、リポジトリ（GitHub上）のサイズを確認し、基準を超えたらIssueを作成して通知する。
+# 夜間バッチが毎晩データをコミットするため履歴が増え続けるので、履歴の掃除
+# （過去の日々のデータ版を履歴から取り除く作業）の時期を知らせるのが目的。
+# 基準：700MBで警告、900MBで緊急。同じ内容のIssueが未解決のまま残っていれば重複作成しない。
+# ※ gitへpushしないため、他のワークフローの排他制御グループには入れない。
+on:
+  schedule:
+    - cron: "30 3 * * 1"   # 毎週月曜 03:30 UTC（12:30 JST）
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "true にすると基準を0MBにして通知テストを行う"
+        required: false
+        default: "false"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: サイズ確認と通知
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TEST: ${{ github.event.inputs.test }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY}"
+          size_kb=$(gh api "repos/${repo}" --jq .size)
+          mb=$((size_kb / 1024))
+          warn=700
+          crit=900
+          if [ "${TEST:-}" = "true" ]; then
+            warn=0
+            crit=100000
+          fi
+          echo "現在のサイズ: ${mb}MB（警告 ${warn}MB／緊急 ${crit}MB）"
+
+          if [ "$mb" -ge "$crit" ]; then
+            level="緊急"; th="$crit"
+          elif [ "$mb" -ge "$warn" ]; then
+            level="警告"; th="$warn"
+          else
+            echo "基準未満のため通知しません"
+            exit 0
+          fi
+
+          title="【容量${level}】リポジトリ容量が${th}MBを超えました"
+          if [ "${TEST:-}" = "true" ]; then
+            title="【テスト】${title}"
+          fi
+
+          exists=$(gh issue list --repo "$repo" --state open --search "in:title \"${title}\"" --json number --jq 'length')
+          if [ "$exists" -gt 0 ]; then
+            echo "同じ内容のIssueが未解決のため、重複作成しません"
+            exit 0
+          fi
+
+          cat > /tmp/body.md <<EOF
+          @notenki0909-hub
+
+          リポジトリ（GitHub上）のサイズが **${mb}MB** になり、${level}の基準（${th}MB）を超えました。
+
+          - 夜間バッチが毎晩データをコミットするため、履歴が1日あたり約12〜13MBずつ増えています。
+          - 目安：900MB超で緊急、1GBは GitHub の推奨サイズの上限です。
+          - 対応：Claude（配当株ツールのセッション）に「履歴の掃除をして」と伝えてください。
+            過去の日々のデータ版を履歴から取り除き、最新のサイトはそのまま残す作業です
+            （強制pushを伴うため、実施前に手順と日時をお知らせします）。
+
+          このIssueは対応が終わったら閉じてください（閉じるまでは重複して作成されません）。
+          EOF
+          gh issue create --repo "$repo" --title "$title" --body-file /tmp/body.md
