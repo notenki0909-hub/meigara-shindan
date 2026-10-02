@@ -128,6 +128,11 @@ tr.detail td{background:var(--field);padding:10px 12px}
 tr.detail .lots{font-size:12px}
 tr.detail .lots .lotrow{padding:2px 4px;margin:0 -4px;border-radius:4px;cursor:pointer}
 tr.detail .lots .lotrow:hover{background:color-mix(in srgb, var(--accent) 6%, transparent)}
+/* 6行以上は折りたたみ（最新5行のみ表示）。状態は親要素のクラスで持ち、ボタン文言もCSSで出し分ける */
+.moretoggle{background:var(--card);color:var(--accent);border:1px solid var(--accent);border-radius:8px;padding:3px 12px;font-size:12px;margin:4px 0;cursor:pointer}
+.lots:not(.lotsopen) .lothid{display:none}
+.lots.lotsopen .lottoggle .t-open{display:none}
+.lots:not(.lotsopen) .lottoggle .t-close{display:none}
 tr.detail .dnote{margin-top:8px;font-size:11.5px;color:var(--muted)}
 td.x{width:30px;text-align:center}
 td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--muted);border-color:var(--line);border-radius:6px}
@@ -979,7 +984,7 @@ td.q,th.q{color:var(--accent)}
   }
   function num0(v){ return (typeof v === 'number' && isFinite(v)) ? v.toFixed(0) : '―'; }
 
-  function fmtLotLine(l){
+  function fmtLotLine(l, hid){
     var isSell = l.type === 's';
     var amt = l.shares * l.price;
     var amtTxt;
@@ -993,7 +998,7 @@ td.q,th.q{color:var(--accent)}
     } else {
       amtTxt = '（購入額' + dollar(amt) + '）';
     }
-    return '<div class="lotrow" data-code="' + l.code + '" data-gidx="' + lots.indexOf(l) + '">'
+    return '<div class="lotrow' + (hid ? ' lothid' : '') + '" data-code="' + l.code + '" data-gidx="' + lots.indexOf(l) + '">'
       + '<span class="txbadge ' + (isSell ? 'sell' : 'buy') + '">' + (isSell ? '売却' : '購入') + '</span> '
       + l.date + '　' + l.shares.toLocaleString('ja-JP') + '株　@' + dollar(l.price) + '　' + amtTxt
       + '</div>';
@@ -1083,6 +1088,8 @@ td.q,th.q{color:var(--accent)}
   // コードごとの「購入ロット内訳」展開状態。render()は#holdtable全体を作り直すため、
   // これが無いと記録の追加・修正・削除のたびに展開状態が失われてしまう。
   var openDetail = {};
+  // 売買履歴の「全部表示」状態（render() の再描画後も維持する）
+  var lotsOpen = {};
   // コード→集計済みholding（avgPrice・lots等）。株価チャートの売買マーカー・
   // 平均取得単価線を、render()のクロージャ外（クリックハンドラ）からも参照できるようにする。
   var holdingsByCode = {};
@@ -1104,6 +1111,12 @@ td.q,th.q{color:var(--accent)}
       lots = lots.filter(function(l){ return l.code !== del.dataset.code; });
       persist();
       render();
+      return;
+    }
+
+    var lottoggle = e.target.closest('button.lottoggle');
+    if (lottoggle) {
+      lotsOpen[lottoggle.dataset.code] = lottoggle.closest('.lots').classList.toggle('lotsopen');
       return;
     }
 
@@ -1279,9 +1292,14 @@ td.q,th.q{color:var(--accent)}
           + '<td class="n">' + num0(h.bt) + '</td>'
           + '<td class="x"><button type="button" class="del" data-code="' + h.code + '" title="この銘柄の保有記録をすべて削除">✕</button></td>'
           + '</tr>';
-        var lotRows = h.lots.map(fmtLotLine).join('');
+        var LOT_VISIBLE = 5;
+        var lotHidCount = Math.max(0, h.lots.length - LOT_VISIBLE);
+        var lotRows = h.lots.slice().reverse().map(function(l, li){ return fmtLotLine(l, li >= LOT_VISIBLE); }).join('');
+        var lotToggle = lotHidCount
+          ? '<button type="button" class="moretoggle lottoggle" data-code="' + h.code + '"><span class="t-open">全部表示（過去' + lotHidCount + '件を表示）</span><span class="t-close">折り畳み</span></button>'
+          : '';
         var detHidden = openDetail[h.code] ? '' : ' hidden';
-        var detail = '<tr class="detail" data-idx="' + idx + '" data-code="' + h.code + '"' + detHidden + '><td colspan="11"><div class="lots">'
+        var detail = '<tr class="detail" data-idx="' + idx + '" data-code="' + h.code + '"' + detHidden + '><td colspan="11"><div class="lots' + (lotsOpen[h.code] ? ' lotsopen' : '') + '">'
           + '<b>購入ロット内訳</b>'
           + '<p class="note" style="margin:4px 0 8px">各記録をクリックすると修正・削除できます。新しい買付・売却は「＋新規買付・売却を記録」ボタンから追加できます。取得費・実現損益は移動平均法で計算した参考値です。米国株の実際の取得費計算方法は証券会社により異なる場合があります（例：FIFO＝先入先出法を採用する証券会社が多い）。正確な損益は各証券会社の取引履歴でご確認ください。</p>'
           + '<button type="button" class="newtx-btn" data-code="' + h.code + '">＋ 新規買付・売却を記録</button>'
@@ -1298,6 +1316,7 @@ td.q,th.q{color:var(--accent)}
           + '<button type="button" class="txsubmit">記録する</button>'
           + '</div></div>'
           + lotRows
+          + lotToggle
           + '<div class="editform" data-code="' + h.code + '" hidden>'
           + '<p class="eftitle"></p>'
           + '<div class="addrow-body">'
