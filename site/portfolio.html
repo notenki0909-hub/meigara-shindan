@@ -1575,13 +1575,13 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
           + '</tr>';
         var LOT_VISIBLE = 5;
         var lotHidCount = Math.max(0, h.lots.length - LOT_VISIBLE);
-        var lotRows = h.lots.map(function(l, li){
+        var lotRows = h.lots.slice().reverse().map(function(l, li){
           var isSell = l.type === 's';
           var amtPart = isSell
             ? ('売却額' + yen(l.shares*l.price) + '、<span class="' + (l.realized >= 0 ? 'pos' : 'neg') + '">'
                 + (l.realized >= 0 ? '利確＋' : '損切－') + yen(Math.abs(l.realized)) + '</span>')
             : ('購入額' + yen(l.shares*l.price));
-          return '<div class="lotrow ' + (isSell ? 'txsell' : 'txbuy') + (li < lotHidCount ? ' lothid' : '') + '" data-code="' + h.code + '" data-gidx="' + lots.indexOf(l) + '">'
+          return '<div class="lotrow ' + (isSell ? 'txsell' : 'txbuy') + (li >= LOT_VISIBLE ? ' lothid' : '') + '" data-code="' + h.code + '" data-gidx="' + lots.indexOf(l) + '">'
             + '<span class="lottag">' + (isSell ? '売却' : '購入') + '</span>' + l.date + '　' + l.shares.toLocaleString('ja-JP') + '株　@' + yen(l.price)
             + '　（' + amtPart + '）</div>';
         }).join('');
@@ -1611,7 +1611,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
           : '';
         var detail = '<tr class="detail" data-idx="' + idx + '"' + (isOpen ? '' : ' hidden') + '><td colspan="12"><div class="lots' + (lotsOpen[h.code] ? ' lotsopen' : '') + '">'
           + '<b>購入ロット内訳</b><div class="lotnote">各記録をクリックすると修正・削除できます。新しい買付・売却は「＋新規買付・売却を記録」ボタンから追加できます。取得費・実現損益は移動平均法（総平均法に準ずる方法）で計算した参考値です。正確な損益は証券会社の取引履歴でご確認ください。</div>'
-          + newtxbtn + txform + lotToggle + lotRows + editform
+          + newtxbtn + txform + lotRows + lotToggle + editform
           + '<div class="pricechart" data-code="' + h.code + '"><b>株価チャート</b>'
           + '<div class="dimbtns pchart-period" data-code="' + h.code + '">'
           + '<button type="button" class="pbtn" data-range="1m">1M</button>'
