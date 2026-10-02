@@ -125,6 +125,23 @@ def _price_changes(hist_d):
     return out
 
 
+def _portfolio_data(yd):
+    """ポートフォリオ機能用の軽量データ（10年保有ツール専用。配当株側の関数には依存しない）。
+    prices＝[[日付, 終値]]、opens＝始値（pricesと同じ並び・同じ長さ、欠損はNone）、
+    divs＝[[権利落ち日, 1株配当]]。"""
+    prices, opens = [], []
+    hd = yd.get("hist_d")
+    if hd is not None and not getattr(hd, "empty", True):
+        for idx, r in hd.iterrows():
+            c = r.get("Close")
+            if LC.is_num(c):
+                prices.append([idx.date().isoformat(), round(float(c), 2)])
+                o = r.get("Open")
+                opens.append(round(float(o), 2) if LC.is_num(o) else None)
+    divs = [[d0.isoformat(), round(float(v), 4)] for d0, v in (yd.get("divs") or [])]
+    return {"prices": prices, "opens": opens, "divs": divs}
+
+
 _SEC_AVG_LONG = {"jp": None, "us": None}
 
 
@@ -1211,9 +1228,9 @@ def generate_long(code, cfg=None, market="jp", name=None):
         "_generated_at": dt.datetime.now().isoformat(timespec="seconds"),
     }
     try:
-        res["portfolio_data"] = analyze.portfolio_data_with_open(yd)
+        res["portfolio_data"] = _portfolio_data(yd)
     except Exception:
-        res["portfolio_data"] = {"prices": [], "divs": []}
+        res["portfolio_data"] = {"prices": [], "opens": [], "divs": []}
     res["ok"] = True
     return res
 
