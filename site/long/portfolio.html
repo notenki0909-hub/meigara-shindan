@@ -11,7 +11,7 @@
 }
 :root[data-mode="dark"]{
   --bg:#101216;--card:#181b22;--line:#2b303a;--muted:#98a1ad;--fg:#e6e8eb;
-  --accent:#6aa4ff;--th:#1e232c;--field:#161a21;--info:#17233a;
+  --accent:#6aa4ff;--onacc:#0b1220;--th:#1e232c;--field:#161a21;--info:#17233a;
   --t1:#4ade80;--t2:#fbbf24;--t3:#9aa1ac;--gA:#4ade80;--gB:#fbbf24;--gC:#f87171;
   --wbg:#26210f;--wbd:#5a4a1b;--wfg:#e7c06a;--ibg:#152036;--ibd:#2b3f63;
 }
@@ -63,7 +63,7 @@ h1{font-size:20px;margin:0 0 4px}
 #codestr{flex:1;min-width:220px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;
   font:12px/1.4 monospace;background:var(--field);color:var(--fg)}
 button{padding:8px 14px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);
-  color:#fff;font-size:13px;cursor:pointer}
+  color:var(--onacc,#fff);font-size:13px;cursor:pointer}
 button.ghost{background:var(--card);color:var(--muted);border-color:var(--line)}
 #copystat{font-size:12px;color:var(--gA)}
 textarea{width:100%;min-height:64px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;
@@ -120,7 +120,7 @@ tr:last-child td{border-bottom:none}
 .lgitem .lv{color:var(--muted);font-size:11px}
 .dimbtns{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
 .dimbtns button{background:var(--card);color:var(--fg);border-color:var(--line);padding:6px 12px;font-size:12.5px}
-.dimbtns button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.dimbtns button.active{background:var(--accent);color:var(--onacc,#fff);border-color:var(--accent)}
 
 /* 保有明細（展開） */
 tr.hrow{cursor:pointer}
@@ -146,7 +146,7 @@ td.q,th.q{color:var(--accent)}
 .txform{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
 .txmodebtns{display:flex;gap:6px;margin-bottom:8px}
 .txmode{background:var(--card);color:var(--fg);border:1px solid var(--line);padding:5px 12px;font-size:12.5px;border-radius:7px;cursor:pointer}
-.txmode.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.txmode.active{background:var(--accent);color:var(--onacc,#fff);border-color:var(--accent)}
 .txform .addrow-body{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .txform input,.txform select{padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);font-size:13px}
 .txform input.shares{width:6em}

@@ -803,7 +803,7 @@ th.wl,th.pf{{cursor:default}}
 #wlbar .grp{{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}}
 #wlbar b{{color:var(--accent)}}
 #wlbar button{{padding:8px 16px;border:1px solid var(--accent);border-radius:8px;
-  background:var(--accent);color:#fff;font-size:13px;cursor:pointer}}
+  background:var(--accent);color:var(--onacc,#fff);font-size:13px;cursor:pointer}}
 #wlbar button.ghost{{background:var(--card);color:var(--muted);border-color:var(--line)}}
 #wlbar[hidden]{{display:none}}
 body.wlon{{padding-bottom:115px}}
@@ -1374,7 +1374,7 @@ h1{{font-size:19px;margin:0 0 4px}}
 textarea{{width:100%;min-height:52px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;
   font:12px/1.5 monospace;background:var(--field);color:var(--fg);resize:vertical}}
 button{{padding:7px 13px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);
-  color:#fff;font-size:12.5px;cursor:pointer;margin-right:6px}}
+  color:var(--onacc,#fff);font-size:12.5px;cursor:pointer;margin-right:6px}}
 button.ghost{{background:var(--card);color:var(--muted);border-color:var(--line)}}
 table{{width:100%;border-collapse:collapse;background:var(--card);font-size:13px;
   border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:8px}}
