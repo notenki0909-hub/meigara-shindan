@@ -67,7 +67,10 @@ button{padding:8px 14px;border:1px solid var(--accent);border-radius:8px;backgro
 button.ghost{background:var(--card);color:var(--muted);border-color:var(--line)}
 #copystat{font-size:12px;color:var(--gA)}
 textarea{width:100%;min-height:64px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;
-  font:13px/1.5 monospace;background:var(--field);resize:vertical}
+  font:13px/1.5 monospace;background:var(--field);color:var(--fg);resize:vertical}
+.holdhead{display:flex;align-items:center;gap:12px;margin:0 0 8px}
+.holdhead h2{margin:0}
+.holdhead button{padding:4px 10px;font-size:12px}
 table{width:100%;border-collapse:collapse;background:var(--card);font-size:13px;
   border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:6px}
 th,td{padding:6px 8px;text-align:left;border-bottom:1px solid var(--line)}
@@ -100,6 +103,9 @@ tr:last-child td{border-bottom:none}
 .addrow.added .addrow-head .nm{color:var(--muted)}
 .addrow .nm{font-weight:700}
 .addrow .fold{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:12px;cursor:pointer}
+.addrow .headbtns{display:flex;align-items:center;gap:6px}
+.addrow .rmrow{background:var(--card);color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:12px;cursor:pointer}
+.addrow .rmrow:hover{color:var(--gC);border-color:var(--gC)}
 .addrow input,.addrow select{padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);font-size:13px}
 .addrow input.code{width:6em}
 .addrow input.shares{width:6em}
@@ -266,7 +272,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
 
 <div id="missbox"></div>
 <div class="box" id="holdbox" hidden>
-  <h2>保有銘柄一覧</h2>
+  <div class="holdhead"><h2>保有銘柄一覧</h2><button type="button" id="clearall" class="ghost" title="保有記録をすべて削除します">全て削除</button></div>
   <p class="note">行をクリックすると購入ロットの内訳が開きます。内訳の各行をクリックすると、その銘柄の売買を記録できます。</p>
   <div id="holdtable"></div>
 </div>
@@ -286,7 +292,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
 <div class="box">
   <h2>保有記録を貼り付けて復元</h2>
   <textarea id="paste" placeholder="例）AAPL:100:150.25:2024-03-15;KO:50:58.10:2023-11-02"></textarea>
-  <div style="margin-top:8px"><button type="button" id="load">この記録を読み込む</button><button type="button" id="clearall" class="ghost" style="margin-left:8px">全て削除</button></div>
+  <div style="margin-top:8px"><button type="button" id="load">この記録を読み込む</button><button type="button" id="pasteclear" class="ghost" style="margin-left:8px">クリア</button></div>
 </div>
 
 <div class="disc" id="disc"></div>
@@ -417,9 +423,30 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
   // 銘柄（localStorage）・既にポートフォリオへ追加済みの銘柄（lots）をすべて合わせて
   // 表示する（重複除去）。保有銘柄の追加フォームは、追加した後も消さずに常に
   // 折りたたみ状態で残し、いつでも同じ銘柄をもう1ロット追加できるようにする。
+  // 「登録銘柄の追加入力」で✖を押して入力欄だけを消した銘柄（保有記録は消えない）。
+  // 保有中の銘柄は lots から入力欄が自動復元されるため、消した銘柄をここに覚えて
+  // 復元対象から外す。ランキングから改めて追加した銘柄（URL）や、ティッカーでの
+  // 新規追加では、この記憶を解除して入力欄を復活させる。
+  var PF_DISMISSED_KEY = 'pf_dismissed_add_us';
+  var dismissedAdd = [];
+  try {
+    dismissedAdd = (localStorage.getItem(PF_DISMISSED_KEY) || '').split(',').map(function(s){return s.trim().toUpperCase();}).filter(function(s){return isCode(s);});
+  } catch(e) {}
+  function saveDismissed(){
+    try {
+      if (dismissedAdd.length) localStorage.setItem(PF_DISMISSED_KEY, dismissedAdd.join(','));
+      else localStorage.removeItem(PF_DISMISSED_KEY);
+    } catch(e) {}
+  }
+  function undismiss(code){
+    var di = dismissedAdd.indexOf(code);
+    if (di >= 0) { dismissedAdd.splice(di, 1); saveDismissed(); }
+  }
+  urlAddCodes.forEach(undismiss);
   var addCodes = pendingAddCodes.concat(urlAddCodes)
     .concat(lots.map(function(l){ return l.code; }))
-    .filter(function(c, i, arr){ return arr.indexOf(c) === i; });
+    .filter(function(c, i, arr){ return arr.indexOf(c) === i; })
+    .filter(function(c){ return dismissedAdd.indexOf(c) === -1; });
 
   function persist(){
     var s = lotsToStr(lots);
@@ -446,9 +473,13 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
     persist();
     render();
   });
+  $('pasteclear').addEventListener('click', function(){
+    $('paste').value = '';
+    $('paste').focus();
+  });
   $('clearall').addEventListener('click', function(){
     if (!lots.length) return;
-    if (!confirm('保有記録をすべて削除します。よろしいですか？（事前に上の文字列を控えてください）')) return;
+    if (!confirm('保有記録をすべて削除します。よろしいですか？（事前に「保有記録の保存・共有」欄の文字列を控えてください）')) return;
     lots = [];
     persist();
     render();
@@ -939,6 +970,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
 
     var finish = function(p){
       lots.push({code:code, shares:shares, price:p, date:date, type:'b'});
+      undismiss(code);
       persist();
       if (clearInputs) { $('in-code').value=''; $('in-shares').value=''; $('in-price').value=''; $('in-date').value=''; }
       if (onDone) onDone();
@@ -1090,7 +1122,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
     // 今回のセッション中に新規追加された保有銘柄など、addCodesにまだ無い保有銘柄が
     // あれば追加する。
     lots.forEach(function(l){
-      if (addCodes.indexOf(l.code) === -1) addCodes.push(l.code);
+      if (addCodes.indexOf(l.code) === -1 && dismissedAdd.indexOf(l.code) === -1) addCodes.push(l.code);
     });
     var box = $('addcodes');
     if (!addCodes.length) { box.innerHTML = ''; return; }
@@ -1103,7 +1135,8 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
         var label = c + ' ' + (nm || '');
         return '<div class="' + cls + '" data-code="' + c + '">'
           + '<div class="addrow-head"><span class="nm">' + label + '</span>'
-          + '<button type="button" class="fold">' + (st.collapsed ? '▼ 開く' : '▲ 折りたたむ') + '</button></div>'
+          + '<span class="headbtns"><button type="button" class="fold">' + (st.collapsed ? '▼ 開く' : '▲ 折りたたむ') + '</button>'
+          + '<button type="button" class="rmrow" title="この銘柄の入力欄だけを消します（保有銘柄一覧の記録は消えません）">✖</button></span></div>'
           + '<div class="addrow-body">'
           + '<label>株数<input class="shares" type="number" min="1" step="1" placeholder="100"></label>'
           + '<label>取得単価（ドル・空欄で自動取得）<input class="price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
@@ -1120,6 +1153,17 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
         st.collapsed = !st.collapsed;
         row.classList.toggle('collapsed', st.collapsed);
         row.querySelector('.fold').textContent = st.collapsed ? '▼ 開く' : '▲ 折りたたむ';
+      });
+      row.querySelector('.rmrow').addEventListener('click', function(){
+        var ci = addCodes.indexOf(code);
+        if (ci >= 0) addCodes.splice(ci, 1);
+        delete addRowState[code];
+        if (lots.some(function(l){ return l.code === code; }) && dismissedAdd.indexOf(code) === -1) {
+          dismissedAdd.push(code);
+          saveDismissed();
+        }
+        persistPendingAdd();
+        renderAddCodes(byCode);
       });
       row.querySelector('.add1').addEventListener('click', function(){
         var sh = row.querySelector('.shares').value;

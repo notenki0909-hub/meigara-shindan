@@ -797,6 +797,7 @@ section.grp[hidden],details[hidden]{{display:none}}
 .sumbtn:hover{{border-color:var(--accent)}}
 .sumbtn.active{{border-color:var(--accent);border-width:2px;background:var(--info)}}
 .sumbtn b{{display:block;font-size:20px}}
+.sumbtn b .pfl{{font-size:12px;font-weight:600;margin-right:3px}}
 a.sumbtn{{text-decoration:none;color:inherit}}
 a.sumbtn.wlnav{{border-color:var(--accent);color:var(--accent)}}
 a.sumbtn.wlnav b{{color:var(--accent)}}
@@ -1402,7 +1403,7 @@ body.wlon{{padding-bottom:60px}}
         if (c) pfCodes[c] = 1;
       }});
       var pfN = Object.keys(pfCodes).length;
-      pfNav.textContent = pfN ? String(pfN) : '💼';
+      pfNav.innerHTML = '<span class="pfl">保有銘柄数</span>' + pfN;
     }}
   }} catch(e) {{}}
 }})();

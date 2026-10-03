@@ -142,6 +142,7 @@ section.grp[hidden],details[hidden]{display:none}
 .sumbtn:hover{border-color:var(--accent)}
 .sumbtn.active{border-color:var(--accent);border-width:2px;background:var(--info)}
 .sumbtn b{display:block;font-size:20px}
+.sumbtn b .pfl{font-size:12px;font-weight:600;margin-right:3px}
 a.sumbtn{text-decoration:none;color:inherit}
 a.sumbtn.wlnav{border-color:var(--accent);color:var(--accent)}
 a.sumbtn.wlnav b{color:var(--accent)}
@@ -199,7 +200,7 @@ body.wlon{padding-bottom:60px}
   </div>
 </div>
 
-<div class="sub">生成 2026-10-02T01:50:24　｜　スクリーン：予想利回り ≥ 1.5% ・ 直近5年 減配なし ・ 母集団：S&amp;P500+400+600 (S&amp;P Composite 1500)</div>
+<div class="sub">生成 2026-10-03T10:01:31　｜　スクリーン：予想利回り ≥ 1.5% ・ 直近5年 減配なし ・ 母集団：S&amp;P500+400+600 (S&amp;P Composite 1500)</div>
 <div class="sub">表の見出し（軍・終値・選定・買い時・利回り・増配・カバレッジ・業種級）をクリックすると説明が出ます。各行の☆にチェックを入れて下部の「ウォッチリストを作成」を、💼にチェックを入れて「ポートフォリオに追加」を押すと、それぞれ選んだ銘柄だけの一覧・保有記録の入力画面を作れます（☆と💼は別々に選べます）。</div>
 <div class="summary">
   <button type="button" class="sumbtn" data-tier=""><b>502</b>銘柄</button>
@@ -867,7 +868,7 @@ body.wlon{padding-bottom:60px}
         if (c) pfCodes[c] = 1;
       });
       var pfN = Object.keys(pfCodes).length;
-      pfNav.textContent = pfN ? String(pfN) : '💼';
+      pfNav.innerHTML = '<span class="pfl">保有銘柄数</span>' + pfN;
     }
   } catch(e) {}
 })();
