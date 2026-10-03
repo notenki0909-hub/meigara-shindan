@@ -215,7 +215,7 @@ td.q,th.q{color:var(--accent)}
     </div>
   </div>
   <p class="note">1回の購入ごとに1行として追加してください（同じ銘柄を複数回に分けて買った場合は、そのつど追加すると加重平均取得単価を自動計算します）。<b>取得単価を空欄にすると、購入日の終値（「空欄時に自動取得する価格」で始値も選べます）を自動で調べて入力します</b>（直近10年分のみ対応。それより前の購入日は手入力してください）。</p>
-  <h2 id="registered-h2" style="cursor:pointer">登録銘柄の追加入力<button type="button" class="fold" id="registered-toggle" style="margin-left:8px">▲ 閉じる</button></h2>
+  <h2 id="registered-h2" style="cursor:pointer">登録銘柄の追加入力<button type="button" class="fold" id="registered-toggle" style="margin-left:8px">▲ 閉じる</button><button type="button" class="ghost" id="registered-clearall" style="margin-left:8px" hidden>全て削除</button></h2>
   <div id="addcodes"></div>
 </div>
 
@@ -526,6 +526,21 @@ td.q,th.q{color:var(--accent)}
   // （#addcodes）全体を見出しだけの表示まで隠す（既定は表示・各行は個別に折りたたみ済み）。
   (function(){
     var h2 = $('registered-h2'), h2btn = $('registered-toggle');
+    // 「全て削除」：追加入力欄をすべて外す（保有記録は消さない。✖と同じ扱い）。
+    // 見出し全体が開閉クリックを受けるため、ここでは伝播を止める。
+    $('registered-clearall').addEventListener('click', function(e){
+      e.stopPropagation();
+      if (!addCodes.length) return;
+      if (!confirm('登録銘柄の追加入力の' + addCodes.length + '銘柄の入力欄をすべて削除します（保有記録は消えません）。よろしいですか？')) return;
+      addCodes.forEach(function(c){
+        if (lots.some(function(l){ return l.code === c; })) dismissedAdd[c] = true;
+      });
+      saveDismissed();
+      addCodes = [];
+      addRowState = {};
+      history.replaceState(null, '', location.pathname);
+      render();
+    });
     var box = $('addcodes');
     h2.addEventListener('click', function(){
       var show = box.hidden;
@@ -947,6 +962,7 @@ td.q,th.q{color:var(--accent)}
       if (addCodes.indexOf(l.code) === -1 && !dismissedAdd[l.code]) addCodes.push(l.code);
     });
     var box = $('addcodes');
+    $('registered-clearall').hidden = !addCodes.length;
     if (!addCodes.length) { box.innerHTML = ''; return; }
     box.innerHTML = '<p class="note">ランキングでチェックした銘柄・保有中の銘柄の入力欄です。株数・購入日を入れてください（取得単価は空欄なら購入日の終値、または選んだ始値を自動取得）。保有銘柄の欄は追加後も消えず、いつでも追加ロットを入力できます。不要な入力欄は右の✖で外せます（保有記録は消えません）。'
       + '<button type="button" id="addcodes-foldall" class="foldall">すべて折りたたむ</button></p>'
