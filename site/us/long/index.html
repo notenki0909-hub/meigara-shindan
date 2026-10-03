@@ -117,6 +117,7 @@ body.wlon{padding-bottom:60px}
 .hdr:hover{color:var(--accent)}
 a.sumbtn.wlnav{border-color:var(--accent);color:var(--accent);text-decoration:none}
 a.sumbtn.wlnav b{color:var(--accent)}
+a.sumbtn.wlnav small{display:block;font-size:11px;font-weight:400;color:var(--muted);margin-top:2px}
 .terminfo{position:relative;margin:8px 0 18px;padding:12px 36px 12px 14px;background:var(--info);
   border:1px solid var(--accent);border-radius:8px;font-size:12.5px;line-height:1.7}
 .terminfo b{display:block;margin-bottom:4px;font-size:13.5px}
@@ -217,7 +218,7 @@ section.grp[hidden]{display:none}
   <button type="button" class="sumbtn" data-tier="3軍"><b>148</b>3軍</button>
   <span class="sumbtn" style="cursor:default"><b>0</b>対象外</span>
   <a class="sumbtn wlnav" href="watchlist.html"><b>☆</b>ウォッチリスト</a>
-  <a class="sumbtn wlnav" href="portfolio.html"><b id="pfnav-n">💼</b>ポートフォリオ</a>
+  <a class="sumbtn wlnav" href="portfolio.html"><b>💼</b>ポートフォリオ<small id="pfnav-hold">保有銘柄数0</small></a>
 </div>
 <div class="sub" style="margin:-4px 0 12px">見出し（軍・品質・業績・財務・CF・買い時・利回り・カバレッジ・業種級）をクリックすると説明が出ます。数字ボタンでその軍だけ表示（もう一度で解除）。☆にチェックを入れて下部の「ウォッチリストを作成」を、💼にチェックを入れて「ポートフォリオに追加」を押すと、それぞれ選んだ銘柄だけの一覧・保有記録の入力画面を作れます（☆と💼は別々に選べます）。</div>
 <div id="terminfo" class="terminfo" hidden>
@@ -273,8 +274,7 @@ section.grp[hidden]{display:none}
 <div class="disc">本ページは、あらかじめ定めた基準（時価総額または指数構成）で抽出した銘柄について、公開データを機械的なルールで算出した「配当を含めない品質スコア」（業績・財務・キャッシュフロー）による分類です。配当利回りは参考表示で、採点には使っていません。銀行・保険・証券は専用の品質スコア（ROE・増収率・EPS成長率・利益の安定度）、米国REITは専用のFFOベース品質スコアで評価しています。日本のJ-REITはこのツールの母集団に含まれておらず対象外です。特定銘柄の売買を推奨・勧誘するものではなく、運営者は投資助言・代理業の登録を受けていません。教育目的の一般情報であり、投資判断はご自身の責任で行ってください。数値はyfinance 由来で誤り・遅延・欠損があり得ます。</div>
 <div id="wlbar" hidden><span>☆ <b id="wlcount">0</b>銘柄</span>
 <button type="button" id="wlgo">ウォッチリストを作成 →</button>
-<span>💼 <b id="pfcount">0</b>銘柄</span>
-<button type="button" id="pfgo">ポートフォリオに追加 →</button>
+<button type="button" id="pfgo">ポートフォリオに追加（<span id="pfcount">0</span>銘柄） →</button>
 <button type="button" id="wlclear" class="ghost">選択をクリア</button></div>
 <script>
 
@@ -640,13 +640,31 @@ section.grp[hidden]{display:none}
   var PF_SEL_KEY='pf_sel_codes_long_us';
   var wlSet=loadCodes(WL_KEY), pfSet=loadCodes(PF_SEL_KEY);
   var bar=document.getElementById('wlbar'),cnt=document.getElementById('wlcount');
-  var pfCnt=document.getElementById('pfcount'),pfNav=document.getElementById('pfnav-n');
+  var pfCnt=document.getElementById('pfcount'),pfHold=document.getElementById('pfnav-hold');
+  var PF_LOTS_KEY='pf_lots_long_us';
+  // ポートフォリオに保存済みの「現在保有中の銘柄数」（売買記録の差引株数が正の銘柄）。
+  function holdCount(){
+    try {
+      var net={};
+      (localStorage.getItem(PF_LOTS_KEY)||'').split(';').forEach(function(ch){
+        var p=ch.trim().split(':');
+        if(p.length<4)return;
+        var sh=parseFloat(p[1]);
+        if(!(sh>0))return;
+        var c=p[0].trim().toUpperCase();
+        net[c]=(net[c]||0)+(p[4]==='s'?-sh:sh);
+      });
+      return Object.keys(net).filter(function(c){return net[c]>1e-9;}).length;
+    } catch(e) { return 0; }
+  }
+  function holdSync(){ if(pfHold)pfHold.textContent='保有銘柄数'+holdCount(); }
+  holdSync();
+  window.addEventListener('pageshow',holdSync);
   function wlSave(){ try { localStorage.setItem(WL_KEY, Array.from(wlSet).join(',')); } catch(e) {} }
   function pfSave(){ try { localStorage.setItem(PF_SEL_KEY, Array.from(pfSet).join(',')); } catch(e) {} }
   function sync(){
     cnt.textContent=wlSet.size;
     pfCnt.textContent=pfSet.size;
-    if(pfNav)pfNav.textContent=pfSet.size?String(pfSet.size):'💼';
     bar.hidden=(wlSet.size===0&&pfSet.size===0);
     document.body.classList.toggle('wlon',wlSet.size>0||pfSet.size>0);
   }
