@@ -907,7 +907,8 @@ section.grp[hidden]{{display:none}}
 <div class="disc">{DISC}</div>
 <div id="wlbar" hidden><span>☆ <b id="wlcount">0</b>銘柄</span>
 <button type="button" id="wlgo">ウォッチリストへ追加 →</button>
-<button type="button" id="pfgo">ポートフォリオに追加（<span id="pfcount">0</span>銘柄） →</button>
+<span>💼 <b id="pfcount">0</b>銘柄</span>
+<button type="button" id="pfgo">ポートフォリオに追加 →</button>
 <button type="button" id="wlclear" class="ghost">選択をクリア</button></div>
 <script>
 {th.THEME_JS}
