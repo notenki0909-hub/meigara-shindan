@@ -883,10 +883,10 @@ section.grp[hidden]{{display:none}}
   <button type="button" class="sumbtn" data-tier="2軍"><b>{c['2軍']}</b>2軍</button>
   <button type="button" class="sumbtn" data-tier="3軍"><b>{c['3軍']}</b>3軍</button>
   <span class="sumbtn" style="cursor:default"><b>{c['excluded']}</b>対象外</span>
-  <a class="sumbtn wlnav" href="watchlist.html"><b>☆</b>ウォッチリスト</a>
+  <a class="sumbtn wlnav" href="watchlist.html"><b>☆</b>ウォッチリスト<small id="wlnav-n">登録銘柄数0</small></a>
   <a class="sumbtn wlnav" href="portfolio.html"><b>💼</b>ポートフォリオ<small id="pfnav-hold">保有銘柄数0</small></a>
 </div>
-<div class="sub" style="margin:-4px 0 12px">見出し（軍・品質・業績・財務・CF・買い時・利回り・カバレッジ・業種級）をクリックすると説明が出ます。数字ボタンでその軍だけ表示（もう一度で解除）。☆にチェックを入れて下部の「ウォッチリストを作成」を、💼にチェックを入れて「ポートフォリオに追加」を押すと、それぞれ選んだ銘柄だけの一覧・保有記録の入力画面を作れます（☆と💼は別々に選べます）。</div>
+<div class="sub" style="margin:-4px 0 12px">見出し（軍・品質・業績・財務・CF・買い時・利回り・カバレッジ・業種級）をクリックすると説明が出ます。数字ボタンでその軍だけ表示（もう一度で解除）。☆にチェックを入れて下部の「ウォッチリストへ追加」を、💼にチェックを入れて「ポートフォリオに追加」を押すと、選んだ銘柄がそれぞれウォッチリスト・ポートフォリオの入力欄へ追加されます（☆と💼は別々に選べます）。</div>
 <div id="terminfo" class="terminfo" hidden>
   <button type="button" id="terminfo-close" class="ticlose" aria-label="閉じる">✕</button>
   <div id="terminfo-body"></div>
@@ -906,7 +906,7 @@ section.grp[hidden]{{display:none}}
 {exc}
 <div class="disc">{DISC}</div>
 <div id="wlbar" hidden><span>☆ <b id="wlcount">0</b>銘柄</span>
-<button type="button" id="wlgo">ウォッチリストを作成 →</button>
+<button type="button" id="wlgo">ウォッチリストへ追加 →</button>
 <button type="button" id="pfgo">ポートフォリオに追加（<span id="pfcount">0</span>銘柄） →</button>
 <button type="button" id="wlclear" class="ghost">選択をクリア</button></div>
 <script>
@@ -1192,6 +1192,11 @@ section.grp[hidden]{{display:none}}
   var bar=document.getElementById('wlbar'),cnt=document.getElementById('wlcount');
   var pfCnt=document.getElementById('pfcount'),pfHold=document.getElementById('pfnav-hold');
   var PF_LOTS_KEY='pf_lots_long{"_us" if out["market"]=="us" else ""}';
+  var WL_LIST_KEY='pp_wl_long_{out["market"]}';
+  function wlList(){{
+    try {{ return (localStorage.getItem(WL_LIST_KEY)||'').split(/[\\s,]+/).filter(Boolean).map(function(x){{return x.toUpperCase();}}); }}
+    catch(e) {{ return []; }}
+  }}
   // ポートフォリオに保存済みの「現在保有中の銘柄数」（売買記録の差引株数が正の銘柄）。
   function holdCount(){{
     try {{
@@ -1207,7 +1212,11 @@ section.grp[hidden]{{display:none}}
       return Object.keys(net).filter(function(c){{return net[c]>1e-9;}}).length;
     }} catch(e) {{ return 0; }}
   }}
-  function holdSync(){{ if(pfHold)pfHold.textContent='保有銘柄数'+holdCount(); }}
+  var wlReg=document.getElementById('wlnav-n');
+  function holdSync(){{
+    if(pfHold)pfHold.textContent='保有銘柄数'+holdCount();
+    if(wlReg)wlReg.textContent='登録銘柄数'+Array.from(new Set(wlList())).length;
+  }}
   holdSync();
   window.addEventListener('pageshow',holdSync);
   function wlSave(){{ try {{ localStorage.setItem(WL_KEY, Array.from(wlSet).join(',')); }} catch(e) {{}} }}
@@ -1247,7 +1256,11 @@ section.grp[hidden]{{display:none}}
   document.getElementById('wlgo').addEventListener('click',function(){{
     if(!wlSet.size)return;
     wlSave();
-    location.href='watchlist.html?codes='+encodeURIComponent(Array.from(wlSet).join(','));
+    // 選んだ銘柄を、保存済みのウォッチリストへ「追加」する（既存の銘柄は消さない・重複しない）
+    var merged=wlList();
+    wlSet.forEach(function(c){{ c=String(c).toUpperCase(); if(merged.indexOf(c)===-1)merged.push(c); }});
+    try {{ localStorage.setItem(WL_LIST_KEY, merged.join(',')); }} catch(e) {{}}
+    location.href='watchlist.html';
   }});
   document.getElementById('pfgo').addEventListener('click',function(){{
     if(!pfSet.size)return;
@@ -1364,6 +1377,8 @@ tr:last-child td{{border-bottom:none}}
 .sec{{color:var(--muted);font-size:11px}}
 td.bt.t1{{color:var(--t1)}} td.bt.t2{{color:var(--t2)}} td.bt.t3{{color:var(--t3)}} td.bt.t4{{color:var(--gC)}}
 .empty{{color:var(--muted);font-size:13px;padding:14px 0}}
+td.x{{width:34px;text-align:center}}
+td.x button{{padding:2px 8px;font-size:12px;margin:0;background:var(--card);color:var(--muted);border-color:var(--line);border-radius:6px}}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>ウォッチリスト</h1>{_pagenav("watchlist.html")}</div>
 <div class="sub">{html.escape(m['title'])}</div>
@@ -1376,15 +1391,15 @@ td.bt.t1{{color:var(--t1)}} td.bt.t2{{color:var(--t2)}} td.bt.t3{{color:var(--t3
     <span id="copystat"></span>
   </div>
   <p>この<b>銘柄リストをコピーして控えておく</b>と、別の端末でも下の貼り付け欄から復元できます。</p>
-  <p><b>同じ端末・同じブラウザ</b>なら、一度作成すれば次回からこのページを開くだけで復元されます（貼り付け不要）。</p>
+  <p><b>同じ端末・同じブラウザ</b>なら、一度追加すれば次回からこのページを開くだけで復元されます（貼り付け不要）。銘柄はランキングの「ウォッチリストへ追加」で増え、各行右端の✖でだけ削除されます。</p>
 </div>
 
 <div class="box">
-  <h2>銘柄リストを貼り付けて表示</h2>
-  <p class="sub" style="margin:0 0 8px">コード／ティッカーをカンマ・空白・改行区切りで。URL の <code>?codes=</code> でも可。</p>
+  <h2>銘柄リストを貼り付けて追加</h2>
+  <p class="sub" style="margin:0 0 8px">コード／ティッカーをカンマ・空白・改行区切りで。URL の <code>?codes=</code> でも可（いずれも今のリストに追加されます）。</p>
   <textarea id="paste" placeholder="例：7203, 9433, 6146"></textarea>
   <div style="margin-top:8px">
-    <button type="button" id="show">表示</button>
+    <button type="button" id="show">リストに追加</button>
     <button type="button" id="clear" class="ghost">クリア</button>
   </div>
 </div>
@@ -1396,11 +1411,25 @@ td.bt.t1{{color:var(--t1)}} td.bt.t2{{color:var(--t2)}} td.bt.t3{{color:var(--t3
 (function(){{
   var params=new URLSearchParams(location.search);
   var LS='pp_wl_long_{out["market"]}';
-  var codes=(params.get('codes')||localStorage.getItem(LS)||'').split(/[\\s,]+/).filter(Boolean);
-  codes=Array.from(new Set(codes));
-  try{{localStorage.setItem(LS,codes.join(','));}}catch(e){{}}
+  function split(t){{return (t||'').split(/[\\s,]+/).filter(Boolean).map(function(x){{return x.toUpperCase();}});}}
+  function uniq(a){{return Array.from(new Set(a));}}
+  var codes=[];
+  try{{codes=uniq(split(localStorage.getItem(LS)));}}catch(e){{}}
+  function save(){{
+    try{{if(codes.length)localStorage.setItem(LS,codes.join(','));else localStorage.removeItem(LS);}}catch(e){{}}
+  }}
+  // 追加は「追加」操作（ランキングの追加ボタン・貼り付け・?codes=）だけ。削除は各行の✖だけ。
+  function addCodes(list){{
+    var n=0;
+    list.forEach(function(c){{if(codes.indexOf(c)===-1){{codes.push(c);n++;}}}});
+    if(n)save();
+    return n;
+  }}
+  var urlCodes=uniq(split(params.get('codes')));
+  if(urlCodes.length){{addCodes(urlCodes);history.replaceState(null,'',location.pathname);}}
   var codestr=document.getElementById('codestr');
-  codestr.value=codes.join(',');
+  var tbl=document.getElementById('tbl');
+  var paste=document.getElementById('paste');
   document.getElementById('copy').onclick=function(){{
     codestr.select();
     var ok=false;
@@ -1411,28 +1440,32 @@ td.bt.t1{{color:var(--t1)}} td.bt.t2{{color:var(--t2)}} td.bt.t3{{color:var(--t3
     setTimeout(function(){{st.textContent='';}},2500);
   }};
   document.getElementById('show').onclick=function(){{
-    var v=(document.getElementById('paste').value||'').split(/[\\s,]+/).filter(Boolean);
-    v=Array.from(new Set(v.map(function(x){{return x.toUpperCase();}})));
+    var v=uniq(split(paste.value));
     if(!v.length)return;
-    try{{localStorage.setItem(LS,v.join(','));}}catch(e){{}}
-    location.href='watchlist.html?codes='+encodeURIComponent(v.join(','));
+    addCodes(v);
+    paste.value='';
+    draw();
   }};
-  document.getElementById('clear').onclick=function(){{
-    if(!codes.length)return;
-    if(!confirm('銘柄リストをすべて削除します。よろしいですか？（事前に上の文字列を控えてください）'))return;
-    try{{localStorage.removeItem(LS);}}catch(e){{}}location.href='watchlist.html';
-  }};
-  var tbl=document.getElementById('tbl');
-  if(!codes.length){{tbl.innerHTML='<div class="empty">上の欄に銘柄コードを貼り付けて「表示」を押すか、ランキングで銘柄を選んで「ウォッチリストを作成」すると、ここに一覧が出ます。</div>';return;}}
-  fetch('ranking.json').then(function(r){{return r.json();}}).then(function(j){{
-    var map={{}};
-    (j.groups||[]).forEach(function(g){{(g.stocks||[]).forEach(function(s){{s._grade=g.grade;s._gname=g.name;map[s.code]=s;}});}});
-    (j.excluded||[]).forEach(function(s){{map[s.code]=s;s._exc=true;}});
-    var tt=(j.tim_tiers||[72,57,45]);
+  document.getElementById('clear').onclick=function(){{ paste.value=''; paste.focus(); }};
+  tbl.addEventListener('click',function(e){{
+    var b=e.target.closest('button.rm');
+    if(!b)return;
+    var c=b.dataset.code;
+    codes=codes.filter(function(x){{return x!==c;}});
+    save();
+    draw();
+  }});
+  var data=null;
+  function draw(){{
+    codestr.value=codes.join(',');
+    if(!codes.length){{tbl.innerHTML='<div class="empty">上の欄に銘柄コードを貼り付けて「リストに追加」を押すか、ランキングで銘柄を選んで「ウォッチリストへ追加」すると、ここに一覧が出ます。</div>';return;}}
+    if(!data)return;
+    var map=data.map,tt=data.tt;
     function btcls(v){{return v>=tt[0]?'t1':v>=tt[1]?'t2':v>=tt[2]?'t3':'t4';}}
     var rows=codes.map(function(c){{
+      var x='<td class="x"><button type="button" class="rm" data-code="'+c+'" title="ウォッチリストから削除" aria-label="'+c+'をウォッチリストから削除">✖</button></td>';
       var s=map[c];
-      if(!s)return '<tr><td class="code">'+c+'</td><td colspan="7" class="sec">ランキングに見つかりません（対象外・母集団外）</td></tr>';
+      if(!s)return '<tr><td class="code">'+c+'</td><td colspan="7" class="sec">ランキングに見つかりません（対象外・母集団外）</td>'+x+'</tr>';
       var bt=(typeof s.bt==='number')?'<td class="n bt '+btcls(s.bt)+'"><b>'+s.bt.toFixed(0)+'</b></td>':'<td class="n">―</td>';
       var q=(typeof s.q==='number')?s.q.toFixed(0):(s._exc?'対象外':'―');
       var yld=(typeof s.yield==='number')?s.yield.toFixed(2)+'%':'―';
@@ -1441,11 +1474,19 @@ td.bt.t1{{color:var(--t1)}} td.bt.t2{{color:var(--t2)}} td.bt.t3{{color:var(--t3
         +'<td>'+(s.name||'')+'</td><td class="sec">'+(s.sector||s._gname||'')+'</td>'
         +'<td class="n"><b>'+q+'</b></td>'+bt
         +'<td class="n">'+yld+'</td><td class="n">'+px+'</td>'
-        +'<td>'+(s.tier||(s._exc?'―':''))+'</td></tr>';
+        +'<td>'+(s.tier||(s._exc?'―':''))+'</td>'+x+'</tr>';
     }}).join('');
     tbl.innerHTML='<table><thead><tr><th>コード</th><th>銘柄</th><th>業種</th>'
       +'<th class="n">品質</th><th class="n">買い時</th><th class="n">利回り</th>'
-      +'<th class="n">終値</th><th>軍</th></tr></thead><tbody>'+rows+'</tbody></table>';
+      +'<th class="n">終値</th><th>軍</th><th></th></tr></thead><tbody>'+rows+'</tbody></table>';
+  }}
+  draw();
+  fetch('ranking.json').then(function(r){{return r.json();}}).then(function(j){{
+    var map={{}};
+    (j.groups||[]).forEach(function(g){{(g.stocks||[]).forEach(function(s){{s._grade=g.grade;s._gname=g.name;map[String(s.code).toUpperCase()]=s;}});}});
+    (j.excluded||[]).forEach(function(s){{map[String(s.code).toUpperCase()]=s;s._exc=true;}});
+    data={{map:map,tt:(j.tim_tiers||[72,57,45])}};
+    draw();
   }}).catch(function(){{tbl.innerHTML='<div class="empty">ranking.json を読み込めませんでした。</div>';}});
 }})();
 </script>
