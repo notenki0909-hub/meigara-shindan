@@ -800,12 +800,13 @@ th.wl,th.pf{{cursor:default}}
   align-items:center;justify-content:center;flex-wrap:wrap;background:var(--card);
   border-top:1px solid var(--line);box-shadow:0 -2px 10px rgba(0,0,0,.06);
   padding:10px 14px;font-size:13px}}
+#wlbar .grp{{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}}
 #wlbar b{{color:var(--accent)}}
 #wlbar button{{padding:8px 16px;border:1px solid var(--accent);border-radius:8px;
   background:var(--accent);color:#fff;font-size:13px;cursor:pointer}}
 #wlbar button.ghost{{background:var(--card);color:var(--muted);border-color:var(--line)}}
 #wlbar[hidden]{{display:none}}
-body.wlon{{padding-bottom:60px}}
+body.wlon{{padding-bottom:115px}}
 .hdr{{cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px}}
 .hdr:hover{{color:var(--accent)}}
 a.sumbtn.wlnav{{border-color:var(--accent);color:var(--accent);text-decoration:none}}
@@ -905,11 +906,12 @@ section.grp[hidden]{{display:none}}
 {"".join(secs)}
 {exc}
 <div class="disc">{DISC}</div>
-<div id="wlbar" hidden><span>☆ <b id="wlcount">0</b>銘柄</span>
+<div id="wlbar" hidden><div class="grp"><span>☆ <b id="wlcount">0</b>銘柄</span>
 <button type="button" id="wlgo">ウォッチリストへ追加 →</button>
-<span>💼 <b id="pfcount">0</b>銘柄</span>
+<button type="button" id="wlclear" class="ghost">☆の選択をクリア</button></div>
+<div class="grp"><span>💼 <b id="pfcount">0</b>銘柄</span>
 <button type="button" id="pfgo">ポートフォリオに追加 →</button>
-<button type="button" id="wlclear" class="ghost">選択をクリア</button></div>
+<button type="button" id="pfclear" class="ghost">💼の選択をクリア</button></div></div>
 <script>
 {th.THEME_JS}
 (function(){{
@@ -1249,9 +1251,15 @@ section.grp[hidden]{{display:none}}
       sync();pfSave();
     }});
   }});
+  // ☆（ウォッチリスト）と💼（ポートフォリオ）の選択は別々にクリアする
   document.getElementById('wlclear').addEventListener('click',function(){{
-    wlSet.clear();pfSet.clear();wlSave();pfSave();
-    document.querySelectorAll('.wlc,.pfc').forEach(function(o){{o.checked=false;}});
+    wlSet.clear();wlSave();
+    document.querySelectorAll('.wlc').forEach(function(o){{o.checked=false;}});
+    sync();
+  }});
+  document.getElementById('pfclear').addEventListener('click',function(){{
+    pfSet.clear();pfSave();
+    document.querySelectorAll('.pfc').forEach(function(o){{o.checked=false;}});
     sync();
   }});
   document.getElementById('wlgo').addEventListener('click',function(){{
