@@ -133,15 +133,15 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
     <button type="button" id="copy">コピー</button>
     <span id="copystat"></span>
   </div>
-  <p>基本は<b>この銘柄リストをコピーして控えておく</b>方式です。次回、下の入力欄に貼り付ければウォッチリストが復元されます。</p>
+  <p>基本は<b>この銘柄リストをコピーして控えておく</b>方式です。次回、下の入力欄に貼り付けて「リストに追加」を押せばウォッチリストが復元されます（いまのウォッチ銘柄一覧に追加されます）。</p>
   <p><b>同じ端末・同じブラウザ</b>を使う場合は、一度開けば以降はこのページを開くだけで前回のウォッチリストが表示されます（貼り付け不要）。</p>
   <p class="note">別の端末でも、同じ銘柄リストを貼り付ければ同じ顔ぶれが見られます。銘柄を足し引きしたら、新しく表示される銘柄リストを控え直してください。スコア・軍・利回りは各端末でその時点の最新が表示されます。</p>
 </div>
 
 <div class="box">
-  <h2>銘柄リストを貼り付けて表示</h2>
-  <textarea id="paste" placeholder="例）9433,8058,2914,4502　（カンマ・スペース・改行区切りのどれでも可）"></textarea>
-  <div style="margin-top:8px"><button type="button" id="load">このリストを表示</button></div>
+  <h2>銘柄リストを貼り付けて追加</h2>
+  <textarea id="paste" placeholder="例）9433,8058,2914,4502　（カンマ・スペース・改行区切りのどれでも可。いまのウォッチ銘柄一覧に追加されます）"></textarea>
+  <div style="margin-top:8px"><button type="button" id="load">リストに追加</button></div>
 </div>
 
 <div id="missbox"></div>
@@ -273,9 +273,11 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
   });
 
   $('load').addEventListener('click', function(){
-    var list = parseCodes($('paste').value);
-    if (!list.length) { alert('銘柄コードが読み取れませんでした。'); return; }
-    location.href = 'watchlist.html?codes=' + encodeURIComponent(list.join(','));
+    var added = parseCodes($('paste').value);
+    if (!added.length) { alert('銘柄コードが読み取れませんでした。'); return; }
+    // いまのウォッチ銘柄一覧に追加する（置き換えではない。重複は除く）
+    var merged = parseCodes(codes.concat(added).join(','));
+    location.href = 'watchlist.html?codes=' + encodeURIComponent(merged.join(','));
   });
 
   $('wlclearall').addEventListener('click', function(){
