@@ -1377,6 +1377,9 @@ tr:last-child td{{border-bottom:none}}
 .sec{{color:var(--muted);font-size:11px}}
 td.bt.t1{{color:var(--t1)}} td.bt.t2{{color:var(--t2)}} td.bt.t3{{color:var(--t3)}} td.bt.t4{{color:var(--gC)}}
 .empty{{color:var(--muted);font-size:13px;padding:14px 0}}
+h2.listh{{font-size:14px;margin:16px 0 0}}
+h2.listh button{{margin-left:10px;padding:3px 10px;font-size:12px}}
+h2.listh button[hidden]{{display:none}}
 td.x{{width:34px;text-align:center}}
 td.x button{{padding:2px 8px;font-size:12px;margin:0;background:var(--card);color:var(--muted);border-color:var(--line);border-radius:6px}}
 </style></head><body><div class="wrap">
@@ -1404,6 +1407,7 @@ td.x button{{padding:2px 8px;font-size:12px;margin:0;background:var(--card);colo
   </div>
 </div>
 
+<h2 class="listh">ウォッチ銘柄一覧<button type="button" id="clearall" class="ghost" hidden>全て削除</button></h2>
 <div id="tbl"></div>
 {th.THEME_BAR}
 <script>
@@ -1447,6 +1451,13 @@ td.x button{{padding:2px 8px;font-size:12px;margin:0;background:var(--card);colo
     draw();
   }};
   document.getElementById('clear').onclick=function(){{ paste.value=''; paste.focus(); }};
+  document.getElementById('clearall').onclick=function(){{
+    if(!codes.length)return;
+    if(!confirm('ウォッチ銘柄一覧の'+codes.length+'銘柄をすべて削除します。よろしいですか？（事前に上の「あなたの銘柄リスト」の文字列を控えてください）'))return;
+    codes=[];
+    save();
+    draw();
+  }};
   tbl.addEventListener('click',function(e){{
     var b=e.target.closest('button.rm');
     if(!b)return;
@@ -1458,6 +1469,7 @@ td.x button{{padding:2px 8px;font-size:12px;margin:0;background:var(--card);colo
   var data=null;
   function draw(){{
     codestr.value=codes.join(',');
+    document.getElementById('clearall').hidden=!codes.length;
     if(!codes.length){{tbl.innerHTML='<div class="empty">上の欄に銘柄コードを貼り付けて「リストに追加」を押すか、ランキングで銘柄を選んで「ウォッチリストへ追加」すると、ここに一覧が出ます。</div>';return;}}
     if(!data)return;
     var map=data.map,tt=data.tt;
