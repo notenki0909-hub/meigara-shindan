@@ -355,6 +355,7 @@ td.q,th.q{color:var(--accent)}
 (function(){
   var PF_KEY = 'pf_lots_long_us';
   var PF_PENDING_KEY = 'pf_pending_add_long_us';
+  var PF_DISMISS_KEY = 'pf_dismissed_add_long_us';
   var $ = function(id){ return document.getElementById(id); };
 
   function isCode(t){ return /^[A-Z0-9.\-]{1,7}$/.test(t) && /[A-Z]/.test(t); }
@@ -434,9 +435,30 @@ td.q,th.q{color:var(--accent)}
   // 銘柄（localStorage）・既にポートフォリオへ追加済みの銘柄（lots）をすべて合わせて
   // 表示する（重複除去）。保有銘柄の追加フォームは、追加した後も消さずに常に
   // 折りたたみ状態で残し、いつでも同じ銘柄をもう1ロット追加できるようにする。
+  // 「登録銘柄の追加入力」の✖で入力欄だけ外した保有銘柄（保有記録は残す）。保有銘柄の行は
+  // lotsから自動復元されるため、外したことを覚えておく印。ランキングから再度追加（?add=）
+  // したとき・コード直接入力で追加したときに解除される。
+  var dismissedAdd = {};
+  try {
+    (localStorage.getItem(PF_DISMISS_KEY) || '').split(',').forEach(function(s){
+      s = s.trim().toUpperCase();
+      if (s) dismissedAdd[s] = true;
+    });
+  } catch (e) {}
+  function saveDismissed(){
+    try {
+      var k = Object.keys(dismissedAdd);
+      if (k.length) localStorage.setItem(PF_DISMISS_KEY, k.join(','));
+      else localStorage.removeItem(PF_DISMISS_KEY);
+    } catch (e) {}
+  }
+  if (urlAddCodes.some(function(c){ return dismissedAdd[c]; })) {
+    urlAddCodes.forEach(function(c){ delete dismissedAdd[c]; });
+    saveDismissed();
+  }
   var addCodes = pendingAddCodes.concat(urlAddCodes)
     .concat(lots.map(function(l){ return l.code; }))
-    .filter(function(c, i, arr){ return arr.indexOf(c) === i; });
+    .filter(function(c, i, arr){ return arr.indexOf(c) === i && !dismissedAdd[c]; });
 
   function persist(){
     var s = lotsToStr(lots);
@@ -476,6 +498,8 @@ td.q,th.q{color:var(--accent)}
   });
 
   $('in-add').addEventListener('click', function(){
+    var dcode = ($('in-code').value || '').trim().toUpperCase();
+    if (dismissedAdd[dcode]) { delete dismissedAdd[dcode]; saveDismissed(); }
     addOneLot($('in-code').value, $('in-shares').value, $('in-price').value, $('in-date').value, 'b', true, null, $('in-pricesrc').value);
   });
 
@@ -920,11 +944,11 @@ td.q,th.q{color:var(--accent)}
     // 今回のセッション中に新規追加された保有銘柄など、addCodesにまだ無い保有銘柄が
     // あれば追加する。
     lots.forEach(function(l){
-      if (addCodes.indexOf(l.code) === -1) addCodes.push(l.code);
+      if (addCodes.indexOf(l.code) === -1 && !dismissedAdd[l.code]) addCodes.push(l.code);
     });
     var box = $('addcodes');
     if (!addCodes.length) { box.innerHTML = ''; return; }
-    box.innerHTML = '<p class="note">ランキングでチェックした銘柄・保有中の銘柄の入力欄です。株数・購入日を入れてください（取得単価は空欄なら購入日の終値、または選んだ始値を自動取得）。保有銘柄の欄は追加後も消えず、いつでも追加ロットを入力できます。不要な銘柄は右の✖で削除できます。'
+    box.innerHTML = '<p class="note">ランキングでチェックした銘柄・保有中の銘柄の入力欄です。株数・購入日を入れてください（取得単価は空欄なら購入日の終値、または選んだ始値を自動取得）。保有銘柄の欄は追加後も消えず、いつでも追加ロットを入力できます。不要な入力欄は右の✖で外せます（保有記録は消えません）。'
       + '<button type="button" id="addcodes-foldall" class="foldall">すべて折りたたむ</button></p>'
       + addCodes.map(function(c){
         var nm = (byCode && byCode[c]) ? byCode[c].name : c;
@@ -934,7 +958,7 @@ td.q,th.q{color:var(--accent)}
         return '<div class="' + cls + '" data-code="' + c + '">'
           + '<div class="addrow-head"><span class="nm">' + label + '</span>'
           + '<span class="addrow-btns"><button type="button" class="fold">' + (st.collapsed ? '▼ 開く' : '▲ 折りたたむ') + '</button>'
-          + '<button type="button" class="rm" title="この銘柄を一覧から削除" aria-label="この銘柄を削除">✖</button></span></div>'
+          + '<button type="button" class="rm" title="この銘柄の入力欄を外す（保有記録は消えません）" aria-label="この銘柄の入力欄を外す">✖</button></span></div>'
           + '<div class="addrow-body">'
           + '<label>株数<input class="shares" type="number" min="1" step="1" placeholder="100"></label>'
           + '<label>取得単価（$・空欄で自動取得）<input class="price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
@@ -953,12 +977,8 @@ td.q,th.q{color:var(--accent)}
         row.querySelector('.fold').textContent = st.collapsed ? '▼ 開く' : '▲ 折りたたむ';
       });
       row.querySelector('.rm').addEventListener('click', function(){
-        var held = lots.filter(function(l){ return l.code === code; });
-        if (held.length) {
-          if (!confirm(code + ' には保有記録（' + held.length + '件）があります。保有記録も含めてすべて削除します。よろしいですか？')) return;
-          lots = lots.filter(function(l){ return l.code !== code; });
-          persist();
-        }
+        // 入力欄を外すだけ。保有記録（lots）は消さない。保有中の銘柄は印を残して復元を防ぐ。
+        if (lots.some(function(l){ return l.code === code; })) { dismissedAdd[code] = true; saveDismissed(); }
         addCodes = addCodes.filter(function(c){ return c !== code; });
         delete addRowState[code];
         history.replaceState(null, '', location.pathname);
