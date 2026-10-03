@@ -918,9 +918,10 @@ body.wlon{{padding-bottom:60px}}
 <div id="wlbar" hidden>
 <span>☆ <b id="wlcount">0</b>銘柄</span>
 <button type="button" id="wlgo">ウォッチリストへ追加 →</button>
+<button type="button" id="wlclear" class="ghost" title="☆のチェックだけをすべて外します">☆をクリア</button>
 <span>💼 <b id="pfcount">0</b>銘柄</span>
 <button type="button" id="pfgo">ポートフォリオに追加 →</button>
-<button type="button" id="wlclear2" class="ghost">選択をクリア</button>
+<button type="button" id="pfclear" class="ghost" title="💼のチェックだけをすべて外します">💼をクリア</button>
 </div>
 <script>
 {THEME_JS}
@@ -1334,6 +1335,8 @@ body.wlon{{padding-bottom:60px}}
     if (wlNav) wlNav.innerHTML = '<span class="pfl">登録銘柄数</span>' + loadCodes(WL_KEY).size;
     wlGoBtn.disabled = wlSelSet.size === 0;
     pfGoBtn.disabled = pfSelSet.size === 0;
+    document.getElementById('wlclear').disabled = wlSelSet.size === 0;
+    document.getElementById('pfclear').disabled = pfSelSet.size === 0;
     wlBar.hidden = (wlSelSet.size === 0 && pfSelSet.size === 0);
     document.body.classList.toggle('wlon', wlSelSet.size > 0 || pfSelSet.size > 0);
   }}
@@ -1383,8 +1386,12 @@ body.wlon{{padding-bottom:60px}}
     pfSelSave();
     location.href = 'portfolio.html?add=' + encodeURIComponent(Array.from(pfSelSet).join(','));
   }});
-  document.getElementById('wlclear2').addEventListener('click', function(){{
-    wlSelSet.clear(); pfSelSet.clear(); wlSelSave(); pfSelSave(); wlSync();
+  // ☆（ウォッチリスト）と💼（ポートフォリオ）の選択は、それぞれ別々にクリアする
+  document.getElementById('wlclear').addEventListener('click', function(){{
+    wlSelSet.clear(); wlSelSave(); wlSync();
+  }});
+  document.getElementById('pfclear').addEventListener('click', function(){{
+    pfSelSet.clear(); pfSelSave(); wlSync();
   }});
   wlSync();
   // ポートフォリオの保有銘柄数バッジ（保有記録はチェック選択と別のlocalStorageキー）

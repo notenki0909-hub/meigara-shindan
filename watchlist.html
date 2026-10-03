@@ -67,6 +67,10 @@ h1{font-size:20px;margin:0 0 4px}
 button{padding:8px 14px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);
   color:#fff;font-size:13px;cursor:pointer}
 button.ghost{background:var(--card);color:var(--muted);border-color:var(--line)}
+.listhead{display:flex;align-items:center;gap:12px;margin:14px 0 6px}
+.listhead[hidden]{display:none}
+.listhead h2{font-size:14px;margin:0}
+.listhead button{padding:4px 10px;font-size:12px}
 #copystat{font-size:12px;color:var(--gA)}
 textarea{width:100%;min-height:64px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;
   font:13px/1.5 monospace;background:var(--field);resize:vertical}
@@ -141,6 +145,7 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
 </div>
 
 <div id="missbox"></div>
+<div class="listhead" id="listhead" hidden><h2>ウォッチ銘柄一覧</h2><button type="button" id="wlclearall" class="ghost" title="登録されている銘柄をすべて削除します">全て削除</button></div>
 <div id="list"></div>
 
 <div class="disc" id="disc"></div>
@@ -273,6 +278,12 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
     location.href = 'watchlist.html?codes=' + encodeURIComponent(list.join(','));
   });
 
+  $('wlclearall').addEventListener('click', function(){
+    if (!confirm('ウォッチ銘柄一覧に登録されている銘柄をすべて削除します。よろしいですか？（事前に上の銘柄リストを控えてください）')) return;
+    try { localStorage.setItem(WL_KEY, ''); } catch(e) {}
+    location.href = 'watchlist.html';
+  });
+
   var DISC = 'このページは、ランキングページで「ウォッチリストへ追加」した銘柄だけを一覧にしたものです。'
     + '銘柄選定／買い時のスコア・軍は公開データを機械的なルールで算出した分類であり、'
     + '特定銘柄の売買を推奨・勧誘するものではありません。運営者は投資助言・代理業の登録を'
@@ -296,6 +307,7 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
     return;
   }
   $('codestr').value = codes.join(',');
+  $('listhead').hidden = false;
 
   fetch('ranking.json', {cache:'no-cache'}).then(function(r){ return r.json(); }).then(function(j){
     $('asof').textContent = '対象データ：' + (j.generated_at || '') + ' 時点のランキング';

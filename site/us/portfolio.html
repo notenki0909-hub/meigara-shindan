@@ -227,7 +227,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
     </div>
   </div>
   <p class="note">1回の購入ごとに1行として追加してください（同じ銘柄を複数回に分けて買った場合は、そのつど追加すると加重平均取得単価を自動計算します）。<b>取得単価を空欄にすると、購入日の終値（「空欄時に自動取得する価格」で始値も選べます）を自動で調べて入力します</b>（直近10年分のみ対応。それより前の購入日は手入力してください）。</p>
-  <h2 id="registered-h2" style="cursor:pointer">登録銘柄の追加入力<button type="button" class="fold" id="registered-toggle" style="margin-left:8px">▲ 閉じる</button></h2>
+  <h2 id="registered-h2" style="cursor:pointer">登録銘柄の追加入力<button type="button" class="fold" id="registered-toggle" style="margin-left:8px">▲ 閉じる</button><button type="button" class="ghost" id="addcodes-clearall" style="margin-left:6px" title="入力欄だけをすべて削除します（保有銘柄一覧の記録は消えません）">全て削除</button></h2>
   <div id="addcodes"></div>
 </div>
 
@@ -517,6 +517,11 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
       var show = box.hidden;
       box.hidden = !show;
       h2btn.textContent = show ? '▲ 閉じる' : '▼ 開く';
+    });
+    // 「全て削除」は見出しのクリック（開閉）に巻き込まれないよう伝播を止める
+    $('addcodes-clearall').addEventListener('click', function(e){
+      e.stopPropagation();
+      clearAllAddCodes();
     });
   })();
 
@@ -1118,12 +1123,32 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
       else localStorage.removeItem(PF_PENDING_KEY);
     } catch(e) {}
   }
+  var addByCode = {};
+  // 「登録銘柄の追加入力」の入力欄をすべて削除する。保有銘柄一覧の記録（lots）は
+  // 消さず、保有中の銘柄は✖と同じく「消した銘柄」に覚えて入力欄を復活させない。
+  function clearAllAddCodes(){
+    if (!addCodes.length) return;
+    if (!confirm('「登録銘柄の追加入力」の全銘柄の入力欄を削除します。\n保有銘柄一覧の記録は消えません。よろしいですか？')) return;
+    var heldSet = {};
+    lots.forEach(function(l){ heldSet[l.code] = true; });
+    addCodes.forEach(function(c){
+      if (heldSet[c] && dismissedAdd.indexOf(c) === -1) dismissedAdd.push(c);
+    });
+    saveDismissed();
+    addCodes.length = 0;
+    Object.keys(addRowState).forEach(function(k){ delete addRowState[k]; });
+    persistPendingAdd();
+    renderAddCodes(addByCode);
+  }
   function renderAddCodes(byCode){
+    addByCode = byCode || {};
     // 今回のセッション中に新規追加された保有銘柄など、addCodesにまだ無い保有銘柄が
     // あれば追加する。
     lots.forEach(function(l){
       if (addCodes.indexOf(l.code) === -1 && dismissedAdd.indexOf(l.code) === -1) addCodes.push(l.code);
     });
+    var clearAllBtn = $('addcodes-clearall');
+    if (clearAllBtn) clearAllBtn.disabled = !addCodes.length;
     var box = $('addcodes');
     if (!addCodes.length) { box.innerHTML = ''; return; }
     box.innerHTML = '<p class="note">ランキングでチェックした銘柄・保有中の銘柄の入力欄です。株数・購入日を入れてください（取得単価は空欄なら購入日の終値を自動取得）。保有銘柄の欄は追加後も消えず、いつでも追加ロットを入力できます。'
