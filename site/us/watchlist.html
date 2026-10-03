@@ -273,7 +273,7 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
     location.href = 'watchlist.html?codes=' + encodeURIComponent(list.join(','));
   });
 
-  var DISC = 'このページは、ランキングでチェックした銘柄だけを一覧にしたものです。'
+  var DISC = 'このページは、ランキングページで「ウォッチリストへ追加」した銘柄だけを一覧にしたものです。'
     + '銘柄選定／買い時のスコア・軍は公開データを機械的なルールで算出した分類であり、'
     + '特定銘柄の売買を推奨・勧誘するものではありません。運営者は投資助言・代理業の登録を'
     + '受けていません。数値は yfinance 由来で誤り・遅延・欠損があり得ます。'
@@ -294,9 +294,9 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
 
   if (!codes.length) {
     $('codestr').value = '';
-    $('list').innerHTML = '<div class="empty">まだ銘柄が選ばれていません。'
-      + '<a href="index.html">ランキングページ</a>で左端の□にチェックを入れて'
-      + '「ウォッチリストを作成」を押すか、上の欄に銘柄リストを貼り付けてください。</div>';
+    $('list').innerHTML = '<div class="empty">まだ銘柄が登録されていません。'
+      + '<a href="index.html">ランキングページ</a>で左端の☆にチェックを入れて'
+      + '「ウォッチリストへ追加」を押すか、上の欄に銘柄リストを貼り付けてください。</div>';
     return;
   }
   $('codestr').value = codes.join(',');
@@ -362,7 +362,12 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
       if (!b) return;
       var c = b.dataset.code;
       var next = found.concat(missing).filter(function(x){ return x !== c; });
-      if (!next.length) { location.href = 'watchlist.html'; return; }
+      if (!next.length) {
+        // 空にしてから開く（保存済みのリストが残っていると、最後の1件が再表示されてしまう）
+        try { localStorage.setItem(WL_KEY, ''); } catch(e) {}
+        location.href = 'watchlist.html';
+        return;
+      }
       location.href = 'watchlist.html?codes=' + encodeURIComponent(next.join(','));
     });
   }).catch(function(){
