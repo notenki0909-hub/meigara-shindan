@@ -414,7 +414,7 @@ THEME_CSS = """
 }
 :root[data-mode="dark"]{
   --bg:#101216;--card:#181b22;--line:#2b303a;--muted:#98a1ad;--fg:#e6e8eb;
-  --accent:#6aa4ff;--th:#1e232c;--field:#161a21;--info:#17233a;
+  --accent:#6aa4ff;--onacc:#0b1220;--th:#1e232c;--field:#161a21;--info:#17233a;
   --t1:#4ade80;--t2:#fbbf24;--t3:#9aa1ac;--gA:#4ade80;--gB:#fbbf24;--gC:#f87171;
   --wbg:#26210f;--wbd:#5a4a1b;--wfg:#e7c06a;--ibg:#152036;--ibd:#2b3f63;
 }
@@ -787,7 +787,7 @@ th.wl,th.pf{{color:var(--muted);cursor:default}}
 #wlbar[hidden]{{display:none}}
 #wlbar b{{color:var(--accent)}}
 #wlbar button{{padding:8px 16px;border:1px solid var(--accent);border-radius:8px;
-  background:var(--accent);color:#fff;font-size:13px;cursor:pointer}}
+  background:var(--accent);color:var(--onacc,#fff);font-size:13px;cursor:pointer}}
 #wlbar button.ghost{{background:var(--card);color:var(--muted);border-color:var(--line)}}
 #wlbar button:disabled{{opacity:.4;cursor:default}}
 body.wlon{{padding-bottom:60px}}
