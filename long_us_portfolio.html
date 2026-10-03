@@ -1,6 +1,7 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<script>try{var t=JSON.parse(localStorage.getItem("pp_theme")||"{}");if(t.pal&&t.pal!=="genko"&&t.pal!=="custom"){document.documentElement.setAttribute("data-pal",t.pal);document.documentElement.setAttribute("data-hl","on");}if(t.pal==="custom")document.documentElement.setAttribute("data-hl","on");if(t.mode==="dark"||t.mode==="light")document.documentElement.setAttribute("data-mode",t.mode);}catch(e){}</script>
+<script>try{if(!localStorage.getItem("pp_theme_long_init")){var a=localStorage.getItem("pp_theme");if(a!==null&&localStorage.getItem("pp_theme_long")===null)localStorage.setItem("pp_theme_long",a);var b=localStorage.getItem("pp_custom");if(b!==null&&localStorage.getItem("pp_custom_long")===null)localStorage.setItem("pp_custom_long",b);localStorage.setItem("pp_theme_long_init","1");}}catch(e){}</script>
+<script>try{var t=JSON.parse(localStorage.getItem("pp_theme_long")||"{}");if(t.pal&&t.pal!=="genko"&&t.pal!=="custom"){document.documentElement.setAttribute("data-pal",t.pal);document.documentElement.setAttribute("data-hl","on");}if(t.pal==="custom")document.documentElement.setAttribute("data-hl","on");if(t.mode==="dark"||t.mode==="light")document.documentElement.setAttribute("data-mode",t.mode);}catch(e){}</script>
 <title>ポートフォリオ｜10年保有できる優良企業ランキング（米国株）</title>
 <style>
 :root{
@@ -272,7 +273,7 @@ td.q,th.q{color:var(--accent)}
 <script>
 (function(){
   var PALS=['genko','blueplus','teal','slate','sand','violet','rose','custom'];
-  var TKEY='pp_theme',CKEY='pp_custom',root=document.documentElement;
+  var TKEY='pp_theme_long',CKEY='pp_custom_long',root=document.documentElement;
   var bar=document.getElementById('theme-bar'); if(!bar) return;
   function readT(){try{return JSON.parse(localStorage.getItem(TKEY)||'null')||{};}catch(e){return {};}}
   function readC(){try{return JSON.parse(localStorage.getItem(CKEY)||'null')||null;}catch(e){return null;}}

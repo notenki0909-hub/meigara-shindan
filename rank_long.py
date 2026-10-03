@@ -30,6 +30,20 @@ import rank as _jp          # THEME_*, TIER_CLASS, DIR_CLASS を流用（配色�
 import rank_us as _us
 import long_common as LC
 
+# 色設定（テーマ）の保存キーを10年保有ツール専用にする。rank.pyのTHEME_*は配当株ツールと共有で
+# キーが"pp_theme"/"pp_custom"固定のため、こちらで文字列を置換して使う（rank.pyは無変更）。
+# 初回だけ、既存の配当側の設定を引き継いで見た目が突然変わらないようにする。
+_THEME_MIGRATE = ('<script>try{if(!localStorage.getItem("pp_theme_long_init")){var a=localStorage.getItem("pp_theme");if(a!==null&&localStorage.getItem("pp_theme_long")===null)localStorage.setItem("pp_theme_long",a);var b=localStorage.getItem("pp_custom");if(b!==null&&localStorage.getItem("pp_custom_long")===null)localStorage.setItem("pp_custom_long",b);localStorage.setItem("pp_theme_long_init","1");}}catch(e){}</script>\n')
+
+
+def _theme_head(th):
+    return _THEME_MIGRATE + th.THEME_HEAD.replace("pp_theme", "pp_theme_long")
+
+
+def _theme_js(th):
+    return th.THEME_JS.replace("pp_theme", "pp_theme_long").replace("pp_custom", "pp_custom_long")
+
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 # sel_score の score_groups.選定 から「配当の持続力」を除いたもの
@@ -740,7 +754,7 @@ def render(out, m):
 
     return f"""<!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-{th.THEME_HEAD}
+{_theme_head(th)}
 <title>{html.escape(m["title"])}</title>
 <style>
 {th.THEME_CSS}
@@ -913,7 +927,7 @@ section.grp[hidden]{{display:none}}
 <button type="button" id="pfgo">ポートフォリオに追加 →</button>
 <button type="button" id="pfclear" class="ghost">💼の選択をクリア</button></div></div>
 <script>
-{th.THEME_JS}
+{_theme_js(th)}
 (function(){{
   var q=document.getElementById('q'),hit=document.getElementById('qhit');
   var btns=document.querySelectorAll('.sumbtn[data-tier]'),activeTier='';
@@ -1352,7 +1366,7 @@ def render_watchlist(out, m):
     th = m["theme"]
     return f"""<!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-{th.THEME_HEAD}
+{_theme_head(th)}
 <title>ウォッチリスト｜{html.escape(m['title'])}</title>
 <style>
 {th.THEME_CSS}
@@ -1420,7 +1434,7 @@ td.x button{{padding:2px 8px;font-size:12px;margin:0;background:var(--card);colo
 <div id="tbl"></div>
 {th.THEME_BAR}
 <script>
-{th.THEME_JS}
+{_theme_js(th)}
 (function(){{
   var params=new URLSearchParams(location.search);
   var LS='pp_wl_long_{out["market"]}';
