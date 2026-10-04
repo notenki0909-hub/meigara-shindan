@@ -1,7 +1,7 @@
 {
  "code": "7915",
  "name": "ＮＩＳＳＨＡ",
- "asof": "2026-10-03",
+ "asof": "2026-10-04",
  "jp_sector": "電気機器",
  "industry": "Electronic Components",
  "is_simple": false,
@@ -10,7 +10,7 @@
  "price_date": "2026-10-02",
  "mcap": 50149642240,
  "sel_score": 62.0,
- "tim_score": 98.6,
+ "tim_score": 109.5,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
@@ -20,7 +20,7 @@
   "高"
  ],
  "cov_tim": [
-  5,
+  4,
   6,
   "中"
  ],
@@ -31,7 +31,7 @@
   "配当の持続力": 46.0,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 108.5,
-  "株価バリュエーション": 65.0,
+  "株価バリュエーション": 110.0,
   "金利スプレッド": null
  },
  "div_yield": 4.730368968779565,
@@ -45,7 +45,7 @@
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 174.96318114874816,
- "per_vs_sector": 1.6918767687074832,
+ "per_vs_sector": null,
  "pbr_vs_sector": 0.21610363076923078,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
@@ -58,5 +58,5 @@
  "warnings": [
   "yfinance の業種『Electronic Components』が対応表に無く、sector（industry未対応） で 電気機器 に割り当てました。業種平均との比較は目安です。"
  ],
- "_generated_at": "2026-10-03T20:51:01"
+ "_generated_at": "2026-10-04T21:04:23"
 }
