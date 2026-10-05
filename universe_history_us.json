@@ -1,0 +1,243 @@
+{
+ "retired": {
+  "AVT": {
+   "name": "Avnet",
+   "sector": "Information Technology",
+   "removed_on": "2026-10-06",
+   "until": "2027-10-02",
+   "reason": "利回り 1.34% < 1.5%"
+  },
+  "CPB": {
+   "name": "The Campbell's Company",
+   "sector": "Consumer Staples",
+   "removed_on": "2026-10-06",
+   "until": "2027-10-02",
+   "reason": "非減配 0年 < 5年"
+  },
+  "CSCO": {
+   "name": "Cisco",
+   "sector": "Information Technology",
+   "removed_on": "2026-10-06",
+   "until": "2027-10-02",
+   "reason": "利回り 1.49% < 1.5%"
+  },
+  "DKS": {
+   "name": "Dick's Sporting Goods",
+   "sector": "Consumer Discretionary",
+   "removed_on": "2026-10-06",
+   "until": "2027-10-02",
+   "reason": "非減配 4年 < 5年"
+  },
+  "EXR": {
+   "name": "Extra Space Storage",
+   "sector": "Real Estate",
+   "removed_on": "2026-10-06",
+   "until": "2027-10-02",
+   "reason": "非減配 3年 < 5年"
+  },
+  "MRTN": {
+   "name": "Marten Transport, Ltd.",
+   "sector": "Industrials",
+   "removed_on": "2026-10-06",
+   "until": "2027-10-02",
+   "reason": "非減配 4年 < 5年"
+  },
+  "TAP": {
+   "name": "Molson Coors Beverage Company",
+   "sector": "",
+   "removed_on": "2026-10-06",
+   "until": "2027-10-02",
+   "reason": ""
+  },
+  "TPR": {
+   "name": "Tapestry, Inc.",
+   "sector": "Consumer Discretionary",
+   "removed_on": "2026-10-06",
+   "until": "2027-10-02",
+   "reason": "利回り 1.43% < 1.5%"
+  }
+ },
+ "period_start": "2026-10-06",
+ "display_until": "2027-01-02",
+ "events": [
+  {
+   "date": "2026-10-06",
+   "added": [
+    {
+     "code": "AGNC",
+     "name": "AGNC Investment",
+     "sector": "Financials"
+    },
+    {
+     "code": "ALB",
+     "name": "Albemarle Corporation",
+     "sector": "Materials"
+    },
+    {
+     "code": "BKR",
+     "name": "Baker Hughes",
+     "sector": "Energy"
+    },
+    {
+     "code": "BNY",
+     "name": "BNY Mellon",
+     "sector": "Financials"
+    },
+    {
+     "code": "CMI",
+     "name": "Cummins",
+     "sector": "Industrials"
+    },
+    {
+     "code": "CTVA",
+     "name": "Corteva",
+     "sector": "Materials"
+    },
+    {
+     "code": "DAN",
+     "name": "Dana Incorporated",
+     "sector": "Consumer Discretionary"
+    },
+    {
+     "code": "DTE",
+     "name": "DTE Energy",
+     "sector": "Utilities"
+    },
+    {
+     "code": "EFX",
+     "name": "Equifax",
+     "sector": "Industrials"
+    },
+    {
+     "code": "EG",
+     "name": "Everest Group",
+     "sector": "Financials"
+    },
+    {
+     "code": "FBK",
+     "name": "FB Financial Corp.",
+     "sector": "Financials"
+    },
+    {
+     "code": "FBNC",
+     "name": "First Bancorp (Southern Pines NC)",
+     "sector": "Financials"
+    },
+    {
+     "code": "FDS",
+     "name": "FactSet",
+     "sector": "Financials"
+    },
+    {
+     "code": "FDX",
+     "name": "FedEx",
+     "sector": "Industrials"
+    },
+    {
+     "code": "G",
+     "name": "Genpact",
+     "sector": "Industrials"
+    },
+    {
+     "code": "GATX",
+     "name": "GATX",
+     "sector": "Industrials"
+    },
+    {
+     "code": "IBP",
+     "name": "Installed Building Products, Inc.",
+     "sector": "Consumer Discretionary"
+    },
+    {
+     "code": "IEX",
+     "name": "IDEX Corporation",
+     "sector": "Industrials"
+    },
+    {
+     "code": "INTU",
+     "name": "Intuit",
+     "sector": "Information Technology"
+    },
+    {
+     "code": "JXN",
+     "name": "Jackson Financial, Inc.",
+     "sector": "Financials"
+    },
+    {
+     "code": "NOV",
+     "name": "NOV Inc.",
+     "sector": "Energy"
+    },
+    {
+     "code": "NX",
+     "name": "Quanex Building Products Corporation",
+     "sector": "Industrials"
+    },
+    {
+     "code": "OSK",
+     "name": "Oshkosh",
+     "sector": "Industrials"
+    },
+    {
+     "code": "RGA",
+     "name": "Reinsurance Group of America",
+     "sector": "Financials"
+    },
+    {
+     "code": "RTX",
+     "name": "RTX Corporation",
+     "sector": "Industrials"
+    },
+    {
+     "code": "VIRT",
+     "name": "Virtu Financial, Inc.",
+     "sector": "Financials"
+    },
+    {
+     "code": "WERN",
+     "name": "Werner Enterprises",
+     "sector": "Industrials"
+    },
+    {
+     "code": "YUM",
+     "name": "Yum! Brands",
+     "sector": "Consumer Discretionary"
+    }
+   ],
+   "removed": [
+    {
+     "code": "AVT",
+     "name": "Avnet"
+    },
+    {
+     "code": "CPB",
+     "name": "The Campbell's Company"
+    },
+    {
+     "code": "CSCO",
+     "name": "Cisco"
+    },
+    {
+     "code": "DKS",
+     "name": "Dick's Sporting Goods"
+    },
+    {
+     "code": "EXR",
+     "name": "Extra Space Storage"
+    },
+    {
+     "code": "MRTN",
+     "name": "Marten Transport, Ltd."
+    },
+    {
+     "code": "TAP",
+     "name": "Molson Coors Beverage Company"
+    },
+    {
+     "code": "TPR",
+     "name": "Tapestry, Inc."
+    }
+   ]
+  }
+ ]
+}
