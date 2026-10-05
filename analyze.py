@@ -2947,7 +2947,7 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
     jgb=None なら sector_rules.json の同梱値を使う（バッチでは呼び出し側で1回だけ
     fetch_jgb10() して渡す）。"""
     log = log or (lambda *_: None)
-    code = re.sub(r"\D", "", str(code))
+    code = re.sub(r"[^0-9A-Za-z]", "", str(code)).upper()   # 東証の英字入りコード（255A等）を欠けさせない
     res = {"code": code, "name": name, "ok": False, "error": None,
            "html": None, "md": None, "summary": None, "portfolio_data": None}
     if not code:
@@ -3117,7 +3117,7 @@ def main():
     ap.add_argument("--jgb", type=float, default=None, help="10年国債利回り(％)を明示（金利スプレッド用）")
     args = ap.parse_args()
 
-    code = re.sub(r"\D", "", args.code)
+    code = re.sub(r"[^0-9A-Za-z]", "", args.code).upper()
     if not code:
         sys.exit("証券コードを数字で指定してください（例: 9433）")
 
