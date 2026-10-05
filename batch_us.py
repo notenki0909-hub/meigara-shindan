@@ -37,6 +37,9 @@ SUM = os.path.join(SITE, "summaries")
 PFD = os.path.join(SITE, "portfolio_data")
 
 
+RETIRED = {}   # 母集団から外れた銘柄の記録（main で div_universe.retired_info から設定）。診断ページの上部に注記を入れる
+
+
 def load_codes(spec):
     """'KO,PG' でも 'universe_us.json' でも受ける。→ [(ticker, name_or_None), ...]"""
     if os.path.isfile(spec):
@@ -68,7 +71,11 @@ def run_one(ticker, cfg):
     r = analyze_us.generate_us(ticker, cfg=cfg)
     if not r["ok"]:
         return ticker, "fail", r["error"]
-    open(os.path.join(REP, f"{ticker}.html"), "w", encoding="utf-8").write(r["html"])
+    page = r["html"]
+    if ticker in RETIRED:
+        import div_universe
+        page = div_universe.inject_banner(page, RETIRED[ticker])
+    open(os.path.join(REP, f"{ticker}.html"), "w", encoding="utf-8").write(page)
     open(os.path.join(REP, f"{ticker}.md"), "w", encoding="utf-8").write(r["md"])
     s = dict(r["summary"])
     s["_generated_at"] = dt.datetime.now().isoformat(timespec="seconds")
@@ -106,6 +113,7 @@ def main():
     codes = load_codes(args.codes)
     if args.with_retired:
         import div_universe
+        RETIRED.update(div_universe.retired_info("us"))
         have = {c for c, _ in codes}
         retired = [(c, n) for c, n in div_universe.active_retired_codes("us") if c not in have]
         print(f"母集団から外れた銘柄（更新継続中）：{len(retired)}件を追加")

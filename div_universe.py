@@ -352,6 +352,33 @@ def retired_note(info):
     return "対象外（参考）：データの更新は%sまで" % jp_date(info.get("until"))
 
 
+def retired_banner_html(info):
+    """個別の診断ページの上部に出す、対象外（参考）の注記。期限後の文言は閲覧時の日付で切り替える。"""
+    until, removed = info.get("until", ""), info.get("removed_on", "")
+    ended = "データの更新は%sで終了しました（最後に更新した値を表示しています）。" % jp_date(until)
+    return (
+        '<div class="retbanner" data-until="%s" style="margin:10px 0;padding:10px 12px;border:1px solid var(--line);'
+        'border-radius:8px;background:var(--card);color:var(--fg);font-size:13px;line-height:1.7">'
+        '<b>対象外（参考）</b>：この銘柄は、%sの四半期見直しで配当株ランキングの母集団から外れました。'
+        '<span class="retmsg">ポートフォリオ等で保有している人のため、データは%sまで更新します'
+        '（期限後は更新を止め、最後の値を表示します）。</span>'
+        '<script>(function(){var e=document.currentScript.parentNode,u=e.getAttribute("data-until");'
+        'if(u&&u<new Date().toISOString().slice(0,10)){e.querySelector(".retmsg").textContent="%s";}})();</script>'
+        '</div>' % (until, jp_date(removed), jp_date(until), ended))
+
+
+def inject_banner(report_html, info):
+    """診断ページ(report_html)のヘッダー（topbar）の直後に、対象外の注記を差し込む。見つからなければそのまま返す。"""
+    i = report_html.find('class="topbar"')
+    if i < 0:
+        return report_html
+    j = report_html.find("</div>", i)
+    if j < 0:
+        return report_html
+    j += len("</div>")
+    return report_html[:j] + "\n" + retired_banner_html(info) + report_html[j:]
+
+
 def changebox_html(market, hist, by_code, sector_of, esc, sector_tr=lambda x: x):
     """「今回の入れ替え」欄（見出しクリックで開閉。既定は閉）。by_code＝ランキング対象の行（code→row）。"""
     if not hist or not hist.get("period_start") or not period_active(hist):
