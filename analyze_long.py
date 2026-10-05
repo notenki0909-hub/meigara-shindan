@@ -1014,7 +1014,8 @@ table.subt tr:last-child td{{border-bottom:none}}
 def generate_long(code, cfg=None, market="jp", name=None):
     res = {"code": str(code), "name": None, "ok": False, "error": None,
            "html": None, "md": None, "summary": None, "portfolio_data": None}
-    code = re.sub(r"\D", "", str(code)) if market == "jp" else str(code).upper()
+    # 東証の英字入りコード（285A・268A等）を数字だけに欠けさせない（欠けると285.Tとなり取得に失敗する）
+    code = re.sub(r"[^0-9A-Za-z]", "", str(code)).upper() if market == "jp" else str(code).upper()
     res["code"] = code
     if not code:
         res["error"] = "コードが不正"
