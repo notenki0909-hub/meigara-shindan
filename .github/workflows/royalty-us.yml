@@ -1,0 +1,61 @@
+name: royalty-us
+
+# 配当王・配当貴族の固定リスト（dividend_royalty_us.json）を月1回、公開情報から更新する。
+# 入れ替えがあったときだけコミットする。取得に失敗したり件数が想定外のときは古いリストを
+# 残してエラー終了する（GitHubの失敗通知で気づける）。画面への反映は、6時間おきの
+# earnings-watch-us が rank_us.py を回したときに乗る。表示専用でスコア計算には使わない。
+on:
+  schedule:
+    - cron: "40 3 5 * *"   # 毎月5日 03:40 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: meigara-dividend-git-push
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - run: pip install -r requirements.txt
+
+      - name: 配当王・貴族リストの更新
+        run: python update_royalty_us.py
+
+      - name: コミット
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dividend_royalty_us.json
+          if git diff --cached --quiet; then
+            echo "変更なし"
+            exit 0
+          fi
+          git commit -m "chore(royalty-us): update $(date -u +%Y-%m-%dT%H:%MZ)"
+          n=0
+          until git push; do
+            n=$((n+1))
+            if [ "$n" -ge 5 ]; then
+              echo "::error::pushが${n}回失敗しました"
+              exit 1
+            fi
+            echo "pushが拒否されました。取り込んで再試行します（${n}/5）"
+            sleep $((RANDOM % 10 + 5))
+            git fetch origin main
+            if ! git rebase origin/main; then
+              echo "::error::rebaseで競合が発生しました"
+              git rebase --abort
+              exit 1
+            fi
+          done
