@@ -1,0 +1,104 @@
+name: monthly-etf-top-us
+
+# 『10年保有できる優良企業ランキング（米国株）』の「主要ETFの上位15銘柄」を月1回更新する。
+# XL系11本・SOXX・SPY・QQQの組入比率上位15銘柄を、各運用会社（State Street／iShares／Invesco）
+# の公開データから取得して etf_top_us.json を更新する（fetch_etf_top_us.py）。
+# 取得内容は検査し（15件以上・ティッカー形式・組入比率・データ日付）、Yahooの上位10銘柄とも
+# 顔ぶれを照合する。検査や取得に失敗したETFは前回の内容を残し、失敗はIssueで通知する。
+# 画面への反映は、毎晩動く nightly-long-us（rank_long.py us）が etf_top_us.json を読んで行う
+# （このワークフローは JSON だけをコミットし、夜間更新が書き換える site/us/long には触れない）。
+#
+# 夜間更新の時間帯（日本時間 朝7時台・10〜11時台）を避けて実行する。配当株ツールのファイルには
+# 一切触れない。排他制御グループには入れず、push拒否時は取り込んで再試行する。
+on:
+  schedule:
+    - cron: "0 5 2 * *"   # 毎月2日 05:00 UTC（14:00 JST）
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: monthly-etf-top-us
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - run: pip install -r requirements.txt
+
+      - name: ETF上位15銘柄を取得
+        id: fetch
+        continue-on-error: true
+        run: python fetch_etf_top_us.py
+
+      - name: コミット
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add etf_top_us.json
+          if git diff --cached --quiet; then
+            echo "変更なし"
+            exit 0
+          fi
+          git commit -m "chore(etf-top-us): monthly update $(date -u +%Y-%m-%d)"
+          # push拒否（mainが進んでいた）時は、取り込んで最大5回やり直す。
+          n=0
+          until git push; do
+            n=$((n+1))
+            if [ "$n" -ge 5 ]; then
+              echo "::error::pushが${n}回失敗しました"
+              exit 1
+            fi
+            echo "pushが拒否されました。取り込んで再試行します（${n}/5）"
+            sleep $((RANDOM % 10 + 5))
+            git fetch origin main
+            if ! git rebase origin/main; then
+              echo "::error::rebaseで競合が発生しました"
+              git rebase --abort
+              exit 1
+            fi
+          done
+
+      - name: 取得失敗をIssueで通知
+        if: steps.fetch.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          repo="${GITHUB_REPOSITORY}"
+          title="【ETF上位銘柄】月次更新で取得に失敗しました"
+          exists=$(gh issue list --repo "$repo" --state open --search "in:title \"${title}\"" --json number --jq 'length')
+          if [ "$exists" -gt 0 ]; then
+            echo "同じ内容のIssueが未解決のため、重複作成しません"
+            exit 0
+          fi
+          cat > /tmp/body.md <<EOF
+          @notenki0909-hub
+
+          米国10年保有ランキングの「主要ETFの上位15銘柄」の月次更新で、一部または全部のETFの取得・検査に失敗しました。
+          失敗したETFは前回の内容のまま残っています（他のETFは更新済み）。
+
+          - 詳細：${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+          - 想定される原因：各運用会社の公開ファイルのURL・形式の変更、アクセス制限、データの異常（検査で不採用）
+          - 対応：Claude（10年保有側のセッション）に「ETF上位銘柄の月次更新の失敗を調べて」と伝えてください。
+          - データが45日以上古いままだと、米国ランキングの「主要ETFの上位15銘柄」に警告が表示されます。
+
+          このIssueは対応が終わったら閉じてください（閉じるまでは重複して作成されません）。
+          EOF
+          gh issue create --repo "$repo" --title "$title" --body-file /tmp/body.md
+
+      - name: 取得失敗を実行結果にも反映
+        if: steps.fetch.outcome == 'failure'
+        run: |
+          echo "::error::ETF上位銘柄の取得または検査に失敗しました（詳細は上の取得ステップのログ）"
+          exit 1

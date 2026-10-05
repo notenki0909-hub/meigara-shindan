@@ -751,8 +751,19 @@ def render(out, m):
                 f'<details class="etfbox"><summary><b>{html.escape(e["etf"])}</b> ｜ {html.escape(e["label"])} ｜ 上位15銘柄 '
                 f'<span class="gmeta">ランキング対象 {n_in}/15 ・ {html.escape(e["as_of"])}時点</span></summary>'
                 f'<table>{etf_thead}<tbody>{trs}</tbody></table></details>')
+        # データが古いままなら画面で気づけるようにする（月次更新が止まった場合）
+        stale_html = ""
+        try:
+            oldest = min(dt.date.fromisoformat(e["as_of"]) for e in etf_data.get("etfs", []) if e.get("as_of"))
+            age = (dt.date.today() - oldest).days
+            if age > 45:
+                stale_html = ('<p class="sub" style="margin:6px 0;color:var(--gC);font-weight:600">'
+                              f'⚠ ETFの構成銘柄データが{age}日前（{oldest.isoformat()}時点）のままです。'
+                              '月次更新が止まっている可能性があります。</p>')
+        except ValueError:
+            pass
         if blocks:
-            etf_html = ('<details id="etfroot"><summary>主要ETFの上位15銘柄</summary>'
+            etf_html = ('<details id="etfroot"><summary>主要ETFの上位15銘柄</summary>' + stale_html +
                         '<p class="sub" style="margin:6px 0">各ETFの見出しをクリックすると、組入比率の高い順の上位15銘柄が開きます。'
                         '構成銘柄は各運用会社（State Street／iShares／Invesco）の公開データで、見出しの日付時点です。'
                         'ランキングの母集団（S&amp;P500）に入っていない銘柄は採点していないため「ランキング対象外」と表示します。</p>'
