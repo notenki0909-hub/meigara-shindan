@@ -51,6 +51,9 @@ jobs:
             exit 0
           fi
           git commit -m "chore(nightly-long): refresh $(date -u +%Y-%m-%dT%H:%MZ)"
+          # 診断の副産物など、コミット対象外の変更が残っているとrebaseできないため破棄する（実行環境は使い捨て）
+          git reset --hard HEAD
+          git clean -fdq
           # 数十分の診断中にmainが進むとpushが拒否される。取り込んで最大5回やり直す。
           n=0
           until git push; do
@@ -63,8 +66,9 @@ jobs:
             sleep $((RANDOM % 10 + 5))
             git fetch origin main
             if ! git rebase origin/main; then
-              echo "::error::rebaseで競合が発生しました"
-              git rebase --abort
+              echo "::error::rebaseに失敗しました（競合、または未コミットの変更が残っています）"
+              git status --short | head -20
+              git rebase --abort || true
               exit 1
             fi
           done

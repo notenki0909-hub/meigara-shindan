@@ -104,8 +104,9 @@ jobs:
             sleep $((RANDOM % 10 + 5))
             git fetch origin main
             if ! git rebase origin/main; then
-              echo "::error::rebaseで競合が発生しました"
-              git rebase --abort
+              echo "::error::rebaseに失敗しました（競合、または未コミットの変更が残っています）"
+              git status --short | head -20
+              git rebase --abort || true
               exit 1
             fi
           done
