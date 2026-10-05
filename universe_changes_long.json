@@ -1,0 +1,70 @@
+{
+ "jp": {
+  "period_start": "2026-10-05",
+  "display_until": "2027-01-05",
+  "events": [
+   {
+    "date": "2026-10-05",
+    "kind": "quarterly",
+    "added": [
+     {
+      "code": "4272",
+      "name": "日本化薬"
+     },
+     {
+      "code": "8714",
+      "name": "池田泉州ホールディングス"
+     }
+    ],
+    "removed": [
+     {
+      "code": "1417",
+      "name": "ミライト・ワン"
+     },
+     {
+      "code": "8628",
+      "name": "松井証券"
+     }
+    ]
+   }
+  ]
+ },
+ "us": {
+  "period_start": "2026-10-05",
+  "display_until": "2027-01-05",
+  "events": [
+   {
+    "date": "2026-10-05",
+    "kind": "quarterly",
+    "added": [
+     {
+      "code": "BE",
+      "name": "Bloom Energy"
+     },
+     {
+      "code": "ILMN",
+      "name": "Illumina, Inc."
+     },
+     {
+      "code": "P",
+      "name": "Everpure"
+     }
+    ],
+    "removed": [
+     {
+      "code": "BLDR",
+      "name": "Builders FirstSource"
+     },
+     {
+      "code": "TAP",
+      "name": "Molson Coors Beverage Company"
+     },
+     {
+      "code": "TTD",
+      "name": "Trade Desk (The)"
+     }
+    ]
+   }
+  ]
+ }
+}
