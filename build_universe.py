@@ -154,7 +154,7 @@ def prescreen_one(code, scr, policies):
     ttm = sum(v for d, v in divs if d >= cutoff)
     yld = (ttm / price * 100) if price else None
 
-    yf_fy = analyze.annual_dps_from_divs(divs)
+    yf_fy = analyze.annual_dps_from_divs(divs, drop_in_progress=True)   # 今期途中の年を除く（中間配当の新設を減配と誤判定しない）
     clean = analyze.clean_dps_series(yf_fy)
     vals = [v for _, v in clean]
     flat_streak = analyze._one_streak(vals, False) if vals else 0

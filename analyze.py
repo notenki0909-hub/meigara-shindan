@@ -499,9 +499,14 @@ def portfolio_data_with_open(yd):
 # ====================================================================
 # 指標の計算
 # ====================================================================
-def annual_dps_from_divs(divs, fye_month=3):
+def annual_dps_from_divs(divs, fye_month=3, drop_in_progress=False):
     """ex-date 実額を会計年度でまとめる。JP は 4月始まりが既定。
-    返り値: [(fy:int, dps:float, n_pay:int)]（古い順、直近の未完了年は除外）。"""
+    返り値: [(fy:int, dps:float, n_pay:int)]（古い順、直近の未完了年は除外）。
+    drop_in_progress=True のときは、今日をふくむ会計年度（まだ終わっていない年）の合計が前年の
+    通期より少ないとき（＝減配に見えてしまうとき）に、その年を除く。年1回払いの会社が中間配当を
+    新設した直後などに、支払回数だけでは「完了した年」と誤判定され、通期の配当と比べて減配に見える
+    （連続非減配が0年になる）のを防ぐ。前年以上のときは除かない（途中でも増配が確認できているため）。
+    既定はFalse（10年保有ツール analyze_long など、従来の計算を前提にする呼び出しは変えない）。"""
     if not divs:
         return []
     cutoff = (fye_month % 12) + 1  # 3月決算→4
@@ -523,6 +528,13 @@ def annual_dps_from_divs(divs, fye_month=3):
         if i == len(items) - 1 and n < max(1, med):
             continue  # 未完了年は捨てる
         out.append((fy, round(sum(x[1] for x in lst), 4), n))
+    if drop_in_progress and out:
+        today = dt.date.today()
+        cur_fy = today.year if today.month >= cutoff else today.year - 1
+        # 今期の途中の年は、前年の通期より少なく見えるとき（＝減配に見えてしまうとき）だけ除く。
+        # 前年以上なら、そのまま使う（途中でも増配が確認できているため）。
+        if out[-1][0] == cur_fy and len(out) >= 2 and out[-1][1] < out[-2][1]:
+            out.pop()
     return out
 
 
@@ -661,7 +673,8 @@ def calc_technicals(hist_d):
     return out
 
 
-def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb_10y, div_policies):
+def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb_10y, div_policies,
+                  drop_in_progress=False):
     """全指標を分野別 dict に。各指標は {v, disp, ref, key}（key は rules 参照名）。"""
     info = yd["info"]
     isr, bsr, cfr = yd["is_rows"], yd["bs_rows"], yd["cf_rows"]
@@ -912,7 +925,7 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
             fye_month = dt.datetime.fromtimestamp(fye_ts, dt.timezone.utc).month
         except Exception:
             fye_month = 3
-    yf_fy = annual_dps_from_divs(yd["divs"], fye_month)
+    yf_fy = annual_dps_from_divs(yd["divs"], fye_month, drop_in_progress)
     dps_series = clean_dps_series(yf_fy)  # 支払回数が異常な年（特殊配当）を除外
     dps_src = "yfinance（会計年度換算）"
     if irbank and len(irbank) >= len(dps_series):
@@ -2974,7 +2987,8 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
     log("[2/3] 採点")
     try:
         M, flags, ctx = build_metrics(yd, irbank, sec_avg, is_simple, jp_sector,
-                                      rate_sensitive, jgb_10y, div_policies)
+                                      rate_sensitive, jgb_10y, div_policies,
+                                      drop_in_progress=True)   # 配当側のみ。10年保有側は既定(False)のまま
         ctx["hist_m"] = yd["hist_m"]
         ctx["jgb_src"] = jgb_src
         ctx["earn"] = build_earnings(yd, yd["price"])
