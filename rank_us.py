@@ -34,6 +34,8 @@ GROUPS_CFG = os.path.join(HERE, "sector_groups_us.json")
 SCREEN_CFG = os.path.join(HERE, "universe_screen_us.json")
 RANKING = os.path.join(SITE, "ranking.json")
 INDEX = os.path.join(SITE, "index.html")
+ROYALTY = os.path.join(HERE, "dividend_royalty_us.json")
+UNIVERSE = os.path.join(HERE, "universe_us.json")
 
 DISC = ('本ページは、あらかじめ定めた基準で抽出した米国上場の配当銘柄について、公開データを'
         '機械的なルールで算出したスコアによる分類（1〜3軍・業種級）です。特定銘柄の売買を推奨・'
@@ -239,6 +241,8 @@ def main():
         [r for r in rows if isinstance(r["sel"], (int, float))],
         key=lambda r: -r["sel"])[:50]
 
+    royalty = build_royalty(rows)
+
     out = {
         "generated_at": dt.datetime.now().isoformat(timespec="seconds"),
         "screen": {
@@ -250,7 +254,7 @@ def main():
                    "1軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "1軍"),
                    "2軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "2軍"),
                    "3軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "3軍")},
-        "groups": groups_out, "global_top": global_top,
+        "groups": groups_out, "global_top": global_top, "royalty": royalty,
     }
 
     new_html = render_index(out)
@@ -284,11 +288,45 @@ def main():
         print(f"  {out['counts']}")
         return
 
-    json.dump(out, open(RANKING, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    json.dump({k: v for k, v in out.items() if k != "royalty"}, open(RANKING, "w", encoding="utf-8"),
+              ensure_ascii=False, indent=1)
     open(INDEX, "w", encoding="utf-8").write(new_html)
     print(f"→ {RANKING}")
     print(f"→ {INDEX}")
     print(f"  {out['counts']}")
+
+
+def build_royalty(rows):
+    """配当王・配当貴族の固定リスト（dividend_royalty_us.json）を、このツールの対象銘柄(rows)と突き合わせる。
+    対象内＝選定スコア順の行、対象外＝(ticker, name, 理由)。リストは表示専用でスコア・選定には使わない。"""
+    if not os.path.isfile(ROYALTY):
+        return {}
+    try:
+        cfg = json.load(open(ROYALTY, encoding="utf-8"))
+    except Exception:
+        return {}
+    rej = {}
+    if os.path.isfile(UNIVERSE):
+        try:
+            for t in json.load(open(UNIVERSE, encoding="utf-8")).get("rejected", []):
+                rej[t["ticker"]] = t.get("reason") or ""
+        except Exception:
+            pass
+    by_code = {r["code"]: r for r in rows}
+    res = {"asof": cfg.get("取得日")}
+    for key in ("kings", "aristocrats"):
+        lst = cfg.get(key) or []
+        inn, out_ = [], []
+        for e in lst:
+            r = by_code.get(e["ticker"])
+            if r is not None:
+                inn.append(r)
+            else:
+                out_.append({"ticker": e["ticker"], "name": e["name"],
+                             "reason": rej.get(e["ticker"]) or "S&P500/400/600の構成銘柄ではない"})
+        inn.sort(key=lambda r: (not isinstance(r["sel"], (int, float)), -(r["sel"] or 0)))
+        res[key] = {"total": len(lst), "stocks": inn, "excluded": out_}
+    return res
 
 
 # ---------------------------------------------------------------- HTML
@@ -661,20 +699,65 @@ def render_index(out):
                     '</tr></thead><tbody>' + "".join(trs) + '</tbody></table></section>')
 
     grade_by_group = {g["name"]: g["grade"] for g in out["groups"]}
-    gt = "".join(
-        f'<tr class="r" data-tier="{s.get("tier","―")}" {_filter_attrs(s, grade_by_group.get(s["group"], "―"))}>'
-        f'<td class="wl"><input type="checkbox" class="wlc" data-code="{s["code"]}" aria-label="ウォッチリストに追加"></td>'
-        f'<td class="pf"><input type="checkbox" class="pfc" data-code="{s["code"]}" aria-label="ポートフォリオに追加"></td>'
-        f'<td class="n">{i+1}</td>'
-        f'<td class="tier">{s.get("tier","―")}</td>'
-        f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
-        f'<td class="nm">{html.escape(s["name"])}</td>'
-        f'<td class="sec">{html.escape(s["sector_jp"])}</td>'
-        f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"])}</td>'
-        f'{_chg_row_cells(s.get("chg"))}'
-        f'<td class="n" data-v="{_v(s["sel"])}">{_num(s["sel"],0)}</td>'
-        f'<td class="n" data-v="{_v(s["tim"])}">{_num(s["tim"],0)}</td></tr>'
-        for i, s in enumerate(out["global_top"]))
+
+    def _rank_rows(stocks, extra=False):
+        """業種横断の一覧表（全体上位50／配当王／配当貴族）の行。extra=Trueで利回り・増配列を足す。"""
+        res = []
+        for i, s in enumerate(stocks):
+            ex = ""
+            if extra:
+                sv = _streak_val(s["streak_up"], s["streak_flat"])
+                ex = (f'<td class="n" data-v="{_v(s["yield"])}">{_num(s["yield"],2)}%</td>'
+                      f'<td class="sk" data-v="{_v(sv)}">{_streak(s["streak_up"], s["streak_flat"])}</td>')
+            res.append(
+                f'<tr class="r" data-tier="{s.get("tier","―")}" {_filter_attrs(s, grade_by_group.get(s["group"], "―"))}>'
+                f'<td class="wl"><input type="checkbox" class="wlc" data-code="{s["code"]}" aria-label="ウォッチリストに追加"></td>'
+                f'<td class="pf"><input type="checkbox" class="pfc" data-code="{s["code"]}" aria-label="ポートフォリオに追加"></td>'
+                f'<td class="n">{i+1}</td>'
+                f'<td class="tier">{s.get("tier","―")}</td>'
+                f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
+                f'<td class="nm">{html.escape(s["name"])}</td>'
+                f'<td class="sec">{html.escape(s["sector_jp"])}</td>'
+                f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"])}</td>'
+                f'{_chg_row_cells(s.get("chg"))}'
+                f'<td class="n" data-v="{_v(s["sel"])}">{_num(s["sel"],0)}</td>'
+                f'<td class="n" data-v="{_v(s["tim"])}">{_num(s["tim"],0)}</td>{ex}</tr>')
+        return "".join(res)
+
+    def _rank_head(extra=False):
+        ex = ('<th class="n"><span class="hdr" data-term="yield">利回り</span><span class="sortbtn">▼</span></th>'
+              '<th><span class="hdr" data-term="streak">増配</span><span class="sortbtn">▼</span></th>') if extra else ""
+        return ('<table><thead><tr><th class="wl" title="ウォッチリストに追加する銘柄にチェック">☆</th>'
+                '<th class="pf" title="ポートフォリオに追加する銘柄にチェック">💼</th><th class="n">#</th>'
+                '<th class="hdr" data-term="tier">軍</th><th>ティッカー</th><th>銘柄</th><th>業種</th>'
+                '<th class="n"><span class="hdr" data-term="price">終値</span><span class="sortbtn">▼</span></th>'
+                + _chg_header_cells() +
+                '<th class="n"><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>'
+                '<th class="n"><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th>'
+                + ex + '</tr></thead><tbody>')
+
+    gt = _rank_rows(out["global_top"])
+    top_table = _rank_head() + gt + '</tbody></table>'
+
+    roy = out.get("royalty") or {}
+    roy_boxes = []
+    for key, ttl, defn in (("kings", "配当王", "50年以上連続で増配している企業"),
+                           ("aristocrats", "配当貴族", "S&P500構成銘柄で25年以上連続増配している企業")):
+        d = roy.get(key)
+        if not d:
+            continue
+        exc = d["excluded"]
+        note = (f'<p class="roynote">{defn}（{html.escape(str(roy.get("asof") or ""))}時点の公開リスト{d["total"]}銘柄）のうち、'
+                f'このツールの対象条件（予想配当利回り1.5%以上・直近5年減配なし・S&amp;P500/400/600構成銘柄）を満たす'
+                f'<b>{len(d["stocks"])}銘柄</b>を選定スコア順に表示しています。')
+        if exc:
+            note += ('<br>対象外（' + str(len(exc)) + '銘柄）：' + '、'.join(
+                f'{html.escape(e["ticker"])}（{html.escape(e["reason"])}）' for e in exc))
+        note += '</p>'
+        roy_boxes.append(
+            f'<details class="topbox" id="roy-{key}"><summary>{ttl}（選定スコア順・{len(d["stocks"])}銘柄）</summary>'
+            + _rank_head(True) + _rank_rows(d["stocks"], True) + '</tbody></table>' + note + '</details>')
+    roy_html = "\n".join(roy_boxes)
 
     return f"""<!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -717,6 +800,7 @@ body.chgopen .chgd{{display:table-cell}}
 .code a{{color:var(--accent);text-decoration:none}}
 .sec{{color:var(--muted);font-size:11px}}
 .sk{{font-size:11px;color:var(--muted)}}
+.roynote{{font-size:11.5px;color:var(--muted);margin:8px 2px 0;line-height:1.7;white-space:normal}}
 .cv{{font-size:11px}}
 .disc{{margin-top:30px;padding:12px;background:var(--wbg);border:1px solid var(--wbd);
   border-radius:8px;font-size:11.5px;color:var(--wfg)}}
@@ -906,13 +990,10 @@ body.wlon{{padding-bottom:60px}}
   <div id="terminfo-body"></div>
 </div>
 <div class="fempty" id="fempty" hidden>条件に合う銘柄がありません。条件を緩めてください。</div>
-<details id="topbox"><summary>全体 選定スコア 上位50（業種横断）</summary>
-<table><thead><tr><th class="wl" title="ウォッチリストに追加する銘柄にチェック">☆</th><th class="pf" title="ポートフォリオに追加する銘柄にチェック">💼</th><th class="n">#</th><th class="hdr" data-term="tier">軍</th><th>ティッカー</th><th>銘柄</th><th>業種</th>
-<th class="n"><span class="hdr" data-term="price">終値</span><span class="sortbtn">▼</span></th>
-{_chg_header_cells()}
-<th class="n"><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>
-<th class="n"><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th></tr></thead><tbody>{gt}</tbody></table>
+<details class="topbox" id="topbox"><summary>全体 選定スコア 上位50（業種横断）</summary>
+{top_table}
 </details>
+{roy_html}
 {"".join(secs)}
 <div class="disc">{DISC}</div>
 <div id="wlbar" hidden>
@@ -1094,10 +1175,10 @@ body.wlon{{padding-bottom:60px}}
       var any = sec.querySelector('tr.r:not([hidden])');
       sec.hidden = filtering && !any;
     }});
-    if (topbox) {{
-      var anyTop = topbox.querySelector('tr.r:not([hidden])');
-      topbox.hidden = filtering && !anyTop;
-    }}
+    document.querySelectorAll('details.topbox').forEach(function(box){{
+      var anyTop = box.querySelector('tr.r:not([hidden])');
+      box.hidden = filtering && !anyTop;
+    }});
     hit.textContent = filtering ? (total + '件ヒット') : '';
     fhit.textContent = pActive ? (total + '件該当') : '';
     fhit2.textContent = pActive ? (total + '件該当') : '';

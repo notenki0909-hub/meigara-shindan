@@ -1,0 +1,528 @@
+{
+ "取得日": "2026-10-05",
+ "説明": "配当貴族(S&P500で25年以上連続増配・S&P Dow Jones Indices)と配当王(50年以上連続増配)の固定リスト。年1回(1月)程度の入れ替えがあるため手で更新する。ランキング上の『配当王／配当貴族』一覧の表示にのみ使い、スコア計算・対象銘柄の選定には使わない。",
+ "出典": {
+  "aristocrats": "Wikipedia: S&P 500 Dividend Aristocrats",
+  "kings": "Sure Dividend: Dividend Kings List"
+ },
+ "aristocrats": [
+  {
+   "ticker": "AOS",
+   "name": "A.O. Smith"
+  },
+  {
+   "ticker": "ABT",
+   "name": "Abbott Laboratories"
+  },
+  {
+   "ticker": "ABBV",
+   "name": "AbbVie"
+  },
+  {
+   "ticker": "AFL",
+   "name": "AFLAC"
+  },
+  {
+   "ticker": "APD",
+   "name": "Air Products & Chemicals"
+  },
+  {
+   "ticker": "ALB",
+   "name": "Albemarle Corporation"
+  },
+  {
+   "ticker": "AMCR",
+   "name": "Amcor"
+  },
+  {
+   "ticker": "ADM",
+   "name": "Archer-Daniels-Midland Co"
+  },
+  {
+   "ticker": "ATO",
+   "name": "Atmos Energy Corp"
+  },
+  {
+   "ticker": "ADP",
+   "name": "Automatic Data Processing"
+  },
+  {
+   "ticker": "BDX",
+   "name": "Becton Dickinson & Co"
+  },
+  {
+   "ticker": "BRO",
+   "name": "Brown & Brown Inc."
+  },
+  {
+   "ticker": "BF-B",
+   "name": "Brown–Forman (class B)"
+  },
+  {
+   "ticker": "CAH",
+   "name": "Cardinal Health Inc"
+  },
+  {
+   "ticker": "CAT",
+   "name": "Caterpillar Inc"
+  },
+  {
+   "ticker": "CHRW",
+   "name": "C.H. Robinson"
+  },
+  {
+   "ticker": "CVX",
+   "name": "Chevron Corp"
+  },
+  {
+   "ticker": "CB",
+   "name": "Chubb Limited"
+  },
+  {
+   "ticker": "CHD",
+   "name": "Church & Dwight"
+  },
+  {
+   "ticker": "CINF",
+   "name": "Cincinnati Financial Corp"
+  },
+  {
+   "ticker": "CTAS",
+   "name": "Cintas Corp"
+  },
+  {
+   "ticker": "CLX",
+   "name": "Clorox"
+  },
+  {
+   "ticker": "KO",
+   "name": "Coca-Cola Co"
+  },
+  {
+   "ticker": "CL",
+   "name": "Colgate-Palmolive"
+  },
+  {
+   "ticker": "ED",
+   "name": "Consolidated Edison Inc"
+  },
+  {
+   "ticker": "DOV",
+   "name": "Dover Corp"
+  },
+  {
+   "ticker": "ECL",
+   "name": "Ecolab Inc"
+  },
+  {
+   "ticker": "EMR",
+   "name": "Emerson Electric"
+  },
+  {
+   "ticker": "ERIE",
+   "name": "Erie Indemnity"
+  },
+  {
+   "ticker": "ES",
+   "name": "Eversource Energy"
+  },
+  {
+   "ticker": "ESS",
+   "name": "Essex Property Trust"
+  },
+  {
+   "ticker": "EXPD",
+   "name": "Expeditors International of Washington"
+  },
+  {
+   "ticker": "XOM",
+   "name": "Exxon Mobil Corp"
+  },
+  {
+   "ticker": "FDS",
+   "name": "FactSet Research Systems"
+  },
+  {
+   "ticker": "FAST",
+   "name": "Fastenal"
+  },
+  {
+   "ticker": "FRT",
+   "name": "Federal Realty Investment Trust"
+  },
+  {
+   "ticker": "BEN",
+   "name": "Franklin Resources Inc"
+  },
+  {
+   "ticker": "GD",
+   "name": "General Dynamics"
+  },
+  {
+   "ticker": "GPC",
+   "name": "Genuine Parts Company"
+  },
+  {
+   "ticker": "HRL",
+   "name": "Hormel Foods Corp"
+  },
+  {
+   "ticker": "ITW",
+   "name": "Illinois Tool Works"
+  },
+  {
+   "ticker": "IBM",
+   "name": "IBM"
+  },
+  {
+   "ticker": "SJM",
+   "name": "The J. M. Smucker Company"
+  },
+  {
+   "ticker": "JNJ",
+   "name": "Johnson & Johnson"
+  },
+  {
+   "ticker": "KVUE",
+   "name": "Kenvue, Inc."
+  },
+  {
+   "ticker": "KMB",
+   "name": "Kimberly-Clark"
+  },
+  {
+   "ticker": "LIN",
+   "name": "Linde plc"
+  },
+  {
+   "ticker": "LOW",
+   "name": "Lowe's"
+  },
+  {
+   "ticker": "MKC",
+   "name": "McCormick & Company"
+  },
+  {
+   "ticker": "MCD",
+   "name": "McDonald's Corp"
+  },
+  {
+   "ticker": "MDT",
+   "name": "Medtronic plc"
+  },
+  {
+   "ticker": "NEE",
+   "name": "NextEra Energy"
+  },
+  {
+   "ticker": "NDSN",
+   "name": "Nordson Corp"
+  },
+  {
+   "ticker": "NUE",
+   "name": "Nucor Corp"
+  },
+  {
+   "ticker": "PNR",
+   "name": "Pentair"
+  },
+  {
+   "ticker": "PEP",
+   "name": "PepsiCo"
+  },
+  {
+   "ticker": "PPG",
+   "name": "PPG Industries"
+  },
+  {
+   "ticker": "PG",
+   "name": "Procter & Gamble"
+  },
+  {
+   "ticker": "O",
+   "name": "Realty Income"
+  },
+  {
+   "ticker": "ROP",
+   "name": "Roper Technologies"
+  },
+  {
+   "ticker": "SPGI",
+   "name": "S&P Global Inc"
+  },
+  {
+   "ticker": "SHW",
+   "name": "Sherwin-Williams"
+  },
+  {
+   "ticker": "SWK",
+   "name": "Stanley Black & Decker"
+  },
+  {
+   "ticker": "SYY",
+   "name": "Sysco Corp"
+  },
+  {
+   "ticker": "TROW",
+   "name": "T Rowe Price Group Inc"
+  },
+  {
+   "ticker": "TGT",
+   "name": "Target Corp"
+  },
+  {
+   "ticker": "GWW",
+   "name": "W. W. Grainger"
+  },
+  {
+   "ticker": "WMT",
+   "name": "Walmart Inc."
+  },
+  {
+   "ticker": "WST",
+   "name": "West Pharmaceutical Services"
+  }
+ ],
+ "kings": [
+  {
+   "ticker": "MO",
+   "name": "Altria Group"
+  },
+  {
+   "ticker": "ADM",
+   "name": "Archer-Daniels-Midland"
+  },
+  {
+   "ticker": "CL",
+   "name": "Colgate-Palmolive"
+  },
+  {
+   "ticker": "KO",
+   "name": "Coca-Cola"
+  },
+  {
+   "ticker": "HRL",
+   "name": "Hormel Foods"
+  },
+  {
+   "ticker": "KMB",
+   "name": "Kimberly-Clark"
+  },
+  {
+   "ticker": "MZTI",
+   "name": "The Marzetti Company"
+  },
+  {
+   "ticker": "PEP",
+   "name": "PepsiCo"
+  },
+  {
+   "ticker": "PG",
+   "name": "Procter & Gamble"
+  },
+  {
+   "ticker": "SYY",
+   "name": "Sysco"
+  },
+  {
+   "ticker": "TGT",
+   "name": "Target"
+  },
+  {
+   "ticker": "TR",
+   "name": "Tootsie Roll Industries"
+  },
+  {
+   "ticker": "UVV",
+   "name": "Universal Corporation"
+  },
+  {
+   "ticker": "WMT",
+   "name": "Walmart"
+  },
+  {
+   "ticker": "ABM",
+   "name": "ABM Industries"
+  },
+  {
+   "ticker": "ADP",
+   "name": "Automatic Data Processing"
+  },
+  {
+   "ticker": "CSL",
+   "name": "Carlisle Companies"
+  },
+  {
+   "ticker": "DOV",
+   "name": "Dover"
+  },
+  {
+   "ticker": "EMR",
+   "name": "Emerson Electric"
+  },
+  {
+   "ticker": "GRC",
+   "name": "Gorman-Rupp"
+  },
+  {
+   "ticker": "ITW",
+   "name": "Illinois Tool Works"
+  },
+  {
+   "ticker": "MSA",
+   "name": "MSA Safety"
+  },
+  {
+   "ticker": "NDSN",
+   "name": "Nordson"
+  },
+  {
+   "ticker": "PH",
+   "name": "Parker-Hannifin"
+  },
+  {
+   "ticker": "PNR",
+   "name": "Pentair"
+  },
+  {
+   "ticker": "SWK",
+   "name": "Stanley Black & Decker"
+  },
+  {
+   "ticker": "TNC",
+   "name": "Tennant"
+  },
+  {
+   "ticker": "GWW",
+   "name": "W.W. Grainger"
+  },
+  {
+   "ticker": "ABT",
+   "name": "Abbott Laboratories"
+  },
+  {
+   "ticker": "ABBV",
+   "name": "AbbVie"
+  },
+  {
+   "ticker": "BDX",
+   "name": "Becton Dickinson"
+  },
+  {
+   "ticker": "JNJ",
+   "name": "Johnson & Johnson"
+  },
+  {
+   "ticker": "KVUE",
+   "name": "Kenvue"
+  },
+  {
+   "ticker": "GPC",
+   "name": "Genuine Parts"
+  },
+  {
+   "ticker": "LOW",
+   "name": "Lowe's"
+  },
+  {
+   "ticker": "MCD",
+   "name": "McDonald's"
+  },
+  {
+   "ticker": "CBSH",
+   "name": "Commerce Bancshares"
+  },
+  {
+   "ticker": "CINF",
+   "name": "Cincinnati Financial"
+  },
+  {
+   "ticker": "FMCB",
+   "name": "Farmers & Merchants Bancorp"
+  },
+  {
+   "ticker": "RLI",
+   "name": "RLI Corp"
+  },
+  {
+   "ticker": "SPGI",
+   "name": "S&P Global"
+  },
+  {
+   "ticker": "UBSI",
+   "name": "United Bankshares"
+  },
+  {
+   "ticker": "FUL",
+   "name": "H.B. Fuller"
+  },
+  {
+   "ticker": "PPG",
+   "name": "PPG Industries"
+  },
+  {
+   "ticker": "NUE",
+   "name": "Nucor"
+  },
+  {
+   "ticker": "RPM",
+   "name": "RPM International"
+  },
+  {
+   "ticker": "SON",
+   "name": "Sonoco Products"
+  },
+  {
+   "ticker": "SCL",
+   "name": "Stepan"
+  },
+  {
+   "ticker": "NFG",
+   "name": "National Fuel Gas"
+  },
+  {
+   "ticker": "FRT",
+   "name": "Federal Realty Investment Trust"
+  },
+  {
+   "ticker": "AWR",
+   "name": "American States Water"
+  },
+  {
+   "ticker": "BKH",
+   "name": "Black Hills"
+  },
+  {
+   "ticker": "CWT",
+   "name": "California Water Service"
+  },
+  {
+   "ticker": "CDUAF",
+   "name": "Canadian Utilities"
+  },
+  {
+   "ticker": "ED",
+   "name": "Consolidated Edison"
+  },
+  {
+   "ticker": "FTS",
+   "name": "Fortis"
+  },
+  {
+   "ticker": "MGEE",
+   "name": "MGE Energy"
+  },
+  {
+   "ticker": "MSEX",
+   "name": "Middlesex Water"
+  },
+  {
+   "ticker": "NWN",
+   "name": "Northwest Natural Holding"
+  },
+  {
+   "ticker": "HTO",
+   "name": "H2O America"
+  }
+ ]
+}
