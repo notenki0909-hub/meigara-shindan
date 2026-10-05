@@ -855,21 +855,22 @@ def render(out, m):
                 f'<td class="sec">{_jp_date(x["date"])}（{kind_jp.get(x["kind"], "")}）</td>'
                 f'<td class="sec">{"S&amp;P500から外れたため暫定的に対象外（次の四半期の見直しで正式に除外）" if x.get("provisional") else "母集団から外れました"}</td></tr>'
                 for x in c_rem) or '<tr><td colspan="5" class="sec">なし</td></tr>'
+            # 見出し（summary）をクリックで開閉する。既定は閉じた状態（上位50・ETFと同じ作り）。
             watch_change_html = (
-                '<section class="grp">'
-                f'<h2>今回の入れ替え <span class="gmeta">追加 {len(c_add)}／外れた {len(c_rem)}'
-                + (f'・NEW!は{until_jp}まで表示' if until_jp else '') + '</span></h2>'
-                f'<p class="sub" style="margin:4px 0 8px">{intro}</p>'
+                '<details id="changebox"><summary>今回の入れ替え '
+                f'<span class="gmeta">追加 {len(c_add)}／外れた {len(c_rem)}'
+                + (f'・NEW!は{until_jp}まで表示' if until_jp else '') + '</span></summary>'
+                f'<p class="sub" style="margin:6px 0 8px">{intro}</p>'
                 '<table><thead><tr><th>コード</th><th>銘柄</th><th>業種</th><th class="n">品質</th>'
                 '<th>追加日</th></tr></thead><tbody>' + add_rows + '</tbody></table>'
                 '<table style="margin-top:8px"><thead><tr><th>コード</th><th>銘柄</th><th>業種</th>'
                 '<th>外れた日</th><th>備考</th></tr></thead><tbody>' + rem_rows + '</tbody></table>'
-                '</section>')
+                '</details>')
         else:
             watch_change_html = (
-                '<section class="grp"><h2>今回の入れ替え <span class="gmeta">なし</span></h2>'
-                f'<p class="sub" style="margin:4px 0 0">前回の四半期の見直し（{period_jp}）以降、入れ替わった銘柄はありません。'
-                + (f'次の見直し予定日は{until_jp}です。' if until_jp else '') + '</p></section>')
+                '<details id="changebox"><summary>今回の入れ替え <span class="gmeta">なし</span></summary>'
+                f'<p class="sub" style="margin:6px 0 0">前回の四半期の見直し（{period_jp}）以降、入れ替わった銘柄はありません。'
+                + (f'次の見直し予定日は{until_jp}です。' if until_jp else '') + '</p></details>')
     elif m.get("watch") and not (new_adds or watch_exc):
         watch_change_html = (
             '<section class="grp"><h2>直近の構成銘柄変更</h2>'
