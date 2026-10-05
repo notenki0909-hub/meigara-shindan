@@ -15,6 +15,8 @@ name: monthly-check-long-us
 #   （universe_guard.py）を通ったときに直接 main へコミットする。
 #   ・診断結果・ランキング（site/ 配下）はコミットしない。夜間の nightly-long-us が新しく入った
 #     銘柄も診断してランキングを作り直すため（夜間更新と同じファイルを書き換えず競合しない）。
+#   ・追加・外れた銘柄は universe_changes_long.json の今の期間に追記し、ランキング画面の「NEW!」と
+#     「今回の入れ替え」一覧に、次の四半期の見直し予定日まで表示する。
 #   ・異常（銘柄数の大きな増減など）はIssueで通知して自動反映を見送る。手動実行で force を true に
 #     すると反映できる。追加・除外の一覧はコミットメッセージと実行結果（Summary）に残る。
 on:
@@ -69,12 +71,17 @@ jobs:
         run: |
           if [ -f universe_change.md ]; then cat universe_change.md >> "$GITHUB_STEP_SUMMARY"; fi
 
+      - name: 入れ替え記録を更新（NEW!・今回の入れ替え一覧の元データ）
+        if: steps.guard.outcome == 'success'
+        # 追加・外れた銘柄を universe_changes_long.json の今の期間に追記する（表示期限は変わらない）。
+        run: python universe_changes.py monthly
+
       - name: コミット（母集団ファイルのみ）
         if: steps.guard.outcome == 'success'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for f in universe_long_us.json universe_long_watch_us.json; do
+          for f in universe_long_us.json universe_long_watch_us.json universe_changes_long.json; do
             [ -e "$f" ] && git add "$f"
           done
           if git diff --cached --quiet; then

@@ -339,6 +339,20 @@ def build(market):
             except Exception:
                 watch, watch_new = {}, {}
 
+    # 入れ替え記録（universe_changes.py が更新）。今の期間（前回の四半期の見直し以降）に追加された銘柄を
+    # NEW!表示の対象にし、display_until（次の四半期の見直し予定日）まで「今回の入れ替え」一覧に出す。
+    chg = {}
+    try:
+        chg = (json.load(open(os.path.join(HERE, "universe_changes_long.json"), encoding="utf-8"))
+               .get(market)) or {}
+    except Exception:
+        chg = {}
+    new_map = {}
+    for ev in chg.get("events", []):
+        for a in ev.get("added", []):
+            new_map[str(a["code"])] = ev["date"]
+    universe_codes = {str(it.get("ticker") or it.get("code")) for it in items}
+
     rows, excluded, missing = [], [], []
     for it in items:
         code = str(it.get("ticker") or it.get("code"))
@@ -364,8 +378,8 @@ def build(market):
             "yield": s.get("div_yield"), "price": s.get("price"),
             "price_date": s.get("price_date"),
             "is_simple": s.get("is_simple"), "is_reit": s.get("is_reit"),
-            "asof": s.get("_generated_at"), "new": code in watch_new,
-            "new_at": watch_new.get(code, {}).get("detected_at"),
+            "asof": s.get("_generated_at"), "new": code in watch_new or code in new_map,
+            "new_at": new_map.get(code) or watch_new.get(code, {}).get("detected_at"),
             "mcap": s.get("mcap"),
             "price_chg": s.get("price_chg") or {},
             "metrics_raw": s.get("metric_raw") or {},
@@ -414,6 +428,29 @@ def build(market):
     excluded.sort(key=lambda r: (r["group"], r["name"]))
     new_additions = sorted((r for r in rows if r["new"]), key=lambda r: r["code"])
     watch_excluded = sorted((r for r in excluded if "detected_at" in r), key=lambda r: r["code"])
+    # 「今回の入れ替え」一覧用（追加は記録から、診断済みならスコアも付ける。外れた銘柄は最後のサマリから補う）
+    row_by_code = {r["code"]: r for r in rows}
+    exc_by_code = {r["code"]: r for r in excluded}
+    chg_added, chg_removed, seen_rem = [], [], set()
+    for ev in chg.get("events", []):
+        for a in ev.get("added", []):
+            r = row_by_code.get(str(a["code"])) or exc_by_code.get(str(a["code"])) or {}
+            chg_added.append({"code": str(a["code"]), "name": r.get("name") or a.get("name") or str(a["code"]),
+                              "sector": r.get("sector") or "", "q": r.get("q"),
+                              "date": ev["date"], "kind": ev["kind"], "ranked": str(a["code"]) in row_by_code})
+        for x in ev.get("removed", []):
+            sm = load_summary(str(x["code"]), m["sumdir"]) or {}
+            chg_removed.append({"code": str(x["code"]), "name": x.get("name") or sm.get("name") or str(x["code"]),
+                                "sector": sm.get(m["seckey"]) or "", "date": ev["date"], "kind": ev["kind"],
+                                "provisional": str(x["code"]) in universe_codes})
+            seen_rem.add(str(x["code"]))
+    if chg:
+        for r in excluded:       # 記録に無い監視ファイル由来の暫定除外（移行期の互換）
+            if "detected_at" in r and r["code"] not in seen_rem:
+                chg_removed.append({"code": r["code"], "name": r["name"], "sector": r.get("sector") or "",
+                                    "date": r["detected_at"], "kind": "monthly", "provisional": True})
+    changes = {"has_record": bool(chg), "period_start": chg.get("period_start"),
+               "display_until": chg.get("display_until"), "added": chg_added, "removed": chg_removed}
     tt = tuple(LC.load_bt_cfg()[f"tim_tiers_{market}"])
     bt_vals = [r["bt"] for r in rows if isinstance(r.get("bt"), (int, float))]
     bt_counts = {
@@ -438,6 +475,7 @@ def build(market):
         "groups": groups_out, "global_top": global_top, "excluded": excluded,
         "missing": sorted(missing),
         "new_additions": new_additions, "watch_excluded": watch_excluded,
+        "changes": changes,
     }
     _print_dist(out)
     return out, m
@@ -628,6 +666,26 @@ def render(out, m):
                 _pchg_td(pc.get("6m"), True) + _pchg_td(pc.get("9m"), True) +
                 _pchg_td(pc.get("y"), True))
 
+    # 入れ替え（追加）銘柄の「NEW!」。いつの入れ替えで追加され、いつまで表示するかをツールチップと一覧で説明する。
+    def _jp_date(iso):
+        try:
+            d = dt.date.fromisoformat(str(iso))
+            return f"{d.year}年{d.month}月{d.day}日"
+        except Exception:
+            return ""
+
+    chg = out.get("changes") or {}
+    until_jp = _jp_date(chg.get("display_until"))
+
+    def _newbadge(s):
+        if not s.get("new"):
+            return ""
+        at = _jp_date(s.get("new_at"))
+        title = (f"{at}の入れ替えで追加された銘柄です" if at else "入れ替えで追加された銘柄です")
+        if until_jp:
+            title += f"（NEW!は{until_jp}まで表示）"
+        return f' <span class="newbadge" title="{title}">NEW!</span>'
+
     grade_by_group = {g["name"]: g["grade"] for g in out["groups"]}
 
     def row_html(s, with_rank=None):
@@ -645,7 +703,7 @@ def render(out, m):
             f'<td class="tier">{s.get("tier","―")}<span class="dir {dcls}">{s.get("dir","")}</span></td>'
             f'<td class="code">{codecell}</td>'
             f'<td class="nm">{html.escape(str(s["name"]))}'
-            f'{" <span class=\"newbadge\" title=\"月次チェックで新規追加（次の四半期見直しで正式反映）\">NEW!</span>" if s.get("new") else ""}'
+            f'{_newbadge(s)}'
             f'</td>'
             f'<td class="sec">{html.escape(str(s["sector"]))}</td>'
             f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"], unit)}</td>'
@@ -771,7 +829,48 @@ def render(out, m):
 
     watch_change_html = ""
     new_adds, watch_exc = out.get("new_additions") or [], out.get("watch_excluded") or []
-    if m.get("watch") and not (new_adds or watch_exc):
+    kind_jp = {"quarterly": "四半期の見直し", "monthly": "月次チェック"}
+    if chg.get("has_record"):
+        c_add, c_rem = chg.get("added") or [], chg.get("removed") or []
+        period_jp = _jp_date(chg.get("period_start"))
+        if until_jp:
+            until_note = (f'追加された銘柄の「NEW!」と、この一覧は<b>{until_jp}（次の四半期の見直し予定日）まで</b>'
+                          '表示します。見直しのたびに、その時の入れ替えの内容に切り替わります。')
+        else:
+            until_note = ""
+        if c_add or c_rem:
+            intro = (f'前回の四半期の見直し（{period_jp}）以降に入れ替わった銘柄です。' + until_note)
+            add_rows = "".join(
+                f'<tr><td class="code">{_code_cell(a["code"], m["report_dirs"])}</td>'
+                f'<td class="nm">{html.escape(str(a["name"]))}</td>'
+                f'<td class="sec">{html.escape(str(a["sector"]))}</td>'
+                + (f'<td class="n" data-v="{_v(a["q"])}">{_num(a["q"],0)}</td>' if a["ranked"]
+                   else '<td class="sec" title="翌日の夜間更新で診断し、ランキングに反映されます">診断待ち</td>')
+                + f'<td class="sec">{_jp_date(a["date"])}（{kind_jp.get(a["kind"], "")}）</td></tr>'
+                for a in c_add) or '<tr><td colspan="5" class="sec">なし</td></tr>'
+            rem_rows = "".join(
+                f'<tr><td class="code">{_code_cell(x["code"], m["report_dirs"])}</td>'
+                f'<td class="nm">{html.escape(str(x["name"]))}</td>'
+                f'<td class="sec">{html.escape(str(x["sector"]))}</td>'
+                f'<td class="sec">{_jp_date(x["date"])}（{kind_jp.get(x["kind"], "")}）</td>'
+                f'<td class="sec">{"S&amp;P500から外れたため暫定的に対象外（次の四半期の見直しで正式に除外）" if x.get("provisional") else "母集団から外れました"}</td></tr>'
+                for x in c_rem) or '<tr><td colspan="5" class="sec">なし</td></tr>'
+            watch_change_html = (
+                '<section class="grp">'
+                f'<h2>今回の入れ替え <span class="gmeta">追加 {len(c_add)}／外れた {len(c_rem)}'
+                + (f'・NEW!は{until_jp}まで表示' if until_jp else '') + '</span></h2>'
+                f'<p class="sub" style="margin:4px 0 8px">{intro}</p>'
+                '<table><thead><tr><th>コード</th><th>銘柄</th><th>業種</th><th class="n">品質</th>'
+                '<th>追加日</th></tr></thead><tbody>' + add_rows + '</tbody></table>'
+                '<table style="margin-top:8px"><thead><tr><th>コード</th><th>銘柄</th><th>業種</th>'
+                '<th>外れた日</th><th>備考</th></tr></thead><tbody>' + rem_rows + '</tbody></table>'
+                '</section>')
+        else:
+            watch_change_html = (
+                '<section class="grp"><h2>今回の入れ替え <span class="gmeta">なし</span></h2>'
+                f'<p class="sub" style="margin:4px 0 0">前回の四半期の見直し（{period_jp}）以降、入れ替わった銘柄はありません。'
+                + (f'次の見直し予定日は{until_jp}です。' if until_jp else '') + '</p></section>')
+    elif m.get("watch") and not (new_adds or watch_exc):
         watch_change_html = (
             '<section class="grp"><h2>直近の構成銘柄変更</h2>'
             '<p class="sub" style="margin:4px 0 0">データ不足（月次チェックが未実施、'
@@ -807,7 +906,7 @@ def render(out, m):
         etr = "".join(
             f'<tr class="r"><td class="code">{_code_cell(s["code"], m["report_dirs"])}</td>'
             f'<td class="nm">{html.escape(str(s["name"]))}'
-            f'{" <span class=\"newbadge\" title=\"月次チェックで新規追加（次の四半期見直しで正式反映）\">NEW!</span>" if s.get("new") else ""}'
+            f'{_newbadge(s)}'
             f'</td>'
             f'<td class="sec">{html.escape(str(s["sector"]))}</td>'
             f'<td>{html.escape(s["why"])}</td>'

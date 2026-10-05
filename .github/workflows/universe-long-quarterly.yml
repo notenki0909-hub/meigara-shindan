@@ -18,7 +18,8 @@ name: universe-long-quarterly
 #   ・銘柄数が前回の90〜110%の範囲外、または追加／除外が max(15, 5%) を超えるなどの異常があれば
 #     自動反映せず、Issueで通知して失敗にする。内容を確認して問題なければ、手動実行（Run workflow）で
 #     force を true にすると反映できる。
-#   ・追加・除外の一覧は、コミットメッセージと実行結果（Summary）に残る。
+#   ・追加・除外の一覧は、コミットメッセージと実行結果（Summary）に残る。さらに universe_changes_long.json に
+#     記録し、ランキング画面の「NEW!」と「今回の入れ替え」一覧を次の四半期の見直し予定日まで表示する。
 on:
   schedule:
     - cron: "0 5 5 1,4,7,10 *"   # 1/4/7/10月5日 5:00 UTC（14:00 JST。夜間更新の時間帯を避ける）
@@ -87,12 +88,17 @@ jobs:
         run: |
           if [ -f universe_change.md ]; then cat universe_change.md >> "$GITHUB_STEP_SUMMARY"; fi
 
+      - name: 入れ替え記録を更新（NEW!・今回の入れ替え一覧の元データ）
+        if: steps.guard.outcome == 'success'
+        # 追加・外れた銘柄を universe_changes_long.json に記録し、表示期限を次の四半期の見直し予定日にする。
+        run: python universe_changes.py quarterly
+
       - name: コミット（母集団ファイルのみ）
         if: steps.guard.outcome == 'success'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for f in universe_long.json universe_long_us.json universe_long_watch_us.json pbr_reliability_long.json pbr_reliability_long_us.json; do
+          for f in universe_long.json universe_long_us.json universe_long_watch_us.json universe_changes_long.json pbr_reliability_long.json pbr_reliability_long_us.json; do
             [ -e "$f" ] && git add "$f"
           done
           if git diff --cached --quiet; then
