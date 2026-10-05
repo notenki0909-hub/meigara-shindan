@@ -697,6 +697,67 @@ def render(out, m):
 
     gt = "".join(row_html(s, with_rank=i + 1) for i, s in enumerate(out["global_top"]))
 
+    # ---- 米国版のみ：主要ETFの上位15銘柄（fetch_etf_top_us.py が作る etf_top_us.json）----
+    # 絞り込み・検索・ソートの対象（tr.r）にはしない（別クラスtr.e）。母集団外の銘柄は採点なし。
+    etf_html = ""
+    etf_path = os.path.join(HERE, "etf_top_us.json")
+    if out["market"] == "us" and os.path.isfile(etf_path):
+        etf_data = json.load(open(etf_path, encoding="utf-8"))
+        by_code = {}
+        for g in out["groups"]:
+            for s in g["stocks"]:
+                by_code[str(s["code"]).upper()] = s
+        for s in out["excluded"]:
+            by_code[str(s["code"]).upper()] = s
+
+        def _etf_row(i, h):
+            s = by_code.get(h["ticker"])
+            wcell = f'<td class="n">{h["weight"]:.2f}%</td>'
+            if s is None:
+                return (f'<tr class="e eout"><td class="n">{i}</td><td class="wl"></td><td class="pf"></td>'
+                        f'<td class="code">{html.escape(h["ticker"])}</td>'
+                        f'<td class="nm">{html.escape(h["name"])}</td>' + wcell +
+                        '<td class="tier">―</td><td class="sec">ランキング対象外</td>'
+                        '<td class="n">―</td><td class="n">―</td><td class="n bt">―</td></tr>')
+            code = str(s["code"])
+            tcls = th.TIER_CLASS.get(s.get("tier", "―"), "t0")
+            dcls = th.DIR_CLASS.get(s.get("dir", "→"), "fl")
+            return (
+                f'<tr class="e {tcls}">'
+                f'<td class="n">{i}</td>'
+                f'<td class="wl"><input type="checkbox" class="wlc" data-code="{code}" aria-label="ウォッチ"></td>'
+                f'<td class="pf"><input type="checkbox" class="pfc" data-code="{code}" aria-label="ポートフォリオに追加"></td>'
+                f'<td class="code">{_code_cell(code, m["report_dirs"])}</td>'
+                f'<td class="nm">{html.escape(str(s["name"]))}</td>' + wcell +
+                f'<td class="tier">{s.get("tier","―")}<span class="dir {dcls}">{s.get("dir","")}</span></td>'
+                f'<td class="sec">{html.escape(str(s["sector"]))}</td>'
+                f'<td class="n px">{_price(s["price"], unit)}</td>'
+                f'<td class="n"><b>{_num(s.get("q"),0)}</b></td>'
+                + _bt_cell(s.get("bt")) + '</tr>')
+
+        etf_thead = ('<thead><tr><th class="n">#</th><th class="wl" title="ウォッチリストに追加する銘柄にチェック">☑</th>'
+                     '<th class="pf" title="ポートフォリオに追加する銘柄にチェック">💼</th>'
+                     '<th>コード</th><th>銘柄</th><th class="n">組入比率</th>'
+                     '<th class="hdr" data-term="tier">軍</th><th>業種</th>'
+                     '<th class="n hdr" data-term="price">終値</th>'
+                     '<th class="n hdr" data-term="q">品質</th>'
+                     '<th class="n hdr" data-term="bt">買い時</th></tr></thead>')
+        blocks = []
+        for e in etf_data.get("etfs", []):
+            hs = e["holdings"][:15]
+            n_in = sum(1 for h in hs if h["ticker"] in by_code)
+            trs = "".join(_etf_row(i + 1, h) for i, h in enumerate(hs))
+            blocks.append(
+                f'<details class="etfbox"><summary><b>{html.escape(e["etf"])}</b> ｜ {html.escape(e["label"])} ｜ 上位15銘柄 '
+                f'<span class="gmeta">ランキング対象 {n_in}/15 ・ {html.escape(e["as_of"])}時点</span></summary>'
+                f'<table>{etf_thead}<tbody>{trs}</tbody></table></details>')
+        if blocks:
+            etf_html = ('<h2 class="etfh">主要ETFの上位15銘柄</h2>'
+                        '<p class="sub" style="margin:0 0 6px">各ETFの見出しをクリックすると、組入比率の高い順の上位15銘柄が開きます。'
+                        '構成銘柄は各運用会社（State Street／iShares／Invesco）の公開データで、見出しの日付時点です。'
+                        'ランキングの母集団（S&amp;P500）に入っていない銘柄は採点していないため「ランキング対象外」と表示します。</p>'
+                        + "".join(blocks))
+
     watch_change_html = ""
     new_adds, watch_exc = out.get("new_additions") or [], out.get("watch_excluded") or []
     if m.get("watch") and not (new_adds or watch_exc):
@@ -841,6 +902,9 @@ a.sumbtn.wlnav small{{display:block;font-size:11px;font-weight:400;color:var(--m
   background:var(--card);font-size:12.5px;cursor:pointer;color:var(--muted)}}
 .searchbar .hit{{font-size:12px;color:var(--muted)}}
 details{{margin:14px 0}}summary{{cursor:pointer;font-weight:600;font-size:13px}}
+h2.etfh{{font-size:14px;margin:18px 0 6px}}
+details.etfbox{{margin:6px 0}}
+tr.e.eout td{{color:var(--muted)}}
 tr[hidden]{{display:none}}
 section.grp[hidden]{{display:none}}
 .topbar{{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}}
@@ -917,6 +981,7 @@ section.grp[hidden]{{display:none}}
 <details id="topbox"><summary>全体 品質スコア 上位50（業種横断）</summary>
 <table>{thead.format(rk='<th class="n">#</th>')}
 <tbody>{gt}</tbody></table></details>
+{etf_html}
 {"".join(secs)}
 {exc}
 <div class="disc">{DISC}</div>
