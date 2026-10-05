@@ -752,11 +752,11 @@ def render(out, m):
                 f'<span class="gmeta">ランキング対象 {n_in}/15 ・ {html.escape(e["as_of"])}時点</span></summary>'
                 f'<table>{etf_thead}<tbody>{trs}</tbody></table></details>')
         if blocks:
-            etf_html = ('<h2 class="etfh">主要ETFの上位15銘柄</h2>'
-                        '<p class="sub" style="margin:0 0 6px">各ETFの見出しをクリックすると、組入比率の高い順の上位15銘柄が開きます。'
+            etf_html = ('<details id="etfroot"><summary>主要ETFの上位15銘柄</summary>'
+                        '<p class="sub" style="margin:6px 0">各ETFの見出しをクリックすると、組入比率の高い順の上位15銘柄が開きます。'
                         '構成銘柄は各運用会社（State Street／iShares／Invesco）の公開データで、見出しの日付時点です。'
                         'ランキングの母集団（S&amp;P500）に入っていない銘柄は採点していないため「ランキング対象外」と表示します。</p>'
-                        + "".join(blocks))
+                        + "".join(blocks) + '</details>')
 
     watch_change_html = ""
     new_adds, watch_exc = out.get("new_additions") or [], out.get("watch_excluded") or []
@@ -902,8 +902,7 @@ a.sumbtn.wlnav small{{display:block;font-size:11px;font-weight:400;color:var(--m
   background:var(--card);font-size:12.5px;cursor:pointer;color:var(--muted)}}
 .searchbar .hit{{font-size:12px;color:var(--muted)}}
 details{{margin:14px 0}}summary{{cursor:pointer;font-weight:600;font-size:13px}}
-h2.etfh{{font-size:14px;margin:18px 0 6px}}
-details.etfbox{{margin:6px 0}}
+details.etfbox{{margin:6px 0 6px 14px}}
 tr.e.eout td{{color:var(--muted)}}
 tr[hidden]{{display:none}}
 section.grp[hidden]{{display:none}}
