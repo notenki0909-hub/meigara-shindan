@@ -2,26 +2,45 @@ name: universe-long-quarterly
 
 # 『10年保有できる優良企業』母集団（universe_long.json / universe_long_us.json）の四半期見直し。
 #   JP: universe.json（配当株ユニバースの四半期リビルド結果）＋各銘柄の最新時価総額から
-#       時価総額3,000億円以上を再抽出（v2で銀行・保険・証券・その他金融業も対象。
-#       J-REITはuniverse.jsonに存在しないため引き続き対象外＝母集団構築自体が別タスク）。
-#   US: S&P500 の構成銘柄入れ替えに追従（Wikipedia を取り直す。v2で金融・REITも対象）。
+#       時価総額3,000億円以上を再抽出（銀行・保険・証券・その他金融業も対象。J-REITは母集団に無く対象外）。
+#   US: S&P500 の構成銘柄入れ替えに追従（Wikipedia を取り直す。金融・REITも対象）。
 #       monthly-check-long-us.yml が付けた universe_long_watch_us.json の暫定フラグ
 #       （NEW!バッジ・暫定対象外）は、ここで正式なリストに置き換わるためリセットする。
 # 既存の universe-quarterly / universe-quarterly-us が走った数日後に動かす。
-# 銘柄の出入りは人間が確認してからマージ＝直接 main には入れず PR を作る。
+#
+# 【自動反映】（2026-10-05に、人がPRを確認してからマージする方式から変更）
+#   母集団ファイルだけを、安全確認（universe_guard.py）を通ったときに直接 main へコミットする。
+#   ・全銘柄の再診断・ランキング再生成はここでは行わない。毎晩の nightly-long / nightly-long-us が
+#     全銘柄を診断し直し（--only-stale）、母集団に新しく入った銘柄も診断するため重複だった。
+#   ・生成物（site/ 配下）はコミットしない＝夜間更新と同じファイルを書き換えず競合しない。
+#   ・pbr_reliability_long*.json は夜間更新がコミットしない（四半期ごとの校正値）ため、ここで
+#     calib_long.py を回してコミットする。
+#   ・銘柄数が前回の90〜110%の範囲外、または追加／除外が max(15, 5%) を超えるなどの異常があれば
+#     自動反映せず、Issueで通知して失敗にする。内容を確認して問題なければ、手動実行（Run workflow）で
+#     force を true にすると反映できる。
+#   ・追加・除外の一覧は、コミットメッセージと実行結果（Summary）に残る。
 on:
   schedule:
-    - cron: "0 1 5 1,4,7,10 *"   # 1/4/7/10月5日 1:00 UTC（base の quarterly の数日後）
-  workflow_dispatch: {}
+    - cron: "0 5 5 1,4,7,10 *"   # 1/4/7/10月5日 5:00 UTC（14:00 JST。夜間更新の時間帯を避ける）
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "true にすると安全確認の異常を無視して反映する（内容を確認した場合のみ）"
+        required: false
+        default: "false"
 
 permissions:
   contents: write
-  pull-requests: write
+  issues: write
+
+concurrency:
+  group: universe-long-quarterly
+  cancel-in-progress: false
 
 jobs:
   rebuild:
     runs-on: ubuntu-latest
-    timeout-minutes: 300
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
 
@@ -41,52 +60,99 @@ jobs:
           python build_universe_long.py us
 
       - name: 月次チェックの暫定フラグをリセット（NEW!バッジ・暫定対象外）
-        # monthly-check-long-us.yml が付けた universe_long_watch_us.json の
-        # フラグは、この四半期フルリビルドで正式な universe_long_us.json に
-        # 置き換わることで役目を終える。次回チェックまで残り続けないよう空にする。
+        # monthly-check-long-us.yml が付けた universe_long_watch_us.json のフラグは、この四半期
+        # リビルドで正式な universe_long_us.json に置き換わることで役目を終える。
         run: |
           python -c "import json; json.dump({'excluded': {}, 'new': {}}, open('universe_long_watch_us.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
 
-      - name: 母集団の全銘柄を診断（2パス：診断→業種中央値算出→再診断）
+      - name: 校正値（PBR信頼度）を更新
         run: |
-          python batch_long.py jp --sleep 2.0
-          python batch_long.py us --sleep 2.0
-          python calib_long.py jp
-          python calib_long.py us
-          python batch_long.py jp --sleep 2.0
-          python batch_long.py us --sleep 2.0
           python calib_long.py jp
           python calib_long.py us
 
-      - name: 10年保有ランキング再生成
+      - name: 安全確認（銘柄数・追加／除外の件数）
+        id: guard
+        continue-on-error: true
+        env:
+          FORCE: ${{ github.event.inputs.force }}
         run: |
-          python rank_long.py jp
-          python rank_long.py us
+          if [ "${FORCE:-false}" = "true" ]; then
+            python universe_guard.py both --force --title "四半期見直し（手動force）"
+          else
+            python universe_guard.py both --title "四半期見直し"
+          fi
 
-      - name: 日付を取得
-        id: today
-        run: echo "date=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+      - name: 実行結果に追加・除外の一覧を表示
+        if: always()
+        run: |
+          if [ -f universe_change.md ]; then cat universe_change.md >> "$GITHUB_STEP_SUMMARY"; fi
 
-      - name: PRを作成（銘柄の出入りは人間が確認してからマージ）
-        uses: peter-evans/create-pull-request@v6
-        with:
-          commit-message: "chore(universe-long): quarterly rebuild ${{ steps.today.outputs.date }}"
-          branch: universe-long-quarterly-update
-          title: "四半期 母集団見直し（10年保有）${{ steps.today.outputs.date }}"
-          body: |
-            10年保有ランキングの母集団を作り直しました。
-            - `universe_long.json` … JP：時価総額3,000億円以上（銀行・保険・証券・その他金融業も対象。J-REITは母集団に無いため引き続き対象外）。`codes`（通過）と `excluded`（除外理由）の差分を確認。
-            - `universe_long_us.json` … US：S&P500 メンバーシップ（金融・REITも対象）。前回からの入れ替えを確認。
-            時価総額がしきい値ぎりぎりの銘柄は目視推奨です。
-          add-paths: |
-            universe_long.json
-            universe_long_us.json
-            universe_long_watch_us.json
-            sector_averages_long.json
-            sector_averages_long_us.json
-            pbr_reliability_long.json
-            pbr_reliability_long_us.json
-            site/long
-            site/us/long
-            site/long_summaries
-            site/us/long_summaries
+      - name: コミット（母集団ファイルのみ）
+        if: steps.guard.outcome == 'success'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for f in universe_long.json universe_long_us.json universe_long_watch_us.json pbr_reliability_long.json pbr_reliability_long_us.json; do
+            [ -e "$f" ] && git add "$f"
+          done
+          if git diff --cached --quiet; then
+            echo "変更なし"
+            exit 0
+          fi
+          git commit -F universe_commit_msg.txt
+          # 生成物など、コミット対象外の変更は破棄する（rebaseで取り込めるようにするため。実行環境は使い捨て）
+          git reset --hard HEAD
+          git clean -fdq
+          # push拒否（mainが進んでいた）時は、取り込んで最大5回やり直す。
+          n=0
+          until git push; do
+            n=$((n+1))
+            if [ "$n" -ge 5 ]; then
+              echo "::error::pushが${n}回失敗しました"
+              exit 1
+            fi
+            echo "pushが拒否されました。取り込んで再試行します（${n}/5）"
+            sleep $((RANDOM % 10 + 5))
+            git fetch origin main
+            if ! git rebase origin/main; then
+              echo "::error::rebaseで競合が発生しました"
+              git rebase --abort
+              exit 1
+            fi
+          done
+
+      - name: 異常を検出したためIssueで通知
+        if: steps.guard.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          repo="${GITHUB_REPOSITORY}"
+          title="【母集団】四半期見直しで異常を検出したため自動反映を見送りました"
+          exists=$(gh issue list --repo "$repo" --state open --search "in:title \"${title}\"" --json number --jq 'length')
+          if [ "$exists" -gt 0 ]; then
+            echo "同じ内容のIssueが未解決のため、重複作成しません"
+            exit 0
+          fi
+          {
+            echo "@notenki0909-hub"
+            echo
+            echo "10年保有ランキングの母集団（四半期見直し）で、銘柄数や追加・除外の件数が通常の範囲を超えたため、"
+            echo "自動反映を見送りました（母集団ファイルは更新していません）。"
+            echo
+            cat universe_change.md
+            echo
+            echo "- 実行結果：${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            echo "- 想定される原因：取得元（Wikipediaの表・時価総額データ）の形式変更や取得失敗、または実際の大きな入れ替え。"
+            echo "- 対応：Claude（10年保有側のセッション）に「母集団の見直しの異常を調べて」と伝えてください。"
+            echo "  内容に問題がなければ、Actions の universe-long-quarterly で Run workflow を選び force を true にして"
+            echo "  手動実行すると反映できます。"
+            echo
+            echo "このIssueは対応が終わったら閉じてください（閉じるまでは重複して作成されません）。"
+          } > /tmp/body.md
+          gh issue create --repo "$repo" --title "$title" --body-file /tmp/body.md
+
+      - name: 異常を実行結果にも反映
+        if: steps.guard.outcome == 'failure'
+        run: |
+          echo "::error::母集団の安全確認で異常を検出したため、自動反映を見送りました（Issueを確認してください）"
+          exit 1
