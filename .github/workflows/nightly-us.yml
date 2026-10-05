@@ -31,7 +31,7 @@ jobs:
       - run: pip install -r requirements.txt
 
       - name: バッチ診断（古い銘柄のみ再取得）
-        run: python batch_us.py --codes universe_us.json --only-stale --hours 20 --sleep 2.0
+        run: python batch_us.py --codes universe_us.json --with-retired --only-stale --hours 20 --sleep 2.0
 
       - name: ランキング再生成
         run: python rank_us.py

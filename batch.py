@@ -84,6 +84,8 @@ def main():
     ap.add_argument("--sleep", type=float, default=1.5, help="銘柄間スリープ秒（レート制限対策）")
     ap.add_argument("--workers", type=int, default=1, help="並列数（3以下推奨。バーストするとブロックされる）")
     ap.add_argument("--limit", type=int, default=0, help="先頭N件だけ（0=全部）")
+    ap.add_argument("--with-retired", action="store_true",
+                    help="母集団から外れた銘柄のうち、更新継続期限内のものも対象に足す（div_universe.py。ポートフォリオ等で保有している人のため）")
     ap.add_argument("--only-stale", action="store_true", help="--hours より古いサマリだけ再生成")
     ap.add_argument("--hours", type=float, default=20)
     ap.add_argument("--jgb", type=float, default=None, help="10年国債利回り(%)。省略時は同梱値")
@@ -96,6 +98,12 @@ def main():
     jgb = args.jgb if args.jgb is not None else cfg["rules"].get("market", {}).get("jgb_10y")
 
     codes = load_codes(args.codes)
+    if args.with_retired:
+        import div_universe
+        have = {c for c, _ in codes}
+        retired = [(c, n) for c, n in div_universe.active_retired_codes("jp") if c not in have]
+        print(f"母集団から外れた銘柄（更新継続中）：{len(retired)}件を追加")
+        codes = codes + retired
     if args.only_stale:
         codes = [(c, n) for c, n in codes if is_stale(c, args.hours)]
     if args.limit:

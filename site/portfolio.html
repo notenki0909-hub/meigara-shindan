@@ -102,6 +102,7 @@ tr:last-child td{border-bottom:none}
 .addrow.collapsed .addrow-head{margin:0}
 .addrow.added .addrow-head .nm{color:var(--muted)}
 .addrow .nm{font-weight:700}
+.retnote{font-size:11px;font-weight:400;color:var(--muted);white-space:normal;line-height:1.5}
 .addrow .fold{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:12px;cursor:pointer}
 .addrow .headbtns{display:flex;align-items:center;gap:6px}
 .addrow .rmrow{background:var(--card);color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:12px;cursor:pointer}
@@ -1232,6 +1233,15 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
   // 取引履歴（買い・売り）を日付順にリプレイし、残存株数・残存取得原価・実現損益を求める。
   // 生データ（lots）は買い・売りの取引ログのまま保持するので、将来FIFO等の別方式に
   // 切り替える場合もデータ形式の移行は不要（このreplayロジックだけ差し替えればよい）。
+  // 母集団から外れた銘柄（ranking.json の retired）の注記：「データの更新は〇年〇月〇日まで」
+  function retNote(r){
+    if (!r || !r.until) return '';
+    var m = /^(\d+)-(\d+)-(\d+)/.exec(r.until);
+    var d = m ? (+m[1] + '年' + (+m[2]) + '月' + (+m[3]) + '日') : r.until;
+    var ended = r.until < new Date().toISOString().slice(0, 10);
+    return '<div class="retnote">対象外（参考）：データの更新は' + d + (ended ? 'で終了しました' : 'まで') + '</div>';
+  }
+
   function aggregate(byCode){
     var byC = {};
     lots.forEach(function(l){ (byC[l.code] = byC[l.code] || []).push(l); });
@@ -1260,7 +1270,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
       h.avgPrice = h.shares ? (h.cost / h.shares) : 0;
       var s = byCode[c];
       if (s) {
-        h.name = s.name; h.sector = s.sector; h.group = s.group; h.tier = s.tier;
+        h.name = s.name; h.sector = s.sector; h.group = s.group; h.tier = s.tier; h.retired = s.retired || null;
         h.price = (typeof s.price === 'number') ? s.price : null;
         h.yieldPct = (typeof s['yield'] === 'number') ? s['yield'] : null;
         h.value = (h.price != null) ? h.shares * h.price : null;
@@ -1583,6 +1593,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
       (j.groups || []).forEach(function(g){
         (g.stocks || []).forEach(function(s){ byCode[String(s.code)] = s; });
       });
+      (j.retired || []).forEach(function(s){ byCode[String(s.code)] = s; });
 
       renderAddCodes(byCode);
       persistPendingAdd();
@@ -1654,7 +1665,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
         var isOpen = !!openDetail[h.code];
         var main = '<tr class="hrow' + (h.missing ? '' : '') + '" data-idx="' + idx + '" data-code="' + h.code + '">'
           + '<td class="code">' + (h.missing ? h.code : ('<a href="reports/' + h.code + '.html" target="_blank" rel="noopener">' + h.code + '</a>')) + '</td>'
-          + '<td class="name">' + (h.name || h.code) + '</td>'
+          + '<td class="name">' + (h.name || h.code) + retNote(h.retired) + '</td>'
           + '<td class="n">' + h.shares.toLocaleString('ja-JP') + '株</td>'
           + '<td class="n">' + yen(h.avgPrice) + '</td>'
           + '<td class="n">' + (h.price != null ? yen(h.price) : '―') + '</td>'

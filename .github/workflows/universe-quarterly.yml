@@ -1,21 +1,42 @@
 name: universe-quarterly
 
-# ユニバース（1〜3軍の母集団）の見直し。四半期の合図として自動起動するが、
-# 直接mainには反映せずPRを作るだけ＝銘柄の出入りは人間の目で確認してからマージする
-# （README/調べもの.txt の設計方針：境界銘柄は手で確認する）。
+# 日本株ユニバース（1〜3軍の母集団）の四半期見直し。JPXの最新上場銘柄一覧に追従する。
+# 1/4/7/10月の1日 0:00 UTC に自動起動（日付は目安。GitHubの定期実行は数時間遅れることがある）。
+#
+# 【自動反映】（2026-10-05に、人がPRを確認してからマージする方式から変更）
+#   母集団ファイル（universe.json）と入れ替え記録（universe_history_jp.json）だけを、安全確認（div_universe.py guard）を
+#   通ったときに直接 main へコミットする。
+#   ・生成物（site/ 配下）はコミットしない。毎晩の夜間更新が全銘柄を診断し直し（--only-stale）、母集団に
+#     新しく入った銘柄も診断するため、ここでの全銘柄の再診断・ランキング再生成は重複だった。
+#     新しく入った銘柄がランキングに出るのは、翌日の夜間更新の後。
+#   ・外れた銘柄は、夜間更新が1年間（記録の until まで）更新を続ける（ポートフォリオ等で保有している人のため）。
+#   ・安全確認：銘柄数が前回の85〜115%の範囲外、追加＋除外が前回の25%超（最低30件）、または
+#     「非減配の不足」による除外が10銘柄超なら、自動反映せずIssueで通知して失敗にする。内容を確認して
+#     問題なければ、手動実行（Run workflow）で force を true にすると反映できる。
+#   ・追加・除外の一覧（銘柄名つき）は、コミットメッセージと実行結果（Summary）に残る。
+#   ・時間のかかる取得（build）と、共有の排他グループ（meigara-dividend-git-push）に入るコミット（commit）を
+#     別のジョブに分けている。取得中（最大数時間）にグループを占有して、他の夜間更新を待たせたり
+#     取りこぼさせたりしないため。
 on:
   schedule:
-    - cron: "0 0 1 1,4,7,10 *"   # 1/4/7/10月の1日 0:00 UTC（四半期の合図。日付は目安）
-  workflow_dispatch: {}
+    - cron: "0 0 1 1,4,7,10 *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "true にすると安全確認の異常を無視して反映する（内容を確認した場合のみ）"
+        required: false
+        default: "false"
 
 permissions:
   contents: write
-  pull-requests: write
+  issues: write
 
 jobs:
-  rebuild:
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 240
+    outputs:
+      guard_ok: ${{ steps.guard.outcome == 'success' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -32,27 +53,122 @@ jobs:
       - name: 候補抽出＋数値スクリーン
         run: python build_universe.py all --jpx data_j.xlsx --sleep 1.5
 
-      - name: 変更後の全銘柄を診断
-        run: python batch.py --codes universe.json --sleep 2.0
+      - name: 安全確認（銘柄数・入れ替え件数・非減配の誤判定）
+        id: guard
+        continue-on-error: true
+        env:
+          FORCE: ${{ github.event.inputs.force }}
+        run: |
+          if [ "${FORCE:-false}" = "true" ]; then
+            python div_universe.py guard jp --force --title "四半期見直し（手動force）"
+          else
+            python div_universe.py guard jp
+          fi
 
-      - name: ランキング再生成
-        run: python rank.py
+      - name: 実行結果に追加・除外の一覧を表示
+        if: always()
+        run: |
+          if [ -f universe_change.md ]; then cat universe_change.md >> "$GITHUB_STEP_SUMMARY"; fi
 
-      - name: 日付を取得
-        id: today
-        run: echo "date=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+      - name: 入れ替え記録を更新（NEW!・今回の入れ替え欄・外れた銘柄の更新継続の元データ）
+        if: steps.guard.outcome == 'success'
+        run: python div_universe.py record jp
 
-      - name: PRを作成（銘柄の出入りは人間が確認してからマージ）
-        uses: peter-evans/create-pull-request@v6
+      - name: 結果を次のジョブへ渡す
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          commit-message: "chore(universe): quarterly rebuild ${{ steps.today.outputs.date }}"
-          branch: universe-quarterly-update
-          title: "四半期ユニバース見直し ${{ steps.today.outputs.date }}"
-          body: |
-            JPXの最新上場銘柄一覧でユニバースを作り直しました。
-            `universe.json` の `codes`（通過）と `rejected`（除外理由）の差分を確認してからマージしてください。
-            境界の銘柄（利回り・時価総額がしきい値ぎりぎり）は特に目視推奨です。
-          add-paths: |
+          name: universe-result
+          path: |
             universe.json
-            universe_candidates.json
-            site/
+            universe_history_jp.json
+            universe_change.md
+            universe_commit_msg.txt
+          if-no-files-found: ignore
+
+  commit:
+    needs: build
+    if: always() && needs.build.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    concurrency:
+      group: meigara-dividend-git-push
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: universe-result
+          path: _art
+
+      - name: コミット（母集団ファイルと入れ替え記録のみ）
+        if: needs.build.outputs.guard_ok == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for f in universe.json universe_history_jp.json; do
+            [ -e "_art/$f" ] && cp "_art/$f" "$f"
+            [ -e "$f" ] && git add "$f"
+          done
+          if git diff --cached --quiet; then
+            echo "変更なし"
+            exit 0
+          fi
+          git commit -F _art/universe_commit_msg.txt
+          # コミット対象外の変更（取得した成果物など）は破棄する（rebaseで取り込めるようにするため。実行環境は使い捨て）
+          git reset --hard HEAD
+          git clean -fdq
+          # push拒否（mainが進んでいた）時は、取り込んで最大5回やり直す。
+          n=0
+          until git push; do
+            n=$((n+1))
+            if [ "$n" -ge 5 ]; then
+              echo "::error::pushが${n}回失敗しました"
+              exit 1
+            fi
+            echo "pushが拒否されました。取り込んで再試行します（${n}/5）"
+            sleep $((RANDOM % 10 + 5))
+            git fetch origin main
+            if ! git rebase origin/main; then
+              echo "::error::rebaseで競合が発生しました"
+              git rebase --abort
+              exit 1
+            fi
+          done
+
+      - name: 異常を検出したためIssueで通知
+        if: needs.build.outputs.guard_ok != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          repo="${GITHUB_REPOSITORY}"
+          title="【母集団】配当株（日本株）の四半期見直しで異常を検出したため自動反映を見送りました"
+          exists=$(gh issue list --repo "$repo" --state open --search "in:title \"${title}\"" --json number --jq 'length')
+          if [ "$exists" -gt 0 ]; then
+            echo "同じ内容のIssueが未解決のため、重複作成しません"
+            exit 0
+          fi
+          {
+            echo "@notenki0909-hub"
+            echo
+            echo "配当株ランキング（日本株）の母集団（四半期見直し）で、銘柄数や入れ替えの件数が通常の範囲を超えたため、"
+            echo "自動反映を見送りました（母集団ファイルは更新していません）。"
+            echo
+            cat _art/universe_change.md
+            echo
+            echo "- 実行結果：${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            echo "- 想定される原因：取得元（JPXの上場銘柄一覧・yfinance）の形式変更や取得失敗、配当の支払いパターン変更による減配の誤判定、または実際の大きな入れ替え。"
+            echo "- 対応：Claude（配当株側のセッション）に「母集団の見直しの異常を調べて」と伝えてください。"
+            echo "  内容に問題がなければ、Actions の universe-quarterly で Run workflow を選び force を true にして"
+            echo "  手動実行すると反映できます。"
+            echo
+            echo "このIssueは対応が終わったら閉じてください（閉じるまでは重複して作成されません）。"
+          } > /tmp/body.md
+          gh issue create --repo "$repo" --title "$title" --body-file /tmp/body.md
+
+      - name: 異常を実行結果にも反映
+        if: needs.build.outputs.guard_ok != 'true'
+        run: |
+          echo "::error::母集団の安全確認で異常を検出したため、自動反映を見送りました（Issueを確認してください）"
+          exit 1

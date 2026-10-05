@@ -24,6 +24,7 @@ import shutil
 import statistics as st
 
 import analyze_us
+import div_universe
 from analyze_us import gics_jp
 
 HERE = os.path.dirname(__file__)
@@ -177,6 +178,18 @@ def main():
     cap = gcfg.get("cap_low_coverage_at", "2軍")
     min_n = gcfg.get("min_group_for_tiers", 6)
 
+    # 母集団（universe*.json）に入っている銘柄だけをランキングに載せる。母集団から外れた銘柄のうち
+    # 更新継続中・更新終了後の記録がある銘柄は rows に入れず、retired_rows としてranking.jsonへ別に出す
+    # （ポートフォリオ／ウォッチリストが名前・価格・スコアを引けるように。表やカウントには出さない）。
+    uni_ids = None
+    if os.path.isfile(os.path.join(HERE, "universe_us.json")):
+        try:
+            uni_ids = set(div_universe.members("us", json.load(open(os.path.join(HERE, "universe_us.json"), encoding="utf-8"))))
+        except Exception:
+            uni_ids = None
+    ret_info = div_universe.retired_info("us")
+    retired_rows = []
+
     rows = []
     for p in sorted(glob.glob(os.path.join(SUM, "*.json"))):
         try:
@@ -186,7 +199,7 @@ def main():
         sec = s.get("gics_sector") or ""
         grp = gmap.get(sec, "その他")
         sgroups = s.get("groups") or {}
-        rows.append({
+        row = {
             "code": s["code"], "name": s.get("name") or s["code"],
             "sector": sec, "sector_jp": gics_jp(sec), "group": grp,
             "sel": s.get("sel_score"), "tim": s.get("tim_score"),
@@ -207,7 +220,14 @@ def main():
             "ocf_positive": s.get("ocf_positive"),
             "fcf_positive": s.get("fcf_positive"), "fcf_payout": s.get("fcf_payout"),
             "chg": _price_changes(s["code"]),
-        })
+        }
+        code_key = div_universe._norm("us", os.path.basename(p)[:-5])   # 識別はファイル名（summaryの"code"は255Aが255になる等の既存の欠けがあるため）
+        if uni_ids is not None and code_key not in uni_ids:
+            if code_key in ret_info:
+                row.update({"tier": "―", "dir": "→", "retired": ret_info[code_key]})
+                retired_rows.append(row)
+            continue
+        rows.append(row)
 
     today_str = dt.date.today().isoformat()
     hist = load_history()
@@ -254,7 +274,7 @@ def main():
                    "1軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "1軍"),
                    "2軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "2軍"),
                    "3軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "3軍")},
-        "groups": groups_out, "global_top": global_top, "royalty": royalty,
+        "groups": groups_out, "global_top": global_top, "retired": retired_rows, "royalty": royalty,
     }
 
     new_html = render_index(out)
@@ -651,6 +671,15 @@ TERMS = {
 
 
 def render_index(out):
+    # 母集団の入れ替え記録（div_universe.py）：今の期間に追加された銘柄のNEW!と、「今回の入れ替え」欄
+    uh = div_universe.load_history("us")
+    nm_new = div_universe.new_map("us")
+    until_iso = uh.get("display_until")
+    by_code_all = {s["code"]: s for g in out["groups"] for s in g["stocks"]}
+    changebox = div_universe.changebox_html(
+        "us", uh, by_code_all,
+        lambda c: (by_code_all.get(c) or {}).get("sector_jp") or "", html.escape,
+        sector_tr=gics_jp)
     gen = out["generated_at"]
     sc = out.get("screen", {})
     scr = (f'予想利回り ≥ {sc.get("min_dividend_yield_pct")}% ・ 直近{sc.get("no_cut_years")}年 減配なし ・ '
@@ -676,7 +705,7 @@ def render_index(out):
                 f'<td class="pf"><input type="checkbox" class="pfc" data-code="{s["code"]}" aria-label="ポートフォリオに追加"></td>'
                 f'<td class="tier">{s["tier"]}<span class="dir {dcls}">{s["dir"]}</span></td>'
                 f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
-                f'<td class="nm">{html.escape(s["name"])}</td>'
+                f'<td class="nm">{html.escape(s["name"])}{div_universe.newbadge(s["code"], nm_new, until_iso)}</td>'
                 f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"])}</td>'
                 f'{_chg_row_cells(s.get("chg"))}'
                 f'<td class="n" data-v="{_v(s["sel"])}">{_num(s["sel"],0)}</td>'
@@ -716,7 +745,7 @@ def render_index(out):
                 f'<td class="n">{i+1}</td>'
                 f'<td class="tier">{s.get("tier","―")}</td>'
                 f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
-                f'<td class="nm">{html.escape(s["name"])}</td>'
+                f'<td class="nm">{html.escape(s["name"])}{div_universe.newbadge(s["code"], nm_new, until_iso)}</td>'
                 f'<td class="sec">{html.escape(s["sector_jp"])}</td>'
                 f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"])}</td>'
                 f'{_chg_row_cells(s.get("chg"))}'
@@ -800,6 +829,7 @@ body.chgopen .chgd{{display:table-cell}}
 .code a{{color:var(--accent);text-decoration:none}}
 .sec{{color:var(--muted);font-size:11px}}
 .sk{{font-size:11px;color:var(--muted)}}
+{div_universe.NEWBADGE_CSS}
 .roynote{{font-size:11.5px;color:var(--muted);margin:8px 2px 0;line-height:1.7;white-space:normal}}
 .cv{{font-size:11px}}
 .disc{{margin-top:30px;padding:12px;background:var(--wbg);border:1px solid var(--wbd);
@@ -994,6 +1024,7 @@ body.wlon{{padding-bottom:60px}}
 {top_table}
 </details>
 {roy_html}
+{changebox}
 {"".join(secs)}
 <div class="disc">{DISC}</div>
 <div id="wlbar" hidden>
