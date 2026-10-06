@@ -144,27 +144,30 @@
   "name": "Apogee Enterprises, Inc.",
   "target_date": "2026-10-06",
   "detected_at": "2026-10-06T00:28:09",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 1,
-  "next_retry_at": "2026-10-06T06:28:09"
+  "next_retry_at": "2026-10-06T06:28:09",
+  "resolved_at": "2026-10-06T18:25:04"
  },
  "LW": {
   "ticker": "LW",
   "name": "Lamb Weston",
   "target_date": "2026-10-06",
   "detected_at": "2026-10-06T00:28:09",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 1,
-  "next_retry_at": "2026-10-06T06:28:09"
+  "next_retry_at": "2026-10-06T06:28:09",
+  "resolved_at": "2026-10-06T18:25:04"
  },
  "RPM": {
   "ticker": "RPM",
   "name": "RPM International",
   "target_date": "2026-10-06",
   "detected_at": "2026-10-06T00:28:09",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 1,
-  "next_retry_at": "2026-10-06T06:28:09"
+  "next_retry_at": "2026-10-06T06:28:09",
+  "resolved_at": "2026-10-06T18:25:04"
  },
  "STZ": {
   "ticker": "STZ",
@@ -172,7 +175,7 @@
   "target_date": "2026-10-06",
   "detected_at": "2026-10-06T00:28:09",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-06T06:28:09"
+  "attempts": 2,
+  "next_retry_at": "2026-10-07T00:25:04"
  }
 }
