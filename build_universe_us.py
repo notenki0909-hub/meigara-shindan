@@ -32,6 +32,8 @@ import re
 import sys
 import time
 
+import div_yield_avg
+
 HERE = os.path.dirname(__file__)
 CAND = os.path.join(HERE, "universe_candidates_us.json")
 UNIV = os.path.join(HERE, "universe_us.json")
@@ -128,9 +130,11 @@ def nocut_streak_rate(divs, max_years=12):
 
 
 # ---------------------------------------------------------------- 数値スクリーン
-def prescreen_one(ticker, scr):
+def prescreen_one(ticker, scr, was_member=False):
     """history 1回で 利回り・連続非減配年数 を判定。→ (ok:bool, info:dict)
-    日本株版と違い時価総額の下限は設けない（S&P600採用基準で担保済み）。"""
+    日本株版と違い時価総額の下限は設けない（S&P600採用基準で担保済み）。
+    was_member＝前回の見直しで母集団に入っていた銘柄か（利回りは基準のstay_yield_ratio＝85%まで残す）。
+    3年平均利回り（株式分割を補正。div_yield_avg.py）が基準のavg3_yield_ratio（80%）未満の銘柄は入れない・残さない。"""
     import yfinance as yf
 
     tk = yf.Ticker(ticker)
@@ -160,6 +164,9 @@ def prescreen_one(ticker, scr):
     cutoff = dt.date.today() - dt.timedelta(days=365)
     ttm = sum(v for d, v in divs if d >= cutoff)
     yld = (ttm / price * 100) if price else None
+    ya = div_yield_avg.evaluate(h)
+    if ya["ynow"] is not None and not ya["ambiguous"]:
+        yld = ya["ynow"]          # 分割で配当・株価の調整がずれている銘柄は補正した値を使う
 
     flat_streak = nocut_streak_rate(divs)
 
@@ -169,12 +176,23 @@ def prescreen_one(ticker, scr):
         "mcap_musd": round(mcap_musd) if mcap_musd else None,
         "nocut_years": flat_streak,
     }
+    if ya["avg3"] is not None:
+        info["yield_avg3"] = round(ya["avg3"], 2)
+    elif ya["ambiguous"]:
+        info["avg3_note"] = "分割の判定不能のため3年平均は未適用"
 
-    if yld is None or yld < scr["min_dividend_yield_pct"]:
-        info["reason"] = f"利回り {info['yield']}% < {scr['min_dividend_yield_pct']}%"
+    enter = scr["min_dividend_yield_pct"]
+    need = enter * scr.get("stay_yield_ratio", 1.0) if was_member else enter
+    if yld is None or yld < need:
+        info["reason"] = (f"利回り {info['yield']}% < {need:g}%（残留の基準。新規は{enter}%）" if was_member and need != enter
+                          else f"利回り {info['yield']}% < {enter}%")
         return False, info
     if flat_streak < scr["no_cut_years"]:
         info["reason"] = f"非減配 {flat_streak}年 < {scr['no_cut_years']}年"
+        return False, info
+    avg3_min = enter * scr.get("avg3_yield_ratio", 0)
+    if avg3_min and ya["avg3"] is not None and ya["avg3"] < avg3_min:
+        info["reason"] = f"3年平均利回り {ya['avg3']:.2f}% < {avg3_min:g}%"
         return False, info
     return True, info
 
@@ -185,6 +203,13 @@ def run_screen(sleep, limit, resume):
     scr = json.load(open(SCREEN, encoding="utf-8"))
     cand = json.load(open(CAND, encoding="utf-8"))["candidates"]
 
+    # 前回の見直しで母集団に入っていた銘柄（利回りの「残留の基準」を適用する）。--resume とは別に常に読む。
+    prev_members = set()
+    if os.path.isfile(UNIV):
+        try:
+            prev_members = {str(c["ticker"]).upper() for c in json.load(open(UNIV, encoding="utf-8")).get("tickers", [])}
+        except Exception:
+            prev_members = set()
     prev_pass, prev_rej = {}, {}
     if resume and os.path.isfile(UNIV):
         j = json.load(open(UNIV, encoding="utf-8"))
@@ -203,7 +228,7 @@ def run_screen(sleep, limit, resume):
                 prev_pass.get(ticker) or prev_rej.get(ticker))
             continue
         try:
-            ok, info = prescreen_one(ticker, scr)
+            ok, info = prescreen_one(ticker, scr, was_member=str(ticker).upper() in prev_members)
         except Exception as e:
             ok, info = False, {"reason": f"例外:{e}"}
         rec = {"ticker": ticker, "name": c["name"], "gics_sector": c["gics_sector"], **info}

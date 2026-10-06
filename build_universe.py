@@ -28,6 +28,7 @@ import sys
 import time
 
 import analyze
+import div_yield_avg
 
 HERE = os.path.dirname(__file__)
 CAND = os.path.join(HERE, "universe_candidates.json")
@@ -123,8 +124,12 @@ def build_candidates(jpx_path, markets):
 
 
 # ---------------------------------------------------------------- 数値スクリーン
-def prescreen_one(code, scr, policies):
-    """history 1回で 利回り・時価総額・減配なし を判定。→ (ok:bool, info:dict)"""
+def prescreen_one(code, scr, policies, was_member=False):
+    """history 1回で 利回り・時価総額・減配なし・3年平均利回り を判定。→ (ok:bool, info:dict)
+    was_member＝前回の見直しで母集団に入っていた銘柄か。入っていた銘柄は、利回りが基準を少し
+    下回っても（stay_yield_ratio＝基準の85%まで）残す（基準の線の近くでの出入りを減らす）。
+    3年平均利回り（株式分割を補正。div_yield_avg.py）が基準のavg3_yield_ratio（80%）未満の銘柄は、
+    「最近だけ基準を超えた銘柄」として入れない・残さない。分割の判定ができない銘柄にはこの条件を適用しない。"""
     import yfinance as yf
     tk = yf.Ticker(f"{code}.T")
     try:
@@ -153,6 +158,9 @@ def prescreen_one(code, scr, policies):
     cutoff = (dt.date.today() - dt.timedelta(days=365))
     ttm = sum(v for d, v in divs if d >= cutoff)
     yld = (ttm / price * 100) if price else None
+    ya = div_yield_avg.evaluate(h)
+    if ya["ynow"] is not None and not ya["ambiguous"]:
+        yld = ya["ynow"]          # 分割で配当・株価の調整がずれている銘柄は補正した値を使う
 
     yf_fy = analyze.annual_dps_from_divs(divs, drop_in_progress=True)   # 今期途中の年を除く（中間配当の新設を減配と誤判定しない）
     clean = analyze.clean_dps_series(yf_fy)
@@ -162,15 +170,26 @@ def prescreen_one(code, scr, policies):
     info = {"price": round(price, 1), "yield": round(yld, 2) if yld else None,
             "mcap_oku": round(mcap_oku) if mcap_oku else None,
             "nocut_years": flat_streak}
+    if ya["avg3"] is not None:
+        info["yield_avg3"] = round(ya["avg3"], 2)
+    elif ya["ambiguous"]:
+        info["avg3_note"] = "分割の判定不能のため3年平均は未適用"
 
-    if yld is None or yld < scr["min_dividend_yield_pct"]:
-        info["reason"] = f"利回り {info['yield']}% < {scr['min_dividend_yield_pct']}%"
+    enter = scr["min_dividend_yield_pct"]
+    need = enter * scr.get("stay_yield_ratio", 1.0) if was_member else enter
+    if yld is None or yld < need:
+        info["reason"] = (f"利回り {info['yield']}% < {need:g}%（残留の基準。新規は{enter}%）" if was_member and need != enter
+                          else f"利回り {info['yield']}% < {enter}%")
         return False, info
     if mcap_oku is None or mcap_oku < scr["min_market_cap_oku"]:
         info["reason"] = f"時価総額 {info['mcap_oku']}億 < {scr['min_market_cap_oku']}億"
         return False, info
     if str(code) not in policies and flat_streak < scr["no_cut_years"]:
         info["reason"] = f"非減配 {flat_streak}年 < {scr['no_cut_years']}年"
+        return False, info
+    avg3_min = enter * scr.get("avg3_yield_ratio", 0)
+    if avg3_min and ya["avg3"] is not None and ya["avg3"] < avg3_min:
+        info["reason"] = f"3年平均利回り {ya['avg3']:.2f}% < {avg3_min:g}%"
         return False, info
     return True, info
 
@@ -185,6 +204,13 @@ def run_screen(sleep, limit, resume):
     except Exception:
         policies = {}
 
+    # 前回の見直しで母集団に入っていた銘柄（利回りの「残留の基準」を適用する）。--resume とは別に常に読む。
+    prev_members = set()
+    if os.path.isfile(UNIV):
+        try:
+            prev_members = {str(c["code"]) for c in json.load(open(UNIV, encoding="utf-8")).get("codes", [])}
+        except Exception:
+            prev_members = set()
     prev_pass, prev_rej = {}, {}
     if resume and os.path.isfile(UNIV):
         j = json.load(open(UNIV, encoding="utf-8"))
@@ -203,7 +229,7 @@ def run_screen(sleep, limit, resume):
                 prev_pass.get(code) or prev_rej.get(code))
             continue
         try:
-            ok, info = prescreen_one(code, scr, policies)
+            ok, info = prescreen_one(code, scr, policies, was_member=str(code) in prev_members)
         except Exception as e:
             ok, info = False, {"reason": f"例外:{e}"}
         rec = {"code": code, "name": c["name"], "sector": c["sector"], **info}
