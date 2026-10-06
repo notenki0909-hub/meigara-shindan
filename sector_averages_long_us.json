@@ -1,50 +1,50 @@
 {
  "_meta": {
   "説明": "業種ごとの EV/EBIT 中央値（と米国REITのみ P/FFO 中央値）。calib_long.py が生成。analyze_long.py の買い時スコア『EV/EBIT 対業種』『P/FFO 対業種』の基準。",
-  "算出": "site/us/long_summaries の 503 銘柄、0<EV/EBIT<80 または 0<P/FFO<100 の中央値、それぞれ n>=3 の業種のみ"
+  "算出": "site/us/long_summaries の 506 銘柄、0<EV/EBIT<80 または 0<P/FFO<100 の中央値、それぞれ n>=3 の業種のみ"
  },
  "Communication Services": {
-  "ev_ebit": 15.66,
+  "ev_ebit": 15.8,
   "n": 21
  },
  "Consumer Discretionary": {
-  "ev_ebit": 15.99,
+  "ev_ebit": 16.01,
   "n": 50
  },
  "Consumer Staples": {
-  "ev_ebit": 17.04,
+  "ev_ebit": 17.26,
   "n": 33
  },
  "Energy": {
-  "ev_ebit": 16.3,
+  "ev_ebit": 16.68,
   "n": 21
  },
  "Financials": {
-  "ev_ebit": 22.18,
+  "ev_ebit": 22.54,
   "n": 20
  },
  "Health Care": {
   "ev_ebit": 20.45,
-  "n": 55
+  "n": 56
  },
  "Industrials": {
-  "ev_ebit": 21.93,
+  "ev_ebit": 22.09,
   "n": 73
  },
  "Information Technology": {
-  "ev_ebit": 25.29,
+  "ev_ebit": 25.83,
   "n": 70
  },
  "Materials": {
-  "ev_ebit": 23.02,
+  "ev_ebit": 23.35,
   "n": 18
  },
  "Real Estate": {
-  "pfo": 15.13,
+  "pfo": 15.11,
   "n_pfo": 27
  },
  "Utilities": {
-  "ev_ebit": 21.81,
+  "ev_ebit": 21.8,
   "n": 31
  }
 }
