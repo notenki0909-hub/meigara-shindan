@@ -663,7 +663,7 @@ def render_index(out):
         lambda c: (by_code_all.get(c) or {}).get("sector") or "", html.escape)
     gen = out["generated_at"]
     sc = out.get("screen", {})
-    scr = (f'利回り≥{sc.get("min_dividend_yield_pct")}% ・ 時価総額≥{sc.get("min_market_cap_oku")}億 ・ '
+    scr = (f'利回り（直近1年の実績）≥{sc.get("min_dividend_yield_pct")}% ・ 時価総額≥{sc.get("min_market_cap_oku")}億 ・ '
            f'直近{sc.get("no_cut_years")}年減配なし（累進配当/DOE宣言は例外）') if sc.get("min_dividend_yield_pct") else ""
     c = out["counts"]
     terms_json = json.dumps(TERMS, ensure_ascii=False)

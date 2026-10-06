@@ -12,7 +12,7 @@
   "no_cut_exceptions": ["連続増配", "累進配当", "累進配当・DOE", "DOE"],
   "exclude_reit": true,
   "notes": [
-    "min_dividend_yield_pct: 予想配当利回りの下限（%）。",
+    "min_dividend_yield_pct: 配当利回りの下限（%）。利回り＝直近365日に支払われた配当の合計 ÷ 見直し時点の最新株価（実績ベース。予想配当利回りではない）。",
     "min_market_cap_oku: 時価総額の下限（億円）。流動性の目安。",
     "no_cut_years: 直近この年数で減配がないこと。ただし no_cut_exceptions（累進配当/DOE宣言など dividend_policy.json 掲載）は減配歴があっても通す。",
     "無配・利回り不明の銘柄は原則除外（無配グロースは対象外）。"

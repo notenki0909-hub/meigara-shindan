@@ -682,7 +682,7 @@ def render_index(out):
         sector_tr=gics_jp)
     gen = out["generated_at"]
     sc = out.get("screen", {})
-    scr = (f'予想利回り ≥ {sc.get("min_dividend_yield_pct")}% ・ 直近{sc.get("no_cut_years")}年 減配なし ・ '
+    scr = (f'配当利回り（直近1年の実績） ≥ {sc.get("min_dividend_yield_pct")}% ・ 直近{sc.get("no_cut_years")}年 減配なし ・ '
            f'母集団：{html.escape(str(sc.get("universe") or "S&P1500"))}') if sc.get("min_dividend_yield_pct") else ""
     c = out["counts"]
     terms_json = json.dumps(TERMS, ensure_ascii=False)
@@ -777,7 +777,7 @@ def render_index(out):
             continue
         exc = d["excluded"]
         note = (f'<p class="roynote">{defn}（{html.escape(str(roy.get("asof") or ""))}時点の公開リスト{d["total"]}銘柄）のうち、'
-                f'このツールの対象条件（予想配当利回り1.5%以上・直近5年減配なし・S&amp;P500/400/600構成銘柄）を満たす'
+                f'このツールの対象条件（配当利回り（直近1年の実績）1.5%以上・直近5年減配なし・S&amp;P500/400/600構成銘柄）を満たす'
                 f'<b>{len(d["stocks"])}銘柄</b>を選定スコア順に表示しています。')
         if exc:
             note += ('<br>対象外（' + str(len(exc)) + '銘柄）：' + '、'.join(
