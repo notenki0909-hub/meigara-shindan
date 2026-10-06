@@ -1,0 +1,62 @@
+{
+ "code": "AGNC",
+ "name": "AGNC Investment Corp.",
+ "asof": "2026-10-06",
+ "gics_sector": "Real Estate",
+ "industry": "REIT - Mortgage",
+ "is_simple": true,
+ "is_reit": true,
+ "price": 8.649999618530273,
+ "price_date": "2026-10-05",
+ "mcap": 10254413824,
+ "sel_score": 64.5,
+ "tim_score": 110.0,
+ "sel_label": "選定スコア下位（質に不安）",
+ "tim_label": "買い時スコア上位（割安水準）",
+ "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
+ "cov_sel": [
+  6,
+  6,
+  "高"
+ ],
+ "cov_tim": [
+  6,
+  7,
+  "高"
+ ],
+ "groups": {
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "配当の持続力": 75.0,
+  "配当利回りセオリー": 110.0,
+  "利回り水準とChowder": 110.0,
+  "株価バリュエーション": 110.0,
+  "金利スプレッド": 110.0,
+  "REIT品質": 60.0
+ },
+ "div_yield": 16.647399578090052,
+ "total_yield": 16.647399578090052,
+ "streak_up": 0,
+ "streak_flat": 6,
+ "payout_ni": 73.47,
+ "roe": 19.799,
+ "chowder": 15.059290991442477,
+ "dgr5": -1.5881085866475741,
+ "ocf_positive": 1,
+ "fcf_positive": 1,
+ "fcf_payout": 245.1761102603369,
+ "interest_coverage": null,
+ "per_vs_sector": 0.10335515222482435,
+ "pbr_vs_sector": 0.31744281333333335,
+ "per_band_pos": null,
+ "yield_band_pos": 1.0,
+ "next_earn": "2026-10-19",
+ "earn_disc_date": "2026-07-20",
+ "quarter_decel_factor": null,
+ "quarter_decel_detail": null,
+ "warnings": [
+  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。"
+ ],
+ "_generated_at": "2026-10-06T02:02:18"
+}
