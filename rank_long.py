@@ -386,6 +386,8 @@ def build(market):
             "bt_raw": {k: (s.get(sk) * scale) if isinstance(s.get(sk), (int, float)) else None
                        for k, _lab, _rule, sk, scale in FILTER_BT_COMPONENTS},
             "has_decel": (s.get("quarter_decel_factor") is not None) if market == "us" else None,
+            # 見方を深める指標の注意フラグ（表示専用。順位・スコアには使わない）
+            "insight_flags": (s.get("insight") or {}).get("flags") or {},
         }
         if q is None:
             if code in watch:
@@ -686,6 +688,18 @@ def render(out, m):
             title += f"（NEW!は{until_jp}まで表示）"
         return f' <span class="newbadge" title="{title}">NEW!</span>'
 
+    def _warnmark(s):
+        """注意フラグ（バリュートラップ・借入依存の高ROE・足切り基準）がある銘柄に小さな⚠を付ける。表示専用。"""
+        fl = s.get("insight_flags") or {}
+        tips = list(fl.get("value_trap") or [])
+        if fl.get("lev_roe"):
+            tips.append("ROEは高いがROAが低く、借入に頼って高く見えている可能性")
+        tips += ["足切り基準：" + t for t in (fl.get("cutoff") or [])]
+        if not tips:
+            return ""
+        tip = html.escape("／".join(tips) + "（採点しない・参考。詳細は個別レポート）", quote=True)
+        return f' <span class="warnmark" title="{tip}">⚠</span>'
+
     grade_by_group = {g["name"]: g["grade"] for g in out["groups"]}
 
     def row_html(s, with_rank=None):
@@ -703,7 +717,7 @@ def render(out, m):
             f'<td class="tier">{s.get("tier","―")}<span class="dir {dcls}">{s.get("dir","")}</span></td>'
             f'<td class="code">{codecell}</td>'
             f'<td class="nm">{html.escape(str(s["name"]))}'
-            f'{_newbadge(s)}'
+            f'{_newbadge(s)}{_warnmark(s)}'
             f'</td>'
             f'<td class="sec">{html.escape(str(s["sector"]))}</td>'
             f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"], unit)}</td>'
@@ -948,6 +962,7 @@ h2{{font-size:15px;margin:26px 0 6px;border-bottom:2px solid var(--line);padding
 .newbadge{{font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;vertical-align:middle;
   background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent);
   border:1px solid color-mix(in srgb,var(--accent) 45%,transparent)}}
+.warnmark{{font-size:11px;cursor:help;vertical-align:middle;color:var(--mid,#d29922)}}
 .gradeA{{background:color-mix(in srgb,var(--gA) 15%,transparent);color:var(--gA)}}
 .gradeB{{background:color-mix(in srgb,var(--gB) 15%,transparent);color:var(--gB)}}
 .gradeC{{background:color-mix(in srgb,var(--gC) 15%,transparent);color:var(--gC)}}

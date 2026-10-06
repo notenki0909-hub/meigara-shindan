@@ -207,6 +207,131 @@ def _raw_valuation(yd):
     }
 
 
+def _insight_extras(yd, market, is_simple, is_reit, q_score, bt_score, tiers, raw):
+    """『見方を深める指標』と、資料（銘柄分析の基礎）の基準にもとづく注意フラグ。
+    **表示専用**：品質スコア・買い時スコアの計算には一切使わない（2026-10-06決定。
+    過去4〜5期のデータでは、採点に組み込める根拠が得られなかったため）。
+    返り値 {"rows": [(見出し, 本文)], "flags": {...}, "raw": {...}}。取得できない項目は出さない。"""
+    isr, bsr, cfr = yd.get("is_rows") or {}, yd.get("bs_rows") or {}, yd.get("cf_rows") or {}
+    g = lambda rows, *lb: (analyze.row(rows, *lb) or [])
+    at = lambda s, i: (s[i] if s and len(s) > i and LC.is_num(s[i]) else None)
+    ni = g(isr, "Net Income", "Net Income Common Stockholders")
+    rev = g(isr, "Total Revenue", "Operating Revenue")
+    ta = g(bsr, "Total Assets")
+    eq = g(bsr, "Stockholders Equity", "Common Stock Equity")
+    shs = g(bsr, "Ordinary Shares Number", "Share Issued")
+    ocf = g(cfr, "Operating Cash Flow", "Cash Flow From Continuing Operating Activities")
+    capex = g(cfr, "Capital Expenditure")
+    dep = g(cfr, "Depreciation And Amortization", "Depreciation Amortization Depletion") \
+        or g(isr, "Reconciled Depreciation")
+    sbc = g(cfr, "Stock Based Compensation")
+    fin_like = bool(is_simple)   # 銀行・保険・証券・REIT：CF・設備投資・自己資本比率の物差しは当てはまらない
+
+    rows, flags, rawv = [], {}, {}
+    pc = lambda v, d=1: f"{v:.{d}f}%"
+
+    # --- 収益性：ROE・ROA・財務レバレッジ（借入に頼った高ROEの見分け）---
+    ni0, eq0, ta0 = at(ni, 0), at(eq, 0), at(ta, 0)
+    roe = ni0 / eq0 * 100 if LC.is_num(ni0) and LC.is_num(eq0) and eq0 > 0 else None
+    roa = ni0 / ta0 * 100 if LC.is_num(ni0) and LC.is_num(ta0) and ta0 > 0 else None
+    lev = ta0 / eq0 if LC.is_num(ta0) and LC.is_num(eq0) and eq0 > 0 else None
+    rawv.update({"roe": roe, "roa": roa, "leverage": lev})
+    if LC.is_num(roe) and LC.is_num(roa):
+        note = "ROEとROAが近く、借入に頼らず稼げている" if (lev is not None and lev < 2.5) else "ROEがROAより高いのは、借入（財務レバレッジ）の効果"
+        if ni0 <= 0:
+            note = "純損失のため、ROE・ROAは効率の目安にならない（赤字の理由を決算資料で確認）"
+        elif roe >= 10 and roa < 3:
+            flags["lev_roe"] = True
+            note = "ROEは高いがROAが低い＝借入に頼って高く見えている可能性（景気悪化時に返済負担が重くなる）"
+        if fin_like:
+            note = "銀行・保険・証券・REITは構造上レバレッジが大きく、ROAは低く出るのが普通"
+            flags.pop("lev_roe", None)
+        rows.append(("ROE・ROA・財務レバレッジ",
+                     f"ROE {pc(roe)}／ROA {pc(roa)}／総資産÷自己資本 {lev:.1f}倍　… {note}"))
+
+    # --- 利益の質（銀行・保険・証券・REITは対象外）---
+    if not fin_like:
+        qs = []
+        for i in range(min(3, len(ni), len(ocf))):
+            n_, o_ = at(ni, i), at(ocf, i)
+            if LC.is_num(n_) and LC.is_num(o_) and n_ > 0:
+                qs.append(o_ / n_)
+        if qs:
+            rawv["ocf_ni"] = qs[0]
+            tail = f"（直近{len(qs)}期：" + "／".join(f"{x:.2f}" for x in qs) + "）" if len(qs) > 1 else ""
+            note = ("営業CFが純利益を上回り、利益が現金で裏付けられている" if qs[0] >= 1.0 else
+                    "営業CFが純利益を下回る。続くなら売掛金・在庫の増加など、現金になっていない利益に注意")
+            rows.append(("営業CF÷純利益（利益の質）", f"直近 {qs[0]:.2f}倍{tail}　… {note}"))
+        ta1 = at(ta, 1)
+        if LC.is_num(ni0) and LC.is_num(at(ocf, 0)) and LC.is_num(ta0) and LC.is_num(ta1) and (ta0 + ta1) > 0:
+            acc = (ni0 - at(ocf, 0)) / ((ta0 + ta1) / 2) * 100
+            rawv["accrual"] = acc
+            rows.append(("会計発生高（（純利益−営業CF）÷平均総資産）",
+                         f"{acc:+.1f}%　… 大きなプラスが続くと、利益が現金の裏付けに乏しい可能性。マイナスは現金が利益を上回る状態"))
+
+        # --- 設備投資÷減価償却 ---
+        cx0, dp0 = at(capex, 0), at(dep, 0)
+        if LC.is_num(cx0) and LC.is_num(dp0) and dp0 > 0:
+            r = abs(cx0) / dp0
+            rawv["capex_da"] = r
+            note = ("設備投資が減価償却を上回り、成長投資（または能力増強）の可能性" if r > 1.1 else
+                    "設備投資が減価償却を下回り、設備の更新不足の可能性" if r < 0.9 else
+                    "設備投資と減価償却がほぼ釣り合い、現状維持の水準")
+            rows.append(("設備投資÷減価償却費", f"{r:.2f}倍　… {note}（業種・事業段階で解釈が変わる）"))
+
+    # --- 株数の推移（自社株買い・希薄化）---
+    s0 = at(shs, 0)
+    sold = next((shs[i] for i in range(len(shs) - 1, 0, -1) if LC.is_num(shs[i])), None)
+    if LC.is_num(s0) and LC.is_num(sold) and sold > 0 and len([x for x in shs if LC.is_num(x)]) >= 3:
+        n_y = len([x for x in shs if LC.is_num(x)]) - 1
+        ch = (s0 / sold - 1) * 100
+        rawv["shares_chg_pct"] = ch
+        note = ("株数が減少（自社株買いなどで1株あたりの価値が高まりやすい）" if ch < -1 else
+                "株数が増加（増資や株式報酬による希薄化の可能性）" if ch > 1 else "株数はほぼ横ばい")
+        rows.append((f"発行済株式数の変化（過去{n_y}年）", f"{ch:+.1f}%　… {note}"))
+
+    # --- 米国株：株式報酬（SBC）---
+    if market == "us" and not fin_like:
+        sb0, rv0, oc0, cx0 = at(sbc, 0), at(rev, 0), at(ocf, 0), at(capex, 0)
+        if LC.is_num(sb0) and LC.is_num(rv0) and rv0 > 0:
+            line = f"SBC÷売上高 {sb0 / rv0 * 100:.1f}%"
+            rawv["sbc_rev_pct"] = sb0 / rv0 * 100
+            if LC.is_num(oc0) and LC.is_num(cx0):
+                fcf_net = (oc0 + cx0 - sb0) / rv0 * 100
+                rawv["fcf_less_sbc_pct"] = fcf_net
+                line += f"／（FCF−SBC）÷売上高 {fcf_net:.1f}%"
+            rows.append(("株式報酬（SBC）の重さ",
+                         line + "　… SBCは従業員への実質的な報酬コスト。FCFから引いても残るかを見る"))
+
+    # --- 注意フラグ（資料の「足切り」「バリュートラップ」）---
+    cut = []
+    ni3 = [at(ni, i) for i in range(3)]
+    if all(LC.is_num(x) for x in ni3) and all(x < 0 for x in ni3):
+        cut.append("純損失が3期連続")
+    if not fin_like:
+        o0, o1 = at(ocf, 0), at(ocf, 1)
+        if LC.is_num(o0) and LC.is_num(o1) and o0 < 0 and o1 < 0:
+            cut.append("営業CFが2期連続マイナス")
+        eqr = (eq0 / ta0 * 100) if LC.is_num(eq0) and LC.is_num(ta0) and ta0 > 0 else None
+        if LC.is_num(eqr) and eqr < 10:
+            cut.append(f"自己資本比率が10%未満（{eqr:.1f}%）")
+    if LC.is_num(eq0) and eq0 <= 0:
+        cut.append("債務超過（自己資本がマイナス）")
+    flags["cutoff"] = cut
+
+    pbr = raw.get("pbr") if raw else None
+    trap = []
+    btier = LC.tier_label(bt_score, tiers) if LC.is_num(bt_score) else None
+    qtier = LC.tier_label(q_score, LC.QUAL_TIERS) if LC.is_num(q_score) else None
+    if btier == "hi" and qtier in ("lo", "xlo"):
+        trap.append("買い時スコアは高い（割安圏）が、品質スコアは低め。安い理由がある可能性（バリュートラップ）")
+    if LC.is_num(pbr) and pbr < 1 and LC.is_num(roe) and roe < 5:
+        trap.append(f"PBR {pbr:.2f}倍（1倍割れ）かつROE {roe:.1f}%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が"
+                    "「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）")
+    flags["value_trap"] = trap
+    return {"rows": rows, "flags": flags, "raw": rawv}
+
+
 def _raw_financial_quality(yd, info):
     """銀行・保険・証券（is_simple かつ REIT でない）向けの品質サブスコアの素材。
     ROE・増収率(売上高CAGR)・EPS成長率(CAGR)・利益の安定度(純利益の最大減益率)。"""
@@ -861,6 +986,30 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
     ref_html = "".join(
         f'<div class="plain"><span class="mn">{n}</span><span class="mv2">{v}</span></div>'
         for n, v in ref_rows)
+    # 見方を深める指標（表示専用・採点しない）
+    ins = extras.get("insight") or {}
+    if ins.get("rows"):
+        ref_html += ('<div class="legend" style="margin-top:12px"><b>見方を深める指標</b>'
+                     '（銘柄分析の基本の見方。表示のみで、スコアの計算には使っていません）</div>'
+                     + "".join(f'<div class="plain"><span class="mn">{n}</span><span class="mv2">{v}</span></div>'
+                               for n, v in ins["rows"]))
+    # 注意チェック（資料の足切り・バリュートラップ）。該当がなくても「確認した」ことを示す
+    chk_html = ""
+    if ins:
+        fl = ins.get("flags") or {}
+        items = []
+        for t in fl.get("value_trap") or []:
+            items.append(f"<li><b>バリュートラップ注意</b>：{t}</li>")
+        if fl.get("lev_roe"):
+            items.append("<li><b>借入依存の高ROE</b>：ROEは高いがROAが低く、借入に頼って高く見えている可能性があります。</li>")
+        for t in fl.get("cutoff") or []:
+            items.append(f"<li><b>足切り基準に該当</b>：{t}</li>")
+        if items:
+            chk_html = ('<div class="warn"><b>注意して見たい点（採点しない・参考）</b><ul>' + "".join(items)
+                        + '</ul><div style="margin-top:6px;font-size:11px;color:var(--muted)">'
+                          '目安を機械的に当てはめたもので、売買の判断ではありません。数字の裏にある理由を、'
+                          '決算資料で確かめてください。「継続企業の前提に関する注記（GC注記）」の有無は'
+                          'このツールでは取得できないため、有価証券報告書・10-Kで確認してください。</div></div>')
 
     warn_html = ("" if not warnings else
                  '<div class="warn"><b>データ上の注意</b><ul>'
@@ -984,6 +1133,7 @@ table.subt tr:last-child td{{border-bottom:none}}
     <div class="cov">実データで採点 <b>{bs}/{bp}</b>　カバレッジ <b>{bl}</b>（欠損は中立60で補完）</div></div>
 </div>
 {warn_html}
+{chk_html}
 
 <h2>会社概要</h2>
 <div class="cobox">{comp_html}</div>
@@ -1130,6 +1280,13 @@ def generate_long(code, cfg=None, market="jp", name=None):
                                                 is_fin_simple=is_fin_simple, is_reit=is_reit_us,
                                                 reit_q=reit_q, ffo_pairs=ffo_pairs)
 
+    # 見方を深める指標・注意フラグ（表示専用。スコアには使わない）。失敗しても本体の診断は止めない。
+    try:
+        insight = _insight_extras(yd, market, is_simple, is_reit, q_score, bt_score,
+                                  tuple(LC.load_bt_cfg()[f"tim_tiers_{market}"]), raw)
+    except Exception:
+        insight = {"rows": [], "flags": {}, "raw": {}}
+
     ig = LC.implied_fcf_growth(raw["mcap"], raw["fcf"])
     hg = None
     xs = raw["fcf_series"]
@@ -1152,7 +1309,7 @@ def generate_long(code, cfg=None, market="jp", name=None):
               "div_yield": rowmap.get("div_yield", {}).get("v"),
               "fin_q": fin_q, "fq_parts": fq_parts,
               "reit_q": reit_q, "reit_parts": reit_parts,
-              "quarter_trend_rows": quarter_trend_rows}
+              "quarter_trend_rows": quarter_trend_rows, "insight": insight}
 
     warnings = []
     if is_reit_us:
@@ -1220,6 +1377,8 @@ def generate_long(code, cfg=None, market="jp", name=None):
         "price_chg": _price_changes(yd.get("hist_d")),
         "div_yield": rowmap.get("div_yield", {}).get("v"),  # 表示のみ（採点には不使用）
         "implied_fcf_growth": ig,
+        # 見方を深める指標・注意フラグ（表示専用。採点には使わない）
+        "insight": {"flags": insight["flags"], "raw": insight["raw"]},
         # 「詳しい条件で絞り込む」フィルタ用の個別指標。score は0〜110（常に高いほど良い、
         # sector_rules(_us).json の業種別しきい値をrule_for()経由で反映済み）、raw は
         # 表示・CSV出力用の生値。is_fin_simple/is_reit_us銘柄はこれらのキーが元々
