@@ -22,20 +22,20 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 56.3,
+ "bt_score": 55.6,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
   "fcf_yield": 20.0,
-  "per_cheap": 77.6,
+  "per_cheap": 75.0,
   "pbr_cheap": 107.5
  },
  "ev_ebit": 82.24947928477414,
  "fcf_yield": -5.110176470874768,
- "per_band_pos": 0.05169073252043039,
+ "per_band_pos": 0.0,
  "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 3.9830256312239296,
- "per_vs_sector": 0.5443194964028777,
+ "ev_ebit_vs_sector": 3.977247547619639,
+ "per_vs_sector": 0.5464413669064748,
  "pbr_vs_sector": 0.79912007,
  "price_chg": {
   "d": 0.31201248049921304,
@@ -48,6 +48,23 @@
  },
  "div_yield": 4.043545878693624,
  "implied_fcf_growth": null,
+ "insight": {
+  "flags": {
+   "lev_roe": true,
+   "cutoff": [
+    "営業CFが2期連続マイナス"
+   ],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": 11.121597282731845,
+   "roa": 1.1402654112705903,
+   "leverage": 9.753516306645768,
+   "ocf_ni": -0.3867546052217018,
+   "accrual": 1.6355606995241239,
+   "shares_chg_pct": 15.754080900419098
+  }
+ },
  "metric_scores": {
   "rev_cagr": 110.0,
   "eps_cagr": 106.26596115827762,
@@ -76,5 +93,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-06T01:01:05"
+ "_generated_at": "2026-10-06T23:23:23"
 }

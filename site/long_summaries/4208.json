@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 3363.0,
+ "price": 3399.0,
  "price_date": "2026-10-06",
- "mcap": 326697418752,
+ "mcap": 330194616320,
  "q_score": 77.4,
  "groups": {
   "業績": 74.69202070730884,
@@ -22,32 +22,47 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 56.2,
+ "bt_score": 56.1,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
   "fcf_yield": 20.0,
-  "per_cheap": 110.0,
+  "per_cheap": 109.4,
   "pbr_cheap": 75.0
  },
- "ev_ebit": 33.21025388057653,
- "fcf_yield": -3.8154571430704607,
+ "ev_ebit": 33.39489025500237,
+ "fcf_yield": -3.775046407152759,
  "per_band_pos": null,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 2.2140169253717685,
- "per_vs_sector": 0.7011859375,
- "pbr_vs_sector": 0.5722560769230769,
+ "ev_ebit_vs_sector": 2.2115821360928725,
+ "per_vs_sector": 0.71513328125,
+ "pbr_vs_sector": 0.578381923076923,
  "price_chg": {
-  "d": -0.3260225251926485,
-  "w": 1.2951807228915646,
-  "m": -4.514480408858601,
-  "3m": 5.028107432854467,
-  "6m": 38.33813245577951,
-  "9m": 31.23902439024391,
-  "y": 42.37933954276036
+  "d": 0.7409602845287466,
+  "w": 2.379518072289155,
+  "m": -3.4923339011925014,
+  "3m": 6.152404747033113,
+  "6m": 39.81900452488687,
+  "9m": 32.643902439024394,
+  "y": 43.90347163420829
  },
- "div_yield": 4.757656853999405,
+ "div_yield": 4.707266843189173,
  "implied_fcf_growth": null,
+ "insight": {
+  "flags": {
+   "cutoff": [],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": 5.4600389283941695,
+   "roa": 2.52263257505709,
+   "leverage": 2.164421003035134,
+   "ocf_ni": 2.5127345844504023,
+   "accrual": -3.9847878033184125,
+   "capex_da": 2.6383466860888567,
+   "shares_chg_pct": 0.10781367120795693
+  }
+ },
  "metric_scores": {
   "rev_cagr": 76.74627456738789,
   "eps_cagr": null,
@@ -76,5 +91,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-06T00:38:04"
+ "_generated_at": "2026-10-06T23:01:40"
 }

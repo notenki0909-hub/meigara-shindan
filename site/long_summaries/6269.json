@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 8776.0,
+ "price": 8834.0,
  "price_date": "2026-10-06",
- "mcap": 599789207552,
+ "mcap": 603753152512,
  "q_score": 95.6,
  "groups": {
   "業績": 88.08540002631024,
@@ -22,32 +22,47 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 41.7,
+ "bt_score": 41.8,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 20.52615151460964,
-  "per_cheap": 106.4,
+  "fcf_yield": 20.522697063670783,
+  "per_cheap": 106.7,
   "pbr_cheap": 20.0
  },
- "ev_ebit": 1970.5787877806733,
- "fcf_yield": 0.039461363595722936,
+ "ev_ebit": 1983.621856037274,
+ "fcf_yield": 0.03920227977530862,
  "per_band_pos": null,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 141.7682581137175,
- "per_vs_sector": 0.788785267857143,
- "pbr_vs_sector": 2.4919044444444443,
+ "ev_ebit_vs_sector": 143.32527861540999,
+ "per_vs_sector": 0.781319642857143,
+ "pbr_vs_sector": 2.508373333333333,
  "price_chg": {
-  "d": 0.8503792231670859,
-  "w": -0.5439709882139598,
-  "m": -4.815618221258133,
-  "3m": -3.1025725957822714,
-  "6m": -40.17723244717109,
-  "9m": -28.388412892696856,
-  "y": 10.668348045397224
+  "d": 1.51689266835211,
+  "w": 0.11332728921125135,
+  "m": -4.186550976138825,
+  "3m": -2.462183946119023,
+  "6m": -39.78186775732788,
+  "9m": -27.91513667890657,
+  "y": 11.399747793190418
  },
- "div_yield": 2.2789425706472195,
- "implied_fcf_growth": 0.8235,
+ "div_yield": 2.2639800769753227,
+ "implied_fcf_growth": 0.8247,
+ "insight": {
+  "flags": {
+   "cutoff": [],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": 24.826181555868665,
+   "roa": 7.573155849402381,
+   "leverage": 3.278181784391479,
+   "ocf_ni": 0.6766026112006033,
+   "accrual": 2.5194770662721915,
+   "capex_da": 0.18760528868242382,
+   "shares_chg_pct": 21.23588965761931
+  }
+ },
  "metric_scores": {
   "rev_cagr": 110.0,
   "eps_cagr": 110.0,
@@ -76,5 +91,5 @@
   "fcf_positive": 1,
   "fcf_payout": 21.43228341466506
  },
- "_generated_at": "2026-10-06T00:46:34"
+ "_generated_at": "2026-10-06T23:09:42"
 }

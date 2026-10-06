@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 2175.0,
+ "price": 2165.0,
  "price_date": "2026-10-06",
- "mcap": 2496852656128,
+ "mcap": 2485372846080,
  "q_score": 98.2,
  "groups": {
   "業績": 88.39701353817141,
@@ -22,32 +22,47 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 76.6,
+ "bt_score": 76.8,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 103.5201893838886,
-  "fcf_yield": 92.41062712408532,
+  "ev_ebit_vs_sector": 103.50309390794617,
+  "fcf_yield": 92.74508810693229,
   "per_cheap": null,
-  "pbr_cheap": 50.3
+  "pbr_cheap": 51.0
  },
- "ev_ebit": 12.122913437685833,
- "fcf_yield": 5.4307970343064,
+ "ev_ebit": 12.074702439483277,
+ "fcf_yield": 5.455881608019922,
  "per_band_pos": null,
- "pbr_band_pos": 0.34991185804432234,
- "ev_ebit_vs_sector": 0.7267933715638989,
+ "pbr_band_pos": 0.35648226708583886,
+ "ev_ebit_vs_sector": 0.7273917132218841,
  "per_vs_sector": null,
- "pbr_vs_sector": 1.7441275555555555,
+ "pbr_vs_sector": 1.736108611111111,
  "price_chg": {
-  "d": -0.2293577981651418,
-  "w": -3.3333333333333326,
-  "m": -12.298387096774189,
-  "3m": -18.782673637042567,
-  "6m": 10.630722278738558,
-  "9m": 5.021728633510381,
-  "y": -18.843283582089555
+  "d": -0.6880733944954143,
+  "w": -3.77777777777778,
+  "m": -12.701612903225811,
+  "3m": -19.156086631814784,
+  "6m": 10.12207527975586,
+  "9m": 4.538870111057469,
+  "y": -19.21641791044776
  },
  "div_yield": 0.0,
- "implied_fcf_growth": 0.0659,
+ "implied_fcf_growth": 0.0652,
+ "insight": {
+  "flags": {
+   "cutoff": [],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": 9.5600175885944,
+   "roa": 4.942474367482659,
+   "leverage": 1.934257393723943,
+   "ocf_ni": 1.730465731755544,
+   "accrual": -3.702636898695043,
+   "capex_da": 1.077939855723267,
+   "shares_chg_pct": -1.2856300715828328
+  }
+ },
  "metric_scores": {
   "rev_cagr": 108.64485668390155,
   "eps_cagr": 101.67507751367472,
@@ -76,5 +91,5 @@
   "fcf_positive": 1,
   "fcf_payout": 33.90069248298291
  },
- "_generated_at": "2026-10-06T00:49:22"
+ "_generated_at": "2026-10-06T23:12:20"
 }

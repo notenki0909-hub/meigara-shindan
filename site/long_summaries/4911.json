@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 3236.0,
+ "price": 3219.0,
  "price_date": "2026-10-06",
- "mcap": 1293165789184,
+ "mcap": 1286390808576,
  "q_score": 77.0,
  "groups": {
   "業績": 37.57321959341602,
@@ -22,32 +22,47 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 70.5,
+ "bt_score": 70.8,
  "bt_cov": "中",
  "bt_components": {
   "ev_ebit_vs_sector": null,
-  "fcf_yield": 87.49740370754101,
+  "fcf_yield": 87.85288945740824,
   "per_cheap": null,
-  "pbr_cheap": 74.7
+  "pbr_cheap": 75.2
  },
  "ev_ebit": null,
- "fcf_yield": 5.062305278065576,
+ "fcf_yield": 5.088966709305618,
  "per_band_pos": null,
- "pbr_band_pos": 0.824675925564604,
+ "pbr_band_pos": 0.8296921341553879,
  "ev_ebit_vs_sector": null,
  "per_vs_sector": null,
- "pbr_vs_sector": 1.5625653846153844,
+ "pbr_vs_sector": 1.5543565384615383,
  "price_chg": {
-  "d": -1.1606597434331123,
-  "w": -5.2415812591508075,
-  "m": -7.091587711742752,
-  "3m": 19.321533923303825,
-  "6m": 1.4420062695924774,
-  "9m": 36.367467340918665,
-  "y": 33.801943353318165
+  "d": -1.6799022602321356,
+  "w": -5.739385065885793,
+  "m": -7.579672695951767,
+  "3m": 18.694690265486734,
+  "6m": 0.9090909090909038,
+  "9m": 35.65107458912769,
+  "y": 33.0990283233409
  },
- "div_yield": 1.8541409147095178,
- "implied_fcf_growth": 0.0754,
+ "div_yield": 1.863932898415657,
+ "implied_fcf_growth": 0.0747,
+ "insight": {
+  "flags": {
+   "cutoff": [],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": -6.771467950382518,
+   "roa": -3.2100854128921075,
+   "leverage": 2.1094354446730454,
+   "ocf_ni": 4.0933376247183775,
+   "accrual": -11.586300509714118,
+   "capex_da": 0.6193071722311284,
+   "shares_chg_pct": -0.0028086769787938337
+  }
+ },
  "metric_scores": {
   "rev_cagr": 72.71965878024805,
   "eps_cagr": null,
@@ -76,5 +91,5 @@
   "fcf_positive": 1,
   "fcf_payout": 18.33679579616278
  },
- "_generated_at": "2026-10-06T00:41:37"
+ "_generated_at": "2026-10-06T23:05:02"
 }

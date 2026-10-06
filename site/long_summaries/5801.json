@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 4355.0,
+ "price": 4490.0,
  "price_date": "2026-10-06",
- "mcap": 3063726997504,
+ "mcap": 3158699147264,
  "q_score": 78.0,
  "groups": {
   "業績": 86.584934882987,
@@ -22,32 +22,47 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 22.9,
+ "bt_score": 22.5,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
   "fcf_yield": 20.0,
-  "per_cheap": 21.8,
+  "per_cheap": 20.0,
   "pbr_cheap": 30.0
  },
- "ev_ebit": 52.052868088134424,
- "fcf_yield": -0.7836860144379967,
+ "ev_ebit": 53.540131031273,
+ "fcf_yield": -0.7601230405496822,
  "per_band_pos": null,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 2.227337102615936,
- "per_vs_sector": 1.4387068027210885,
- "pbr_vs_sector": 2.696624346153846,
+ "ev_ebit_vs_sector": 2.2280537258124427,
+ "per_vs_sector": 1.5005019727891158,
+ "pbr_vs_sector": 2.7802165384615383,
  "price_chg": {
-  "d": -0.5253540429419834,
-  "w": 18.21389793702497,
-  "m": 16.07142857142858,
-  "3m": 9.532193158953728,
-  "6m": 51.29407677609865,
-  "9m": 339.98788176494827,
-  "y": 386.2118946799109
+  "d": 2.5582457743261733,
+  "w": 21.878393051031498,
+  "m": 19.66950959488274,
+  "3m": 12.927565392354134,
+  "6m": 55.98401945457703,
+  "9m": 353.62700094709936,
+  "y": 401.2839051923766
  },
- "div_yield": 0.7347876004592423,
+ "div_yield": 0.7126948775055679,
  "implied_fcf_growth": null,
+ "insight": {
+  "flags": {
+   "cutoff": [],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": 17.387447008497823,
+   "roa": 6.800066018237539,
+   "leverage": 2.556952676910092,
+   "ocf_ni": 0.3877320241608517,
+   "accrual": 4.322184709680183,
+   "capex_da": 1.2061178212781711,
+   "shares_chg_pct": -0.06408417244102571
+  }
+ },
  "metric_scores": {
   "rev_cagr": 104.48280277810117,
   "eps_cagr": 110.0,
@@ -76,5 +91,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-06T00:44:40"
+ "_generated_at": "2026-10-06T23:07:55"
 }

@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 4035.0,
+ "price": 4093.0,
  "price_date": "2026-10-06",
- "mcap": 786916638720,
+ "mcap": 798227955712,
  "q_score": 96.3,
  "groups": {
   "業績": 84.3553538068591,
@@ -22,32 +22,46 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 69.9,
+ "bt_score": 69.7,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 38.649435124172825,
+  "ev_ebit_vs_sector": 37.80894861871428,
   "fcf_yield": 110.0,
   "per_cheap": null,
-  "pbr_cheap": 71.1
+  "pbr_cheap": 71.0
  },
- "ev_ebit": 20.802261639952313,
- "fcf_yield": 9.496050321359254,
+ "ev_ebit": 21.051992663752372,
+ "fcf_yield": 9.361486210207486,
  "per_band_pos": null,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.3868174426634876,
+ "ev_ebit_vs_sector": 1.3941716995862499,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.9090903076923076,
+ "pbr_vs_sector": 0.9221577692307692,
  "price_chg": {
-  "d": 0.049590875278937574,
-  "w": 6.972428419936372,
-  "m": 4.941482444733425,
-  "3m": -16.769801980198018,
-  "6m": 12.239221140472889,
-  "9m": 40.714908456843936,
-  "y": 46.673936750272624
+  "d": 1.4877262583684603,
+  "w": 8.51007423117709,
+  "m": 6.449934980494154,
+  "3m": -15.573432343234328,
+  "6m": 13.852573018080673,
+  "9m": 42.73757628596337,
+  "y": 48.78226099600145
  },
- "div_yield": 2.7261462205700124,
- "implied_fcf_growth": -0.0113,
+ "div_yield": 2.6875152699731246,
+ "implied_fcf_growth": -0.0093,
+ "insight": {
+  "flags": {
+   "cutoff": [],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": -6.237150322469861,
+   "roa": -3.6223316322863512,
+   "leverage": 1.7218606565111994,
+   "ocf_ni": 1.6564201651150536,
+   "accrual": -10.305240942918259,
+   "shares_chg_pct": -4.808407027838646
+  }
+ },
  "metric_scores": {
   "rev_cagr": 78.36412219980629,
   "eps_cagr": null,
@@ -76,5 +90,5 @@
   "fcf_positive": 1,
   "fcf_payout": 26.05786473248936
  },
- "_generated_at": "2026-10-06T00:37:21"
+ "_generated_at": "2026-10-06T23:01:00"
 }

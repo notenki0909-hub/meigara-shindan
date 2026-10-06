@@ -22,20 +22,20 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 66.3,
+ "bt_score": 66.7,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 94.0769382853284,
+  "ev_ebit_vs_sector": 96.17624410104915,
   "fcf_yield": 20.0,
-  "per_cheap": 41.3,
+  "per_cheap": 40.6,
   "pbr_cheap": 109.9
  },
  "ev_ebit": 9.108450579034104,
  "fcf_yield": -16.20870984315589,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.9904727502675343,
- "ev_ebit_vs_sector": 0.9018267900033766,
- "per_vs_sector": 1.3088499999999998,
+ "ev_ebit_vs_sector": 0.88345786411582,
+ "per_vs_sector": 1.317324527027027,
  "pbr_vs_sector": 0.3960853333333333,
  "price_chg": {
   "d": 0.4633920296570837,
@@ -48,6 +48,23 @@
  },
  "div_yield": 5.07380073800738,
  "implied_fcf_growth": null,
+ "insight": {
+  "flags": {
+   "cutoff": [],
+   "value_trap": [
+    "PBR 0.36倍（1倍割れ）かつROE 1.8%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+   ]
+  },
+  "raw": {
+   "roe": 1.8409160191594622,
+   "roa": 0.7832582839173987,
+   "leverage": 2.3503307363086923,
+   "ocf_ni": 0.0063558114347603036,
+   "accrual": 0.8136460458827942,
+   "capex_da": 0.9176414221517314,
+   "shares_chg_pct": 0.12968238249442265
+  }
+ },
  "metric_scores": {
   "rev_cagr": 106.35973384042809,
   "eps_cagr": 20.0,
@@ -76,5 +93,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-06T00:53:57"
+ "_generated_at": "2026-10-06T23:16:35"
 }

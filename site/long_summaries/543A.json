@@ -25,7 +25,7 @@
  "bt_score": 94.9,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 106.24795288960269,
+  "ev_ebit_vs_sector": 106.16102391901903,
   "fcf_yield": 53.43405817409097,
   "per_cheap": 110.0,
   "pbr_cheap": 110.0
@@ -34,7 +34,7 @@
  "fcf_yield": 2.5075543630568227,
  "per_band_pos": null,
  "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.6313216488639057,
+ "ev_ebit_vs_sector": 0.6343641628343342,
  "per_vs_sector": 0.08480658874458874,
  "pbr_vs_sector": 0.46266264444444444,
  "price_chg": {
@@ -48,6 +48,21 @@
  },
  "div_yield": 2.807017543859649,
  "implied_fcf_growth": 0.171,
+ "insight": {
+  "flags": {
+   "cutoff": [],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": 18.35949820866497,
+   "roa": 5.859947524930518,
+   "leverage": 3.1330482279161127,
+   "ocf_ni": 0.9115057878461156,
+   "accrual": 0.5118412545147599,
+   "capex_da": 0.9555069536036863,
+   "shares_chg_pct": 0.0030583935228811754
+  }
+ },
  "metric_scores": {
   "rev_cagr": 92.2952073039867,
   "eps_cagr": null,
@@ -76,5 +91,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-06T00:43:51"
+ "_generated_at": "2026-10-06T23:07:09"
 }

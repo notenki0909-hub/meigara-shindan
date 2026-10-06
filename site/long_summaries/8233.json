@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 2118.5,
+ "price": 2145.0,
  "price_date": "2026-10-06",
- "mcap": 620751028224,
+ "mcap": 628515864576,
  "q_score": 89.6,
  "groups": {
   "業績": 101.42281717168318,
@@ -22,32 +22,47 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 58.6,
+ "bt_score": 57.6,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 61.96192190768577,
-  "fcf_yield": 38.474395496066315,
+  "ev_ebit_vs_sector": 58.289223164111164,
+  "fcf_yield": 38.24615836504998,
   "per_cheap": null,
-  "pbr_cheap": 74.0
+  "pbr_cheap": 73.9
  },
- "ev_ebit": 17.860781067947016,
- "fcf_yield": 1.3855796622049736,
+ "ev_ebit": 18.005844986193882,
+ "fcf_yield": 1.368461877378748,
  "per_band_pos": null,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.1828331833077494,
+ "ev_ebit_vs_sector": 1.2149692973140271,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.68292495,
+ "pbr_vs_sector": 0.6914675,
  "price_chg": {
-  "d": 0.7370423204945409,
-  "w": 0.6652411499168398,
-  "m": -6.198804516271861,
-  "3m": -10.837542087542085,
-  "6m": 12.836218375499332,
-  "9m": 29.690847872666048,
-  "y": 39.37500000000001
+  "d": 1.9971469329529201,
+  "w": 1.92444761225945,
+  "m": -5.025459375691832,
+  "3m": -9.722222222222221,
+  "6m": 14.247669773635163,
+  "9m": 31.313131313131315,
+  "y": 41.11842105263157
  },
- "div_yield": 1.8881283927307055,
- "implied_fcf_growth": 0.253,
+ "div_yield": 1.8648018648018647,
+ "implied_fcf_growth": 0.2547,
+ "insight": {
+  "flags": {
+   "cutoff": [],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": -1.8217511844495284,
+   "roa": -0.6086631620623237,
+   "leverage": 2.993036704039912,
+   "ocf_ni": 1.8341049968374445,
+   "accrual": -4.695332484811188,
+   "capex_da": 1.3239288222898618,
+   "shares_chg_pct": -7.116312189847918
+  }
+ },
  "metric_scores": {
   "rev_cagr": 100.61150404656036,
   "eps_cagr": null,
@@ -76,5 +91,5 @@
   "fcf_positive": 1,
   "fcf_payout": 105.01104522729916
  },
- "_generated_at": "2026-10-06T00:58:41"
+ "_generated_at": "2026-10-06T23:21:07"
 }

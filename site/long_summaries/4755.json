@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 664.0,
+ "price": 667.2999877929688,
  "price_date": "2026-10-06",
- "mcap": 1448838430720,
+ "mcap": 1456038871040,
  "q_score": 49.5,
  "groups": {
   "業績": 50.85753925175888,
@@ -22,32 +22,49 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 74.3,
+ "bt_score": 74.2,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
   "fcf_yield": 110.0,
   "per_cheap": null,
-  "pbr_cheap": 107.2
+  "pbr_cheap": 106.9
  },
- "ev_ebit": 82.1091941816159,
- "fcf_yield": 15.055163873007068,
+ "ev_ebit": 82.60985057989153,
+ "fcf_yield": 14.980712695135715,
  "per_band_pos": null,
- "pbr_band_pos": 0.9662142128496667,
- "ev_ebit_vs_sector": 5.437694978914961,
+ "pbr_band_pos": 0.9509500214987077,
+ "ev_ebit_vs_sector": 5.574213939263935,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.791177,
+ "pbr_vs_sector": 0.79510905,
  "price_chg": {
-  "d": 0.7587253414264028,
-  "w": -1.7896725370313948,
-  "m": -8.628046119967381,
-  "3m": -10.53624507152634,
-  "6m": -8.173140309961703,
-  "9m": -33.39352154291777,
-  "y": -32.963149924280664
+  "d": 1.259482214411034,
+  "w": -1.3015808476168456,
+  "m": -8.17394019764236,
+  "3m": -10.091622633006603,
+  "6m": -7.716773568931911,
+  "9m": -33.06249659436203,
+  "y": -32.62998608854429
  },
  "div_yield": 0.0,
- "implied_fcf_growth": -0.0778,
+ "implied_fcf_growth": -0.077,
+ "insight": {
+  "flags": {
+   "cutoff": [
+    "純損失が3期連続",
+    "自己資本比率が10%未満（3.4%）"
+   ],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": -17.92479257397708,
+   "roa": -0.6175653719570622,
+   "leverage": 29.024931428997522,
+   "accrual": -2.1763864390631755,
+   "capex_da": 0.6427020145285703,
+   "shares_chg_pct": 36.436133503262894
+  }
+ },
  "metric_scores": {
   "rev_cagr": 106.81192560703354,
   "eps_cagr": null,
@@ -76,5 +93,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-06T00:41:07"
+ "_generated_at": "2026-10-06T23:04:34"
 }

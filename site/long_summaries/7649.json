@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 1238.0,
+ "price": 1228.0,
  "price_date": "2026-10-06",
- "mcap": 460671778816,
+ "mcap": 456950677504,
  "q_score": 100.4,
  "groups": {
   "業績": 93.50926325499636,
@@ -22,32 +22,47 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 102.9,
+ "bt_score": 103.1,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 100.28540625680449,
+  "ev_ebit_vs_sector": 100.28808480188324,
   "fcf_yield": 110.0,
   "per_cheap": 110.0,
-  "pbr_cheap": 91.5
+  "pbr_cheap": 92.0
  },
- "ev_ebit": 9.130917189598732,
- "fcf_yield": 13.24869523304956,
+ "ev_ebit": 9.05430560424945,
+ "fcf_yield": 13.356583763783943,
  "per_band_pos": 1.0,
  "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.8400107810118429,
- "per_vs_sector": 0.5288641176470589,
- "pbr_vs_sector": 1.2704816666666667,
+ "ev_ebit_vs_sector": 0.8399170319340863,
+ "per_vs_sector": 0.5352824598930481,
+ "pbr_vs_sector": 1.26021925,
  "price_chg": {
-  "d": -0.4823151125401881,
-  "w": 0.0,
-  "m": -4.6224961479198745,
-  "3m": -20.793346129238643,
-  "6m": -28.76869965477561,
-  "9m": -32.405132405132406,
-  "y": -32.64417845484222
+  "d": -1.2861736334405127,
+  "w": -0.8077544426494332,
+  "m": -5.392912172573194,
+  "3m": -21.433141394753676,
+  "6m": -29.344073647871117,
+  "9m": -32.951132951132955,
+  "y": -33.18824809575626
  },
- "div_yield": 2.0193861066235863,
- "implied_fcf_growth": -0.0589,
+ "div_yield": 2.035830618892508,
+ "implied_fcf_growth": -0.0601,
+ "insight": {
+  "flags": {
+   "cutoff": [],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": 15.486629690453322,
+   "roa": 7.3201810272859085,
+   "leverage": 2.1156074737396584,
+   "ocf_ni": 1.9291938997821352,
+   "accrual": -7.533644734316322,
+   "capex_da": 1.280258577821979,
+   "shares_chg_pct": 0.012891441873708054
+  }
+ },
  "metric_scores": {
   "rev_cagr": 110.0,
   "eps_cagr": 110.0,
@@ -76,5 +91,5 @@
   "fcf_positive": 1,
   "fcf_payout": 10.369799944292431
  },
- "_generated_at": "2026-10-06T00:55:28"
+ "_generated_at": "2026-10-06T23:17:59"
 }
