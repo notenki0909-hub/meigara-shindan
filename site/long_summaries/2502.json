@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 1592.5,
- "price_date": "2026-10-06",
- "mcap": 2329289687040,
+ "price": 1577.0,
+ "price_date": "2026-10-07",
+ "mcap": 2306618425344,
  "q_score": 75.8,
  "groups": {
   "業績": 77.41848543337407,
@@ -22,37 +22,37 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 70.6,
+ "bt_score": 71.1,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 43.24065737910294,
+  "ev_ebit_vs_sector": 45.052329843467014,
   "fcf_yield": 20.0,
-  "per_cheap": 109.3,
-  "pbr_cheap": 109.9
+  "per_cheap": 109.2,
+  "pbr_cheap": 110.0
  },
- "ev_ebit": 20.53632478097595,
- "fcf_yield": -2.141897604131849,
- "per_band_pos": 0.9814331430687004,
+ "ev_ebit": 20.414351026760638,
+ "fcf_yield": -2.1629498599257677,
+ "per_band_pos": 0.9726436236017836,
  "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 1.346644247932849,
- "per_vs_sector": 0.72091445,
- "pbr_vs_sector": 0.6087071666666667,
+ "ev_ebit_vs_sector": 1.3307921138696635,
+ "per_vs_sector": 0.7245245,
+ "pbr_vs_sector": 0.6027825833333333,
  "price_chg": {
-  "d": 0.5048911328494832,
-  "w": 0.6637168141592875,
-  "m": -4.0662650602409585,
-  "3m": 3.1411917098445485,
-  "6m": 0.4731861198738141,
-  "9m": -2.896341463414631,
-  "y": -10.533707865168541
+  "d": -0.9733124018838302,
+  "w": -0.8799497171590231,
+  "m": -4.395271294331615,
+  "3m": 1.5453960077269846,
+  "6m": -2.049689440993785,
+  "9m": -3.8414634146341498,
+  "y": -10.702151755379386
  },
- "div_yield": 3.893249607535322,
+ "div_yield": 3.9315155358275207,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
    "value_trap": [
-    "PBR 0.73倍（1倍割れ）かつROE 4.0%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+    "PBR 0.72倍（1倍割れ）かつROE 4.0%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
    ]
   },
   "raw": {
@@ -93,5 +93,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-06T22:55:37"
+ "_generated_at": "2026-10-07T23:19:16"
 }
