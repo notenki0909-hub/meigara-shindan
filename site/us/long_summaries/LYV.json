@@ -5,9 +5,9 @@
  "gics_sector": "Communication Services",
  "is_simple": false,
  "is_reit": false,
- "price": 170.6699981689453,
- "price_date": "2026-10-05",
- "mcap": 39759196160,
+ "price": 171.8000030517578,
+ "price_date": "2026-10-06",
+ "mcap": 40022441984,
  "q_score": 68.8,
  "groups": {
   "業績": 82.72832905071986,
@@ -26,28 +26,48 @@
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 30.227537423801543,
+  "fcf_yield": 30.16026625334933,
   "per_cheap": null,
   "pbr_cheap": 20.0
  },
- "ev_ebit": 34.93937413248597,
- "fcf_yield": 0.7670653067851159,
+ "ev_ebit": 35.15292826008831,
+ "fcf_yield": 0.7620199690011998,
  "per_band_pos": null,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 2.2311222306823737,
+ "ev_ebit_vs_sector": 2.224868877220779,
  "per_vs_sector": null,
- "pbr_vs_sector": 81.02834406779661,
+ "pbr_vs_sector": 81.56483050847457,
  "price_chg": {
-  "d": 1.125788853697629,
-  "w": -0.709756952140983,
-  "m": -3.8424740059413764,
-  "3m": -7.204219297473468,
-  "6m": 6.588810500547759,
-  "9m": 17.452343979378004,
-  "y": 8.935980189967886
+  "d": 0.6620993114993201,
+  "w": 0.4149901975945891,
+  "m": -0.9798253303989535,
+  "3m": -5.676949803744358,
+  "6m": 8.534973996242234,
+  "9m": 18.22999514020529,
+  "y": 9.902760364789675
  },
  "div_yield": 0.0,
- "implied_fcf_growth": 0.3372,
+ "implied_fcf_growth": 0.3381,
+ "insight": {
+  "flags": {
+   "lev_roe": true,
+   "cutoff": [
+    "自己資本比率が10%未満（1.2%）"
+   ],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": 183.010770939496,
+   "roa": 2.164631906913129,
+   "leverage": 84.5459084082699,
+   "ocf_ni": 2.8132959118659926,
+   "accrual": -4.227104297438218,
+   "capex_da": 1.706659549956799,
+   "shares_chg_pct": 1.7978716004116269,
+   "sbc_rev_pct": 0.6159140486050659,
+   "fcf_less_sbc_pct": 0.5942525587659673
+  }
+ },
  "metric_scores": {
   "rev_cagr": 110.0,
   "eps_cagr": null,
@@ -76,5 +96,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-06T03:08:44"
+ "_generated_at": "2026-10-07T02:16:01"
 }

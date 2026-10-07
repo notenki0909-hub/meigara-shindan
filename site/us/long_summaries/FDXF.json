@@ -5,9 +5,9 @@
  "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 111.58000183105469,
- "price_date": "2026-10-05",
- "mcap": 16683233280,
+ "price": 112.0999984741211,
+ "price_date": "2026-10-06",
+ "mcap": 16760981504,
  "q_score": 72.6,
  "groups": {
   "業績": 65.0323888632243,
@@ -22,32 +22,52 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 67.4,
+ "bt_score": 67.5,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 82.02153696524579,
+  "ev_ebit_vs_sector": 82.46560304242135,
   "fcf_yield": 20.0,
   "per_cheap": 107.7,
   "pbr_cheap": null
  },
- "ev_ebit": 22.090342325581396,
- "fcf_yield": -1.2707368915961115,
+ "ev_ebit": 22.165679751937983,
+ "fcf_yield": -1.2648423957117685,
  "per_band_pos": null,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 1.0073115515540993,
- "per_vs_sector": 0.7581811309523809,
+ "ev_ebit_vs_sector": 1.0034259733788131,
+ "per_vs_sector": 0.7582521428571428,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": -1.1604194930254108,
-  "w": -0.6411408736750279,
-  "m": -12.272977679627584,
-  "3m": -22.89939131434139,
+  "d": 0.46603032311627324,
+  "w": 0.03569598108050798,
+  "m": -13.402857383656885,
+  "3m": -21.772507964544662,
   "6m": null,
   "9m": null,
   "y": null
  },
  "div_yield": 0.0,
  "implied_fcf_growth": null,
+ "insight": {
+  "flags": {
+   "cutoff": [
+    "自己資本比率が10%未満（-7.2%）",
+    "債務超過（自己資本がマイナス）"
+   ],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": null,
+   "roa": 9.514816966879721,
+   "leverage": null,
+   "ocf_ni": 0.2549618320610687,
+   "accrual": 8.197547455064672,
+   "capex_da": 0.844097995545657,
+   "shares_chg_pct": 0.0,
+   "sbc_rev_pct": 0.14781125639567935,
+   "fcf_less_sbc_pct": -2.558271745309835
+  }
+ },
  "metric_scores": {
   "rev_cagr": 66.85985892739822,
   "eps_cagr": 20.0,
@@ -76,5 +96,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-06T02:59:53"
+ "_generated_at": "2026-10-07T02:07:12"
 }

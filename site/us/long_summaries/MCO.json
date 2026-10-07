@@ -5,9 +5,9 @@
  "gics_sector": "Financials",
  "is_simple": false,
  "is_reit": false,
- "price": 448.1499938964844,
- "price_date": "2026-10-05",
- "mcap": 77611057152,
+ "price": 452.32000732421875,
+ "price_date": "2026-10-06",
+ "mcap": 78333231104,
  "q_score": 99.6,
  "groups": {
   "業績": 110.0,
@@ -22,32 +22,49 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 55.9,
+ "bt_score": 56.0,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 74.23829541739602,
-  "fcf_yield": 64.23768286790896,
+  "ev_ebit_vs_sector": 75.14360231165244,
+  "fcf_yield": 63.82984443441417,
   "per_cheap": 65.0,
   "pbr_cheap": 20.0
  },
- "ev_ebit": 23.852702816868863,
- "fcf_yield": 3.317826215093172,
+ "ev_ebit": 24.061303034084343,
+ "fcf_yield": 3.2872383325810626,
  "per_band_pos": 1.0,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 1.0754149150977848,
- "per_vs_sector": 1.6436943930635837,
- "pbr_vs_sector": 10.2627816,
+ "ev_ebit_vs_sector": 1.067493479773041,
+ "per_vs_sector": 1.658988901734104,
+ "pbr_vs_sector": 10.358276,
  "price_chg": {
-  "d": 1.538428668270253,
-  "w": -2.5930257833346126,
-  "m": -11.134244548016081,
-  "3m": -10.457750875972616,
-  "6m": 0.9119540052482611,
-  "9m": -10.186784233975354,
-  "y": -7.055606649903956
+  "d": 0.9304950316919136,
+  "w": -0.5496679916760727,
+  "m": -8.353759799107706,
+  "3m": -6.757369277851943,
+  "6m": 3.2694080648901336,
+  "9m": -14.15122928705127,
+  "y": -6.745835527848576
  },
- "div_yield": 0.9193350565908198,
- "implied_fcf_growth": 0.1328,
+ "div_yield": 0.910859553697969,
+ "implied_fcf_growth": 0.1341,
+ "insight": {
+  "flags": {
+   "cutoff": [],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": 60.65614208189443,
+   "roa": 15.533796588755527,
+   "leverage": 3.9047853971386286,
+   "ocf_ni": 1.1797478649857667,
+   "accrual": -2.8211265358225623,
+   "capex_da": 0.6791666666666667,
+   "shares_chg_pct": -3.087841582454931,
+   "sbc_rev_pct": 3.005960093288417,
+   "fcf_less_sbc_pct": 30.357605597305
+  }
+ },
  "metric_scores": {
   "rev_cagr": 110.0,
   "eps_cagr": 110.0,
@@ -76,5 +93,5 @@
   "fcf_positive": 1,
   "fcf_payout": 27.223300970873787
  },
- "_generated_at": "2026-10-06T03:09:22"
+ "_generated_at": "2026-10-07T02:16:38"
 }

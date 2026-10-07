@@ -5,9 +5,9 @@
  "gics_sector": "Health Care",
  "is_simple": false,
  "is_reit": false,
- "price": 64.30000305175781,
- "price_date": "2026-10-05",
- "mcap": 31763879936,
+ "price": 64.61000061035156,
+ "price_date": "2026-10-06",
+ "mcap": 31917017088,
  "q_score": 68.6,
  "groups": {
   "業績": 49.42691274184054,
@@ -28,26 +28,43 @@
   "ev_ebit_vs_sector": null,
   "fcf_yield": 110.0,
   "per_cheap": null,
-  "pbr_cheap": 102.7
+  "pbr_cheap": 102.1
  },
  "ev_ebit": null,
- "fcf_yield": 13.603501866605217,
+ "fcf_yield": 13.538232561289657,
  "per_band_pos": null,
- "pbr_band_pos": 0.5541049227054512,
+ "pbr_band_pos": 0.5421054281610439,
  "ev_ebit_vs_sector": null,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.2707373076923077,
+ "pbr_vs_sector": 0.2720425769230769,
  "price_chg": {
-  "d": 2.0796973144689312,
-  "w": 2.8306481800971506,
-  "m": -5.468970559979869,
-  "3m": -2.7525705069912476,
-  "6m": 81.63841887055223,
-  "9m": 53.90140002498087,
-  "y": 74.63336117516712
+  "d": 0.4821112657556581,
+  "w": 3.857903168620913,
+  "m": -3.624702076358355,
+  "3m": -3.6965208867337895,
+  "6m": 77.93995639415623,
+  "9m": 44.606088113359,
+  "y": 66.95090267859756
  },
  "div_yield": 0.0,
- "implied_fcf_growth": -0.0628,
+ "implied_fcf_growth": -0.0621,
+ "insight": {
+  "flags": {
+   "cutoff": [],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": -33.4486042199168,
+   "roa": -8.696105385226783,
+   "leverage": 3.846389014183331,
+   "ocf_ni": 0.04659606656580938,
+   "accrual": -14.777124478617015,
+   "capex_da": 0.6015686274509804,
+   "shares_chg_pct": -10.712042036916658,
+   "sbc_rev_pct": 0.1047351586686313,
+   "fcf_less_sbc_pct": 2.1136992560723287
+  }
+ },
  "metric_scores": {
   "rev_cagr": 108.28073822552162,
   "eps_cagr": null,
@@ -76,5 +93,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-06T02:53:18"
+ "_generated_at": "2026-10-07T02:00:41"
 }

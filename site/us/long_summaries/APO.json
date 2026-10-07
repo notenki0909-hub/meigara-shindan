@@ -5,9 +5,9 @@
  "gics_sector": "Financials",
  "is_simple": false,
  "is_reit": false,
- "price": 115.3499984741211,
- "price_date": "2026-10-05",
- "mcap": 68119154688,
+ "price": 115.94999694824219,
+ "price_date": "2026-10-06",
+ "mcap": 68473479168,
  "q_score": 99.7,
  "groups": {
   "業績": 91.59420289855073,
@@ -22,32 +22,50 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 84.1,
+ "bt_score": 84.0,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 110.0,
   "fcf_yield": 110.0,
   "per_cheap": 30.0,
-  "pbr_cheap": 86.5
+  "pbr_cheap": 86.0
  },
- "ev_ebit": 7.537315898280455,
- "fcf_yield": 10.637242979875774,
+ "ev_ebit": 7.580222713489949,
+ "fcf_yield": 10.58219925151153,
  "per_band_pos": 0.0,
- "pbr_band_pos": 0.9387374700256634,
- "ev_ebit_vs_sector": 0.33982488269975,
- "per_vs_sector": 2.3898315606936413,
- "pbr_vs_sector": 1.35534468,
+ "pbr_band_pos": 0.9295760164584759,
+ "ev_ebit_vs_sector": 0.33630091896583625,
+ "per_vs_sector": 2.393682832369942,
+ "pbr_vs_sector": 1.3623946,
  "price_chg": {
-  "d": 1.1664636644554527,
-  "w": -3.0672281730074857,
-  "m": -14.231546016269458,
-  "3m": -3.3352914571881165,
-  "6m": 8.707942522495959,
-  "9m": -21.321875728867113,
-  "y": -9.337424011130535
+  "d": 0.5201547308695487,
+  "w": -2.5630277745864016,
+  "m": -13.256528363460319,
+  "3m": -1.8537349354330046,
+  "6m": 10.051249313347267,
+  "9m": -22.576120992746475,
+  "y": -7.895784009530771
  },
- "div_yield": 1.9505852013554992,
- "implied_fcf_growth": -0.0273,
+ "div_yield": 1.940491642276072,
+ "implied_fcf_growth": -0.0266,
+ "insight": {
+  "flags": {
+   "lev_roe": true,
+   "cutoff": [
+    "自己資本比率が10%未満（5.1%）"
+   ],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": 14.960798594747441,
+   "roa": 0.7575675400098492,
+   "leverage": 19.74846836039587,
+   "ocf_ni": 2.075028636884307,
+   "accrual": -0.8950412710825851,
+   "shares_chg_pct": 1.5264901784747043,
+   "sbc_rev_pct": 2.461855284096228
+  }
+ },
  "metric_scores": {
   "rev_cagr": 110.0,
   "eps_cagr": null,
@@ -76,5 +94,5 @@
   "fcf_positive": 1,
   "fcf_payout": 17.91333149323765
  },
- "_generated_at": "2026-10-06T02:48:17"
+ "_generated_at": "2026-10-07T01:55:50"
 }

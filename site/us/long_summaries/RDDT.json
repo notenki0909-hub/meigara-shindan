@@ -5,9 +5,9 @@
  "gics_sector": "Communication Services",
  "is_simple": false,
  "is_reit": false,
- "price": 150.4199981689453,
- "price_date": "2026-10-05",
- "mcap": 28940283904,
+ "price": 148.9499969482422,
+ "price_date": "2026-10-06",
+ "mcap": 28657459200,
  "q_score": 95.8,
  "groups": {
   "業績": 80.0,
@@ -22,32 +22,49 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 30.5,
+ "bt_score": 30.6,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 51.520953158557276,
+  "fcf_yield": 51.83203810801669,
   "per_cheap": 20.0,
-  "pbr_cheap": 50.8
+  "pbr_cheap": 52.2
  },
- "ev_ebit": 63.37317392484796,
- "fcf_yield": 2.3640714868917962,
+ "ev_ebit": 62.73327586518969,
+ "fcf_yield": 2.3874028581012516,
  "per_band_pos": null,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 4.0468182582916965,
- "per_vs_sector": 1.689922222222222,
- "pbr_vs_sector": 1.4923269491525424,
+ "ev_ebit_vs_sector": 3.9704604977968154,
+ "per_vs_sector": 1.6891201449275364,
+ "pbr_vs_sector": 1.4777430508474574,
  "price_chg": {
-  "d": 1.7313658514989338,
-  "w": 5.129994579226738,
-  "m": -3.570746283782167,
-  "3m": -24.578822539306067,
-  "6m": 8.732110850682485,
-  "9m": -37.81470976539162,
-  "y": -25.134382072578276
+  "d": -0.9772644851731016,
+  "w": 2.4697277950031626,
+  "m": -3.5672727736132614,
+  "3m": -23.736624438000607,
+  "6m": 5.533511118299295,
+  "9m": -38.96742672170627,
+  "y": -28.112934776997434
  },
  "div_yield": 0.0,
- "implied_fcf_growth": 0.1791,
+ "implied_fcf_growth": 0.1777,
+ "insight": {
+  "flags": {
+   "cutoff": [],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": 18.085152872717934,
+   "roa": 16.3535877830545,
+   "leverage": 1.1058828871458821,
+   "ocf_ni": 1.3042242992065634,
+   "accrual": -5.780513105997236,
+   "capex_da": 0.4204915976925006,
+   "shares_chg_pct": 20.06314739841839,
+   "sbc_rev_pct": 15.581342343675795,
+   "fcf_less_sbc_pct": 15.481864748609084
+  }
+ },
  "metric_scores": {
   "rev_cagr": 110.0,
   "eps_cagr": null,
@@ -76,5 +93,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-06T03:16:24"
+ "_generated_at": "2026-10-07T02:23:26"
 }

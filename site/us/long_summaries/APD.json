@@ -5,9 +5,9 @@
  "gics_sector": "Materials",
  "is_simple": false,
  "is_reit": false,
- "price": 279.45001220703125,
- "price_date": "2026-10-05",
- "mcap": 62229475328,
+ "price": 281.0,
+ "price_date": "2026-10-06",
+ "mcap": 62574637056,
  "q_score": 78.8,
  "groups": {
   "業績": 99.6045582333201,
@@ -22,32 +22,49 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 47.3,
+ "bt_score": 47.7,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 61.7632428345752,
+  "ev_ebit_vs_sector": 63.09176738297321,
   "fcf_yield": 20.0,
   "per_cheap": null,
-  "pbr_cheap": 43.5
+  "pbr_cheap": 42.3
  },
- "ev_ebit": 27.26883881204569,
- "fcf_yield": -6.051473164687904,
+ "ev_ebit": 27.388313276566286,
+ "fcf_yield": -6.01809323581033,
  "per_band_pos": null,
- "pbr_band_pos": 0.01481219325611649,
- "ev_ebit_vs_sector": 1.184571625197467,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 1.1729470353989844,
  "per_vs_sector": null,
- "pbr_vs_sector": 1.545576724137931,
+ "pbr_vs_sector": 1.5541494137931033,
  "price_chg": {
-  "d": 0.6773083666120172,
-  "w": 0.25112545543721776,
-  "m": -8.142130338005604,
-  "3m": -8.392059206805047,
-  "6m": -4.9877543702226745,
-  "9m": 11.570252263779967,
-  "y": 3.270512159608052
+  "d": 0.5546565486711952,
+  "w": 0.6483031422207297,
+  "m": -6.728180619660728,
+  "3m": -5.307497893850044,
+  "6m": -3.895486876367027,
+  "9m": 10.699654921975444,
+  "y": 3.510516350404802
  },
- "div_yield": 2.5908032505778626,
+ "div_yield": 2.5765124555160144,
  "implied_fcf_growth": null,
+ "insight": {
+  "flags": {
+   "cutoff": [],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": -2.625641435217539,
+   "roa": -0.960800789098747,
+   "leverage": 2.7327636124034105,
+   "ocf_ni": 0.9525886839768037,
+   "accrual": -9.05646618490192,
+   "capex_da": 4.4895793376806035,
+   "shares_chg_pct": 0.3378851451597109,
+   "sbc_rev_pct": 0.6346938266887093,
+   "fcf_less_sbc_pct": -31.919118074651294
+  }
+ },
  "metric_scores": {
   "rev_cagr": 78.81367469996032,
   "eps_cagr": null,
@@ -76,5 +93,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-06T02:48:07"
+ "_generated_at": "2026-10-07T01:55:41"
 }

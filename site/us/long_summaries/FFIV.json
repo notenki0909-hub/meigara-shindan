@@ -5,9 +5,9 @@
  "gics_sector": "Information Technology",
  "is_simple": false,
  "is_reit": false,
- "price": 458.5299987792969,
- "price_date": "2026-10-05",
- "mcap": 25965262848,
+ "price": 469.7900085449219,
+ "price_date": "2026-10-06",
+ "mcap": 26602885120,
  "q_score": 106.1,
  "groups": {
   "業績": 106.8604865736539,
@@ -22,32 +22,49 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 64.0,
+ "bt_score": 63.2,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 55.064516148204156,
-  "fcf_yield": 66.54454454815667,
-  "per_cheap": 70.4,
+  "ev_ebit_vs_sector": 54.47014530106282,
+  "fcf_yield": 65.4289573436061,
+  "per_cheap": 69.6,
   "pbr_cheap": 75.0
  },
- "ev_ebit": 31.440160882854265,
- "fcf_yield": 3.4908408411117504,
+ "ev_ebit": 32.24581628514353,
+ "fcf_yield": 3.4071718007704574,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.2431854837032135,
- "per_vs_sector": 0.9320473214285713,
- "pbr_vs_sector": 0.5043205970149254,
+ "ev_ebit_vs_sector": 1.2483862286157001,
+ "per_vs_sector": 0.9549354081632652,
+ "pbr_vs_sector": 0.5167050746268657,
  "price_chg": {
-  "d": 0.9888974869779021,
-  "w": 5.2736709866504805,
-  "m": 16.927197734531862,
-  "3m": 9.930237798748308,
-  "6m": 49.0475805962018,
-  "9m": 78.67357286950136,
-  "y": 40.14609971388954
+  "d": 2.4556757018300956,
+  "w": 7.2408520762360595,
+  "m": 20.31398239973501,
+  "3m": 12.084265907889534,
+  "6m": 51.986411927663376,
+  "9m": 72.67882553874642,
+  "y": 44.559662952527226
  },
  "div_yield": 0.0,
- "implied_fcf_growth": 0.1259,
+ "implied_fcf_growth": 0.1292,
+ "insight": {
+  "flags": {
+   "cutoff": [],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": 19.275617838423674,
+   "roa": 10.956260408273323,
+   "leverage": 1.7593245432417994,
+   "ocf_ni": 1.371596522141021,
+   "accrual": -4.3123584537551904,
+   "capex_da": 0.46818688513944956,
+   "shares_chg_pct": -3.63514868025393,
+   "sbc_rev_pct": 7.4962954231637084,
+   "fcf_less_sbc_pct": 21.855546114209773
+  }
+ },
  "metric_scores": {
   "rev_cagr": 101.81323686037965,
   "eps_cagr": 110.0,
@@ -76,5 +93,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-06T03:00:07"
+ "_generated_at": "2026-10-07T02:07:25"
 }
