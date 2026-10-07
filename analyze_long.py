@@ -157,6 +157,21 @@ def _sector_avg_long(market="jp"):
     return _SEC_AVG_LONG[market]
 
 
+_SEC_ROE_ROA = {"jp": None, "us": None}
+
+
+def _sector_roe_roa(market="jp"):
+    """sector_roe_roa_long{,_us}.json（業種ごとのROE・ROA中央値。calib_long.pyが生成・表示専用）。無ければ空。"""
+    if _SEC_ROE_ROA[market] is None:
+        fn = "sector_roe_roa_long.json" if market == "jp" else "sector_roe_roa_long_us.json"
+        p = os.path.join(HERE, fn)
+        try:
+            _SEC_ROE_ROA[market] = analyze.load_json(fn) if os.path.isfile(p) else {}
+        except Exception:
+            _SEC_ROE_ROA[market] = {}
+    return _SEC_ROE_ROA[market]
+
+
 _PBR_REL_LONG = {"jp": None, "us": None}
 
 
@@ -207,7 +222,7 @@ def _raw_valuation(yd):
     }
 
 
-def _insight_extras(yd, market, is_simple, is_reit, q_score, bt_score, tiers, raw):
+def _insight_extras(yd, market, is_simple, is_reit, q_score, bt_score, tiers, raw, sec_med=None):
     """『見方を深める指標』と、資料（銘柄分析の基礎）の基準にもとづく注意フラグ。
     **表示専用**：品質スコア・買い時スコアの計算には一切使わない（2026-10-06決定。
     過去4〜5期のデータでは、採点に組み込める根拠が得られなかったため）。
@@ -248,6 +263,35 @@ def _insight_extras(yd, market, is_simple, is_reit, q_score, bt_score, tiers, ra
             flags.pop("lev_roe", None)
         rows.append(("ROE・ROA・財務レバレッジ",
                      f"ROE {pc(roe)}／ROA {pc(roa)}／総資産÷自己資本 {lev:.1f}倍　… {note}"))
+
+    # --- ROE・ROAの目安との位置と、同じ業種（この母集団内）の中央値との比較（表示専用・採点しない）---
+    sm = sec_med or {}
+
+    def _vs_sector(v, key):
+        m = sm.get(key)
+        if not (LC.is_num(v) and LC.is_num(m)):
+            return ""
+        d = v - m
+        pos = "上回る" if d > 0.05 else "下回る" if d < -0.05 else "ほぼ同じ"
+        return f"　／　この業種（母集団内）の中央値 {m:.1f}%（{d:+.1f}ポイント、{pos}）"
+
+    if LC.is_num(roe):
+        if LC.is_num(ni0) and ni0 <= 0:
+            lab = "赤字のため目安に当てはめない"
+        else:
+            lab = ("優良（10%以上）" if roe >= 10 else "合格（8%以上）" if roe >= 8 else
+                   "やや低め（5〜8%）" if roe >= 5 else "低効率（5%未満）")
+        lab_txt = lab if lab.startswith("赤字") else f"目安では「{lab}」（8%以上で合格・10%以上で優良・5%未満は低効率）"
+        rows.append(("ROEの目安と業種比較", f"{pc(roe)}　… {lab_txt}" + _vs_sector(roe, "roe")))
+    if LC.is_num(roa):
+        if fin_like:
+            lab = "銀行・保険・証券・REITは構造上低く出るため、目安をそのまま当てはめず、同業との比較で見る"
+        elif LC.is_num(ni0) and ni0 <= 0:
+            lab = "赤字のため目安に当てはめない"
+        else:
+            lab = ("良好（5%以上）" if roa >= 5 else "標準（3〜5%）" if roa >= 3 else "改善の余地（3%未満）")
+            lab = f"目安では「{lab}」（5%以上で良好・3%未満は改善の余地）"
+        rows.append(("ROAの目安と業種比較", f"{pc(roa)}　… {lab}" + _vs_sector(roa, "roa")))
 
     # --- 利益の質（銀行・保険・証券・REITは対象外）---
     if not fin_like:
@@ -1283,7 +1327,8 @@ def generate_long(code, cfg=None, market="jp", name=None):
     # 見方を深める指標・注意フラグ（表示専用。スコアには使わない）。失敗しても本体の診断は止めない。
     try:
         insight = _insight_extras(yd, market, is_simple, is_reit, q_score, bt_score,
-                                  tuple(LC.load_bt_cfg()[f"tim_tiers_{market}"]), raw)
+                                  tuple(LC.load_bt_cfg()[f"tim_tiers_{market}"]), raw,
+                                  _sector_roe_roa(market).get(seckey))
     except Exception:
         insight = {"rows": [], "flags": {}, "raw": {}}
 

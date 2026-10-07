@@ -22,10 +22,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 CFG = {
     "jp": {"sumdir": "site/long_summaries", "seckey": "jp_sector",
            "out": "sector_averages_long.json", "groups": "sector_groups_long.json",
-           "pbr_rel": "pbr_reliability_long.json"},
+           "pbr_rel": "pbr_reliability_long.json",
+           "roe_roa": "sector_roe_roa_long.json"},
     "us": {"sumdir": "site/us/long_summaries", "seckey": "gics_sector",
            "out": "sector_averages_long_us.json", "groups": "sector_groups_long_us.json",
-           "pbr_rel": "pbr_reliability_long_us.json"},
+           "pbr_rel": "pbr_reliability_long_us.json",
+           "roe_roa": "sector_roe_roa_long_us.json"},
 }
 
 
@@ -201,6 +203,40 @@ def write_pbr_reliability(by_sec, out_path, min_n=PBR_RELIABILITY_MIN_N,
     print(f"\n-> {out_path}  PBR不信頼業種 {len(unreliable)}/{len(detail)}: {', '.join(sorted(unreliable)) or '(なし)'}")
 
 
+def write_sector_roe_roa(rows, c, min_n=5):
+    """業種ごとの ROE・ROA 中央値を sector_roe_roa_long{,_us}.json に書く。
+    個別レポートの『ROE・ROAの業種比較』（表示専用）の基準。採点・買い時スコアには使わない
+    （sector_averages_long*.json とは別ファイルにして、スコアの入力に影響しないようにしている）。
+    素材は各サマリの insight.raw.roe / roa（最新期の純利益÷自己資本・総資産、単位%）。"""
+    by = {}
+    for r in rows:
+        s = r.get(c["seckey"]) or r.get("jp_sector") or r.get("gics_sector")
+        raw = ((r.get("insight") or {}).get("raw")) or {}
+        if not s:
+            continue
+        by.setdefault(s, {"roe": [], "roa": []})
+        for k in ("roe", "roa"):
+            v = raw.get(k)
+            if _num(v) and -200 < v < 500:
+                by[s][k].append(v)
+    entry = {}
+    for s, d in sorted(by.items()):
+        e = {}
+        for k in ("roe", "roa"):
+            if len(d[k]) >= min_n:
+                e[k] = round(st.median(d[k]), 1)
+                e["n_" + k] = len(d[k])
+        if e:
+            entry[s] = e
+    out = {"_meta": {"説明": "業種ごとの ROE・ROA 中央値（%）。calib_long.py が生成。個別レポートの"
+                     "『ROE・ROAの業種比較』（表示専用）の基準で、採点には使わない。",
+                     "算出": f"{c['sumdir']} の各銘柄の最新期ROE・ROA。n>={min_n}の業種のみ。"},
+           **entry}
+    p = os.path.join(HERE, c["roe_roa"])
+    json.dump(out, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    return p, len(entry)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("market", choices=["jp", "us"])
@@ -262,6 +298,10 @@ def main():
         print(f"    EV/EBIT中央値 {m:6.1f} (n={len(by_sec[s]):3}) {s}")
     for s, m in sorted(pfo_med.items(), key=lambda x: x[1]):
         print(f"    P/FFO中央値   {m:6.1f} (n={len(by_sec_pfo[s]):3}) {s}")
+
+    # 1c) 業種ごとの ROE・ROA 中央値（個別レポートの業種比較・表示専用）
+    rp, rn = write_sector_roe_roa(rows, c)
+    print(f"-> {rp}  （ROE・ROA 中央値 {rn} 業種）")
 
     # 2) スコア分布
     gcfg = json.load(open(os.path.join(HERE, c["groups"]), encoding="utf-8"))

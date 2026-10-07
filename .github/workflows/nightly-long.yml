@@ -45,7 +45,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add site/long site/long_summaries universe_long.json sector_averages_long.json
+          git add site/long site/long_summaries universe_long.json sector_averages_long.json sector_roe_roa_long.json
           if git diff --cached --quiet; then
             echo "変更なし"
             exit 0

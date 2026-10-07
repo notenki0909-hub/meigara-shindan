@@ -1,0 +1,72 @@
+{
+ "_meta": {
+  "説明": "業種ごとの ROE・ROA 中央値（%）。calib_long.py が生成。個別レポートの『ROE・ROAの業種比較』（表示専用）の基準で、採点には使わない。",
+  "算出": "site/us/long_summaries の各銘柄の最新期ROE・ROA。n>=5の業種のみ。"
+ },
+ "Communication Services": {
+  "roe": 17.3,
+  "n_roe": 22,
+  "roa": 5.0,
+  "n_roa": 23
+ },
+ "Consumer Discretionary": {
+  "roe": 30.6,
+  "n_roe": 43,
+  "roa": 9.5,
+  "n_roa": 54
+ },
+ "Consumer Staples": {
+  "roe": 17.8,
+  "n_roe": 28,
+  "roa": 6.3,
+  "n_roa": 32
+ },
+ "Energy": {
+  "roe": 12.9,
+  "n_roe": 21,
+  "roa": 6.0,
+  "n_roa": 21
+ },
+ "Financials": {
+  "roe": 14.0,
+  "n_roe": 69,
+  "roa": 2.4,
+  "n_roa": 70
+ },
+ "Health Care": {
+  "roe": 13.4,
+  "n_roe": 54,
+  "roa": 6.6,
+  "n_roa": 60
+ },
+ "Industrials": {
+  "roe": 22.0,
+  "n_roe": 72,
+  "roa": 8.1,
+  "n_roa": 76
+ },
+ "Information Technology": {
+  "roe": 19.3,
+  "n_roe": 81,
+  "roa": 7.6,
+  "n_roa": 85
+ },
+ "Materials": {
+  "roe": 11.5,
+  "n_roe": 20,
+  "roa": 5.5,
+  "n_roa": 20
+ },
+ "Real Estate": {
+  "roe": 7.6,
+  "n_roe": 27,
+  "roa": 3.4,
+  "n_roa": 30
+ },
+ "Utilities": {
+  "roe": 10.4,
+  "n_roe": 31,
+  "roa": 2.7,
+  "n_roa": 31
+ }
+}

@@ -130,6 +130,15 @@ TERMS = {
            "PER割安度・PBR割安度を均等25%</b>で合成（欠損は中立60）。色＝買い場（割安圏）／"
            "ほぼ妥当／やや割高／割高で見送りの4段階。品質とは別物で、質の評価には混ぜない。"),
     "yield": ("利回り", "予想年間配当 ÷ 現在株価（予想配当利回り）。<b>採点には使わず参考表示のみ。</b>"),
+    "roe": ("ROE（自己資本利益率）",
+            "純利益 ÷ 自己資本（最新期）。自己資本をどれだけ効率よく利益に変えたか。目安：8%以上で合格、"
+            "10%以上で優良、5%未満は低効率。借入に頼ると高く見えるためROAとセットで見る。"
+            "<b>採点には使わず、表示・絞り込み・並べ替え専用。</b>赤字の会社はマイナスになる。"),
+    "roa": ("ROA（総資産利益率）",
+            "純利益 ÷ 総資産（最新期）。借入も含めた全財産でどれだけ稼いだか。目安：5%以上で良好、"
+            "3%未満は改善の余地。銀行・保険・証券・REITは構造上ROAが低く出るため、絞り込みの"
+            "「一般企業のみ」「銀行・保険・証券・REITのみ」で分けて見る。<b>採点には使わず、"
+            "表示・絞り込み・並べ替え専用。</b>"),
     "cov": ("カバレッジ", "品質スコアの算出に使えたグループ数（業績・財務・CFの3つ中）。"
             "高＝3/3・中＝2/3・低＝1以下。低い銘柄は財務やCFの履歴が短く点がぶれやすい。"),
     "price": ("終値", "前営業日の終値。夜間更新のため当日ザラ場とはずれる。"),
@@ -176,6 +185,10 @@ def _price(v, unit):
 
 def _v(x):
     return x if isinstance(x, (int, float)) else -1e9
+
+
+def _pct1(v):
+    return f"{v:.1f}%" if isinstance(v, (int, float)) else "―"
 
 
 def _fv(x):
@@ -238,6 +251,12 @@ _RAW_RULES_BY_MARKET = {
                interest_coverage={"dir": "higher_better", "good": 10, "warn": 3, "unit": "倍", "dec": 2}),
 }
 _BINARY_METRIC_KEYS = ("ocf_positive", "fcf_positive")
+# ROE・ROA（表示・絞り込み専用。採点には使わない）。目安は「銘柄分析の基礎」の基準
+# （ROE 8%以上で合格・5%未満は低効率／ROA 5%以上で良好・3%未満は改善の余地）。
+ROE_ROA_RULES = {
+    "roe": {"dir": "higher_better", "good": 8, "warn": 5, "unit": "%", "dec": 0},
+    "roa": {"dir": "higher_better", "good": 5, "warn": 3, "unit": "%", "dec": 0},
+}
 _PAIRED_NUM_METRIC_KEYS = ("rev_cagr", "eps_cagr", "op_margin")  # FCF利回りは買い時側で別途扱う
 FCF_YIELD_RULE = {"dir": "higher_better", "good": 6.0, "warn": 3.0, "unit": "%", "dec": 1}
 
@@ -388,6 +407,11 @@ def build(market):
             "has_decel": (s.get("quarter_decel_factor") is not None) if market == "us" else None,
             # 見方を深める指標の注意フラグ（表示専用。順位・スコアには使わない）
             "insight_flags": (s.get("insight") or {}).get("flags") or {},
+            # ROE・ROA（表示・絞り込み・並べ替え専用。順位・スコアには使わない）。fin_like＝
+            # 銀行・保険・証券・REIT（ROAが構造的に低く出るため「一般企業のみ／金融・REITのみ」で分けて見る）
+            "roe": ((s.get("insight") or {}).get("raw") or {}).get("roe"),
+            "roa": ((s.get("insight") or {}).get("raw") or {}).get("roa"),
+            "fin_like": bool(s.get("is_simple") or s.get("is_reit")),
         }
         if q is None:
             if code in watch:
@@ -533,6 +557,9 @@ def _filter_attrs_long(s, unit, grade):
     for k, _lab, _rule, _sk, _scale in FILTER_BT_COMPONENTS:
         parts.append(f'data-bt_{k}="{_fv(bt_raw.get(k))}"')
     parts.append(f'data-fcfy="{_fv(s.get("fcf_yield"))}"')
+    parts.append(f'data-m_roe="{_fv(s.get("roe"))}"')
+    parts.append(f'data-m_roa="{_fv(s.get("roa"))}"')
+    parts.append(f'data-kind="{"fin" if s.get("fin_like") else "gen"}"')
     if s.get("has_decel") is not None:
         parts.append(f'data-decel="{1 if s.get("has_decel") else 0}"')
     return " ".join(parts)
@@ -592,10 +619,20 @@ def render(out, m):
     paired_num_map["fcfy"] = ["num_fcfy"]
     band_filter_list += [[f"bt_{k}", f"bt_{k}", rule["dir"], rule["good"], rule["warn"]]
                           for k, _lab, rule, _sk, _scale in FILTER_BT_COMPONENTS]
+    for _k in ("roe", "roa"):
+        band_filter_list.append([f"m_{_k}", f"m_{_k}", ROE_ROA_RULES[_k]["dir"],
+                                 ROE_ROA_RULES[_k]["good"], ROE_ROA_RULES[_k]["warn"]])
+        paired_num_map[f"m_{_k}"] = [f"num_{_k}"]
     band_filters_json = json.dumps(band_filter_list, ensure_ascii=False)
     paired_num_json = json.dumps(paired_num_map, ensure_ascii=False)
     filters_ls_key = f'pp_filters_long{"_us" if market == "us" else ""}'
 
+    roe_roa_body = (_band_fgrp_raw("m_roe", "ROE（純利益÷自己資本）", ROE_ROA_RULES["roe"], "num_roe")
+                    + _band_fgrp_raw("m_roa", "ROA（純利益÷総資産）", ROE_ROA_RULES["roa"], "num_roa")
+                    + '<div class="fgrp"><span class="flbl">業種の区分</span><span class="fchecks">'
+                      '<label><input type="checkbox" id="f_kind_gen">一般企業のみ</label>'
+                      '<label><input type="checkbox" id="f_kind_fin">銀行・保険・証券・REITのみ</label>'
+                      '</span></div>')
     fcfy_fgrp = _band_fgrp_raw("fcfy", "FCF利回り（FCF÷時価総額）", FCF_YIELD_RULE, "num_fcfy")
     bt_body = fcfy_fgrp + "".join(_band_fgrp_raw(f"bt_{k}", lab, rule)
                                    for k, lab, rule, _sk, _scale in FILTER_BT_COMPONENTS)
@@ -626,6 +663,14 @@ def render(out, m):
       <div class="fgrp"><label class="flbl" for="f_bt">買い時スコア 以上</label><input id="f_bt" type="number" min="0" max="110"></div>
     </div></div>
     <div class="fsec"><span class="fsech">買い時の内訳</span><div class="fsecbody">{bt_body}</div></div>
+  </details>
+  <details class="fmaj"><summary class="fmajh">③ ROE・ROA（採点には使わない）</summary>
+    <div class="fsec"><div class="fsecbody">
+      <p class="sub" style="margin:0 0 8px">表示・絞り込み・並べ替えだけの項目で、品質スコア・買い時スコアには入っていません。
+目安は ROE 8%以上で合格（5%未満は低効率）、ROA 5%以上で良好（3%未満は改善の余地）。
+銀行・保険・証券・REITは構造上ROAが低く出るため、「業種の区分」で分けて絞り込めます。</p>
+      {roe_roa_body}
+    </div></div>
   </details>
   <details class="fmaj"><summary class="fmajh">銘柄属性</summary>
     <div class="fsec"><div class="fsecbody">
@@ -728,6 +773,8 @@ def render(out, m):
             f'<td class="n" data-v="{_v(s["cf"])}">{_num(s["cf"],0)}</td>'
             + _bt_cell(s.get("bt")) +
             f'<td class="n" data-v="{_v(s["yield"])}">{_num(s["yield"],2)}%</td>'
+            f'<td class="n" data-v="{_v(s.get("roe"))}">{_pct1(s.get("roe"))}</td>'
+            f'<td class="n" data-v="{_v(s.get("roa"))}">{_pct1(s.get("roa"))}</td>'
             f'<td class="cv">{s.get("cov","―")}</td>'
             f'</tr>')
 
@@ -755,6 +802,8 @@ def render(out, m):
              '<th class="n hdr" data-term="cf">CF<span class="sortbtn" data-col="cf">▼</span></th>'
              '<th class="n hdr" data-term="bt">買い時<span class="sortbtn" data-col="bt">▼</span></th>'
              '<th class="n hdr" data-term="yield">利回り<span class="sortbtn" data-col="yield">▼</span></th>'
+             '<th class="n hdr" data-term="roe">ROE<span class="sortbtn" data-col="roe">▼</span></th>'
+             '<th class="n hdr" data-term="roa">ROA<span class="sortbtn" data-col="roa">▼</span></th>'
              '<th class="hdr" data-term="cov">カバレッジ</th></tr></thead>')
 
     secs = []
@@ -1128,7 +1177,8 @@ section.grp[hidden]{{display:none}}
 
   var NUM_FILTERS=[['qsc','q','ge'],['bt','bt','ge'],['mc','mcap','ge'],['pr','price','le'],
     ['num_rev_cagr','m_rev_cagr','ge'],['num_eps_cagr','m_eps_cagr','ge'],
-    ['num_op_margin','m_op_margin','ge'],['num_fcfy','fcfy','ge']];
+    ['num_op_margin','m_op_margin','ge'],['num_fcfy','fcfy','ge'],
+    ['num_roe','m_roe','ge'],['num_roa','m_roa','ge']];
   var numEls={{}};
   NUM_FILTERS.forEach(function(f){{ numEls['f_'+f[0]]=document.getElementById('f_'+f[0]); }});
 
@@ -1147,6 +1197,13 @@ section.grp[hidden]{{display:none}}
   var fcfPosEl=document.getElementById('f_bin_fcf_positive');
   var decelNoneEl=document.getElementById('f_decel_none');
   var decelFlagEl=document.getElementById('f_decel_flag');
+  var kindGenEl=document.getElementById('f_kind_gen');
+  var kindFinEl=document.getElementById('f_kind_fin');
+  // 業種の区分は「一般企業のみ」「銀行・保険・証券・REITのみ」の二択（同時には選べない）
+  if(kindGenEl&&kindFinEl){{
+    kindGenEl.addEventListener('change',function(){{if(kindGenEl.checked)kindFinEl.checked=false;}});
+    kindFinEl.addEventListener('change',function(){{if(kindFinEl.checked)kindGenEl.checked=false;}});
+  }}
 
   function checkedVals(els){{ return Array.prototype.filter.call(els,function(e){{return e.checked;}}).map(function(e){{return e.value;}}); }}
 
@@ -1220,6 +1277,8 @@ section.grp[hidden]{{display:none}}
       if(decelFlagEl&&decelFlagEl.checked)want.push('1');
       if(want.indexOf(tr.dataset.decel||'')===-1)return false;
     }}
+    if(kindGenEl&&kindGenEl.checked&&tr.dataset.kind!=='gen')return false;
+    if(kindFinEl&&kindFinEl.checked&&tr.dataset.kind!=='fin')return false;
     var grds=checkedVals(grdEls);
     if(grds.length&&grds.indexOf(tr.dataset.grade)===-1)return false;
     var covs=checkedVals(covEls);
@@ -1232,6 +1291,7 @@ section.grp[hidden]{{display:none}}
   function panelActive(){{
     if(ocfEl&&ocfEl.checked)return true;
     if(fcfPosEl&&fcfPosEl.checked)return true;
+    if((kindGenEl&&kindGenEl.checked)||(kindFinEl&&kindFinEl.checked))return true;
     if((decelNoneEl&&decelNoneEl.checked)||(decelFlagEl&&decelFlagEl.checked))return true;
     if(Object.keys(bandEls).some(function(id){{return checkedVals(bandEls[id]).length;}}))return true;
     if(checkedVals(grdEls).length||checkedVals(covEls).length||checkedVals(grpEls).length)return true;
@@ -1241,7 +1301,8 @@ section.grp[hidden]{{display:none}}
   var allFilterEls=Object.keys(numEls).map(function(k){{return numEls[k];}})
     .concat([].concat.apply([],Object.keys(bandEls).map(function(k){{return Array.prototype.slice.call(bandEls[k]);}})))
     .concat(Array.prototype.slice.call(grdEls),Array.prototype.slice.call(covEls),Array.prototype.slice.call(grpEls))
-    .concat(ocfEl?[ocfEl]:[],fcfPosEl?[fcfPosEl]:[],decelNoneEl?[decelNoneEl]:[],decelFlagEl?[decelFlagEl]:[]);
+    .concat(ocfEl?[ocfEl]:[],fcfPosEl?[fcfPosEl]:[],decelNoneEl?[decelNoneEl]:[],decelFlagEl?[decelFlagEl]:[],
+      kindGenEl?[kindGenEl]:[],kindFinEl?[kindFinEl]:[]);
 
   function apply(){{
     var needle=(q.value||'').trim().normalize('NFKC').toLowerCase();
@@ -1280,6 +1341,8 @@ section.grp[hidden]{{display:none}}
       if(fcfPosEl&&fcfPosEl.checked)p.set('fcfpos','1');
       if(decelNoneEl&&decelNoneEl.checked)p.set('dn','1');
       if(decelFlagEl&&decelFlagEl.checked)p.set('df','1');
+      if(kindGenEl&&kindGenEl.checked)p.set('kind','gen');
+      if(kindFinEl&&kindFinEl.checked)p.set('kind','fin');
       Object.keys(bandEls).forEach(function(id){{ var sel=checkedVals(bandEls[id]); if(sel.length)p.set(id,sel.join(',')); }});
       var grds2=checkedVals(grdEls); if(grds2.length)p.set('grd',grds2.join(','));
       var covs2=checkedVals(covEls); if(covs2.length)p.set('cov',covs2.join(','));
@@ -1309,6 +1372,8 @@ section.grp[hidden]{{display:none}}
     if(p.get('fcfpos')==='1'&&fcfPosEl)fcfPosEl.checked=true;
     if(p.get('dn')==='1'&&decelNoneEl)decelNoneEl.checked=true;
     if(p.get('df')==='1'&&decelFlagEl)decelFlagEl.checked=true;
+    if(p.get('kind')==='gen'&&kindGenEl)kindGenEl.checked=true;
+    if(p.get('kind')==='fin'&&kindFinEl)kindFinEl.checked=true;
     Object.keys(bandEls).forEach(function(id){{
       if(!p.has(id))return;
       var vals=p.get(id).split(',');
@@ -1335,6 +1400,8 @@ section.grp[hidden]{{display:none}}
     if(fcfPosEl)fcfPosEl.checked=false;
     if(decelNoneEl)decelNoneEl.checked=false;
     if(decelFlagEl)decelFlagEl.checked=false;
+    if(kindGenEl)kindGenEl.checked=false;
+    if(kindFinEl)kindFinEl.checked=false;
     Object.keys(bandEls).forEach(function(id){{ Array.prototype.forEach.call(bandEls[id],function(e){{e.checked=false;}}); }});
     grdEls.forEach(function(e){{e.checked=false;}});
     covEls.forEach(function(e){{e.checked=false;}});
@@ -1368,10 +1435,12 @@ section.grp[hidden]{{display:none}}
       rows.push([
         code, nameEl?nameEl.textContent.trim():'', tr.dataset.group||'',
         tr.dataset.grade||'', tr.dataset.tier||'', csvNum(tr.dataset.price,0),
-        csvNum(tr.dataset.q,0), csvNum(tr.dataset.bt,0), tr.dataset.cov||''
+        csvNum(tr.dataset.q,0), csvNum(tr.dataset.bt,0), tr.dataset.cov||'',
+        csvNum(tr.dataset.m_roe,1), csvNum(tr.dataset.m_roa,1),
+        tr.dataset.kind==='fin'?'銀行・保険・証券・REIT':'一般企業'
       ]);
     }});
-    var header=['コード','銘柄名','業種グループ','業種級','軍','終値','品質スコア','買い時スコア','カバレッジ'];
+    var header=['コード','銘柄名','業種グループ','業種級','軍','終値','品質スコア','買い時スコア','カバレッジ','ROE(%)','ROA(%)','業種の区分'];
     var lines=[header].concat(rows).map(function(r){{return r.map(csvCell).join(',');}});
     var blob=new Blob(['﻿'+lines.join('\\r\\n')],{{type:'text/csv;charset=utf-8;'}});
     var url=URL.createObjectURL(blob);
