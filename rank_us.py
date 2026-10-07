@@ -24,6 +24,7 @@ import shutil
 import statistics as st
 
 import analyze_us
+import div_insight
 import div_universe
 from analyze_us import gics_jp
 
@@ -212,6 +213,8 @@ def main():
             "price": s.get("price"), "price_date": s.get("price_date"),
             "asof": s.get("_generated_at") or s.get("asof"),
             "payout_ni": s.get("payout_ni"), "roe": s.get("roe"), "mcap": s.get("mcap"),
+            "roa": s.get("roa"), "flags": s.get("insight_flags") or [],
+            "kind": s.get("kind") or ("fin" if (s.get("is_simple") or s.get("is_reit")) else "gen"),
             "dgr5": s.get("dgr5"), "chowder": s.get("chowder"),
             "g_gyoseki": sgroups.get("業績"), "g_zaimu": sgroups.get("財務"),
             "per_vs_sector": s.get("per_vs_sector"), "pbr_vs_sector": s.get("pbr_vs_sector"),
@@ -228,6 +231,19 @@ def main():
                 retired_rows.append(row)
             continue
         rows.append(row)
+
+    # 業種ごとのROE・ROA中央値（個別レポートの「業種との比較」用。表示専用。n>=5の業種のみ）。内容が変わったときだけ書く。
+    try:
+        _meds = div_insight.build_sector_medians(
+            [(r["sector"], r.get("roe"), r.get("roa"), r.get("kind") == "fin") for r in rows])
+        _mp = os.path.join(SITE, "sector_roe_roa.json")
+        _new_txt = json.dumps(_meds, ensure_ascii=False, indent=1)
+        _old_txt = open(_mp, encoding="utf-8").read() if os.path.isfile(_mp) else None
+        if _old_txt != _new_txt:
+            os.makedirs(SITE, exist_ok=True)
+            open(_mp, "w", encoding="utf-8").write(_new_txt)
+    except Exception as _e:
+        print("業種中央値の書き出しをスキップ:", _e)
 
     today_str = dt.date.today().isoformat()
     hist = load_history()
@@ -405,7 +421,27 @@ def _streak_val(u, f):
 
 
 def _v(x):
+    """並べ替え用の生の値。data-v 属性に埋め込む（欠損は空文字＝JS側でNaN扱い＝常に末尾）。"""
     return x if isinstance(x, (int, float)) else ""
+
+
+def _pct1(v):
+    return f"{v:.1f}%" if isinstance(v, (int, float)) else "―"
+
+
+def _roe_roa_cells(s):
+    """ROE・ROA列（表示・並べ替え・絞り込み専用。採点には使わない）。"""
+    return (f'<td class="n" data-v="{_v(s.get("roe"))}">{_pct1(s.get("roe"))}</td>'
+            f'<td class="n" data-v="{_v(s.get("roa"))}">{_pct1(s.get("roa"))}</td>')
+
+
+def _flagmark(s):
+    """注意マーク（⚠）。理由はマウスを合わせると表示（div_insight.py。採点には使わない）。"""
+    fl = s.get("flags") or []
+    if not fl:
+        return ""
+    tip = "／".join(f.get("t", "") for f in fl)
+    return f' <span class="flagmark" title="{html.escape(tip, quote=True)}">⚠</span>'
 
 
 def _fmt_zone_num(v, unit):
@@ -437,6 +473,7 @@ def _filter_attrs(s, grade):
         f'data-yld="{_v(s.get("yield"))}" data-price="{_v(s.get("price"))}" '
         f'data-grade="{html.escape(grade or "―")}" data-group="{html.escape(s.get("group") or "")}" '
         f'data-payout="{_v(s.get("payout_ni"))}" data-roe="{_v(s.get("roe"))}" '
+        f'data-roa="{_v(s.get("roa"))}" data-kind="{html.escape(s.get("kind") or "gen")}" '
         f'data-mcap="{_v(mcap_mil)}" data-dgr5="{_v(s.get("dgr5"))}" '
         f'data-ggyo="{_v(s.get("g_gyoseki"))}" data-gzai="{_v(s.get("g_zaimu"))}" '
         f'data-cov="{html.escape(s.get("cov_sel") or "")}" '
@@ -705,13 +742,14 @@ def render_index(out):
                 f'<td class="pf"><input type="checkbox" class="pfc" data-code="{s["code"]}" aria-label="ポートフォリオに追加"></td>'
                 f'<td class="tier">{s["tier"]}<span class="dir {dcls}">{s["dir"]}</span></td>'
                 f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
-                f'<td class="nm">{html.escape(s["name"])}{div_universe.newbadge(s["code"], nm_new, until_iso)}</td>'
+                f'<td class="nm">{html.escape(s["name"])}{div_universe.newbadge(s["code"], nm_new, until_iso)}{_flagmark(s)}</td>'
                 f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"])}</td>'
                 f'{_chg_row_cells(s.get("chg"))}'
                 f'<td class="n" data-v="{_v(s["sel"])}">{_num(s["sel"],0)}</td>'
                 f'<td class="n" data-v="{_v(s["tim"])}">{_num(s["tim"],0)}</td>'
                 f'<td class="n" data-v="{_v(s["yield"])}">{_num(s["yield"],2)}%</td>'
                 f'<td class="sk" data-v="{_v(streak_v)}">{_streak(s["streak_up"], s["streak_flat"])}</td>'
+                f'{_roe_roa_cells(s)}'
                 f'<td class="cv">{s["cov_sel"]}</td>'
                 f'</tr>')
         secs.append('<section class="grp">' + head + '<table><thead><tr>'
@@ -724,6 +762,8 @@ def render_index(out):
                     '<th class="n"><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th>'
                     '<th class="n"><span class="hdr" data-term="yield">利回り</span><span class="sortbtn">▼</span></th>'
                     '<th><span class="hdr" data-term="streak">増配</span><span class="sortbtn">▼</span></th>'
+                    '<th class="n" title="ROE（自己資本利益率）。採点には使わない">ROE<span class="sortbtn">▼</span></th>'
+                    '<th class="n" title="ROA（総資産利益率・決算書ベース）。採点には使わない">ROA<span class="sortbtn">▼</span></th>'
                     '<th class="hdr" data-term="cov">カバレッジ</th>'
                     '</tr></thead><tbody>' + "".join(trs) + '</tbody></table></section>')
 
@@ -745,12 +785,12 @@ def render_index(out):
                 f'<td class="n">{i+1}</td>'
                 f'<td class="tier">{s.get("tier","―")}</td>'
                 f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
-                f'<td class="nm">{html.escape(s["name"])}{div_universe.newbadge(s["code"], nm_new, until_iso)}</td>'
+                f'<td class="nm">{html.escape(s["name"])}{div_universe.newbadge(s["code"], nm_new, until_iso)}{_flagmark(s)}</td>'
                 f'<td class="sec">{html.escape(s["sector_jp"])}</td>'
                 f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"])}</td>'
                 f'{_chg_row_cells(s.get("chg"))}'
                 f'<td class="n" data-v="{_v(s["sel"])}">{_num(s["sel"],0)}</td>'
-                f'<td class="n" data-v="{_v(s["tim"])}">{_num(s["tim"],0)}</td>{ex}</tr>')
+                f'<td class="n" data-v="{_v(s["tim"])}">{_num(s["tim"],0)}</td>{_roe_roa_cells(s)}{ex}</tr>')
         return "".join(res)
 
     def _rank_head(extra=False):
@@ -763,6 +803,7 @@ def render_index(out):
                 + _chg_header_cells() +
                 '<th class="n"><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>'
                 '<th class="n"><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th>'
+                + '<th class="n" title="ROE（自己資本利益率）。採点には使わない">ROE<span class="sortbtn">▼</span></th>' + '<th class="n" title="ROA（総資産利益率・決算書ベース）。採点には使わない">ROA<span class="sortbtn">▼</span></th>'
                 + ex + '</tr></thead><tbody>')
 
     gt = _rank_rows(out["global_top"])
@@ -830,6 +871,7 @@ body.chgopen .chgd{{display:table-cell}}
 .sec{{color:var(--muted);font-size:11px}}
 .sk{{font-size:11px;color:var(--muted)}}
 {div_universe.NEWBADGE_CSS}
+.flagmark{{color:var(--gC,#d1584f);font-weight:700;cursor:help}}
 .roynote{{font-size:11.5px;color:var(--muted);margin:8px 2px 0;line-height:1.7;white-space:normal}}
 .cv{{font-size:11px}}
 .disc{{margin-top:30px;padding:12px;background:var(--wbg);border:1px solid var(--wbd);
@@ -972,6 +1014,8 @@ body.wlon{{padding-bottom:60px}}
         <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_pay" value="{v}">{lab}</label>' for v, lab in zip(("cheap","normal","expensive"), _zone_labels("lower_better",55,80,"%",("良好","注意","弱い"))))}</span></div>
       <div class="fgrp"><label class="flbl" for="f_roe">ROE（配当の原資の効率）(%) 以上</label><input id="f_roe" type="number" step="0.1">
         <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_roe" value="{v}">{lab}</label>' for v, lab in zip(("cheap","normal","expensive"), _zone_labels("higher_better",12,7,"%",("良好","注意","弱い"))))}</span></div>
+      <div class="fgrp"><label class="flbl" for="f_roa">ROA（総資産利益率・決算書ベース。採点には使わない）(%) 以上</label><input id="f_roa" type="number" step="0.1">
+        <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_roa" value="{v}">{lab}</label>' for v, lab in zip(("cheap","normal","expensive"), _zone_labels("higher_better",5,3,"%",("良好","注意","弱い"))))}</span></div>
     </div></div>
   </details>
   <details class="fmaj"><summary class="fmajh">② 買い時</summary>
@@ -1005,6 +1049,8 @@ body.wlon{{padding-bottom:60px}}
         <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_grd" value="{x}">{x}</label>' for x in ("A","B","C"))}</span></div>
       <div class="fgrp"><span class="flbl">カバレッジ</span>
         <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_cov" value="{x}">{x}</label>' for x in ("高","中","低"))}</span></div>
+      <div class="fgrp"><span class="flbl">業種の区分（ROAは金融・REITで構造的に低く出るため）</span>
+        <span class="fchecks"><label><input type="checkbox" class="f_kind" value="gen">一般企業のみ</label><label><input type="checkbox" class="f_kind" value="fin">銀行・保険・証券・REIT等のみ</label></span></div>
       <div class="fgrp wide"><span class="flbl">業種グループ</span>
         <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_grp" value="{html.escape(g["name"])}">{html.escape(g["name_jp"])}</label>' for g in out["groups"])}</span></div>
     </div></div>
@@ -1051,7 +1097,7 @@ body.wlon{{padding-bottom:60px}}
   var NUM_FILTERS = [
     ['sel','sel','ge',false], ['tim','tim','ge',false], ['yld','yld','ge',false],
     ['strup','streakup','ge',false], ['strflat','streakflat','ge',false],
-    ['dg','dgr5','ge',false], ['roe','roe','ge',false],
+    ['dg','dgr5','ge',false], ['roe','roe','ge',false], ['roa','roa','ge',false],
     ['mc','mcap','ge',false],
     ['pay','payout','le',false], ['pr','price','le',false],
     ['chow','chowder','ge',false], ['yldband','yldband','ge',true]
@@ -1065,6 +1111,7 @@ body.wlon{{padding-bottom:60px}}
   var grdEls = document.querySelectorAll('.f_grd');
   var covEls = document.querySelectorAll('.f_cov');
   var grpEls = document.querySelectorAll('.f_grp');
+  var kindEls = document.querySelectorAll('.f_kind');   // 業種の区分（一般企業／金融・REIT等）。二択で同時選択不可
 
   function checkedVals(els){{ return Array.prototype.filter.call(els, function(e){{ return e.checked; }}).map(function(e){{ return e.value; }}); }}
 
@@ -1085,6 +1132,7 @@ body.wlon{{padding-bottom:60px}}
     ['strflat','streakflat','higher_better',20,5],
     ['pay','payout','lower_better',55,80],
     ['roe','roe','higher_better',12,7],
+    ['roa','roa','higher_better',5,3],
     ['yld','yld','higher_better',3.0,1.5],
     ['chow','chowder','higher_better',12,8]
   ];
@@ -1109,14 +1157,15 @@ body.wlon{{padding-bottom:60px}}
   var allFilterEls = Object.keys(numEls).map(function(k){{ return numEls[k]; }})
     .concat([].concat.apply([], Object.keys(bandEls).map(function(k){{ return Array.prototype.slice.call(bandEls[k]); }})))
     .concat(dpEl ? [dpEl] : [], [ocfEl], ndEl ? [ndEl] : [], hdEl ? [hdEl] : [],
-            Array.prototype.slice.call(grdEls), Array.prototype.slice.call(covEls), Array.prototype.slice.call(grpEls));
+            Array.prototype.slice.call(grdEls), Array.prototype.slice.call(covEls), Array.prototype.slice.call(grpEls),
+            Array.prototype.slice.call(kindEls));
 
   // 数値入力と良好/注意/弱いチェックボックスの両方を持つ項目：どちらか一方しか
   // 使えないよう、片方に値が入るともう片方を無効化する（同時指定の矛盾を防ぐ）。
   // yldbandのように「以上」「以下」2つの数値入力を持つ項目にも対応。
   var PAIRED_NUM_IDS = {{
     dg: ['dg'], strup: ['strup'], strflat: ['strflat'], pay: ['pay'],
-    roe: ['roe'], yld: ['yld'], chow: ['chow'], yldband: ['yldband']
+    roe: ['roe'], roa: ['roa'], yld: ['yld'], chow: ['chow'], yldband: ['yldband']
   }};
   function syncPairDisabled(){{
     Object.keys(PAIRED_NUM_IDS).forEach(function(key){{
@@ -1177,6 +1226,8 @@ body.wlon{{padding-bottom:60px}}
     if (covs.length && covs.indexOf(tr.dataset.cov) === -1) return false;
     var grps = checkedVals(grpEls);
     if (grps.length && grps.indexOf(tr.dataset.group) === -1) return false;
+    var kinds = checkedVals(kindEls);
+    if (kinds.length && kinds.indexOf(tr.dataset.kind) === -1) return false;
     return true;
   }}
 
@@ -1186,7 +1237,7 @@ body.wlon{{padding-bottom:60px}}
     if (ndEl && ndEl.checked) return true;
     if (hdEl && hdEl.checked) return true;
     if (Object.keys(bandEls).some(function(id){{ return checkedVals(bandEls[id]).length; }})) return true;
-    if (checkedVals(grdEls).length || checkedVals(covEls).length || checkedVals(grpEls).length) return true;
+    if (checkedVals(grdEls).length || checkedVals(covEls).length || checkedVals(grpEls).length || checkedVals(kindEls).length) return true;
     return Object.keys(numEls).some(function(id){{ return numEls[id].value !== ''; }});
   }}
 
@@ -1235,6 +1286,7 @@ body.wlon{{padding-bottom:60px}}
       var grds2 = checkedVals(grdEls); if (grds2.length) p.set('grd', grds2.join(','));
       var covs2 = checkedVals(covEls); if (covs2.length) p.set('cov', covs2.join(','));
       var grps = checkedVals(grpEls); if (grps.length) p.set('grp', grps.join(','));
+      var kinds2 = checkedVals(kindEls); if (kinds2.length) p.set('kind', kinds2.join(','));
       var qs = p.toString();
       var url = location.pathname + (qs ? '?' + qs : '');
       history.replaceState(null, '', url);
@@ -1276,6 +1328,9 @@ body.wlon{{padding-bottom:60px}}
     (p.get('grp') || '').split(',').forEach(function(v){{
       grpEls.forEach(function(e){{ if (e.value === v) e.checked = true; }});
     }});
+    (p.get('kind') || '').split(',').forEach(function(v){{
+      kindEls.forEach(function(e){{ if (e.value === v) e.checked = true; }});
+    }});
     if (panelActive() && filterbox) filterbox.open = true;
   }}
 
@@ -1304,13 +1359,14 @@ body.wlon{{padding-bottom:60px}}
       seen[code] = true;
       var nameEl = tr.querySelector('.nm');
       rows.push([
-        code, nameEl ? nameEl.textContent.trim() : '', tr.dataset.group || '',
+        code, nameEl ? ((nameEl.childNodes[0] || nameEl).textContent || '').trim() : '', tr.dataset.group || '',
         tr.dataset.grade || '', tr.dataset.tier || '', csvNum(tr.dataset.price, 2),
         csvNum(tr.dataset.sel, 1), csvNum(tr.dataset.tim, 1), csvNum(tr.dataset.yld, 2),
-        tr.dataset.streakup || '', tr.dataset.streakflat || '', tr.dataset.cov || ''
+        tr.dataset.streakup || '', tr.dataset.streakflat || '', tr.dataset.cov || '',
+        csvNum(tr.dataset.roe, 1), csvNum(tr.dataset.roa, 1), (tr.dataset.kind === 'fin' ? '金融・REIT等' : '一般企業')
       ]);
     }});
-    var header = ['ティッカー','銘柄名','業種グループ','業種級','軍','終値','選定スコア','買い時スコア','利回り(%)','連続増配年数','連続非減配年数','カバレッジ'];
+    var header = ['ティッカー','銘柄名','業種グループ','業種級','軍','終値','選定スコア','買い時スコア','利回り(%)','連続増配年数','連続非減配年数','カバレッジ','ROE(%)','ROA(%)','業種の区分'];
     var lines = [header].concat(rows).map(function(r){{ return r.map(csvCell).join(','); }});
     var blob = new Blob(['﻿' + lines.join('\\r\\n')], {{type: 'text/csv;charset=utf-8;'}});
     var url = URL.createObjectURL(blob);
@@ -1331,6 +1387,13 @@ body.wlon{{padding-bottom:60px}}
     }});
   }});
   allFilterEls.forEach(function(el){{ el.addEventListener('input', apply); el.addEventListener('change', apply); }});
+  // 業種の区分は二択（同時選択不可）：片方を選ぶともう片方を外す
+  kindEls.forEach(function(el){{
+    el.addEventListener('change', function(){{
+      if (el.checked) kindEls.forEach(function(o){{ if (o !== el) o.checked = false; }});
+      apply();
+    }});
+  }});
   // 「フラグが無い銘柄のみ」「フラグのある銘柄のみ」は同時にチェックすると
   // 該当銘柄が0件になってしまう（互いに排他）ため、片方を選ぶと自動でもう片方を外す
   if (ndEl && hdEl) {{
@@ -1349,6 +1412,7 @@ body.wlon{{padding-bottom:60px}}
     grdEls.forEach(function(e){{ e.checked = false; }});
     covEls.forEach(function(e){{ e.checked = false; }});
     grpEls.forEach(function(e){{ e.checked = false; }});
+    kindEls.forEach(function(e){{ e.checked = false; }});
     syncPairDisabled();
     apply();
   }}

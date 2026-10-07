@@ -3038,6 +3038,20 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
     if industry and not smap["industry_map"].get(industry):
         warnings.append(f"yfinance の業種『{industry}』が対応表に無く、{sector_src} で {jp_sector} に割り当てました。業種平均との比較は目安です。")
 
+    # ROA・財務レバレッジ・注意マーク（⚠）。表示専用で、採点には使わない（div_insight.py。配当側専用）。
+    # 遅延import＋失敗しても本体の診断は止めない（10年保有側の夜間更新が、このファイルの不具合で止まらないように）。
+    insight = {"rows": [], "flags": [], "raw": {}}
+    try:
+        import div_insight
+        insight = div_insight.compute(yd, M, is_simple, is_reit, sel_score, tim_score, info,
+                                      div_insight.load_sector_median("jp", jp_sector), "jp",
+                                      fin_extra=(jp_sector in ("銀行業", "保険業", "証券・商品先物取引業", "その他金融業")))
+        M["参考"].extend(insight["rows"])
+        for _fl in insight["flags"]:
+            warnings.append("⚠ " + _fl["t"])
+    except Exception:
+        insight = {"rows": [], "flags": [], "raw": {}}
+
     yoc = None
     if is_num(cost) and cost > 0 and is_num(ctx.get("fwd_dps")):
         yoc = ctx["fwd_dps"] / cost * 100
@@ -3095,6 +3109,11 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
         "total_payout": gref("総還元性向（（配当＋自社株買い）÷純利益）"),
         "interest_coverage": gref("インタレストカバレッジレシオ（EBIT÷支払利息）"),
         "warnings": warnings,
+        # 表示専用（採点には使わない）。div_insight.py。決算書ベースのROA・財務レバレッジと、注意マーク。
+        "roa": (round(insight["raw"]["roa"], 2) if is_num(insight["raw"].get("roa")) else None),
+        "leverage": (round(insight["raw"]["leverage"], 2) if is_num(insight["raw"].get("leverage")) else None),
+        "insight_flags": insight["flags"],
+        "kind": ("fin" if insight["raw"].get("fin_like") else "gen"),   # 業種の区分（ROAが構造的に低く出る金融・REITを分ける）
     }
     try:
         res["portfolio_data"] = portfolio_data_with_open(yd)
