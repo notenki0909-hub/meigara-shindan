@@ -1,34 +1,4 @@
 {
- "KBH": {
-  "ticker": "KBH",
-  "name": "KB Home",
-  "target_date": "2026-09-22",
-  "detected_at": "2026-09-22T05:01:25",
-  "status": "resolved",
-  "attempts": 3,
-  "next_retry_at": "2026-09-23T03:22:31",
-  "resolved_at": "2026-09-23T04:48:45"
- },
- "MLKN": {
-  "ticker": "MLKN",
-  "name": "MillerKnoll, Inc.",
-  "target_date": "2026-09-22",
-  "detected_at": "2026-09-22T05:01:25",
-  "status": "resolved",
-  "attempts": 2,
-  "next_retry_at": "2026-09-22T17:43:34",
-  "resolved_at": "2026-09-22T21:22:31"
- },
- "THO": {
-  "ticker": "THO",
-  "name": "Thor Industries",
-  "target_date": "2026-09-22",
-  "detected_at": "2026-09-22T05:01:25",
-  "status": "resolved",
-  "attempts": 2,
-  "next_retry_at": "2026-09-22T17:43:34",
-  "resolved_at": "2026-09-22T21:22:31"
- },
  "FUL": {
   "ticker": "FUL",
   "name": "H.B. Fuller Company",
@@ -174,8 +144,9 @@
   "name": "Constellation Brands",
   "target_date": "2026-10-06",
   "detected_at": "2026-10-06T00:28:09",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-07T00:25:04"
+  "next_retry_at": "2026-10-07T00:25:04",
+  "resolved_at": "2026-10-07T06:04:53"
  }
 }
