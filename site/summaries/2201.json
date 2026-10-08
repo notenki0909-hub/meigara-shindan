@@ -1,16 +1,16 @@
 {
  "code": "2201",
  "name": "森永製菓",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "食料品",
  "industry": "Confectioners",
  "is_simple": false,
  "is_reit": false,
- "price": 2366.0,
- "price_date": "2026-10-07",
- "mcap": 198671171584,
+ "price": 2368.5,
+ "price_date": "2026-10-08",
+ "mcap": 198881083392,
  "sel_score": 98.9,
- "tim_score": 93.9,
+ "tim_score": 93.8,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -31,30 +31,41 @@
   "配当の持続力": 98.3,
   "配当利回りセオリー": 100.5,
   "利回り水準とChowder": 94.9,
-  "株価バリュエーション": 101.8,
-  "金利スプレッド": 69.6
+  "株価バリュエーション": 101.7,
+  "金利スプレッド": 69.5
  },
- "div_yield": 2.9585798816568047,
+ "div_yield": 2.955457040320878,
  "streak_up": 4,
  "streak_flat": 24,
  "payout_ni": 30.85,
  "roe": 12.764000000000001,
  "div_policy": null,
  "dgr5": 10.756634324829006,
- "chowder": 13.715214206485811,
+ "chowder": 13.712091365149885,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 132.94593228903486,
- "per_vs_sector": 0.5615151,
- "pbr_vs_sector": 1.14639775,
+ "per_vs_sector": 0.5621084,
+ "pbr_vs_sector": 1.1476091666666668,
  "per_band_pos": 1.0,
- "yield_band_pos": 0.6209047078805594,
+ "yield_band_pos": 0.6191192985360879,
  "next_earn": "2026-11-12",
  "earn_disc_date": "2026-08-05",
  "buyback_yen": 4754000000.0,
- "total_yield": 5.351478640996916,
+ "total_yield": 5.3458301813549784,
  "total_payout": 71.1905432029271,
  "interest_coverage": 190.00746268656715,
- "warnings": [],
- "_generated_at": "2026-10-07T22:25:21"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（133%：フリーCFで配当を賄えていない）"
+ ],
+ "roa": 7.86,
+ "leverage": 1.59,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（133%：フリーCFで配当を賄えていない）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:38:49"
 }

@@ -1,14 +1,14 @@
 {
  "code": "3482",
  "name": "ロードスターキャピタル",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "不動産業",
  "industry": "Real Estate Services",
  "is_simple": false,
  "is_reit": false,
- "price": 2449.0,
- "price_date": "2026-10-07",
- "mcap": 41414795264,
+ "price": 2450.0,
+ "price_date": "2026-10-08",
+ "mcap": 41431703552,
  "sel_score": 90.3,
  "tim_score": 106.7,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
@@ -32,29 +32,40 @@
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 106.7,
   "株価バリュエーション": 109.0,
-  "金利スプレッド": 97.4
+  "金利スプレッド": 97.3
  },
- "div_yield": 4.001633319722336,
+ "div_yield": 4.0,
  "streak_up": 8,
  "streak_flat": 8,
  "payout_ni": 18.25,
  "roe": 24.575001,
  "div_policy": null,
  "dgr5": 39.9831279621593,
- "chowder": 43.98476128188164,
+ "chowder": 43.9831279621593,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 0.41581592,
- "pbr_vs_sector": 0.714245,
+ "per_vs_sector": 0.41598571999999995,
+ "pbr_vs_sector": 0.7145366875,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 0.0,
- "total_yield": 4.001633319722336,
+ "total_yield": 4.0,
  "total_payout": 14.531093279839519,
  "interest_coverage": 10.062888198757763,
- "warnings": [],
- "_generated_at": "2026-10-07T22:31:43"
+ "warnings": [
+  "⚠ 営業キャッシュフローが2期連続マイナス"
+ ],
+ "roa": 6.43,
+ "leverage": 3.77,
+ "insight_flags": [
+  {
+   "k": "ocf_neg",
+   "t": "営業キャッシュフローが2期連続マイナス"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:46:30"
 }

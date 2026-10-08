@@ -1,13 +1,13 @@
 {
  "code": "2268",
  "name": "Ｂ－Ｒ　サーティワン　アイスクリーム",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "卸売業",
  "industry": "Food Distribution",
  "is_simple": false,
  "is_reit": false,
  "price": 4050.0,
- "price_date": "2026-10-07",
+ "price_date": "2026-10-08",
  "mcap": 39025139712,
  "sel_score": 97.3,
  "tim_score": 82.1,
@@ -55,6 +55,17 @@
  "total_yield": null,
  "total_payout": 29.904312299356526,
  "interest_coverage": 131.22163488767228,
- "warnings": [],
- "_generated_at": "2026-10-07T22:25:44"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（653%：フリーCFで配当を賄えていない）"
+ ],
+ "roa": 5.57,
+ "leverage": 2.12,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（653%：フリーCFで配当を賄えていない）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:39:18"
 }

@@ -1,14 +1,14 @@
 {
  "code": "3861",
  "name": "王子ホールディングス",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "パルプ・紙",
  "industry": "Paper & Paper Products",
  "is_simple": false,
  "is_reit": false,
- "price": 829.5,
- "price_date": "2026-10-07",
- "mcap": 704439844864,
+ "price": 828.4000244140625,
+ "price_date": "2026-10-08",
+ "mcap": 703505694720,
  "sel_score": 75.4,
  "tim_score": 104.2,
  "sel_label": "選定スコア中位（一部に弱点）",
@@ -34,27 +34,38 @@
   "株価バリュエーション": 88.7,
   "金利スプレッド": null
  },
- "div_yield": 4.3399638336347195,
+ "div_yield": 4.3457265740018824,
  "streak_up": 2,
  "streak_flat": 17,
  "payout_ni": 58.93000000000001,
  "roe": 6.0100004,
  "div_policy": null,
  "dgr5": 20.791087977228596,
- "chowder": 25.131051810863315,
+ "chowder": 25.13681455123048,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 132.36825760833213,
- "per_vs_sector": 0.930022397260274,
- "pbr_vs_sector": 1.0827419166666667,
- "per_band_pos": 0.33537128619005235,
+ "per_vs_sector": 0.9300070547945206,
+ "pbr_vs_sector": 1.081306,
+ "per_band_pos": 0.33541129276149223,
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-06",
  "earn_disc_date": "2023-02-02",
  "buyback_yen": 47691000000.0,
- "total_yield": 11.11002381075133,
+ "total_yield": 11.124776176291363,
  "total_payout": 135.65003058544133,
  "interest_coverage": 8.90655737704918,
- "warnings": [],
- "_generated_at": "2026-10-07T22:32:50"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（132%：フリーCFで配当を賄えていない）"
+ ],
+ "roa": 2.07,
+ "leverage": 2.44,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（132%：フリーCFで配当を賄えていない）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:47:52"
 }

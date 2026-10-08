@@ -1,16 +1,16 @@
 {
  "code": "9474",
  "name": "ゼンリン",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "情報・通信業",
  "industry": "Internet Content & Information",
  "is_simple": false,
  "is_reit": false,
  "price": 888.0,
- "price_date": "2026-10-07",
+ "price_date": "2026-10-08",
  "mcap": 47407276032,
  "sel_score": 86.9,
- "tim_score": 107.4,
+ "tim_score": 107.3,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -31,7 +31,7 @@
   "配当の持続力": 80.4,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 109.1,
-  "株価バリュエーション": 103.4,
+  "株価バリュエーション": 102.9,
   "金利スプレッド": 104.2
  },
  "div_yield": 4.72972972972973,
@@ -45,9 +45,9 @@
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 119.70604246053347,
- "per_vs_sector": 0.9511588397790055,
+ "per_vs_sector": 0.9565367955801104,
  "pbr_vs_sector": 0.49375245,
- "per_band_pos": 0.6100591444486408,
+ "per_band_pos": 0.5985370643586256,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": "2017-01-29",
@@ -55,6 +55,17 @@
  "total_yield": null,
  "total_payout": 80.31409788166545,
  "interest_coverage": 205.05,
- "warnings": [],
- "_generated_at": "2026-10-07T23:09:05"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（120%：フリーCFで配当を賄えていない）"
+ ],
+ "roa": 3.8,
+ "leverage": 1.47,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（120%：フリーCFで配当を賄えていない）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T23:32:31"
 }

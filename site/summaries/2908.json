@@ -1,16 +1,16 @@
 {
  "code": "2908",
  "name": "フジッコ",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "食料品",
  "industry": "Packaged Foods",
  "is_simple": false,
  "is_reit": false,
- "price": 1560.0,
- "price_date": "2026-10-07",
- "mcap": 44418371584,
+ "price": 1567.0,
+ "price_date": "2026-10-08",
+ "mcap": 44617687040,
  "sel_score": 76.8,
- "tim_score": 85.0,
+ "tim_score": 84.9,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -30,31 +30,42 @@
   "キャッシュフロー": 60.0,
   "配当の持続力": 57.0,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 61.6,
+  "利回り水準とChowder": 61.3,
   "株価バリュエーション": 80.0,
-  "金利スプレッド": 69.3
+  "金利スプレッド": 68.9
  },
- "div_yield": 2.9487179487179485,
+ "div_yield": 2.935545628589662,
  "streak_up": 0,
  "streak_flat": 15,
  "payout_ni": 91.71000000000001,
  "roe": 2.2689999999999997,
  "div_policy": null,
  "dgr5": 2.8346722100213606,
- "chowder": 5.783390158739309,
+ "chowder": 5.770217838611023,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 1.5510040999999999,
- "pbr_vs_sector": 0.535925375,
+ "per_vs_sector": 1.55518055,
+ "pbr_vs_sector": 0.538330125,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 0.0,
- "total_yield": 2.9487179487179485,
+ "total_yield": 2.935545628589662,
  "total_payout": 91.94677871148458,
  "interest_coverage": null,
- "warnings": [],
- "_generated_at": "2026-10-07T22:28:37"
+ "warnings": [
+  "⚠ バリュートラップ注意：PBR 0.65倍（1倍割れ）かつROE 2.1%（5%未満）"
+ ],
+ "roa": 1.78,
+ "leverage": 1.15,
+ "insight_flags": [
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：PBR 0.65倍（1倍割れ）かつROE 2.1%（5%未満）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:42:45"
 }

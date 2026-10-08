@@ -1,13 +1,13 @@
 {
  "code": "4151",
  "name": "協和キリン",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "医薬品",
  "industry": "Drug Manufacturers - Specialty & Generic",
  "is_simple": false,
  "is_reit": false,
  "price": 2209.0,
- "price_date": "2026-10-07",
+ "price_date": "2026-10-08",
  "mcap": 1156602527744,
  "sel_score": 99.7,
  "tim_score": 97.0,
@@ -55,6 +55,17 @@
  "total_yield": 3.169632826509815,
  "total_payout": 46.07846062052506,
  "interest_coverage": 24.935510428100987,
- "warnings": [],
- "_generated_at": "2026-10-07T22:34:32"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（572%：フリーCFで配当を賄えていない）"
+ ],
+ "roa": 6.05,
+ "leverage": 1.24,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（572%：フリーCFで配当を賄えていない）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:49:58"
 }

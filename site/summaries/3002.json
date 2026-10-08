@@ -1,13 +1,13 @@
 {
  "code": "3002",
  "name": "グンゼ",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "繊維製品",
  "industry": "Apparel Manufacturing",
  "is_simple": false,
  "is_reit": false,
  "price": 4065.0,
- "price_date": "2026-10-07",
+ "price_date": "2026-10-08",
  "mcap": 127417245696,
  "sel_score": 78.6,
  "tim_score": 94.0,
@@ -45,7 +45,7 @@
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 36.517862312547045,
- "per_vs_sector": 12.594107881773398,
+ "per_vs_sector": 12.673816256157636,
  "pbr_vs_sector": 1.0733065454545454,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.8629476092926068,
@@ -55,6 +55,17 @@
  "total_yield": 9.24326248623118,
  "total_payout": 2222.7897838899803,
  "interest_coverage": 15.666666666666666,
- "warnings": [],
- "_generated_at": "2026-10-07T22:28:46"
+ "warnings": [
+  "⚠ 配当性向が100%超（930%：純利益を上回る配当）"
+ ],
+ "roa": 0.33,
+ "leverage": 1.37,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（930%：純利益を上回る配当）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:42:56"
 }

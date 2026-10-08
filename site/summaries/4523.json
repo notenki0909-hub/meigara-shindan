@@ -1,16 +1,16 @@
 {
  "code": "4523",
  "name": "エーザイ",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "医薬品",
  "industry": "Drug Manufacturers - Specialty & Generic",
  "is_simple": false,
  "is_reit": false,
- "price": 4640.0,
- "price_date": "2026-10-07",
- "mcap": 1309575086080,
+ "price": 4631.0,
+ "price_date": "2026-10-08",
+ "mcap": 1307034910720,
  "sel_score": 75.5,
- "tim_score": 83.0,
+ "tim_score": 83.2,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -29,32 +29,48 @@
   "財務": 105.8,
   "キャッシュフロー": 73.3,
   "配当の持続力": 52.9,
-  "配当利回りセオリー": 107.8,
-  "利回り水準とChowder": 59.3,
-  "株価バリュエーション": 64.6,
-  "金利スプレッド": 82.6
+  "配当利回りセオリー": 107.9,
+  "利回り水準とChowder": 59.4,
+  "株価バリュエーション": 65.4,
+  "金利スプレッド": 82.8
  },
- "div_yield": 3.4482758620689653,
+ "div_yield": 3.4549773267112935,
  "streak_up": 0,
  "streak_flat": 26,
  "payout_ni": 116.97999999999999,
  "roe": 4.9629997,
  "div_policy": null,
  "dgr5": 0.0,
- "chowder": 3.4482758620689653,
+ "chowder": 3.4549773267112935,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 223.94324270688628,
- "per_vs_sector": 1.8282371122994654,
- "pbr_vs_sector": 1.2023145833333335,
- "per_band_pos": 0.5413209740374612,
- "yield_band_pos": 0.9103985512645815,
+ "per_vs_sector": 1.8105502673796792,
+ "pbr_vs_sector": 1.1999825833333333,
+ "per_band_pos": 0.5629416910902808,
+ "yield_band_pos": 0.9144676398675554,
  "next_earn": "2026-11-10",
  "earn_disc_date": "2026-08-03",
  "buyback_yen": 9000000.0,
- "total_yield": 3.448963107885999,
+ "total_yield": 3.4556659081658654,
  "total_payout": 117.08854193682245,
  "interest_coverage": 10.559325210871602,
- "warnings": [],
- "_generated_at": "2026-10-07T22:37:14"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（224%：フリーCFで配当を賄えていない）",
+  "⚠ 配当性向が100%超（117%：純利益を上回る配当）"
+ ],
+ "roa": 2.66,
+ "leverage": 1.61,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（224%：フリーCFで配当を賄えていない）"
+  },
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（117%：純利益を上回る配当）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:53:19"
 }

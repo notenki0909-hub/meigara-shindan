@@ -1,14 +1,14 @@
 {
  "code": "1793",
  "name": "大本組",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "建設業",
  "industry": "Engineering & Construction",
  "is_simple": false,
  "is_reit": false,
- "price": 2014.0,
- "price_date": "2026-10-07",
- "mcap": 51224248320,
+ "price": 2013.0,
+ "price_date": "2026-10-08",
+ "mcap": 51198816256,
  "sel_score": 79.5,
  "tim_score": 96.2,
  "sel_label": "選定スコア中位（一部に弱点）",
@@ -34,27 +34,38 @@
   "株価バリュエーション": 58.8,
   "金利スプレッド": null
  },
- "div_yield": 3.6742800397219466,
+ "div_yield": 3.6761053154495777,
  "streak_up": 3,
  "streak_flat": 22,
  "payout_ni": 70.12,
  "roe": 3.313,
  "div_policy": null,
  "dgr5": 14.869835499703509,
- "chowder": 18.544115539425455,
+ "chowder": 18.545940815153088,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 2.189370852713178,
- "pbr_vs_sector": 1.0239226428571429,
+ "per_vs_sector": 2.189512015503876,
+ "pbr_vs_sector": 1.0234142142857143,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 0.0,
- "total_yield": 3.6742800397219466,
+ "total_yield": 3.6761053154495777,
  "total_payout": 58.41147269718698,
  "interest_coverage": 53.07692307692308,
- "warnings": [],
- "_generated_at": "2026-10-07T22:20:44"
+ "warnings": [
+  "⚠ 営業キャッシュフローが2期連続マイナス"
+ ],
+ "roa": 1.75,
+ "leverage": 1.51,
+ "insight_flags": [
+  {
+   "k": "ocf_neg",
+   "t": "営業キャッシュフローが2期連続マイナス"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:33:15"
 }

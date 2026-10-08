@@ -1,16 +1,16 @@
 {
  "code": "6339",
  "name": "新東工業",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "機械",
  "industry": "Specialty Industrial Machinery",
  "is_simple": false,
  "is_reit": false,
- "price": 1131.0,
- "price_date": "2026-10-07",
- "mcap": 59396091904,
+ "price": 1079.0,
+ "price_date": "2026-10-08",
+ "mcap": 56665239552,
  "sel_score": 71.1,
- "tim_score": 105.7,
+ "tim_score": 107.5,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -29,32 +29,58 @@
   "財務": 94.7,
   "キャッシュフロー": 73.3,
   "配当の持続力": 54.2,
-  "配当利回りセオリー": 102.3,
-  "利回り水準とChowder": 107.5,
+  "配当利回りセオリー": 105.8,
+  "利回り水準とChowder": 108.2,
   "株価バリュエーション": 110.0,
   "金利スプレッド": null
  },
- "div_yield": 4.244031830238726,
+ "div_yield": 4.448563484708063,
  "streak_up": 0,
  "streak_flat": 16,
  "payout_ni": 4323.17,
  "roe": -12.553,
  "div_policy": null,
  "dgr5": 12.888132073019754,
- "chowder": 17.13216390325848,
+ "chowder": 17.33669555772782,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 3920.3389830508477,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.28667691666666667,
+ "pbr_vs_sector": 0.2734963777777778,
  "per_band_pos": null,
- "yield_band_pos": 0.6922130033731391,
+ "yield_band_pos": 0.833372033733982,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 0.0,
- "total_yield": 4.244031830238726,
+ "total_yield": 4.448563484708063,
  "total_payout": null,
  "interest_coverage": -10.35419968304279,
- "warnings": [],
- "_generated_at": "2026-10-07T22:46:45"
+ "warnings": [
+  "⚠ 純損失が3期連続",
+  "⚠ FCF配当性向が100%超（3920%：フリーCFで配当を賄えていない）",
+  "⚠ 配当性向が100%超（4323%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：PBR 0.49倍（1倍割れ）かつROE -0.4%（5%未満）"
+ ],
+ "roa": -0.22,
+ "leverage": 2.05,
+ "insight_flags": [
+  {
+   "k": "loss3",
+   "t": "純損失が3期連続"
+  },
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（3920%：フリーCFで配当を賄えていない）"
+  },
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（4323%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：PBR 0.49倍（1倍割れ）かつROE -0.4%（5%未満）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T23:05:00"
 }

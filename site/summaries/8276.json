@@ -1,16 +1,16 @@
 {
  "code": "8276",
  "name": "平和堂",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "小売業",
  "industry": "Department Stores",
  "is_simple": false,
  "is_reit": false,
- "price": 2518.0,
- "price_date": "2026-10-07",
- "mcap": 124532334592,
+ "price": 2495.0,
+ "price_date": "2026-10-08",
+ "mcap": 123394826240,
  "sel_score": 89.5,
- "tim_score": 95.7,
+ "tim_score": 95.9,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -30,31 +30,47 @@
   "キャッシュフロー": 73.3,
   "配当の持続力": 81.2,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 93.3,
+  "利回り水準とChowder": 93.6,
   "株価バリュエーション": 103.1,
-  "金利スプレッド": 60.6
+  "金利スプレッド": 61.2
  },
- "div_yield": 2.6211278792692614,
+ "div_yield": 2.6452905811623246,
  "streak_up": 2,
  "streak_flat": 7,
  "payout_ni": 40.58,
  "roe": null,
  "div_policy": null,
  "dgr5": 13.525958735328958,
- "chowder": 16.14708661459822,
+ "chowder": 16.171249316491284,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 768.2983682983684,
- "per_vs_sector": 0.6820284581497797,
- "pbr_vs_sector": 0.31247768,
- "per_band_pos": 0.49224473473453584,
+ "per_vs_sector": 0.6820471585903084,
+ "pbr_vs_sector": 0.30962342,
+ "per_band_pos": 0.4921535371528639,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 2697000000.0,
- "total_yield": 4.786830472765213,
+ "total_yield": 4.830957583727246,
  "total_payout": 63.69433521096822,
  "interest_coverage": 108.74803149606299,
- "warnings": [],
- "_generated_at": "2026-10-07T23:00:42"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（768%：フリーCFで配当を賄えていない）",
+  "⚠ バリュートラップ注意：PBR 0.62倍（1倍割れ）かつROE 4.8%（5%未満）"
+ ],
+ "roa": 3.01,
+ "leverage": 1.6,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（768%：フリーCFで配当を賄えていない）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：PBR 0.62倍（1倍割れ）かつROE 4.8%（5%未満）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T23:22:12"
 }

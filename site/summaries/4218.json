@@ -1,16 +1,16 @@
 {
  "code": "4218",
  "name": "ニチバン",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "その他製品",
  "industry": "Business Equipment & Supplies",
  "is_simple": false,
  "is_reit": false,
- "price": 1877.0,
- "price_date": "2026-10-07",
- "mcap": 37879566336,
+ "price": 1852.0,
+ "price_date": "2026-10-08",
+ "mcap": 37375041536,
  "sel_score": 82.8,
- "tim_score": 85.6,
+ "tim_score": 86.0,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -30,31 +30,47 @@
   "キャッシュフロー": 73.3,
   "配当の持続力": 68.2,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 62.0,
-  "株価バリュエーション": 67.7,
+  "利回り水準とChowder": 62.5,
+  "株価バリュエーション": 68.6,
   "金利スプレッド": null
  },
- "div_yield": 2.1310602024507195,
+ "div_yield": 2.159827213822894,
  "streak_up": 1,
  "streak_flat": 5,
  "payout_ni": 49.28,
  "roe": 3.8110003000000003,
  "div_policy": null,
  "dgr5": 5.922384104881218,
- "chowder": 8.053444307331937,
+ "chowder": 8.082211318704111,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 217.07317073170734,
- "per_vs_sector": 1.2432423655913978,
- "pbr_vs_sector": 0.574625,
+ "per_vs_sector": 1.2266834946236558,
+ "pbr_vs_sector": 0.5669715000000001,
  "per_band_pos": 0.0,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 342000000.0,
- "total_yield": 3.0339216475010287,
+ "total_yield": 3.074876364124392,
  "total_payout": 63.80145278450363,
  "interest_coverage": 49.29545454545455,
- "warnings": [],
- "_generated_at": "2026-10-07T22:35:31"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（217%：フリーCFで配当を賄えていない）",
+  "⚠ バリュートラップ注意：PBR 0.85倍（1倍割れ）かつROE 3.7%（5%未満）"
+ ],
+ "roa": 2.45,
+ "leverage": 1.52,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（217%：フリーCFで配当を賄えていない）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：PBR 0.85倍（1倍割れ）かつROE 3.7%（5%未満）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:51:09"
 }

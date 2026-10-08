@@ -1,14 +1,14 @@
 {
  "code": "8881",
  "name": "日神グループホールディングス",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "不動産業",
  "industry": "Real Estate Services",
  "is_simple": false,
  "is_reit": false,
- "price": 633.0,
- "price_date": "2026-10-07",
- "mcap": 29564024832,
+ "price": 627.0,
+ "price_date": "2026-10-08",
+ "mcap": 29283796992,
  "sel_score": 83.5,
  "tim_score": 110.0,
  "sel_label": "選定スコア中位（一部に弱点）",
@@ -34,27 +34,38 @@
   "株価バリュエーション": 110.0,
   "金利スプレッド": 110.0
  },
- "div_yield": 5.845181674565561,
+ "div_yield": 5.901116427432217,
  "streak_up": 1,
  "streak_flat": 15,
  "payout_ni": 38.959998,
  "roe": 5.821,
  "div_policy": null,
  "dgr5": 14.224458489960767,
- "chowder": 20.069640164526326,
+ "chowder": 20.125574917392985,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 0.5637314959999999,
- "pbr_vs_sector": 0.26280339999999996,
+ "per_vs_sector": 0.55838808,
+ "pbr_vs_sector": 0.260312375,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 34000.0,
- "total_yield": 5.845296679204453,
+ "total_yield": 5.901232532594431,
  "total_payout": 25.665350355537452,
  "interest_coverage": 8.737558925470088,
- "warnings": [],
- "_generated_at": "2026-10-07T23:14:38"
+ "warnings": [
+  "⚠ 営業キャッシュフローが2期連続マイナス"
+ ],
+ "roa": 2.85,
+ "leverage": 2.06,
+ "insight_flags": [
+  {
+   "k": "ocf_neg",
+   "t": "営業キャッシュフローが2期連続マイナス"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T23:39:19"
 }

@@ -1,16 +1,16 @@
 {
  "code": "2790",
  "name": "ナフコ",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "小売業",
  "industry": "Home Improvement Retail",
  "is_simple": false,
  "is_reit": false,
- "price": 2015.0,
- "price_date": "2026-10-07",
- "mcap": 49534091264,
+ "price": 1990.0,
+ "price_date": "2026-10-08",
+ "mcap": 48919523328,
  "sel_score": 59.2,
- "tim_score": 81.3,
+ "tim_score": 82.1,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
@@ -29,32 +29,48 @@
   "財務": 90.7,
   "キャッシュフロー": 60.0,
   "配当の持続力": 54.2,
-  "配当利回りセオリー": 99.2,
-  "利回り水準とChowder": 76.9,
+  "配当利回りセオリー": 100.4,
+  "利回り水準とChowder": 77.6,
   "株価バリュエーション": 65.0,
-  "金利スプレッド": 67.4
+  "金利スプレッド": 68.4
  },
- "div_yield": 2.8784119106699753,
+ "div_yield": 2.9145728643216082,
  "streak_up": 0,
  "streak_flat": 16,
  "payout_ni": 639.40997,
  "roe": 0.23600000000000002,
  "div_policy": null,
  "dgr5": 6.167577433485083,
- "chowder": 9.045989344155059,
+ "chowder": 9.082150297806692,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 9.78682731277533,
- "pbr_vs_sector": 0.16180739,
+ "per_vs_sector": 9.665402202643172,
+ "pbr_vs_sector": 0.15979985,
  "per_band_pos": null,
- "yield_band_pos": 0.5919992310538953,
+ "yield_band_pos": 0.6169157687369866,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 0.0,
- "total_yield": 2.8784119106699753,
+ "total_yield": 2.9145728643216082,
  "total_payout": 639.0134529147982,
  "interest_coverage": 3.671698113207547,
- "warnings": [],
- "_generated_at": "2026-10-07T22:28:14"
+ "warnings": [
+  "⚠ 配当性向が100%超（639%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（82）のに質が低め（選定59）。安さの理由を確認"
+ ],
+ "roa": 0.1,
+ "leverage": 1.41,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（639%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（82）のに質が低め（選定59）。安さの理由を確認"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:42:17"
 }

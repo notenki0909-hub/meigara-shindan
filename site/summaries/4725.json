@@ -1,14 +1,14 @@
 {
  "code": "4725",
  "name": "ＣＡＣ　Ｈｏｌｄｉｎｇｓ",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "情報・通信業",
  "industry": "Information Technology Services",
  "is_simple": false,
  "is_reit": false,
- "price": 1912.0,
- "price_date": "2026-10-07",
- "mcap": 33136283648,
+ "price": 1911.0,
+ "price_date": "2026-10-08",
+ "mcap": 33118951424,
  "sel_score": 89.9,
  "tim_score": 109.6,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
@@ -32,21 +32,21 @@
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 110.0,
   "株価バリュエーション": 110.0,
-  "金利スプレッド": 107.5
+  "金利スプレッド": 107.6
  },
- "div_yield": 5.230125523012552,
+ "div_yield": 5.2328623757195185,
  "streak_up": 3,
  "streak_flat": 8,
  "payout_ni": 47.14,
  "roe": 10.6979996,
  "div_policy": null,
  "dgr5": 10.756634324829006,
- "chowder": 15.986759847841558,
+ "chowder": 15.989496700548525,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 155.96412556053812,
- "per_vs_sector": 0.49792767955801104,
- "pbr_vs_sector": 0.45488135,
+ "per_vs_sector": 0.4979254696132597,
+ "pbr_vs_sector": 0.45464343,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": null,
@@ -55,6 +55,17 @@
  "total_yield": null,
  "total_payout": 53.164169978599816,
  "interest_coverage": 176.21212121212122,
- "warnings": [],
- "_generated_at": "2026-10-07T22:38:57"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（156%：フリーCFで配当を賄えていない）"
+ ],
+ "roa": 6.09,
+ "leverage": 1.52,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（156%：フリーCFで配当を賄えていない）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:55:27"
 }

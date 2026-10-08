@@ -1,16 +1,16 @@
 {
  "code": "6625",
  "name": "ＪＡＬＣＯホールディングス",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "電気機器",
  "industry": "Semiconductors",
  "is_simple": false,
  "is_reit": false,
- "price": 333.0,
- "price_date": "2026-10-07",
- "mcap": 36819050496,
+ "price": 335.0,
+ "price_date": "2026-10-08",
+ "mcap": 37040185344,
  "sel_score": 58.7,
- "tim_score": 109.3,
+ "tim_score": 109.2,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
@@ -31,30 +31,46 @@
   "配当の持続力": 62.1,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 110.0,
-  "株価バリュエーション": 107.0,
+  "株価バリュエーション": 106.9,
   "金利スプレッド": null
  },
- "div_yield": 5.405405405405405,
+ "div_yield": 5.3731343283582085,
  "streak_up": 0,
  "streak_flat": 5,
  "payout_ni": 110.35999999999999,
  "roe": 10.191,
  "div_policy": null,
  "dgr5": 55.18455739153598,
- "chowder": 60.589962796941386,
+ "chowder": 60.557691719894194,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 0.686040612244898,
- "pbr_vs_sector": 0.8410233846153845,
+ "per_vs_sector": 0.6943667006802721,
+ "pbr_vs_sector": 0.8460745384615385,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 40000.0,
- "total_yield": 5.405514044817506,
+ "total_yield": 5.373242319178526,
  "total_payout": 114.58516132615092,
  "interest_coverage": 2.2254467941684095,
- "warnings": [],
- "_generated_at": "2026-10-07T22:48:38"
+ "warnings": [
+  "⚠ 配当性向が100%超（110%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（109）のに質が低め（選定59）。安さの理由を確認"
+ ],
+ "roa": 1.96,
+ "leverage": 4.84,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（110%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（109）のに質が低め（選定59）。安さの理由を確認"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T23:07:21"
 }

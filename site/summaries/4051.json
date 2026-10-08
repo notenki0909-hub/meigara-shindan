@@ -1,16 +1,16 @@
 {
  "code": "4051",
  "name": "ＧＭＯフィナンシャルゲート",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "情報・通信業",
  "industry": "Software - Infrastructure",
  "is_simple": false,
  "is_reit": false,
- "price": 5970.0,
- "price_date": "2026-10-07",
- "mcap": 49292345344,
+ "price": 5990.0,
+ "price_date": "2026-10-08",
+ "mcap": 49457475584,
  "sel_score": 96.5,
- "tim_score": 74.9,
+ "tim_score": 74.8,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -30,31 +30,42 @@
   "キャッシュフロー": 73.3,
   "配当の持続力": 92.2,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 86.3,
+  "利回り水準とChowder": 86.2,
   "株価バリュエーション": 20.0,
-  "金利スプレッド": 46.5
+  "金利スプレッド": 46.3
  },
- "div_yield": 2.0938023450586267,
+ "div_yield": 2.0868113522537564,
  "streak_up": 6,
  "streak_flat": 6,
  "payout_ni": 49.7,
  "roe": 26.683,
  "div_policy": null,
  "dgr5": 40.135178721426755,
- "chowder": 42.22898106648538,
+ "chowder": 42.22199007368051,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 137.4824676033247,
- "per_vs_sector": 1.6587087845303865,
- "pbr_vs_sector": 3.54639865,
+ "per_vs_sector": 1.6558552486187845,
+ "pbr_vs_sector": 3.5582793,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": "2026-08-12",
  "buyback_yen": 500663000.0,
- "total_yield": 3.109503660356139,
+ "total_yield": 3.0991214107193557,
  "total_payout": 62.329123851889975,
  "interest_coverage": 119.94938198940554,
- "warnings": [],
- "_generated_at": "2026-10-07T22:33:48"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（137%：フリーCFで配当を賄えていない）"
+ ],
+ "roa": 11.8,
+ "leverage": 2.21,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（137%：フリーCFで配当を賄えていない）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:49:03"
 }

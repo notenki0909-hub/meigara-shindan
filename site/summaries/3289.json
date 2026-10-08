@@ -1,14 +1,14 @@
 {
  "code": "3289",
  "name": "東急不動産ホールディングス",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "不動産業",
  "industry": "Real Estate - Diversified",
  "is_simple": false,
  "is_reit": false,
- "price": 1189.0,
- "price_date": "2026-10-07",
- "mcap": 848032038912,
+ "price": 1181.5,
+ "price_date": "2026-10-08",
+ "mcap": 842682793984,
  "sel_score": 99.4,
  "tim_score": 107.7,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
@@ -32,29 +32,40 @@
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 107.4,
   "株価バリュエーション": 110.0,
-  "金利スプレッド": 100.7
+  "金利スプレッド": 100.9
  },
- "div_yield": 4.205214465937763,
+ "div_yield": 4.231908590774439,
  "streak_up": 5,
  "streak_flat": 12,
  "payout_ni": 35.509997999999996,
  "roe": 10.542,
  "div_policy": null,
  "dgr5": 24.57309396155174,
- "chowder": 28.778308427489506,
+ "chowder": 28.80500255232618,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 23.06997219647822,
- "per_vs_sector": 0.7036544,
- "pbr_vs_sector": 0.5819795249999999,
+ "per_vs_sector": 0.69921592,
+ "pbr_vs_sector": 0.5783085,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-06",
  "earn_disc_date": "2026-08-05",
  "buyback_yen": 5391000000.0,
- "total_yield": 4.840921579894978,
+ "total_yield": 4.871651093942524,
  "total_payout": 36.46648810200937,
  "interest_coverage": 8.034182722187694,
- "warnings": [],
- "_generated_at": "2026-10-07T22:30:56"
+ "warnings": [
+  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+ ],
+ "roa": 2.83,
+ "leverage": 3.81,
+ "insight_flags": [
+  {
+   "k": "lev_roe",
+   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:45:35"
 }

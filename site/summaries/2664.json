@@ -1,16 +1,16 @@
 {
  "code": "2664",
  "name": "カワチ薬品",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "医薬品",
  "industry": "Pharmaceutical Retailers",
  "is_simple": false,
  "is_reit": false,
- "price": 3755.0,
- "price_date": "2026-10-07",
- "mcap": 82197700608,
+ "price": 3785.0,
+ "price_date": "2026-10-08",
+ "mcap": 82854404096,
  "sel_score": 86.9,
- "tim_score": 96.7,
+ "tim_score": 96.4,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -30,23 +30,23 @@
   "キャッシュフロー": 103.3,
   "配当の持続力": 76.0,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 106.6,
-  "株価バリュエーション": 59.1,
-  "金利スプレッド": 97.2
+  "利回り水準とChowder": 106.5,
+  "株価バリュエーション": 58.5,
+  "金利スプレッド": 96.3
  },
- "div_yield": 3.9946737683089215,
+ "div_yield": 3.963011889035667,
  "streak_up": 1,
  "streak_flat": 23,
  "payout_ni": 55.88999999999999,
  "roe": 2.851,
  "div_policy": null,
  "dgr5": 14.869835499703509,
- "chowder": 18.86450926801243,
+ "chowder": 18.832847388739175,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 39.2998678996037,
- "per_vs_sector": 1.4028373796791445,
- "pbr_vs_sector": 0.6086125,
+ "per_vs_sector": 1.4140451336898396,
+ "pbr_vs_sector": 0.6134749416666667,
  "per_band_pos": 0.0,
  "yield_band_pos": 1.0,
  "next_earn": null,
@@ -55,6 +55,17 @@
  "total_yield": null,
  "total_payout": 55.78125000000001,
  "interest_coverage": 80.6,
- "warnings": [],
- "_generated_at": "2026-10-07T22:27:28"
+ "warnings": [
+  "⚠ バリュートラップ注意：PBR 0.74倍（1倍割れ）かつROE 2.8%（5%未満）"
+ ],
+ "roa": 1.6,
+ "leverage": 1.72,
+ "insight_flags": [
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：PBR 0.74倍（1倍割れ）かつROE 2.8%（5%未満）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:41:24"
 }

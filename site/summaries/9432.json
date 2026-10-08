@@ -1,13 +1,13 @@
 {
  "code": "9432",
  "name": "ＮＴＴ",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "情報・通信業",
  "industry": "Telecom Services",
  "is_simple": false,
  "is_reit": false,
  "price": 172.10000610351562,
- "price_date": "2026-10-07",
+ "price_date": "2026-10-08",
  "mcap": 13928571600896,
  "sel_score": 79.5,
  "tim_score": 77.2,
@@ -55,6 +55,17 @@
  "total_yield": 4.608859221821634,
  "total_payout": 61.605909942991154,
  "interest_coverage": 7.589478814335938,
- "warnings": [],
- "_generated_at": "2026-10-07T23:08:33"
+ "warnings": [
+  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+ ],
+ "roa": 2.22,
+ "leverage": 4.8,
+ "insight_flags": [
+  {
+   "k": "lev_roe",
+   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T23:31:51"
 }

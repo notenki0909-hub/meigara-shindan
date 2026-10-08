@@ -1,14 +1,14 @@
 {
  "code": "4521",
  "name": "科研製薬",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "医薬品",
  "industry": "Drug Manufacturers - Specialty & Generic",
  "is_simple": false,
  "is_reit": false,
- "price": 3755.0,
- "price_date": "2026-10-07",
- "mcap": 142195523584,
+ "price": 3740.0,
+ "price_date": "2026-10-08",
+ "mcap": 141627506688,
  "sel_score": 62.8,
  "tim_score": 94.7,
  "sel_label": "選定スコア下位（質に不安）",
@@ -30,31 +30,47 @@
   "キャッシュフロー": 20.0,
   "配当の持続力": 65.0,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 94.5,
+  "利回り水準とChowder": 94.6,
   "株価バリュエーション": 55.2,
-  "金利スプレッド": 106.4
+  "金利スプレッド": 106.5
  },
- "div_yield": 5.0599201065246335,
+ "div_yield": 5.080213903743315,
  "streak_up": 0,
  "streak_flat": 25,
  "payout_ni": 336.04999000000004,
  "roe": 6.8670005000000005,
  "div_policy": null,
  "dgr5": 4.841317128472156,
- "chowder": 9.901237234996788,
+ "chowder": 9.921531032215471,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 3.53774064171123,
- "pbr_vs_sector": 0.7750851416666666,
+ "per_vs_sector": 3.5517671122994656,
+ "pbr_vs_sector": 0.7719889166666667,
  "per_band_pos": 0.0,
  "yield_band_pos": 1.0,
- "next_earn": "2026-11-09",
+ "next_earn": "2026-11-10",
  "earn_disc_date": "2026-05-12",
  "buyback_yen": 2343000000.0,
- "total_yield": 6.70765130153367,
+ "total_yield": 6.73455355484057,
  "total_payout": 412.36007462686564,
  "interest_coverage": 52.4,
- "warnings": [],
- "_generated_at": "2026-10-07T22:37:10"
+ "warnings": [
+  "⚠ 配当性向が100%超（336%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（95）のに質が低め（選定63）。安さの理由を確認"
+ ],
+ "roa": 1.2,
+ "leverage": 1.21,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（336%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（95）のに質が低め（選定63）。安さの理由を確認"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:53:14"
 }

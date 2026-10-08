@@ -1,14 +1,14 @@
 {
  "code": "5938",
  "name": "ＬＩＸＩＬ",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "建設業",
  "industry": "Building Products & Equipment",
  "is_simple": false,
  "is_reit": false,
- "price": 1678.0,
- "price_date": "2026-10-07",
- "mcap": 482581151744,
+ "price": 1672.0,
+ "price_date": "2026-10-08",
+ "mcap": 480855588864,
  "sel_score": 67.8,
  "tim_score": 95.4,
  "sel_label": "選定スコア下位（質に不安）",
@@ -30,23 +30,23 @@
   "キャッシュフロー": 100.6,
   "配当の持続力": 55.4,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 97.6,
+  "利回り水準とChowder": 97.7,
   "株価バリュエーション": 65.0,
   "金利スプレッド": null
  },
- "div_yield": 5.363528009535161,
+ "div_yield": 5.382775119617225,
  "streak_up": 0,
  "streak_flat": 25,
  "payout_ni": 317.68,
  "roe": 0.889,
  "div_policy": null,
  "dgr5": 5.154749679728043,
- "chowder": 10.518277689263204,
+ "chowder": 10.537524799345269,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 64.87394957983193,
- "per_vs_sector": 4.551347829457364,
- "pbr_vs_sector": 0.5276292142857143,
+ "per_vs_sector": 4.5912999999999995,
+ "pbr_vs_sector": 0.5257425714285715,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-30",
@@ -55,6 +55,22 @@
  "total_yield": null,
  "total_payout": 317.5979368783004,
  "interest_coverage": 1.9310651413668425,
- "warnings": [],
- "_generated_at": "2026-10-07T22:43:41"
+ "warnings": [
+  "⚠ 配当性向が100%超（318%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（95）のに質が低め（選定68）。安さの理由を確認"
+ ],
+ "roa": 0.43,
+ "leverage": 2.83,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（318%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（95）のに質が低め（選定68）。安さの理由を確認"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T23:01:12"
 }

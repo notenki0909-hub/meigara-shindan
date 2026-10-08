@@ -1,14 +1,14 @@
 {
  "code": "7270",
  "name": "ＳＵＢＡＲＵ",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "輸送用機器",
  "industry": "Auto Manufacturers",
  "is_simple": false,
  "is_reit": false,
- "price": 2539.5,
- "price_date": "2026-10-07",
- "mcap": 1766391152640,
+ "price": 2544.5,
+ "price_date": "2026-10-08",
+ "mcap": 1769869017088,
  "sel_score": 68.1,
  "tim_score": 97.4,
  "sel_label": "選定スコア中位（一部に弱点）",
@@ -34,27 +34,43 @@
   "株価バリュエーション": 60.1,
   "金利スプレッド": null
  },
- "div_yield": 4.587517227800748,
+ "div_yield": 4.578502652780507,
  "streak_up": 0,
  "streak_flat": 5,
  "payout_ni": 92.04,
  "roe": 3.118,
  "div_policy": null,
  "dgr5": 15.578962436501453,
- "chowder": 20.1664796643022,
+ "chowder": 20.15746508928196,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 186.0767058920512,
- "per_vs_sector": 1.3673427702702703,
- "pbr_vs_sector": 0.7170134777777778,
+ "per_vs_sector": 1.3673109459459458,
+ "pbr_vs_sector": 0.7184251777777777,
  "per_band_pos": 0.0,
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-09",
  "earn_disc_date": "2026-08-05",
  "buyback_yen": 50005000000.0,
- "total_yield": 7.4184304106064864,
+ "total_yield": 7.40385297629056,
  "total_payout": 154.43847559498911,
  "interest_coverage": 8.662127477541707,
- "warnings": [],
- "_generated_at": "2026-10-07T22:52:26"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（186%：フリーCFで配当を賄えていない）",
+  "⚠ バリュートラップ注意：PBR 0.65倍（1倍割れ）かつROE 3.3%（5%未満）"
+ ],
+ "roa": 1.65,
+ "leverage": 1.98,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（186%：フリーCFで配当を賄えていない）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：PBR 0.65倍（1倍割れ）かつROE 3.3%（5%未満）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T23:12:08"
 }

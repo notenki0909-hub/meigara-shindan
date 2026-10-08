@@ -1,16 +1,16 @@
 {
  "code": "3028",
  "name": "アルペン",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "小売業",
  "industry": "Specialty Retail",
  "is_simple": false,
  "is_reit": false,
- "price": 2334.0,
- "price_date": "2026-10-07",
- "mcap": 89994772480,
+ "price": 2333.0,
+ "price_date": "2026-10-08",
+ "mcap": 89956212736,
  "sel_score": 90.0,
- "tim_score": 84.8,
+ "tim_score": 84.9,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -34,27 +34,38 @@
   "株価バリュエーション": 110.0,
   "金利スプレッド": 53.5
  },
- "div_yield": 2.356469580119966,
+ "div_yield": 2.357479639948564,
  "streak_up": 1,
  "streak_flat": 20,
  "payout_ni": 33.76,
  "roe": 5.064000200000001,
  "div_policy": null,
  "dgr5": 4.095039696925684,
- "chowder": 6.45150927704565,
+ "chowder": 6.452519336874248,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 102.71855010660983,
- "per_vs_sector": 0.6310647797356829,
- "pbr_vs_sector": 0.356107535,
+ "per_vs_sector": 0.630794449339207,
+ "pbr_vs_sector": 0.35595495,
  "per_band_pos": null,
- "yield_band_pos": 0.7600818246795654,
+ "yield_band_pos": 0.7613659917394451,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 0.0,
- "total_yield": 2.356469580119966,
+ "total_yield": 2.357479639948564,
  "total_payout": null,
  "interest_coverage": null,
- "warnings": [],
- "_generated_at": "2026-10-07T22:28:55"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（103%：フリーCFで配当を賄えていない）"
+ ],
+ "roa": null,
+ "leverage": 1.7,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（103%：フリーCFで配当を賄えていない）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:43:06"
 }

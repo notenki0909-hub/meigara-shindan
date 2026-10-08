@@ -1,14 +1,14 @@
 {
  "code": "4519",
  "name": "中外製薬",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "医薬品",
  "industry": "Drug Manufacturers - General",
  "is_simple": false,
  "is_reit": false,
- "price": 6101.0,
- "price_date": "2026-10-07",
- "mcap": 10040800968704,
+ "price": 6107.0,
+ "price_date": "2026-10-08",
+ "mcap": 10049539801088,
  "sel_score": 99.2,
  "tim_score": 93.7,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
@@ -30,31 +30,42 @@
   "キャッシュフロー": 82.7,
   "配当の持続力": 100.1,
   "配当利回りセオリー": 108.1,
-  "利回り水準とChowder": 104.9,
-  "株価バリュエーション": 61.9,
-  "金利スプレッド": 83.8
+  "利回り水準とChowder": 104.8,
+  "株価バリュエーション": 61.8,
+  "金利スプレッド": 83.7
  },
- "div_yield": 3.491230945746599,
+ "div_yield": 3.4878008842312105,
  "streak_up": 13,
  "streak_flat": 9,
  "payout_ni": 42.59,
  "roe": 23.493,
  "div_policy": null,
  "dgr5": 40.32006588555799,
- "chowder": 43.81129683130459,
+ "chowder": 43.8078667697892,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 109.00925828166584,
- "per_vs_sector": 1.1390848128342246,
- "pbr_vs_sector": 4.125435833333333,
- "per_band_pos": 0.558598713075289,
- "yield_band_pos": 0.9257387539618961,
+ "per_vs_sector": 1.1402050802139039,
+ "pbr_vs_sector": 4.1294933333333335,
+ "per_band_pos": 0.55682824607832,
+ "yield_band_pos": 0.9244901407254815,
  "next_earn": "2026-10-27",
  "earn_disc_date": "2026-07-24",
  "buyback_yen": 6000000.0,
- "total_yield": 3.4912907019355597,
+ "total_yield": 3.4878605884576603,
  "total_payout": 68.99002792549514,
  "interest_coverage": 2888.9565217391305,
- "warnings": [],
- "_generated_at": "2026-10-07T22:37:05"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（109%：フリーCFで配当を賄えていない）"
+ ],
+ "roa": 17.58,
+ "leverage": 1.22,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（109%：フリーCFで配当を賄えていない）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:53:08"
 }

@@ -1,13 +1,13 @@
 {
  "code": "2353",
  "name": "日本駐車場開発",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "jp_sector": "卸売業",
  "industry": "Conglomerates",
  "is_simple": false,
  "is_reit": false,
  "price": 257.0,
- "price_date": "2026-10-07",
+ "price_date": "2026-10-08",
  "mcap": 79332597760,
  "sel_score": 99.7,
  "tim_score": 100.2,
@@ -55,6 +55,17 @@
  "total_yield": 7.990764446564888,
  "total_payout": null,
  "interest_coverage": null,
- "warnings": [],
- "_generated_at": "2026-10-07T22:26:30"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（256%：フリーCFで配当を賄えていない）"
+ ],
+ "roa": null,
+ "leverage": 2.66,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（256%：フリーCFで配当を賄えていない）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T22:40:13"
 }
