@@ -1,16 +1,16 @@
 {
  "code": "NTST",
  "name": "NETSTREIT Corp.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Real Estate",
  "industry": "REIT - Retail",
  "is_simple": true,
  "is_reit": true,
- "price": 17.639999389648438,
- "price_date": "2026-10-06",
- "mcap": 1798048256,
+ "price": 17.209999084472656,
+ "price_date": "2026-10-07",
+ "mcap": 1680947968,
  "sel_score": 75.6,
- "tim_score": 100.3,
+ "tim_score": 100.4,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -28,27 +28,27 @@
   "業績": null,
   "財務": null,
   "キャッシュフロー": null,
-  "配当の持続力": 61.7,
+  "配当の持続力": 61.8,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 110.0,
   "株価バリュエーション": 65.0,
-  "金利スプレッド": 106.0,
+  "金利スプレッド": 106.9,
   "REIT品質": 81.5
  },
- "div_yield": 5.102040992859337,
- "total_yield": 5.102040992859337,
+ "div_yield": 5.229518000451291,
+ "total_yield": 5.229518000451291,
  "streak_up": 4,
  "streak_flat": 6,
  "payout_ni": 621.43,
  "roe": 0.962,
- "chowder": 28.259163749915416,
+ "chowder": 28.386640757507372,
  "dgr5": 23.15712275705608,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 64.4886623179667,
  "interest_coverage": 1.1480979412013894,
- "per_vs_sector": 2.95081943793911,
- "pbr_vs_sector": 0.37964876666666664,
+ "per_vs_sector": 2.8788891334894613,
+ "pbr_vs_sector": 0.37039426666666664,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-21",
@@ -56,7 +56,17 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。"
+  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
+  "⚠ 配当性向が100%超（621%：純利益を上回る配当）"
  ],
- "_generated_at": "2026-10-07T01:35:45"
+ "roa": 0.26,
+ "leverage": 1.81,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（621%：純利益を上回る配当）"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:51:22"
 }

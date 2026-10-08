@@ -1,14 +1,14 @@
 {
  "code": "BANC",
  "name": "Banc of California, Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Financials",
  "industry": "Banks - Regional",
  "is_simple": true,
  "is_reit": false,
  "price": 17.43000030517578,
  "price_date": "2026-10-06",
- "mcap": 2761397504,
+ "mcap": 2720206336,
  "sel_score": 37.2,
  "tim_score": 104.6,
  "sel_label": "選定スコア基準未達",
@@ -36,7 +36,7 @@
   "金融品質": 22.2
  },
  "div_yield": 2.7538725851741126,
- "total_yield": 9.552133238631992,
+ "total_yield": 9.655077009102047,
  "streak_up": 1,
  "streak_flat": 7,
  "payout_ni": 32.06,
@@ -48,7 +48,7 @@
  "fcf_payout": 44.16346141559222,
  "interest_coverage": null,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.37936664000000003,
+ "pbr_vs_sector": 0.37370770000000003,
  "per_band_pos": null,
  "yield_band_pos": 0.8210153008679925,
  "next_earn": "2026-10-27",
@@ -56,7 +56,17 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。",
+  "⚠ バリュートラップ注意：買い時が高い（105）のに質が低め（選定37）。安さの理由を確認"
  ],
- "_generated_at": "2026-10-07T01:14:40"
+ "roa": 0.66,
+ "leverage": 9.83,
+ "insight_flags": [
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（105）のに質が低め（選定37）。安さの理由を確認"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:33:08"
 }

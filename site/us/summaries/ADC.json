@@ -1,14 +1,14 @@
 {
  "code": "ADC",
  "name": "Agree Realty Corporation",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Real Estate",
  "industry": "REIT - Retail",
  "is_simple": true,
  "is_reit": true,
  "price": 65.79000091552734,
  "price_date": "2026-10-06",
- "mcap": 8205784576,
+ "mcap": 8127331328,
  "sel_score": 89.0,
  "tim_score": 108.4,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
@@ -31,12 +31,12 @@
   "配当の持続力": 72.8,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 108.8,
-  "株価バリュエーション": 108.3,
+  "株価バリュエーション": 108.4,
   "金利スプレッド": 104.4,
   "REIT品質": 95.9
  },
  "div_yield": 4.863961020624878,
- "total_yield": 4.90953862463533,
+ "total_yield": 4.909978585912453,
  "streak_up": 5,
  "streak_flat": 5,
  "payout_ni": 168.87,
@@ -47,8 +47,8 @@
  "fcf_positive": 1,
  "fcf_payout": 69.04664614310424,
  "interest_coverage": 2.535702611951386,
- "per_vs_sector": 0.8283599063231849,
- "pbr_vs_sector": 0.42924253333333334,
+ "per_vs_sector": 0.8204276346604215,
+ "pbr_vs_sector": 0.4251321666666667,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-20",
@@ -56,7 +56,17 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。"
+  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
+  "⚠ 配当性向が100%超（169%：純利益を上回る配当）"
  ],
- "_generated_at": "2026-10-07T01:11:21"
+ "roa": 2.09,
+ "leverage": 1.56,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（169%：純利益を上回る配当）"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:30:14"
 }

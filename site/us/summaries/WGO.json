@@ -1,14 +1,14 @@
 {
  "code": "WGO",
  "name": "Winnebago Industries, Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Consumer Discretionary",
  "industry": "Recreational Vehicles",
  "is_simple": false,
  "is_reit": false,
- "price": 24.950000762939453,
- "price_date": "2026-10-06",
- "mcap": 705308864,
+ "price": 24.450000762939453,
+ "price_date": "2026-10-07",
+ "mcap": 691174400,
  "sel_score": 66.7,
  "tim_score": 110.0,
  "sel_label": "選定スコア下位（質に不安）",
@@ -34,26 +34,42 @@
   "株価バリュエーション": 110.0,
   "金利スプレッド": null
  },
- "div_yield": 5.771542909685859,
- "total_yield": 13.3852285927854,
+ "div_yield": 5.8895703683686875,
+ "total_yield": 13.658955345590066,
  "streak_up": 8,
  "streak_flat": 12,
  "payout_ni": 102.21000000000001,
  "roe": 3.1419999999999995,
- "chowder": 29.644743722391624,
+ "chowder": 29.762771181074452,
  "dgr5": 23.873200812705765,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 43.463687150837984,
  "interest_coverage": 2.1621621621621623,
- "per_vs_sector": 0.6197834121621622,
- "pbr_vs_sector": 0.06195501086956523,
+ "per_vs_sector": 0.6073629054054054,
+ "pbr_vs_sector": 0.06071342717391305,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-21",
  "earn_disc_date": "2026-06-25",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:49:14"
+ "warnings": [
+  "⚠ 配当性向が100%超（102%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（110）のに質が低め（選定67）。安さの理由を確認"
+ ],
+ "roa": 1.19,
+ "leverage": 1.76,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（102%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（110）のに質が低め（選定67）。安さの理由を確認"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T02:02:46"
 }

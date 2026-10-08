@@ -1,16 +1,16 @@
 {
  "code": "ETR",
  "name": "Entergy Corporation",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Utilities",
  "industry": "Utilities - Regulated Electric",
  "is_simple": false,
  "is_reit": false,
- "price": 103.25,
- "price_date": "2026-10-06",
- "mcap": 49330524160,
+ "price": 102.80000305175781,
+ "price_date": "2026-10-07",
+ "mcap": 49115525120,
  "sel_score": 88.9,
- "tim_score": 59.6,
+ "tim_score": 59.5,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア最下位（割高水準）",
  "comment": "選定は上位水準だが、買い時は最下位（割高水準）。",
@@ -30,30 +30,41 @@
   "キャッシュフロー": 60.0,
   "配当の持続力": 91.0,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 92.7,
-  "株価バリュエーション": 62.0,
-  "金利スプレッド": 54.1
+  "利回り水準とChowder": 92.9,
+  "株価バリュエーション": 61.0,
+  "金利スプレッド": 54.4
  },
- "div_yield": 2.4794188861985473,
- "total_yield": 2.4794188861985473,
+ "div_yield": 2.490272299613736,
+ "total_yield": 2.490272299613736,
  "streak_up": 11,
  "streak_flat": 28,
  "payout_ni": 64.449996,
  "roe": 10.248999,
- "chowder": 7.944731417063344,
+ "chowder": 7.955584830478532,
  "dgr5": 5.4653125308647965,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": 2.699231886259016,
- "per_vs_sector": 1.2233412322274881,
- "pbr_vs_sector": 1.1012629166666668,
+ "per_vs_sector": 1.2460455450236967,
+ "pbr_vs_sector": 1.0964632083333334,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.0,
  "next_earn": "2026-11-02",
  "earn_disc_date": "2026-07-29",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:22:32"
+ "warnings": [
+  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+ ],
+ "roa": 2.47,
+ "leverage": 4.24,
+ "insight_flags": [
+  {
+   "k": "lev_roe",
+   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:39:51"
 }

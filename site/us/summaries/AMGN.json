@@ -1,16 +1,16 @@
 {
  "code": "AMGN",
  "name": "Amgen Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Health Care",
  "industry": "Drug Manufacturers - General",
  "is_simple": false,
  "is_reit": false,
  "price": 402.6000061035156,
  "price_date": "2026-10-06",
- "mcap": 217658441728,
+ "mcap": 223324258304,
  "sel_score": 83.8,
- "tim_score": 60.8,
+ "tim_score": 60.4,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア最下位（割高水準）",
  "comment": "選定は中位、買い時は最下位（割高水準）。",
@@ -31,7 +31,7 @@
   "配当の持続力": 94.0,
   "配当利回りセオリー": 40.0,
   "利回り水準とChowder": 87.2,
-  "株価バリュエーション": 68.6,
+  "株価バリュエーション": 66.9,
   "金利スプレッド": null
  },
  "div_yield": 2.5037257444572054,
@@ -46,14 +46,25 @@
  "fcf_positive": 1,
  "fcf_payout": 63.25925925925926,
  "interest_coverage": 4.258076225045372,
- "per_vs_sector": 1.0595851694915253,
- "pbr_vs_sector": 3.581085961538461,
- "per_band_pos": 0.7356031454191191,
+ "per_vs_sector": 1.0871669491525422,
+ "pbr_vs_sector": 3.6743042307692306,
+ "per_band_pos": 0.7026894352594335,
  "yield_band_pos": 0.0,
  "next_earn": "2026-11-03",
  "earn_disc_date": "2026-08-04",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:12:58"
+ "warnings": [
+  "⚠ 自己資本比率が10%未満（9.6%）"
+ ],
+ "roa": 8.51,
+ "leverage": 10.46,
+ "insight_flags": [
+  {
+   "k": "low_equity",
+   "t": "自己資本比率が10%未満（9.6%）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:31:37"
 }

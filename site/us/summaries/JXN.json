@@ -1,16 +1,16 @@
 {
  "code": "JXN",
  "name": "Jackson Financial Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Financials",
  "industry": "Insurance - Life",
  "is_simple": true,
  "is_reit": false,
- "price": 133.85000610351562,
- "price_date": "2026-10-05",
- "mcap": 9001827328,
+ "price": 130.3000030517578,
+ "price_date": "2026-10-07",
+ "mcap": 8825055232,
  "sel_score": 40.0,
- "tim_score": 72.6,
+ "tim_score": 73.6,
  "sel_label": "選定スコア基準未達",
  "tim_label": "買い時スコア下位（やや割高水準）",
  "comment": "選定・買い時とも下位水準。",
@@ -29,34 +29,49 @@
   "財務": null,
   "キャッシュフロー": null,
   "配当の持続力": 63.3,
-  "配当利回りセオリー": 63.1,
-  "利回り水準とChowder": 100.9,
+  "配当利回りセオリー": 64.6,
+  "利回り水準とChowder": 101.8,
   "株価バリュエーション": 56.7,
   "金利スプレッド": null,
   "金融品質": 30.0
  },
- "div_yield": 2.6895777630490856,
- "total_yield": 10.121402165180074,
+ "div_yield": 2.7628548854062625,
+ "total_yield": 10.343543984939368,
  "streak_up": 5,
  "streak_flat": 5,
  "payout_ni": 373.63,
  "roe": 1.37600005,
- "chowder": 61.74372351645921,
+ "chowder": 61.81700063881639,
  "dgr5": 59.054145753410126,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 4.637026745397708,
  "interest_coverage": -0.14,
- "per_vs_sector": 8.536287861271676,
- "pbr_vs_sector": 0.38445239999999997,
+ "per_vs_sector": 8.27669421965318,
+ "pbr_vs_sector": 0.37690276,
  "per_band_pos": 0.0,
- "yield_band_pos": 0.2305726894017361,
+ "yield_band_pos": 0.2458036535100714,
  "next_earn": "2026-11-03",
  "earn_disc_date": "2026-08-03",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。",
+  "⚠ 配当性向が100%超（374%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（74）のに質が低め（選定40）。安さの理由を確認"
  ],
- "_generated_at": "2026-10-07T01:29:25"
+ "roa": 0.01,
+ "leverage": 35.43,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（374%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（74）のに質が低め（選定40）。安さの理由を確認"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:45:47"
 }

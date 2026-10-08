@@ -1,14 +1,14 @@
 {
  "code": "TAP",
  "name": "Molson Coors Beverage Company",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Consumer Staples",
  "industry": "Beverages - Brewers",
  "is_simple": false,
  "is_reit": false,
- "price": 36.90999984741211,
- "price_date": "2026-10-06",
- "mcap": 6882014720,
+ "price": 36.95000076293945,
+ "price_date": "2026-10-07",
+ "mcap": 6889473024,
  "sel_score": 87.0,
  "tim_score": 109.4,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
@@ -32,28 +32,39 @@
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 110.0,
   "株価バリュエーション": 110.0,
-  "金利スプレッド": 106.7
+  "金利スプレッド": 106.6
  },
- "div_yield": 5.201842340659391,
- "total_yield": 14.616236618502494,
+ "div_yield": 5.196210988784997,
+ "total_yield": 14.600413570651437,
  "streak_up": 5,
  "streak_flat": 5,
  "payout_ni": 35.970002,
  "roe": -19.466,
- "chowder": 32.15882692018397,
+ "chowder": 32.15319556830958,
  "dgr5": 26.95698457952458,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 35.24068177561341,
  "interest_coverage": -9.157321500605082,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.10328797727272727,
+ "pbr_vs_sector": 0.10339991666666666,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-05",
  "earn_disc_date": "2026-08-06",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:51:22"
+ "warnings": [
+  "⚠ バリュートラップ注意：PBR 0.68倍（1倍割れ）かつROE -20.9%（5%未満）"
+ ],
+ "roa": -9.41,
+ "leverage": 2.22,
+ "insight_flags": [
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：PBR 0.68倍（1倍割れ）かつROE -20.9%（5%未満）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T02:04:36"
 }

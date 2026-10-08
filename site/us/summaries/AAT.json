@@ -1,14 +1,14 @@
 {
  "code": "AAT",
  "name": "American Assets Trust, Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Real Estate",
  "industry": "REIT - Diversified",
  "is_simple": true,
  "is_reit": true,
  "price": 21.5,
  "price_date": "2026-10-06",
- "mcap": 1668093696,
+ "mcap": 1664705152,
  "sel_score": 45.6,
  "tim_score": 98.3,
  "sel_label": "選定スコア基準未達",
@@ -47,8 +47,8 @@
  "fcf_positive": 1,
  "fcf_payout": 110.9572000843348,
  "interest_coverage": 1.9234511008704558,
- "per_vs_sector": 1.736251288056206,
- "pbr_vs_sector": 0.39213543333333334,
+ "per_vs_sector": 1.7330210772833723,
+ "pbr_vs_sector": 0.39140586666666666,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.8868961439796946,
  "next_earn": "2026-10-27",
@@ -56,7 +56,22 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。"
+  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
+  "⚠ 配当性向が100%超（469%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（98）のに質が低め（選定46）。安さの理由を確認"
  ],
- "_generated_at": "2026-10-07T01:10:53"
+ "roa": 2.44,
+ "leverage": 2.54,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（469%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（98）のに質が低め（選定46）。安さの理由を確認"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:29:50"
 }

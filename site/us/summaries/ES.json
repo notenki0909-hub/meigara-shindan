@@ -1,14 +1,14 @@
 {
  "code": "ES",
  "name": "Eversource Energy",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Utilities",
  "industry": "Utilities - Regulated Electric",
  "is_simple": false,
  "is_reit": false,
- "price": 65.26000213623047,
- "price_date": "2026-10-06",
- "mcap": 24581795840,
+ "price": 65.23999786376953,
+ "price_date": "2026-10-07",
+ "mcap": 24574259200,
  "sel_score": 90.8,
  "tim_score": 108.1,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
@@ -34,26 +34,37 @@
   "株価バリュエーション": 106.7,
   "金利スプレッド": 104.2
  },
- "div_yield": 4.826846302309897,
- "total_yield": 4.826846302309897,
+ "div_yield": 4.82832633835711,
+ "total_yield": 4.82832633835711,
  "streak_up": 26,
  "streak_flat": 27,
  "payout_ni": 65.059996,
  "roe": 9.016,
- "chowder": 10.627738028633795,
+ "chowder": 10.629218064681009,
  "dgr5": 5.800891726323898,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": 2.480115277020364,
- "per_vs_sector": 0.8012671090047392,
- "pbr_vs_sector": 0.6266949583333333,
- "per_band_pos": 0.7934952000502414,
+ "per_vs_sector": 0.8010215165876777,
+ "pbr_vs_sector": 0.626502875,
+ "per_band_pos": 0.7938996038985655,
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-04",
  "earn_disc_date": "2026-07-30",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:22:18"
+ "warnings": [
+  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+ ],
+ "roa": 2.65,
+ "leverage": 3.94,
+ "insight_flags": [
+  {
+   "k": "lev_roe",
+   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:39:39"
 }

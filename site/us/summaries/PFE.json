@@ -1,16 +1,16 @@
 {
  "code": "PFE",
  "name": "Pfizer Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Health Care",
  "industry": "Drug Manufacturers - General",
  "is_simple": false,
  "is_reit": false,
- "price": 27.5,
- "price_date": "2026-10-06",
- "mcap": 156741025792,
+ "price": 28.0,
+ "price_date": "2026-10-07",
+ "mcap": 159590858752,
  "sel_score": 62.3,
- "tim_score": 90.3,
+ "tim_score": 89.8,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア中位（妥当水準）",
  "comment": "選定スコアが基準未達の水準。",
@@ -29,31 +29,52 @@
   "財務": 81.3,
   "キャッシュフロー": 83.3,
   "配当の持続力": 53.0,
-  "配当利回りセオリー": 105.6,
-  "利回り水準とChowder": 94.2,
+  "配当利回りセオリー": 104.8,
+  "利回り水準とChowder": 93.7,
   "株価バリュエーション": 56.7,
   "金利スプレッド": null
  },
- "div_yield": 6.254545454545454,
+ "div_yield": 6.142857142857143,
  "total_yield": null,
  "streak_up": 0,
  "streak_flat": 17,
  "payout_ni": 226.32,
  "roe": 5.013999999999999,
- "chowder": 9.841869465833195,
+ "chowder": 9.730181154144883,
  "dgr5": 3.5873240112877403,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 107.6694214876033,
  "interest_coverage": 3.8154249344814675,
- "per_vs_sector": 1.5332292372881355,
- "pbr_vs_sector": 0.3537905769230769,
+ "per_vs_sector": 1.561106186440678,
+ "pbr_vs_sector": 0.3602231153846154,
  "per_band_pos": 0.0,
- "yield_band_pos": 0.8244682964786856,
+ "yield_band_pos": 0.7939643114155306,
  "next_earn": "2026-11-03",
  "earn_disc_date": "2026-08-04",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:38:31"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（108%：フリーCFで配当を賄えていない）",
+  "⚠ 配当性向が100%超（226%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（90）のに質が低め（選定62）。安さの理由を確認"
+ ],
+ "roa": 3.73,
+ "leverage": 2.41,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（108%：フリーCFで配当を賄えていない）"
+  },
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（226%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（90）のに質が低め（選定62）。安さの理由を確認"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:53:40"
 }

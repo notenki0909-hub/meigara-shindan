@@ -1,16 +1,16 @@
 {
  "code": "BANF",
  "name": "BancFirst Corporation",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Financials",
  "industry": "Banks - Regional",
  "is_simple": true,
  "is_reit": false,
  "price": 106.79000091552734,
  "price_date": "2026-10-06",
- "mcap": 3588009984,
+ "mcap": 3560493056,
  "sel_score": 97.5,
- "tim_score": 87.3,
+ "tim_score": 87.5,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア中位（妥当水準）",
  "comment": "選定は上位水準、買い時は中位（妥当水準）。",
@@ -31,7 +31,7 @@
   "配当の持続力": 97.3,
   "配当利回りセオリー": 87.0,
   "利回り水準とChowder": 73.5,
-  "株価バリュエーション": 104.5,
+  "株価バリュエーション": 105.5,
   "金利スプレッド": null,
   "金融品質": 97.6
  },
@@ -47,9 +47,9 @@
  "fcf_positive": 1,
  "fcf_payout": 26.251334574012414,
  "interest_coverage": null,
- "per_vs_sector": 0.8409853468208092,
- "pbr_vs_sector": 0.73333448,
- "per_band_pos": 0.6978947679288428,
+ "per_vs_sector": 0.8269562427745665,
+ "pbr_vs_sector": 0.7279782,
+ "per_band_pos": 0.7881534472712849,
  "yield_band_pos": 0.46985580569637314,
  "next_earn": "2026-10-16",
  "earn_disc_date": "2026-07-23",
@@ -58,5 +58,9 @@
  "warnings": [
   "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
- "_generated_at": "2026-10-07T01:14:45"
+ "roa": 1.62,
+ "leverage": 8.0,
+ "insight_flags": [],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:33:12"
 }

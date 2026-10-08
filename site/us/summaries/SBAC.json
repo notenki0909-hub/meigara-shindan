@@ -1,16 +1,16 @@
 {
  "code": "SBAC",
  "name": "SBA Communications Corporation",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Real Estate",
  "industry": "REIT - Specialty",
  "is_simple": true,
  "is_reit": true,
- "price": 169.6999969482422,
- "price_date": "2026-10-06",
- "mcap": 18003152896,
+ "price": 170.3800048828125,
+ "price_date": "2026-10-07",
+ "mcap": 18075293696,
  "sel_score": 71.2,
- "tim_score": 100.8,
+ "tim_score": 100.7,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -30,24 +30,24 @@
   "キャッシュフロー": null,
   "配当の持続力": 90.4,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 104.3,
+  "利回り水準とChowder": 104.1,
   "株価バリュエーション": 110.0,
-  "金利スプレッド": 66.6,
+  "金利スプレッド": 66.3,
   "REIT品質": 63.0
  },
- "div_yield": 2.9463760105576076,
- "total_yield": 5.711475006692912,
+ "div_yield": 2.9346166549525594,
+ "total_yield": 5.688679788710449,
  "streak_up": 7,
  "streak_flat": 7,
  "payout_ni": 50.92,
  "roe": null,
- "chowder": 21.953786445105017,
+ "chowder": 21.94202708949997,
  "dgr5": 19.00741043454741,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 44.914013852672596,
  "interest_coverage": 3.6051257742251455,
- "per_vs_sector": 0.40887229508196715,
+ "per_vs_sector": 0.43043838407494145,
  "pbr_vs_sector": null,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
@@ -56,7 +56,17 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。"
+  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
+  "⚠ 債務超過（自己資本がマイナス）"
  ],
- "_generated_at": "2026-10-07T01:41:42"
+ "roa": 9.1,
+ "leverage": null,
+ "insight_flags": [
+  {
+   "k": "insolvent",
+   "t": "債務超過（自己資本がマイナス）"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:56:29"
 }

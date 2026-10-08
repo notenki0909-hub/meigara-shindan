@@ -1,14 +1,14 @@
 {
  "code": "WINA",
  "name": "Winmark Corporation",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Consumer Discretionary",
  "industry": "Specialty Retail",
  "is_simple": false,
  "is_reit": false,
- "price": 295.8500061035156,
- "price_date": "2026-10-06",
- "mcap": 1062743232,
+ "price": 294.9200134277344,
+ "price_date": "2026-10-07",
+ "mcap": 1059402560,
  "sel_score": 97.7,
  "tim_score": 106.4,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
@@ -31,29 +31,45 @@
   "配当の持続力": 93.6,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 110.0,
-  "株価バリュエーション": 95.1,
+  "株価バリュエーション": 95.4,
   "金利スプレッド": null
  },
- "div_yield": 4.718607305052921,
- "total_yield": 4.946197557069694,
+ "div_yield": 4.7334868318187855,
+ "total_yield": 4.961794756617457,
  "streak_up": 6,
  "streak_flat": 16,
  "payout_ni": 35.39,
  "roe": null,
- "chowder": 34.1063464196954,
+ "chowder": 34.12122594646126,
  "dgr5": 29.387739114642475,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 109.86075227326108,
  "interest_coverage": 22.716364230832106,
- "per_vs_sector": 0.9069811486486485,
+ "per_vs_sector": 0.9041300675675675,
  "pbr_vs_sector": null,
- "per_band_pos": 0.48448820780920177,
+ "per_band_pos": 0.49032986944236157,
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-14",
  "earn_disc_date": "2026-07-15",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:49:23"
+ "warnings": [
+  "⚠ 債務超過（自己資本がマイナス）",
+  "⚠ FCF配当性向が100%超（110%：フリーCFで配当を賄えていない）"
+ ],
+ "roa": 167.39,
+ "leverage": null,
+ "insight_flags": [
+  {
+   "k": "insolvent",
+   "t": "債務超過（自己資本がマイナス）"
+  },
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（110%：フリーCFで配当を賄えていない）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T02:02:54"
 }

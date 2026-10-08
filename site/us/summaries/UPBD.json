@@ -1,14 +1,14 @@
 {
  "code": "UPBD",
  "name": "Upbound Group, Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Information Technology",
  "industry": "Software - Application",
  "is_simple": false,
  "is_reit": false,
- "price": 15.359999656677246,
- "price_date": "2026-10-06",
- "mcap": 895478848,
+ "price": 15.619999885559082,
+ "price_date": "2026-10-07",
+ "mcap": 910636672,
  "sel_score": 72.6,
  "tim_score": 110.0,
  "sel_label": "選定スコア中位（一部に弱点）",
@@ -34,26 +34,42 @@
   "株価バリュエーション": 110.0,
   "金利スプレッド": null
  },
- "div_yield": 10.156250227009883,
- "total_yield": 10.156250227009883,
+ "div_yield": 9.987195975860685,
+ "total_yield": 9.987195975860685,
  "streak_up": 0,
  "streak_flat": 7,
  "payout_ni": 101.29999999999998,
  "roe": 12.733,
- "chowder": 54.38004484585169,
+ "chowder": 54.210990594702494,
  "dgr5": 44.22379461884181,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 36.80856946562327,
  "interest_coverage": 1.9567268543104974,
- "per_vs_sector": 0.26122448979591834,
- "pbr_vs_sector": 0.09111833582089551,
+ "per_vs_sector": 0.2587463775510204,
+ "pbr_vs_sector": 0.0926607014925373,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-29",
  "earn_disc_date": "2026-07-30",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:47:16"
+ "warnings": [
+  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）",
+  "⚠ 配当性向が100%超（101%：純利益を上回る配当）"
+ ],
+ "roa": 2.24,
+ "leverage": 4.71,
+ "insight_flags": [
+  {
+   "k": "lev_roe",
+   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+  },
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（101%：純利益を上回る配当）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T02:01:09"
 }

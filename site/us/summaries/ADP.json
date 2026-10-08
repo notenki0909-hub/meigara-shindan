@@ -1,16 +1,16 @@
 {
  "code": "ADP",
  "name": "Automatic Data Processing, Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Information Technology",
  "industry": "Software - Application",
  "is_simple": false,
  "is_reit": false,
  "price": 262.3599853515625,
  "price_date": "2026-10-06",
- "mcap": 103960551424,
+ "mcap": 104610406400,
  "sel_score": 104.8,
- "tim_score": 106.5,
+ "tim_score": 106.4,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -31,11 +31,11 @@
   "配当の持続力": 105.6,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 108.7,
-  "株価バリュエーション": 97.0,
+  "株価バリュエーション": 96.7,
   "金利スプレッド": null
  },
  "div_yield": 2.5918586597296827,
- "total_yield": 4.595791855027313,
+ "total_yield": 4.583343132157848,
  "streak_up": 43,
  "streak_flat": 43,
  "payout_ni": 60.69,
@@ -46,14 +46,25 @@
  "fcf_positive": 1,
  "fcf_payout": 54.98837964029229,
  "interest_coverage": 13.47615937295885,
- "per_vs_sector": 0.6067866581632653,
- "pbr_vs_sector": 1.2914123880597013,
+ "per_vs_sector": 0.6156027551020408,
+ "pbr_vs_sector": 1.2994850746268656,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-28",
  "earn_disc_date": "2026-07-28",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:11:30"
+ "warnings": [
+  "⚠ 自己資本比率が10%未満（9.5%）"
+ ],
+ "roa": 6.98,
+ "leverage": 10.48,
+ "insight_flags": [
+  {
+   "k": "low_equity",
+   "t": "自己資本比率が10%未満（9.5%）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:30:22"
 }

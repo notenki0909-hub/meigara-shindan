@@ -1,14 +1,14 @@
 {
  "code": "MCD",
  "name": "McDonald's Corporation",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Consumer Discretionary",
  "industry": "Restaurants",
  "is_simple": false,
  "is_reit": false,
- "price": 232.4499969482422,
- "price_date": "2026-10-06",
- "mcap": 164491280384,
+ "price": 230.8800048828125,
+ "price_date": "2026-10-07",
+ "mcap": 163380281344,
  "sel_score": 100.0,
  "tim_score": 105.4,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
@@ -28,25 +28,25 @@
   "業績": 105.9,
   "財務": 94.7,
   "キャッシュフロー": 99.5,
-  "配当の持続力": 99.5,
+  "配当の持続力": 99.6,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 94.2,
+  "利回り水準とChowder": 94.4,
   "株価バリュエーション": 110.0,
   "金利スプレッド": null
  },
- "div_yield": 3.32114437571662,
- "total_yield": 4.571058653969138,
+ "div_yield": 3.3437282730128284,
+ "total_yield": 4.602142068782378,
  "streak_up": 18,
  "streak_flat": 18,
  "payout_ni": 59.709999999999994,
  "roe": null,
- "chowder": 10.625592144863557,
+ "chowder": 10.648176042159767,
  "dgr5": 7.304447769146938,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 71.18007236292792,
  "interest_coverage": 7.88811630847029,
- "per_vs_sector": 0.6394984121621621,
+ "per_vs_sector": 0.6336312162162162,
  "pbr_vs_sector": null,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
@@ -54,6 +54,17 @@
  "earn_disc_date": "2026-08-04",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:32:39"
+ "warnings": [
+  "⚠ 債務超過（自己資本がマイナス）"
+ ],
+ "roa": 14.39,
+ "leverage": null,
+ "insight_flags": [
+  {
+   "k": "insolvent",
+   "t": "債務超過（自己資本がマイナス）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:48:39"
 }

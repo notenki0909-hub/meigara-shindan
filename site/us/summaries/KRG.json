@@ -1,16 +1,16 @@
 {
  "code": "KRG",
  "name": "Kite Realty Group Trust",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Real Estate",
  "industry": "REIT - Retail",
  "is_simple": true,
  "is_reit": true,
- "price": 24.1299991607666,
- "price_date": "2026-10-06",
- "mcap": 4951392256,
+ "price": 23.75,
+ "price_date": "2026-10-07",
+ "mcap": 4938008576,
  "sel_score": 67.5,
- "tim_score": 108.9,
+ "tim_score": 109.0,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
@@ -32,23 +32,23 @@
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 110.0,
   "株価バリュエーション": 110.0,
-  "金利スプレッド": 104.0,
+  "金利スプレッド": 104.6,
   "REIT品質": 58.1
  },
- "div_yield": 4.807293992310056,
- "total_yield": 9.842281872696642,
+ "div_yield": 4.884210526315789,
+ "total_yield": 9.932844933547731,
  "streak_up": 6,
  "streak_flat": 6,
  "payout_ni": 70.0,
  "roe": 10.738,
- "chowder": 23.943083809019214,
+ "chowder": 24.020000343024947,
  "dgr5": 19.13578981670916,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 85.16967160566749,
  "interest_coverage": 3.308054941656547,
- "per_vs_sector": 0.35319084309133486,
- "pbr_vs_sector": 0.5616460333333334,
+ "per_vs_sector": 0.3476288056206089,
+ "pbr_vs_sector": 0.5528012666666667,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-30",
@@ -56,7 +56,17 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。"
+  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
+  "⚠ バリュートラップ注意：買い時が高い（109）のに質が低め（選定68）。安さの理由を確認"
  ],
- "_generated_at": "2026-10-07T01:30:44"
+ "roa": 4.48,
+ "leverage": 2.17,
+ "insight_flags": [
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（109）のに質が低め（選定68）。安さの理由を確認"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:46:55"
 }

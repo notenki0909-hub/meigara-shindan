@@ -1,14 +1,14 @@
 {
  "code": "FNF",
  "name": "Fidelity National Financial, Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Financials",
  "industry": "Insurance - Specialty",
  "is_simple": true,
  "is_reit": false,
- "price": 39.08000183105469,
- "price_date": "2026-10-06",
- "mcap": 10480975872,
+ "price": 39.02000045776367,
+ "price_date": "2026-10-07",
+ "mcap": 10464884736,
  "sel_score": 63.1,
  "tim_score": 108.8,
  "sel_label": "選定スコア下位（質に不安）",
@@ -31,32 +31,42 @@
   "配当の持続力": 90.8,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 108.5,
-  "株価バリュエーション": 106.7,
+  "株価バリュエーション": 106.8,
   "金利スプレッド": null,
   "金融品質": 51.2
  },
- "div_yield": 5.3224153084535955,
- "total_yield": 7.717230477053957,
+ "div_yield": 5.330599629929399,
+ "total_yield": 7.72909714167495,
  "streak_up": 10,
  "streak_flat": 15,
  "payout_ni": 71.529996,
  "roe": 10.2110006,
- "chowder": 14.776456440734872,
+ "chowder": 14.784640762210675,
  "dgr5": 9.454041132281276,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 9.610983981693364,
  "interest_coverage": 6.7727272727272725,
- "per_vs_sector": 0.7843609826589595,
- "pbr_vs_sector": 0.5621,
- "per_band_pos": 0.7425971569706546,
+ "per_vs_sector": 0.7831567052023121,
+ "pbr_vs_sector": 0.561237,
+ "per_band_pos": 0.7438697061341231,
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-05",
  "earn_disc_date": "2026-08-05",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。",
+  "⚠ バリュートラップ注意：買い時が高い（109）のに質が低め（選定63）。安さの理由を確認"
  ],
- "_generated_at": "2026-10-07T01:24:17"
+ "roa": 0.55,
+ "leverage": 14.68,
+ "insight_flags": [
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（109）のに質が低め（選定63）。安さの理由を確認"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:41:21"
 }

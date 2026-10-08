@@ -1,14 +1,14 @@
 {
  "code": "BBT",
  "name": "Beacon Financial Corporation",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Financials",
  "industry": "Banks - Regional",
  "is_simple": true,
  "is_reit": false,
  "price": 27.93000030517578,
  "price_date": "2026-10-06",
- "mcap": 2340983296,
+ "mcap": 2289017344,
  "sel_score": 64.1,
  "tim_score": 103.1,
  "sel_label": "選定スコア下位（質に不安）",
@@ -47,8 +47,8 @@
  "fcf_positive": 1,
  "fcf_payout": 29.751220799788836,
  "interest_coverage": null,
- "per_vs_sector": 0.4363380924855491,
- "pbr_vs_sector": 0.36868853599999996,
+ "per_vs_sector": 0.42665205780346815,
+ "pbr_vs_sector": 0.36050424,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-21",
@@ -56,7 +56,17 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。",
+  "⚠ バリュートラップ注意：買い時が高い（103）のに質が低め（選定64）。安さの理由を確認"
  ],
- "_generated_at": "2026-10-07T01:14:54"
+ "roa": 0.39,
+ "leverage": 9.3,
+ "insight_flags": [
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（103）のに質が低め（選定64）。安さの理由を確認"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:33:20"
 }

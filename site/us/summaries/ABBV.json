@@ -1,16 +1,16 @@
 {
  "code": "ABBV",
  "name": "AbbVie Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Health Care",
  "industry": "Drug Manufacturers - General",
  "is_simple": false,
  "is_reit": false,
- "price": 265.760009765625,
- "price_date": "2026-10-05",
- "mcap": 471272521728,
+ "price": 266.69000244140625,
+ "price_date": "2026-10-06",
+ "mcap": 479524913152,
  "sel_score": 83.5,
- "tim_score": 49.8,
+ "tim_score": 49.7,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア最下位（割高水準）",
  "comment": "選定は中位、買い時は最下位（割高水準）。",
@@ -30,23 +30,23 @@
   "キャッシュフロー": 100.5,
   "配当の持続力": 74.6,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 81.8,
+  "利回り水準とChowder": 81.6,
   "株価バリュエーション": 30.0,
   "金利スプレッド": null
  },
- "div_yield": 2.6038530048605812,
- "total_yield": 2.811800626420749,
+ "div_yield": 2.594772933612453,
+ "total_yield": 2.7991418773568544,
  "streak_up": 13,
  "streak_flat": 13,
  "payout_ni": 190.39999,
  "roe": null,
- "chowder": 9.40904576137537,
+ "chowder": 9.399965690127242,
  "dgr5": 6.8051927565147885,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 65.42995060619667,
  "interest_coverage": 3.2803318354649154,
- "per_vs_sector": 3.1922101694915255,
+ "per_vs_sector": 3.248108686440678,
  "pbr_vs_sector": null,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.0,
@@ -54,6 +54,22 @@
  "earn_disc_date": "2026-07-31",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:10:58"
+ "warnings": [
+  "⚠ 債務超過（自己資本がマイナス）",
+  "⚠ 配当性向が100%超（190%：純利益を上回る配当）"
+ ],
+ "roa": 3.15,
+ "leverage": null,
+ "insight_flags": [
+  {
+   "k": "insolvent",
+   "t": "債務超過（自己資本がマイナス）"
+  },
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（190%：純利益を上回る配当）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:29:54"
 }

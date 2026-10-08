@@ -1,14 +1,14 @@
 {
  "code": "YUM",
  "name": "Yum! Brands, Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Consumer Discretionary",
  "industry": "Restaurants",
  "is_simple": false,
  "is_reit": false,
- "price": 139.83999633789062,
- "price_date": "2026-10-06",
- "mcap": 38162485248,
+ "price": 140.35000610351562,
+ "price_date": "2026-10-07",
+ "mcap": 38301667328,
  "sel_score": 94.9,
  "tim_score": 101.9,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
@@ -30,23 +30,23 @@
   "キャッシュフロー": 102.4,
   "配当の持続力": 89.1,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 82.3,
+  "利回り水準とChowder": 82.2,
   "株価バリュエーション": 110.0,
   "金利スプレッド": null
  },
- "div_yield": 2.145308980666162,
- "total_yield": 3.591755658372848,
+ "div_yield": 2.1375132665027032,
+ "total_yield": 3.578703790332632,
  "streak_up": 9,
  "streak_flat": 9,
  "payout_ni": 36.78,
  "roe": null,
- "chowder": 10.745877346172984,
+ "chowder": 10.738081632009525,
  "dgr5": 8.600568365506822,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 48.13910921293471,
  "interest_coverage": 5.145708582834331,
- "per_vs_sector": 0.5912796283783783,
+ "per_vs_sector": 0.5971730743243243,
  "pbr_vs_sector": null,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
@@ -54,6 +54,17 @@
  "earn_disc_date": "2026-07-30",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:50:41"
+ "warnings": [
+  "⚠ 債務超過（自己資本がマイナス）"
+ ],
+ "roa": 19.02,
+ "leverage": null,
+ "insight_flags": [
+  {
+   "k": "insolvent",
+   "t": "債務超過（自己資本がマイナス）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T02:04:01"
 }

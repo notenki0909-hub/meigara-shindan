@@ -1,16 +1,16 @@
 {
  "code": "SBRA",
  "name": "Sabra Health Care REIT, Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Real Estate",
  "industry": "REIT - Healthcare Facilities",
  "is_simple": true,
  "is_reit": true,
- "price": 19.1200008392334,
- "price_date": "2026-10-06",
- "mcap": 4884448256,
+ "price": 18.739999771118164,
+ "price_date": "2026-10-07",
+ "mcap": 4787372032,
  "sel_score": 76.3,
- "tim_score": 66.7,
+ "tim_score": 66.9,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア下位（やや割高水準）",
  "comment": "選定は中位、買い時は下位（やや割高水準）。",
@@ -30,25 +30,25 @@
   "キャッシュフロー": null,
   "配当の持続力": 46.2,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 78.0,
+  "利回り水準とChowder": 78.8,
   "株価バリュエーション": 65.0,
   "金利スプレッド": 110.0,
   "REIT品質": 89.2
  },
- "div_yield": 6.276150352136245,
- "total_yield": 6.276150352136245,
+ "div_yield": 6.403415232957601,
+ "total_yield": 6.403415232957601,
  "streak_up": 0,
  "streak_flat": 6,
  "payout_ni": 480.0,
  "roe": 2.388,
- "chowder": 3.9480187382536336,
+ "chowder": 4.075283619074989,
  "dgr5": -2.3281316138826114,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 83.04251419195498,
  "interest_coverage": 2.3987767692841078,
- "per_vs_sector": 1.7911007025761123,
- "pbr_vs_sector": 0.5918772333333333,
+ "per_vs_sector": 1.7555035128805618,
+ "pbr_vs_sector": 0.5801139333333333,
  "per_band_pos": null,
  "yield_band_pos": 0.0,
  "next_earn": "2026-11-04",
@@ -56,7 +56,17 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。"
+  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
+  "⚠ 配当性向が100%超（480%：純利益を上回る配当）"
  ],
- "_generated_at": "2026-10-07T01:41:51"
+ "roa": 2.83,
+ "leverage": 1.95,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（480%：純利益を上回る配当）"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:56:36"
 }

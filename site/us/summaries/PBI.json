@@ -1,16 +1,16 @@
 {
  "code": "PBI",
  "name": "Pitney Bowes Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Industrials",
  "industry": "Integrated Freight & Logistics",
  "is_simple": false,
  "is_reit": false,
- "price": 16.559999465942383,
- "price_date": "2026-10-06",
- "mcap": 2270213888,
+ "price": 16.479999542236328,
+ "price_date": "2026-10-07",
+ "mcap": 2259246592,
  "sel_score": 88.5,
- "tim_score": 70.7,
+ "tim_score": 70.8,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア下位（やや割高水準）",
  "comment": "選定は上位水準だが、買い時は下位（やや割高水準）。",
@@ -30,23 +30,23 @@
   "キャッシュフロー": 103.3,
   "配当の持続力": 83.6,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 86.5,
+  "利回り水準とChowder": 86.7,
   "株価バリュエーション": 110.0,
   "金利スプレッド": null
  },
- "div_yield": 2.4154590150962734,
- "total_yield": 19.081774114301588,
+ "div_yield": 2.427184533439133,
+ "total_yield": 19.174404661590597,
  "streak_up": 2,
  "streak_flat": 7,
  "payout_ni": 29.270000000000003,
  "roe": null,
- "chowder": 10.862636134866127,
+ "chowder": 10.874361653208988,
  "dgr5": 8.447177119769854,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 16.108007155048128,
  "interest_coverage": 2.8975359747683815,
- "per_vs_sector": 0.4073199107142857,
+ "per_vs_sector": 0.39876113095238097,
  "pbr_vs_sector": null,
  "per_band_pos": null,
  "yield_band_pos": 0.0,
@@ -54,6 +54,17 @@
  "earn_disc_date": "2026-07-29",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:37:56"
+ "warnings": [
+  "⚠ 債務超過（自己資本がマイナス）"
+ ],
+ "roa": 4.57,
+ "leverage": null,
+ "insight_flags": [
+  {
+   "k": "insolvent",
+   "t": "債務超過（自己資本がマイナス）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:53:16"
 }

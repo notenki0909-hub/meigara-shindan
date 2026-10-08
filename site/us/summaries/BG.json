@@ -1,16 +1,16 @@
 {
  "code": "BG",
  "name": "Bunge Global SA",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Consumer Staples",
  "industry": "Farm Products",
  "is_simple": false,
  "is_reit": false,
  "price": 107.33000183105469,
  "price_date": "2026-10-06",
- "mcap": 20620144640,
+ "mcap": 20270489600,
  "sel_score": 66.4,
- "tim_score": 76.8,
+ "tim_score": 76.9,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア下位（やや割高水準）",
  "comment": "選定・買い時とも下位水準。",
@@ -28,14 +28,14 @@
   "業績": 45.2,
   "財務": 66.5,
   "キャッシュフロー": 60.0,
-  "配当の持続力": 89.4,
+  "配当の持続力": 89.5,
   "配当利回りセオリー": 77.2,
   "利回り水準とChowder": 83.2,
-  "株価バリュエーション": 84.0,
+  "株価バリュエーション": 84.2,
   "金利スプレッド": 59.6
  },
  "div_yield": 2.6833131005935615,
- "total_yield": 5.3554573053007495,
+ "total_yield": 5.40155035520827,
  "streak_up": 6,
  "streak_flat": 24,
  "payout_ni": 56.18,
@@ -46,14 +46,25 @@
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": 2.805732484076433,
- "per_vs_sector": 0.9021298734177216,
- "pbr_vs_sector": 0.1958300909090909,
+ "per_vs_sector": 0.8868324894514769,
+ "pbr_vs_sector": 0.19250937878787877,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.3722662787792655,
  "next_earn": "2026-10-29",
  "earn_disc_date": "2026-07-29",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:15:31"
+ "warnings": [
+  "⚠ バリュートラップ注意：買い時が高い（77）のに質が低め（選定66）。安さの理由を確認"
+ ],
+ "roa": 1.83,
+ "leverage": 2.8,
+ "insight_flags": [
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（77）のに質が低め（選定66）。安さの理由を確認"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:33:52"
 }

@@ -1,16 +1,16 @@
 {
  "code": "UPS",
  "name": "United Parcel Service, Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Industrials",
  "industry": "Integrated Freight & Logistics",
  "is_simple": false,
  "is_reit": false,
- "price": 93.11000061035156,
- "price_date": "2026-10-06",
- "mcap": 79216271360,
+ "price": 92.29000091552734,
+ "price_date": "2026-10-07",
+ "mcap": 78518632448,
  "sel_score": 74.7,
- "tim_score": 108.8,
+ "tim_score": 108.9,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -31,29 +31,45 @@
   "配当の持続力": 79.0,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 110.0,
-  "株価バリュエーション": 104.9,
+  "株価バリュエーション": 105.3,
   "金利スプレッド": null
  },
- "div_yield": 7.0454300902138405,
- "total_yield": 8.307797004020575,
+ "div_yield": 7.108028968386662,
+ "total_yield": 8.38161202609244,
  "streak_up": 0,
  "streak_flat": 26,
  "payout_ni": 121.93,
  "roe": 29.602,
- "chowder": 17.22586818220198,
+ "chowder": 17.288467060374806,
  "dgr5": 10.180438091988142,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 113.28436516264429,
  "interest_coverage": 8.044247787610619,
- "per_vs_sector": 0.5150801190476191,
- "pbr_vs_sector": 0.7849203582089552,
- "per_band_pos": 0.5926924720526181,
+ "per_vs_sector": 0.5105438690476191,
+ "pbr_vs_sector": 0.7780077164179104,
+ "per_band_pos": 0.6124609567156156,
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-27",
  "earn_disc_date": "2026-07-28",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:47:21"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（113%：フリーCFで配当を賄えていない）",
+  "⚠ 配当性向が100%超（122%：純利益を上回る配当）"
+ ],
+ "roa": 7.62,
+ "leverage": 4.5,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（113%：フリーCFで配当を賄えていない）"
+  },
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（122%：純利益を上回る配当）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T02:01:12"
 }

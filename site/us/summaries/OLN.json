@@ -1,16 +1,16 @@
 {
  "code": "OLN",
  "name": "Olin Corporation",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Materials",
  "industry": "Chemicals",
  "is_simple": false,
  "is_reit": false,
- "price": 16.209999084472656,
- "price_date": "2026-10-06",
- "mcap": 1847656064,
+ "price": 15.920000076293945,
+ "price_date": "2026-10-07",
+ "mcap": 1814601216,
  "sel_score": 56.1,
- "tim_score": 98.2,
+ "tim_score": 98.3,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
@@ -30,30 +30,46 @@
   "キャッシュフロー": 103.3,
   "配当の持続力": 56.7,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 69.7,
+  "利回り水準とChowder": 70.1,
   "株価バリュエーション": 110.0,
   "金利スプレッド": null
  },
- "div_yield": 4.935225448385802,
- "total_yield": 7.668418112537392,
+ "div_yield": 5.025125604058627,
+ "total_yield": 7.808106214603969,
  "streak_up": 0,
  "streak_flat": 39,
  "payout_ni": 173.91,
  "roe": -10.585,
- "chowder": 4.935225448385802,
+ "chowder": 5.025125604058627,
  "dgr5": 0.0,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 36.950383219039935,
  "interest_coverage": 0.14445034519383962,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.3722713793103449,
+ "pbr_vs_sector": 0.3656113793103448,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-29",
  "earn_disc_date": "2026-07-30",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:36:58"
+ "warnings": [
+  "⚠ 配当性向が100%超（174%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（98）のに質が低め（選定56）。安さの理由を確認"
+ ],
+ "roa": -1.37,
+ "leverage": 3.98,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（174%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（98）のに質が低め（選定56）。安さの理由を確認"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:52:25"
 }

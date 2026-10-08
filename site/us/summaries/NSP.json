@@ -1,16 +1,16 @@
 {
  "code": "NSP",
  "name": "Insperity, Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Industrials",
  "industry": "Staffing & Employment Services",
  "is_simple": false,
  "is_reit": false,
- "price": 46.41999816894531,
- "price_date": "2026-10-06",
- "mcap": 1773024512,
+ "price": 48.22999954223633,
+ "price_date": "2026-10-07",
+ "mcap": 1842157952,
  "sel_score": 54.5,
- "tim_score": 87.2,
+ "tim_score": 87.1,
  "sel_label": "選定スコア基準未達",
  "tim_label": "買い時スコア中位（妥当水準）",
  "comment": "選定スコアが基準を大きく下回る水準。",
@@ -30,30 +30,51 @@
   "キャッシュフロー": 20.0,
   "配当の持続力": 62.9,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 107.0,
+  "利回り水準とChowder": 106.8,
   "株価バリュエーション": 20.0,
   "金利スプレッド": null
  },
- "div_yield": 5.170185468911941,
- "total_yield": 6.24180065930588,
+ "div_yield": 4.976155966782157,
+ "total_yield": 6.007555037604071,
  "streak_up": 0,
  "streak_flat": 21,
  "payout_ni": 500.0,
  "roe": -18.496999,
- "chowder": 13.617362588681797,
+ "chowder": 13.423333086552011,
  "dgr5": 8.447177119769854,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": 0.8333333333333334,
  "per_vs_sector": null,
- "pbr_vs_sector": 4.338358208955224,
+ "pbr_vs_sector": 4.507518656716418,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-29",
  "earn_disc_date": "2026-07-29",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:35:37"
+ "warnings": [
+  "⚠ 自己資本比率が10%未満（2.1%）",
+  "⚠ 配当性向が100%超（500%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（87）のに質が低め（選定55）。安さの理由を確認"
+ ],
+ "roa": -0.32,
+ "leverage": 47.89,
+ "insight_flags": [
+  {
+   "k": "low_equity",
+   "t": "自己資本比率が10%未満（2.1%）"
+  },
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（500%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（87）のに質が低め（選定55）。安さの理由を確認"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:51:15"
 }

@@ -1,16 +1,16 @@
 {
  "code": "EPC",
  "name": "Edgewell Personal Care Company",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Consumer Staples",
  "industry": "Household & Personal Products",
  "is_simple": false,
  "is_reit": false,
- "price": 26.8700008392334,
- "price_date": "2026-10-06",
- "mcap": 1238409216,
+ "price": 27.489999771118164,
+ "price_date": "2026-10-07",
+ "mcap": 1266984320,
  "sel_score": 66.1,
- "tim_score": 83.5,
+ "tim_score": 82.9,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア中位（妥当水準）",
  "comment": "選定スコアが基準未達の水準。",
@@ -29,31 +29,47 @@
   "財務": 65.2,
   "キャッシュフロー": 99.7,
   "配当の持続力": 48.8,
-  "配当利回りセオリー": 108.0,
-  "利回り水準とChowder": 49.8,
+  "配当利回りセオリー": 107.4,
+  "利回り水準とChowder": 49.1,
   "株価バリュエーション": 110.0,
-  "金利スプレッド": 47.5
+  "金利スプレッド": 46.2
  },
- "div_yield": 2.2329735067366596,
- "total_yield": 9.516511034932833,
+ "div_yield": 2.1826118770302005,
+ "total_yield": 9.301879146257336,
  "streak_up": 0,
  "streak_flat": 6,
  "payout_ni": 500.0,
  "roe": -1.2949999,
- "chowder": 2.2329735067366596,
+ "chowder": 2.1826118770302005,
  "dgr5": 0.0,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 70.77294685990339,
  "interest_coverage": 1.3224043715846994,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.12850643181818183,
+ "pbr_vs_sector": 0.1314715909090909,
  "per_band_pos": null,
- "yield_band_pos": 0.9205741937544689,
+ "yield_band_pos": 0.8948214657135666,
  "next_earn": "2026-11-12",
  "earn_disc_date": "2026-08-05",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:21:52"
+ "warnings": [
+  "⚠ 配当性向が100%超（500%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（83）のに質が低め（選定66）。安さの理由を確認"
+ ],
+ "roa": 0.68,
+ "leverage": 2.42,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（500%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（83）のに質が低め（選定66）。安さの理由を確認"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:39:15"
 }

@@ -1,14 +1,14 @@
 {
  "code": "IIPR",
  "name": "Innovative Industrial Properties, Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Real Estate",
  "industry": "REIT - Industrial",
  "is_simple": true,
  "is_reit": true,
- "price": 50.540000915527344,
- "price_date": "2026-10-05",
- "mcap": 1385735936,
+ "price": 51.22999954223633,
+ "price_date": "2026-10-07",
+ "mcap": 1412480128,
  "sel_score": 67.0,
  "tim_score": 110.0,
  "sel_label": "選定スコア下位（質に不安）",
@@ -35,20 +35,20 @@
   "金利スプレッド": 110.0,
   "REIT品質": 63.6
  },
- "div_yield": 15.03759371255781,
- "total_yield": 16.48866382466321,
+ "div_yield": 14.835057716005279,
+ "total_yield": 16.258652965339646,
  "streak_up": 0,
  "streak_flat": 9,
  "payout_ni": 171.95,
  "roe": 7.3850006,
- "chowder": 26.236678752154777,
+ "chowder": 26.034142755602247,
  "dgr5": 11.199085039596968,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 110.76043574567711,
  "interest_coverage": 7.313914993592482,
- "per_vs_sector": 0.26751117096018734,
- "pbr_vs_sector": 0.2681477,
+ "per_vs_sector": 0.2714402107728337,
+ "pbr_vs_sector": 0.27332288,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-02",
@@ -56,7 +56,22 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。"
+  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
+  "⚠ 配当性向が100%超（172%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（110）のに質が低め（選定67）。安さの理由を確認"
  ],
- "_generated_at": "2026-10-07T01:28:07"
+ "roa": 4.99,
+ "leverage": 1.28,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（172%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（110）のに質が低め（選定67）。安さの理由を確認"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:44:40"
 }

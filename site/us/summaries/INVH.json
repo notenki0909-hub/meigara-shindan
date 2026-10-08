@@ -1,14 +1,14 @@
 {
  "code": "INVH",
  "name": "Invitation Homes Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Real Estate",
  "industry": "REIT - Residential",
  "is_simple": true,
  "is_reit": true,
- "price": 26.059999465942383,
- "price_date": "2026-10-05",
- "mcap": 15586546688,
+ "price": 25.860000610351562,
+ "price_date": "2026-10-07",
+ "mcap": 15273517056,
  "sel_score": 79.7,
  "tim_score": 108.7,
  "sel_label": "選定スコア中位（一部に弱点）",
@@ -32,23 +32,23 @@
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 110.0,
   "株価バリュエーション": 110.0,
-  "金利スプレッド": 102.7,
+  "金利スプレッド": 102.9,
   "REIT品質": 76.6
  },
- "div_yield": 4.6047583445589515,
- "total_yield": 4.946123247670966,
+ "div_yield": 4.640371120175647,
+ "total_yield": 4.98873227239041,
  "streak_up": 9,
  "streak_flat": 9,
  "payout_ni": 109.16999999999999,
  "roe": 7.053999599999999,
- "chowder": 22.212660597026307,
+ "chowder": 22.248273372643002,
  "dgr5": 17.607902252467355,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 73.9863286966594,
  "interest_coverage": 2.66958370008519,
- "per_vs_sector": 0.5670025292740046,
- "pbr_vs_sector": 0.5737829666666666,
+ "per_vs_sector": 0.5556152224824356,
+ "pbr_vs_sector": 0.5622594666666666,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-28",
@@ -56,7 +56,17 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。"
+  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
+  "⚠ 配当性向が100%超（109%：純利益を上回る配当）"
  ],
- "_generated_at": "2026-10-07T01:28:26"
+ "roa": 3.15,
+ "leverage": 1.96,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（109%：純利益を上回る配当）"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:44:56"
 }

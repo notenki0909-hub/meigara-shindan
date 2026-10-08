@@ -1,16 +1,16 @@
 {
  "code": "CPB",
  "name": "The Campbell's Company",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Consumer Staples",
  "industry": "Packaged Foods",
  "is_simple": false,
  "is_reit": false,
- "price": 19.0,
- "price_date": "2026-10-06",
- "mcap": 5666459136,
+ "price": 18.899999618530273,
+ "price_date": "2026-10-07",
+ "mcap": 5636635648,
  "sel_score": 68.0,
- "tim_score": 101.8,
+ "tim_score": 101.9,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
@@ -30,30 +30,46 @@
   "キャッシュフロー": 100.5,
   "配当の持続力": 54.2,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 78.0,
+  "利回り水準とChowder": 78.1,
   "株価バリュエーション": 110.0,
-  "金利スプレッド": 107.1
+  "金利スプレッド": 107.3
  },
- "div_yield": 5.263157894736842,
- "total_yield": 6.357315613198151,
+ "div_yield": 5.29100539779674,
+ "total_yield": 6.390952314216625,
  "streak_up": 0,
  "streak_flat": 0,
  "payout_ni": 119.08000999999999,
  "roe": 10.05,
- "chowder": 6.596962465465467,
+ "chowder": 6.624809968525365,
  "dgr5": 1.333804570728625,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 65.1063829787234,
  "interest_coverage": null,
- "per_vs_sector": 0.6214633966244726,
- "pbr_vs_sector": 0.22283363636363637,
+ "per_vs_sector": 0.6087545147679325,
+ "pbr_vs_sector": 0.22166084848484852,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": "2026-12-09",
  "earn_disc_date": "2026-09-03",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:50:59"
+ "warnings": [
+  "⚠ 配当性向が100%超（119%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（102）のに質が低め（選定68）。安さの理由を確認"
+ ],
+ "roa": null,
+ "leverage": 3.82,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（119%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（102）のに質が低め（選定68）。安さの理由を確認"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T02:04:17"
 }

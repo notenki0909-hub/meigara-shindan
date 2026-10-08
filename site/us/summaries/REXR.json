@@ -1,16 +1,16 @@
 {
  "code": "REXR",
  "name": "Rexford Industrial Realty, Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Real Estate",
  "industry": "REIT - Industrial",
  "is_simple": true,
  "is_reit": true,
- "price": 36.79999923706055,
- "price_date": "2026-10-06",
- "mcap": 8413748224,
+ "price": 36.15999984741211,
+ "price_date": "2026-10-07",
+ "mcap": 8267455488,
  "sel_score": 79.7,
- "tim_score": 108.8,
+ "tim_score": 108.9,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -32,23 +32,23 @@
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 110.0,
   "株価バリュエーション": 110.0,
-  "金利スプレッド": 103.5,
+  "金利スプレッド": 104.1,
   "REIT品質": 80.5
  },
- "div_yield": 4.728260967591762,
- "total_yield": 7.722835957146382,
+ "div_yield": 4.811946922960311,
+ "total_yield": 7.859510957211329,
  "streak_up": 10,
  "streak_flat": 12,
  "payout_ni": 185.48,
  "roe": -4.7280002,
- "chowder": 19.59809646729527,
+ "chowder": 19.68178242266382,
  "dgr5": 14.869835499703509,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 202.49303894834205,
  "interest_coverage": 3.0949162559698005,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.36929993333333333,
+ "pbr_vs_sector": 0.36287733333333333,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-22",
@@ -56,7 +56,17 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。"
+  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
+  "⚠ 配当性向が100%超（185%：純利益を上回る配当）"
  ],
- "_generated_at": "2026-10-07T01:40:47"
+ "roa": 1.68,
+ "leverage": 1.49,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（185%：純利益を上回る配当）"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:55:37"
 }

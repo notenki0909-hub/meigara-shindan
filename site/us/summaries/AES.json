@@ -1,14 +1,14 @@
 {
  "code": "AES",
  "name": "The AES Corporation",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Utilities",
  "industry": "Utilities - Diversified",
  "is_simple": false,
  "is_reit": false,
  "price": 14.930000305175781,
  "price_date": "2026-10-06",
- "mcap": 10651639808,
+ "mcap": 10647444480,
  "sel_score": 69.4,
  "tim_score": 104.3,
  "sel_label": "選定スコア中位（一部に弱点）",
@@ -54,6 +54,22 @@
  "earn_disc_date": "2026-08-04",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:11:49"
+ "warnings": [
+  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）",
+  "⚠ 自己資本比率が10%未満（7.8%）"
+ ],
+ "roa": 1.76,
+ "leverage": 12.74,
+ "insight_flags": [
+  {
+   "k": "lev_roe",
+   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+  },
+  {
+   "k": "low_equity",
+   "t": "自己資本比率が10%未満（7.8%）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:30:38"
 }

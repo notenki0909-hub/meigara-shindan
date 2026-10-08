@@ -1,14 +1,14 @@
 {
  "code": "RITM",
  "name": "Rithm Capital Corp.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Real Estate",
  "industry": "REIT - Mortgage",
  "is_simple": true,
  "is_reit": true,
- "price": 8.65999984741211,
- "price_date": "2026-10-06",
- "mcap": 4835804672,
+ "price": 8.529999732971191,
+ "price_date": "2026-10-07",
+ "mcap": 4763211776,
  "sel_score": 36.7,
  "tim_score": 105.3,
  "sel_label": "選定スコア基準未達",
@@ -35,20 +35,20 @@
   "金利スプレッド": 110.0,
   "REIT品質": 21.7
  },
- "div_yield": 11.547344314316964,
- "total_yield": 12.58129840037646,
+ "div_yield": 11.723329792551793,
+ "total_yield": 12.773041675024263,
  "streak_up": 0,
  "streak_flat": 6,
  "payout_ni": 166.67000000000002,
  "roe": 5.5910002,
- "chowder": 26.41717981402047,
+ "chowder": 26.5931652922553,
  "dgr5": 14.869835499703509,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": null,
- "per_vs_sector": 0.33801714285714285,
- "pbr_vs_sector": 0.23415529999999998,
+ "per_vs_sector": 0.33294297423887587,
+ "pbr_vs_sector": 0.23064026666666668,
  "per_band_pos": 0.0,
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-29",
@@ -56,7 +56,22 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。"
+  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
+  "⚠ 配当性向が100%超（167%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（105）のに質が低め（選定37）。安さの理由を確認"
  ],
- "_generated_at": "2026-10-07T01:41:10"
+ "roa": 1.28,
+ "leverage": 6.29,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（167%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（105）のに質が低め（選定37）。安さの理由を確認"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:55:57"
 }

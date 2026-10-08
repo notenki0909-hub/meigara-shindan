@@ -1,16 +1,16 @@
 {
  "code": "KMPR",
  "name": "Kemper Corporation",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Financials",
  "industry": "Insurance - Property & Casualty",
  "is_simple": true,
  "is_reit": false,
- "price": 26.06999969482422,
- "price_date": "2026-10-06",
- "mcap": 1534851200,
+ "price": 26.25,
+ "price_date": "2026-10-07",
+ "mcap": 1546732800,
  "sel_score": 38.9,
- "tim_score": 100.1,
+ "tim_score": 100.0,
  "sel_label": "選定スコア基準未達",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は最下位水準。低評価には理由があることが多い（バリュートラップの可能性）。",
@@ -30,25 +30,25 @@
   "キャッシュフロー": null,
   "配当の持続力": 55.4,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 76.0,
+  "利回り水準とChowder": 75.9,
   "株価バリュエーション": 110.0,
   "金利スプレッド": null,
   "金融品質": 31.8
  },
- "div_yield": 4.909858131889904,
- "total_yield": 24.57951731448689,
+ "div_yield": 4.876190476190477,
+ "total_yield": 24.394752441127146,
  "streak_up": 0,
  "streak_flat": 17,
  "payout_ni": 191.03999000000002,
  "roe": -19.700001,
- "chowder": 6.208994954313545,
+ "chowder": 6.175327298614118,
  "dgr5": 1.299136822423641,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 14.370825058674852,
  "interest_coverage": 5.174025974025974,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.2802096,
+ "pbr_vs_sector": 0.28214427999999997,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-04",
@@ -56,7 +56,22 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。",
+  "⚠ 配当性向が100%超（191%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（100）のに質が低め（選定39）。安さの理由を確認"
  ],
- "_generated_at": "2026-10-07T01:30:15"
+ "roa": 1.15,
+ "leverage": 4.65,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（191%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（100）のに質が低め（選定39）。安さの理由を確認"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:46:31"
 }

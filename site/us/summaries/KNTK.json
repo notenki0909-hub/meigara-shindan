@@ -1,16 +1,16 @@
 {
  "code": "KNTK",
  "name": "Kinetik Holdings Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Energy",
  "industry": "Oil & Gas Midstream",
  "is_simple": false,
  "is_reit": false,
- "price": 53.08000183105469,
- "price_date": "2026-10-05",
- "mcap": 9128333312,
+ "price": 53.720001220703125,
+ "price_date": "2026-10-07",
+ "mcap": 9089417216,
  "sel_score": 83.8,
- "tim_score": 67.6,
+ "tim_score": 67.4,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア下位（やや割高水準）",
  "comment": "選定は中位、買い時は下位（やや割高水準）。",
@@ -30,30 +30,51 @@
   "キャッシュフロー": 73.3,
   "配当の持続力": 67.3,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 80.2,
-  "株価バリュエーション": 104.8,
+  "利回り水準とChowder": 79.8,
+  "株価バリュエーション": 104.5,
   "金利スプレッド": null
  },
- "div_yield": 6.047475300051658,
- "total_yield": 7.975592887175979,
+ "div_yield": 5.975428010159649,
+ "total_yield": 7.911800781014312,
  "streak_up": 2,
  "streak_flat": 5,
  "payout_ni": 111.19000000000001,
  "roe": 19.231,
- "chowder": 7.03281595494854,
+ "chowder": 6.9607686650565315,
  "dgr5": 0.9853406548968824,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 260.21571814262114,
  "interest_coverage": 3.5572101356085533,
- "per_vs_sector": 0.8583110185185185,
+ "per_vs_sector": 0.8695934259259259,
  "pbr_vs_sector": null,
- "per_band_pos": 0.8393946204945467,
+ "per_band_pos": 0.830815495041218,
  "yield_band_pos": 0.0,
  "next_earn": "2026-11-04",
  "earn_disc_date": "2026-08-05",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:30:24"
+ "warnings": [
+  "⚠ 債務超過（自己資本がマイナス）",
+  "⚠ FCF配当性向が100%超（260%：フリーCFで配当を賄えていない）",
+  "⚠ 配当性向が100%超（111%：純利益を上回る配当）"
+ ],
+ "roa": 7.41,
+ "leverage": null,
+ "insight_flags": [
+  {
+   "k": "insolvent",
+   "t": "債務超過（自己資本がマイナス）"
+  },
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（260%：フリーCFで配当を賄えていない）"
+  },
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（111%：純利益を上回る配当）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:46:38"
 }

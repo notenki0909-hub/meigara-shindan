@@ -1,16 +1,16 @@
 {
  "code": "MOS",
  "name": "The Mosaic Company",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Materials",
  "industry": "Agricultural Inputs",
  "is_simple": false,
  "is_reit": false,
- "price": 20.940000534057617,
- "price_date": "2026-10-06",
- "mcap": 6656735232,
+ "price": 19.969999313354492,
+ "price_date": "2026-10-07",
+ "mcap": 6348376064,
  "sel_score": 61.1,
- "tim_score": 109.7,
+ "tim_score": 109.9,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
@@ -28,32 +28,48 @@
   "業績": 43.8,
   "財務": 84.7,
   "キャッシュフロー": 60.0,
-  "配当の持続力": 56.5,
+  "配当の持続力": 56.7,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 109.0,
+  "利回り水準とChowder": 109.7,
   "株価バリュエーション": 110.0,
   "金利スプレッド": null
  },
- "div_yield": 4.202483178396936,
- "total_yield": 4.202483178396936,
+ "div_yield": 4.4066100663885335,
+ "total_yield": 4.4066100663885335,
  "streak_up": 0,
  "streak_flat": 8,
  "payout_ni": 628.57,
  "roe": -5.0729999999999995,
- "chowder": 42.33277352602421,
+ "chowder": 42.536900414015804,
  "dgr5": 38.13029034762727,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": 6.022360248447205,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.2002298827586207,
+ "pbr_vs_sector": 0.1909546551724138,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-03",
  "earn_disc_date": "2026-08-04",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:33:33"
+ "warnings": [
+  "⚠ 配当性向が100%超（629%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（110）のに質が低め（選定61）。安さの理由を確認"
+ ],
+ "roa": 2.21,
+ "leverage": 2.03,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（629%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（110）のに質が低め（選定61）。安さの理由を確認"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:49:26"
 }

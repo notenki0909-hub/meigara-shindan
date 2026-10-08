@@ -1,14 +1,14 @@
 {
  "code": "AGNC",
  "name": "AGNC Investment Corp.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Real Estate",
  "industry": "REIT - Mortgage",
  "is_simple": true,
  "is_reit": true,
  "price": 8.699999809265137,
  "price_date": "2026-10-06",
- "mcap": 10313689088,
+ "mcap": 10029173760,
  "sel_score": 64.5,
  "tim_score": 110.0,
  "sel_label": "選定スコア下位（質に不安）",
@@ -47,8 +47,8 @@
  "fcf_positive": 1,
  "fcf_payout": 245.1761102603369,
  "interest_coverage": null,
- "per_vs_sector": 0.10395258782201405,
- "pbr_vs_sector": 0.3192777666666667,
+ "per_vs_sector": 0.10108493208430913,
+ "pbr_vs_sector": 0.3104701,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-19",
@@ -56,7 +56,17 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。"
+  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
+  "⚠ バリュートラップ注意：買い時が高い（110）のに質が低め（選定64）。安さの理由を確認"
  ],
- "_generated_at": "2026-10-07T01:12:02"
+ "roa": 1.45,
+ "leverage": 9.29,
+ "insight_flags": [
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（110）のに質が低め（選定64）。安さの理由を確認"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:30:50"
 }

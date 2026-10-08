@@ -1,14 +1,14 @@
 {
  "code": "ASH",
  "name": "Ashland Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Materials",
  "industry": "Specialty Chemicals",
  "is_simple": false,
  "is_reit": false,
  "price": 70.97000122070312,
  "price_date": "2026-10-06",
- "mcap": 3249955328,
+ "mcap": 3236217344,
  "sel_score": 64.3,
  "tim_score": 84.5,
  "sel_label": "選定スコア下位（質に不安）",
@@ -35,7 +35,7 @@
   "金利スプレッド": null
  },
  "div_yield": 2.3671973666387878,
- "total_yield": 5.444162737160951,
+ "total_yield": 5.4572246846556585,
  "streak_up": 6,
  "streak_flat": 17,
  "payout_ni": 106.73001,
@@ -46,14 +46,30 @@
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": -12.262295081967213,
- "per_vs_sector": 1.7981656126482213,
- "pbr_vs_sector": 0.5992853103448276,
+ "per_vs_sector": 1.7349569169960475,
+ "pbr_vs_sector": 0.5967520344827587,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.621888657954789,
  "next_earn": "2026-11-03",
  "earn_disc_date": "2026-07-28",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:13:50"
+ "warnings": [
+  "⚠ 配当性向が100%超（107%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（84）のに質が低め（選定64）。安さの理由を確認"
+ ],
+ "roa": -18.33,
+ "leverage": 2.42,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（107%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（84）のに質が低め（選定64）。安さの理由を確認"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:32:24"
 }

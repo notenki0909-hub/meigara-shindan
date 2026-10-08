@@ -1,14 +1,14 @@
 {
  "code": "DPZ",
  "name": "Domino's Pizza, Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Consumer Discretionary",
  "industry": "Restaurants",
  "is_simple": false,
  "is_reit": false,
- "price": 302.8699951171875,
- "price_date": "2026-10-06",
- "mcap": 10019465216,
+ "price": 303.1000061035156,
+ "price_date": "2026-10-07",
+ "mcap": 10027074560,
  "sel_score": 98.1,
  "tim_score": 107.1,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
@@ -34,19 +34,19 @@
   "株価バリュエーション": 110.0,
   "金利スプレッド": null
  },
- "div_yield": 2.62819035504659,
- "total_yield": 6.198211232296572,
+ "div_yield": 2.6261959220421383,
+ "total_yield": 6.193507582682667,
  "streak_up": 13,
  "streak_flat": 13,
  "payout_ni": 42.290002,
  "roe": null,
- "chowder": 20.034362599124492,
+ "chowder": 20.03236816612004,
  "dgr5": 17.4061722440779,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 35.27320760561366,
  "interest_coverage": 4.930857469434409,
- "per_vs_sector": 0.5693987162162162,
+ "per_vs_sector": 0.5804912162162161,
  "pbr_vs_sector": null,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
@@ -54,6 +54,17 @@
  "earn_disc_date": "2026-07-20",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:20:38"
+ "warnings": [
+  "⚠ 債務超過（自己資本がマイナス）"
+ ],
+ "roa": 35.05,
+ "leverage": null,
+ "insight_flags": [
+  {
+   "k": "insolvent",
+   "t": "債務超過（自己資本がマイナス）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:38:12"
 }

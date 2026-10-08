@@ -1,14 +1,14 @@
 {
  "code": "BC",
  "name": "Brunswick Corporation",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Consumer Discretionary",
  "industry": "Recreational Vehicles",
  "is_simple": false,
  "is_reit": false,
  "price": 64.9800033569336,
  "price_date": "2026-10-06",
- "mcap": 4210537216,
+ "mcap": 4105565184,
  "sel_score": 71.3,
  "tim_score": 105.8,
  "sel_label": "選定スコア中位（一部に弱点）",
@@ -35,7 +35,7 @@
   "金利スプレッド": null
  },
  "div_yield": 2.7085255602902363,
- "total_yield": 4.60852064158297,
+ "total_yield": 4.657100151476169,
  "streak_up": 11,
  "streak_flat": 18,
  "payout_ni": 200.0,
@@ -47,13 +47,24 @@
  "fcf_payout": 28.41281857178905,
  "interest_coverage": -0.21486123545210384,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.27282025000000004,
+ "pbr_vs_sector": 0.2660186413043478,
  "per_band_pos": null,
  "yield_band_pos": 0.9113000571879581,
  "next_earn": "2026-10-22",
  "earn_disc_date": "2026-07-30",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:15:08"
+ "warnings": [
+  "⚠ 配当性向が100%超（200%：純利益を上回る配当）"
+ ],
+ "roa": -2.58,
+ "leverage": 3.27,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（200%：純利益を上回る配当）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:33:32"
 }

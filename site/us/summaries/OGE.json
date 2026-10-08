@@ -1,16 +1,16 @@
 {
  "code": "OGE",
  "name": "OGE Energy Corp.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Utilities",
  "industry": "Utilities - Regulated Electric",
  "is_simple": false,
  "is_reit": false,
- "price": 45.84000015258789,
- "price_date": "2026-10-06",
- "mcap": 9469685760,
+ "price": 45.88999938964844,
+ "price_date": "2026-10-07",
+ "mcap": 9470517248,
  "sel_score": 90.2,
- "tim_score": 66.8,
+ "tim_score": 66.7,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア下位（やや割高水準）",
  "comment": "選定は上位水準だが、買い時は下位（やや割高水準）。",
@@ -31,29 +31,40 @@
   "配当の持続力": 93.3,
   "配当利回りセオリー": 40.0,
   "利回り水準とChowder": 81.0,
-  "株価バリュエーション": 81.4,
-  "金利スプレッド": 88.1
+  "株価バリュエーション": 81.3,
+  "金利スプレッド": 87.9
  },
- "div_yield": 3.752181488382691,
- "total_yield": 3.752181488382691,
+ "div_yield": 3.7480933163576946,
+ "total_yield": 3.7480933163576946,
  "streak_up": 20,
  "streak_flat": 40,
  "payout_ni": 74.89,
  "roe": 9.703000000000001,
- "chowder": 4.7808311598038244,
+ "chowder": 4.776742987778828,
  "dgr5": 1.0286496714211335,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 413.4220072551391,
  "interest_coverage": 3.073621901590825,
- "per_vs_sector": 0.9570536492890995,
- "pbr_vs_sector": 0.7921037916666667,
+ "per_vs_sector": 0.9580975355450236,
+ "pbr_vs_sector": 0.7929677916666666,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.0,
  "next_earn": "2026-10-28",
  "earn_disc_date": "2026-07-29",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:36:36"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（413%：フリーCFで配当を賄えていない）"
+ ],
+ "roa": 3.28,
+ "leverage": 2.89,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（413%：フリーCFで配当を賄えていない）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:52:05"
 }

@@ -1,16 +1,16 @@
 {
  "code": "PRGO",
  "name": "Perrigo Company plc",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Health Care",
  "industry": "Drug Manufacturers - Specialty & Generic",
  "is_simple": false,
  "is_reit": false,
- "price": 14.0,
- "price_date": "2026-10-06",
- "mcap": 1937148928,
+ "price": 14.550000190734863,
+ "price_date": "2026-10-07",
+ "mcap": 2019092608,
  "sel_score": 63.5,
- "tim_score": 102.1,
+ "tim_score": 101.7,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
@@ -30,30 +30,56 @@
   "キャッシュフロー": 82.3,
   "配当の持続力": 43.3,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 83.0,
+  "利回り水準とChowder": 81.5,
   "株価バリュエーション": 110.0,
   "金利スプレッド": null
  },
- "div_yield": 8.285714285714285,
+ "div_yield": 7.972508486554274,
  "total_yield": null,
  "streak_up": 0,
  "streak_flat": 23,
  "payout_ni": 1348.75,
  "roe": -48.746,
- "chowder": 7.60997669626442,
+ "chowder": 7.296770897104409,
  "dgr5": -0.6757375894498652,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 109.78635423845624,
  "interest_coverage": -6.987076923076923,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.14843465384615384,
+ "pbr_vs_sector": 0.15426601923076924,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-04",
  "earn_disc_date": "2026-08-05",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:39:53"
+ "warnings": [
+  "⚠ 純損失が3期連続",
+  "⚠ FCF配当性向が100%超（110%：フリーCFで配当を賄えていない）",
+  "⚠ 配当性向が100%超（1349%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（102）のに質が低め（選定64）。安さの理由を確認"
+ ],
+ "roa": -16.7,
+ "leverage": 2.91,
+ "insight_flags": [
+  {
+   "k": "loss3",
+   "t": "純損失が3期連続"
+  },
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（110%：フリーCFで配当を賄えていない）"
+  },
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（1349%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（102）のに質が低め（選定64）。安さの理由を確認"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:54:51"
 }

@@ -1,16 +1,16 @@
 {
  "code": "MCHP",
  "name": "Microchip Technology Incorporated",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Information Technology",
  "industry": "Semiconductors",
  "is_simple": false,
  "is_reit": false,
- "price": 81.26000213623047,
- "price_date": "2026-10-06",
- "mcap": 44124889088,
- "sel_score": 59.8,
- "tim_score": 93.7,
+ "price": 78.0199966430664,
+ "price_date": "2026-10-07",
+ "mcap": 42365538304,
+ "sel_score": 59.9,
+ "tim_score": 94.8,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア中位（妥当水準）",
  "comment": "選定スコアが基準未達の水準。",
@@ -28,32 +28,53 @@
   "業績": 31.2,
   "財務": 77.0,
   "キャッシュフロー": 75.4,
-  "配当の持続力": 63.2,
-  "配当利回りセオリー": 98.4,
+  "配当の持続力": 63.5,
+  "配当利回りセオリー": 100.8,
   "利回り水準とChowder": 110.0,
   "株価バリュエーション": 65.0,
   "金利スプレッド": null
  },
- "div_yield": 2.239724282739758,
- "total_yield": 2.239724282739758,
+ "div_yield": 2.33273529647318,
+ "total_yield": 2.33273529647318,
  "streak_up": 0,
  "streak_flat": 24,
  "payout_ni": 267.64998,
  "roe": 7.19,
- "chowder": 21.718850600547263,
+ "chowder": 21.811861614280687,
  "dgr5": 19.479126317807506,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 125.4305396096441,
  "interest_coverage": 2.2697307335190344,
- "per_vs_sector": 3.0484693877551017,
- "pbr_vs_sector": 0.510452791044776,
+ "per_vs_sector": 2.926920663265306,
+ "pbr_vs_sector": 0.4901,
  "per_band_pos": null,
- "yield_band_pos": 0.5842035964578147,
+ "yield_band_pos": 0.6310721228838396,
  "next_earn": "2026-11-05",
  "earn_disc_date": "2026-08-06",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:32:44"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（125%：フリーCFで配当を賄えていない）",
+  "⚠ 配当性向が100%超（268%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（95）のに質が低め（選定60）。安さの理由を確認"
+ ],
+ "roa": 1.6,
+ "leverage": 2.23,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（125%：フリーCFで配当を賄えていない）"
+  },
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（268%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（95）のに質が低め（選定60）。安さの理由を確認"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:48:43"
 }

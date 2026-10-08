@@ -1,16 +1,16 @@
 {
  "code": "CWEN",
  "name": "Clearway Energy, Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Utilities",
  "industry": "Utilities - Renewable",
  "is_simple": false,
  "is_reit": false,
- "price": 29.520000457763672,
- "price_date": "2026-10-05",
- "mcap": 7579124224,
+ "price": 30.290000915527344,
+ "price_date": "2026-10-07",
+ "mcap": 7470604800,
  "sel_score": 57.8,
- "tim_score": 99.5,
+ "tim_score": 98.8,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
@@ -29,31 +29,52 @@
   "財務": 21.2,
   "キャッシュフロー": 84.6,
   "配当の持続力": 65.6,
-  "配当利回りセオリー": 110.0,
+  "配当利回りセオリー": 108.7,
   "利回り水準とChowder": 110.0,
-  "株価バリュエーション": 57.3,
+  "株価バリュエーション": 56.5,
   "金利スプレッド": 110.0
  },
- "div_yield": 6.30081291042401,
- "total_yield": 6.30081291042401,
+ "div_yield": 6.14064028980112,
+ "total_yield": 6.14064028980112,
  "streak_up": 7,
  "streak_flat": 7,
  "payout_ni": 237.17000000000002,
  "roe": -3.167,
- "chowder": 17.26323013884143,
+ "chowder": 17.10305751821854,
  "dgr5": 10.96241722841742,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 104.67836257309942,
  "interest_coverage": 0.5478036175710594,
- "per_vs_sector": 1.8204976303317535,
- "pbr_vs_sector": 0.8381884166666667,
- "per_band_pos": 0.07921415547670839,
- "yield_band_pos": 1.0,
+ "per_vs_sector": 1.8643443601895733,
+ "pbr_vs_sector": 0.8261870833333333,
+ "per_band_pos": 0.05218998902843236,
+ "yield_band_pos": 0.9463792291559749,
  "next_earn": "2026-11-04",
  "earn_disc_date": "2026-08-05",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:19:48"
+ "warnings": [
+  "⚠ FCF配当性向が100%超（105%：フリーCFで配当を賄えていない）",
+  "⚠ 配当性向が100%超（237%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（99）のに質が低め（選定58）。安さの理由を確認"
+ ],
+ "roa": 1.01,
+ "leverage": 8.66,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（105%：フリーCFで配当を賄えていない）"
+  },
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（237%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（99）のに質が低め（選定58）。安さの理由を確認"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:37:28"
 }

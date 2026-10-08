@@ -1,14 +1,14 @@
 {
  "code": "STWD",
  "name": "Starwood Property Trust, Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Real Estate",
  "industry": "REIT - Mortgage",
  "is_simple": true,
  "is_reit": true,
- "price": 12.930000305175781,
- "price_date": "2026-10-06",
- "mcap": 4910412800,
+ "price": 12.65999984741211,
+ "price_date": "2026-10-07",
+ "mcap": 4807875072,
  "sel_score": 37.8,
  "tim_score": 105.3,
  "sel_label": "選定スコア基準未達",
@@ -35,20 +35,20 @@
   "金利スプレッド": 110.0,
   "REIT品質": 30.0
  },
- "div_yield": 14.84918758456207,
- "total_yield": 14.84918758456207,
+ "div_yield": 15.1658769600418,
+ "total_yield": 15.1658769600418,
  "streak_up": 0,
  "streak_flat": 17,
  "payout_ni": 320.0,
  "roe": 3.689,
- "chowder": 14.84918758456207,
+ "chowder": 15.1658769600418,
  "dgr5": 0.0,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 94.36322055730105,
  "interest_coverage": null,
- "per_vs_sector": 0.5046838407494145,
- "pbr_vs_sector": 0.24579413333333333,
+ "per_vs_sector": 0.4941451522248243,
+ "pbr_vs_sector": 0.24066153333333332,
  "per_band_pos": 0.0,
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-09",
@@ -56,7 +56,22 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。"
+  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
+  "⚠ 配当性向が100%超（320%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（105）のに質が低め（選定38）。安さの理由を確認"
  ],
- "_generated_at": "2026-10-07T01:44:20"
+ "roa": 0.65,
+ "leverage": 9.3,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（320%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（105）のに質が低め（選定38）。安さの理由を確認"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:58:54"
 }

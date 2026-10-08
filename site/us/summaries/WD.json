@@ -1,16 +1,16 @@
 {
  "code": "WD",
  "name": "Walker & Dunlop, Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Financials",
  "industry": "Mortgage Finance",
  "is_simple": false,
  "is_reit": false,
- "price": 35.099998474121094,
- "price_date": "2026-10-06",
- "mcap": 1204833536,
+ "price": 33.959999084472656,
+ "price_date": "2026-10-07",
+ "mcap": 1165702272,
  "sel_score": 62.9,
- "tim_score": 101.2,
+ "tim_score": 101.4,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
@@ -31,29 +31,45 @@
   "配当の持続力": 67.1,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 110.0,
-  "株価バリュエーション": 73.8,
+  "株価バリュエーション": 74.9,
   "金利スプレッド": null
  },
- "div_yield": 7.749288086167386,
- "total_yield": 8.61687681835885,
+ "div_yield": 8.009423066338217,
+ "total_yield": 8.906135739126075,
  "streak_up": 8,
  "streak_flat": 8,
  "payout_ni": 241.07,
  "roe": 2.3599999,
- "chowder": 20.977450814008584,
+ "chowder": 21.237585794179417,
  "dgr5": 13.228162727841198,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": null,
- "per_vs_sector": 1.8115193641618497,
- "pbr_vs_sector": 0.273630856,
- "per_band_pos": 0.5146688722808198,
+ "per_vs_sector": 1.7526836994219652,
+ "pbr_vs_sector": 0.26474372,
+ "per_band_pos": 0.5480763127248695,
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-05",
  "earn_disc_date": "2026-08-06",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:48:51"
+ "warnings": [
+  "⚠ 配当性向が100%超（241%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（101）のに質が低め（選定63）。安さの理由を確認"
+ ],
+ "roa": 1.13,
+ "leverage": 2.92,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（241%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（101）のに質が低め（選定63）。安さの理由を確認"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T02:02:26"
 }

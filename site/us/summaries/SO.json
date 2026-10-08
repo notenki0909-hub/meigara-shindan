@@ -1,13 +1,13 @@
 {
  "code": "SO",
  "name": "The Southern Company",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Utilities",
  "industry": "Utilities - Regulated Electric",
  "is_simple": false,
  "is_reit": false,
  "price": 85.44000244140625,
- "price_date": "2026-10-06",
+ "price_date": "2026-10-07",
  "mcap": 98287017984,
  "sel_score": 89.1,
  "tim_score": 83.4,
@@ -54,6 +54,17 @@
  "earn_disc_date": "2026-07-30",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:43:25"
+ "warnings": [
+  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+ ],
+ "roa": 2.79,
+ "leverage": 4.32,
+ "insight_flags": [
+  {
+   "k": "lev_roe",
+   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:58:00"
 }

@@ -1,16 +1,16 @@
 {
  "code": "AFL",
  "name": "Aflac Incorporated",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Financials",
  "industry": "Insurance - Life",
  "is_simple": true,
  "is_reit": false,
  "price": 113.62999725341797,
  "price_date": "2026-10-06",
- "mcap": 56967639040,
+ "mcap": 56521441280,
  "sel_score": 77.8,
- "tim_score": 77.3,
+ "tim_score": 77.2,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア下位（やや割高水準）",
  "comment": "選定は中位、買い時は下位（やや割高水準）。",
@@ -31,12 +31,12 @@
   "配当の持続力": 106.8,
   "配当利回りセオリー": 53.3,
   "利回り水準とChowder": 93.6,
-  "株価バリュエーション": 103.2,
+  "株価バリュエーション": 103.0,
   "金利スプレッド": null,
   "金融品質": 65.4
  },
  "div_yield": 2.147320301837467,
- "total_yield": 8.343820735217548,
+ "total_yield": 8.392737828458614,
  "streak_up": 16,
  "streak_flat": 42,
  "payout_ni": 25.590000000000003,
@@ -47,9 +47,9 @@
  "fcf_positive": 1,
  "fcf_payout": 46.88845401174168,
  "interest_coverage": 21.604545454545455,
- "per_vs_sector": 0.698745549132948,
- "pbr_vs_sector": 0.75311504,
- "per_band_pos": 0.5334833814875157,
+ "per_vs_sector": 0.700727225433526,
+ "pbr_vs_sector": 0.7472163199999999,
+ "per_band_pos": 0.528466060927354,
  "yield_band_pos": 0.13293950914288075,
  "next_earn": "2026-11-04",
  "earn_disc_date": "2026-08-06",
@@ -58,5 +58,9 @@
  "warnings": [
   "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
- "_generated_at": "2026-10-07T01:11:58"
+ "roa": 3.13,
+ "leverage": 3.95,
+ "insight_flags": [],
+ "kind": "fin",
+ "_generated_at": "2026-10-08T01:30:46"
 }

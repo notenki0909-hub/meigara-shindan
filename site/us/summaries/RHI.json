@@ -1,14 +1,14 @@
 {
  "code": "RHI",
  "name": "Robert Half Inc.",
- "asof": "2026-10-07",
+ "asof": "2026-10-08",
  "gics_sector": "Industrials",
  "industry": "Staffing & Employment Services",
  "is_simple": false,
  "is_reit": false,
- "price": 33.66999816894531,
- "price_date": "2026-10-06",
- "mcap": 3446522368,
+ "price": 33.95000076293945,
+ "price_date": "2026-10-07",
+ "mcap": 3472867584,
  "sel_score": 72.8,
  "tim_score": 103.7,
  "sel_label": "選定スコア中位（一部に弱点）",
@@ -31,29 +31,40 @@
   "配当の持続力": 73.0,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 110.0,
-  "株価バリュエーション": 84.2,
+  "株価バリュエーション": 84.3,
   "金利スプレッド": null
  },
- "div_yield": 7.009207390384378,
- "total_yield": 9.681263166231297,
+ "div_yield": 6.95139896013265,
+ "total_yield": 9.603184488158126,
  "streak_up": 0,
  "streak_flat": 22,
  "payout_ni": 205.22,
  "roe": 9.110999999999999,
- "chowder": 18.663292912787437,
+ "chowder": 18.605484482535708,
  "dgr5": 11.654085522403058,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 89.28450957610285,
  "interest_coverage": null,
- "per_vs_sector": 0.8867994047619047,
- "pbr_vs_sector": 0.41864153731343284,
+ "per_vs_sector": 0.8786232142857143,
+ "pbr_vs_sector": 0.42212298507462687,
  "per_band_pos": 0.0,
  "yield_band_pos": 1.0,
  "next_earn": "2026-10-21",
  "earn_disc_date": "2026-07-23",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
- "_generated_at": "2026-10-07T01:41:05"
+ "warnings": [
+  "⚠ 配当性向が100%超（205%：純利益を上回る配当）"
+ ],
+ "roa": 4.66,
+ "leverage": 2.24,
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（205%：純利益を上回る配当）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-10-08T01:55:53"
 }
