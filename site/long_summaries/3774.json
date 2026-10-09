@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 3584.0,
- "price_date": "2026-10-08",
- "mcap": 635550695424,
+ "price": 3680.0,
+ "price_date": "2026-10-09",
+ "mcap": 652574392320,
  "q_score": 102.6,
  "groups": {
   "業績": 98.62029163723469,
@@ -22,47 +22,46 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 49.7,
+ "bt_score": 47.0,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 68.92610984496362,
-  "fcf_yield": 66.09126155355811,
-  "per_cheap": 32.3,
-  "pbr_cheap": 31.6
+  "ev_ebit_vs_sector": 63.15919796914813,
+  "fcf_yield": 64.88887960986507,
+  "per_cheap": 30.0,
+  "pbr_cheap": 30.0
  },
- "ev_ebit": 18.163504964087842,
- "fcf_yield": 3.4568446165168583,
+ "ev_ebit": 18.652200152719967,
+ "fcf_yield": 3.3666659707398803,
  "per_band_pos": 0.0,
- "pbr_band_pos": 0.03140265813767207,
- "ev_ebit_vs_sector": 1.1218965388565683,
- "per_vs_sector": 1.4206560773480663,
- "pbr_vs_sector": 1.9736769,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 1.1723570177699538,
+ "per_vs_sector": 1.4587093922651932,
+ "pbr_vs_sector": 2.0265434,
  "price_chg": {
-  "d": 2.400000000000002,
-  "w": 3.793802490587894,
-  "m": 8.936170212765958,
-  "3m": 5.722713864306783,
-  "6m": 44.51612903225806,
-  "9m": 28.228980322003583,
-  "y": 33.5569219303149
+  "d": 2.678571428571419,
+  "w": 6.204906204906213,
+  "m": 14.392290954305253,
+  "3m": 6.113033448673577,
+  "6m": 45.4832970942874,
+  "9m": 32.231404958677686,
+  "y": 38.00862553909619
  },
- "div_yield": 1.1997767857142858,
- "implied_fcf_growth": 0.1273,
+ "div_yield": 1.1684782608695652,
+ "implied_fcf_growth": 0.1309,
  "insight": {
   "flags": {
    "cutoff": [],
    "value_trap": []
   },
   "raw": {
-   "roe": 15.308182548874417,
-   "roa": 6.971951356601995,
+   "roe": null,
+   "roa": null,
    "leverage": 2.195681203997291,
-   "ocf_ni": 2.0861584256656194,
-   "accrual": -7.968842891981412,
    "capex_da": 0.8719471139132031,
    "shares_chg_pct": -1.9015022357651734
   }
  },
+ "etf_top": null,
  "metric_scores": {
   "rev_cagr": 108.86315485418024,
   "eps_cagr": 103.3627652189054,
@@ -91,5 +90,5 @@
   "fcf_positive": 1,
   "fcf_payout": 29.827036868456986
  },
- "_generated_at": "2026-10-08T23:48:20"
+ "_generated_at": "2026-10-09T22:57:14"
 }

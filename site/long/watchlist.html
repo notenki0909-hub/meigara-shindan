@@ -298,7 +298,7 @@ td.x button{padding:2px 8px;font-size:12px;margin:0;background:var(--card);color
       var yld=(typeof s.yield==='number')?s.yield.toFixed(2)+'%':'―';
       var px=(typeof s.price==='number')?s.price.toLocaleString():'―';
       return '<tr><td class="code"><a href="reports/'+c+'.html">'+c+'</a></td>'
-        +'<td>'+(s.name||'')+'</td><td class="sec">'+(s.sector||s._gname||'')+'</td>'
+        +'<td>'+(s.name||'')+'</td><td class="sec">'+(SECJA[s.sector]||s.sector||SECJA[s._gname]||s._gname||'')+'</td>'
         +'<td class="n"><b>'+q+'</b></td>'+bt
         +'<td class="n">'+yld+'</td><td class="n">'+px+'</td>'
         +'<td>'+(s.tier||(s._exc?'―':''))+'</td>'+x+'</tr>';
@@ -307,6 +307,7 @@ td.x button{padding:2px 8px;font-size:12px;margin:0;background:var(--card);color
       +'<th class="n">品質</th><th class="n">買い時</th><th class="n">利回り</th>'
       +'<th class="n">終値</th><th>軍</th><th></th></tr></thead><tbody>'+rows+'</tbody></table>';
   }
+  var SECJA={};
   draw();
   fetch('ranking.json').then(function(r){return r.json();}).then(function(j){
     var map={};
