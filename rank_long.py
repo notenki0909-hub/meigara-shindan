@@ -329,8 +329,30 @@ def load_prev(out_dir):
     return out
 
 
+def _load_etf_map(market):
+    """銘柄 -> [(ETF名, 順位, 組入比率%)]（順位は上位15内）と、基準日・ETF一覧。米国のみ。
+    表示・絞り込み専用（採点には使わない）。ファイルが無い・壊れている場合は空。"""
+    if market != "us":
+        return {}, "", []
+    try:
+        d = json.load(open(os.path.join(HERE, "etf_top_us.json"), encoding="utf-8"))
+    except Exception:
+        return {}, "", []
+    mp, asof, names = {}, "", []
+    for e in d.get("etfs", []):
+        names.append((e.get("etf"), e.get("label") or ""))
+        if e.get("as_of") and (not asof or e["as_of"] < asof):
+            asof = e["as_of"]            # 一番古い基準日を表示（保守的）
+        for i, h in enumerate((e.get("holdings") or [])[:15], 1):
+            t = str(h.get("ticker") or "").upper()
+            if t:
+                mp.setdefault(t, []).append((e["etf"], i, h.get("weight")))
+    return mp, asof, names
+
+
 def build(market):
     m = MK[market]
+    etf_map, etf_asof, _etf_names = _load_etf_map(market)
     gcfg = json.load(open(os.path.join(HERE, m["groups_cfg"]), encoding="utf-8"))
     gmap = {}
     for gname, secs in gcfg["groups"].items():
@@ -412,6 +434,9 @@ def build(market):
             "roe": ((s.get("insight") or {}).get("raw") or {}).get("roe"),
             "roa": ((s.get("insight") or {}).get("raw") or {}).get("roa"),
             "fin_like": bool(s.get("is_simple") or s.get("is_reit")),
+            # 主要ETFの上位15銘柄での順位（米国のみ。表示・絞り込み専用）
+            "etfs": etf_map.get(str(code).upper(), []),
+            "etf_asof": etf_asof,
         }
         if q is None:
             if code in watch:
@@ -560,6 +585,8 @@ def _filter_attrs_long(s, unit, grade):
     parts.append(f'data-m_roe="{_fv(s.get("roe"))}"')
     parts.append(f'data-m_roa="{_fv(s.get("roa"))}"')
     parts.append(f'data-kind="{"fin" if s.get("fin_like") else "gen"}"')
+    if s.get("etfs"):
+        parts.append('data-etf=",' + ",".join(e[0] for e in s["etfs"]) + ',"')
     if s.get("has_decel") is not None:
         parts.append(f'data-decel="{1 if s.get("has_decel") else 0}"')
     return " ".join(parts)
@@ -627,6 +654,19 @@ def render(out, m):
     paired_num_json = json.dumps(paired_num_map, ensure_ascii=False)
     filters_ls_key = f'pp_filters_long{"_us" if market == "us" else ""}'
 
+    etf_fgrp = ""
+    if market == "us":
+        _em, _ea, _en = _load_etf_map("us")
+        if _en:
+            etf_opts = "".join(
+                f'<label title="{html.escape(str(lab or ""), quote=True)}">'
+                f'<input type="checkbox" class="f_etf" value="{html.escape(str(nm), quote=True)}">{html.escape(str(nm))}</label>'
+                for nm, lab in _en)
+            etf_fgrp = ('<div class="fgrp wide"><span class="flbl">主要ETFの上位15銘柄'
+                        + (f'（{html.escape(_ea)}時点）' if _ea else '') + '</span>'
+                        '<span class="fchecks"><label><input type="checkbox" id="f_etf_any">いずれかのETFの上位15に入る銘柄のみ</label></span>'
+                        f'<span class="fchecks">{etf_opts}</span>'
+                        '<span class="sub" style="margin:0;font-size:11.5px">ETFを選ぶと、選んだETFのいずれかの上位15に入る銘柄だけに絞ります。</span></div>')
     roe_roa_body = (_band_fgrp_raw("m_roe", "ROE（純利益÷自己資本）", ROE_ROA_RULES["roe"], "num_roe")
                     + _band_fgrp_raw("m_roa", "ROA（純利益÷総資産）", ROE_ROA_RULES["roa"], "num_roa")
                     + '<div class="fgrp"><span class="flbl">業種の区分</span><span class="fchecks">'
@@ -680,6 +720,7 @@ def render(out, m):
       <div class="fgrp"><span class="flbl">カバレッジ</span><span class="fchecks">{cov_opts}</span></div>
       <div class="fgrp wide"><span class="flbl">業種グループ</span><span class="fchecks">{grp_opts}</span></div>
       {decel_fgrp}
+      {etf_fgrp}
     </div></div>
   </details>
 </div>
@@ -745,6 +786,17 @@ def render(out, m):
         tip = html.escape("／".join(tips) + "（採点しない・参考。詳細は個別レポート）", quote=True)
         return f' <span class="warnmark" title="{tip}">⚠</span>'
 
+    def _etfmark(s):
+        """主要ETFの上位15銘柄に入っている銘柄に小さな「ETF」マーク。表示専用。"""
+        es = s.get("etfs") or []
+        if not es:
+            return ""
+        asof = s.get("etf_asof") or ""
+        tip = "／".join(f"{e[0]} {e[1]}位" + (f"（{e[2]:.1f}%）" if isinstance(e[2], (int, float)) else "")
+                        for e in es)
+        tip = html.escape(tip + (f"（{asof}時点）" if asof else "") + "。採点には使わない・表示のみ。", quote=True)
+        return f' <span class="etfmark" title="{tip}">ETF×{len(es)}</span>'
+
     grade_by_group = {g["name"]: g["grade"] for g in out["groups"]}
 
     def row_html(s, with_rank=None):
@@ -762,7 +814,7 @@ def render(out, m):
             f'<td class="tier">{s.get("tier","―")}<span class="dir {dcls}">{s.get("dir","")}</span></td>'
             f'<td class="code">{codecell}</td>'
             f'<td class="nm">{html.escape(str(s["name"]))}'
-            f'{_newbadge(s)}{_warnmark(s)}'
+            f'{_newbadge(s)}{_warnmark(s)}{_etfmark(s)}'
             f'</td>'
             f'<td class="sec">{html.escape(str(s["sector"]))}</td>'
             f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"], unit)}</td>'
@@ -1012,6 +1064,9 @@ h2{{font-size:15px;margin:26px 0 6px;border-bottom:2px solid var(--line);padding
   background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent);
   border:1px solid color-mix(in srgb,var(--accent) 45%,transparent)}}
 .warnmark{{font-size:11px;cursor:help;vertical-align:middle;color:var(--mid,#d29922)}}
+.etfmark{{font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;vertical-align:middle;cursor:help;
+  background:color-mix(in srgb,var(--fg) 8%,transparent);color:var(--muted);
+  border:1px solid var(--line)}}
 .gradeA{{background:color-mix(in srgb,var(--gA) 15%,transparent);color:var(--gA)}}
 .gradeB{{background:color-mix(in srgb,var(--gB) 15%,transparent);color:var(--gB)}}
 .gradeC{{background:color-mix(in srgb,var(--gC) 15%,transparent);color:var(--gC)}}
@@ -1197,6 +1252,8 @@ section.grp[hidden]{{display:none}}
   var fcfPosEl=document.getElementById('f_bin_fcf_positive');
   var decelNoneEl=document.getElementById('f_decel_none');
   var decelFlagEl=document.getElementById('f_decel_flag');
+  var etfAnyEl=document.getElementById('f_etf_any');
+  var etfEls=document.querySelectorAll('.f_etf');
   var kindGenEl=document.getElementById('f_kind_gen');
   var kindFinEl=document.getElementById('f_kind_fin');
   // 業種の区分は「一般企業のみ」「銀行・保険・証券・REITのみ」の二択（同時には選べない）
@@ -1277,6 +1334,11 @@ section.grp[hidden]{{display:none}}
       if(decelFlagEl&&decelFlagEl.checked)want.push('1');
       if(want.indexOf(tr.dataset.decel||'')===-1)return false;
     }}
+    var etfSel=checkedVals(etfEls);
+    if(etfSel.length){{
+      var te=tr.dataset.etf||'';
+      if(!etfSel.some(function(n){{return te.indexOf(','+n+',')!==-1;}}))return false;
+    }}else if(etfAnyEl&&etfAnyEl.checked&&!tr.dataset.etf)return false;
     if(kindGenEl&&kindGenEl.checked&&tr.dataset.kind!=='gen')return false;
     if(kindFinEl&&kindFinEl.checked&&tr.dataset.kind!=='fin')return false;
     var grds=checkedVals(grdEls);
@@ -1292,6 +1354,7 @@ section.grp[hidden]{{display:none}}
     if(ocfEl&&ocfEl.checked)return true;
     if(fcfPosEl&&fcfPosEl.checked)return true;
     if((kindGenEl&&kindGenEl.checked)||(kindFinEl&&kindFinEl.checked))return true;
+    if((etfAnyEl&&etfAnyEl.checked)||checkedVals(etfEls).length)return true;
     if((decelNoneEl&&decelNoneEl.checked)||(decelFlagEl&&decelFlagEl.checked))return true;
     if(Object.keys(bandEls).some(function(id){{return checkedVals(bandEls[id]).length;}}))return true;
     if(checkedVals(grdEls).length||checkedVals(covEls).length||checkedVals(grpEls).length)return true;
@@ -1302,7 +1365,8 @@ section.grp[hidden]{{display:none}}
     .concat([].concat.apply([],Object.keys(bandEls).map(function(k){{return Array.prototype.slice.call(bandEls[k]);}})))
     .concat(Array.prototype.slice.call(grdEls),Array.prototype.slice.call(covEls),Array.prototype.slice.call(grpEls))
     .concat(ocfEl?[ocfEl]:[],fcfPosEl?[fcfPosEl]:[],decelNoneEl?[decelNoneEl]:[],decelFlagEl?[decelFlagEl]:[],
-      kindGenEl?[kindGenEl]:[],kindFinEl?[kindFinEl]:[]);
+      kindGenEl?[kindGenEl]:[],kindFinEl?[kindFinEl]:[],etfAnyEl?[etfAnyEl]:[],
+      Array.prototype.slice.call(etfEls));
 
   function apply(){{
     var needle=(q.value||'').trim().normalize('NFKC').toLowerCase();
@@ -1341,6 +1405,8 @@ section.grp[hidden]{{display:none}}
       if(fcfPosEl&&fcfPosEl.checked)p.set('fcfpos','1');
       if(decelNoneEl&&decelNoneEl.checked)p.set('dn','1');
       if(decelFlagEl&&decelFlagEl.checked)p.set('df','1');
+      if(etfAnyEl&&etfAnyEl.checked)p.set('etfany','1');
+      var etfs2=checkedVals(etfEls); if(etfs2.length)p.set('etf',etfs2.join(','));
       if(kindGenEl&&kindGenEl.checked)p.set('kind','gen');
       if(kindFinEl&&kindFinEl.checked)p.set('kind','fin');
       Object.keys(bandEls).forEach(function(id){{ var sel=checkedVals(bandEls[id]); if(sel.length)p.set(id,sel.join(',')); }});
@@ -1372,6 +1438,8 @@ section.grp[hidden]{{display:none}}
     if(p.get('fcfpos')==='1'&&fcfPosEl)fcfPosEl.checked=true;
     if(p.get('dn')==='1'&&decelNoneEl)decelNoneEl.checked=true;
     if(p.get('df')==='1'&&decelFlagEl)decelFlagEl.checked=true;
+    if(p.get('etfany')==='1'&&etfAnyEl)etfAnyEl.checked=true;
+    (p.get('etf')||'').split(',').forEach(function(v){{ etfEls.forEach(function(e){{if(e.value===v)e.checked=true;}}); }});
     if(p.get('kind')==='gen'&&kindGenEl)kindGenEl.checked=true;
     if(p.get('kind')==='fin'&&kindFinEl)kindFinEl.checked=true;
     Object.keys(bandEls).forEach(function(id){{
@@ -1402,6 +1470,8 @@ section.grp[hidden]{{display:none}}
     if(decelFlagEl)decelFlagEl.checked=false;
     if(kindGenEl)kindGenEl.checked=false;
     if(kindFinEl)kindFinEl.checked=false;
+    if(etfAnyEl)etfAnyEl.checked=false;
+    etfEls.forEach(function(e){{e.checked=false;}});
     Object.keys(bandEls).forEach(function(id){{ Array.prototype.forEach.call(bandEls[id],function(e){{e.checked=false;}}); }});
     grdEls.forEach(function(e){{e.checked=false;}});
     covEls.forEach(function(e){{e.checked=false;}});
@@ -1437,10 +1507,11 @@ section.grp[hidden]{{display:none}}
         tr.dataset.grade||'', tr.dataset.tier||'', csvNum(tr.dataset.price,0),
         csvNum(tr.dataset.q,0), csvNum(tr.dataset.bt,0), tr.dataset.cov||'',
         csvNum(tr.dataset.m_roe,1), csvNum(tr.dataset.m_roa,1),
-        tr.dataset.kind==='fin'?'銀行・保険・証券・REIT':'一般企業'
+        tr.dataset.kind==='fin'?'銀行・保険・証券・REIT':'一般企業',
+        (tr.dataset.etf||'').split(',').filter(Boolean).join('|')
       ]);
     }});
-    var header=['コード','銘柄名','業種グループ','業種級','軍','終値','品質スコア','買い時スコア','カバレッジ','ROE(%)','ROA(%)','業種の区分'];
+    var header=['コード','銘柄名','業種グループ','業種級','軍','終値','品質スコア','買い時スコア','カバレッジ','ROE(%)','ROA(%)','業種の区分','ETF上位15'];
     var lines=[header].concat(rows).map(function(r){{return r.map(csvCell).join(',');}});
     var blob=new Blob(['﻿'+lines.join('\\r\\n')],{{type:'text/csv;charset=utf-8;'}});
     var url=URL.createObjectURL(blob);

@@ -172,6 +172,29 @@ def _sector_roe_roa(market="jp"):
     return _SEC_ROE_ROA[market]
 
 
+_ETF_TOP = {"loaded": False, "map": {}, "asof": ""}
+
+
+def _etf_ranks(code):
+    """主要ETF14本の上位15銘柄（etf_top_us.json。fetch_etf_top_us.pyが月次更新）での、この銘柄の順位。
+    -> ([(ETF名, ETF説明, 順位, 組入比率%)], 基準日)。米国株のみ使う。表示専用（採点には使わない）。"""
+    if not _ETF_TOP["loaded"]:
+        _ETF_TOP["loaded"] = True
+        try:
+            import json as _j
+            d = _j.load(open(os.path.join(HERE, "etf_top_us.json"), encoding="utf-8"))
+            for e in d.get("etfs", []):
+                if e.get("as_of") and (not _ETF_TOP["asof"] or e["as_of"] < _ETF_TOP["asof"]):
+                    _ETF_TOP["asof"] = e["as_of"]
+                for i, h in enumerate((e.get("holdings") or [])[:15], 1):
+                    t = str(h.get("ticker") or "").upper()
+                    if t:
+                        _ETF_TOP["map"].setdefault(t, []).append((e.get("etf"), e.get("label") or "", i, h.get("weight")))
+        except Exception:
+            pass
+    return _ETF_TOP["map"].get(str(code).upper(), []), _ETF_TOP["asof"]
+
+
 _PBR_REL_LONG = {"jp": None, "us": None}
 
 
@@ -1024,6 +1047,14 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
         it = next((r for r in extras.get("ref_src", []) if r.get("name") == nm), None)
         if it:
             ref_rows.append((it["name"], it["disp"]))
+    etf_rows = extras.get("etf_rows") or []
+    if etf_rows:
+        asof = extras.get("etf_asof") or ""
+        txt = "／".join(f"{n}（{lab}）{r}位" + (f"・組入{w:.1f}%" if LC.is_num(w) else "")
+                        for n, lab, r, w in etf_rows)
+        ref_rows.append(("主要ETFの上位15銘柄での順位",
+                         txt + (f"　… {asof}時点（月次更新）" if asof else "")
+                         + "。採点しない・参考（どのETFでも、上位15位までの順位と組入比率のみ）"))
     if LC.is_num(extras.get("drawdown")):
         ref_rows.append(("高値からの下落率（採点しない）",
                          f"直近レンジ高値から {extras['drawdown']:.0f}%"))
@@ -1355,6 +1386,8 @@ def generate_long(code, cfg=None, market="jp", name=None):
               "fin_q": fin_q, "fq_parts": fq_parts,
               "reit_q": reit_q, "reit_parts": reit_parts,
               "quarter_trend_rows": quarter_trend_rows, "insight": insight}
+    if market == "us":
+        extras["etf_rows"], extras["etf_asof"] = _etf_ranks(code)
 
     warnings = []
     if is_reit_us:
@@ -1424,6 +1457,8 @@ def generate_long(code, cfg=None, market="jp", name=None):
         "implied_fcf_growth": ig,
         # 見方を深める指標・注意フラグ（表示専用。採点には使わない）
         "insight": {"flags": insight["flags"], "raw": insight["raw"]},
+        "etf_top": ([{"etf": n, "rank": r, "weight": w} for n, _lab, r, w in extras.get("etf_rows", [])]
+                    if market == "us" else None),
         # 「詳しい条件で絞り込む」フィルタ用の個別指標。score は0〜110（常に高いほど良い、
         # sector_rules(_us).json の業種別しきい値をrule_for()経由で反映済み）、raw は
         # 表示・CSV出力用の生値。is_fin_simple/is_reit_us銘柄はこれらのキーが元々
