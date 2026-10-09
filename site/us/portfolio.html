@@ -1275,7 +1275,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
       h.avgPrice = h.shares ? (h.cost / h.shares) : 0;
       var s = byCode[c];
       if (s) {
-        h.name = s.name; h.sector = s.sector; h.group = s.group; h.tier = s.tier; h.retired = s.retired || null;
+        h.name = s.name; h.sector = s.sector_jp || s.sector; h.group = s.group_jp || s.sector_jp || s.group; h.tier = s.tier; h.retired = s.retired || null;
         h.price = (typeof s.price === 'number') ? s.price : null;
         h.yieldPct = (typeof s['yield'] === 'number') ? s['yield'] : null;
         h.value = (h.price != null) ? h.shares * h.price : null;
@@ -1595,7 +1595,7 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
       $('asof').textContent = '対象データ：' + (j.generated_at || '') + ' 時点のランキング';
       var byCode = {};
       (j.groups || []).forEach(function(g){
-        (g.stocks || []).forEach(function(s){ byCode[String(s.code).toUpperCase()] = s; });
+        (g.stocks || []).forEach(function(s){ s.group_jp = g.name_jp || s.sector_jp || g.name; byCode[String(s.code).toUpperCase()] = s; });
       });
       (j.retired || []).forEach(function(s){ byCode[String(s.code).toUpperCase()] = s; });
 

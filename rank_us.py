@@ -474,6 +474,7 @@ def _filter_attrs(s, grade):
         f'data-grade="{html.escape(grade or "―")}" data-group="{html.escape(s.get("group") or "")}" '
         f'data-payout="{_v(s.get("payout_ni"))}" data-roe="{_v(s.get("roe"))}" '
         f'data-roa="{_v(s.get("roa"))}" data-kind="{html.escape(s.get("kind") or "gen")}" '
+        f'data-groupjp="{html.escape(s.get("sector_jp") or s.get("group") or "")}" '
         f'data-mcap="{_v(mcap_mil)}" data-dgr5="{_v(s.get("dgr5"))}" '
         f'data-ggyo="{_v(s.get("g_gyoseki"))}" data-gzai="{_v(s.get("g_zaimu"))}" '
         f'data-cov="{html.escape(s.get("cov_sel") or "")}" '
@@ -1359,7 +1360,7 @@ body.wlon{{padding-bottom:60px}}
       seen[code] = true;
       var nameEl = tr.querySelector('.nm');
       rows.push([
-        code, nameEl ? ((nameEl.childNodes[0] || nameEl).textContent || '').trim() : '', tr.dataset.group || '',
+        code, nameEl ? ((nameEl.childNodes[0] || nameEl).textContent || '').trim() : '', tr.dataset.groupjp || tr.dataset.group || '',
         tr.dataset.grade || '', tr.dataset.tier || '', csvNum(tr.dataset.price, 2),
         csvNum(tr.dataset.sel, 1), csvNum(tr.dataset.tim, 1), csvNum(tr.dataset.yld, 2),
         tr.dataset.streakup || '', tr.dataset.streakflat || '', tr.dataset.cov || '',

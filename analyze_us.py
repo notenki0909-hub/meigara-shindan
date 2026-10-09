@@ -1033,6 +1033,17 @@ def gics_jp(name):
     return GICS_JP.get(name, name or "―")
 
 
+def _industry_label(name):
+    """yfinanceの細かい業種名を日本語で（対応表 us_industry_jp.py）。表示専用。表に無い・読み込めないときは英語のまま。"""
+    if not name:
+        return "―"
+    try:
+        import us_industry_jp
+        return us_industry_jp.INDUSTRY_JP.get(name) or name
+    except Exception:
+        return name
+
+
 LABEL_MARK = {"good": "◎", "warn": "△", "bad": "▲", None: "―"}
 
 
@@ -1466,7 +1477,7 @@ def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warni
 <span class="blk"><a href="../terms.html">利用規約・免責事項</a><a href="../guide.html">使い方・見方</a><a href="../index.html">ランキング</a><a href="../watchlist.html">ウォッチリスト</a><a href="../portfolio.html">ポートフォリオ</a></span></div>
 {analyze.THEME_BAR}
 {f'<div class="meta2">前回の値動き（{meta["price_date"] or "―"}）　終値 <b>${fmt_num(meta["ohlc"]["close"],2)}</b>　／　高値 ${fmt_num(meta["ohlc"]["high"],2)}　／　安値 ${fmt_num(meta["ohlc"]["low"],2)}　／　始値 ${fmt_num(meta["ohlc"]["open"],2)}</div>' if meta.get("ohlc") else ""}
-<div class="sub">GICS業種：<b>{gics_jp(meta['gics_sector'])}</b>（{analyze.html.escape(meta['gics_sector'])}／yfinance：{analyze.html.escape(meta['industry'] or '―')}）{simple_note}<br>
+<div class="sub">GICS業種：<b>{gics_jp(meta['gics_sector'])}</b>　細分類：<b title="{analyze.html.escape(meta['gics_sector'])} ／ yfinance: {analyze.html.escape(meta['industry'] or '―')}">{analyze.html.escape(_industry_label(meta['industry']))}</b>{simple_note}<br>
 株価 {price_s}{pdate_s} &nbsp;｜&nbsp; 時価総額 {mcap_s} &nbsp;｜&nbsp; 生成 {meta['today']}</div>
 
 {render_company_html_us(ctx.get('company'))}
@@ -1521,7 +1532,7 @@ def render_md_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, rules, 
     sg = rules["score_groups"]
     rowmap = {r["key"]: r for dom in detail for r in detail[dom] if r.get("key")}
     L = [f"# {meta['name']}（{meta['code']}）｜米国株 配当スクリーニング", ""]
-    L.append(f"- GICS業種：**{gics_jp(meta['gics_sector'])}**（{meta['gics_sector']}）"
+    L.append(f"- GICS業種：**{gics_jp(meta['gics_sector'])}**　細分類：{_industry_label(meta['industry'])}"
              + ("（簡易判定）" if meta["is_simple"] else ""))
     L.append(f"- 株価：${fmt_num(meta['price'], 2)}  ｜  時価総額：{fmt_usd(meta['mcap'])}  ｜  生成：{meta['today']}")
     L.append("")
