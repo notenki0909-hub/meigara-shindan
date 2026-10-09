@@ -1093,12 +1093,16 @@ td.q,th.q{color:var(--accent)}
     });
   }
 
+  // 業種名（GICS11）の日本語表示。内部の値は英語のまま、表示だけ置き換える
+  var SECJA = {"Information Technology":"情報技術","Health Care":"ヘルスケア","Financials":"金融",
+    "Consumer Discretionary":"一般消費財","Consumer Staples":"生活必需品","Communication Services":"コミュニケーション",
+    "Industrials":"資本財","Energy":"エネルギー","Utilities":"公益事業","Materials":"素材","Real Estate":"不動産"};
   function drawPie(dim, holdings){
     var svg = $('pie'), legend = $('legend');
     var m = {}, order = [];
     holdings.forEach(function(h){
       if (h.value == null) return;
-      var key = (dim === 'code') ? (h.code + ' ' + (h.name || '')) : (h[dim] || '（不明）');
+      var key = (dim === 'code') ? (h.code + ' ' + (h.name || '')) : (SECJA[h[dim]] || h[dim] || '（不明）');
       if (!(key in m)) { m[key] = 0; order.push(key); }
       m[key] += h.value;
     });

@@ -245,6 +245,28 @@ def _raw_valuation(yd):
     }
 
 
+# 米国株のGICS11業種の日本語表示名（表示専用）。設定JSON・summary・URL・保存済みの絞り込み条件など
+# 内部の値は英語のまま（業種グループ・業種中央値・sector_rules の鍵になっているため）。
+GICS_JA = {
+    "Information Technology": "情報技術",
+    "Health Care": "ヘルスケア",
+    "Financials": "金融",
+    "Consumer Discretionary": "一般消費財",
+    "Consumer Staples": "生活必需品",
+    "Communication Services": "コミュニケーション",
+    "Industrials": "資本財",
+    "Energy": "エネルギー",
+    "Utilities": "公益事業",
+    "Materials": "素材",
+    "Real Estate": "不動産",
+}
+
+
+def _sec_label(name, market):
+    """業種名の表示用ラベル。米国株はGICSを日本語に、日本株（もともと日本語）はそのまま。"""
+    return GICS_JA.get(name, name) if market == "us" else name
+
+
 def _insight_extras(yd, market, is_simple, is_reit, q_score, bt_score, tiers, raw, sec_med=None):
     """『見方を深める指標』と、資料（銘柄分析の基礎）の基準にもとづく注意フラグ。
     **表示専用**：品質スコア・買い時スコアの計算には一切使わない（2026-10-06決定。
@@ -1193,7 +1215,7 @@ table.subt tr:last-child td{{border-bottom:none}}
   <h1>{meta['name']}（{meta['code']}）<small>10年保有できる優良企業か</small></h1>
   <span><a href="../index.html">ランキング</a>　・　<a href="../watchlist.html">ウォッチリスト</a>　・　<a href="../portfolio.html">ポートフォリオ</a></span>
 </div>
-<div class="sub">現在株価 {_f(meta.get('price'),0)}{unit}（{meta.get('price_date') or '―'} 終値）　｜　{seckey}</div>
+<div class="sub">現在株価 {_f(meta.get('price'),0)}{unit}（{meta.get('price_date') or '―'} 終値）　｜　{_sec_label(seckey, market)}</div>
 {ohlc_line}
 <div class="formula">配当を評価しないレポートです。<b>品質スコア</b>＝業績×0.28＋財務×0.27＋CF×0.15（取得できたグループで再正規化）。
 <b>買い時スコア</b>＝EV/EBIT対業種・FCF利回り・PER割安度・PBR割安度を均等25%で合成（欠損は中立60）。

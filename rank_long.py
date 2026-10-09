@@ -145,6 +145,28 @@ TERMS = {
 }
 
 
+# 米国株のGICS11業種の日本語表示名（表示専用）。設定JSON・summary・URL・保存済みの絞り込み条件など
+# 内部の値は英語のまま（業種グループ・業種中央値・sector_rules の鍵になっているため）。
+GICS_JA = {
+    "Information Technology": "情報技術",
+    "Health Care": "ヘルスケア",
+    "Financials": "金融",
+    "Consumer Discretionary": "一般消費財",
+    "Consumer Staples": "生活必需品",
+    "Communication Services": "コミュニケーション",
+    "Industrials": "資本財",
+    "Energy": "エネルギー",
+    "Utilities": "公益事業",
+    "Materials": "素材",
+    "Real Estate": "不動産",
+}
+
+
+def _sec_label(name, market):
+    """業種名の表示用ラベル。米国株はGICSを日本語に、日本株（もともと日本語）はそのまま。"""
+    return GICS_JA.get(name, name) if market == "us" else name
+
+
 DISC = ('本ページは、あらかじめ定めた基準（時価総額または指数構成）で抽出した銘柄について、'
         '公開データを機械的なルールで算出した「配当を含めない品質スコア」（業績・財務・'
         'キャッシュフロー）による分類です。配当利回りは参考表示で、採点には使っていません。'
@@ -600,6 +622,7 @@ def render(out, m):
     market = out["market"]
     terms_json = json.dumps(TERMS, ensure_ascii=False)
     raw_rules = _RAW_RULES_BY_MARKET[market]
+    _sd = lambda n: _sec_label(n, market)   # 業種名の表示用（米国はGICSを日本語に）
 
     def _band_fgrp_raw(band_id, lab, rule, num_id=None):
         """実数値（%・倍・年など）で絞り込む項目用。band_idはBAND_FILTERSのidと一致させる
@@ -678,7 +701,7 @@ def render(out, m):
                                    for k, lab, rule, _sk, _scale in FILTER_BT_COMPONENTS)
     grade_opts = "".join(f'<label><input type="checkbox" class="f_grd" value="{x}">{x}</label>' for x in ("A", "B", "C"))
     cov_opts = "".join(f'<label><input type="checkbox" class="f_cov" value="{x}">{x}</label>' for x in ("高", "中", "低"))
-    grp_opts = "".join(f'<label><input type="checkbox" class="f_grp" value="{html.escape(g["name"])}">{html.escape(g["name"])}</label>'
+    grp_opts = "".join(f'<label><input type="checkbox" class="f_grp" value="{html.escape(g["name"])}">{html.escape(_sd(g["name"]))}</label>'
                         for g in out["groups"])
     decel_fgrp = ('<div class="fgrp"><span class="flbl">直近四半期の急減速</span>'
                   '<span class="fchecks">'
@@ -816,7 +839,7 @@ def render(out, m):
             f'<td class="nm">{html.escape(str(s["name"]))}'
             f'{_newbadge(s)}{_warnmark(s)}{_etfmark(s)}'
             f'</td>'
-            f'<td class="sec">{html.escape(str(s["sector"]))}</td>'
+            f'<td class="sec">{html.escape(_sd(str(s["sector"])))}</td>'
             f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"], unit)}</td>'
             + _pchg_cells(s) +
             f'<td class="n" data-v="{_v(s["q"])}"><b>{_num(s["q"],0)}</b></td>'
@@ -860,7 +883,7 @@ def render(out, m):
 
     secs = []
     for g in out["groups"]:
-        head = (f'<h2>{html.escape(g["name"])} '
+        head = (f'<h2>{html.escape(_sd(g["name"]))} '
                 f'<span class="grade grade{g["grade"]} hdr" data-term="grade">業種級 {g["grade"]}</span> '
                 f'<span class="gmeta">中央値 {_num(g["median"])} ／ {g["count"]}銘柄'
                 f'{"" if g["tiered"] else " ・ 少数のため軍分けなし"}</span></h2>')
@@ -903,7 +926,7 @@ def render(out, m):
                 f'<td class="code">{_code_cell(code, m["report_dirs"])}</td>'
                 f'<td class="nm">{html.escape(str(s["name"]))}</td>' + wcell +
                 f'<td class="tier">{s.get("tier","―")}<span class="dir {dcls}">{s.get("dir","")}</span></td>'
-                f'<td class="sec">{html.escape(str(s["sector"]))}</td>'
+                f'<td class="sec">{html.escape(_sd(str(s["sector"])))}</td>'
                 f'<td class="n px">{_price(s["price"], unit)}</td>'
                 f'<td class="n"><b>{_num(s.get("q"),0)}</b></td>'
                 + _bt_cell(s.get("bt")) + '</tr>')
@@ -958,7 +981,7 @@ def render(out, m):
             add_rows = "".join(
                 f'<tr><td class="code">{_code_cell(a["code"], m["report_dirs"])}</td>'
                 f'<td class="nm">{html.escape(str(a["name"]))}</td>'
-                f'<td class="sec">{html.escape(str(a["sector"]))}</td>'
+                f'<td class="sec">{html.escape(_sd(str(a["sector"])))}</td>'
                 + (f'<td class="n" data-v="{_v(a["q"])}">{_num(a["q"],0)}</td>' if a["ranked"]
                    else '<td class="sec" title="翌日の夜間更新で診断し、ランキングに反映されます">診断待ち</td>')
                 + f'<td class="sec">{_jp_date(a["date"])}（{kind_jp.get(a["kind"], "")}）</td></tr>'
@@ -966,7 +989,7 @@ def render(out, m):
             rem_rows = "".join(
                 f'<tr><td class="code">{_code_cell(x["code"], m["report_dirs"])}</td>'
                 f'<td class="nm">{html.escape(str(x["name"]))}</td>'
-                f'<td class="sec">{html.escape(str(x["sector"]))}</td>'
+                f'<td class="sec">{html.escape(_sd(str(x["sector"])))}</td>'
                 f'<td class="sec">{_jp_date(x["date"])}（{kind_jp.get(x["kind"], "")}）</td>'
                 f'<td class="sec">{"S&amp;P500から外れたため暫定的に対象外（次の四半期の見直しで正式に除外）" if x.get("provisional") else "母集団から外れました"}</td></tr>'
                 for x in c_rem) or '<tr><td colspan="5" class="sec">なし</td></tr>'
@@ -996,14 +1019,14 @@ def render(out, m):
         new_rows = "".join(
             f'<tr><td class="code">{_code_cell(s["code"], m["report_dirs"])}</td>'
             f'<td class="nm">{html.escape(str(s["name"]))}</td>'
-            f'<td class="sec">{html.escape(str(s["sector"]))}</td>'
+            f'<td class="sec">{html.escape(_sd(str(s["sector"])))}</td>'
             f'<td class="n" data-v="{_v(s["q"])}">{_num(s["q"],0)}</td>'
             f'<td class="sec">{s.get("new_at") or "―"}</td></tr>'
             for s in new_adds) or '<tr><td colspan="5" class="sec">なし</td></tr>'
         exc_rows = "".join(
             f'<tr><td class="code">{html.escape(str(s["code"]))}</td>'
             f'<td class="nm">{html.escape(str(s["name"]))}</td>'
-            f'<td class="sec">{html.escape(str(s["sector"]))}</td>'
+            f'<td class="sec">{html.escape(_sd(str(s["sector"])))}</td>'
             f'<td class="sec">{html.escape(str(s.get("why","")))}</td>'
             f'<td class="sec">{s.get("detected_at") or "―"}</td></tr>'
             for s in watch_exc) or '<tr><td colspan="5" class="sec">なし</td></tr>'
@@ -1024,7 +1047,7 @@ def render(out, m):
             f'<td class="nm">{html.escape(str(s["name"]))}'
             f'{_newbadge(s)}'
             f'</td>'
-            f'<td class="sec">{html.escape(str(s["sector"]))}</td>'
+            f'<td class="sec">{html.escape(_sd(str(s["sector"])))}</td>'
             f'<td>{html.escape(s["why"])}</td>'
             f'<td class="n" data-v="{_v(s["yield"])}">{_num(s["yield"],2)}%</td>'
             f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"], unit)}</td></tr>'
@@ -1694,6 +1717,7 @@ section.grp[hidden]{{display:none}}
 def render_watchlist(out, m):
     """?codes=A,B,C を ranking.json から引いて表にするだけの静的ページ。"""
     th = m["theme"]
+    secja_json = json.dumps(GICS_JA if out["market"] == "us" else {}, ensure_ascii=False)
     return f"""<!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 {_theme_head(th)}
@@ -1836,7 +1860,7 @@ td.x button{{padding:2px 8px;font-size:12px;margin:0;background:var(--card);colo
       var yld=(typeof s.yield==='number')?s.yield.toFixed(2)+'%':'―';
       var px=(typeof s.price==='number')?s.price.toLocaleString():'―';
       return '<tr><td class="code"><a href="reports/'+c+'.html">'+c+'</a></td>'
-        +'<td>'+(s.name||'')+'</td><td class="sec">'+(s.sector||s._gname||'')+'</td>'
+        +'<td>'+(s.name||'')+'</td><td class="sec">'+(SECJA[s.sector]||s.sector||SECJA[s._gname]||s._gname||'')+'</td>'
         +'<td class="n"><b>'+q+'</b></td>'+bt
         +'<td class="n">'+yld+'</td><td class="n">'+px+'</td>'
         +'<td>'+(s.tier||(s._exc?'―':''))+'</td>'+x+'</tr>';
@@ -1845,6 +1869,7 @@ td.x button{{padding:2px 8px;font-size:12px;margin:0;background:var(--card);colo
       +'<th class="n">品質</th><th class="n">買い時</th><th class="n">利回り</th>'
       +'<th class="n">終値</th><th>軍</th><th></th></tr></thead><tbody>'+rows+'</tbody></table>';
   }}
+  var SECJA={secja_json};
   draw();
   fetch('ranking.json').then(function(r){{return r.json();}}).then(function(j){{
     var map={{}};
