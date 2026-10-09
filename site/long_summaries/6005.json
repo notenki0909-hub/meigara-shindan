@@ -1,13 +1,13 @@
 {
  "code": "6005",
  "name": "三浦工業",
- "jp_sector": "サービス業",
+ "jp_sector": "機械",
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 3031.0,
- "price_date": "2026-10-07",
- "mcap": null,
+ "price": 2994.0,
+ "price_date": "2026-10-08",
+ "mcap": 346553581568,
  "q_score": 106.7,
  "groups": {
   "業績": 107.27839407977262,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 108.9,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 108.04172873154275,
+  "fcf_yield": 110.0,
+  "per_cheap": 110.0,
+  "pbr_cheap": 107.7
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 9.687912984507907,
+ "fcf_yield": 10.729653934539943,
+ "per_band_pos": 1.0,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 0.5685394943960039,
+ "per_vs_sector": 0.5431437229437229,
+ "pbr_vs_sector": 0.783534111111111,
  "price_chg": {
-  "d": -0.45977011494252595,
-  "w": 0.5974112180550994,
-  "m": -4.8948854722309365,
-  "3m": -4.294284812125038,
-  "6m": -6.160990712074299,
-  "9m": 2.832909245122983,
-  "y": 3.341288782816232
+  "d": -1.220719234576051,
+  "w": -0.20000000000000018,
+  "m": -5.878654511160009,
+  "3m": -6.641721234798881,
+  "6m": -7.363861386138614,
+  "9m": 1.1657374556512945,
+  "y": 1.8367346938775508
  },
- "div_yield": 2.4084460574067967,
- "implied_fcf_growth": null,
+ "div_yield": 2.4382097528390116,
+ "implied_fcf_growth": -0.0286,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -91,5 +91,5 @@
   "fcf_positive": 1,
   "fcf_payout": 20.82078313253012
  },
- "_generated_at": "2026-10-07T23:33:13"
+ "_generated_at": "2026-10-08T23:58:08"
 }
