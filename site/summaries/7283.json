@@ -1,16 +1,16 @@
 {
  "code": "7283",
  "name": "愛三工業",
- "asof": "2026-10-08",
+ "asof": "2026-10-09",
  "jp_sector": "輸送用機器",
  "industry": "Auto Parts",
  "is_simple": false,
  "is_reit": false,
- "price": 2108.0,
- "price_date": "2026-10-08",
- "mcap": 120792825856,
- "sel_score": 89.9,
- "tim_score": 104.6,
+ "price": 2201.0,
+ "price_date": "2026-10-09",
+ "mcap": 126121918464,
+ "sel_score": 85.1,
+ "tim_score": 91.3,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -20,45 +20,52 @@
   "高"
  ],
  "cov_tim": [
-  4,
   6,
-  "中"
+  6,
+  "高"
  ],
  "groups": {
   "業績": 98.6,
   "財務": 76.1,
   "キャッシュフロー": 101.0,
-  "配当の持続力": 88.5,
-  "配当利回りセオリー": 104.7,
-  "利回り水準とChowder": 106.6,
-  "株価バリュエーション": 102.0,
+  "配当の持続力": 72.5,
+  "配当利回りセオリー": 101.8,
+  "利回り水準とChowder": 106.1,
+  "株価バリュエーション": 53.7,
   "金利スプレッド": null
  },
- "div_yield": 3.984819734345351,
+ "div_yield": 3.816447069513857,
  "streak_up": 5,
  "streak_flat": 5,
- "payout_ni": 34.449999999999996,
+ "payout_ni": 518.0600000000001,
  "roe": 10.491,
  "div_policy": null,
  "dgr5": 37.97296614612149,
- "chowder": 41.957785880466844,
+ "chowder": 41.78941321563535,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 61.38256524153248,
- "per_vs_sector": null,
- "pbr_vs_sector": 0.9212073999999999,
- "per_band_pos": null,
- "yield_band_pos": 0.7895129488649103,
+ "per_vs_sector": 9.225570945945947,
+ "pbr_vs_sector": 0.9618488888888889,
+ "per_band_pos": 0.0,
+ "yield_band_pos": 0.6700507566536461,
  "next_earn": null,
  "earn_disc_date": "2025-01-29",
  "buyback_yen": 9405000000.0,
- "total_yield": 11.770878164017264,
+ "total_yield": 11.273517271537896,
  "total_payout": 105.7595227168426,
  "interest_coverage": 33.37692307692308,
- "warnings": [],
+ "warnings": [
+  "⚠ 配当性向が100%超（518%：純利益を上回る配当）"
+ ],
  "roa": 4.2,
  "leverage": 2.2,
- "insight_flags": [],
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（518%：純利益を上回る配当）"
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-10-08T23:12:36"
+ "_generated_at": "2026-10-09T22:27:37"
 }
