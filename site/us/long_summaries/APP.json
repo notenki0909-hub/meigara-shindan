@@ -5,9 +5,9 @@
  "gics_sector": "Communication Services",
  "is_simple": false,
  "is_reit": false,
- "price": 280.1199951171875,
- "price_date": "2026-10-08",
- "mcap": 94103379968,
+ "price": 277.0400085449219,
+ "price_date": "2026-10-09",
+ "mcap": 92711583744,
  "q_score": 98.5,
  "groups": {
   "業績": 91.59420289855073,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 64.7,
+ "bt_score": 66.7,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 32.50392930624284,
-  "fcf_yield": 75.86446170641618,
+  "ev_ebit_vs_sector": 37.71761220149199,
+  "fcf_yield": 76.70310498828994,
   "per_cheap": 85.6,
   "pbr_cheap": 20.0
  },
- "ev_ebit": 22.919796741454665,
- "fcf_yield": 4.189834627981213,
+ "ev_ebit": 22.58457876150614,
+ "fcf_yield": 4.252732874121746,
  "per_band_pos": null,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 1.440590618570375,
- "per_vs_sector": 1.0401512077294688,
- "pbr_vs_sector": 5.0326440677966096,
+ "ev_ebit_vs_sector": 1.394970893236945,
+ "per_vs_sector": 1.0399048309178744,
+ "pbr_vs_sector": 4.977308983050848,
  "price_chg": {
-  "d": -0.41594560496005517,
-  "w": -0.4230217382012458,
-  "m": -8.175441762604729,
-  "3m": -44.747329471192586,
-  "6m": -26.117005777685478,
-  "9m": -55.74164149009799,
-  "y": -55.6666921040201
+  "d": -1.0995239989837646,
+  "w": 3.28834810382439,
+  "m": -11.908163328678079,
+  "3m": -37.441570570925066,
+  "6m": -29.214572771065928,
+  "9m": -55.0646366956572,
+  "y": -56.004446057746414
  },
  "div_yield": 0.0,
- "implied_fcf_growth": 0.1011,
+ "implied_fcf_growth": 0.0991,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -65,6 +65,13 @@
    "fcf_less_sbc_pct": 68.09975775067386
   }
  },
+ "etf_top": [
+  {
+   "etf": "XLC",
+   "rank": 11,
+   "weight": 3.944644
+  }
+ ],
  "metric_scores": {
   "rev_cagr": 110.0,
   "eps_cagr": null,
@@ -93,5 +100,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-09T02:21:59"
+ "_generated_at": "2026-10-10T02:12:16"
 }

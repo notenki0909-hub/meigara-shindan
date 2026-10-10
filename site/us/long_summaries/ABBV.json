@@ -5,9 +5,9 @@
  "gics_sector": "Health Care",
  "is_simple": false,
  "is_reit": false,
- "price": 272.4200134277344,
- "price_date": "2026-10-08",
- "mcap": 481398128640,
+ "price": 276.4700012207031,
+ "price_date": "2026-10-09",
+ "mcap": 488554921984,
  "q_score": 87.3,
  "groups": {
   "業績": 74.13176726035898,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 48.7,
+ "bt_score": 47.5,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 46.87139898578777,
-  "fcf_yield": 69.34515789202605,
+  "ev_ebit_vs_sector": 43.77539081759491,
+  "fcf_yield": 68.62230549269673,
   "per_cheap": 30.0,
   "pbr_cheap": null
  },
- "ev_ebit": 27.060132827634263,
- "fcf_yield": 3.7008868419019536,
+ "ev_ebit": 27.416351698969688,
+ "fcf_yield": 3.6466729119522547,
  "per_band_pos": 0.0,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 1.3148752588743569,
- "per_vs_sector": 3.2607966101694914,
+ "ev_ebit_vs_sector": 1.3419653303460444,
+ "per_vs_sector": 3.309274152542373,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": 0.39063536755374884,
-  "w": 4.805147964410672,
-  "m": 8.57279879306514,
-  "3m": 9.811355779195585,
-  "6m": 28.258013774002965,
-  "9m": 16.708086524172415,
-  "y": 17.00382737848658
+  "d": 1.4866704329133729,
+  "w": 5.1936662035191095,
+  "m": 8.419608321844363,
+  "3m": 11.479839201896414,
+  "6m": 32.956621128542785,
+  "9m": 23.352516484911014,
+  "y": 19.559762434306016
  },
- "div_yield": 2.540195161482028,
- "implied_fcf_growth": 0.118,
+ "div_yield": 2.50298403785076,
+ "implied_fcf_growth": 0.12,
  "insight": {
   "flags": {
    "cutoff": [
@@ -68,6 +68,13 @@
    "fcf_less_sbc_pct": 27.568672334859386
   }
  },
+ "etf_top": [
+  {
+   "etf": "XLV",
+   "rank": 3,
+   "weight": 7.691056
+  }
+ ],
  "metric_scores": {
   "rev_cagr": 94.45557741401697,
   "eps_cagr": 20.0,
@@ -96,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 65.42995060619667
  },
- "_generated_at": "2026-10-09T02:19:14"
+ "_generated_at": "2026-10-10T02:09:17"
 }

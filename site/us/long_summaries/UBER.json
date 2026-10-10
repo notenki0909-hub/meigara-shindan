@@ -5,9 +5,9 @@
  "gics_sector": "Information Technology",
  "is_simple": false,
  "is_reit": false,
- "price": 70.23999786376953,
- "price_date": "2026-10-08",
- "mcap": 143469412352,
+ "price": 71.51000213623047,
+ "price_date": "2026-10-09",
+ "mcap": 146063474688,
  "q_score": 92.4,
  "groups": {
   "業績": 75.85877025153148,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 97.8,
+ "bt_score": 97.3,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 80.78670742459737,
-  "fcf_yield": 102.68311607319389,
+  "ev_ebit_vs_sector": 79.73921874139799,
+  "fcf_yield": 102.28026781017483,
   "per_cheap": 110.0,
   "pbr_cheap": 110.0
  },
- "ev_ebit": 26.674647322911053,
- "fcf_yield": 6.804934821958167,
+ "ev_ebit": 27.140786107457323,
+ "fcf_yield": 6.684080343052451,
  "per_band_pos": null,
  "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 1.018116310034773,
- "per_vs_sector": 0.39294663265306123,
- "pbr_vs_sector": 0.3914705671641791,
+ "ev_ebit_vs_sector": 1.0272818360127676,
+ "per_vs_sector": 0.4000514795918367,
+ "pbr_vs_sector": 0.39854873134328356,
  "price_chg": {
-  "d": 2.6150489340135863,
-  "w": 3.4767246697740894,
-  "m": -1.1817725740661977,
-  "3m": -5.768718807276107,
-  "6m": -2.186324673724116,
-  "9m": -18.505631889823725,
-  "y": -28.17996352556651
+  "d": 1.8080926980153178,
+  "w": 4.9919270230665225,
+  "m": -1.447072019972695,
+  "3m": -3.7032048490317937,
+  "6m": 1.4614056898956562,
+  "9m": -18.358254223038596,
+  "y": -27.971390999711975
  },
  "div_yield": 0.0,
- "implied_fcf_growth": 0.035,
+ "implied_fcf_growth": 0.0375,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -65,6 +65,13 @@
    "fcf_less_sbc_pct": 15.25847319145664
   }
  },
+ "etf_top": [
+  {
+   "etf": "XLI",
+   "rank": 9,
+   "weight": 2.573516
+  }
+ ],
  "metric_scores": {
   "rev_cagr": 110.0,
   "eps_cagr": null,
@@ -93,5 +100,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-09T02:52:52"
+ "_generated_at": "2026-10-10T02:45:53"
 }

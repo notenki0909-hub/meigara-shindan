@@ -5,9 +5,9 @@
  "gics_sector": "Information Technology",
  "is_simple": false,
  "is_reit": false,
- "price": 198.77999877929688,
- "price_date": "2026-10-08",
- "mcap": 477679943680,
+ "price": 209.0500030517578,
+ "price_date": "2026-10-09",
+ "mcap": 502359359488,
  "q_score": 100.0,
  "groups": {
   "業績": 91.59420289855073,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 22.0,
+ "bt_score": 21.9,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 25.86331504400834,
+  "fcf_yield": 25.575267877669358,
   "per_cheap": 20.0,
   "pbr_cheap": 30.0
  },
- "ev_ebit": 336.973430748613,
- "fcf_yield": 0.4397486283006254,
+ "ev_ebit": 354.42686356792535,
+ "fcf_yield": 0.41814509082520185,
  "per_band_pos": null,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 12.86158132628294,
- "per_vs_sector": 4.371481632653061,
- "pbr_vs_sector": 3.6465900746268654,
+ "ev_ebit_vs_sector": 13.415097031337067,
+ "per_vs_sector": 4.597334948979592,
+ "pbr_vs_sector": 3.834992014925373,
  "price_chg": {
-  "d": 2.400578909604967,
-  "w": 4.5990348357909605,
-  "m": 17.25358356079456,
-  "3m": 56.77892368794302,
-  "6m": 52.33350479835048,
-  "9m": 9.41215697538671,
-  "y": 9.11785737349977
+  "d": 5.166517927119818,
+  "w": 10.754968504242557,
+  "m": 26.040035139557748,
+  "3m": 60.758238884076036,
+  "6m": 63.24379746775113,
+  "9m": 18.200838137689225,
+  "y": 13.886470817274589
  },
  "div_yield": 0.0,
- "implied_fcf_growth": 0.4195,
+ "implied_fcf_growth": 0.4271,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -65,6 +65,13 @@
    "fcf_less_sbc_pct": 31.651772806553808
   }
  },
+ "etf_top": [
+  {
+   "etf": "XLK",
+   "rank": 10,
+   "weight": 2.410554
+  }
+ ],
  "metric_scores": {
   "rev_cagr": 110.0,
   "eps_cagr": null,
@@ -93,5 +100,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-09T02:46:34"
+ "_generated_at": "2026-10-10T02:39:02"
 }

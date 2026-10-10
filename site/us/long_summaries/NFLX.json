@@ -5,9 +5,9 @@
  "gics_sector": "Communication Services",
  "is_simple": false,
  "is_reit": false,
- "price": 71.56999969482422,
- "price_date": "2026-10-08",
- "mcap": 298013163520,
+ "price": 70.30000305175781,
+ "price_date": "2026-10-09",
+ "mcap": 292724965376,
  "q_score": 107.4,
  "groups": {
   "業績": 110.0,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 63.3,
+ "bt_score": 65.4,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 33.58234750553284,
-  "fcf_yield": 62.32946351877085,
-  "per_cheap": 94.0,
-  "pbr_cheap": 66.6
+  "ev_ebit_vs_sector": 39.212195996032705,
+  "fcf_yield": 63.09416286762534,
+  "per_cheap": 93.9,
+  "pbr_cheap": 68.3
  },
- "ev_ebit": 22.769667447886007,
- "fcf_yield": 3.174709763907814,
+ "ev_ebit": 22.372852284712014,
+ "fcf_yield": 3.2320622150719007,
  "per_band_pos": 1.0,
- "pbr_band_pos": 0.6321010085627474,
- "ev_ebit_vs_sector": 1.4311544593265875,
- "per_vs_sector": 1.0872603381642512,
- "pbr_vs_sector": 1.675253220338983,
+ "pbr_band_pos": 0.6470577508937115,
+ "ev_ebit_vs_sector": 1.3818932850347136,
+ "per_vs_sector": 1.0885049758454106,
+ "pbr_vs_sector": 1.645526101694915,
  "price_chg": {
-  "d": 2.682930887315038,
-  "w": 5.482684310040153,
-  "m": -5.866104374694691,
-  "3m": -2.453322862716756,
-  "6m": -29.867714302247215,
-  "9m": -21.11760493023851,
-  "y": -39.910669481179916
+  "d": -1.7744818338433666,
+  "w": 4.83150255162641,
+  "m": -7.512168035778755,
+  "3m": -4.781252460719932,
+  "6m": -31.75419707419651,
+  "9m": -22.346179167479917,
+  "y": -42.10417847649367
  },
  "div_yield": 0.0,
- "implied_fcf_growth": 0.1388,
+ "implied_fcf_growth": 0.1364,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -65,6 +65,13 @@
    "fcf_less_sbc_pct": 20.12393323901475
   }
  },
+ "etf_top": [
+  {
+   "etf": "XLC",
+   "rank": 10,
+   "weight": 3.957105
+  }
+ ],
  "metric_scores": {
   "rev_cagr": 110.0,
   "eps_cagr": 110.0,
@@ -93,5 +100,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-09T02:43:39"
+ "_generated_at": "2026-10-10T02:35:52"
 }

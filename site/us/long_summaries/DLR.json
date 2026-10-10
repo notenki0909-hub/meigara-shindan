@@ -5,9 +5,9 @@
  "gics_sector": "Real Estate",
  "is_simple": true,
  "is_reit": true,
- "price": 176.07000732421875,
- "price_date": "2026-10-08",
- "mcap": 66495254528,
+ "price": 178.75999450683594,
+ "price_date": "2026-10-09",
+ "mcap": 67511164928,
  "q_score": 96.9,
  "groups": {
   "業績": null,
@@ -18,14 +18,14 @@
  },
  "is_fin_simple": false,
  "is_reit_us": true,
- "current_pfo": 20.758846015500005,
+ "current_pfo": 21.075998385377236,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "低",
- "bt_score": 58.7,
+ "bt_score": 55.9,
  "bt_cov": "高",
  "bt_components": {
-  "ffo_cheap": 58.7
+  "ffo_cheap": 55.9
  },
  "ev_ebit": null,
  "fcf_yield": null,
@@ -35,16 +35,16 @@
  "per_vs_sector": null,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": -2.4380749524700596,
-  "w": -0.2379727779891705,
-  "m": -6.880682452320119,
-  "3m": -2.4056295381596593,
-  "6m": -6.4204023194982085,
-  "9m": 13.688908681755652,
-  "y": 0.5310083006802246
+  "d": 1.527794099345825,
+  "w": 0.11760932595294982,
+  "m": -3.5658417135809084,
+  "3m": 0.4721202487271814,
+  "6m": -5.352888691546076,
+  "9m": 16.890082435180332,
+  "y": 2.6176794709982687
  },
- "div_yield": 2.7716248066110842,
- "implied_fcf_growth": 0.1207,
+ "div_yield": 2.729917291317317,
+ "implied_fcf_growth": 0.1228,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -57,6 +57,13 @@
    "shares_chg_pct": 18.000958275516243
   }
  },
+ "etf_top": [
+  {
+   "etf": "XLRE",
+   "rank": 7,
+   "weight": 4.491278
+  }
+ ],
  "metric_scores": {
   "rev_cagr": null,
   "eps_cagr": null,
@@ -85,5 +92,5 @@
   "fcf_positive": 1,
   "fcf_payout": 71.65707074559643
  },
- "_generated_at": "2026-10-09T02:29:22"
+ "_generated_at": "2026-10-10T02:20:16"
 }

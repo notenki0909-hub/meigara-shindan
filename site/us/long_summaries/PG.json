@@ -5,9 +5,9 @@
  "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
- "price": 150.58999633789062,
- "price_date": "2026-10-08",
- "mcap": 349771235328,
+ "price": 151.22999572753906,
+ "price_date": "2026-10-09",
+ "mcap": 351524028416,
  "q_score": 102.3,
  "groups": {
   "業績": 101.15100232102432,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 84.5,
+ "bt_score": 84.7,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 71.67357424426899,
-  "fcf_yield": 77.74059716792058,
+  "ev_ebit_vs_sector": 72.3142389671968,
+  "fcf_yield": 77.4526870638262,
   "per_cheap": 104.2,
-  "pbr_cheap": 105.1
+  "pbr_cheap": 105.0
  },
- "ev_ebit": 18.981934136520152,
- "fcf_yield": 4.330544787594044,
+ "ev_ebit": 19.07069214178651,
+ "fcf_yield": 4.308951529786966,
  "per_band_pos": 1.0,
  "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 1.0978562253626463,
- "per_vs_sector": 0.9598200000000001,
- "pbr_vs_sector": 0.9943202121212122,
+ "ev_ebit_vs_sector": 1.092250409037028,
+ "per_vs_sector": 0.9595507172995781,
+ "pbr_vs_sector": 0.998546,
  "price_chg": {
-  "d": 1.8738931649464385,
-  "w": 4.6127124212693715,
-  "m": 5.57346956131517,
-  "3m": 2.4143112172547943,
-  "6m": 2.679662196678767,
-  "9m": 9.091570314513021,
-  "y": -1.2783512744650505
+  "d": 0.4249946246179803,
+  "w": 4.361322134920509,
+  "m": 5.777431934189448,
+  "3m": 1.927613873743561,
+  "6m": 4.1815871536893034,
+  "9m": 6.853668502723909,
+  "y": 0.3583471214971823
  },
- "div_yield": 2.8886380940202443,
- "implied_fcf_growth": 0.0967,
+ "div_yield": 2.8764134913004313,
+ "implied_fcf_growth": 0.0973,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -65,6 +65,13 @@
    "fcf_less_sbc_pct": 16.801865980329076
   }
  },
+ "etf_top": [
+  {
+   "etf": "XLP",
+   "rank": 3,
+   "weight": 7.677239
+  }
+ ],
  "metric_scores": {
   "rev_cagr": 95.56697515262195,
   "eps_cagr": 95.70107059839174,
@@ -93,5 +100,5 @@
   "fcf_positive": 1,
   "fcf_payout": 67.55133029642833
  },
- "_generated_at": "2026-10-09T02:46:08"
+ "_generated_at": "2026-10-10T02:38:33"
 }

@@ -5,9 +5,9 @@
  "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 999.3499755859375,
- "price_date": "2026-10-08",
- "mcap": 266160455680,
+ "price": 1004.72998046875,
+ "price_date": "2026-10-09",
+ "mcap": 267593334784,
  "q_score": 87.7,
  "groups": {
   "業績": 58.501188888390935,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 45.6,
+ "bt_score": 45.5,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 38.58528027399366,
-  "per_cheap": 103.9,
+  "fcf_yield": 38.48576187691518,
+  "per_cheap": 103.7,
   "pbr_cheap": 20.0
  },
- "ev_ebit": 186.09392057595392,
- "fcf_yield": 1.3938960205495243,
+ "ev_ebit": 187.1255110035997,
+ "fcf_yield": 1.3864321407686382,
  "per_band_pos": null,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 8.591593747735638,
- "per_vs_sector": 0.8527109821428571,
- "pbr_vs_sector": 3.322345671641791,
+ "ev_ebit_vs_sector": 8.395043113665308,
+ "per_vs_sector": 0.8573014880952381,
+ "pbr_vs_sector": 3.3402313432835817,
  "price_chg": {
-  "d": 0.22665443135521102,
-  "w": 1.2051205865407644,
-  "m": 5.079702081378201,
-  "3m": -8.448379420543695,
-  "6m": 3.2364987730169714,
-  "9m": 50.88627318134691,
-  "y": 64.87658939427048
+  "d": 0.5383504292035601,
+  "w": 1.621317696349145,
+  "m": 8.7476063332391,
+  "3m": -3.632265106845478,
+  "6m": 1.3527390797576588,
+  "9m": 59.887005320470486,
+  "y": 60.6411321223498
  },
- "div_yield": 0.2001300894441272,
- "implied_fcf_growth": 0.2521,
+ "div_yield": 0.19905845738443212,
+ "implied_fcf_growth": 0.2529,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -63,6 +63,13 @@
    "shares_chg_pct": -1.6622764128990553
   }
  },
+ "etf_top": [
+  {
+   "etf": "XLI",
+   "rank": 3,
+   "weight": 4.870741
+  }
+ ],
  "metric_scores": {
   "rev_cagr": 106.3136959075811,
   "eps_cagr": null,
@@ -91,5 +98,5 @@
   "fcf_positive": 1,
   "fcf_payout": 7.412398921832884
  },
- "_generated_at": "2026-10-09T02:34:12"
+ "_generated_at": "2026-10-10T02:25:33"
 }

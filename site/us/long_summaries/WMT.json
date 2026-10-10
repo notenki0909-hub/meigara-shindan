@@ -5,9 +5,9 @@
  "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
- "price": 110.55999755859375,
- "price_date": "2026-10-08",
- "mcap": 879845179392,
+ "price": 111.3499984741211,
+ "price_date": "2026-10-09",
+ "mcap": 883422593024,
  "q_score": 97.8,
  "groups": {
   "業績": 90.58659591767726,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 34.7,
+ "bt_score": 33.8,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 42.61458470123459,
-  "per_cheap": 41.5,
-  "pbr_cheap": 52.3
+  "fcf_yield": 42.52300709813608,
+  "per_cheap": 38.9,
+  "pbr_cheap": 51.8
  },
- "ev_ebit": 31.390215570561608,
- "fcf_yield": 1.6960938525925946,
- "per_band_pos": 0.22996475888408846,
+ "ev_ebit": 31.510162381357922,
+ "fcf_yield": 1.6892255323602061,
+ "per_band_pos": 0.1770825328104826,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.815512757117502,
- "per_vs_sector": 1.690209789029536,
- "pbr_vs_sector": 1.354314393939394,
+ "ev_ebit_vs_sector": 1.8047057492186667,
+ "per_vs_sector": 1.702287088607595,
+ "pbr_vs_sector": 1.3639915151515154,
  "price_chg": {
-  "d": 2.2189291930702293,
-  "w": 6.0425813286781205,
-  "m": 4.469427993670405,
-  "3m": -2.9324002831784712,
-  "6m": -14.38086162938762,
-  "9m": -1.9162558895649218,
-  "y": 7.090274938288288
+  "d": 0.7145449827896888,
+  "w": 6.800303273182884,
+  "m": 5.315421298356515,
+  "3m": -2.988325789906232,
+  "6m": -12.163760019937408,
+  "9m": -1.521182652644737,
+  "y": 8.211853083517262
  },
- "div_yield": 0.8954414090641846,
- "implied_fcf_growth": 0.2248,
+ "div_yield": 0.8890884719949829,
+ "implied_fcf_growth": 0.2254,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -63,6 +63,18 @@
    "shares_chg_pct": -1.6172839506172876
   }
  },
+ "etf_top": [
+  {
+   "etf": "XLP",
+   "rank": 1,
+   "weight": 10.590123
+  },
+  {
+   "etf": "QQQ",
+   "rank": 14,
+   "weight": 2.092761
+  }
+ ],
  "metric_scores": {
   "rev_cagr": 102.52476769907653,
   "eps_cagr": 110.0,
@@ -91,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 50.30489847885814
  },
- "_generated_at": "2026-10-09T02:55:23"
+ "_generated_at": "2026-10-10T02:48:37"
 }

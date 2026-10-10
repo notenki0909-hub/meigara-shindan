@@ -5,9 +5,9 @@
  "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
- "price": 61.40999984741211,
- "price_date": "2026-10-08",
- "mcap": 36268048384,
+ "price": 61.63999938964844,
+ "price_date": "2026-10-09",
+ "mcap": 36403884032,
  "q_score": 59.0,
  "groups": {
   "業績": 41.714520170264386,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 53.6,
+ "bt_score": 53.7,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
   "fcf_yield": 110.0,
-  "per_cheap": 30.8,
+  "per_cheap": 31.0,
   "pbr_cheap": 70.6
  },
- "ev_ebit": 30.48997268994709,
- "fcf_yield": 9.529048719160329,
+ "ev_ebit": 30.561843403174603,
+ "fcf_yield": 9.493492499212673,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.7634454997077555,
- "per_vs_sector": 1.43952194092827,
- "pbr_vs_sector": 0.9495403484848486,
+ "ev_ebit_vs_sector": 1.7503919474899543,
+ "per_vs_sector": 1.4369303797468356,
+ "pbr_vs_sector": 0.9530966212121212,
  "price_chg": {
-  "d": 3.6455693627208685,
-  "w": 3.244788702133894,
-  "m": 8.80581385831427,
-  "3m": 1.4370646163330836,
-  "6m": -12.707887449347488,
-  "9m": 3.5931192847107774,
-  "y": -8.178824208498769
+  "d": 0.37453109071456936,
+  "w": 4.421481728485066,
+  "m": 8.235291595923954,
+  "3m": 3.928507776778911,
+  "6m": -9.33960681517373,
+  "9m": 3.094160304052873,
+  "y": -9.512629324224054
  },
- "div_yield": 2.5403028885787244,
- "implied_fcf_growth": -0.0118,
+ "div_yield": 2.530824165228626,
+ "implied_fcf_growth": -0.0112,
  "insight": {
   "flags": {
    "lev_roe": true,
@@ -66,6 +66,13 @@
    "fcf_less_sbc_pct": 2.2344590292735127
   }
  },
+ "etf_top": [
+  {
+   "etf": "XLP",
+   "rank": 15,
+   "weight": 2.204817
+  }
+ ],
  "metric_scores": {
   "rev_cagr": 86.05026860766071,
   "eps_cagr": 21.13862337972302,
@@ -94,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 25.60763888888889
  },
- "_generated_at": "2026-10-09T02:39:24"
+ "_generated_at": "2026-10-10T02:31:16"
 }

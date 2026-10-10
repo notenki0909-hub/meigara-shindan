@@ -5,9 +5,9 @@
  "gics_sector": "Communication Services",
  "is_simple": false,
  "is_reit": false,
- "price": 209.3699951171875,
- "price_date": "2026-10-08",
- "mcap": 39148093440,
+ "price": 213.44000244140625,
+ "price_date": "2026-10-09",
+ "mcap": 39909105664,
  "q_score": 72.9,
  "groups": {
   "業績": 47.818425089080606,
@@ -26,32 +26,32 @@
   "gap": -5.553563682564233
  },
  "q_cov": "高",
- "bt_score": 51.9,
+ "bt_score": 51.8,
  "bt_cov": "中",
  "bt_components": {
   "ev_ebit_vs_sector": null,
-  "fcf_yield": 35.71809197493663,
+  "fcf_yield": 35.41836939454132,
   "per_cheap": null,
   "pbr_cheap": 20.0
  },
  "ev_ebit": null,
- "fcf_yield": 1.1788568981202472,
+ "fcf_yield": 1.1563777045905992,
  "per_band_pos": null,
  "pbr_band_pos": null,
  "ev_ebit_vs_sector": null,
  "per_vs_sector": null,
- "pbr_vs_sector": 1.8390567796610167,
+ "pbr_vs_sector": 1.8748067796610168,
  "price_chg": {
-  "d": 2.627322560009171,
-  "w": 2.823887701544603,
-  "m": -0.8383083629712851,
-  "3m": -13.910362769558093,
-  "6m": 5.715724257005617,
-  "9m": -18.428338269388146,
-  "y": -19.627641029870446
+  "d": 1.9439305627058534,
+  "w": 5.282891994069305,
+  "m": -1.6224207980889416,
+  "3m": -12.56042724108224,
+  "6m": 8.306690266802331,
+  "9m": -15.42911549569359,
+  "y": -17.29375890889284
  },
  "div_yield": 0.0,
- "implied_fcf_growth": 0.2757,
+ "implied_fcf_growth": 0.2784,
  "insight": {
   "flags": {
    "cutoff": [
@@ -70,6 +70,13 @@
    "fcf_less_sbc_pct": 1.9274683011838232
   }
  },
+ "etf_top": [
+  {
+   "etf": "XLC",
+   "rank": 7,
+   "weight": 4.307713
+  }
+ ],
  "metric_scores": {
   "rev_cagr": 105.06128848830377,
   "eps_cagr": null,
@@ -98,5 +105,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-09T02:52:30"
+ "_generated_at": "2026-10-10T02:45:29"
 }

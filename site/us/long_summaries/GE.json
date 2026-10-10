@@ -5,9 +5,9 @@
  "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 305.6199951171875,
- "price_date": "2026-10-08",
- "mcap": 317099835392,
+ "price": 308.20001220703125,
+ "price_date": "2026-10-09",
+ "mcap": 319776784384,
  "q_score": 105.0,
  "groups": {
   "業績": 109.97472623331308,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 40.2,
+ "bt_score": 40.1,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 50.54348269011332,
+  "fcf_yield": 50.28779388094297,
   "per_cheap": 60.2,
   "pbr_cheap": 30.0
  },
- "ev_ebit": 37.46576444608295,
- "fcf_yield": 2.2907612017584986,
+ "ev_ebit": 37.7741687078341,
+ "fcf_yield": 2.2715845410707223,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.72972135023467,
- "per_vs_sector": 1.0726219047619048,
- "pbr_vs_sector": 2.6830731343283585,
+ "ev_ebit_vs_sector": 1.6946688518543787,
+ "per_vs_sector": 1.0728209226190475,
+ "pbr_vs_sector": 2.705723432835821,
  "price_chg": {
-  "d": 0.6587181451037427,
-  "w": -2.1671689918991044,
-  "m": -6.0844500932773276,
-  "3m": -14.93305746014949,
-  "6m": -2.364064326946602,
-  "9m": -5.567920750104005,
-  "y": 1.285876916678741
+  "d": 0.844191195296129,
+  "w": -0.4393285186355733,
+  "m": -4.920555912318381,
+  "3m": -12.794974676766424,
+  "6m": -0.04864403875964873,
+  "9m": -1.9844772248841958,
+  "y": 1.8640979289885395
  },
- "div_yield": 0.6151429978523262,
- "implied_fcf_growth": 0.1834,
+ "div_yield": 0.6099934865470164,
+ "implied_fcf_growth": 0.1845,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -63,6 +63,13 @@
    "shares_chg_pct": -3.7040569455875305
   }
  },
+ "etf_top": [
+  {
+   "etf": "XLI",
+   "rank": 2,
+   "weight": 5.931895
+  }
+ ],
  "metric_scores": {
   "rev_cagr": 110.0,
   "eps_cagr": 110.0,
@@ -91,5 +98,5 @@
   "fcf_positive": 1,
   "fcf_payout": 19.98898678414097
  },
- "_generated_at": "2026-10-09T02:34:00"
+ "_generated_at": "2026-10-10T02:25:19"
 }

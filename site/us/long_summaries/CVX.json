@@ -5,9 +5,9 @@
  "gics_sector": "Energy",
  "is_simple": false,
  "is_reit": false,
- "price": 211.5500030517578,
- "price_date": "2026-10-08",
- "mcap": 414977196032,
+ "price": 211.97999572753906,
+ "price_date": "2026-10-09",
+ "mcap": 415820677120,
  "q_score": 88.7,
  "groups": {
   "業績": 66.907924368825,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 58.7,
+ "bt_score": 58.6,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 73.31055990112942,
-  "per_cheap": 78.8,
-  "pbr_cheap": 62.5
+  "fcf_yield": 73.20242086057297,
+  "per_cheap": 78.6,
+  "pbr_cheap": 62.4
  },
- "ev_ebit": 26.954671706369197,
- "fcf_yield": 3.998291992584707,
- "per_band_pos": 0.1736521785321435,
+ "ev_ebit": 27.00525831354204,
+ "fcf_yield": 3.990181564542973,
+ "per_band_pos": 0.17071170845360395,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.6710893804320643,
- "per_vs_sector": 0.9426353703703704,
- "pbr_vs_sector": 1.1502283684210528,
+ "ev_ebit_vs_sector": 1.6486726687144104,
+ "per_vs_sector": 0.9445513888888888,
+ "pbr_vs_sector": 1.1525662105263157,
  "price_chg": {
-  "d": 3.119673090754649,
-  "w": 2.148718888022594,
-  "m": -1.057010678940118,
-  "3m": 19.92630973439844,
-  "6m": 11.131541486375674,
-  "9m": 36.307994337337426,
-  "y": 36.563164450755515
+  "d": 0.20325817517290456,
+  "w": 2.559385177632123,
+  "m": -0.3666097008062308,
+  "3m": 16.34467578380725,
+  "6m": 12.426408006659972,
+  "9m": 33.11145728573881,
+  "y": 37.882130970110175
  },
- "div_yield": 3.3656345531973457,
- "implied_fcf_growth": 0.1075,
+ "div_yield": 3.3588075023604764,
+ "implied_fcf_growth": 0.1078,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -63,6 +63,13 @@
    "shares_chg_pct": 4.166110729988937
   }
  },
+ "etf_top": [
+  {
+   "etf": "XLE",
+   "rank": 2,
+   "weight": 17.907668
+  }
+ ],
  "metric_scores": {
   "rev_cagr": 51.76500046504462,
   "eps_cagr": 20.0,
@@ -91,5 +98,5 @@
   "fcf_positive": 1,
   "fcf_payout": 76.8502892960463
  },
- "_generated_at": "2026-10-09T02:28:21"
+ "_generated_at": "2026-10-10T02:19:08"
 }

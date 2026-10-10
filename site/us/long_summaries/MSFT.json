@@ -5,9 +5,9 @@
  "gics_sector": "Information Technology",
  "is_simple": false,
  "is_reit": false,
- "price": 522.6099853515625,
- "price_date": "2026-10-08",
- "mcap": 3880664432640,
+ "price": 535.0700073242188,
+ "price_date": "2026-10-09",
+ "mcap": 3973186846720,
  "q_score": 107.8,
  "groups": {
   "業績": 110.0,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 79.7,
+ "bt_score": 78.9,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 87.09041303735886,
-  "fcf_yield": 43.01564630241391,
-  "per_cheap": 109.1,
-  "pbr_cheap": 109.3
+  "ev_ebit_vs_sector": 85.4286566582472,
+  "fcf_yield": 42.47968782886045,
+  "per_cheap": 108.8,
+  "pbr_cheap": 109.1
  },
- "ev_ebit": 25.22952281118548,
- "fcf_yield": 1.7261734726810436,
+ "ev_ebit": 25.825530297029704,
+ "fcf_yield": 1.6859765871645334,
  "per_band_pos": 1.0,
  "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.96295888592311,
- "per_vs_sector": 0.7427234948979592,
- "pbr_vs_sector": 0.6547594029850746,
+ "ev_ebit_vs_sector": 0.977499254240337,
+ "per_vs_sector": 0.7604314285714285,
+ "pbr_vs_sector": 0.6703701492537314,
  "price_chg": {
-  "d": -1.3496723577201997,
-  "w": 1.91302609050652,
-  "m": 6.297160955847936,
-  "3m": 35.7076024587452,
-  "6m": 40.083623741263416,
-  "9m": 8.095638619156453,
-  "y": -0.26145943895832247
+  "d": 2.3841913323325192,
+  "w": 3.3891710691984045,
+  "m": 8.656893158854384,
+  "3m": 36.85005260709524,
+  "6m": 44.274277878734125,
+  "9m": 11.913581334381163,
+  "y": 1.9472291537923292
  },
- "div_yield": 0.7500813436166925,
- "implied_fcf_growth": 0.2224,
+ "div_yield": 0.7326144142526618,
+ "implied_fcf_growth": 0.2256,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -60,11 +60,28 @@
    "ocf_ni": 1.367748543914347,
    "accrual": -7.141970365454969,
    "capex_da": 3.0089790834068615,
-   "shares_chg_pct": -0.06727664155005142,
+   "shares_chg_pct": -0.04797222820236424,
    "sbc_rev_pct": 3.7382586133637097,
    "fcf_less_sbc_pct": 16.44833789880032
   }
  },
+ "etf_top": [
+  {
+   "etf": "XLK",
+   "rank": 3,
+   "weight": 10.535576
+  },
+  {
+   "etf": "SPY",
+   "rank": 3,
+   "weight": 5.772583
+  },
+  {
+   "etf": "QQQ",
+   "rank": 3,
+   "weight": 5.745398
+  }
+ ],
  "metric_scores": {
   "rev_cagr": 110.0,
   "eps_cagr": 110.0,
@@ -93,5 +110,5 @@
   "fcf_positive": 1,
   "fcf_payout": 39.47780912714407
  },
- "_generated_at": "2026-10-09T02:42:55"
+ "_generated_at": "2026-10-10T02:35:04"
 }

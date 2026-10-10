@@ -5,9 +5,9 @@
  "gics_sector": "Communication Services",
  "is_simple": false,
  "is_reit": false,
- "price": 24.8700008392334,
- "price_date": "2026-10-08",
- "mcap": 170418847744,
+ "price": 22.18000030517578,
+ "price_date": "2026-10-09",
+ "mcap": 151985913856,
  "q_score": 98.1,
  "groups": {
   "業績": 102.29681939844023,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 107.4,
+ "bt_score": 108.0,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 102.21672998157493,
+  "ev_ebit_vs_sector": 103.89959136285185,
   "fcf_yield": 110.0,
   "per_cheap": 110.0,
-  "pbr_cheap": 86.2
+  "pbr_cheap": 101.1
  },
- "ev_ebit": 12.28911390976,
- "fcf_yield": 11.408362547554251,
+ "ev_ebit": 11.55179655424,
+ "fcf_yield": 12.79197493158507,
  "per_band_pos": 1.0,
- "pbr_band_pos": 0.22476915282195997,
- "ev_ebit_vs_sector": 0.7724144506448773,
- "per_vs_sector": 0.39651792270531405,
- "pbr_vs_sector": 0.2625345423728814,
+ "pbr_band_pos": 0.5212780667346042,
+ "ev_ebit_vs_sector": 0.7135143023001852,
+ "per_vs_sector": 0.3536295797101449,
+ "pbr_vs_sector": 0.23413815254237286,
  "price_chg": {
-  "d": 1.6346609607814866,
-  "w": 2.345685679296361,
-  "m": -1.1133152427190263,
-  "3m": 17.699961320448576,
-  "6m": -7.339788756165666,
-  "9m": 3.7546998400516562,
-  "y": -4.931188897947658
+  "d": -10.81624625365527,
+  "w": -8.724275713768337,
+  "m": -13.18982008812175,
+  "3m": 2.9234389346603384,
+  "6m": -16.175354978785617,
+  "9m": -8.233346151578901,
+  "y": -15.504760742187496
  },
- "div_yield": 4.463208534552728,
- "implied_fcf_growth": -0.0373,
+ "div_yield": 5.00450849741863,
+ "implied_fcf_growth": -0.0538,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -63,6 +63,13 @@
    "shares_chg_pct": -3.4964877104377123
   }
  },
+ "etf_top": [
+  {
+   "etf": "XLC",
+   "rank": 6,
+   "weight": 4.3348
+  }
+ ],
  "metric_scores": {
   "rev_cagr": 92.60774192386287,
   "eps_cagr": null,
@@ -91,5 +98,5 @@
   "fcf_positive": 1,
   "fcf_payout": 42.07386071391832
  },
- "_generated_at": "2026-10-09T02:50:53"
+ "_generated_at": "2026-10-10T02:43:43"
 }
