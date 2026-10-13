@@ -1,14 +1,4 @@
 {
- "CNXC": {
-  "ticker": "CNXC",
-  "name": "Concentrix",
-  "target_date": "2026-09-29",
-  "detected_at": "2026-09-29T05:47:46",
-  "status": "resolved",
-  "attempts": 1,
-  "next_retry_at": "2026-09-29T11:47:46",
-  "resolved_at": "2026-09-29T22:19:18"
- },
  "ACN": {
   "ticker": "ACN",
   "name": "Accenture",
@@ -95,8 +85,8 @@
   "target_date": "2026-10-12",
   "detected_at": "2026-10-12T06:03:29",
   "status": "pending",
-  "attempts": 4,
-  "next_retry_at": "2026-10-13T20:16:38"
+  "attempts": 5,
+  "next_retry_at": "2026-10-14T04:49:10"
  },
  "ACI": {
   "ticker": "ACI",
@@ -113,9 +103,10 @@
   "name": "Citigroup",
   "target_date": "2026-10-13",
   "detected_at": "2026-10-13T00:54:50",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-13T20:16:38"
+  "next_retry_at": "2026-10-13T20:16:38",
+  "resolved_at": "2026-10-13T22:49:10"
  },
  "DPZ": {
   "ticker": "DPZ",
