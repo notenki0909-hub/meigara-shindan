@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 1240.5,
+ "price": 1249.0,
  "price_date": "2026-10-13",
- "mcap": 1806989393920,
+ "mcap": 1819370979328,
  "q_score": 89.3,
  "groups": {
   "業績": 72.24863128631614,
@@ -22,38 +22,36 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 79.7,
+ "bt_score": 79.8,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 82.39185985101854,
-  "fcf_yield": 68.1552356050256,
-  "per_cheap": 97.2,
-  "pbr_cheap": 71.2
+  "ev_ebit_vs_sector": 82.26950135932016,
+  "fcf_yield": 67.82751895500724,
+  "per_cheap": 98.0,
+  "pbr_cheap": 71.1
  },
- "ev_ebit": 25.172065643430948,
- "fcf_yield": 3.6116426703769196,
+ "ev_ebit": 25.299420694376728,
+ "fcf_yield": 3.5870639216255427,
  "per_band_pos": null,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.0040712263035878,
- "per_vs_sector": 0.9673638916256158,
- "pbr_vs_sector": 0.9040129727272727,
+ "ev_ebit_vs_sector": 1.0051418631059486,
+ "per_vs_sector": 0.9622630541871922,
+ "pbr_vs_sector": 0.9102073636363637,
  "price_chg": {
-  "d": 0.5267423014586603,
-  "w": -0.24125452352231624,
-  "m": 2.3092783505154646,
-  "3m": 6.389365351629506,
-  "6m": 10.119840213049258,
-  "9m": 21.024390243902435,
-  "y": 28.48265147591922
+  "d": 1.2155591572123203,
+  "w": 0.44229995979090386,
+  "m": 3.010309278350509,
+  "3m": 7.118353344768447,
+  "6m": 10.874389702618735,
+  "9m": 21.853658536585364,
+  "y": 29.363024339720354
  },
- "div_yield": 1.6122531237404272,
- "implied_fcf_growth": 0.1213,
+ "div_yield": 1.6012810248198557,
+ "implied_fcf_growth": 0.1222,
  "insight": {
   "flags": {
    "cutoff": [],
-   "value_trap": [
-    "PBR 0.99倍（1倍割れ）かつROE 4.4%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
-   ]
+   "value_trap": []
   },
   "raw": {
    "roe": 4.41769098551269,
@@ -94,5 +92,5 @@
   "fcf_positive": 1,
   "fcf_payout": 44.63087248322148
  },
- "_generated_at": "2026-10-13T01:01:24"
+ "_generated_at": "2026-10-13T22:56:09"
 }
