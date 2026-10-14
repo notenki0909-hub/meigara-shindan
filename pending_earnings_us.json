@@ -85,8 +85,8 @@
   "target_date": "2026-10-12",
   "detected_at": "2026-10-12T06:03:29",
   "status": "pending",
-  "attempts": 5,
-  "next_retry_at": "2026-10-14T04:49:10"
+  "attempts": 6,
+  "next_retry_at": "2026-10-14T10:57:55"
  },
  "ACI": {
   "ticker": "ACI",
@@ -177,5 +177,77 @@
   "attempts": 1,
   "next_retry_at": "2026-10-13T06:54:50",
   "resolved_at": "2026-10-13T14:16:38"
+ },
+ "BAC": {
+  "ticker": "BAC",
+  "name": "Bank of America",
+  "target_date": "2026-10-14",
+  "detected_at": "2026-10-14T04:57:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-14T10:57:55"
+ },
+ "BLK": {
+  "ticker": "BLK",
+  "name": "BlackRock",
+  "target_date": "2026-10-14",
+  "detected_at": "2026-10-14T04:57:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-14T10:57:55"
+ },
+ "FAST": {
+  "ticker": "FAST",
+  "name": "Fastenal",
+  "target_date": "2026-10-14",
+  "detected_at": "2026-10-14T04:57:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-14T10:57:55"
+ },
+ "HOMB": {
+  "ticker": "HOMB",
+  "name": "Home BancShares",
+  "target_date": "2026-10-14",
+  "detected_at": "2026-10-14T04:57:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-14T10:57:55"
+ },
+ "MS": {
+  "ticker": "MS",
+  "name": "Morgan Stanley",
+  "target_date": "2026-10-14",
+  "detected_at": "2026-10-14T04:57:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-14T10:57:55"
+ },
+ "PGR": {
+  "ticker": "PGR",
+  "name": "Progressive Corporation",
+  "target_date": "2026-10-14",
+  "detected_at": "2026-10-14T04:57:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-14T10:57:55"
+ },
+ "STT": {
+  "ticker": "STT",
+  "name": "State Street Corporation",
+  "target_date": "2026-10-14",
+  "detected_at": "2026-10-14T04:57:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-14T10:57:55"
+ },
+ "WINA": {
+  "ticker": "WINA",
+  "name": "Winmark",
+  "target_date": "2026-10-14",
+  "detected_at": "2026-10-14T04:57:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-14T10:57:55"
  }
 }
