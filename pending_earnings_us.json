@@ -85,8 +85,8 @@
   "target_date": "2026-10-12",
   "detected_at": "2026-10-12T06:03:29",
   "status": "pending",
-  "attempts": 7,
-  "next_retry_at": "2026-10-14T17:58:06"
+  "attempts": 8,
+  "next_retry_at": "2026-10-15T03:50:49"
  },
  "ACI": {
   "ticker": "ACI",
@@ -183,18 +183,20 @@
   "name": "Bank of America",
   "target_date": "2026-10-14",
   "detected_at": "2026-10-14T04:57:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-14T17:58:06"
+  "next_retry_at": "2026-10-14T17:58:06",
+  "resolved_at": "2026-10-14T21:50:49"
  },
  "BLK": {
   "ticker": "BLK",
   "name": "BlackRock",
   "target_date": "2026-10-14",
   "detected_at": "2026-10-14T04:57:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-14T17:58:06"
+  "next_retry_at": "2026-10-14T17:58:06",
+  "resolved_at": "2026-10-14T21:50:49"
  },
  "FAST": {
   "ticker": "FAST",
@@ -202,8 +204,8 @@
   "target_date": "2026-10-14",
   "detected_at": "2026-10-14T04:57:55",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-10-14T17:58:06"
+  "attempts": 3,
+  "next_retry_at": "2026-10-15T03:50:49"
  },
  "HOMB": {
   "ticker": "HOMB",
@@ -211,43 +213,47 @@
   "target_date": "2026-10-14",
   "detected_at": "2026-10-14T04:57:55",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-10-14T17:58:06"
+  "attempts": 3,
+  "next_retry_at": "2026-10-15T03:50:49"
  },
  "MS": {
   "ticker": "MS",
   "name": "Morgan Stanley",
   "target_date": "2026-10-14",
   "detected_at": "2026-10-14T04:57:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-14T17:58:06"
+  "next_retry_at": "2026-10-14T17:58:06",
+  "resolved_at": "2026-10-14T21:50:49"
  },
  "PGR": {
   "ticker": "PGR",
   "name": "Progressive Corporation",
   "target_date": "2026-10-14",
   "detected_at": "2026-10-14T04:57:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-14T17:58:06"
+  "next_retry_at": "2026-10-14T17:58:06",
+  "resolved_at": "2026-10-14T21:50:49"
  },
  "STT": {
   "ticker": "STT",
   "name": "State Street Corporation",
   "target_date": "2026-10-14",
   "detected_at": "2026-10-14T04:57:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-14T17:58:06"
+  "next_retry_at": "2026-10-14T17:58:06",
+  "resolved_at": "2026-10-14T21:50:49"
  },
  "WINA": {
   "ticker": "WINA",
   "name": "Winmark",
   "target_date": "2026-10-14",
   "detected_at": "2026-10-14T04:57:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-14T17:58:06"
+  "next_retry_at": "2026-10-14T17:58:06",
+  "resolved_at": "2026-10-14T21:50:49"
  }
 }
