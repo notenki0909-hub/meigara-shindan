@@ -1,56 +1,56 @@
 {
  "code": "ACI",
  "name": "Albertsons Companies, Inc.",
- "asof": "2026-10-13",
+ "asof": "2026-10-15",
  "gics_sector": "Consumer Staples",
  "industry": "Grocery Stores",
  "is_simple": false,
  "is_reit": false,
- "price": 12.8149995803833,
+ "price": 12.720000267028809,
  "price_date": "2026-10-13",
- "mcap": 6219448832,
- "sel_score": 54.7,
- "tim_score": 78.9,
+ "mcap": 6348060160,
+ "sel_score": 54.4,
+ "tim_score": 88.5,
  "sel_label": "選定スコア基準未達",
- "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "選定・買い時とも下位水準。",
+ "tim_label": "買い時スコア中位（妥当水準）",
+ "comment": "選定スコアが基準を大きく下回る水準。",
  "cov_sel": [
   17,
   17,
   "高"
  ],
  "cov_tim": [
+  5,
   7,
-  7,
-  "高"
+  "中"
  ],
  "groups": {
   "業績": 41.2,
   "財務": 36.4,
   "キャッシュフロー": 101.0,
-  "配当の持続力": 60.7,
-  "配当利回りセオリー": 57.5,
+  "配当の持続力": 59.8,
+  "配当利回りセオリー": 56.5,
   "利回り水準とChowder": 110.0,
-  "株価バリュエーション": 56.7,
-  "金利スプレッド": 107.4
+  "株価バリュエーション": 108.3,
+  "金利スプレッド": 105.5
  },
- "div_yield": 5.30628187488135,
- "total_yield": 29.073661266997878,
+ "div_yield": 5.031446435256199,
+ "total_yield": 28.31730010933354,
  "streak_up": 2,
  "streak_flat": 6,
  "payout_ni": 364.71,
- "roe": 2.717,
- "chowder": 36.91368317013059,
+ "roe": -2.2739999,
+ "chowder": 36.63884773050544,
  "dgr5": 31.60740129524924,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 61.1985586952399,
  "interest_coverage": 1.5476482617586913,
- "per_vs_sector": 3.180689873417722,
- "pbr_vs_sector": 0.5883838181818182,
- "per_band_pos": 0.0,
- "yield_band_pos": 0.17547855413924068,
- "next_earn": "2026-10-13",
+ "per_vs_sector": null,
+ "pbr_vs_sector": 0.6699859090909092,
+ "per_band_pos": null,
+ "yield_band_pos": 0.16524177546172278,
+ "next_earn": "2027-01-06",
  "earn_disc_date": "2026-10-13",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
@@ -58,7 +58,7 @@
   "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）",
   "⚠ 自己資本比率が10%未満（6.9%）",
   "⚠ 配当性向が100%超（365%：純利益を上回る配当）",
-  "⚠ バリュートラップ注意：買い時が高い（79）のに質が低め（選定55）。安さの理由を確認"
+  "⚠ バリュートラップ注意：買い時が高い（89）のに質が低め（選定54）。安さの理由を確認"
  ],
  "roa": 0.81,
  "leverage": 14.58,
@@ -77,10 +77,9 @@
   },
   {
    "k": "trap",
-   "t": "バリュートラップ注意：買い時が高い（79）のに質が低め（選定55）。安さの理由を確認"
+   "t": "バリュートラップ注意：買い時が高い（89）のに質が低め（選定54）。安さの理由を確認"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-10-13T14:16:45",
- "_earnings_reflected_via": "earnings_watch_us"
+ "_generated_at": "2026-10-15T00:15:39"
 }
