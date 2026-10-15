@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 1254.0,
- "price_date": "2026-10-14",
- "mcap": 1826654388224,
+ "price": 1222.0,
+ "price_date": "2026-10-15",
+ "mcap": 1780041121792,
  "q_score": 89.3,
  "groups": {
   "業績": 72.24863128631614,
@@ -22,36 +22,38 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 79.4,
+ "bt_score": 80.2,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 82.5213474913237,
-  "fcf_yield": 67.63681655433625,
-  "per_cheap": 96.2,
-  "pbr_cheap": 71.1
+  "ev_ebit_vs_sector": 84.99744385963949,
+  "fcf_yield": 68.88426392779027,
+  "per_cheap": 95.5,
+  "pbr_cheap": 71.4
  },
- "ev_ebit": 25.374336699108216,
- "fcf_yield": 3.572761241575219,
+ "ev_ebit": 24.89487993120828,
+ "fcf_yield": 3.6663197945842705,
  "per_band_pos": null,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.0029382094509176,
- "per_vs_sector": 0.9740366009852217,
- "pbr_vs_sector": 0.913851,
+ "ev_ebit_vs_sector": 0.9812723662281545,
+ "per_vs_sector": 0.9778597044334976,
+ "pbr_vs_sector": 0.8905310909090909,
  "price_chg": {
-  "d": 0.4003202562049557,
-  "w": 0.0,
-  "m": 2.6186579378068675,
-  "3m": 9.424083769633507,
-  "6m": 11.565836298932375,
-  "9m": 22.941176470588243,
-  "y": 31.295155696207864
+  "d": -2.551834130781494,
+  "w": -2.396166134185307,
+  "m": -0.5695687550854367,
+  "3m": 6.958424507658645,
+  "6m": 4.088586030664398,
+  "9m": 16.547448736289926,
+  "y": 29.27113252725775
  },
- "div_yield": 1.8341307814992027,
- "implied_fcf_growth": 0.1228,
+ "div_yield": 1.8821603927986905,
+ "implied_fcf_growth": 0.1193,
  "insight": {
   "flags": {
    "cutoff": [],
-   "value_trap": []
+   "value_trap": [
+    "PBR 0.98倍（1倍割れ）かつROE 4.4%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+   ]
   },
   "raw": {
    "roe": 4.41769098551269,
@@ -92,5 +94,5 @@
   "fcf_positive": 1,
   "fcf_payout": 44.63087248322148
  },
- "_generated_at": "2026-10-14T21:58:12"
+ "_generated_at": "2026-10-15T21:44:46"
 }
