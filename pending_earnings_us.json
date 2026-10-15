@@ -84,8 +84,8 @@
   "name": "FedEx",
   "target_date": "2026-10-12",
   "detected_at": "2026-10-12T06:03:29",
-  "status": "pending",
-  "attempts": 8,
+  "status": "giveup",
+  "attempts": 9,
   "next_retry_at": "2026-10-15T03:50:49"
  },
  "ACI": {
@@ -204,17 +204,18 @@
   "target_date": "2026-10-14",
   "detected_at": "2026-10-14T04:57:55",
   "status": "pending",
-  "attempts": 3,
-  "next_retry_at": "2026-10-15T03:50:49"
+  "attempts": 4,
+  "next_retry_at": "2026-10-15T10:44:55"
  },
  "HOMB": {
   "ticker": "HOMB",
   "name": "Home BancShares",
   "target_date": "2026-10-14",
   "detected_at": "2026-10-14T04:57:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-15T03:50:49"
+  "next_retry_at": "2026-10-15T03:50:49",
+  "resolved_at": "2026-10-15T04:44:55"
  },
  "MS": {
   "ticker": "MS",
@@ -255,5 +256,113 @@
   "attempts": 2,
   "next_retry_at": "2026-10-14T17:58:06",
   "resolved_at": "2026-10-14T21:50:49"
+ },
+ "BNY": {
+  "ticker": "BNY",
+  "name": "BNY Mellon",
+  "target_date": "2026-10-15",
+  "detected_at": "2026-10-15T04:44:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-15T10:44:55"
+ },
+ "CBSH": {
+  "ticker": "CBSH",
+  "name": "Commerce Bancshares",
+  "target_date": "2026-10-15",
+  "detected_at": "2026-10-15T04:44:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-15T10:44:55"
+ },
+ "CNS": {
+  "ticker": "CNS",
+  "name": "Cohen & Steers, Inc.",
+  "target_date": "2026-10-15",
+  "detected_at": "2026-10-15T04:44:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-15T10:44:55"
+ },
+ "FHN": {
+  "ticker": "FHN",
+  "name": "First Horizon",
+  "target_date": "2026-10-15",
+  "detected_at": "2026-10-15T04:44:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-15T10:44:55"
+ },
+ "INDB": {
+  "ticker": "INDB",
+  "name": "Independent Bank Corp.",
+  "target_date": "2026-10-15",
+  "detected_at": "2026-10-15T04:44:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-15T10:44:55"
+ },
+ "MRSH": {
+  "ticker": "MRSH",
+  "name": "Marsh McLennan",
+  "target_date": "2026-10-15",
+  "detected_at": "2026-10-15T04:44:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-15T10:44:55"
+ },
+ "PLD": {
+  "ticker": "PLD",
+  "name": "Prologis",
+  "target_date": "2026-10-15",
+  "detected_at": "2026-10-15T04:44:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-15T10:44:55"
+ },
+ "PNC": {
+  "ticker": "PNC",
+  "name": "PNC Financial Services",
+  "target_date": "2026-10-15",
+  "detected_at": "2026-10-15T04:44:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-15T10:44:55"
+ },
+ "SFNC": {
+  "ticker": "SFNC",
+  "name": "Simmons First National Corporation",
+  "target_date": "2026-10-15",
+  "detected_at": "2026-10-15T04:44:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-15T10:44:55"
+ },
+ "USB": {
+  "ticker": "USB",
+  "name": "U.S. Bancorp",
+  "target_date": "2026-10-15",
+  "detected_at": "2026-10-15T04:44:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-15T10:44:55"
+ },
+ "WABC": {
+  "ticker": "WABC",
+  "name": "Westamerica Bank",
+  "target_date": "2026-10-15",
+  "detected_at": "2026-10-15T04:44:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-15T10:44:55"
+ },
+ "WAFD": {
+  "ticker": "WAFD",
+  "name": "WaFd, Inc.",
+  "target_date": "2026-10-15",
+  "detected_at": "2026-10-15T04:44:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-15T10:44:55"
  }
 }
