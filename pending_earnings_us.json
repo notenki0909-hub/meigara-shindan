@@ -173,8 +173,8 @@
   "name": "Fastenal",
   "target_date": "2026-10-14",
   "detected_at": "2026-10-14T04:57:55",
-  "status": "pending",
-  "attempts": 8,
+  "status": "giveup",
+  "attempts": 9,
   "next_retry_at": "2026-10-16T17:29:16"
  },
  "HOMB": {
@@ -243,8 +243,8 @@
   "target_date": "2026-10-15",
   "detected_at": "2026-10-15T04:44:55",
   "status": "pending",
-  "attempts": 5,
-  "next_retry_at": "2026-10-16T17:29:16"
+  "attempts": 6,
+  "next_retry_at": "2026-10-17T03:13:41"
  },
  "CNS": {
   "ticker": "CNS",
@@ -352,43 +352,47 @@
   "target_date": "2026-10-16",
   "detected_at": "2026-10-16T04:36:22",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-10-16T17:29:16"
+  "attempts": 3,
+  "next_retry_at": "2026-10-17T03:13:41"
  },
  "CFG": {
   "ticker": "CFG",
   "name": "Citizens Financial Group",
   "target_date": "2026-10-16",
   "detected_at": "2026-10-16T04:36:22",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-16T17:29:16"
+  "next_retry_at": "2026-10-16T17:29:16",
+  "resolved_at": "2026-10-16T21:13:41"
  },
  "MTB": {
   "ticker": "MTB",
   "name": "M&T Bank",
   "target_date": "2026-10-16",
   "detected_at": "2026-10-16T04:36:22",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-16T17:29:16"
+  "next_retry_at": "2026-10-16T17:29:16",
+  "resolved_at": "2026-10-16T21:13:41"
  },
  "RF": {
   "ticker": "RF",
   "name": "Regions Financial Corporation",
   "target_date": "2026-10-16",
   "detected_at": "2026-10-16T04:36:22",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-16T17:29:16"
+  "next_retry_at": "2026-10-16T17:29:16",
+  "resolved_at": "2026-10-16T21:13:41"
  },
  "TFC": {
   "ticker": "TFC",
   "name": "Truist Financial",
   "target_date": "2026-10-16",
   "detected_at": "2026-10-16T04:36:22",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-16T17:29:16"
+  "next_retry_at": "2026-10-16T17:29:16",
+  "resolved_at": "2026-10-16T21:13:41"
  }
 }
