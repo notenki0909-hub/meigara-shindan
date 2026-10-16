@@ -174,8 +174,8 @@
   "target_date": "2026-10-14",
   "detected_at": "2026-10-14T04:57:55",
   "status": "pending",
-  "attempts": 7,
-  "next_retry_at": "2026-10-16T10:36:22"
+  "attempts": 8,
+  "next_retry_at": "2026-10-16T17:29:16"
  },
  "HOMB": {
   "ticker": "HOMB",
@@ -243,17 +243,18 @@
   "target_date": "2026-10-15",
   "detected_at": "2026-10-15T04:44:55",
   "status": "pending",
-  "attempts": 4,
-  "next_retry_at": "2026-10-16T10:36:22"
+  "attempts": 5,
+  "next_retry_at": "2026-10-16T17:29:16"
  },
  "CNS": {
   "ticker": "CNS",
   "name": "Cohen & Steers, Inc.",
   "target_date": "2026-10-15",
   "detected_at": "2026-10-15T04:44:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 4,
-  "next_retry_at": "2026-10-16T10:36:22"
+  "next_retry_at": "2026-10-16T10:36:22",
+  "resolved_at": "2026-10-16T11:29:16"
  },
  "FHN": {
   "ticker": "FHN",
@@ -270,9 +271,10 @@
   "name": "Independent Bank Corp.",
   "target_date": "2026-10-15",
   "detected_at": "2026-10-15T04:44:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 4,
-  "next_retry_at": "2026-10-16T10:36:22"
+  "next_retry_at": "2026-10-16T10:36:22",
+  "resolved_at": "2026-10-16T11:29:16"
  },
  "MRSH": {
   "ticker": "MRSH",
@@ -309,9 +311,10 @@
   "name": "Simmons First National Corporation",
   "target_date": "2026-10-15",
   "detected_at": "2026-10-15T04:44:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 4,
-  "next_retry_at": "2026-10-16T10:36:22"
+  "next_retry_at": "2026-10-16T10:36:22",
+  "resolved_at": "2026-10-16T11:29:16"
  },
  "USB": {
   "ticker": "USB",
@@ -338,9 +341,10 @@
   "name": "WaFd, Inc.",
   "target_date": "2026-10-15",
   "detected_at": "2026-10-15T04:44:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 4,
-  "next_retry_at": "2026-10-16T10:36:22"
+  "next_retry_at": "2026-10-16T10:36:22",
+  "resolved_at": "2026-10-16T11:29:16"
  },
  "BANF": {
   "ticker": "BANF",
@@ -348,8 +352,8 @@
   "target_date": "2026-10-16",
   "detected_at": "2026-10-16T04:36:22",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-16T10:36:22"
+  "attempts": 2,
+  "next_retry_at": "2026-10-16T17:29:16"
  },
  "CFG": {
   "ticker": "CFG",
@@ -357,8 +361,8 @@
   "target_date": "2026-10-16",
   "detected_at": "2026-10-16T04:36:22",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-16T10:36:22"
+  "attempts": 2,
+  "next_retry_at": "2026-10-16T17:29:16"
  },
  "MTB": {
   "ticker": "MTB",
@@ -366,8 +370,8 @@
   "target_date": "2026-10-16",
   "detected_at": "2026-10-16T04:36:22",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-16T10:36:22"
+  "attempts": 2,
+  "next_retry_at": "2026-10-16T17:29:16"
  },
  "RF": {
   "ticker": "RF",
@@ -375,8 +379,8 @@
   "target_date": "2026-10-16",
   "detected_at": "2026-10-16T04:36:22",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-16T10:36:22"
+  "attempts": 2,
+  "next_retry_at": "2026-10-16T17:29:16"
  },
  "TFC": {
   "ticker": "TFC",
@@ -384,7 +388,7 @@
   "target_date": "2026-10-16",
   "detected_at": "2026-10-16T04:36:22",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-16T10:36:22"
+  "attempts": 2,
+  "next_retry_at": "2026-10-16T17:29:16"
  }
 }
