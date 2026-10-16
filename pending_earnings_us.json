@@ -1,34 +1,4 @@
 {
- "ACN": {
-  "ticker": "ACN",
-  "name": "Accenture",
-  "target_date": "2026-10-01",
-  "detected_at": "2026-10-01T06:00:32",
-  "status": "resolved",
-  "attempts": 1,
-  "next_retry_at": "2026-10-01T12:00:32",
-  "resolved_at": "2026-10-01T22:43:48"
- },
- "MKC": {
-  "ticker": "MKC",
-  "name": "McCormick & Company",
-  "target_date": "2026-10-01",
-  "detected_at": "2026-10-01T06:00:32",
-  "status": "resolved",
-  "attempts": 1,
-  "next_retry_at": "2026-10-01T12:00:32",
-  "resolved_at": "2026-10-01T22:43:48"
- },
- "NKE": {
-  "ticker": "NKE",
-  "name": "Nike, Inc.",
-  "target_date": "2026-10-01",
-  "detected_at": "2026-10-01T06:00:32",
-  "status": "resolved",
-  "attempts": 1,
-  "next_retry_at": "2026-10-01T12:00:32",
-  "resolved_at": "2026-10-01T22:43:48"
- },
  "APOG": {
   "ticker": "APOG",
   "name": "Apogee Enterprises, Inc.",
@@ -204,8 +174,8 @@
   "target_date": "2026-10-14",
   "detected_at": "2026-10-14T04:57:55",
   "status": "pending",
-  "attempts": 6,
-  "next_retry_at": "2026-10-16T03:39:05"
+  "attempts": 7,
+  "next_retry_at": "2026-10-16T10:36:22"
  },
  "HOMB": {
   "ticker": "HOMB",
@@ -273,8 +243,8 @@
   "target_date": "2026-10-15",
   "detected_at": "2026-10-15T04:44:55",
   "status": "pending",
-  "attempts": 3,
-  "next_retry_at": "2026-10-16T03:39:05"
+  "attempts": 4,
+  "next_retry_at": "2026-10-16T10:36:22"
  },
  "CNS": {
   "ticker": "CNS",
@@ -282,8 +252,8 @@
   "target_date": "2026-10-15",
   "detected_at": "2026-10-15T04:44:55",
   "status": "pending",
-  "attempts": 3,
-  "next_retry_at": "2026-10-16T03:39:05"
+  "attempts": 4,
+  "next_retry_at": "2026-10-16T10:36:22"
  },
  "FHN": {
   "ticker": "FHN",
@@ -301,8 +271,8 @@
   "target_date": "2026-10-15",
   "detected_at": "2026-10-15T04:44:55",
   "status": "pending",
-  "attempts": 3,
-  "next_retry_at": "2026-10-16T03:39:05"
+  "attempts": 4,
+  "next_retry_at": "2026-10-16T10:36:22"
  },
  "MRSH": {
   "ticker": "MRSH",
@@ -340,8 +310,8 @@
   "target_date": "2026-10-15",
   "detected_at": "2026-10-15T04:44:55",
   "status": "pending",
-  "attempts": 3,
-  "next_retry_at": "2026-10-16T03:39:05"
+  "attempts": 4,
+  "next_retry_at": "2026-10-16T10:36:22"
  },
  "USB": {
   "ticker": "USB",
@@ -358,9 +328,10 @@
   "name": "Westamerica Bank",
   "target_date": "2026-10-15",
   "detected_at": "2026-10-15T04:44:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-16T03:39:05"
+  "next_retry_at": "2026-10-16T03:39:05",
+  "resolved_at": "2026-10-16T04:36:22"
  },
  "WAFD": {
   "ticker": "WAFD",
@@ -368,7 +339,52 @@
   "target_date": "2026-10-15",
   "detected_at": "2026-10-15T04:44:55",
   "status": "pending",
-  "attempts": 3,
-  "next_retry_at": "2026-10-16T03:39:05"
+  "attempts": 4,
+  "next_retry_at": "2026-10-16T10:36:22"
+ },
+ "BANF": {
+  "ticker": "BANF",
+  "name": "Bancfirst Corp",
+  "target_date": "2026-10-16",
+  "detected_at": "2026-10-16T04:36:22",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-16T10:36:22"
+ },
+ "CFG": {
+  "ticker": "CFG",
+  "name": "Citizens Financial Group",
+  "target_date": "2026-10-16",
+  "detected_at": "2026-10-16T04:36:22",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-16T10:36:22"
+ },
+ "MTB": {
+  "ticker": "MTB",
+  "name": "M&T Bank",
+  "target_date": "2026-10-16",
+  "detected_at": "2026-10-16T04:36:22",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-16T10:36:22"
+ },
+ "RF": {
+  "ticker": "RF",
+  "name": "Regions Financial Corporation",
+  "target_date": "2026-10-16",
+  "detected_at": "2026-10-16T04:36:22",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-16T10:36:22"
+ },
+ "TFC": {
+  "ticker": "TFC",
+  "name": "Truist Financial",
+  "target_date": "2026-10-16",
+  "detected_at": "2026-10-16T04:36:22",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-16T10:36:22"
  }
 }
