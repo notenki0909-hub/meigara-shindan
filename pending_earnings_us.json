@@ -349,11 +349,11 @@
  "BANF": {
   "ticker": "BANF",
   "name": "Bancfirst Corp",
-  "target_date": "2026-10-16",
-  "detected_at": "2026-10-16T04:36:22",
-  "status": "giveup",
-  "attempts": 9,
-  "next_retry_at": "2026-10-18T17:12:14"
+  "target_date": "2026-10-19",
+  "detected_at": "2026-10-19T04:45:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-19T10:45:55"
  },
  "CFG": {
   "ticker": "CFG",
@@ -394,5 +394,68 @@
   "attempts": 2,
   "next_retry_at": "2026-10-16T17:29:16",
   "resolved_at": "2026-10-16T21:13:41"
+ },
+ "AGNC": {
+  "ticker": "AGNC",
+  "name": "AGNC Investment",
+  "target_date": "2026-10-19",
+  "detected_at": "2026-10-19T04:45:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-19T10:45:55"
+ },
+ "FITB": {
+  "ticker": "FITB",
+  "name": "Fifth Third Bancorp",
+  "target_date": "2026-10-19",
+  "detected_at": "2026-10-19T04:45:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-19T10:45:55"
+ },
+ "FNB": {
+  "ticker": "FNB",
+  "name": "FNB Corporation",
+  "target_date": "2026-10-19",
+  "detected_at": "2026-10-19T04:45:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-19T10:45:55"
+ },
+ "RLI": {
+  "ticker": "RLI",
+  "name": "RLI Corp.",
+  "target_date": "2026-10-19",
+  "detected_at": "2026-10-19T04:45:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-19T10:45:55"
+ },
+ "SFBS": {
+  "ticker": "SFBS",
+  "name": "ServisFirst Bancshares, Inc.",
+  "target_date": "2026-10-19",
+  "detected_at": "2026-10-19T04:45:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-19T10:45:55"
+ },
+ "WAL": {
+  "ticker": "WAL",
+  "name": "Western Alliance Bancorporation",
+  "target_date": "2026-10-19",
+  "detected_at": "2026-10-19T04:45:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-19T10:45:55"
+ },
+ "ZION": {
+  "ticker": "ZION",
+  "name": "Zions Bancorporation",
+  "target_date": "2026-10-19",
+  "detected_at": "2026-10-19T04:45:55",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-19T10:45:55"
  }
 }
