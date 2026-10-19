@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": true,
  "is_reit": false,
- "price": 2816.0,
- "price_date": "2026-10-16",
- "mcap": 647340294144,
+ "price": 2784.0,
+ "price_date": "2026-10-19",
+ "mcap": 639984205824,
  "q_score": 91.0,
  "groups": {
   "業績": null,
@@ -28,30 +28,32 @@
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
   "per_cheap": 30.0,
-  "pbr_cheap": 69.9
+  "pbr_cheap": 70.1
  },
  "ev_ebit": null,
  "fcf_yield": null,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 1.5874859281437126,
- "pbr_vs_sector": 1.0025562,
+ "per_vs_sector": 1.5875305389221557,
+ "pbr_vs_sector": 0.99116355,
  "price_chg": {
-  "d": -1.6072676450034962,
-  "w": -7.520525451559934,
-  "m": -1.2622720897615736,
-  "3m": -1.7788629229159358,
-  "6m": 35.907335907335906,
-  "9m": 83.81201044386424,
-  "y": 119.31464174454827
+  "d": -1.1363636363636354,
+  "w": -6.796116504854366,
+  "m": -4.231166150670795,
+  "3m": 0.0,
+  "6m": 33.205741626794264,
+  "9m": 81.96078431372548,
+  "y": 117.84037558685445
  },
- "div_yield": 1.7755681818181819,
+ "div_yield": 1.7959770114942528,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
-   "value_trap": []
+   "value_trap": [
+    "PBR 0.99倍（1倍割れ）かつROE 4.2%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+   ]
   },
   "raw": {
    "roe": 4.183103350726095,
@@ -89,5 +91,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-18T21:03:46"
+ "_generated_at": "2026-10-19T23:05:51"
 }
