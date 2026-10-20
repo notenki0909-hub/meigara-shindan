@@ -1,14 +1,14 @@
 {
  "code": "CUZ",
  "name": "Cousins Properties Incorporated",
- "asof": "2026-10-18",
+ "asof": "2026-10-20",
  "gics_sector": "Real Estate",
  "industry": "REIT - Office",
  "is_simple": true,
  "is_reit": true,
  "price": 27.639999389648438,
  "price_date": "2026-10-16",
- "mcap": 4550291968,
+ "mcap": 4476209664,
  "sel_score": 74.2,
  "tim_score": 96.5,
  "sel_label": "選定スコア中位（一部に弱点）",
@@ -47,8 +47,8 @@
  "fcf_positive": 1,
  "fcf_payout": 159.80124996297502,
  "interest_coverage": 1.2590538868758674,
- "per_vs_sector": 16.182669789227166,
- "pbr_vs_sector": 0.3382405,
+ "per_vs_sector": 15.919203747072599,
+ "pbr_vs_sector": 0.33273371,
  "per_band_pos": null,
  "yield_band_pos": 0.6619227027435287,
  "next_earn": "2026-10-29",
@@ -57,7 +57,8 @@
  "quarter_decel_detail": null,
  "warnings": [
   "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
-  "⚠ 配当性向が100%超（3200%：純利益を上回る配当）"
+  "⚠ 配当性向が100%超（3200%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：PBR 1.00倍（1倍割れ）かつROE 0.9%（5%未満）"
  ],
  "roa": 0.46,
  "leverage": 1.9,
@@ -65,8 +66,12 @@
   {
    "k": "payout",
    "t": "配当性向が100%超（3200%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：PBR 1.00倍（1倍割れ）かつROE 0.9%（5%未満）"
   }
  ],
  "kind": "fin",
- "_generated_at": "2026-10-19T00:00:02"
+ "_generated_at": "2026-10-20T01:00:59"
 }
