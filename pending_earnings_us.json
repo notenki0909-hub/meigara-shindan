@@ -240,11 +240,11 @@
  "CBSH": {
   "ticker": "CBSH",
   "name": "Commerce Bancshares",
-  "target_date": "2026-10-15",
-  "detected_at": "2026-10-15T04:44:55",
-  "status": "giveup",
-  "attempts": 9,
-  "next_retry_at": "2026-10-17T16:49:20"
+  "target_date": "2026-10-20",
+  "detected_at": "2026-10-20T04:55:37",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-20T10:55:37"
  },
  "CNS": {
   "ticker": "CNS",
@@ -352,8 +352,8 @@
   "target_date": "2026-10-19",
   "detected_at": "2026-10-19T04:45:55",
   "status": "pending",
-  "attempts": 3,
-  "next_retry_at": "2026-10-20T04:40:54"
+  "attempts": 4,
+  "next_retry_at": "2026-10-20T10:55:37"
  },
  "CFG": {
   "ticker": "CFG",
@@ -400,62 +400,222 @@
   "name": "AGNC Investment",
   "target_date": "2026-10-19",
   "detected_at": "2026-10-19T04:45:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-20T04:40:54"
+  "next_retry_at": "2026-10-20T04:40:54",
+  "resolved_at": "2026-10-20T04:55:37"
  },
  "FITB": {
   "ticker": "FITB",
   "name": "Fifth Third Bancorp",
   "target_date": "2026-10-19",
   "detected_at": "2026-10-19T04:45:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-20T04:40:54"
+  "next_retry_at": "2026-10-20T04:40:54",
+  "resolved_at": "2026-10-20T04:55:37"
  },
  "FNB": {
   "ticker": "FNB",
   "name": "FNB Corporation",
   "target_date": "2026-10-19",
   "detected_at": "2026-10-19T04:45:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-20T04:40:54"
+  "next_retry_at": "2026-10-20T04:40:54",
+  "resolved_at": "2026-10-20T04:55:37"
  },
  "RLI": {
   "ticker": "RLI",
   "name": "RLI Corp.",
   "target_date": "2026-10-19",
   "detected_at": "2026-10-19T04:45:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-20T04:40:54"
+  "next_retry_at": "2026-10-20T04:40:54",
+  "resolved_at": "2026-10-20T04:55:37"
  },
  "SFBS": {
   "ticker": "SFBS",
   "name": "ServisFirst Bancshares, Inc.",
   "target_date": "2026-10-19",
   "detected_at": "2026-10-19T04:45:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-20T04:40:54"
+  "next_retry_at": "2026-10-20T04:40:54",
+  "resolved_at": "2026-10-20T04:55:37"
  },
  "WAL": {
   "ticker": "WAL",
   "name": "Western Alliance Bancorporation",
   "target_date": "2026-10-19",
   "detected_at": "2026-10-19T04:45:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-20T04:40:54"
+  "next_retry_at": "2026-10-20T04:40:54",
+  "resolved_at": "2026-10-20T04:55:37"
  },
  "ZION": {
   "ticker": "ZION",
   "name": "Zions Bancorporation",
   "target_date": "2026-10-19",
   "detected_at": "2026-10-19T04:45:55",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-20T04:40:54"
+  "next_retry_at": "2026-10-20T04:40:54",
+  "resolved_at": "2026-10-20T04:55:37"
+ },
+ "ADC": {
+  "ticker": "ADC",
+  "name": "Agree Realty",
+  "target_date": "2026-10-20",
+  "detected_at": "2026-10-20T04:55:37",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-20T10:55:37"
+ },
+ "ALLY": {
+  "ticker": "ALLY",
+  "name": "Ally Financial",
+  "target_date": "2026-10-20",
+  "detected_at": "2026-10-20T04:55:37",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-20T10:55:37"
+ },
+ "AUB": {
+  "ticker": "AUB",
+  "name": "Atlantic Union Bankshares, Corp.",
+  "target_date": "2026-10-20",
+  "detected_at": "2026-10-20T04:55:37",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-20T10:55:37"
+ },
+ "DCOM": {
+  "ticker": "DCOM",
+  "name": "Dime Community Bancshares, Inc.",
+  "target_date": "2026-10-20",
+  "detected_at": "2026-10-20T04:55:37",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-20T10:55:37"
+ },
+ "EFX": {
+  "ticker": "EFX",
+  "name": "Equifax",
+  "target_date": "2026-10-20",
+  "detected_at": "2026-10-20T04:55:37",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-20T10:55:37"
+ },
+ "ELS": {
+  "ticker": "ELS",
+  "name": "Equity Lifestyle Properties",
+  "target_date": "2026-10-20",
+  "detected_at": "2026-10-20T04:55:37",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-20T10:55:37"
+ },
+ "EWBC": {
+  "ticker": "EWBC",
+  "name": "East West Bancorp",
+  "target_date": "2026-10-20",
+  "detected_at": "2026-10-20T04:55:37",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-20T10:55:37"
+ },
+ "GPC": {
+  "ticker": "GPC",
+  "name": "Genuine Parts Company",
+  "target_date": "2026-10-20",
+  "detected_at": "2026-10-20T04:55:37",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-20T10:55:37"
+ },
+ "HAL": {
+  "ticker": "HAL",
+  "name": "Halliburton",
+  "target_date": "2026-10-20",
+  "detected_at": "2026-10-20T04:55:37",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-20T10:55:37"
+ },
+ "HAS": {
+  "ticker": "HAS",
+  "name": "Hasbro",
+  "target_date": "2026-10-20",
+  "detected_at": "2026-10-20T04:55:37",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-20T10:55:37"
+ },
+ "HWC": {
+  "ticker": "HWC",
+  "name": "Hancock Whitney",
+  "target_date": "2026-10-20",
+  "detected_at": "2026-10-20T04:55:37",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-20T10:55:37"
+ },
+ "KEY": {
+  "ticker": "KEY",
+  "name": "KeyCorp",
+  "target_date": "2026-10-20",
+  "detected_at": "2026-10-20T04:55:37",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-20T10:55:37"
+ },
+ "NOC": {
+  "ticker": "NOC",
+  "name": "Northrop Grumman",
+  "target_date": "2026-10-20",
+  "detected_at": "2026-10-20T04:55:37",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-20T10:55:37"
+ },
+ "OZK": {
+  "ticker": "OZK",
+  "name": "Bank OZK",
+  "target_date": "2026-10-20",
+  "detected_at": "2026-10-20T04:55:37",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-20T10:55:37"
+ },
+ "RTX": {
+  "ticker": "RTX",
+  "name": "RTX Corporation",
+  "target_date": "2026-10-20",
+  "detected_at": "2026-10-20T04:55:37",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-20T10:55:37"
+ },
+ "SYF": {
+  "ticker": "SYF",
+  "name": "Synchrony Financial",
+  "target_date": "2026-10-20",
+  "detected_at": "2026-10-20T04:55:37",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-20T10:55:37"
+ },
+ "UCB": {
+  "ticker": "UCB",
+  "name": "United Community Banks, Inc.",
+  "target_date": "2026-10-20",
+  "detected_at": "2026-10-20T04:55:37",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-20T10:55:37"
  }
 }
