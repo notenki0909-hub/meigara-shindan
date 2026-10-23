@@ -5,9 +5,9 @@
  "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
- "price": 23.829999923706055,
- "price_date": "2026-10-20",
- "mcap": 27866857472,
+ "price": 23.5,
+ "price_date": "2026-10-21",
+ "mcap": 29752317952,
  "q_score": 88.3,
  "groups": {
   "業績": 93.32898951466346,
@@ -22,37 +22,37 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 92.8,
+ "bt_score": 92.6,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 108.47479595011838,
+  "ev_ebit_vs_sector": 107.80600075193566,
   "fcf_yield": 110.0,
   "per_cheap": null,
-  "pbr_cheap": 110.0
+  "pbr_cheap": 106.1
  },
- "ev_ebit": 10.021750587017468,
- "fcf_yield": 13.137469855287742,
+ "ev_ebit": 10.428362724175113,
+ "fcf_yield": 12.304923622779116,
  "per_band_pos": null,
- "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.5533821417458569,
+ "pbr_band_pos": 0.691562281980691,
+ "ev_ebit_vs_sector": 0.5767899736822518,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.1172833787878788,
+ "pbr_vs_sector": 0.12521872727272726,
  "price_chg": {
-  "d": 2.848510337673149,
-  "w": 6.24163887419662,
-  "m": -2.215842826964509,
-  "3m": -8.204927719125422,
-  "6m": 8.416744403996933,
-  "9m": 0.2946115073649169,
-  "y": -6.622259027207367
+  "d": -1.3848087484791383,
+  "w": 3.5242255954750723,
+  "m": -2.083333333333337,
+  "3m": -7.334387088272932,
+  "6m": 7.354959594530253,
+  "9m": 4.910716072333132,
+  "y": -8.59587383574575
  },
- "div_yield": 6.7142257873375915,
- "implied_fcf_growth": -0.0577,
+ "div_yield": 6.808510638297872,
+ "implied_fcf_growth": -0.0482,
  "insight": {
   "flags": {
    "cutoff": [],
    "value_trap": [
-    "PBR 0.77倍（1倍割れ）かつROE -14.0%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+    "PBR 0.83倍（1倍割れ）かつROE -14.0%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
    ]
   },
   "raw": {
@@ -96,5 +96,5 @@
   "fcf_positive": 1,
   "fcf_payout": 51.84375853591915
  },
- "_generated_at": "2026-10-22T01:19:37"
+ "_generated_at": "2026-10-23T01:20:16"
 }
