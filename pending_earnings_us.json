@@ -640,11 +640,11 @@
  "CHCO": {
   "ticker": "CHCO",
   "name": "City Holding Company",
-  "target_date": "2026-10-22",
-  "detected_at": "2026-10-22T04:53:42",
+  "target_date": "2026-10-23",
+  "detected_at": "2026-10-23T04:56:02",
   "status": "pending",
-  "attempts": 3,
-  "next_retry_at": "2026-10-23T03:46:06"
+  "attempts": 1,
+  "next_retry_at": "2026-10-23T10:56:03"
  },
  "CME": {
   "ticker": "CME",
@@ -912,8 +912,8 @@
   "target_date": "2026-10-21",
   "detected_at": "2026-10-21T04:54:07",
   "status": "pending",
-  "attempts": 6,
-  "next_retry_at": "2026-10-23T03:46:06"
+  "attempts": 7,
+  "next_retry_at": "2026-10-23T10:56:03"
  },
  "TXN": {
   "ticker": "TXN",
@@ -970,9 +970,10 @@
   "name": "Associated Bank",
   "target_date": "2026-10-22",
   "detected_at": "2026-10-22T04:53:42",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-23T03:46:06"
+  "next_retry_at": "2026-10-23T03:46:06",
+  "resolved_at": "2026-10-23T04:56:03"
  },
  "CMCSA": {
   "ticker": "CMCSA",
@@ -989,18 +990,20 @@
   "name": "Columbia Banking System",
   "target_date": "2026-10-22",
   "detected_at": "2026-10-22T04:53:42",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-23T03:46:06"
+  "next_retry_at": "2026-10-23T03:46:06",
+  "resolved_at": "2026-10-23T04:56:03"
  },
  "EBC": {
   "ticker": "EBC",
   "name": "Eastern Bankshares, Inc.",
   "target_date": "2026-10-22",
   "detected_at": "2026-10-22T04:53:42",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-23T03:46:06"
+  "next_retry_at": "2026-10-23T03:46:06",
+  "resolved_at": "2026-10-23T04:56:03"
  },
  "FBP": {
   "ticker": "FBP",
@@ -1017,18 +1020,20 @@
   "name": "First Interstate BancSystem, Inc.",
   "target_date": "2026-10-22",
   "detected_at": "2026-10-22T04:53:42",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-23T03:46:06"
+  "next_retry_at": "2026-10-23T03:46:06",
+  "resolved_at": "2026-10-23T04:56:03"
  },
  "GBCI": {
   "ticker": "GBCI",
   "name": "Glacier Bancorp",
   "target_date": "2026-10-22",
   "detected_at": "2026-10-22T04:53:42",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-23T03:46:06"
+  "next_retry_at": "2026-10-23T03:46:06",
+  "resolved_at": "2026-10-23T04:56:03"
  },
  "HBAN": {
   "ticker": "HBAN",
@@ -1055,18 +1060,20 @@
   "name": "Hilltop Holdings Inc.",
   "target_date": "2026-10-22",
   "detected_at": "2026-10-22T04:53:42",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-23T03:46:06"
+  "next_retry_at": "2026-10-23T03:46:06",
+  "resolved_at": "2026-10-23T04:56:03"
  },
  "KRC": {
   "ticker": "KRC",
   "name": "Kilroy Realty Corp",
   "target_date": "2026-10-22",
   "detected_at": "2026-10-22T04:53:42",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-23T03:46:06"
+  "next_retry_at": "2026-10-23T03:46:06",
+  "resolved_at": "2026-10-23T04:56:03"
  },
  "LAZ": {
   "ticker": "LAZ",
@@ -1113,9 +1120,10 @@
   "name": "Omnicom Group",
   "target_date": "2026-10-22",
   "detected_at": "2026-10-22T04:53:42",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-23T03:46:06"
+  "next_retry_at": "2026-10-23T03:46:06",
+  "resolved_at": "2026-10-23T04:56:03"
  },
  "PG": {
   "ticker": "PG",
@@ -1152,36 +1160,40 @@
   "name": "Rexford Industrial Realty",
   "target_date": "2026-10-22",
   "detected_at": "2026-10-22T04:53:42",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-23T03:46:06"
+  "next_retry_at": "2026-10-23T03:46:06",
+  "resolved_at": "2026-10-23T04:56:03"
  },
  "RHI": {
   "ticker": "RHI",
   "name": "Robert Half",
   "target_date": "2026-10-22",
   "detected_at": "2026-10-22T04:53:42",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-23T03:46:06"
+  "next_retry_at": "2026-10-23T03:46:06",
+  "resolved_at": "2026-10-23T04:56:03"
  },
  "SIGI": {
   "ticker": "SIGI",
   "name": "Selective Insurance Group",
   "target_date": "2026-10-22",
   "detected_at": "2026-10-22T04:53:42",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-23T03:46:06"
+  "next_retry_at": "2026-10-23T03:46:06",
+  "resolved_at": "2026-10-23T04:56:03"
  },
  "SLM": {
   "ticker": "SLM",
   "name": "SLM Corp",
   "target_date": "2026-10-22",
   "detected_at": "2026-10-22T04:53:42",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-23T03:46:06"
+  "next_retry_at": "2026-10-23T03:46:06",
+  "resolved_at": "2026-10-23T04:56:03"
  },
  "SNA": {
   "ticker": "SNA",
@@ -1242,5 +1254,77 @@
   "attempts": 2,
   "next_retry_at": "2026-10-22T17:57:55",
   "resolved_at": "2026-10-22T21:46:06"
+ },
+ "ALV": {
+  "ticker": "ALV",
+  "name": "Autoliv",
+  "target_date": "2026-10-23",
+  "detected_at": "2026-10-23T04:56:02",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-23T10:56:03"
+ },
+ "BAH": {
+  "ticker": "BAH",
+  "name": "Booz Allen Hamilton",
+  "target_date": "2026-10-23",
+  "detected_at": "2026-10-23T04:56:02",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-23T10:56:03"
+ },
+ "FHB": {
+  "ticker": "FHB",
+  "name": "First Hawaiian, Inc.",
+  "target_date": "2026-10-23",
+  "detected_at": "2026-10-23T04:56:02",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-23T10:56:03"
+ },
+ "GNTX": {
+  "ticker": "GNTX",
+  "name": "Gentex",
+  "target_date": "2026-10-23",
+  "detected_at": "2026-10-23T04:56:03",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-23T10:56:03"
+ },
+ "PFBC": {
+  "ticker": "PFBC",
+  "name": "Preferred Bank",
+  "target_date": "2026-10-23",
+  "detected_at": "2026-10-23T04:56:03",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-23T10:56:03"
+ },
+ "RITM": {
+  "ticker": "RITM",
+  "name": "Rithm Capital",
+  "target_date": "2026-10-23",
+  "detected_at": "2026-10-23T04:56:03",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-23T10:56:03"
+ },
+ "SLB": {
+  "ticker": "SLB",
+  "name": "Schlumberger",
+  "target_date": "2026-10-23",
+  "detected_at": "2026-10-23T04:56:03",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-23T10:56:03"
+ },
+ "TMP": {
+  "ticker": "TMP",
+  "name": "Tompkins Financial Corporation",
+  "target_date": "2026-10-23",
+  "detected_at": "2026-10-23T04:56:03",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-23T10:56:03"
  }
 }
