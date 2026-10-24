@@ -1,16 +1,16 @@
 {
  "code": "BBT",
  "name": "Beacon Financial Corporation",
- "asof": "2026-10-22",
+ "asof": "2026-10-24",
  "gics_sector": "Financials",
  "industry": "Banks - Regional",
  "is_simple": true,
  "is_reit": false,
- "price": 28.0,
- "price_date": "2026-10-21",
- "mcap": 2346850560,
- "sel_score": 64.1,
- "tim_score": 103.1,
+ "price": 29.950000762939453,
+ "price_date": "2026-10-22",
+ "mcap": 2520349696,
+ "sel_score": 64.2,
+ "tim_score": 102.4,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
@@ -28,28 +28,28 @@
   "業績": null,
   "財務": null,
   "キャッシュフロー": null,
-  "配当の持続力": 70.3,
+  "配当の持続力": 67.1,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 86.5,
-  "株価バリュエーション": 110.0,
+  "利回り水準とChowder": 84.3,
+  "株価バリュエーション": 109.5,
   "金利スプレッド": null,
-  "金融品質": 61.5
+  "金融品質": 62.9
  },
- "div_yield": 4.607142857142858,
+ "div_yield": 4.307178521331672,
  "total_yield": null,
  "streak_up": 1,
  "streak_flat": 6,
- "payout_ni": 34.81,
- "roe": 8.4230006,
- "chowder": 8.296852860733566,
+ "payout_ni": 68.56,
+ "roe": 9.127,
+ "chowder": 7.996888524922379,
  "dgr5": 3.689710003590707,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 29.751220799788836,
  "interest_coverage": null,
- "per_vs_sector": 0.4374316358381503,
- "pbr_vs_sector": 0.376091336,
- "per_band_pos": 1.0,
+ "per_vs_sector": 0.5465881502890173,
+ "pbr_vs_sector": 0.40043944,
+ "per_band_pos": 0.9344199191714276,
  "yield_band_pos": 1.0,
  "next_earn": "2027-01-27",
  "earn_disc_date": "2026-10-21",
@@ -57,17 +57,16 @@
  "quarter_decel_detail": null,
  "warnings": [
   "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。",
-  "⚠ バリュートラップ注意：買い時が高い（103）のに質が低め（選定64）。安さの理由を確認"
+  "⚠ バリュートラップ注意：買い時が高い（102）のに質が低め（選定64）。安さの理由を確認"
  ],
  "roa": 0.39,
  "leverage": 9.3,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：買い時が高い（103）のに質が低め（選定64）。安さの理由を確認"
+   "t": "バリュートラップ注意：買い時が高い（102）のに質が低め（選定64）。安さの理由を確認"
   }
  ],
  "kind": "fin",
- "_generated_at": "2026-10-22T11:57:58",
- "_earnings_reflected_via": "earnings_watch_us"
+ "_generated_at": "2026-10-24T00:15:02"
 }
