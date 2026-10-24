@@ -1,7 +1,7 @@
 {
  "code": "6036",
  "name": "ＫｅｅＰｅｒ技研",
- "asof": "2026-10-23",
+ "asof": "2026-10-24",
  "jp_sector": "化学",
  "industry": "Specialty Chemicals",
  "is_simple": false,
@@ -9,7 +9,7 @@
  "price": 3930.0,
  "price_date": "2026-10-23",
  "mcap": 107254079488,
- "sel_score": 103.8,
+ "sel_score": 101.1,
  "tim_score": 97.5,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
@@ -25,9 +25,9 @@
   "高"
  ],
  "groups": {
-  "業績": 109.7,
-  "財務": 108.6,
-  "キャッシュフロー": 103.3,
+  "業績": 108.5,
+  "財務": 109.6,
+  "キャッシュフロー": 85.9,
   "配当の持続力": 94.2,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 92.3,
@@ -44,21 +44,28 @@
  "chowder": 54.11618591312634,
  "ocf_positive": 1,
  "fcf_positive": 1,
- "fcf_payout": 35.67024931454641,
- "per_vs_sector": 0.53573296875,
+ "fcf_payout": 101.69998263460602,
+ "per_vs_sector": 0.5682764583333333,
  "pbr_vs_sector": 3.2882873846153844,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
- "buyback_yen": 412000.0,
- "total_yield": 2.544913396659265,
- "total_payout": 27.920677573510538,
- "interest_coverage": 794.7497774810859,
- "warnings": [],
- "roa": 19.69,
- "leverage": 1.38,
- "insight_flags": [],
+ "buyback_yen": 376000.0,
+ "total_yield": 2.544879831502423,
+ "total_payout": 27.766160618317713,
+ "interest_coverage": 774.3675898245812,
+ "warnings": [
+  "⚠ FCF配当性向が100%超（102%：フリーCFで配当を賄えていない）"
+ ],
+ "roa": 29.33,
+ "leverage": 1.34,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（102%：フリーCFで配当を賄えていない）"
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-10-23T21:33:35"
+ "_generated_at": "2026-10-24T20:49:58"
 }
