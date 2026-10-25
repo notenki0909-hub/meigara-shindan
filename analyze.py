@@ -1591,6 +1591,42 @@ _RECO_JP = {"strong_buy": "強気買い", "buy": "買い", "hold": "中立",
             "underperform": "弱気", "sell": "売り", "none": "―"}
 
 
+def quarterly_rows_jp(yd):
+    """直近の四半期（最大5件）の売上高・営業利益・純利益を、M["参考"]に足せる「行」の形で返す（表示専用・採点には使わない）。
+    yfinanceの四半期決算（各3か月の単独値）。取れた指標だけ。2件未満の指標は出さない。"""
+    qr = yd.get("q_rows") or {}
+    qd = yd.get("q_dates") or []
+
+    def qrow(*labels):
+        for lb in labels:
+            if lb in qr:
+                return qr[lb]
+        return None
+
+    def qlabel(d):
+        d = str(d)
+        return f"{d[2:4]}/{d[5:7]}" if len(d) >= 7 else d
+
+    def build_row(name, s):
+        pairs = [(qlabel(d), v) for d, v in zip(qd, s or []) if is_num(v)][:5][::-1]
+        if len(pairs) < 2:
+            return None
+        yoy = None
+        if s and len(s) >= 5 and is_num(s[0]) and is_num(s[4]) and s[4] > 0 and s[0] > 0:
+            yoy = (s[0] / s[4] - 1) * 100
+        disp = " ← ".join(f"{lb} {fmt_yen(v)}" for lb, v in pairs[::-1])
+        ref = ("各四半期（3か月）の単独値。年月は四半期の末月。" + (f"直近は前年同期比 {yoy:+.1f}%。" if is_num(yoy) else "")
+               + "参考値（採点には使いません）")
+        return {"name": name, "v": None, "disp": disp, "ref": ref, "key": None,
+                "series": pairs, "series_kind": "yen", "series_full_labels": True}
+
+    rows = [build_row("売上高（直近の四半期）", qrow("Total Revenue", "Operating Revenue")),
+            build_row("営業利益（直近の四半期）",
+                      qrow("Operating Income", "Total Operating Income As Reported", "EBIT")),
+            build_row("純利益（直近の四半期）", qrow("Net Income", "Net Income Common Stockholders"))]
+    return [r for r in rows if r]
+
+
 def build_earnings(yd, price):
     info = yd.get("info", {})
     ea = {"has": False, "q": [], "fwd": {}}
@@ -1926,7 +1962,7 @@ def _trend_zones(rule):
     return []
 
 
-def svg_trend(pairs, kind="yen", current=None, rule=None):
+def svg_trend(pairs, kind="yen", current=None, rule=None, full_labels=False):
     """[(year|None, val)] 古い順 → 小さな折れ線（y軸目盛りつき）。負値は0基準線。
     current を渡すと右端に「現在」マーカー。rule を渡すと ◎/△/▲ ゾーンを塗り分け。"""
     pairs = [p for p in pairs if is_num(p[1])][-9:]
@@ -1991,7 +2027,7 @@ def svg_trend(pairs, kind="yen", current=None, rule=None):
     for i, (y, v) in enumerate(pairs):
         parts.append(f'<circle cx="{px(i):.0f}" cy="{py(v):.0f}" r="2.4" fill="var(--accent)"/>')
         if y is not None:
-            parts.append(f'<text x="{px(i):.0f}" y="{H-6}" class="cx">{str(y)[-2:]}</text>')
+            parts.append(f'<text x="{px(i):.0f}" y="{H-6}" class="cx">{str(y) if full_labels else str(y)[-2:]}</text>')
     for i in (0, n - 1):
         v = pairs[i][1]
         anch = "start" if i == 0 else "end"
@@ -2635,7 +2671,7 @@ def render_html(meta, dom_scores, detail, groups, sel_score, tim_score, vd, M, c
         trend = ""
         if sp and len([1 for _, v in sp if is_num(v)]) >= 2:
             trend = (f'<p class="rule"><b>推移：</b>古い→新しい</p>'
-                     f'<div class="trendwrap">{svg_trend(sp, it.get("series_kind", "yen"))}</div>')
+                     f'<div class="trendwrap">{svg_trend(sp, it.get("series_kind", "yen"), full_labels=bool(it.get("series_full_labels")))}</div>')
         if h or trend:
             ref_blocks.append(
                 '<details class="m"><summary>'
@@ -3051,6 +3087,12 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
             warnings.append("⚠ " + _fl["t"])
     except Exception:
         insight = {"rows": [], "flags": [], "raw": {}}
+
+    # 直近の四半期の売上高・営業利益・純利益（表示専用）。失敗しても診断は止めない。
+    try:
+        M["参考"].extend(quarterly_rows_jp(yd))
+    except Exception:
+        pass
 
     yoc = None
     if is_num(cost) and cost > 0 and is_num(ctx.get("fwd_dps")):
