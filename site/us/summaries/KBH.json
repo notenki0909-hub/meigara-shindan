@@ -6,11 +6,11 @@
  "industry": "Residential Construction",
  "is_simple": false,
  "is_reit": false,
- "price": 46.189998626708984,
- "price_date": "2026-10-22",
+ "price": 47.04999923706055,
+ "price_date": "2026-10-23",
  "mcap": 2858886656,
- "sel_score": 82.6,
- "tim_score": 99.6,
+ "sel_score": 78.4,
+ "tim_score": 99.4,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -25,22 +25,22 @@
   "高"
  ],
  "groups": {
-  "業績": 65.3,
+  "業績": 50.1,
   "財務": 92.9,
   "キャッシュフロー": 103.3,
   "配当の持続力": 79.2,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 93.9,
+  "利回り水準とChowder": 93.3,
   "株価バリュエーション": 86.7,
   "金利スプレッド": null
  },
- "div_yield": 2.1649708372620697,
- "total_yield": 21.099019826715953,
+ "div_yield": 2.1253985466854495,
+ "total_yield": 21.059447536139334,
  "streak_up": 0,
  "streak_flat": 14,
  "payout_ni": 28.170002,
  "roe": 5.908,
- "chowder": 21.111053019472678,
+ "chowder": 21.07148072889606,
  "dgr5": 18.94608218221061,
  "ocf_positive": 1,
  "fcf_positive": 1,
@@ -52,12 +52,18 @@
  "yield_band_pos": 1.0,
  "next_earn": "2026-12-17",
  "earn_disc_date": "2026-09-22",
- "quarter_decel_factor": null,
- "quarter_decel_detail": null,
- "warnings": [],
+ "quarter_decel_factor": 0.7675514501778292,
+ "quarter_decel_detail": {
+  "rev_yoy_q": -19.955457477256655,
+  "profit_yoy_q": -48.06519414432685,
+  "gap": -16.62242749110854
+ },
+ "warnings": [
+  "直近四半期の増収率が年次トレンドから大きく下振れ（年率-3.3%に対し直近四半期は-20.0%）、かつ営業利益/純利益も前年同期比マイナス（-48.1%）だったため、業績スコアを23%減点しています。年次決算にはまだ反映されていない直近の変化のため、最新の決算内容もあわせてご確認ください。"
+ ],
  "roa": 6.42,
  "leverage": 1.71,
  "insight_flags": [],
  "kind": "gen",
- "_generated_at": "2026-10-24T00:29:41"
+ "_generated_at": "2026-10-25T00:14:38"
 }
