@@ -548,6 +548,79 @@ def clean_dps_series(yf_fy):
     return [(fy, v) for fy, v, n in yf_fy if n <= mode]
 
 
+def _fmt_dps(v, usd=False):
+    t = f"{v:,.2f}".rstrip("0").rstrip(".")
+    return f"${t}" if usd else t
+
+
+def dividend_cut_rows(seq, usd=False, special_prev=None, unit_word="年度", max_show=10, basis_note=""):
+    """過去の減配の一覧を、M["参考"]に足せる「行」の形で返す（表示専用・採点には使わない）。
+    seq: [(年, 1株配当)]（古い順）。前年より0.5%を超えて下がった年をすべて拾う（連続非減配年数と同じ基準）。
+    special_prev(i): seq[i] の年に、突出した支払い（通常の1.8倍超）があったか（記念・特別配当の疑い）。
+    『前年が特別・記念配当で膨らみ、通常の額に戻っただけ』の可能性がある下げは、減配とは別の行に分ける。
+    戻り値: [row, ...]（減配も特別配当の反動もなければ空）。"""
+    cuts, specials = [], []
+    for i in range(1, len(seq)):
+        y, cur = seq[i]
+        prev = seq[i - 1][1]
+        if not (is_num(prev) and is_num(cur) and prev > 0) or cur >= prev * 0.995:
+            continue
+        if max(prev, cur) < 0.1:      # 古い年の端数（分割調整後の極小値）は拾わない
+            continue
+        pct = (cur / prev - 1) * 100
+        sp = bool(special_prev and special_prev(i - 1))
+        if not sp and i >= 2:         # 1年だけ上がって、元の水準（±5%）に戻った形
+            b = seq[i - 2][1]
+            sp = is_num(b) and b > 0 and abs(cur / b - 1) <= 0.05 and prev >= b * 1.05
+        txt = f"{y}{unit_word} {_fmt_dps(prev, usd)}→{_fmt_dps(cur, usd)}{'' if usd else '円'}（{pct:+.1f}%"
+        if pct <= -80:
+            txt += "・株式併合や事業分離の影響の可能性"
+        txt += "）"
+        (specials if sp else cuts).append(txt)
+    rows = []
+    span = f"{seq[0][0]}〜{seq[-1][0]}{unit_word}" if seq else ""
+
+    def lst(items):
+        items = items[::-1]           # 新しい順
+        t = "／".join(items[:max_show])
+        return t + (f"／ほか{len(items) - max_show}件" if len(items) > max_show else "")
+
+    if cuts:
+        rows.append({"name": "過去の減配の記録（一覧）", "v": None, "disp": f"{len(cuts)}件：" + lst(cuts),
+                     "ref": f"確認できた範囲（{span}）で、前年より0.5%を超えて下がった年。新しい順。{basis_note}参考表示（採点には使いません）。"
+                            "古い年のデータは、株式併合・分割・事業分離などの影響で、本物でない下げが混ざることがあります",
+                     "key": None})
+    if specials:
+        rows.append({"name": "特別・記念配当の反動の可能性（減配とは限らない）", "v": None,
+                     "disp": f"{len(specials)}件：" + lst(specials),
+                     "ref": "前の年に特別・記念配当が乗って膨らみ、通常の額に戻っただけの可能性がある下げ"
+                            "（前年に通常の1.8倍超の支払いがある、または1年だけ上がって元の水準に戻った形）。"
+                            "会社の発表（決算短信・配当予想の修正）で内訳を確認してください",
+                     "key": None})
+    return rows
+
+
+def dividend_special_checker(divs, fye_month, series):
+    """series（[(会計年度, 配当)]）に対応する special_prev(i) を作る。会計年度ごとの支払いのうち、
+    最大の1回が、前後の年（-2〜+1年）の通常の支払いの中央値の1.8倍を超えていれば True。"""
+    cutoff = (fye_month % 12) + 1
+    by = {}
+    for dd, v in divs or []:
+        fy = dd.year if dd.month >= cutoff else dd.year - 1
+        by.setdefault(fy, []).append(v)
+
+    def chk(i):
+        fy = series[i][0]
+        mine = by.get(fy) or []
+        others = [v for k in (fy - 2, fy - 1, fy + 1) for v in by.get(k, [])]
+        if not mine or len(others) < 2:
+            return False
+        srt = sorted(others)
+        med = srt[len(srt) // 2]
+        return med > 0 and max(mine) > med * 1.8
+    return chk
+
+
 def _one_streak(vals, strict):
     s = 0
     for i in range(len(vals) - 1, 0, -1):
@@ -1070,6 +1143,13 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
                              "下げない：その後の非減配年数が長い（目安10年以上）か、累進配当・DOE宣言が"
                              "あれば現在の評価は良好になり得る（連続非減配年数・累進配当宣言の各スコアに反映済み）",
                       "key": None})
+    # 過去の減配の一覧（表示専用）。IR BANKの決算期は区切り方が違うため、その場合は支払い単位の判定を使わない。
+    try:
+        if len(dps_series) >= 3:
+            _chk = dividend_special_checker(yd["divs"], fye_month, dps_series) if dps_src.startswith("yfinance") else None
+            M["参考"].extend(dividend_cut_rows(dps_series, False, _chk, "年度"))
+    except Exception:
+        pass
 
     # 配当の中身（記念・特別配当の疑い）
     if yd["divs"]:

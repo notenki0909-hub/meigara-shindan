@@ -422,6 +422,35 @@ def up_streak_rate(divs, max_years=60):
     return s
 
 
+def payment_rate_seq(divs, max_years=60):
+    """nocut_streak_rate と同じ『1回あたり配当額の前年同期比』用の列。[(年, 配当)]（古い順）。
+    決算期・支払スケジュールがバラバラな米国株でも、支払タイミングのズレによる偽の減配が出にくい。"""
+    if not divs:
+        return []
+    ds = sorted(divs)
+    anchor0 = ds[-1][0]
+    out = []
+    for k in range(max_years + 1):
+        anchor = anchor0 - dt.timedelta(days=365 * k)
+        best = min(ds, key=lambda p: abs((p[0] - anchor).days))
+        if abs((best[0] - anchor).days) > 120:
+            break
+        out.append((best[0].year, best[1]))
+    return out[::-1]
+
+
+def _special_checker_us(seq):
+    """seq[j] が前後3年の中央値の1.8倍を超える（特別配当の疑い）か。"""
+    def chk(j):
+        near = [seq[k][1] for k in range(max(0, j - 3), min(len(seq), j + 4)) if k != j]
+        if len(near) < 3:
+            return False
+        srt = sorted(near)
+        med = srt[len(srt) // 2]
+        return med > 0 and seq[j][1] > med * 1.8
+    return chk
+
+
 # ---------------------------------------------------------------- fetch
 def fetch_yf_us(ticker):
     """analyze.fetch_yf を suffix='' で呼ぶだけ（.T を付けない）。"""
@@ -777,6 +806,15 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
     M["参考"].append({"name": "減配履歴", "v": None, "disp": cut_disp,
                       "ref": "「連続非減配年数」の裏側にある事実。過去に減配があっても、その後の非減配年数が"
                              "長ければ現在の評価は良好になり得る", "key": None})
+    # 過去の減配の一覧（表示専用。1回あたり配当の前年同期比で判定）
+    try:
+        _seq = payment_rate_seq(divs)
+        if len(_seq) >= 3:
+            M["参考"].extend(analyze.dividend_cut_rows(
+                _seq, True, _special_checker_us(_seq), "年",
+                basis_note="金額は1回の支払いあたり（年合計ではなく、前年の同じ時期の支払いと比べた値）。"))
+    except Exception:
+        pass
 
     # ---- 期待（バリュエーション）----
     per = info.get("trailingPE")
