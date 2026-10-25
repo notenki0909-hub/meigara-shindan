@@ -7,11 +7,11 @@
  "is_reit": false,
  "price": 2071.5,
  "price_date": "2026-10-23",
- "mcap": 3996490661888,
- "q_score": 105.4,
+ "mcap": 3996491186176,
+ "q_score": 105.5,
  "groups": {
   "業績": 105.43074013873844,
-  "財務": 106.52224630157414,
+  "財務": 106.81983100859148,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
   "REIT品質": null
@@ -22,19 +22,19 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 98.7,
+ "bt_score": 103.1,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 105.97830853918991,
-  "fcf_yield": 104.49365579661398,
+  "ev_ebit_vs_sector": 105.97830599443793,
+  "fcf_yield": 104.49365258336286,
   "per_cheap": 110.0,
-  "pbr_cheap": 74.5
+  "pbr_cheap": 91.9
  },
- "ev_ebit": 6.055174450662938,
- "fcf_yield": 7.348096738984195,
+ "ev_ebit": 6.055175292339651,
+ "fcf_yield": 7.348095775008858,
  "per_band_pos": 1.0,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": 0.6407592011283533,
+ "pbr_band_pos": 0.9733237314600829,
+ "ev_ebit_vs_sector": 0.6407592901946721,
  "per_vs_sector": 0.5185086013513514,
  "pbr_vs_sector": 1.2546514444444443,
  "price_chg": {
@@ -54,9 +54,9 @@
    "value_trap": []
   },
   "raw": {
-   "roe": null,
+   "roe": 12.988060908026208,
    "roa": 6.618641622525262,
-   "leverage": null,
+   "leverage": 1.9623453948350764,
    "ocf_ni": 1.6334825971447888,
    "accrual": -4.406296138418264,
    "capex_da": 1.5259106994358866,
@@ -69,9 +69,9 @@
   "eps_cagr": 110.0,
   "op_margin": 99.32329747372478,
   "earnings_stability": 103.8685785814789,
-  "equity_ratio": null,
-  "de": null,
-  "net_de": null,
+  "equity_ratio": 107.30628572088669,
+  "de": 107.78650316979211,
+  "net_de": 105.66428884211298,
   "debt_to_ocf": 106.52224630157414,
   "interest_coverage": null,
   "ocf_positive": 100.0,
@@ -83,14 +83,14 @@
   "eps_cagr": 26.00870984470609,
   "op_margin": 9.898494621058715,
   "earnings_stability": 0.9689773073740146,
-  "equity_ratio": null,
-  "de": null,
-  "net_de": null,
+  "equity_ratio": 50.959428581330044,
+  "de": 0.22134968302078925,
+  "net_de": -0.06642888421129818,
   "debt_to_ocf": 1.0433261095277582,
   "interest_coverage": null,
   "ocf_positive": 1,
   "fcf_positive": 1,
   "fcf_payout": 28.248758794004075
  },
- "_generated_at": "2026-10-24T21:14:19"
+ "_generated_at": "2026-10-25T21:18:20"
 }
