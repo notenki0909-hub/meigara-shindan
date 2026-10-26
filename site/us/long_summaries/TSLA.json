@@ -8,9 +8,9 @@
  "price": 372.2200012207031,
  "price_date": "2026-10-23",
  "mcap": 1471285166080,
- "q_score": 86.7,
+ "q_score": 86.5,
  "groups": {
-  "業績": 59.6791505649677,
+  "業績": 59.239035933549935,
   "財務": 107.3874886558422,
   "キャッシュフロー": 100.0,
   "金融品質": null,
@@ -19,8 +19,12 @@
  "is_fin_simple": false,
  "is_reit_us": false,
  "current_pfo": null,
- "quarter_decel_factor": null,
- "quarter_decel_detail": null,
+ "quarter_decel_factor": 0.992625320111776,
+ "quarter_decel_detail": {
+  "rev_yoy_q": -0.17440825769710067,
+  "profit_yoy_q": -61.439312567132106,
+  "gap": -5.368733994411201
+ },
  "q_cov": "高",
  "bt_score": 21.9,
  "bt_cov": "高",
@@ -98,7 +102,7 @@
  },
  "metric_raw": {
   "rev_cagr": 5.1943257367141005,
-  "eps_cagr": -33.60658070372162,
+  "eps_cagr": -33.54127812357696,
   "op_margin": 5.113522519957396,
   "earnings_stability": 0.6248711340206186,
   "equity_ratio": null,
@@ -110,5 +114,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-25T01:08:02"
+ "_generated_at": "2026-10-26T00:59:21"
 }

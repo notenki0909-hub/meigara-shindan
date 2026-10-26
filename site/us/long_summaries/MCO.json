@@ -8,9 +8,9 @@
  "price": 483.45001220703125,
  "price_date": "2026-10-23",
  "mcap": 83358425088,
- "q_score": 99.6,
+ "q_score": 94.0,
  "groups": {
-  "業績": 110.0,
+  "業績": 95.97112806038025,
   "財務": 86.64803202070028,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
@@ -19,13 +19,17 @@
  "is_fin_simple": false,
  "is_reit_us": false,
  "current_pfo": null,
- "quarter_decel_factor": null,
- "quarter_decel_detail": null,
+ "quarter_decel_factor": 0.8724648005489114,
+ "quarter_decel_detail": {
+  "rev_yoy_q": 0.7972097658196287,
+  "profit_yoy_q": -0.6389776357827448,
+  "gap": -11.37675997255443
+ },
  "q_cov": "高",
  "bt_score": 54.7,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 72.59128722352759,
+  "ev_ebit_vs_sector": 72.64446893570495,
   "fcf_yield": 61.1875983706365,
   "per_cheap": 65.0,
   "pbr_cheap": 20.0
@@ -34,9 +38,9 @@
  "fcf_yield": 3.0890698777977375,
  "per_band_pos": 1.0,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 1.0898262367941336,
- "per_vs_sector": 1.7731654335260114,
- "pbr_vs_sector": 11.071164,
+ "ev_ebit_vs_sector": 1.0893608968125816,
+ "per_vs_sector": 1.6703579190751445,
+ "pbr_vs_sector": 10.225254,
  "price_chg": {
   "d": -1.5476989664729879,
   "w": -0.3339714046893705,
@@ -94,5 +98,5 @@
   "fcf_positive": 1,
   "fcf_payout": 27.223300970873787
  },
- "_generated_at": "2026-10-25T00:57:51"
+ "_generated_at": "2026-10-26T00:47:32"
 }

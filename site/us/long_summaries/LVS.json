@@ -8,9 +8,9 @@
  "price": 35.68000030517578,
  "price_date": "2026-10-23",
  "mcap": 23109978112,
- "q_score": 60.4,
+ "q_score": 74.7,
  "groups": {
-  "業績": 53.58693426793067,
+  "業績": 89.31155711321779,
   "財務": 43.97635258076522,
   "キャッシュフロー": 102.57802746566792,
   "金融品質": null,
@@ -19,12 +19,8 @@
  "is_fin_simple": false,
  "is_reit_us": false,
  "current_pfo": null,
- "quarter_decel_factor": 0.6,
- "quarter_decel_detail": {
-  "rev_yoy_q": -0.6614173228346454,
-  "profit_yoy_q": -21.875,
-  "gap": -47.51674083004587
- },
+ "quarter_decel_factor": null,
+ "quarter_decel_detail": null,
  "q_cov": "高",
  "bt_score": 107.3,
  "bt_cov": "高",
@@ -32,15 +28,15 @@
   "ev_ebit_vs_sector": 106.35322653402085,
   "fcf_yield": 105.67433558170448,
   "per_cheap": 110.0,
-  "pbr_cheap": 30.0
+  "pbr_cheap": null
  },
  "ev_ebit": 11.34767824927161,
  "fcf_yield": 7.702300674511345,
  "per_band_pos": 1.0,
- "pbr_band_pos": 0.0,
+ "pbr_band_pos": null,
  "ev_ebit_vs_sector": 0.6276370713092705,
  "per_vs_sector": 0.49401861486486487,
- "pbr_vs_sector": 4.323590760869565,
+ "pbr_vs_sector": null,
  "price_chg": {
   "d": -2.326850540720038,
   "w": -6.12996085042562,
@@ -57,9 +53,7 @@
    "cutoff": [
     "自己資本比率が10%未満（7.3%）"
    ],
-   "value_trap": [
-    "買い時スコアは高い（割安圏）が、品質スコアは低め。安い理由がある可能性（バリュートラップ）"
-   ]
+   "value_trap": []
   },
   "raw": {
    "roe": 102.32704402515725,
@@ -102,5 +96,5 @@
   "fcf_positive": 1,
   "fcf_payout": 46.79775280898876
  },
- "_generated_at": "2026-10-25T00:57:09"
+ "_generated_at": "2026-10-26T00:46:43"
 }
