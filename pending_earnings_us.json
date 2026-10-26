@@ -1,13 +1,4 @@
 {
- "FDX": {
-  "ticker": "FDX",
-  "name": "FedEx",
-  "target_date": "2026-10-12",
-  "detected_at": "2026-10-12T06:03:29",
-  "status": "giveup",
-  "attempts": 9,
-  "next_retry_at": "2026-10-15T03:50:49"
- },
  "ACI": {
   "ticker": "ACI",
   "name": "Albertsons",
@@ -1340,9 +1331,10 @@
   "name": "Bank of Hawaii",
   "target_date": "2026-10-26",
   "detected_at": "2026-10-26T04:52:32",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 1,
-  "next_retry_at": "2026-10-26T10:52:32"
+  "next_retry_at": "2026-10-26T10:52:32",
+  "resolved_at": "2026-10-26T13:09:42"
  },
  "BRX": {
   "ticker": "BRX",
@@ -1350,8 +1342,8 @@
   "target_date": "2026-10-26",
   "detected_at": "2026-10-26T04:52:32",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-26T10:52:32"
+  "attempts": 2,
+  "next_retry_at": "2026-10-26T19:09:42"
  },
  "CINF": {
   "ticker": "CINF",
@@ -1359,8 +1351,8 @@
   "target_date": "2026-10-26",
   "detected_at": "2026-10-26T04:52:32",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-26T10:52:32"
+  "attempts": 2,
+  "next_retry_at": "2026-10-26T19:09:42"
  },
  "GBX": {
   "ticker": "GBX",
@@ -1368,8 +1360,8 @@
   "target_date": "2026-10-26",
   "detected_at": "2026-10-26T04:52:32",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-26T10:52:32"
+  "attempts": 2,
+  "next_retry_at": "2026-10-26T19:09:42"
  },
  "HIG": {
   "ticker": "HIG",
@@ -1377,8 +1369,8 @@
   "target_date": "2026-10-26",
   "detected_at": "2026-10-26T04:52:32",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-26T10:52:32"
+  "attempts": 2,
+  "next_retry_at": "2026-10-26T19:09:42"
  },
  "HTO": {
   "ticker": "HTO",
@@ -1386,17 +1378,18 @@
   "target_date": "2026-10-26",
   "detected_at": "2026-10-26T04:52:32",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-26T10:52:32"
+  "attempts": 2,
+  "next_retry_at": "2026-10-26T19:09:42"
  },
  "LKFN": {
   "ticker": "LKFN",
   "name": "Lakeland Financial",
   "target_date": "2026-10-26",
   "detected_at": "2026-10-26T04:52:32",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 1,
-  "next_retry_at": "2026-10-26T10:52:32"
+  "next_retry_at": "2026-10-26T10:52:32",
+  "resolved_at": "2026-10-26T13:09:42"
  },
  "NWBI": {
   "ticker": "NWBI",
@@ -1404,8 +1397,8 @@
   "target_date": "2026-10-26",
   "detected_at": "2026-10-26T04:52:32",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-26T10:52:32"
+  "attempts": 2,
+  "next_retry_at": "2026-10-26T19:09:42"
  },
  "PECO": {
   "ticker": "PECO",
@@ -1413,8 +1406,8 @@
   "target_date": "2026-10-26",
   "detected_at": "2026-10-26T04:52:32",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-26T10:52:32"
+  "attempts": 2,
+  "next_retry_at": "2026-10-26T19:09:42"
  },
  "PFG": {
   "ticker": "PFG",
@@ -1422,8 +1415,8 @@
   "target_date": "2026-10-26",
   "detected_at": "2026-10-26T04:52:32",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-26T10:52:32"
+  "attempts": 2,
+  "next_retry_at": "2026-10-26T19:09:42"
  },
  "PII": {
   "ticker": "PII",
@@ -1431,8 +1424,8 @@
   "target_date": "2026-10-26",
   "detected_at": "2026-10-26T04:52:32",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-26T10:52:32"
+  "attempts": 2,
+  "next_retry_at": "2026-10-26T19:09:42"
  },
  "PRK": {
   "ticker": "PRK",
@@ -1440,8 +1433,8 @@
   "target_date": "2026-10-26",
   "detected_at": "2026-10-26T04:52:32",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-26T10:52:32"
+  "attempts": 2,
+  "next_retry_at": "2026-10-26T19:09:42"
  },
  "PSA": {
   "ticker": "PSA",
@@ -1449,8 +1442,8 @@
   "target_date": "2026-10-26",
   "detected_at": "2026-10-26T04:52:32",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-26T10:52:32"
+  "attempts": 2,
+  "next_retry_at": "2026-10-26T19:09:42"
  },
  "SUI": {
   "ticker": "SUI",
@@ -1458,16 +1451,17 @@
   "target_date": "2026-10-26",
   "detected_at": "2026-10-26T04:52:32",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-26T10:52:32"
+  "attempts": 2,
+  "next_retry_at": "2026-10-26T19:09:42"
  },
  "VZ": {
   "ticker": "VZ",
   "name": "Verizon",
   "target_date": "2026-10-26",
   "detected_at": "2026-10-26T04:52:32",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 1,
-  "next_retry_at": "2026-10-26T10:52:32"
+  "next_retry_at": "2026-10-26T10:52:32",
+  "resolved_at": "2026-10-26T13:09:42"
  }
 }
