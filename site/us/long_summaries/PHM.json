@@ -5,12 +5,12 @@
  "gics_sector": "Consumer Discretionary",
  "is_simple": false,
  "is_reit": false,
- "price": 121.19000244140625,
- "price_date": "2026-10-23",
- "mcap": 23085041664,
- "q_score": 100.7,
+ "price": 121.30999755859375,
+ "price_date": "2026-10-26",
+ "mcap": 23107899392,
+ "q_score": 95.2,
  "groups": {
-  "業績": 92.9843622646169,
+  "業績": 79.14995902356519,
   "財務": 107.2498950539885,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
@@ -19,35 +19,39 @@
  "is_fin_simple": false,
  "is_reit_us": false,
  "current_pfo": null,
- "quarter_decel_factor": null,
- "quarter_decel_detail": null,
+ "quarter_decel_factor": 0.8512179585457448,
+ "quarter_decel_detail": {
+  "rev_yoy_q": -9.783715443088326,
+  "profit_yoy_q": -20.286611235896025,
+  "gap": -12.43910207271276
+ },
  "q_cov": "高",
  "bt_score": 96.7,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 110.0,
-  "fcf_yield": 105.24770549763619,
+  "fcf_yield": 105.22273112955975,
   "per_cheap": 75.0,
-  "pbr_cheap": 84.9
+  "pbr_cheap": 84.8
  },
- "ev_ebit": 7.856370517121732,
- "fcf_yield": 7.574311649290857,
+ "ev_ebit": 7.864044544671073,
+ "fcf_yield": 7.566819338867926,
  "per_band_pos": 0.0,
- "pbr_band_pos": 0.19779116886058457,
- "ev_ebit_vs_sector": 0.43453376753991885,
- "per_vs_sector": 0.43742060810810807,
- "pbr_vs_sector": 0.1859649347826087,
+ "pbr_band_pos": 0.19604788517455451,
+ "ev_ebit_vs_sector": 0.43495821596632045,
+ "per_vs_sector": 0.4378537162162162,
+ "pbr_vs_sector": 0.18614907608695652,
  "price_chg": {
-  "d": 1.431201068319532,
-  "w": 6.7283127999265835,
-  "m": 2.5469640619882883,
-  "3m": -7.198096454618685,
-  "6m": -4.993724709238478,
-  "9m": -3.171940799411299,
-  "y": 0.8152427954391195
+  "d": 0.09901403974763578,
+  "w": 9.386831279966778,
+  "m": 1.2181886550360677,
+  "3m": -9.974027785830241,
+  "6m": -5.433427881999653,
+  "9m": -3.0063181781442627,
+  "y": 0.37232909645017465
  },
- "div_yield": 0.8581565962941755,
- "implied_fcf_growth": 0.0202,
+ "div_yield": 0.8573077412664782,
+ "implied_fcf_growth": 0.0204,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -94,5 +98,5 @@
   "fcf_positive": 1,
   "fcf_payout": 10.104699196412078
  },
- "_generated_at": "2026-10-26T00:52:55"
+ "_generated_at": "2026-10-27T02:03:23"
 }
