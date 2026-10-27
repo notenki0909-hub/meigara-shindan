@@ -1,16 +1,16 @@
 {
  "code": "ALV",
  "name": "Autoliv, Inc.",
- "asof": "2026-10-25",
+ "asof": "2026-10-27",
  "gics_sector": "Consumer Discretionary",
  "industry": "Auto Parts",
  "is_simple": false,
  "is_reit": false,
  "price": 114.66999816894531,
  "price_date": "2026-10-23",
- "mcap": 8257007616,
- "sel_score": 98.8,
- "tim_score": 106.8,
+ "mcap": 8303812096,
+ "sel_score": 97.4,
+ "tim_score": 106.7,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -25,17 +25,17 @@
   "高"
  ],
  "groups": {
-  "業績": 102.7,
+  "業績": 97.7,
   "財務": 100.3,
   "キャッシュフロー": 103.3,
   "配当の持続力": 91.7,
   "配当利回りセオリー": 108.3,
   "利回り水準とChowder": 105.1,
-  "株価バリュエーション": 105.9,
+  "株価バリュエーション": 105.4,
   "金利スプレッド": null
  },
  "div_yield": 3.0347955485905347,
- "total_yield": 7.285730225214188,
+ "total_yield": 7.261769809834704,
  "streak_up": 5,
  "streak_flat": 5,
  "payout_ni": 41.830003,
@@ -46,18 +46,24 @@
  "fcf_positive": 1,
  "fcf_payout": 33.24022346368715,
  "interest_coverage": 10.572815533980583,
- "per_vs_sector": 0.45737736486486485,
- "pbr_vs_sector": 0.366602847826087,
- "per_band_pos": 0.5780248248381223,
+ "per_vs_sector": 0.4599699662162162,
+ "pbr_vs_sector": 0.3686809021739131,
+ "per_band_pos": 0.5634092614461783,
  "yield_band_pos": 0.930728461328283,
  "next_earn": "2027-01-29",
  "earn_disc_date": "2026-10-23",
- "quarter_decel_factor": null,
- "quarter_decel_detail": null,
- "warnings": [],
+ "quarter_decel_factor": 0.9515006547592028,
+ "quarter_decel_detail": {
+  "rev_yoy_q": -0.48041389504803744,
+  "profit_yoy_q": -4.868913857677903,
+  "gap": -7.424967262039861
+ },
+ "warnings": [
+  "直近四半期の増収率が年次トレンドから大きく下振れ（年率+6.9%に対し直近四半期は-0.5%）、かつ営業利益/純利益も前年同期比マイナス（-4.9%）だったため、業績スコアを5%減点しています。年次決算にはまだ反映されていない直近の変化のため、最新の決算内容もあわせてご確認ください。"
+ ],
  "roa": 8.5,
  "leverage": 3.36,
  "insight_flags": [],
  "kind": "gen",
- "_generated_at": "2026-10-25T23:44:45"
+ "_generated_at": "2026-10-27T01:04:26"
 }

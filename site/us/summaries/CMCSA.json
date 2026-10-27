@@ -1,16 +1,16 @@
 {
  "code": "CMCSA",
  "name": "Comcast Corporation",
- "asof": "2026-10-25",
+ "asof": "2026-10-27",
  "gics_sector": "Communication Services",
  "industry": "Telecom Services",
  "is_simple": false,
  "is_reit": false,
  "price": 22.690000534057617,
  "price_date": "2026-10-23",
- "mcap": 80572334080,
- "sel_score": 100.8,
- "tim_score": 109.4,
+ "mcap": 78299684864,
+ "sel_score": 99.8,
+ "tim_score": 109.5,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -25,17 +25,17 @@
   "高"
  ],
  "groups": {
-  "業績": 101.6,
+  "業績": 98.1,
   "財務": 97.8,
   "キャッシュフロー": 103.3,
   "配当の持続力": 101.4,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 110.0,
-  "株価バリュエーション": 107.0,
+  "株価バリュエーション": 107.4,
   "金利スプレッド": 110.0
  },
  "div_yield": 5.817540629929401,
- "total_yield": 14.697759977796157,
+ "total_yield": 14.955508442223458,
  "streak_up": 18,
  "streak_flat": 18,
  "payout_ni": 41.77,
@@ -46,18 +46,24 @@
  "fcf_positive": 1,
  "fcf_payout": 25.443202495451,
  "interest_coverage": 6.843955545475165,
- "per_vs_sector": 0.34687826086956525,
- "pbr_vs_sector": 0.14751114067796608,
- "per_band_pos": 0.6408852561040571,
+ "per_vs_sector": 0.3370940869565217,
+ "pbr_vs_sector": 0.14335038983050846,
+ "per_band_pos": 0.6853618846174062,
  "yield_band_pos": 1.0,
  "next_earn": "2027-01-28",
  "earn_disc_date": "2026-10-22",
- "quarter_decel_factor": null,
- "quarter_decel_detail": null,
- "warnings": [],
+ "quarter_decel_factor": 0.9657570518652093,
+ "quarter_decel_detail": {
+  "rev_yoy_q": -6.090133982947621,
+  "profit_yoy_q": -3.84962949575276,
+  "gap": -6.712147406739533
+ },
+ "warnings": [
+  "直近四半期の増収率が年次トレンドから大きく下振れ（年率+0.6%に対し直近四半期は-6.1%）、かつ営業利益/純利益も前年同期比マイナス（-3.8%）だったため、業績スコアを3%減点しています。年次決算にはまだ反映されていない直近の変化のため、最新の決算内容もあわせてご確認ください。"
+ ],
  "roa": 7.34,
  "leverage": 2.81,
  "insight_flags": [],
  "kind": "gen",
- "_generated_at": "2026-10-25T23:49:51"
+ "_generated_at": "2026-10-27T01:08:39"
 }
