@@ -553,6 +553,84 @@ def _fmt_dps(v, usd=False):
     return f"${t}" if usd else t
 
 
+def fix_split_day_dividends(divs, splits):
+    """株式分割と同じ日（権利落ち日）の配当が、Yahooで分割後の株数に調整されないまま残る問題を補正する。
+    divs: [(ex-date, 1株配当)]、splits: [(分割日, 分割比率)]（1株→5株なら5.0）。
+    その配当を直前の配当と比べ、比率が『調整済みなら1倍前後・未調整なら分割比率前後』のうち、
+    分割比率のほうに近い（かつ0.5〜2倍の範囲内）ときだけ、分割比率で割る（すでに調整済みなら何もしない）。
+    比率が2倍未満と0.5倍超の分割（1.5分割など）は、判定があいまいなので扱わない。
+    戻り値: (補正後のdivs, [(ex-date, 補正前, 補正後, 比率)])。"""
+    divs = sorted(divs or [])
+    fixes = []
+    out = list(divs)
+    for sd, r in splits or []:
+        if not is_num(r) or r <= 0 or (0.5 < r < 2.0):
+            continue
+        for i, (d0, v) in enumerate(out):
+            if d0 != sd or i == 0:
+                continue
+            prev = out[i - 1][1]
+            if not (is_num(prev) and prev > 0 and is_num(v) and v > 0):
+                continue
+            obs = v / prev
+            if not (0.5 * r <= obs <= 2.0 * r):
+                continue
+            if abs(math.log(obs / r)) < abs(math.log(obs)):       # 1倍より分割比率に近い＝未調整
+                new = round(v / r, 4)
+                fixes.append((d0, v, new, r))
+                out[i] = (d0, new)
+    return out, fixes
+
+
+def apply_split_day_fix(yd, years=2):
+    """診断用に取得した yd["divs"]（と、それを合計しただけの info["dividendRate"]）に、
+    fix_split_day_dividends の補正をかける（配当側の generate() / generate_us() だけが呼ぶ。
+    fetch_yf 自体は変えない＝10年保有ツールの取得・計算には影響しない）。補正した内容は yd["div_fix"] に残す。
+    分割履歴を取れない・補正対象が無いときは、何も変えない。"""
+    yd["div_fix"] = []
+    try:
+        tk = yf.Ticker(yd["ticker"])
+        sp = tk.splits
+        cut = TODAY - dt.timedelta(days=365 * years)
+        splits = [(i.date(), float(v)) for i, v in sp.items() if i.date() >= cut and is_num(float(v))]
+        if not splits or not yd.get("divs"):
+            return yd
+        raw = list(yd["divs"])
+        new, fixes = fix_split_day_dividends(raw, splits)
+        if not fixes:
+            return yd
+        yd["divs"] = new
+        yd["div_fix"] = fixes
+        info = yd.get("info") or {}
+        dr = info.get("dividendRate")
+        raw12 = sum(v for d0, v in raw if (TODAY - d0).days <= 366)
+        new12 = sum(v for d0, v in new if (TODAY - d0).days <= 366)
+        if is_num(dr) and raw12 > 0 and abs(dr - raw12) / raw12 < 0.03:
+            # YahooのdividendRateが、未調整の配当を合計しただけの値のとき（豊田合成：102.6）は、補正後の直近12か月に置き換える
+            info["dividendRate"] = round(new12, 4)
+        elif is_num(dr) and new12 > 0:
+            # 会社予想（分割前の株数ベース）のまま残っているとき（アカツキ：予想120円に対し、補正後の直近12か月は40円）は、
+            # 分割比率で割る。分割比率3倍以上で、補正後の直近12か月の0.7〜1.5×比率の範囲に入るときだけ（2分割は増配との区別がつかないので除く）。
+            r = max(f[3] for f in fixes)
+            q = dr / new12
+            if r >= 3 and 0.7 * r <= q <= 1.5 * r:
+                info["dividendRate"] = round(dr / r, 4)
+    except Exception:
+        yd["div_fix"] = []
+    return yd
+
+
+def split_fix_rows(yd):
+    """補正した配当を、報告書の参考欄に出す行（補正が無ければ空）。"""
+    fx = yd.get("div_fix") or []
+    if not fx:
+        return []
+    txt = "／".join(f"{d0.isoformat()}の配当 {_fmt_dps(v)}→{_fmt_dps(n)}（分割比率{r:g}倍で換算）" for d0, v, n, r in fx)
+    return [{"name": "配当データの補正（株式分割）", "v": None, "disp": txt,
+             "ref": "株式分割と同じ日の配当が、取得元で分割後の株数に調整されていなかったため、分割比率で割って換算しました。"
+                    "取得元が修正されれば、この補正は自動的に行われなくなります", "key": None}]
+
+
 def dividend_cut_rows(seq, usd=False, special_prev=None, unit_word="年度", max_show=10, basis_note=""):
     """過去の減配の一覧を、M["参考"]に足せる「行」の形で返す（表示専用・採点には使わない）。
     seq: [(年, 1株配当)]（古い順）。前年より0.5%を超えて下がった年をすべて拾う（連続非減配年数と同じ基準）。
@@ -3079,6 +3157,7 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
     except Exception as e:
         res["error"] = f"取得失敗: {e}"
         return res
+    apply_split_day_fix(yd)
     info = yd.get("info") or {}
     if not info and yd.get("price") is None:
         res["error"] = "データ取得できず（コード確認。日本株のみ）"
@@ -3171,6 +3250,10 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
     # 直近の四半期の売上高・営業利益・純利益（表示専用）。失敗しても診断は止めない。
     try:
         M["参考"].extend(quarterly_rows_jp(yd))
+    except Exception:
+        pass
+    try:
+        M["参考"].extend(split_fix_rows(yd))
     except Exception:
         pass
 

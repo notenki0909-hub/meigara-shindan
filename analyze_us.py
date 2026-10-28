@@ -806,6 +806,10 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
     M["参考"].append({"name": "減配履歴", "v": None, "disp": cut_disp,
                       "ref": "「連続非減配年数」の裏側にある事実。過去に減配があっても、その後の非減配年数が"
                              "長ければ現在の評価は良好になり得る", "key": None})
+    try:
+        M["参考"].extend(analyze.split_fix_rows(yd))
+    except Exception:
+        pass
     # 過去の減配の一覧（表示専用。1回あたり配当の前年同期比で判定）
     try:
         _seq = payment_rate_seq(divs)
@@ -1636,6 +1640,7 @@ def generate_us(ticker, cfg=None, log=None):
     except Exception as e:
         res["error"] = f"fetch failed: {e}"
         return res
+    analyze.apply_split_day_fix(yd)
     info = yd.get("info") or {}
     if not info and yd.get("price") is None:
         res["error"] = "データなし（ティッカーを確認。米国上場銘柄のみ対応）"
