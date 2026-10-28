@@ -1,19 +1,19 @@
 {
  "code": "8008",
  "name": "ヨンドシーホールディングス",
- "asof": "2026-10-27",
+ "asof": "2026-10-28",
  "jp_sector": "繊維製品",
  "industry": "Apparel Manufacturing",
  "is_simple": false,
  "is_reit": false,
- "price": 1998.0,
- "price_date": "2026-10-27",
- "mcap": 42943311872,
+ "price": 1952.0,
+ "price_date": "2026-10-28",
+ "mcap": 41954627584,
  "sel_score": 80.4,
- "tim_score": 69.9,
+ "tim_score": 77.9,
  "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "選定・買い時とも中位水準。",
+ "tim_label": "買い時スコア上位（割安水準）",
+ "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
  "cov_sel": [
   16,
   16,
@@ -29,34 +29,35 @@
   "財務": 84.8,
   "キャッシュフロー": 73.3,
   "配当の持続力": 66.1,
-  "配当利回りセオリー": 53.5,
-  "利回り水準とChowder": 66.2,
-  "株価バリュエーション": 105.6,
+  "配当利回りセオリー": 70.0,
+  "利回り水準とChowder": 67.1,
+  "株価バリュエーション": 106.1,
   "金利スプレッド": null
  },
- "div_yield": 4.2542542542542545,
+ "div_yield": 4.354508196721311,
  "streak_up": 0,
  "streak_flat": 23,
  "payout_ni": 70.26,
  "roe": 6.317,
  "div_policy": null,
  "dgr5": 0.4890208856860756,
- "chowder": 4.74327513994033,
+ "chowder": 4.843529082407387,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 456.7430025445293,
- "per_vs_sector": 0.8267420689655172,
- "pbr_vs_sector": 0.9275878181818182,
+ "per_vs_sector": 0.8045317733990147,
+ "pbr_vs_sector": 0.9062319999999999,
  "per_band_pos": 1.0,
- "yield_band_pos": 0.13494821259336942,
+ "yield_band_pos": 0.29955780977724367,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 0.0,
- "total_yield": 4.2542542542542545,
+ "total_yield": 4.354508196721311,
  "total_payout": 100.16741071428572,
  "interest_coverage": 21.77777777777778,
  "warnings": [
-  "⚠ FCF配当性向が100%超（457%：フリーCFで配当を賄えていない）"
+  "⚠ FCF配当性向が100%超（457%：フリーCFで配当を賄えていない）",
+  "⚠ バリュートラップ注意：PBR 1.00倍（1倍割れ）かつROE 4.4%（5%未満）"
  ],
  "roa": 2.6,
  "leverage": 1.68,
@@ -64,8 +65,12 @@
   {
    "k": "fcf_payout",
    "t": "FCF配当性向が100%超（457%：フリーCFで配当を賄えていない）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：PBR 1.00倍（1倍割れ）かつROE 4.4%（5%未満）"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-10-27T22:06:48"
+ "_generated_at": "2026-10-28T22:35:09"
 }
