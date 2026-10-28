@@ -6,11 +6,11 @@
  "industry": "Banks - Regional",
  "is_simple": true,
  "is_reit": false,
- "price": 17.989999771118164,
- "price_date": "2026-10-26",
+ "price": 18.239999771118164,
+ "price_date": "2026-10-27",
  "mcap": 2889724160,
  "sel_score": 37.2,
- "tim_score": 103.7,
+ "tim_score": 103.3,
  "sel_label": "選定スコア基準未達",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は最下位水準。低評価には理由があることが多い（バリュートラップの可能性）。",
@@ -29,19 +29,19 @@
   "財務": null,
   "キャッシュフロー": null,
   "配当の持続力": 72.2,
-  "配当利回りセオリー": 104.3,
-  "利回り水準とChowder": 97.4,
+  "配当利回りセオリー": 103.8,
+  "利回り水準とChowder": 96.8,
   "株価バリュエーション": 110.0,
   "金利スプレッド": null,
   "金融品質": 22.2
  },
- "div_yield": 2.6681490055970447,
- "total_yield": 9.164513004574719,
+ "div_yield": 2.631578980390385,
+ "total_yield": 9.127942979368058,
  "streak_up": 1,
  "streak_flat": 7,
  "payout_ni": 32.06,
  "roe": -0.65499996,
- "chowder": 13.42478333042605,
+ "chowder": 13.388213305219391,
  "dgr5": 10.756634324829006,
  "ocf_positive": 1,
  "fcf_positive": 1,
@@ -50,23 +50,24 @@
  "per_vs_sector": null,
  "pbr_vs_sector": 0.3969964,
  "per_band_pos": null,
- "yield_band_pos": 0.7722131876435492,
+ "yield_band_pos": 0.7513940090749307,
  "next_earn": "2026-10-27",
  "earn_disc_date": "2026-10-27",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
   "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。",
-  "⚠ バリュートラップ注意：買い時が高い（104）のに質が低め（選定37）。安さの理由を確認"
+  "⚠ バリュートラップ注意：買い時が高い（103）のに質が低め（選定37）。安さの理由を確認"
  ],
  "roa": 0.66,
  "leverage": 9.83,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：買い時が高い（104）のに質が低め（選定37）。安さの理由を確認"
+   "t": "バリュートラップ注意：買い時が高い（103）のに質が低め（選定37）。安さの理由を確認"
   }
  ],
  "kind": "fin",
- "_generated_at": "2026-10-28T00:56:55"
+ "_generated_at": "2026-10-28T05:47:11",
+ "_earnings_reflected_via": "earnings_watch_us"
 }
