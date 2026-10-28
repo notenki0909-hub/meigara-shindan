@@ -5,12 +5,12 @@
  "gics_sector": "Consumer Discretionary",
  "is_simple": false,
  "is_reit": false,
- "price": 36.56999969482422,
- "price_date": "2026-10-26",
- "mcap": 23686432768,
- "q_score": 74.7,
+ "price": 36.119998931884766,
+ "price_date": "2026-10-27",
+ "mcap": 23394965504,
+ "q_score": 60.4,
  "groups": {
-  "業績": 89.31155711321779,
+  "業績": 53.58693426793067,
   "財務": 43.97635258076522,
   "キャッシュフロー": 102.57802746566792,
   "金融品質": null,
@@ -19,41 +19,47 @@
  "is_fin_simple": false,
  "is_reit_us": false,
  "current_pfo": null,
- "quarter_decel_factor": null,
- "quarter_decel_detail": null,
+ "quarter_decel_factor": 0.6,
+ "quarter_decel_detail": {
+  "rev_yoy_q": -3.452416691684179,
+  "profit_yoy_q": -21.032745591939552,
+  "gap": -50.3077401988954
+ },
  "q_cov": "高",
- "bt_score": 107.0,
+ "bt_score": 107.2,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 106.0583224598193,
-  "fcf_yield": 105.04950150766972,
+  "ev_ebit_vs_sector": 106.33649166716253,
+  "fcf_yield": 105.36158188529438,
   "per_cheap": 110.0,
   "pbr_cheap": null
  },
- "ev_ebit": 11.534293547426351,
- "fcf_yield": 7.514850452300914,
+ "ev_ebit": 11.439937035933958,
+ "fcf_yield": 7.608474565588315,
  "per_band_pos": 1.0,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 0.6379587139063247,
- "per_vs_sector": 0.5063413513513514,
+ "ev_ebit_vs_sector": 0.6282227916493113,
+ "per_vs_sector": 0.5001107432432432,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": 2.4943928868726317,
-  "w": -3.788473270974091,
-  "m": -6.206724492087123,
-  "3m": -24.207254518499035,
-  "6m": -32.86212800574607,
-  "9m": -39.93101338170463,
-  "y": -35.718052228563735
+  "d": -1.2305189135758732,
+  "w": -5.370708240506028,
+  "m": -6.8592055986143485,
+  "3m": -25.602472709592472,
+  "6m": -33.431625416120845,
+  "9m": -40.149130331173886,
+  "y": -37.291666859829874
  },
- "div_yield": 3.281378206218134,
- "implied_fcf_growth": 0.0213,
+ "div_yield": 3.3222592344561375,
+ "implied_fcf_growth": 0.0196,
  "insight": {
   "flags": {
    "cutoff": [
     "自己資本比率が10%未満（7.3%）"
    ],
-   "value_trap": []
+   "value_trap": [
+    "買い時スコアは高い（割安圏）が、品質スコアは低め。安い理由がある可能性（バリュートラップ）"
+   ]
   },
   "raw": {
    "roe": 102.32704402515725,
@@ -96,5 +102,5 @@
   "fcf_positive": 1,
   "fcf_payout": 46.79775280898876
  },
- "_generated_at": "2026-10-27T01:57:51"
+ "_generated_at": "2026-10-28T01:51:44"
 }
