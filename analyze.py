@@ -1785,6 +1785,104 @@ def quarterly_rows_jp(yd):
     return [r for r in rows if r]
 
 
+def investing_breakdown_rows(yd, usd=False, financial=False):
+    """投資CFの内訳と、設備投資・利益の現金化の目安を M["参考"] に足せる「行」の形で返す（表示専用・採点には使わない）。
+    FCF（yfinanceの Free Cash Flow ＝ 営業CF＋設備投資）に効くのは設備投資だけで、有価証券・預金等の出入りは入らない点を明示する。"""
+    cr, cy = yd.get("cf_rows") or {}, yd.get("cf_years") or []
+    fmt = _fmt_usd_big if usd else fmt_yen
+    kind = "usd" if usd else "yen"
+
+    def r(*labels):
+        return row(cr, *labels)
+
+    def at(s, i=0):
+        return s[i] if s and len(s) > i and is_num(s[i]) else None
+
+    def signed(v):
+        return ("+" if v > 0 else "") + fmt(v)
+
+    icf, ocf = r("Investing Cash Flow"), r("Operating Cash Flow")
+    ppe, intg = r("Net PPE Purchase And Sale"), r("Net Intangibles Purchase And Sale")
+    sec, biz = r("Net Investment Purchase And Sale"), r("Net Business Purchase And Sale")
+    capex_gross = r("Capital Expenditure")
+    rows = []
+
+    # 直近期の内訳（合計＝設備投資＋有価証券等＋事業買収＋その他）
+    tot = at(icf)
+    cap_net = None
+    if is_num(at(ppe)) or is_num(at(intg)):
+        cap_net = (at(ppe) or 0.0) + (at(intg) or 0.0)
+    elif is_num(at(capex_gross)):
+        cap_net = at(capex_gross)
+    if is_num(tot) and is_num(cap_net):
+        sec0, biz0 = at(sec), at(biz)
+        other = tot - cap_net - (sec0 or 0.0) - (biz0 or 0.0)
+        parts = [f"設備投資 {signed(cap_net)}"]
+        if is_num(sec0) and sec0 != 0:
+            parts.append(f"有価証券等 {signed(sec0)}")
+        if is_num(biz0) and biz0 != 0:
+            parts.append(f"事業の取得・売却 {signed(biz0)}")
+        if abs(other) >= max(abs(tot) * 0.02, 1.0):
+            parts.append(f"その他 {signed(other)}")
+        yr = f"{cy[0]}年度：" if cy else ""
+        rows.append({"name": "投資CFの内訳（直近期）", "v": None,
+                     "disp": f"{yr}" + " ／ ".join(parts) + f"（合計 {fmt(tot)}）",
+                     "ref": "設備投資＝有形・無形固定資産の取得から売却を引いた純額。有価証券等＝購入と売却の差し引き（プラスは売却超）。"
+                            "その他＝定期預金の出入りや分類されない分。FCF（営業CF−設備投資）に響くのは設備投資だけです。参考値（採点には使いません）",
+                     "key": None})
+
+    # 設備投資額（取得額）の推移
+    cx = [abs(x) if is_num(x) else None for x in (capex_gross or [])]
+    cxp = [(y, v) for y, v in zip(cy, cx) if is_num(v)][::-1] if cy and len(cy) == len(cx) else []
+    if len(cxp) >= 2:
+        rows.append({"name": "設備投資額（取得額・推移）", "v": None,
+                     "disp": " ← ".join(fmt(v) for _, v in cxp[::-1]),
+                     "ref": "Capital Expenditure（有形・無形固定資産の取得額）。FCFの計算で営業CFから差し引かれる金額。参考値",
+                     "key": None, "series": cxp, "series_kind": kind})
+
+    # 有価証券等の純増減の推移
+    if sec and cy and len(cy) == len(sec):
+        sp = [(y, v) for y, v in zip(cy, sec) if is_num(v)][::-1]
+        if len(sp) >= 2 and any(v != 0 for _, v in sp):
+            rows.append({"name": "有価証券等の純増減（推移）", "v": None,
+                         "disp": " ← ".join(signed(v) for _, v in sp[::-1]),
+                         "ref": "マイナス＝購入超（資金を運用に回した）、プラス＝売却超（運用資金を取り崩した）。FCFには入りません。参考値",
+                         "key": None, "series": sp, "series_kind": kind})
+
+    # 設備投資÷営業CF
+    def ratio_row(name, num, den, ref, num_abs=False):
+        if not (num and den and cy and len(num) == len(cy) == len(den)):
+            return None
+        items = []
+        for y, n, d in zip(cy, num, den):
+            if is_num(n) and is_num(d) and d > 0:
+                items.append((y, (abs(n) if num_abs else n) / d * 100))
+        if len(items) < 2:
+            return None
+        return {"name": name, "v": None, "disp": " ← ".join(f"{y}年度 {v:.0f}%" for y, v in items[:5]),
+                "ref": ref, "key": None}
+
+    # 銀行・保険・証券は営業CFが預金・貸出の増減で大きく振れるため、この2つの比率は意味を持たない
+    rr = None if financial else ratio_row("設備投資÷営業CF", capex_gross, ocf,
+                   "100%を超えると、本業で稼いだ現金より多く設備に使っている（FCFがマイナス）。参考値", True)
+    if rr:
+        rows.append(rr)
+
+    # 営業CF÷純利益（利益の現金化）。年を揃えて比べる
+    isr, isy = yd.get("is_rows") or {}, yd.get("is_years") or []
+    ni = row(isr, "Net Income", "Net Income Common Stockholders", "Net Income Continuous Operations")
+    if not financial and ocf and ni and cy and isy:
+        nmap = {y: v for y, v in zip(isy, ni) if is_num(v)}
+        items = [(y, o / nmap[y] * 100) for y, o in zip(cy, ocf)
+                 if is_num(o) and y in nmap and nmap[y] > 0]
+        if len(items) >= 2:
+            rows.append({"name": "営業CF÷純利益（利益の現金化）", "v": None,
+                         "disp": " ← ".join(f"{y}年度 {v:.0f}%" for y, v in items[:5]),
+                         "ref": "100%を大きく下回る年が続くと、利益が売掛金・在庫などに化けて現金になっていない可能性。参考値",
+                         "key": None})
+    return rows
+
+
 def build_earnings(yd, price):
     info = yd.get("info", {})
     ea = {"has": False, "q": [], "fwd": {}}
@@ -3254,6 +3352,11 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
         pass
     try:
         M["参考"].extend(split_fix_rows(yd))
+    except Exception:
+        pass
+    try:
+        M["参考"].extend(investing_breakdown_rows(
+            yd, financial=jp_sector in ("銀行業", "保険業", "証券・商品先物取引業", "その他金融業")))
     except Exception:
         pass
 

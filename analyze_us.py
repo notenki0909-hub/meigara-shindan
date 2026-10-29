@@ -810,6 +810,10 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
         M["参考"].extend(analyze.split_fix_rows(yd))
     except Exception:
         pass
+    try:
+        M["参考"].extend(analyze.investing_breakdown_rows(yd, True, financial=bool(is_simple)))
+    except Exception:
+        pass
     # 過去の減配の一覧（表示専用。1回あたり配当の前年同期比で判定）
     try:
         _seq = payment_rate_seq(divs)
