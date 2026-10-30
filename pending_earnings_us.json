@@ -9,46 +9,6 @@
   "next_retry_at": "2026-10-20T17:43:20",
   "resolved_at": "2026-10-20T21:49:58"
  },
- "CNS": {
-  "ticker": "CNS",
-  "name": "Cohen & Steers, Inc.",
-  "target_date": "2026-10-15",
-  "detected_at": "2026-10-15T04:44:55",
-  "status": "resolved",
-  "attempts": 4,
-  "next_retry_at": "2026-10-16T10:36:22",
-  "resolved_at": "2026-10-16T11:29:16"
- },
- "INDB": {
-  "ticker": "INDB",
-  "name": "Independent Bank Corp.",
-  "target_date": "2026-10-15",
-  "detected_at": "2026-10-15T04:44:55",
-  "status": "resolved",
-  "attempts": 4,
-  "next_retry_at": "2026-10-16T10:36:22",
-  "resolved_at": "2026-10-16T11:29:16"
- },
- "SFNC": {
-  "ticker": "SFNC",
-  "name": "Simmons First National Corporation",
-  "target_date": "2026-10-15",
-  "detected_at": "2026-10-15T04:44:55",
-  "status": "resolved",
-  "attempts": 4,
-  "next_retry_at": "2026-10-16T10:36:22",
-  "resolved_at": "2026-10-16T11:29:16"
- },
- "WAFD": {
-  "ticker": "WAFD",
-  "name": "WaFd, Inc.",
-  "target_date": "2026-10-15",
-  "detected_at": "2026-10-15T04:44:55",
-  "status": "resolved",
-  "attempts": 4,
-  "next_retry_at": "2026-10-16T10:36:22",
-  "resolved_at": "2026-10-16T11:29:16"
- },
  "BANF": {
   "ticker": "BANF",
   "name": "Bancfirst Corp",
@@ -2122,9 +2082,10 @@
   "name": "COPT Defense Properties",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 4,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "next_retry_at": "2026-10-30T11:54:02",
+  "resolved_at": "2026-10-30T13:00:34"
  },
  "CFR": {
   "ticker": "CFR",
@@ -2161,18 +2122,20 @@
   "name": "CubeSmart",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 4,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "next_retry_at": "2026-10-30T11:54:02",
+  "resolved_at": "2026-10-30T13:00:34"
  },
  "CUZ": {
   "ticker": "CUZ",
   "name": "Cousins Properties",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 4,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "next_retry_at": "2026-10-30T11:54:02",
+  "resolved_at": "2026-10-30T13:00:34"
  },
  "DLR": {
   "ticker": "DLR",
@@ -2269,9 +2232,10 @@
   "name": "Gaming and Leisure Properties",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 4,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "next_retry_at": "2026-10-30T11:54:02",
+  "resolved_at": "2026-10-30T13:00:34"
  },
  "HII": {
   "ticker": "HII",
@@ -2339,8 +2303,8 @@
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
   "status": "pending",
-  "attempts": 4,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "attempts": 5,
+  "next_retry_at": "2026-10-30T19:00:34"
  },
  "LHX": {
   "ticker": "LHX",
@@ -2407,9 +2371,10 @@
   "name": "Middlesex Water Company",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 4,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "next_retry_at": "2026-10-30T11:54:02",
+  "resolved_at": "2026-10-30T13:00:34"
  },
  "NSP": {
   "ticker": "NSP",
@@ -2587,8 +2552,8 @@
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "attempts": 2,
+  "next_retry_at": "2026-10-30T19:00:34"
  },
  "CL": {
   "ticker": "CL",
@@ -2596,8 +2561,8 @@
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "attempts": 2,
+  "next_retry_at": "2026-10-30T19:00:34"
  },
  "CVX": {
   "ticker": "CVX",
@@ -2605,8 +2570,8 @@
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "attempts": 2,
+  "next_retry_at": "2026-10-30T19:00:34"
  },
  "D": {
   "ticker": "D",
@@ -2614,8 +2579,8 @@
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "attempts": 2,
+  "next_retry_at": "2026-10-30T19:00:34"
  },
  "EXC": {
   "ticker": "EXC",
@@ -2623,8 +2588,8 @@
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "attempts": 2,
+  "next_retry_at": "2026-10-30T19:00:34"
  },
  "FRT": {
   "ticker": "FRT",
@@ -2632,8 +2597,8 @@
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "attempts": 2,
+  "next_retry_at": "2026-10-30T19:00:34"
  },
  "GD": {
   "ticker": "GD",
@@ -2641,8 +2606,8 @@
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "attempts": 2,
+  "next_retry_at": "2026-10-30T19:00:34"
  },
  "KRG": {
   "ticker": "KRG",
@@ -2650,8 +2615,8 @@
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "attempts": 2,
+  "next_retry_at": "2026-10-30T19:00:34"
  },
  "LEA": {
   "ticker": "LEA",
@@ -2659,8 +2624,8 @@
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "attempts": 2,
+  "next_retry_at": "2026-10-30T19:00:34"
  },
  "PIPR": {
   "ticker": "PIPR",
@@ -2668,8 +2633,8 @@
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "attempts": 2,
+  "next_retry_at": "2026-10-30T19:00:34"
  },
  "SMP": {
   "ticker": "SMP",
@@ -2677,8 +2642,8 @@
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "attempts": 2,
+  "next_retry_at": "2026-10-30T19:00:34"
  },
  "TXNM": {
   "ticker": "TXNM",
@@ -2686,8 +2651,8 @@
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "attempts": 2,
+  "next_retry_at": "2026-10-30T19:00:34"
  },
  "XOM": {
   "ticker": "XOM",
@@ -2695,7 +2660,7 @@
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-10-30T11:54:02"
+  "attempts": 2,
+  "next_retry_at": "2026-10-30T19:00:34"
  }
 }
