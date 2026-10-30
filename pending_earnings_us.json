@@ -39,16 +39,6 @@
   "next_retry_at": "2026-10-16T10:36:22",
   "resolved_at": "2026-10-16T11:29:16"
  },
- "WABC": {
-  "ticker": "WABC",
-  "name": "Westamerica Bank",
-  "target_date": "2026-10-15",
-  "detected_at": "2026-10-15T04:44:55",
-  "status": "resolved",
-  "attempts": 3,
-  "next_retry_at": "2026-10-16T03:39:05",
-  "resolved_at": "2026-10-16T04:36:22"
- },
  "WAFD": {
   "ticker": "WAFD",
   "name": "WaFd, Inc.",
@@ -2072,9 +2062,10 @@
   "name": "AptarGroup",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "next_retry_at": "2026-10-30T04:52:46",
+  "resolved_at": "2026-10-30T05:54:02"
  },
  "AVY": {
   "ticker": "AVY",
@@ -2132,8 +2123,8 @@
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
   "status": "pending",
-  "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "attempts": 4,
+  "next_retry_at": "2026-10-30T11:54:02"
  },
  "CFR": {
   "ticker": "CFR",
@@ -2150,9 +2141,10 @@
   "name": "Columbia Sportswear",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "next_retry_at": "2026-10-30T04:52:46",
+  "resolved_at": "2026-10-30T05:54:02"
  },
  "CTSH": {
   "ticker": "CTSH",
@@ -2170,8 +2162,8 @@
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
   "status": "pending",
-  "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "attempts": 4,
+  "next_retry_at": "2026-10-30T11:54:02"
  },
  "CUZ": {
   "ticker": "CUZ",
@@ -2179,17 +2171,18 @@
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
   "status": "pending",
-  "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "attempts": 4,
+  "next_retry_at": "2026-10-30T11:54:02"
  },
  "DLR": {
   "ticker": "DLR",
   "name": "Digital Realty",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "next_retry_at": "2026-10-30T04:52:46",
+  "resolved_at": "2026-10-30T05:54:02"
  },
  "DTM": {
   "ticker": "DTM",
@@ -2206,45 +2199,50 @@
   "name": "Edison International",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "next_retry_at": "2026-10-30T04:52:46",
+  "resolved_at": "2026-10-30T05:54:02"
  },
  "EMN": {
   "ticker": "EMN",
   "name": "Eastman Chemical Company",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "next_retry_at": "2026-10-30T04:52:46",
+  "resolved_at": "2026-10-30T05:54:02"
  },
  "ERIE": {
   "ticker": "ERIE",
   "name": "Erie Indemnity",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "next_retry_at": "2026-10-30T04:52:46",
+  "resolved_at": "2026-10-30T05:54:02"
  },
  "EXPO": {
   "ticker": "EXPO",
   "name": "Exponent, Inc.",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "next_retry_at": "2026-10-30T04:52:46",
+  "resolved_at": "2026-10-30T05:54:02"
  },
  "FHI": {
   "ticker": "FHI",
   "name": "Federated Hermes",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "next_retry_at": "2026-10-30T04:52:46",
+  "resolved_at": "2026-10-30T05:54:02"
  },
  "GATX": {
   "ticker": "GATX",
@@ -2261,9 +2259,10 @@
   "name": "Gilead Sciences",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "next_retry_at": "2026-10-30T04:52:46",
+  "resolved_at": "2026-10-30T05:54:02"
  },
  "GLPI": {
   "ticker": "GLPI",
@@ -2271,8 +2270,8 @@
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
   "status": "pending",
-  "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "attempts": 4,
+  "next_retry_at": "2026-10-30T11:54:02"
  },
  "HII": {
   "ticker": "HII",
@@ -2340,8 +2339,8 @@
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
   "status": "pending",
-  "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "attempts": 4,
+  "next_retry_at": "2026-10-30T11:54:02"
  },
  "LHX": {
   "ticker": "LHX",
@@ -2368,18 +2367,20 @@
   "name": "Alliant Energy",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "next_retry_at": "2026-10-30T04:52:46",
+  "resolved_at": "2026-10-30T05:54:02"
  },
  "MDLZ": {
   "ticker": "MDLZ",
   "name": "Mondelez International",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "next_retry_at": "2026-10-30T04:52:46",
+  "resolved_at": "2026-10-30T05:54:02"
  },
  "MO": {
   "ticker": "MO",
@@ -2407,8 +2408,8 @@
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
   "status": "pending",
-  "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "attempts": 4,
+  "next_retry_at": "2026-10-30T11:54:02"
  },
  "NSP": {
   "ticker": "NSP",
@@ -2425,9 +2426,10 @@
   "name": "Olin Corporation",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "next_retry_at": "2026-10-30T04:52:46",
+  "resolved_at": "2026-10-30T05:54:02"
  },
  "OSK": {
   "ticker": "OSK",
@@ -2484,9 +2486,10 @@
   "name": "Starbucks",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "next_retry_at": "2026-10-30T04:52:46",
+  "resolved_at": "2026-10-30T05:54:02"
  },
  "SIRI": {
   "ticker": "SIRI",
@@ -2553,18 +2556,20 @@
   "name": "World Kinect Corporation",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "next_retry_at": "2026-10-30T04:52:46",
+  "resolved_at": "2026-10-30T05:54:02"
  },
  "WY": {
   "ticker": "WY",
   "name": "Weyerhaeuser",
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-10-30T04:52:46"
+  "next_retry_at": "2026-10-30T04:52:46",
+  "resolved_at": "2026-10-30T05:54:02"
  },
  "XEL": {
   "ticker": "XEL",
@@ -2575,5 +2580,122 @@
   "attempts": 2,
   "next_retry_at": "2026-10-29T19:07:20",
   "resolved_at": "2026-10-29T22:52:46"
+ },
+ "ABBV": {
+  "ticker": "ABBV",
+  "name": "AbbVie",
+  "target_date": "2026-10-30",
+  "detected_at": "2026-10-30T05:54:02",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-30T11:54:02"
+ },
+ "CL": {
+  "ticker": "CL",
+  "name": "Colgate-Palmolive",
+  "target_date": "2026-10-30",
+  "detected_at": "2026-10-30T05:54:02",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-30T11:54:02"
+ },
+ "CVX": {
+  "ticker": "CVX",
+  "name": "Chevron Corporation",
+  "target_date": "2026-10-30",
+  "detected_at": "2026-10-30T05:54:02",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-30T11:54:02"
+ },
+ "D": {
+  "ticker": "D",
+  "name": "Dominion Energy",
+  "target_date": "2026-10-30",
+  "detected_at": "2026-10-30T05:54:02",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-30T11:54:02"
+ },
+ "EXC": {
+  "ticker": "EXC",
+  "name": "Exelon",
+  "target_date": "2026-10-30",
+  "detected_at": "2026-10-30T05:54:02",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-30T11:54:02"
+ },
+ "FRT": {
+  "ticker": "FRT",
+  "name": "Federal Realty Investment Trust",
+  "target_date": "2026-10-30",
+  "detected_at": "2026-10-30T05:54:02",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-30T11:54:02"
+ },
+ "GD": {
+  "ticker": "GD",
+  "name": "General Dynamics",
+  "target_date": "2026-10-30",
+  "detected_at": "2026-10-30T05:54:02",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-30T11:54:02"
+ },
+ "KRG": {
+  "ticker": "KRG",
+  "name": "Kite Realty Group Trust",
+  "target_date": "2026-10-30",
+  "detected_at": "2026-10-30T05:54:02",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-30T11:54:02"
+ },
+ "LEA": {
+  "ticker": "LEA",
+  "name": "Lear",
+  "target_date": "2026-10-30",
+  "detected_at": "2026-10-30T05:54:02",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-30T11:54:02"
+ },
+ "PIPR": {
+  "ticker": "PIPR",
+  "name": "Piper Sandler Companies",
+  "target_date": "2026-10-30",
+  "detected_at": "2026-10-30T05:54:02",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-30T11:54:02"
+ },
+ "SMP": {
+  "ticker": "SMP",
+  "name": "Standard Motor Products, Inc.",
+  "target_date": "2026-10-30",
+  "detected_at": "2026-10-30T05:54:02",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-30T11:54:02"
+ },
+ "TXNM": {
+  "ticker": "TXNM",
+  "name": "TXNM Energy",
+  "target_date": "2026-10-30",
+  "detected_at": "2026-10-30T05:54:02",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-30T11:54:02"
+ },
+ "XOM": {
+  "ticker": "XOM",
+  "name": "ExxonMobil",
+  "target_date": "2026-10-30",
+  "detected_at": "2026-10-30T05:54:02",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-10-30T11:54:02"
  }
 }
