@@ -664,7 +664,7 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
                                if is_num(buyback0) and is_num(buyback_yield) else
                                fmt_usd(buyback0) if is_num(buyback0) else "データなし"),
                       "ref": f"出所：{buyback_src}" if buyback_src else "yfinanceに該当項目なし", "key": None})
-    M["キャッシュフロー"].append({"name": "フリーCF（営業CF＋投資CF）",
+    M["キャッシュフロー"].append({"name": "フリーCF（営業CF−設備投資）",
                                     "v": (1 if is_num(fcf0) and fcf0 > 0 else 0) if is_num(fcf0) else None,
                                     "disp": sdisp(fcf), "ref": "継続プラスなら配当の原資に余裕", "key": "fcf_positive",
                                     "series": spairs(fcf, cf_years), "series_kind": "usd"})

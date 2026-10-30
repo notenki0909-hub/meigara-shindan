@@ -999,7 +999,7 @@ body.wlon{{padding-bottom:60px}}
     <div class="fsec"><span class="fsech">キャッシュフロー</span><div class="fsecbody">
       <div class="fgrp"><span class="flbl">営業CF</span>
         <span class="fchecks"><label><input type="checkbox" id="f_ocf">直近プラスのみ</label></span></div>
-      <div class="fgrp"><span class="flbl">フリーCF（営業CF＋投資CF）</span>
+      <div class="fgrp"><span class="flbl">フリーCF（営業CF−設備投資）</span>
         <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_fcfpos" value="{v}">{lab}</label>' for v, lab in (("cheap","良好（黒字）"),("expensive","弱い（赤字）")))}</span></div>
       <div class="fgrp"><span class="flbl">FCF配当性向（配当支払÷フリーCF）</span>
         <span class="fchecks">{"".join(f'<label><input type="checkbox" class="f_fcfpayout" value="{v}">{lab}</label>' for v, lab in zip(("cheap","normal","expensive"), _zone_labels("lower_better",70,100,"%",("良好","注意","弱い"))))}</span></div>
