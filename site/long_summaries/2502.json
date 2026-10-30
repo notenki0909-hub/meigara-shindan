@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 1618.0,
- "price_date": "2026-10-29",
- "mcap": 2366587535360,
+ "price": 1650.5,
+ "price_date": "2026-10-30",
+ "mcap": 2414124204032,
  "q_score": 75.8,
  "groups": {
   "業績": 77.41848543337407,
@@ -22,37 +22,37 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 71.7,
+ "bt_score": 71.9,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 47.996108259540776,
+  "ev_ebit_vs_sector": 49.50158532281039,
   "fcf_yield": 20.0,
-  "per_cheap": 108.9,
-  "pbr_cheap": 109.8
+  "per_cheap": 108.6,
+  "pbr_cheap": 109.6
  },
- "ev_ebit": 20.7369910978641,
- "fcf_yield": -2.108140909835845,
- "per_band_pos": 0.9592814260526192,
+ "ev_ebit": 20.992743336912895,
+ "fcf_yield": -2.0666293770914312,
+ "per_band_pos": 0.9444423175164516,
  "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 1.305034052729018,
- "per_vs_sector": 0.73001265,
- "pbr_vs_sector": 0.6184541666666667,
+ "ev_ebit_vs_sector": 1.291861128425409,
+ "per_vs_sector": 0.7361074000000001,
+ "pbr_vs_sector": 0.63087675,
  "price_chg": {
-  "d": 0.8413836086008208,
-  "w": -3.4606205250596656,
-  "m": 2.2756005056890016,
-  "3m": -3.3452807646356053,
-  "6m": 2.3079355042681104,
-  "9m": -4.851514260511614,
-  "y": -5.710955710955712
+  "d": 2.0086526576019725,
+  "w": -1.726704376302468,
+  "m": 3.73978629792584,
+  "3m": -4.068584713746004,
+  "6m": 5.261479591836737,
+  "9m": -0.8708708708708657,
+  "y": -3.196480938416424
  },
- "div_yield": 3.8318912237330034,
+ "div_yield": 3.756437443199031,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
    "value_trap": [
-    "PBR 0.74倍（1倍割れ）かつROE 4.0%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+    "PBR 0.76倍（1倍割れ）かつROE 4.0%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
    ]
   },
   "raw": {
@@ -94,5 +94,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-29T22:55:50"
+ "_generated_at": "2026-10-30T22:42:36"
 }
