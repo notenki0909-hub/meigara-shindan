@@ -19,46 +19,6 @@
   "next_retry_at": "2026-10-22T04:53:42",
   "resolved_at": "2026-10-22T04:53:42"
  },
- "CFG": {
-  "ticker": "CFG",
-  "name": "Citizens Financial Group",
-  "target_date": "2026-10-16",
-  "detected_at": "2026-10-16T04:36:22",
-  "status": "resolved",
-  "attempts": 2,
-  "next_retry_at": "2026-10-16T17:29:16",
-  "resolved_at": "2026-10-16T21:13:41"
- },
- "MTB": {
-  "ticker": "MTB",
-  "name": "M&T Bank",
-  "target_date": "2026-10-16",
-  "detected_at": "2026-10-16T04:36:22",
-  "status": "resolved",
-  "attempts": 2,
-  "next_retry_at": "2026-10-16T17:29:16",
-  "resolved_at": "2026-10-16T21:13:41"
- },
- "RF": {
-  "ticker": "RF",
-  "name": "Regions Financial Corporation",
-  "target_date": "2026-10-16",
-  "detected_at": "2026-10-16T04:36:22",
-  "status": "resolved",
-  "attempts": 2,
-  "next_retry_at": "2026-10-16T17:29:16",
-  "resolved_at": "2026-10-16T21:13:41"
- },
- "TFC": {
-  "ticker": "TFC",
-  "name": "Truist Financial",
-  "target_date": "2026-10-16",
-  "detected_at": "2026-10-16T04:36:22",
-  "status": "resolved",
-  "attempts": 2,
-  "next_retry_at": "2026-10-16T17:29:16",
-  "resolved_at": "2026-10-16T21:13:41"
- },
  "AGNC": {
   "ticker": "AGNC",
   "name": "AGNC Investment",
@@ -2303,8 +2263,8 @@
   "target_date": "2026-10-29",
   "detected_at": "2026-10-29T05:52:23",
   "status": "pending",
-  "attempts": 5,
-  "next_retry_at": "2026-10-30T19:00:34"
+  "attempts": 6,
+  "next_retry_at": "2026-10-31T04:39:33"
  },
  "LHX": {
   "ticker": "LHX",
@@ -2551,116 +2511,129 @@
   "name": "AbbVie",
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-30T19:00:34"
+  "next_retry_at": "2026-10-30T19:00:34",
+  "resolved_at": "2026-10-30T22:39:33"
  },
  "CL": {
   "ticker": "CL",
   "name": "Colgate-Palmolive",
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-30T19:00:34"
+  "next_retry_at": "2026-10-30T19:00:34",
+  "resolved_at": "2026-10-30T22:39:33"
  },
  "CVX": {
   "ticker": "CVX",
   "name": "Chevron Corporation",
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-30T19:00:34"
+  "next_retry_at": "2026-10-30T19:00:34",
+  "resolved_at": "2026-10-30T22:39:33"
  },
  "D": {
   "ticker": "D",
   "name": "Dominion Energy",
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-30T19:00:34"
+  "next_retry_at": "2026-10-30T19:00:34",
+  "resolved_at": "2026-10-30T22:39:33"
  },
  "EXC": {
   "ticker": "EXC",
   "name": "Exelon",
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-30T19:00:34"
+  "next_retry_at": "2026-10-30T19:00:34",
+  "resolved_at": "2026-10-30T22:39:33"
  },
  "FRT": {
   "ticker": "FRT",
   "name": "Federal Realty Investment Trust",
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-30T19:00:34"
+  "next_retry_at": "2026-10-30T19:00:34",
+  "resolved_at": "2026-10-30T22:39:33"
  },
  "GD": {
   "ticker": "GD",
   "name": "General Dynamics",
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-30T19:00:34"
+  "next_retry_at": "2026-10-30T19:00:34",
+  "resolved_at": "2026-10-30T22:39:33"
  },
  "KRG": {
   "ticker": "KRG",
   "name": "Kite Realty Group Trust",
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-30T19:00:34"
+  "next_retry_at": "2026-10-30T19:00:34",
+  "resolved_at": "2026-10-30T22:39:33"
  },
  "LEA": {
   "ticker": "LEA",
   "name": "Lear",
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-30T19:00:34"
+  "next_retry_at": "2026-10-30T19:00:34",
+  "resolved_at": "2026-10-30T22:39:33"
  },
  "PIPR": {
   "ticker": "PIPR",
   "name": "Piper Sandler Companies",
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-30T19:00:34"
+  "next_retry_at": "2026-10-30T19:00:34",
+  "resolved_at": "2026-10-30T22:39:33"
  },
  "SMP": {
   "ticker": "SMP",
   "name": "Standard Motor Products, Inc.",
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-30T19:00:34"
+  "next_retry_at": "2026-10-30T19:00:34",
+  "resolved_at": "2026-10-30T22:39:33"
  },
  "TXNM": {
   "ticker": "TXNM",
   "name": "TXNM Energy",
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-30T19:00:34"
+  "next_retry_at": "2026-10-30T19:00:34",
+  "resolved_at": "2026-10-30T22:39:33"
  },
  "XOM": {
   "ticker": "XOM",
   "name": "ExxonMobil",
   "target_date": "2026-10-30",
   "detected_at": "2026-10-30T05:54:02",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-10-30T19:00:34"
+  "next_retry_at": "2026-10-30T19:00:34",
+  "resolved_at": "2026-10-30T22:39:33"
  }
 }
