@@ -229,7 +229,7 @@ FILTER_METRICS = (
     ("財務", (("equity_ratio", "自己資本比率"), ("de", "D/Eレシオ（有利子負債÷自己資本）"),
               ("net_de", "ネットD/Eレシオ"), ("debt_to_ocf", "有利子負債 ÷ 営業CF（返済年数の目安）"),
               ("interest_coverage", "インタレストカバレッジレシオ（EBIT÷支払利息）"))),
-    ("キャッシュフロー", (("ocf_positive", "営業CF（直近／推移）"), ("fcf_positive", "フリーCF（営業CF＋投資CF）"),
+    ("キャッシュフロー", (("ocf_positive", "営業CF（直近／推移）"), ("fcf_positive", "フリーCF（営業CF−設備投資）"),
                     ("fcf_payout", "FCF配当性向（配当支払÷フリーCF）"))),
 )
 # 買い時内訳（PER割安度・PBR割安度は「自社過去レンジ内の位置」＋「対業種平均」の2つの生数値
