@@ -7,7 +7,7 @@
  "is_reit": false,
  "price": 460.6000061035156,
  "price_date": "2026-10-30",
- "mcap": 738204581888,
+ "mcap": 738197962752,
  "q_score": 77.1,
  "groups": {
   "業績": 61.611133136861106,
@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 90.7,
+ "bt_score": 102.7,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 82.9401803398764,
+  "ev_ebit_vs_sector": 80.8986933876891,
   "fcf_yield": 110.0,
-  "per_cheap": null,
+  "per_cheap": 110.0,
   "pbr_cheap": 110.0
  },
- "ev_ebit": 18.206761749315202,
- "fcf_yield": 75.90483908497515,
+ "ev_ebit": 18.206742148153193,
+ "fcf_yield": 75.90551969434867,
  "per_band_pos": null,
  "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.9992734220260814,
- "per_vs_sector": null,
- "pbr_vs_sector": 0.2717368125,
+ "ev_ebit_vs_sector": 1.0171364328577204,
+ "per_vs_sector": 0.26804004,
+ "pbr_vs_sector": 0.26747506249999997,
  "price_chg": {
   "d": -6.968289148594097,
   "w": -7.879998779296871,
@@ -52,7 +52,7 @@
   "flags": {
    "cutoff": [],
    "value_trap": [
-    "PBR 0.22倍（1倍割れ）かつROE -13.4%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+    "PBR 0.21倍（1倍割れ）かつROE -13.4%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
    ]
   },
   "raw": {
@@ -93,5 +93,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-10-30T23:14:03"
+ "_generated_at": "2026-10-31T22:13:41"
 }
