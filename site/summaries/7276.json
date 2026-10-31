@@ -1,7 +1,7 @@
 {
  "code": "7276",
  "name": "小糸製作所",
- "asof": "2026-10-30",
+ "asof": "2026-10-31",
  "jp_sector": "輸送用機器",
  "industry": "Auto Parts",
  "is_simple": false,
@@ -10,7 +10,7 @@
  "price_date": "2026-10-30",
  "mcap": 600443125760,
  "sel_score": 84.8,
- "tim_score": 92.6,
+ "tim_score": 92.8,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -31,7 +31,7 @@
   "配当の持続力": 62.3,
   "配当利回りセオリー": 109.5,
   "利回り水準とChowder": 94.7,
-  "株価バリュエーション": 57.8,
+  "株価バリュエーション": 58.6,
   "金利スプレッド": null
  },
  "div_yield": 2.730957968850011,
@@ -45,9 +45,9 @@
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 34.639297998059796,
- "per_vs_sector": 1.5340495945945944,
- "pbr_vs_sector": 1.1188574444444443,
- "per_band_pos": 0.2531553833568056,
+ "per_vs_sector": 1.5240095945945944,
+ "pbr_vs_sector": 1.106262111111111,
+ "per_band_pos": 0.26448304554565505,
  "yield_band_pos": 0.9808622888301612,
  "next_earn": "2027-01-28",
  "earn_disc_date": "2026-05-12",
@@ -55,10 +55,17 @@
  "total_yield": 10.683751156307821,
  "total_payout": 383.7172743213012,
  "interest_coverage": 291.248,
- "warnings": [],
+ "warnings": [
+  "⚠ バリュートラップ注意：PBR 1.00倍（1倍割れ）かつROE 2.7%（5%未満）"
+ ],
  "roa": 1.83,
  "leverage": 1.47,
- "insight_flags": [],
+ "insight_flags": [
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：PBR 1.00倍（1倍割れ）かつROE 2.7%（5%未満）"
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-10-30T22:16:22"
+ "_generated_at": "2026-10-31T21:15:58"
 }
