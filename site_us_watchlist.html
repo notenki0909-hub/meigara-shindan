@@ -122,7 +122,7 @@ th.sortable.on{color:var(--fg)}
 th.sortable .si{margin-left:3px;font-size:10px;opacity:.55}
 th.sortable.on .si{opacity:1;color:var(--accent)}
 th.ck,td.ck{width:28px;text-align:center;padding-left:6px;padding-right:2px}
-#list{overflow-x:auto}
+#list{overflow-x:auto;padding:4px;margin:-4px}
 details.box>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px}
 details.box>summary::-webkit-details-marker{display:none}
 details.box>summary::before{content:'▶';font-size:10px;color:var(--muted)}
@@ -137,6 +137,32 @@ tr.dragging td{opacity:.45}
 tr.dropbefore td{box-shadow:inset 0 2px 0 var(--accent)}
 tr.dropend td{box-shadow:inset 0 -2px 0 var(--accent)}
 body.dragging-row,body.dragging-row *{cursor:grabbing!important}
+.islands,#list{position:relative}
+.island.has{border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:10px 12px 12px;background:var(--card);margin:0 0 18px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.island.has.pool{border-style:dashed;border-left-style:dashed;border-left-color:var(--line);box-shadow:none;background:transparent}
+.island.has table{border:0;margin-top:2px}
+.island.over{box-shadow:0 0 0 2px var(--accent)}
+.ihead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.iname{font:inherit;font-weight:700;font-size:15px;padding:5px 9px;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--fg);width:240px;max-width:100%}
+.iname:hover,.iname:focus{border-color:var(--line);background:var(--field)}
+.ititle{font-weight:700;font-size:15px;color:var(--muted);padding:5px 0}
+.icnt{font-size:12px;color:var(--muted)}
+.ihead .idel{margin-left:auto;padding:4px 10px;font-size:12px}
+.island table{table-layout:fixed;min-width:860px}
+.island th:nth-child(1),.island td:nth-child(1){width:28px}
+.island th:nth-child(2),.island td:nth-child(2){width:30px}
+.island th:nth-child(3),.island td:nth-child(3){width:58px}
+.island th:nth-child(4),.island td:nth-child(4){width:62px}
+.island th:nth-child(6),.island td:nth-child(6){width:66px}
+.island th:nth-child(7),.island td:nth-child(7){width:104px}
+.island th:nth-child(8),.island td:nth-child(8){width:54px}
+.island th:nth-child(9),.island td:nth-child(9){width:64px}
+.island th:nth-child(10),.island td:nth-child(10){width:68px}
+.island th:nth-child(11),.island td:nth-child(11){width:104px}
+.island th:nth-child(12),.island td:nth-child(12){width:74px}
+.island th:nth-child(13),.island td:nth-child(13){width:38px}
+.idrop{border:2px dashed var(--line);border-radius:10px;padding:18px;text-align:center;color:var(--muted);font-size:12.5px}
+.listhead #secadd{padding:4px 10px;font-size:12px}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>ウォッチリスト</h1><span class="pagenav"><a href="terms.html">利用規約・免責事項</a><a href="guide.html">使い方・見方</a><a href="index.html">ランキング</a><a href="portfolio.html">ポートフォリオ</a></span></div>
 <div id="theme-bar">
@@ -188,7 +214,7 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     <span id="bkstat"></span>
   </div>
   <p>基本は<b>この銘柄リストをコピーして控えておく</b>方式です。次回、下の入力欄に貼り付けて「リストに追加」を押せばウォッチリストが復元されます（いまのウォッチ銘柄一覧に追加されます）。</p>
-  <p class="note" id="bknote" hidden>タブを作った場合は、タブ名つきの<b>「全タブの控え」</b>もコピーして控えてください。下の入力欄にそのまま貼り付けて「リストに追加」を押すと、タブごと復元されます。</p>
+  <p class="note" id="bknote" hidden>タブやセクションを作った場合は、名前つきの<b>「全タブの控え」</b>もコピーして控えてください。下の入力欄にそのまま貼り付けて「リストに追加」を押すと、タブ・セクションごと復元されます。</p>
   <p><b>同じ端末・同じブラウザ</b>を使う場合は、一度開けば以降はこのページを開くだけで前回のウォッチリスト（タブも）が表示されます（貼り付け不要）。</p>
   <p class="note">別の端末でも、同じ銘柄リストを貼り付ければ同じ顔ぶれが見られます。銘柄を足し引きしたら、新しく表示される銘柄リストを控え直してください。スコア・軍・利回りは各端末でその時点の最新が表示されます。</p>
 </details>
@@ -200,14 +226,14 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 </details>
 
 <div id="missbox"></div>
-<div class="listhead" id="listhead" hidden><h2 id="listtitle">ウォッチ銘柄一覧</h2><button type="button" id="wlclearall" class="ghost" title="登録されている銘柄をすべて削除します">全て削除</button></div>
+<div class="listhead" id="listhead" hidden><h2 id="listtitle">ウォッチ銘柄一覧</h2><button type="button" id="secadd" class="ghost" title="一覧の中に、名前をつけたまとまり（島）を作ります。銘柄は行頭の⠿をドラッグして入れます">＋ セクションを追加</button><button type="button" id="wlclearall" class="ghost" title="登録されている銘柄をすべて削除します">全て削除</button></div>
 <div class="seltools" id="seltools" hidden>
   <span id="selcount">0件選択中</span>
   <select id="seltarget" aria-label="追加先のタブ"></select>
   <button type="button" id="selgo" disabled>選んだ銘柄をタブに追加</button>
   <button type="button" id="selrm" class="ghost" disabled hidden>選んだ銘柄をこのタブから外す</button>
   <span id="selmsg"></span>
-  <span class="sk">行頭の ⠿ をドラッグして並べ替え</span>
+  <span class="sk">行頭の ⠿ をドラッグして、並べ替え・セクションへ移動</span>
 </div>
 <div id="list"></div>
 
@@ -297,7 +323,7 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   apply();
 })();
 (function(){
-  var WL_KEY = 'wl_codes_us', TAB_KEY = 'wl_tabs_us', SEL_KEY = 'wl_tabsel_us', SORT_KEY = 'wl_sort_us';
+  var WL_KEY = 'wl_codes_us', TAB_KEY = 'wl_tabs_us', SEL_KEY = 'wl_tabsel_us', SORT_KEY = 'wl_sort_us', SECS_KEY = 'wl_secs_us';
   var $ = function(id){ return document.getElementById(id); };
   function esc(s){
     return String(s).replace(/[&<>"']/g, function(c){
@@ -345,6 +371,33 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   } catch(e) {}
   tabs.forEach(function(t){ master = parseCodes(master.concat(t.codes).join(',')); });
 
+  // セクション（一覧の中の「島」）。リストごと（'all' または タブID）に、名前つきの銘柄グループを持つ。
+  // どのセクションにも入っていない銘柄は「未分類」の島に出る。セクションの銘柄は必ずそのリストの部分集合。
+  var secsMap = {};
+  try {
+    var sm = JSON.parse(lsGet(SECS_KEY) || '{}');
+    if (sm && typeof sm === 'object' && !Array.isArray(sm)) Object.keys(sm).forEach(function(k){
+      if (!Array.isArray(sm[k])) return;
+      secsMap[k] = [];
+      sm[k].forEach(function(s){
+        if (!s || typeof s.id !== 'string') return;
+        secsMap[k].push({
+          id: s.id,
+          name: String(s.name || '').replace(/\s+/g, ' ').trim().slice(0, 20) || 'セクション',
+          codes: parseCodes(Array.isArray(s.codes) ? s.codes.join(',') : '')
+        });
+      });
+    });
+  } catch(e) {}
+  Object.keys(secsMap).forEach(function(k){
+    var t = (k === 'all') ? null : tabById(k);
+    if (k !== 'all' && !t) return;
+    secsMap[k].forEach(function(s){
+      if (t) t.codes = parseCodes(t.codes.concat(s.codes).join(','));
+      addToMaster(s.codes);
+    });
+  });
+
   var cur = lsGet(SEL_KEY) || 'all';
   if (cur !== 'all' && !tabs.some(function(t){ return t.id === cur; })) cur = 'all';
 
@@ -366,6 +419,44 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   function curTab(){ return cur === 'all' ? null : tabById(cur); }
   function curCodes(){ var t = curTab(); return t ? t.codes : master; }
   function addToMaster(list){ master = parseCodes(master.concat(list).join(',')); }
+  function secsOf(id){ return secsMap[id] || (secsMap[id] = []); }
+  function curSecs(){ return secsOf(cur); }
+  function hasAnySecs(){
+    return Object.keys(secsMap).some(function(k){ return secsMap[k].length > 0; });
+  }
+  function uniqueSecName(name, exceptId){
+    name = (name || '').replace(/\s+/g, ' ').trim().slice(0, 20) || 'セクション';
+    var base = name, n = 2;
+    while (curSecs().some(function(s){ return s.id !== exceptId && s.name === name; })) {
+      name = base.slice(0, 16) + '(' + n + ')';
+      n++;
+    }
+    return name;
+  }
+  // 島の一覧：セクション（作成順）＋ いちばん下に「未分類」（id は空文字）
+  function islandsOf(){
+    var list = curCodes(), secs = curSecs(), used = {};
+    secs.forEach(function(s){ s.codes.forEach(function(c){ used[c] = 1; }); });
+    var pool = {id: '', name: '未分類', codes: list.filter(function(c){ return !used[c]; })};
+    return secs.concat([pool]);
+  }
+  // セクションの中身を、そのリストに実在する銘柄だけ・重複なしに整える（消えたタブの分も捨てる）
+  function cleanSecs(){
+    Object.keys(secsMap).forEach(function(id){
+      var t = (id === 'all') ? null : tabById(id);
+      var list = (id === 'all') ? master : (t ? t.codes : null);
+      if (!list || !secsMap[id].length) { delete secsMap[id]; return; }
+      var inList = {}, used = {};
+      list.forEach(function(c){ inList[c] = 1; });
+      secsMap[id].forEach(function(s){
+        s.codes = s.codes.filter(function(c){
+          if (!inList[c] || used[c]) return false;
+          used[c] = 1;
+          return true;
+        });
+      });
+    });
+  }
   function uniqueName(name, exceptId){
     name = (name || '').replace(/\s+/g, ' ').trim().slice(0, 20) || 'タブ';
     var base = name, n = 2;
@@ -392,18 +483,38 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   }
 
   function save(){
+    cleanSecs();
     lsSet(WL_KEY, master.join(','));
     lsSet(TAB_KEY, JSON.stringify(tabs));
+    lsSet(SECS_KEY, JSON.stringify(secsMap));
     lsSet(SEL_KEY, cur);
     var u = master.length ? ('?codes=' + encodeURIComponent(master.join(','))) : location.pathname;
     history.replaceState(null, '', u);
   }
 
+  function secsBackup(id){
+    return (secsMap[id] || []).map(function(s){ return {n: s.name, c: s.codes.join(',')}; });
+  }
   function backupText(){
     return JSON.stringify({
-      v: 1,
+      v: 2,
       all: master.join(','),
-      tabs: tabs.map(function(t){ return {n: t.name, c: t.codes.join(',')}; })
+      as: secsBackup('all'),
+      tabs: tabs.map(function(t){ return {n: t.name, c: t.codes.join(','), s: secsBackup(t.id)}; })
+    });
+  }
+  // 控えのセクションを、同じ名前のセクションへ（なければ新規に）入れる。銘柄は同じリストの他のセクションから移す
+  function restoreSecs(listId, arr){
+    if (!Array.isArray(arr)) return;
+    arr.forEach(function(x){
+      if (!x) return;
+      var name = String(x.n || '').replace(/\s+/g, ' ').trim().slice(0, 20);
+      if (!name) return;
+      var codes = parseCodes(x.c || ''), secs = secsOf(listId), s = null;
+      secs.forEach(function(y){ if (y.name === name) s = y; });
+      if (!s) { s = {id: newId(), name: name, codes: []}; secs.push(s); }
+      secs.forEach(function(y){ if (y !== s) y.codes = y.codes.filter(function(c){ return codes.indexOf(c) < 0; }); });
+      s.codes = parseCodes(s.codes.concat(codes).join(','));
     });
   }
   function restoreBackup(txt){
@@ -425,7 +536,15 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
       if (!t) { t = {id: newId(), name: name, codes: []}; tabs.push(t); made++; }
       t.codes = parseCodes(t.codes.concat(codes).join(','));
       addToMaster(codes);
+      var sc = [];
+      (Array.isArray(x.s) ? x.s : []).forEach(function(y){ if (y) sc = sc.concat(parseCodes(y.c || '')); });
+      if (sc.length) { t.codes = parseCodes(t.codes.concat(sc).join(',')); addToMaster(sc); }
+      restoreSecs(t.id, x.s);
     });
+    var ac = [];
+    (Array.isArray(o.as) ? o.as : []).forEach(function(y){ if (y) ac = ac.concat(parseCodes(y.c || '')); });
+    addToMaster(ac);
+    restoreSecs('all', o.as);
     alert('タブ込みの控えから復元しました（新しく作ったタブ：' + made + '個。同じ名前のタブには銘柄を追加しました）。');
     return true;
   }
@@ -534,12 +653,15 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     $('selcount').textContent = n + '件選択中';
     $('selgo').disabled = !n;
     $('selrm').disabled = !n;
-    var all = $('ckall');
-    if (all) {
-      var total = curCodes().filter(function(c){ return byCode && byCode[c]; }).length;
-      all.checked = total > 0 && n === total;
-      all.indeterminate = n > 0 && n < total;
-    }
+    // 島ごとの「全て選ぶ」チェック（その島の中だけを対象にする）
+    Array.prototype.forEach.call($('list').querySelectorAll('.island'), function(isl){
+      var all = isl.querySelector('.ckall');
+      if (!all) return;
+      var boxes = isl.querySelectorAll('.rowck'), on = 0;
+      Array.prototype.forEach.call(boxes, function(b){ if (b.checked) on++; });
+      all.checked = boxes.length > 0 && on === boxes.length;
+      all.indeterminate = on > 0 && on < boxes.length;
+    });
   }
 
   function render(forceName){
@@ -547,9 +669,10 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     var t = curTab(), list = curCodes();
     $('codelbl').textContent = t ? ('タブ「' + t.name + '」') : '全て';
     $('codestr').value = displayOrder(list).join(',');
-    $('bkwrap').hidden = !tabs.length;
-    $('bknote').hidden = !tabs.length;
-    $('bkstr').value = tabs.length ? backupText() : '';
+    var wantBk = tabs.length > 0 || hasAnySecs();
+    $('bkwrap').hidden = !wantBk;
+    $('bknote').hidden = !wantBk;
+    $('bkstr').value = wantBk ? backupText() : '';
     $('pastenote').textContent = '追加先：' + (t ? ('タブ「' + t.name + '」（全体のウォッチリストにも入ります）') : 'ウォッチリスト全体（「全て」タブ）');
 
     if (!master.length && !tabs.length) {
@@ -564,6 +687,7 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     $('listhead').hidden = false;
     $('listtitle').textContent = t ? t.name : 'ウォッチ銘柄一覧';
     $('wlclearall').hidden = !!t || !master.length;
+    $('secadd').hidden = !list.length;
 
     if (!byCode) { withData(function(){ render(forceName); }); return; }
 
@@ -591,7 +715,7 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
       return;
     }
 
-    var rows = sortedFound(found).map(function(c){
+    function rowHtml(c){
       var s = byCode[c];
       var tcls = {'1軍':'t1','2軍':'t2','3軍':'t3'}[s.tier] || 't0';
       var dcls = DIRC[s.dir] || 'fl';
@@ -614,16 +738,34 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
         + '<td class="x"><button type="button" data-code="' + s.code + '" title="'
         + (t ? 'このタブから外す（ウォッチリスト全体には残ります）' : 'ウォッチリストから外す') + '">✕</button></td>'
         + '</tr>';
-    }).join('');
+    }
+    function tableHtml(rows){
+      return '<table><thead><tr>'
+        + manualTh()
+        + '<th class="ck"><input type="checkbox" class="ckall" aria-label="この島の銘柄を全て選ぶ"></th>'
+        + '<th>軍</th><th>ティッカー</th><th>銘柄</th><th class="n">終値</th>'
+        + sortTh('sector', '業種', '')
+        + sortTh('sel', '選定', 'n') + sortTh('tim', '買い時', 'n') + sortTh('yield', '利回り', 'n')
+        + '<th>増配</th><th>カバレッジ</th><th></th>'
+        + '</tr></thead><tbody>' + rows + '</tbody></table>';
+    }
 
-    $('list').innerHTML = '<table><thead><tr>'
-      + manualTh()
-      + '<th class="ck"><input type="checkbox" id="ckall" aria-label="全て選ぶ"></th>'
-      + '<th>軍</th><th>ティッカー</th><th>銘柄</th><th class="n">終値</th>'
-      + sortTh('sector', '業種', '')
-      + sortTh('sel', '選定', 'n') + sortTh('tim', '買い時', 'n') + sortTh('yield', '利回り', 'n')
-      + '<th>増配</th><th>カバレッジ</th><th></th>'
-      + '</tr></thead><tbody>' + rows + '</tbody></table>';
+    // セクションがなければ従来どおりの1枚の表。あれば、セクションごとの「島」＋未分類の島に分けて並べる
+    var secs = curSecs(), withSecs = secs.length > 0;
+    $('list').innerHTML = islandsOf().map(function(g){
+      var fc = g.codes.filter(function(c){ return byCode[c]; });
+      var rows = sortedFound(fc).map(rowHtml).join('');
+      if (!withSecs) return '<div class="island solo" data-sec="">' + tableHtml(rows) + '</div>';
+      var head = g.id
+        ? '<div class="ihead"><input class="iname" data-sec="' + esc(g.id) + '" maxlength="20" value="' + esc(g.name) + '" aria-label="セクション名" title="クリックして名前を変えられます">'
+          + '<span class="icnt">' + fc.length + '銘柄</span>'
+          + '<button type="button" class="idel ghost" data-sec="' + esc(g.id) + '" title="セクションだけを削除します（中の銘柄は「未分類」に戻り、ウォッチリストには残ります）">セクションを削除</button></div>'
+        : '<div class="ihead"><span class="ititle">未分類</span><span class="icnt">' + fc.length + '銘柄</span>'
+          + '<span class="sk">どのセクションにも入れていない銘柄</span></div>';
+      var body = rows ? tableHtml(rows)
+        : '<div class="idrop">' + (g.id ? 'ここに銘柄をドラッグして入れます' : '未分類の銘柄はありません（ここにドラッグすると、セクションから外せます）') + '</div>';
+      return '<section class="island has' + (g.id ? '' : ' pool') + '" data-sec="' + esc(g.id) + '">' + head + body + '</section>';
+    }).join('');
     updateSelCount();
   }
 
@@ -756,24 +898,70 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
       render();
       return;
     }
+    var d = e.target.closest('button.idel');
+    if (d) { deleteSection(d.dataset.sec); return; }
     var b = e.target.closest('button[data-code]');
     if (b) removeCode(b.dataset.code);
   });
   $('list').addEventListener('change', function(e){
     var el = e.target;
-    if (el.id === 'ckall') {
-      curCodes().forEach(function(c){ if (byCode && byCode[c]) checked[c] = el.checked; });
-      $('list').querySelectorAll('.rowck').forEach(function(x){ x.checked = el.checked; });
+    if (el.classList.contains('ckall')) {
+      Array.prototype.forEach.call(el.closest('.island').querySelectorAll('.rowck'), function(x){
+        x.checked = el.checked;
+        checked[x.dataset.code] = el.checked;
+      });
       updateSelCount();
     } else if (el.classList.contains('rowck')) {
       checked[el.dataset.code] = el.checked;
       updateSelCount();
+    } else if (el.classList.contains('iname')) {
+      var s = secById(el.dataset.sec);
+      if (!s) return;
+      s.name = uniqueSecName(el.value, s.id);   // 空欄・重複名はここで整える
+      save();
+      render();
     }
   });
+  // セクション名は入力しながら保存（再描画はしない。入力欄のフォーカスを保つため）
+  $('list').addEventListener('input', function(e){
+    var el = e.target;
+    if (!el.classList.contains('iname')) return;
+    var s = secById(el.dataset.sec);
+    var v = el.value.replace(/\s+/g, ' ').trim().slice(0, 20);
+    if (!s || !v) return;
+    s.name = v;
+    lsSet(SECS_KEY, JSON.stringify(secsMap));
+  });
 
-  // ---- ドラッグで並べ替え（行頭の ⠿ をつかむ。マウス・タッチ両対応）------------
+  // ---- セクション ------------------------------------------------------------
+  function secById(id){
+    var r = null;
+    curSecs().forEach(function(s){ if (s.id === id) r = s; });
+    return r;
+  }
+  $('secadd').addEventListener('click', function(){
+    if (!curCodes().length) return;
+    var s = {id: newId(), name: uniqueSecName('セクション' + (curSecs().length + 1)), codes: []};
+    curSecs().push(s);
+    save();
+    render();
+    var inp = $('list').querySelector('.iname[data-sec="' + s.id + '"]');
+    if (inp) { inp.scrollIntoView({block: 'center'}); inp.focus(); inp.select(); }
+  });
+  function deleteSection(id){
+    var s = secById(id);
+    if (!s) return;
+    if (s.codes.length && !confirm('セクション「' + s.name + '」を削除します。中の ' + s.codes.length
+      + ' 銘柄は「未分類」に戻ります（ウォッチリストからは外れません）。よろしいですか？')) return;
+    secsMap[cur] = curSecs().filter(function(x){ return x.id !== id; });
+    save();
+    render();
+  }
+
+  // ---- ドラッグで並べ替え・セクションへ移動（行頭の ⠿ をつかむ。マウス・タッチ両対応）------
   var drag = null;
-  function dragRows(){ return Array.prototype.slice.call($('list').querySelectorAll('tbody tr')); }
+  function islandEls(){ return Array.prototype.slice.call($('list').querySelectorAll('.island')); }
+  function islandRows(isl){ return Array.prototype.slice.call(isl.querySelectorAll('tbody tr')); }
   function dropIndex(rows, y){
     for (var i = 0; i < rows.length; i++) {
       var r = rows[i].getBoundingClientRect();
@@ -781,51 +969,77 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     }
     return rows.length;
   }
-  function markDrop(rows, idx){
-    rows.forEach(function(r){ r.classList.remove('dropbefore', 'dropend'); });
+  // ポインタに一番近い島（島の間のすき間でも迷わないよう、縦方向の距離で決める）
+  function nearestIsland(y){
+    var best = null, bd = 1e9;
+    islandEls().forEach(function(isl){
+      var r = isl.getBoundingClientRect();
+      var d = (y < r.top) ? r.top - y : (y > r.bottom ? y - r.bottom : 0);
+      if (d < bd) { bd = d; best = isl; }
+    });
+    return best;
+  }
+  function clearMarks(){
+    Array.prototype.forEach.call($('list').querySelectorAll('.dropbefore, .dropend, .over'), function(el){
+      el.classList.remove('dropbefore', 'dropend', 'over');
+    });
+  }
+  function markDrop(isl, rows, idx){
+    clearMarks();
+    if (isl.classList.contains('has')) isl.classList.add('over');
     if (idx < rows.length) rows[idx].classList.add('dropbefore');
     else if (rows.length) rows[rows.length - 1].classList.add('dropend');
   }
   function endDrag(){
     if (!drag) return;
-    drag.rows.forEach(function(r){ r.classList.remove('dropbefore', 'dropend', 'dragging'); });
+    clearMarks();
+    drag.tr.classList.remove('dragging');
     document.body.classList.remove('dragging-row');
     drag = null;
   }
-  // order = 画面に出ている順に並べた銘柄コード。表の外（見つからない銘柄）は末尾に残す
-  function applyManual(order){
-    var t = curTab(), list = curCodes();
-    var rest = list.filter(function(c){ return order.indexOf(c) < 0; });
-    var nl = order.concat(rest);
-    if (t) t.codes = nl; else master = nl;
+  // 画面に出ている順の銘柄コードを、島（セクションID。未分類は空文字）ごとに集める
+  function domOrders(){
+    var o = {};
+    islandEls().forEach(function(isl){
+      o[isl.dataset.sec] = islandRows(isl).map(function(r){ return r.dataset.code; });
+    });
+    return o;
+  }
+  // orders = 島ごとの並び。表に出ていない銘柄（ランキングに見つからないもの）は元の島の末尾に残す
+  function applyIslands(orders){
+    var t = curTab(), isl = islandsOf(), pool = isl[isl.length - 1], secs = curSecs();
+    var poolMissing = pool.codes.filter(function(c){ return !byCode[c]; });
+    var all = (orders[''] || []).concat(poolMissing);
+    secs.forEach(function(s){
+      var miss = s.codes.filter(function(c){ return !byCode[c]; });
+      s.codes = (orders[s.id] || []).concat(miss);
+      all = all.concat(s.codes);
+    });
+    if (t) t.codes = all; else master = all;
     sort = {key: 'manual', dir: 1};
     lsSet(SORT_KEY, JSON.stringify(sort));
     save();
     render();
   }
-  function moveRow(from, idx, rows){
-    var order = rows.map(function(r){ return r.dataset.code; });
-    var c = order.splice(from, 1)[0];
-    var at = (idx > from) ? idx - 1 : idx;
-    if (at === from) return false;
-    order.splice(at, 0, c);
-    applyManual(order);
-    return true;
-  }
   $('list').addEventListener('pointerdown', function(e){
     var h = e.target.closest('td.dg');
     if (!h || (e.pointerType === 'mouse' && e.button !== 0)) return;
-    var tr = h.closest('tr'), rows = dragRows();
+    var tr = h.closest('tr'), isl = tr.closest('.island'), rows = islandRows(isl);
     e.preventDefault();
-    drag = {tr: tr, rows: rows, from: rows.indexOf(tr), idx: rows.indexOf(tr)};
+    drag = {tr: tr, code: tr.dataset.code, from: isl.dataset.sec, fromIdx: rows.indexOf(tr),
+            to: isl.dataset.sec, idx: rows.indexOf(tr)};
     tr.classList.add('dragging');
     document.body.classList.add('dragging-row');
     try { h.setPointerCapture(e.pointerId); } catch(x) {}
   });
   $('list').addEventListener('pointermove', function(e){
     if (!drag) return;
-    drag.idx = dropIndex(drag.rows, e.clientY);
-    markDrop(drag.rows, drag.idx);
+    var isl = nearestIsland(e.clientY);
+    if (!isl) return;
+    var rows = islandRows(isl);
+    drag.to = isl.dataset.sec;
+    drag.idx = dropIndex(rows, e.clientY);
+    markDrop(isl, rows, drag.idx);
     if (e.clientY < 60) window.scrollBy(0, -14);
     else if (e.clientY > window.innerHeight - 60) window.scrollBy(0, 14);
   });
@@ -833,22 +1047,27 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     if (!drag) return;
     var d = drag;
     endDrag();
-    moveRow(d.from, d.idx, d.rows);
+    var orders = domOrders();
+    var src = orders[d.from], at = d.idx;
+    src.splice(d.fromIdx, 1);
+    if (d.from === d.to && at > d.fromIdx) at--;       // 同じ島の中では、抜いた分だけ位置がずれる
+    if (d.from === d.to && at === d.fromIdx) return;    // 動いていない
+    orders[d.to].splice(at, 0, d.code);
+    applyIslands(orders);
   });
   $('list').addEventListener('pointercancel', endDrag);
-  // キーボード：⠿ にフォーカスして ↑↓ で1行ずつ移動
+  // キーボード：⠿ にフォーカスして ↑↓ で、その島の中を1行ずつ移動
   $('list').addEventListener('keydown', function(e){
     var h = e.target.closest ? e.target.closest('td.dg') : null;
     if (!h || (e.key !== 'ArrowUp' && e.key !== 'ArrowDown')) return;
     e.preventDefault();
-    var rows = dragRows(), tr = h.closest('tr'), i = rows.indexOf(tr);
+    var tr = h.closest('tr'), isl = tr.closest('.island'), rows = islandRows(isl), i = rows.indexOf(tr);
     var j = (e.key === 'ArrowUp') ? i - 1 : i + 1;
     if (j < 0 || j >= rows.length) return;
-    var code = tr.dataset.code;
-    var order = rows.map(function(r){ return r.dataset.code; });
-    order.splice(i, 1);
-    order.splice(j, 0, code);
-    applyManual(order);
+    var code = tr.dataset.code, orders = domOrders(), o = orders[isl.dataset.sec];
+    o.splice(i, 1);
+    o.splice(j, 0, code);
+    applyIslands(orders);
     var again = $('list').querySelector('tr[data-code="' + code + '"] td.dg');
     if (again) again.focus();
   });
