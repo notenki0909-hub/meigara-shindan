@@ -1,16 +1,16 @@
 {
  "code": "9960",
  "name": "東テク",
- "asof": "2026-10-31",
- "jp_sector": "電気機器",
- "industry": "Electronic Components",
+ "asof": "2026-11-01",
+ "jp_sector": "卸売業",
+ "industry": "Industrial Distribution",
  "is_simple": false,
  "is_reit": false,
  "price": 4270.0,
  "price_date": "2026-10-30",
  "mcap": 175096512512,
- "sel_score": 99.2,
- "tim_score": 93.6,
+ "sel_score": 100.7,
+ "tim_score": 85.6,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -25,13 +25,13 @@
   "高"
  ],
  "groups": {
-  "業績": 104.2,
-  "財務": 108.9,
+  "業績": 109.5,
+  "財務": 109.2,
   "キャッシュフロー": 73.3,
-  "配当の持続力": 98.9,
+  "配当の持続力": 98.6,
   "配当利回りセオリー": 83.7,
   "利回り水準とChowder": 106.8,
-  "株価バリュエーション": 96.8,
+  "株価バリュエーション": 63.7,
   "金利スプレッド": null
  },
  "div_yield": 4.028103044496487,
@@ -45,8 +45,8 @@
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 159.84156002437538,
- "per_vs_sector": 0.4626890816326531,
- "pbr_vs_sector": 0.9021953846153846,
+ "per_vs_sector": 0.9929240145985402,
+ "pbr_vs_sector": 1.954756666666667,
  "per_band_pos": 0.37883350419349565,
  "yield_band_pos": 0.43718657646354836,
  "next_earn": null,
@@ -56,7 +56,6 @@
  "total_payout": 45.87679890352547,
  "interest_coverage": 138.12878787878788,
  "warnings": [
-  "yfinance の業種『Electronic Components』が対応表に無く、sector（industry未対応） で 電気機器 に割り当てました。業種平均との比較は目安です。",
   "⚠ FCF配当性向が100%超（160%：フリーCFで配当を賄えていない）"
  ],
  "roa": 11.41,
@@ -68,5 +67,5 @@
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-10-31T21:36:03"
+ "_generated_at": "2026-11-01T22:17:51"
 }
