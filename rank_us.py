@@ -1107,6 +1107,7 @@ body.wlon{{padding-bottom:60px}}
   </div>
   <p class="note">読み込むと、いまの絞り込み条件・ウォッチリスト・保有記録が、CSVの内容に置き換わります。このCSVは日株用・米株用で別々です（ほかの種類のCSVは読み込めません）。別の端末へ移すときも、この書き出し・読み込みが使えます。</p>
 </details>
+{changebox}
 <div id="terminfo" class="terminfo" hidden>
   <button type="button" id="terminfo-close" class="ticlose" aria-label="閉じる">✕</button>
   <div id="terminfo-body"></div>
@@ -1116,7 +1117,6 @@ body.wlon{{padding-bottom:60px}}
 {top_table}
 </details>
 {roy_html}
-{changebox}
 {"".join(secs)}
 <div class="disc">{DISC}</div>
 <div id="wlbar" hidden>

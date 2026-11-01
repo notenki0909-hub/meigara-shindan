@@ -1050,6 +1050,7 @@ body.wlon{{padding-bottom:60px}}
   </div>
   <p class="note">読み込むと、いまの絞り込み条件・ウォッチリスト・保有記録が、CSVの内容に置き換わります。このCSVは日株用・米株用で別々です（ほかの種類のCSVは読み込めません）。別の端末へ移すときも、この書き出し・読み込みが使えます。</p>
 </details>
+{changebox}
 <div id="terminfo" class="terminfo" hidden>
   <button type="button" id="terminfo-close" class="ticlose" aria-label="閉じる">✕</button>
   <div id="terminfo-body"></div>
@@ -1065,7 +1066,6 @@ body.wlon{{padding-bottom:60px}}
 <th><span class="hdr" data-term="streak">増配</span><span class="sortbtn">▼</span></th>
 <th class="n" title="ROE（自己資本利益率）。クリックで説明"><span class="hdr" data-term="roe">ROE</span><span class="sortbtn">▼</span></th><th class="n" title="ROA（総資産利益率・決算書ベース）。採点には使わない。クリックで説明"><span class="hdr" data-term="roa">ROA</span><span class="sortbtn">▼</span></th><th class="hdr" data-term="cov">カバレッジ</th></tr></thead><tbody>{gt}</tbody></table>
 </details>
-{changebox}
 {"".join(secs)}
 <div class="disc">{DISC}</div>
 <div id="wlbar" hidden>
