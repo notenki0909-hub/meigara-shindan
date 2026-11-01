@@ -1133,6 +1133,8 @@ th.wl,th.pf{{cursor:default}}
 #wlbar button{{padding:8px 16px;border:1px solid var(--accent);border-radius:8px;
   background:var(--accent);color:var(--onacc,#fff);font-size:13px;cursor:pointer}}
 #wlbar button.ghost{{background:var(--card);color:var(--muted);border-color:var(--line)}}
+#wlbar select{{padding:7px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);
+  color:var(--fg);font-size:13px;max-width:220px}}
 #wlbar[hidden]{{display:none}}
 body.wlon{{padding-bottom:115px}}
 .hdr{{cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px}}
@@ -1238,6 +1240,7 @@ section.grp[hidden]{{display:none}}
 {exc}
 <div class="disc">{DISC}</div>
 <div id="wlbar" hidden><div class="grp"><span>☆ <b id="wlcount">0</b>銘柄</span>
+<label class="wltgt">追加先 <select id="wltab" aria-label="ウォッチリストの追加先（全て／タブ）"></select></label>
 <button type="button" id="wlgo">ウォッチリストへ追加 →</button>
 <button type="button" id="wlclear" class="ghost">☆の選択をクリア</button></div>
 <div class="grp"><span>💼 <b id="pfcount">0</b>銘柄</span>
@@ -1563,6 +1566,52 @@ section.grp[hidden]{{display:none}}
   var pfCnt=document.getElementById('pfcount'),pfHold=document.getElementById('pfnav-hold');
   var PF_LOTS_KEY='pf_lots_long{"_us" if out["market"]=="us" else ""}';
   var WL_LIST_KEY='pp_wl_long_{out["market"]}';
+  // ウォッチリストのタブ（ウォッチリストページが管理）。追加先に選んだタブへも銘柄を入れ、
+  // ウォッチリストページがそのタブを開くようにする（配当株側と同じ仕様。保存キーは10年保有専用）
+  var WL_TAB_KEY='wl_tabs_long{"_us" if out["market"]=="us" else ""}';
+  var WL_TABSEL_KEY='wl_tabsel_long{"_us" if out["market"]=="us" else ""}';
+  var wlTabSel=document.getElementById('wltab');
+  function wlEsc(x){{ return String(x).replace(/[&<>"']/g,function(c){{ return {{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}}[c]; }}); }}
+  function wlLoadTabs(){{
+    try {{
+      var a=JSON.parse(localStorage.getItem(WL_TAB_KEY)||'[]');
+      return Array.isArray(a)?a.filter(function(t){{ return t&&typeof t.id==='string'; }}):[];
+    }} catch(e) {{ return []; }}
+  }}
+  function wlTabFill(){{
+    if(!wlTabSel)return;
+    var prev=wlTabSel.value;
+    var h='<option value="all">全て（ウォッチリスト全体）</option>';
+    wlLoadTabs().forEach(function(t){{ h+='<option value="'+wlEsc(t.id)+'">タブ：'+wlEsc(t.name||'タブ')+'</option>'; }});
+    h+='<option value="__new">＋ 新しいタブを作って追加</option>';
+    wlTabSel.innerHTML=h;
+    var ok=false;
+    Array.prototype.forEach.call(wlTabSel.options,function(o){{ if(o.value===prev)ok=true; }});
+    if(ok)wlTabSel.value=prev;
+  }}
+  function wlAddToTab(){{
+    var target=wlTabSel?wlTabSel.value:'all',pick='all';
+    if(target!=='all'){{
+      var tabs=wlLoadTabs(),t=null;
+      if(target==='__new'){{
+        var names=tabs.map(function(x){{ return x.name; }}),n=tabs.length+1,nm='タブ'+n;
+        while(names.indexOf(nm)>=0){{ n++; nm='タブ'+n; }}
+        t={{id:'t'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),name:nm,codes:[]}};
+        tabs.push(t);
+      }}else{{
+        tabs.forEach(function(x){{ if(x.id===target)t=x; }});
+      }}
+      if(t){{
+        var have=new Set(Array.isArray(t.codes)?t.codes:[]);
+        wlSet.forEach(function(c){{ have.add(String(c).toUpperCase()); }});
+        t.codes=Array.from(have);
+        pick=t.id;
+        try {{ localStorage.setItem(WL_TAB_KEY,JSON.stringify(tabs)); }} catch(e) {{}}
+      }}
+    }}
+    try {{ localStorage.setItem(WL_TABSEL_KEY,pick); }} catch(e) {{}}
+  }}
+  window.addEventListener('pageshow',wlTabFill);
   function wlList(){{
     try {{ return (localStorage.getItem(WL_LIST_KEY)||'').split(/[\\s,]+/).filter(Boolean).map(function(x){{return x.toUpperCase();}}); }}
     catch(e) {{ return []; }}
@@ -1592,6 +1641,7 @@ section.grp[hidden]{{display:none}}
   function wlSave(){{ try {{ localStorage.setItem(WL_KEY, Array.from(wlSet).join(',')); }} catch(e) {{}} }}
   function pfSave(){{ try {{ localStorage.setItem(PF_SEL_KEY, Array.from(pfSet).join(',')); }} catch(e) {{}} }}
   function sync(){{
+    wlTabFill();
     cnt.textContent=wlSet.size;
     pfCnt.textContent=pfSet.size;
     bar.hidden=(wlSet.size===0&&pfSet.size===0);
@@ -1636,6 +1686,7 @@ section.grp[hidden]{{display:none}}
     var merged=wlList();
     wlSet.forEach(function(c){{ c=String(c).toUpperCase(); if(merged.indexOf(c)===-1)merged.push(c); }});
     try {{ localStorage.setItem(WL_LIST_KEY, merged.join(',')); }} catch(e) {{}}
+    wlAddToTab();
     location.href='watchlist.html';
   }});
   document.getElementById('pfgo').addEventListener('click',function(){{
@@ -1715,172 +1766,33 @@ section.grp[hidden]{{display:none}}
 
 
 def render_watchlist(out, m):
-    """?codes=A,B,C を ranking.json から引いて表にするだけの静的ページ。"""
+    """ウォッチリストページ。ranking.json を引いて表にする静的ページ（ひな形は long_watchlist_tpl.html）。
+    追加はランキングの「ウォッチリストへ追加」・貼り付け・?codes= だけ、削除は各行の✖と「全て削除」だけ。
+    並べ替え（業種・品質・買い時・利回り・ROE・ROA）・名前つきタブ・セクション（島）・行ドラッグ・
+    「全タブの控え」に対応（配当株側のウォッチリストと同じ仕様。コードは10年保有側にコピーしたもの）。
+    保存キーは wl_tabs_long / wl_tabsel_long / wl_sort_long / wl_secs_long（米国は末尾 _us）で、
+    配当株側（wl_tabs 等）とは衝突しない。"""
     th = m["theme"]
-    secja_json = json.dumps(GICS_JA if out["market"] == "us" else {}, ensure_ascii=False)
-    return f"""<!doctype html><html lang="ja"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-{_theme_head(th)}
-<title>ウォッチリスト｜{html.escape(m['title'])}</title>
-<style>
-{th.THEME_CSS}
-*{{box-sizing:border-box}}
-body{{margin:0;font:14px/1.6 -apple-system,"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;
-  background:var(--bg);color:var(--fg)}}
-.wrap{{max-width:900px;margin:0 auto;padding:20px 16px 60px}}
-h1{{font-size:19px;margin:0 0 4px}}
-.sub{{color:var(--muted);font-size:12px;margin-bottom:12px}} .sub a{{color:var(--accent)}}
-.topbar{{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}}
-.topbar a{{font-size:12.5px;color:var(--accent);white-space:nowrap}}
-.pagenav{{display:flex;gap:14px;flex-wrap:wrap}}
-.box{{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:12px 0}}
-.box h2{{font-size:14px;margin:0 0 8px}}
-.codewrap{{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0}}
-#codestr{{flex:1;min-width:220px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;
-  font:12px/1.4 monospace;background:var(--field);color:var(--fg)}}
-#copystat{{font-size:12px;color:var(--gA)}}
-textarea{{width:100%;min-height:52px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;
-  font:12px/1.5 monospace;background:var(--field);color:var(--fg);resize:vertical}}
-button{{padding:7px 13px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);
-  color:var(--onacc,#fff);font-size:12.5px;cursor:pointer;margin-right:6px}}
-button.ghost{{background:var(--card);color:var(--muted);border-color:var(--line)}}
-table{{width:100%;border-collapse:collapse;background:var(--card);font-size:13px;
-  border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:8px}}
-th,td{{padding:6px 8px;text-align:left;border-bottom:1px solid var(--line)}}
-th{{background:var(--th);font-size:11px;color:var(--muted)}}
-td.n,th.n{{text-align:right;font-variant-numeric:tabular-nums}}
-tr:last-child td{{border-bottom:none}}
-.code a{{color:var(--accent);text-decoration:none}}
-.sec{{color:var(--muted);font-size:11px}}
-td.bt.t1{{color:var(--t1)}} td.bt.t2{{color:var(--t2)}} td.bt.t3{{color:var(--t3)}} td.bt.t4{{color:var(--gC)}}
-.empty{{color:var(--muted);font-size:13px;padding:14px 0}}
-h2.listh{{font-size:14px;margin:16px 0 0}}
-h2.listh button{{margin-left:10px;padding:3px 10px;font-size:12px}}
-h2.listh button[hidden]{{display:none}}
-td.x{{width:34px;text-align:center}}
-td.x button{{padding:2px 8px;font-size:12px;margin:0;background:var(--card);color:var(--muted);border-color:var(--line);border-radius:6px}}
-</style></head><body><div class="wrap">
-<div class="topbar"><h1>ウォッチリスト</h1>{_pagenav("watchlist.html")}</div>
-<div class="sub">{html.escape(m['title'])}</div>
-
-<div class="box">
-  <h2>あなたの銘柄リスト</h2>
-  <div class="codewrap">
-    <input id="codestr" readonly value="">
-    <button type="button" id="copy">コピー</button>
-    <span id="copystat"></span>
-  </div>
-  <p>この<b>銘柄リストをコピーして控えておく</b>と、別の端末でも下の貼り付け欄から復元できます。</p>
-  <p><b>同じ端末・同じブラウザ</b>なら、一度追加すれば次回からこのページを開くだけで復元されます（貼り付け不要）。銘柄はランキングの「ウォッチリストへ追加」で増え、各行右端の✖でだけ削除されます。</p>
-</div>
-
-<div class="box">
-  <h2>銘柄リストを貼り付けて追加</h2>
-  <p class="sub" style="margin:0 0 8px">コード／ティッカーをカンマ・空白・改行区切りで。URL の <code>?codes=</code> でも可（いずれも今のリストに追加されます）。</p>
-  <textarea id="paste" placeholder="例：7203, 9433, 6146"></textarea>
-  <div style="margin-top:8px">
-    <button type="button" id="show">リストに追加</button>
-    <button type="button" id="clear" class="ghost">クリア</button>
-  </div>
-</div>
-
-<h2 class="listh">ウォッチ銘柄一覧<button type="button" id="clearall" class="ghost" hidden>全て削除</button></h2>
-<div id="tbl"></div>
-{th.THEME_BAR}
-<script>
-{_theme_js(th)}
-(function(){{
-  var params=new URLSearchParams(location.search);
-  var LS='pp_wl_long_{out["market"]}';
-  function split(t){{return (t||'').split(/[\\s,]+/).filter(Boolean).map(function(x){{return x.toUpperCase();}});}}
-  function uniq(a){{return Array.from(new Set(a));}}
-  var codes=[];
-  try{{codes=uniq(split(localStorage.getItem(LS)));}}catch(e){{}}
-  function save(){{
-    try{{if(codes.length)localStorage.setItem(LS,codes.join(','));else localStorage.removeItem(LS);}}catch(e){{}}
-  }}
-  // 追加は「追加」操作（ランキングの追加ボタン・貼り付け・?codes=）だけ。削除は各行の✖だけ。
-  function addCodes(list){{
-    var n=0;
-    list.forEach(function(c){{if(codes.indexOf(c)===-1){{codes.push(c);n++;}}}});
-    if(n)save();
-    return n;
-  }}
-  var urlCodes=uniq(split(params.get('codes')));
-  if(urlCodes.length){{addCodes(urlCodes);history.replaceState(null,'',location.pathname);}}
-  var codestr=document.getElementById('codestr');
-  var tbl=document.getElementById('tbl');
-  var paste=document.getElementById('paste');
-  document.getElementById('copy').onclick=function(){{
-    codestr.select();
-    var ok=false;
-    try{{ok=document.execCommand('copy');}}catch(e){{}}
-    if(navigator.clipboard){{navigator.clipboard.writeText(codestr.value).then(function(){{}},function(){{}});ok=true;}}
-    var st=document.getElementById('copystat');
-    st.textContent=ok?'コピーしました':'手動でコピーしてください';
-    setTimeout(function(){{st.textContent='';}},2500);
-  }};
-  document.getElementById('show').onclick=function(){{
-    var v=uniq(split(paste.value));
-    if(!v.length)return;
-    addCodes(v);
-    paste.value='';
-    draw();
-  }};
-  document.getElementById('clear').onclick=function(){{ paste.value=''; paste.focus(); }};
-  document.getElementById('clearall').onclick=function(){{
-    if(!codes.length)return;
-    if(!confirm('ウォッチ銘柄一覧の'+codes.length+'銘柄をすべて削除します。よろしいですか？（事前に上の「あなたの銘柄リスト」の文字列を控えてください）'))return;
-    codes=[];
-    save();
-    draw();
-  }};
-  tbl.addEventListener('click',function(e){{
-    var b=e.target.closest('button.rm');
-    if(!b)return;
-    var c=b.dataset.code;
-    codes=codes.filter(function(x){{return x!==c;}});
-    save();
-    draw();
-  }});
-  var data=null;
-  function draw(){{
-    codestr.value=codes.join(',');
-    document.getElementById('clearall').hidden=!codes.length;
-    if(!codes.length){{tbl.innerHTML='<div class="empty">上の欄に銘柄コードを貼り付けて「リストに追加」を押すか、ランキングで銘柄を選んで「ウォッチリストへ追加」すると、ここに一覧が出ます。</div>';return;}}
-    if(!data)return;
-    var map=data.map,tt=data.tt;
-    function btcls(v){{return v>=tt[0]?'t1':v>=tt[1]?'t2':v>=tt[2]?'t3':'t4';}}
-    var rows=codes.map(function(c){{
-      var x='<td class="x"><button type="button" class="rm" data-code="'+c+'" title="ウォッチリストから削除" aria-label="'+c+'をウォッチリストから削除">✖</button></td>';
-      var s=map[c];
-      if(!s)return '<tr><td class="code">'+c+'</td><td colspan="7" class="sec">ランキングに見つかりません（対象外・母集団外）</td>'+x+'</tr>';
-      var bt=(typeof s.bt==='number')?'<td class="n bt '+btcls(s.bt)+'"><b>'+s.bt.toFixed(0)+'</b></td>':'<td class="n">―</td>';
-      var q=(typeof s.q==='number')?s.q.toFixed(0):(s._exc?'対象外':'―');
-      var yld=(typeof s.yield==='number')?s.yield.toFixed(2)+'%':'―';
-      var px=(typeof s.price==='number')?s.price.toLocaleString():'―';
-      return '<tr><td class="code"><a href="reports/'+c+'.html">'+c+'</a></td>'
-        +'<td>'+(s.name||'')+'</td><td class="sec">'+(SECJA[s.sector]||s.sector||SECJA[s._gname]||s._gname||'')+'</td>'
-        +'<td class="n"><b>'+q+'</b></td>'+bt
-        +'<td class="n">'+yld+'</td><td class="n">'+px+'</td>'
-        +'<td>'+(s.tier||(s._exc?'―':''))+'</td>'+x+'</tr>';
-    }}).join('');
-    tbl.innerHTML='<table><thead><tr><th>コード</th><th>銘柄</th><th>業種</th>'
-      +'<th class="n">品質</th><th class="n">買い時</th><th class="n">利回り</th>'
-      +'<th class="n">終値</th><th>軍</th><th></th></tr></thead><tbody>'+rows+'</tbody></table>';
-  }}
-  var SECJA={secja_json};
-  draw();
-  fetch('ranking.json').then(function(r){{return r.json();}}).then(function(j){{
-    var map={{}};
-    (j.groups||[]).forEach(function(g){{(g.stocks||[]).forEach(function(s){{s._grade=g.grade;s._gname=g.name;map[String(s.code).toUpperCase()]=s;}});}});
-    (j.excluded||[]).forEach(function(s){{map[String(s.code).toUpperCase()]=s;s._exc=true;}});
-    data={{map:map,tt:(j.tim_tiers||[72,57,45])}};
-    draw();
-  }}).catch(function(){{tbl.innerHTML='<div class="empty">ranking.json を読み込めませんでした。</div>';}});
-}})();
-</script>
-</div></body></html>"""
+    market = out["market"]
+    tpl = open(os.path.join(HERE, "long_watchlist_tpl.html"), encoding="utf-8").read()
+    ph = ("例：7203, 9433, 6146　（カンマ・空白・改行区切りのどれでも可。いまのウォッチ銘柄一覧に追加されます）"
+          if market == "jp" else
+          "例：KO, PEP, JNJ　（カンマ・空白・改行区切りのどれでも可。BRK-B のようなハイフンも可。いまのウォッチ銘柄一覧に追加されます）")
+    rep = {
+        "@@THEME_HEAD@@": _theme_head(th),
+        "@@THEME_CSS@@": th.THEME_CSS,
+        "@@THEME_BAR@@": th.THEME_BAR,
+        "@@THEME_JS@@": _theme_js(th),
+        "@@PAGENAV@@": _pagenav("watchlist.html"),
+        "@@TITLE@@": html.escape(m["title"]),
+        "@@MARKET@@": market,
+        "@@SFX@@": "_us" if market == "us" else "",
+        "@@SECJA@@": json.dumps(GICS_JA if market == "us" else {}, ensure_ascii=False),
+        "@@PLACEHOLDER@@": html.escape(ph, quote=True),
+    }
+    for k, v in rep.items():
+        tpl = tpl.replace(k, v)
+    return tpl
 
 
 def main():
