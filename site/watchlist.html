@@ -193,12 +193,6 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 </div>
 <div class="sub" id="asof"></div>
 
-<div class="tabbar" id="tabbar" role="tablist" hidden></div>
-<div class="tabtools" id="tabtools" hidden>
-  <label>タブの名前 <input id="tabname" maxlength="20" placeholder="例）高配当・NISA用・要確認"></label>
-  <button type="button" id="tabdel" class="ghost" title="このタブだけを削除します（銘柄は「全て」に残ります）">このタブを削除</button>
-</div>
-
 <details class="box">
   <summary><h2>あなたの銘柄リスト</h2></summary>
   <div class="codewrap">
@@ -224,6 +218,12 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   <textarea id="paste" placeholder="例）9433,8058,2914,4502　（カンマ・スペース・改行区切りのどれでも可。いまのウォッチ銘柄一覧に追加されます）"></textarea>
   <div style="margin-top:8px"><button type="button" id="load">リストに追加</button> <span class="sk" id="pastenote"></span></div>
 </details>
+
+<div class="tabbar" id="tabbar" role="tablist" hidden></div>
+<div class="tabtools" id="tabtools" hidden>
+  <label>タブの名前 <input id="tabname" maxlength="20" placeholder="例）高配当・NISA用・要確認"></label>
+  <button type="button" id="tabdel" class="ghost" title="このタブだけを削除します（銘柄は「全て」に残ります）">このタブを削除</button>
+</div>
 
 <div id="missbox"></div>
 <div class="listhead" id="listhead" hidden><h2 id="listtitle">ウォッチ銘柄一覧</h2><button type="button" id="secadd" class="ghost" title="一覧の中に、名前をつけたまとまり（島）を作ります。銘柄は行頭の⠿をドラッグして入れます">＋ セクションを追加</button><button type="button" id="wlclearall" class="ghost" title="登録されている銘柄をすべて削除します">全て削除</button></div>
