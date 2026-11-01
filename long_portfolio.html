@@ -250,7 +250,6 @@ td.q,th.q{color:var(--accent)}
     <div class="stat" data-help="value" tabindex="0" role="button" aria-expanded="false"><div class="lbl">評価額合計</div><div class="val" id="st-value">―</div></div>
     <div class="stat" data-help="gain" tabindex="0" role="button" aria-expanded="false"><div class="lbl">評価損益</div><div class="val" id="st-gain">―</div></div>
     <div class="stat" data-help="realized" tabindex="0" role="button" aria-expanded="false"><div class="lbl">実現損益（累計）</div><div class="val" id="st-realized">―</div></div>
-    <div class="stat" data-help="div" tabindex="0" role="button" aria-expanded="false"><div class="lbl">予想年間受取配当額</div><div class="val" id="st-div">―</div></div>
   </div>
   <div class="stathelp" id="stathelp" hidden></div>
 </div>
@@ -1113,7 +1112,6 @@ td.q,th.q{color:var(--accent)}
         h.price = (typeof s.price === 'number') ? s.price : null;
         h.q = (typeof s.q === 'number') ? s.q : null;
         h.bt = (typeof s.bt === 'number') ? s.bt : null;
-        h.yld = (typeof s.yield === 'number') ? s.yield : null;   // 予想配当利回り（%）。表示専用
         h.value = (h.price != null) ? h.shares * h.price : null;
         h.gain = (h.value != null) ? h.value - h.cost : null;
         h.gainPct = (h.gain != null && h.cost) ? (h.gain / h.cost * 100) : null;
@@ -1129,7 +1127,7 @@ td.q,th.q{color:var(--accent)}
 
 
   // ---- サマリーの各項目：クリックで説明（いまの数字を使った計算つき）----
-  // 予想年間受取配当額は参考表示（配当はスコアには使っていない）。配当株ツールの同じ機能を、10年保有側にコピーして移植。
+  // 配当株ツールの同じ機能を、10年保有側にコピーして移植。
   var statNow = null, openStat = null;
   var STAT_HELP = {
     cost: {
@@ -1157,14 +1155,6 @@ td.q,th.q{color:var(--accent)}
       body: function(s){ return '<p>株を<strong>売って確定した損益</strong>の累計です。売却の記録ごとに「（売却単価 − そのときの平均取得単価）×売却株数」を足して求めます。平均取得単価は移動平均法（総平均法に準ずる方法）で計算します。</p>'
         + '<p>売却を1件も記録していないと「―」と表示します。評価損益（まだ売っていない分の含み損益）とは別の数字で、配当・税金・手数料は含みません。実際の取得費の計算方法は証券会社により異なる場合があるため、正確な損益は各証券会社の取引履歴でご確認ください。</p>'; },
       calc: function(s){ return s.hasSell ? ('累計：' + (s.realized >= 0 ? '+' : '') + yen(s.realized)) : '売却の記録がまだありません。'; }
-    },
-    div: {
-      t: '予想年間受取配当額',
-      body: function(s){ return '<p>これから1年間に受け取れそうな配当の<strong>見込み額（税引き前）</strong>です。銘柄ごとに「現在値 × 予想配当利回り（ランキングの値）× 保有株数」を足して求めます。</p>'
-        + '<p><strong>あくまで予想</strong>です。増配・減配や株価の変動で変わります。実際に受け取れる額（税引き後）はこれより少なくなります。</p>'
-        + '<p>このツールは配当をスコアの評価に使いません。この金額は、持っている銘柄から<strong>配当がどのくらい見込めるかを知るための参考表示</strong>です。予想配当利回りを取得できなかった銘柄は含みません。</p>'; },
-      calc: function(s){ return '合計：' + yen(s.div) + '（配当が見込める銘柄 ' + s.divCount + '件'
-        + (s.divUnknown ? '、予想配当利回りを取得できない銘柄 ' + s.divUnknown + '件は除く' : '') + '）'; }
     }
   };
   function showStatHelp(k){
@@ -1430,18 +1420,13 @@ td.q,th.q{color:var(--accent)}
       gainEl.textContent = (gainTotal >= 0 ? '+' : '') + yen(gainTotal);
       gainEl.className = 'val ' + (gainTotal >= 0 ? 'pos' : 'neg');
 
-      // 実現損益（累計）＝売却を記録した銘柄の実現損益の合計。予想年間受取配当額＝現在値×予想配当利回り×保有株数
+      // 実現損益（累計）＝売却を記録した銘柄の実現損益の合計
       var realizedTotal = holdings.reduce(function(a,h){ return a + (h.realized || 0); }, 0);
       var hasAnySell = holdings.some(function(h){ return h.hasSells; });
-      var divTotal = found.reduce(function(a,h){ return a + ((h.value != null && typeof h.yld === 'number') ? h.value * h.yld / 100 : 0); }, 0);
-      var divCount = found.filter(function(h){ return h.value != null && typeof h.yld === 'number' && h.yld > 0; }).length;
-      var divUnknown = found.filter(function(h){ return typeof h.yld !== 'number'; }).length;
       var realizedEl = $('st-realized');
       realizedEl.textContent = hasAnySell ? ((realizedTotal >= 0 ? '+' : '') + yen(realizedTotal)) : '―';
       realizedEl.className = 'val ' + (hasAnySell ? (realizedTotal >= 0 ? 'pos' : 'neg') : '');
-      $('st-div').textContent = yen(divTotal);
       statNow = {cost: costTotal, value: valueTotal, gain: gainTotal, realized: realizedTotal, hasSell: hasAnySell,
-                 div: divTotal, divCount: divCount, divUnknown: divUnknown,
                  costFound: found.reduce(function(a,h){ return a + h.cost; }, 0)};
       if (openStat) showStatHelp(openStat);
 
