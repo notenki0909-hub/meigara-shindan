@@ -705,7 +705,30 @@ TERMS = {
             "その銘柄でスコア算出に使えた指標の割合。高（85%以上）・中（65%以上）・"
             "低（それ未満）の3段階。低い銘柄は財務・配当の履歴が短い等の理由でデータが"
             "足りず、点数がぶれやすいので参考程度に見てほしいという意味。"),
+    "roe": ("ROE（自己資本利益率）",
+            "当期純利益 ÷ 自己資本（決算書の最新期）。株主が出した資金（自己資本）で、どれだけ利益を生んだかを表す。目安：米国株は<strong>12%以上で良好・7%未満で弱い</strong>。"
+            "<br><strong>ROEは採点に入っている</strong>：「配当の持続力」の1項目として、選定スコアに反映される。"
+            "<br>ただし借入を増やす（財務レバレッジが高い）とROEは高く見える。ROE＝ROA×財務レバレッジなので、<strong>ROAとセットで</strong>見るのがおすすめ。赤字の会社はマイナスになる。"),
+    "roa": ("ROA（総資産利益率・決算書ベース）",
+            "当期純利益 ÷ 総資産（最新期）。借入を含めた会社全体の資産で、どれだけ稼いだかを表す。借入に頼らず稼げているかを見る補助指標。目安：<strong>5%以上で良好、3%未満で弱い</strong>（3〜5%は注意）。"
+            "<br><strong>ROAは採点に使っていない</strong>：選定スコア・買い時スコア・軍分けのどれにも入らず、表示・絞り込み・並べ替えと、⚠注意マークの判定にだけ使う。"
+            "<br><strong>採点に入れない理由</strong>：試算（2026年10月）で、ROAを加えても点数は平均で約1点しか変わらず、順位もほとんど変わらなかった（軍が変わる銘柄は4〜7%）。"
+            "ROEやROAの約半分は、すでに業績・財務・キャッシュフローのスコアで説明できているため。採点の仕組みを複雑にせず、ROEとセットで確認する補助として使う。"
+            "<br>銀行・保険・証券・REITは構造的にROAが低く出るので、絞り込みの「業種の区分」で分けて見られる。"),
 }
+
+
+def _sector_term(out):
+    """「業種」見出しの説明（表示専用）。今の掲載銘柄から、セクターの数と内訳を数えて作る。"""
+    from collections import Counter
+    c = Counter()
+    for g in out["groups"]:
+        c.update(s["sector_jp"] for s in g["stocks"] if s.get("sector_jp"))
+    lines = [f"・<strong>{html.escape(k)}</strong>：{v}銘柄" for k, v in c.most_common()]
+    body = (f"表の「業種」は、GICS（世界産業分類）の<strong>11セクター</strong>の分類です。この一覧には現在、11セクターのうち<strong>{len(c)}セクター</strong>の銘柄（計{sum(c.values())}銘柄）が載っています。"
+            "<br>S&P 500／400／600の各銘柄の分類に従っています。1〜3軍と業種級（A/B/C）は、このセクターの中で決めています。絞り込みの「業種グループ」「業種の区分」でも使えます。"
+            "<br><strong>セクターと銘柄数</strong><br>" + "<br>".join(lines))
+    return ("業種（GICSセクター）", body)
 
 
 def render_index(out):
@@ -723,7 +746,7 @@ def render_index(out):
     scr = (f'配当利回り（直近1年の実績） ≥ {sc.get("min_dividend_yield_pct")}% ・ 直近{sc.get("no_cut_years")}年 減配なし ・ '
            f'母集団：{html.escape(str(sc.get("universe") or "S&P1500"))}') if sc.get("min_dividend_yield_pct") else ""
     c = out["counts"]
-    terms_json = json.dumps(TERMS, ensure_ascii=False)
+    terms_json = json.dumps(dict(TERMS, sector=_sector_term(out)), ensure_ascii=False)
 
     secs = []
     for g in out["groups"]:
@@ -763,8 +786,8 @@ def render_index(out):
                     '<th class="n"><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th>'
                     '<th class="n"><span class="hdr" data-term="yield">利回り</span><span class="sortbtn">▼</span></th>'
                     '<th><span class="hdr" data-term="streak">増配</span><span class="sortbtn">▼</span></th>'
-                    '<th class="n" title="ROE（自己資本利益率）。採点には使わない">ROE<span class="sortbtn">▼</span></th>'
-                    '<th class="n" title="ROA（総資産利益率・決算書ベース）。採点には使わない">ROA<span class="sortbtn">▼</span></th>'
+                    '<th class="n" title="ROE（自己資本利益率）。クリックで説明"><span class="hdr" data-term="roe">ROE</span><span class="sortbtn">▼</span></th>'
+                    '<th class="n" title="ROA（総資産利益率・決算書ベース）。採点には使わない。クリックで説明"><span class="hdr" data-term="roa">ROA</span><span class="sortbtn">▼</span></th>'
                     '<th class="hdr" data-term="cov">カバレッジ</th>'
                     '</tr></thead><tbody>' + "".join(trs) + '</tbody></table></section>')
 
@@ -799,12 +822,12 @@ def render_index(out):
               '<th><span class="hdr" data-term="streak">増配</span><span class="sortbtn">▼</span></th>') if extra else ""
         return ('<table><thead><tr><th class="wl" title="ウォッチリストに追加する銘柄にチェック">☆</th>'
                 '<th class="pf" title="ポートフォリオに追加する銘柄にチェック">💼</th><th class="n">#</th>'
-                '<th class="hdr" data-term="tier">軍</th><th>ティッカー</th><th>銘柄</th><th>業種</th>'
+                '<th class="hdr" data-term="tier">軍</th><th>ティッカー</th><th>銘柄</th><th class="hdr" data-term="sector">業種</th>'
                 '<th class="n"><span class="hdr" data-term="price">終値</span><span class="sortbtn">▼</span></th>'
                 + _chg_header_cells() +
                 '<th class="n"><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>'
                 '<th class="n"><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th>'
-                + '<th class="n" title="ROE（自己資本利益率）。採点には使わない">ROE<span class="sortbtn">▼</span></th>' + '<th class="n" title="ROA（総資産利益率・決算書ベース）。採点には使わない">ROA<span class="sortbtn">▼</span></th>'
+                + '<th class="n" title="ROE（自己資本利益率）。クリックで説明"><span class="hdr" data-term="roe">ROE</span><span class="sortbtn">▼</span></th>' + '<th class="n" title="ROA（総資産利益率・決算書ベース）。採点には使わない。クリックで説明"><span class="hdr" data-term="roa">ROA</span><span class="sortbtn">▼</span></th>'
                 + ex + '</tr></thead><tbody>')
 
     gt = _rank_rows(out["global_top"])
@@ -962,7 +985,7 @@ body.wlon{{padding-bottom:60px}}
 <div class="topbar"><h1>米国株 配当株 軍分けランキング</h1><span class="pagenav"><a href="terms.html">利用規約・免責事項</a><a href="guide.html">使い方・見方</a></span></div>
 {THEME_BAR}
 <div class="sub">生成 {gen}　｜　スクリーン：{scr}</div>
-<div class="sub">表の見出し（軍・終値・選定・買い時・利回り・増配・カバレッジ・業種級）をクリックすると説明が出ます。各行の☆にチェックを入れて下部の「ウォッチリストへ追加」を、💼にチェックを入れて「ポートフォリオに追加」を押すと、それぞれ選んだ銘柄がウォッチリスト・保有記録の入力画面に追加されます（☆と💼は別々に選べます。チェックを入れただけでは追加されません）。</div>
+<div class="sub">表の見出し（軍・業種・終値・選定・買い時・利回り・増配・ROE・ROA・カバレッジ・業種級）をクリックすると説明が出ます。各行の☆にチェックを入れて下部の「ウォッチリストへ追加」を、💼にチェックを入れて「ポートフォリオに追加」を押すと、それぞれ選んだ銘柄がウォッチリスト・保有記録の入力画面に追加されます（☆と💼は別々に選べます。チェックを入れただけでは追加されません）。</div>
 <div class="summary">
   <button type="button" class="sumbtn" data-tier=""><b>{c['total']}</b>銘柄</button>
   <button type="button" class="sumbtn" data-tier="1軍"><b>{c['1軍']}</b>1軍</button>
