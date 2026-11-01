@@ -711,9 +711,14 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     renderSelTools();
 
     if (!list.length) {
-      $('list').innerHTML = '<div class="empty">このタブにはまだ銘柄がありません。'
-        + '「全て」タブで銘柄の左のチェックボックスにチェックを入れ、'
-        + '「追加先のタブを選ぶ」から「' + esc(t.name) + '」を選んで追加してください。</div>';
+      // 「全て」タブ（t が null）でも、タブがあるあいだはここに来る（銘柄を全部外した直後など）
+      $('list').innerHTML = t
+        ? '<div class="empty">このタブにはまだ銘柄がありません。'
+          + '「全て」タブで銘柄の左のチェックボックスにチェックを入れ、'
+          + '「追加先のタブを選ぶ」から「' + esc(t.name) + '」を選んで追加してください。</div>'
+        : '<div class="empty">ウォッチリストに銘柄がありません。'
+          + '<a href="index.html">ランキングページ</a>で左端の☆にチェックを入れて'
+          + '「ウォッチリストへ追加」を押すか、上の「銘柄リストを貼り付けて追加」を開いて銘柄リストを貼り付けてください。</div>';
       return;
     }
     if (!found.length) {
