@@ -129,6 +129,14 @@ details.box>summary::before{content:'▶';font-size:10px;color:var(--muted)}
 details.box[open]>summary::before{content:'▼'}
 details.box>summary h2{margin:0}
 details.box[open]>summary{margin-bottom:8px}
+.dg{cursor:grab;touch-action:none;user-select:none;color:var(--muted);width:22px;text-align:center;padding-left:6px;padding-right:2px;font-size:15px;line-height:1}
+th.dg{cursor:pointer;touch-action:auto}
+th.dg.on{color:var(--accent)}
+td.dg:focus-visible{outline:2px solid var(--accent);border-radius:4px}
+tr.dragging td{opacity:.45}
+tr.dropbefore td{box-shadow:inset 0 2px 0 var(--accent)}
+tr.dropend td{box-shadow:inset 0 -2px 0 var(--accent)}
+body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>ウォッチリスト</h1><span class="pagenav"><a href="terms.html">利用規約・免責事項</a><a href="guide.html">使い方・見方</a><a href="index.html">ランキング</a><a href="portfolio.html">ポートフォリオ</a></span></div>
 <div id="theme-bar">
@@ -199,6 +207,7 @@ details.box[open]>summary{margin-bottom:8px}
   <button type="button" id="selgo" disabled>選んだ銘柄をタブに追加</button>
   <button type="button" id="selrm" class="ghost" disabled hidden>選んだ銘柄をこのタブから外す</button>
   <span id="selmsg"></span>
+  <span class="sk">行頭の ⠿ をドラッグして並べ替え</span>
 </div>
 <div id="list"></div>
 
@@ -339,7 +348,7 @@ details.box[open]>summary{margin-bottom:8px}
   var cur = lsGet(SEL_KEY) || 'all';
   if (cur !== 'all' && !tabs.some(function(t){ return t.id === cur; })) cur = 'all';
 
-  var SORTKEYS = ['sel', 'tim', 'yield', 'sector'];
+  var SORTKEYS = ['sel', 'tim', 'yield', 'sector', 'manual'];
   var sort = {key: 'sel', dir: -1};
   try {
     var sv = JSON.parse(lsGet(SORT_KEY) || 'null');
@@ -374,17 +383,15 @@ details.box[open]>summary{margin-bottom:8px}
     if (typeof bv !== 'number') return -1;
     return bv - av;
   }
-  function ordered(list){
+  // 表示中の並び順（コピー用の銘柄リストも、見えている順にそろえる）
+  function displayOrder(list){
     if (!byCode) return list.slice();
     var f = [], m = [];
     list.forEach(function(c){ (byCode[c] ? f : m).push(c); });
-    f.sort(selDesc);
-    return f.concat(m);
+    return sortedFound(f).concat(m);
   }
 
   function save(){
-    master = ordered(master);
-    tabs.forEach(function(t){ t.codes = ordered(t.codes); });
     lsSet(WL_KEY, master.join(','));
     lsSet(TAB_KEY, JSON.stringify(tabs));
     lsSet(SEL_KEY, cur);
@@ -467,6 +474,7 @@ details.box[open]>summary{margin-bottom:8px}
     return (typeof v === 'number') ? v : null;
   }
   function sortedFound(list){
+    if (sort.key === 'manual') return list.slice();   // ドラッグで決めた並び（保存されている順）
     return list.slice().sort(function(a, b){
       var A = sortVal(byCode[a], sort.key), B = sortVal(byCode[b], sort.key);
       var aE = (A === null || A === ''), bE = (B === null || B === '');
@@ -476,6 +484,11 @@ details.box[open]>summary{margin-bottom:8px}
       if (r) return r * sort.dir;
       return selDesc(a, b) || (a < b ? -1 : (a > b ? 1 : 0));
     });
+  }
+  function manualTh(){
+    var on = (sort.key === 'manual');
+    return '<th class="dg' + (on ? ' on' : '') + '" data-sort="manual"'
+      + ' title="ドラッグで並べた順に切り替え（行頭の ⠿ をドラッグ、または ⠿ を選んで ↑↓ キーで移動）">⠿</th>';
   }
   function sortTh(key, label, cls){
     var on = (sort.key === key);
@@ -533,7 +546,7 @@ details.box[open]>summary{margin-bottom:8px}
     renderTabs(forceName);
     var t = curTab(), list = curCodes();
     $('codelbl').textContent = t ? ('タブ「' + t.name + '」') : '全て';
-    $('codestr').value = ordered(list).join(',');
+    $('codestr').value = displayOrder(list).join(',');
     $('bkwrap').hidden = !tabs.length;
     $('bknote').hidden = !tabs.length;
     $('bkstr').value = tabs.length ? backupText() : '';
@@ -585,7 +598,8 @@ details.box[open]>summary{margin-bottom:8px}
       var yraw = s['yield'];
       var yv = (typeof yraw === 'number') ? yraw.toFixed(2) + '%' : '―';
       var cov = Array.isArray(s.cov_sel) ? (s.cov_sel[2] || '') : (s.cov_sel || '');
-      return '<tr class="' + tcls + '">'
+      return '<tr class="' + tcls + '" data-code="' + s.code + '">'
+        + '<td class="dg" tabindex="0" title="ドラッグで並べ替え（↑↓キーでも移動できます）" aria-label="並べ替えのつまみ">⠿</td>'
         + '<td class="ck"><input type="checkbox" class="rowck" data-code="' + s.code + '"' + (checked[c] ? ' checked' : '') + ' aria-label="タブに追加する銘柄として選ぶ"></td>'
         + '<td class="tier">' + (s.tier || '―') + '<span class="dir ' + dcls + '">' + (s.dir || '') + '</span></td>'
         + '<td class="code"><a href="reports/' + s.code + '.html">' + s.code + '</a></td>'
@@ -603,6 +617,7 @@ details.box[open]>summary{margin-bottom:8px}
     }).join('');
 
     $('list').innerHTML = '<table><thead><tr>'
+      + manualTh()
       + '<th class="ck"><input type="checkbox" id="ckall" aria-label="全て選ぶ"></th>'
       + '<th>軍</th><th>コード</th><th>銘柄</th><th class="n">終値</th>'
       + sortTh('sector', '業種', '')
@@ -734,7 +749,8 @@ details.box[open]>summary{margin-bottom:8px}
     var th = e.target.closest('th[data-sort]');
     if (th) {
       var k = th.dataset.sort;
-      if (sort.key === k) sort.dir = -sort.dir;
+      if (k === 'manual') sort = {key: 'manual', dir: 1};
+      else if (sort.key === k) sort.dir = -sort.dir;
       else sort = {key: k, dir: (k === 'sector' ? 1 : -1)};
       lsSet(SORT_KEY, JSON.stringify(sort));
       render();
@@ -753,6 +769,88 @@ details.box[open]>summary{margin-bottom:8px}
       checked[el.dataset.code] = el.checked;
       updateSelCount();
     }
+  });
+
+  // ---- ドラッグで並べ替え（行頭の ⠿ をつかむ。マウス・タッチ両対応）------------
+  var drag = null;
+  function dragRows(){ return Array.prototype.slice.call($('list').querySelectorAll('tbody tr')); }
+  function dropIndex(rows, y){
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i].getBoundingClientRect();
+      if (y < r.top + r.height / 2) return i;
+    }
+    return rows.length;
+  }
+  function markDrop(rows, idx){
+    rows.forEach(function(r){ r.classList.remove('dropbefore', 'dropend'); });
+    if (idx < rows.length) rows[idx].classList.add('dropbefore');
+    else if (rows.length) rows[rows.length - 1].classList.add('dropend');
+  }
+  function endDrag(){
+    if (!drag) return;
+    drag.rows.forEach(function(r){ r.classList.remove('dropbefore', 'dropend', 'dragging'); });
+    document.body.classList.remove('dragging-row');
+    drag = null;
+  }
+  // order = 画面に出ている順に並べた銘柄コード。表の外（見つからない銘柄）は末尾に残す
+  function applyManual(order){
+    var t = curTab(), list = curCodes();
+    var rest = list.filter(function(c){ return order.indexOf(c) < 0; });
+    var nl = order.concat(rest);
+    if (t) t.codes = nl; else master = nl;
+    sort = {key: 'manual', dir: 1};
+    lsSet(SORT_KEY, JSON.stringify(sort));
+    save();
+    render();
+  }
+  function moveRow(from, idx, rows){
+    var order = rows.map(function(r){ return r.dataset.code; });
+    var c = order.splice(from, 1)[0];
+    var at = (idx > from) ? idx - 1 : idx;
+    if (at === from) return false;
+    order.splice(at, 0, c);
+    applyManual(order);
+    return true;
+  }
+  $('list').addEventListener('pointerdown', function(e){
+    var h = e.target.closest('td.dg');
+    if (!h || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    var tr = h.closest('tr'), rows = dragRows();
+    e.preventDefault();
+    drag = {tr: tr, rows: rows, from: rows.indexOf(tr), idx: rows.indexOf(tr)};
+    tr.classList.add('dragging');
+    document.body.classList.add('dragging-row');
+    try { h.setPointerCapture(e.pointerId); } catch(x) {}
+  });
+  $('list').addEventListener('pointermove', function(e){
+    if (!drag) return;
+    drag.idx = dropIndex(drag.rows, e.clientY);
+    markDrop(drag.rows, drag.idx);
+    if (e.clientY < 60) window.scrollBy(0, -14);
+    else if (e.clientY > window.innerHeight - 60) window.scrollBy(0, 14);
+  });
+  $('list').addEventListener('pointerup', function(e){
+    if (!drag) return;
+    var d = drag;
+    endDrag();
+    moveRow(d.from, d.idx, d.rows);
+  });
+  $('list').addEventListener('pointercancel', endDrag);
+  // キーボード：⠿ にフォーカスして ↑↓ で1行ずつ移動
+  $('list').addEventListener('keydown', function(e){
+    var h = e.target.closest ? e.target.closest('td.dg') : null;
+    if (!h || (e.key !== 'ArrowUp' && e.key !== 'ArrowDown')) return;
+    e.preventDefault();
+    var rows = dragRows(), tr = h.closest('tr'), i = rows.indexOf(tr);
+    var j = (e.key === 'ArrowUp') ? i - 1 : i + 1;
+    if (j < 0 || j >= rows.length) return;
+    var code = tr.dataset.code;
+    var order = rows.map(function(r){ return r.dataset.code; });
+    order.splice(i, 1);
+    order.splice(j, 0, code);
+    applyManual(order);
+    var again = $('list').querySelector('tr[data-code="' + code + '"] td.dg');
+    if (again) again.focus();
   });
 
   var msgTimer = null;
