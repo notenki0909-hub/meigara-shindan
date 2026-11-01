@@ -161,6 +161,12 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 .island th:nth-child(11),.island td:nth-child(11){width:104px}
 .island th:nth-child(12),.island td:nth-child(12){width:74px}
 .island th:nth-child(13),.island td:nth-child(13){width:38px}
+.ihandle{cursor:grab;touch-action:none;user-select:none;color:var(--muted);font-size:17px;line-height:1;padding:4px 4px 4px 0}
+.ihandle:hover{color:var(--accent)}
+.ihandle:focus-visible{outline:2px solid var(--accent);border-radius:4px}
+.island.sdragging{opacity:.5}
+.island.secbefore{box-shadow:0 -4px 0 0 var(--accent)}
+.island.secend{box-shadow:0 4px 0 0 var(--accent)}
 .idrop{border:2px dashed var(--line);border-radius:10px;padding:18px;text-align:center;color:var(--muted);font-size:12.5px}
 .listhead #secadd{padding:4px 10px;font-size:12px}
 </style></head><body><div class="wrap">
@@ -757,7 +763,8 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
       var rows = sortedFound(fc).map(rowHtml).join('');
       if (!withSecs) return '<div class="island solo" data-sec="">' + tableHtml(rows) + '</div>';
       var head = g.id
-        ? '<div class="ihead"><input class="iname" data-sec="' + esc(g.id) + '" maxlength="20" value="' + esc(g.name) + '" aria-label="セクション名" title="クリックして名前を変えられます">'
+        ? '<div class="ihead"><span class="ihandle" data-sec="' + esc(g.id) + '" tabindex="0" title="ドラッグでセクションを移動（↑↓キーでも動かせます）" aria-label="セクションの並べ替えのつまみ">⠿</span>'
+          + '<input class="iname" data-sec="' + esc(g.id) + '" maxlength="20" value="' + esc(g.name) + '" aria-label="セクション名" title="クリックして名前を変えられます">'
           + '<span class="icnt">' + fc.length + '銘柄</span>'
           + '<button type="button" class="idel ghost" data-sec="' + esc(g.id) + '" title="セクションだけを削除します（中の銘柄は「未分類」に戻り、ウォッチリストには残ります）">セクションを削除</button></div>'
         : '<div class="ihead"><span class="ititle">未分類</span><span class="icnt">' + fc.length + '銘柄</span>'
@@ -1069,6 +1076,86 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     o.splice(j, 0, code);
     applyIslands(orders);
     var again = $('list').querySelector('tr[data-code="' + code + '"] td.dg');
+    if (again) again.focus();
+  });
+
+  // ---- セクション（島）そのものをドラッグで並べ替え（見出しの ⠿ をつかむ。「未分類」は常に最下段）----
+  var sdrag = null;
+  function secIslands(){ return islandEls().filter(function(el){ return el.dataset.sec !== ''; }); }
+  function secDropIndex(y){
+    var els = secIslands();
+    for (var i = 0; i < els.length; i++) {
+      var r = els[i].getBoundingClientRect();
+      if (y < r.top + Math.min(r.height / 2, 80)) return i;
+    }
+    return els.length;
+  }
+  function clearSecMarks(){
+    Array.prototype.forEach.call($('list').querySelectorAll('.secbefore, .secend'), function(el){
+      el.classList.remove('secbefore', 'secend');
+    });
+  }
+  function markSecDrop(idx){
+    clearSecMarks();
+    var els = secIslands();
+    if (idx < els.length) els[idx].classList.add('secbefore');
+    else if (els.length) els[els.length - 1].classList.add('secend');
+  }
+  function endSecDrag(){
+    if (!sdrag) return;
+    clearSecMarks();
+    sdrag.el.classList.remove('sdragging');
+    document.body.classList.remove('dragging-row');
+    sdrag = null;
+  }
+  function moveSection(id, at){
+    var secs = curSecs(), i = -1;
+    secs.forEach(function(s, k){ if (s.id === id) i = k; });
+    if (i < 0) return false;
+    var s = secs.splice(i, 1)[0];
+    at = Math.max(0, Math.min(at, secs.length));
+    secs.splice(at, 0, s);
+    save();
+    render();
+    return at !== i;
+  }
+  $('list').addEventListener('pointerdown', function(e){
+    var h = e.target.closest('.ihandle');
+    if (!h || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    var el = h.closest('.island'), els = secIslands();
+    e.preventDefault();
+    sdrag = {el: el, id: h.dataset.sec, from: els.indexOf(el), idx: els.indexOf(el)};
+    el.classList.add('sdragging');
+    document.body.classList.add('dragging-row');
+    try { h.setPointerCapture(e.pointerId); } catch(x) {}
+  });
+  $('list').addEventListener('pointermove', function(e){
+    if (!sdrag) return;
+    sdrag.idx = secDropIndex(e.clientY);
+    markSecDrop(sdrag.idx);
+    if (e.clientY < 60) window.scrollBy(0, -14);
+    else if (e.clientY > window.innerHeight - 60) window.scrollBy(0, 14);
+  });
+  $('list').addEventListener('pointerup', function(e){
+    if (!sdrag) return;
+    var d = sdrag;
+    endSecDrag();
+    var at = (d.idx > d.from) ? d.idx - 1 : d.idx;   // 自分を抜いた分だけ位置がずれる
+    if (at === d.from) return;
+    moveSection(d.id, at);
+  });
+  $('list').addEventListener('pointercancel', endSecDrag);
+  // キーボード：見出しの ⠿ にフォーカスして ↑↓ で1つずつ移動
+  $('list').addEventListener('keydown', function(e){
+    var h = e.target.closest ? e.target.closest('.ihandle') : null;
+    if (!h || (e.key !== 'ArrowUp' && e.key !== 'ArrowDown')) return;
+    e.preventDefault();
+    var secs = curSecs(), i = -1;
+    secs.forEach(function(s, k){ if (s.id === h.dataset.sec) i = k; });
+    var j = (e.key === 'ArrowUp') ? i - 1 : i + 1;
+    if (i < 0 || j < 0 || j >= secs.length) return;
+    moveSection(h.dataset.sec, j);
+    var again = $('list').querySelector('.ihandle[data-sec="' + h.dataset.sec + '"]');
     if (again) again.focus();
   });
 
