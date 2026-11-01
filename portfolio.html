@@ -89,7 +89,8 @@ tr:last-child td{border-bottom:none}
 .priv{background:var(--info);border:1px solid var(--ibd);border-radius:8px;padding:10px 12px;font-size:12px;margin:8px 0}
 
 /* サマリーカード */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:520px){.stats{grid-template-columns:repeat(2,1fr)}}
 .stat{background:var(--field);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
 .stat .lbl{font-size:11px;color:var(--muted)}
 .stat .val{font-size:19px;font-weight:700;margin-top:2px}
@@ -189,6 +190,17 @@ details.box>summary::before{content:'▶';font-size:10px;color:var(--muted)}
 details.box[open]>summary::before{content:'▼'}
 details.box>summary h2{margin:0}
 details.box[open]>summary{margin-bottom:8px}
+.stat[data-help]{cursor:pointer}
+.stat[data-help] .lbl::after{content:' ⓘ';color:var(--accent)}
+.stat[data-help]:focus-visible{outline:2px solid var(--accent)}
+.stat[data-help].on{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 25%,transparent)}
+.stat .sub{font-size:11px;color:var(--muted);margin-top:2px}
+.stathelp{margin-top:10px;padding:12px 14px;background:var(--info,var(--field));border:1px solid var(--line);border-radius:8px;font-size:12.5px;line-height:1.75}
+.stathelp[hidden]{display:none}
+.stathelp .sh-t{font-size:13.5px;font-weight:700;margin:0 0 4px}
+.stathelp p{margin:4px 0}
+.stathelp .sh-calc{color:var(--muted)}
+.stathelp .sh-x{float:right;border:0;background:none;color:var(--muted);font-size:14px;cursor:pointer;padding:0 2px}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>ポートフォリオ</h1><div class="nav"><a href="terms.html">利用規約・免責事項</a><a href="guide.html">使い方・見方</a><a href="index.html">ランキング</a><a href="watchlist.html">ウォッチリスト</a></div></div>
 <div id="theme-bar">
@@ -242,12 +254,14 @@ details.box[open]>summary{margin-bottom:8px}
 <div class="box" id="summarybox" hidden>
   <h2>サマリー</h2>
   <div class="stats">
-    <div class="stat"><div class="lbl">取得金額合計</div><div class="val" id="st-cost">―</div></div>
-    <div class="stat"><div class="lbl">評価額合計</div><div class="val" id="st-value">―</div></div>
-    <div class="stat"><div class="lbl">評価損益</div><div class="val" id="st-gain">―</div></div>
-    <div class="stat"><div class="lbl">実現損益（累計）</div><div class="val" id="st-realized">―</div></div>
-    <div class="stat"><div class="lbl">予想年間受取配当額</div><div class="val" id="st-div">―</div></div>
+    <div class="stat" data-help="cost" tabindex="0" role="button" aria-expanded="false"><div class="lbl">取得金額合計</div><div class="val" id="st-cost">―</div></div>
+    <div class="stat" data-help="value" tabindex="0" role="button" aria-expanded="false"><div class="lbl">評価額合計</div><div class="val" id="st-value">―</div></div>
+    <div class="stat" data-help="gain" tabindex="0" role="button" aria-expanded="false"><div class="lbl">評価損益</div><div class="val" id="st-gain">―</div></div>
+    <div class="stat" data-help="realized" tabindex="0" role="button" aria-expanded="false"><div class="lbl">実現損益（累計）</div><div class="val" id="st-realized">―</div></div>
+    <div class="stat" data-help="div" tabindex="0" role="button" aria-expanded="false"><div class="lbl">予想年間受取配当額</div><div class="val" id="st-div">―</div></div>
+    <div class="stat" data-help="yield" tabindex="0" role="button" aria-expanded="false"><div class="lbl">全体の配当率（配当利回り）</div><div class="val" id="st-yield">―</div><div class="sub" id="st-yoc"></div></div>
   </div>
+  <div class="stathelp" id="stathelp" hidden></div>
 </div>
 
 <div class="box" id="chartbox" hidden>
@@ -1604,6 +1618,88 @@ details.box[open]>summary{margin-bottom:8px}
     }
   });
 
+  // ---- サマリーの各項目：クリックで説明（いまの数字を使った計算つき）----
+  var statNow = null, openStat = null;
+  var STAT_HELP = {
+    cost: {
+      t: '取得金額合計',
+      body: function(s){ return '<p>いま持っている株を、<strong>いくらで買ったか</strong>の合計です。購入ごとに「株数×取得単価」を足して求めます。</p>'
+        + '<p>売却を記録した分は、売った株数ぶんの取得費を移動平均法（総平均法に準ずる方法）で差し引いてあるので、<strong>残っている株に対応する金額</strong>です。取得単価を空欄で追加した場合は、購入日の終値が入ります。</p>'
+        + '<p>現在値を取得できなかった銘柄（ランキングに見つからない銘柄）の取得金額も含みます。</p>'; },
+      calc: function(s){ return '合計：' + yen(s.cost); }
+    },
+    value: {
+      t: '評価額合計',
+      body: function(s){ return '<p>いま持っている株を<strong>今日の値段で売ったらいくらか</strong>の合計です。「保有株数×現在値（ランキングの最新の終値）」を、銘柄ごとに足して求めます。</p>'
+        + '<p>株価の動きで変わります。現在値を取得できなかった銘柄は含みません。</p>'; },
+      calc: function(s){ return '合計：' + yen(s.value); }
+    },
+    gain: {
+      t: '評価損益',
+      body: function(s){ return '<p><strong>評価額合計 − 取得金額</strong>です。プラスなら含み益、マイナスなら含み損です。</p>'
+        + '<p>まだ売っていないので、<strong>確定した損益ではありません</strong>（株価しだいで日々変わります）。現在値を取得できた銘柄だけで計算し、税金・手数料・受け取った配当は含みません。</p>'; },
+      calc: function(s){ return '評価額 ' + yen(s.value) + ' − 取得金額 ' + yen(s.costFound) + ' = ' + (s.gain >= 0 ? '+' : '') + yen(s.gain)
+        + (s.costFound > 0 ? '（' + (s.gain >= 0 ? '+' : '') + (s.gain / s.costFound * 100).toFixed(1) + '%）' : ''); }
+    },
+    realized: {
+      t: '実現損益（累計）',
+      body: function(s){ return '<p>株を<strong>売って確定した損益</strong>の累計です。売却の記録ごとに「（売却単価 − そのときの平均取得単価）×売却株数」を足して求めます。平均取得単価は移動平均法（総平均法に準ずる方法）で計算します。</p>'
+        + '<p>売却を1件も記録していないと「―」と表示します。評価損益（まだ売っていない分の含み損益）とは別の数字で、配当・税金・手数料は含みません。</p>'; },
+      calc: function(s){ return s.hasSell ? ('累計：' + (s.realized >= 0 ? '+' : '') + yen(s.realized)) : '売却の記録がまだありません。'; }
+    },
+    div: {
+      t: '予想年間受取配当額',
+      body: function(s){ return '<p>これから1年間に受け取れそうな配当の<strong>見込み額（税引き前）</strong>です。銘柄ごとに「現在値 × 予想配当利回り（ランキングの値）× 保有株数」を足して求めます。</p>'
+        + '<p><strong>あくまで予想</strong>です。増配・減配や株価の変動で変わります。実際に受け取れる額（税引き後）はこれより少なくなります。月ごとの受取は、下の「月別配当受取見込み」で見られます。</p>'; },
+      calc: function(s){ return '合計：' + yen(s.div); }
+    },
+    yield: {
+      t: '全体の配当率（配当利回り）',
+      body: function(s){ return '<p>ポートフォリオ全体の配当利回りです。<strong>予想年間受取配当額 ÷ 評価額合計</strong>で求めます。「いまの値段で全部を持っているとしたら、1年に何%の配当が見込めるか」を表します。</p>'
+        + '<p>下に小さく出る<strong>取得額ベース（YOC）</strong>は、<strong>予想年間受取配当額 ÷ 取得金額</strong>です。「実際に払った金額に対して、何%の配当が見込めるか」を表します。株価が買ったときより上がっていれば、配当利回り（評価額ベース）はYOCより低くなります。</p>'
+        + '<p>どちらも予想配当をもとにした目安で、税引き前です。現在値を取得できた銘柄だけで計算します。</p>'; },
+      calc: function(s){
+        var a = (s.yld == null) ? '―' : s.yld.toFixed(2) + '%', b = (s.yoc == null) ? '―' : s.yoc.toFixed(2) + '%';
+        return '配当率（評価額ベース）：' + yen(s.div) + ' ÷ ' + yen(s.value) + ' = ' + a
+          + ' ／ 取得額ベース（YOC）：' + yen(s.div) + ' ÷ ' + yen(s.costFound) + ' = ' + b;
+      }
+    }
+  };
+  function showStatHelp(k){
+    var el = $('stathelp'), h = STAT_HELP[k];
+    Array.prototype.forEach.call(document.querySelectorAll('.stat[data-help]'), function(c){
+      var on = (c.dataset.help === k);
+      c.classList.toggle('on', on);
+      c.setAttribute('aria-expanded', on ? 'true' : 'false');
+    });
+    if (!h || !statNow) { el.hidden = true; return; }
+    el.innerHTML = '<button type="button" class="sh-x" id="stathelp-close" aria-label="閉じる">✕</button>'
+      + '<div class="sh-t">' + h.t + '</div>' + h.body(statNow) + '<p class="sh-calc">いまの数字：' + h.calc(statNow) + '</p>';
+    el.hidden = false;
+  }
+  function toggleStat(k){
+    openStat = (openStat === k) ? null : k;
+    if (openStat) showStatHelp(openStat);
+    else {
+      $('stathelp').hidden = true;
+      Array.prototype.forEach.call(document.querySelectorAll('.stat[data-help]'), function(c){ c.classList.remove('on'); c.setAttribute('aria-expanded', 'false'); });
+    }
+  }
+  document.querySelector('#summarybox .stats').addEventListener('click', function(e){
+    var c = e.target.closest('.stat[data-help]');
+    if (c) toggleStat(c.dataset.help);
+  });
+  document.querySelector('#summarybox .stats').addEventListener('keydown', function(e){
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var c = e.target.closest('.stat[data-help]');
+    if (!c) return;
+    e.preventDefault();
+    toggleStat(c.dataset.help);
+  });
+  $('stathelp').addEventListener('click', function(e){
+    if (e.target.id === 'stathelp-close') toggleStat(openStat);
+  });
+
   function render(){
     divHistCache = {}; // lots が変わった可能性があるので配当実績の再計算キャッシュを破棄
     fetch('ranking.json', {cache:'no-cache'}).then(function(r){ return r.json(); }).then(function(j){
@@ -1657,6 +1753,14 @@ details.box[open]>summary{margin-bottom:8px}
       realizedEl.textContent = hasAnySell ? ((realizedTotal >= 0 ? '+' : '') + yen(realizedTotal)) : '―';
       realizedEl.className = 'val ' + (hasAnySell ? (realizedTotal >= 0 ? 'pos' : 'neg') : '');
       $('st-div').textContent = yen(divTotal);
+      var costFound = found.reduce(function(a,h){ return a + h.cost; }, 0);
+      var yld = valueTotal > 0 ? divTotal / valueTotal * 100 : null;
+      var yoc = costFound > 0 ? divTotal / costFound * 100 : null;
+      $('st-yield').textContent = pct(yld, 2);
+      $('st-yoc').textContent = (yoc == null) ? '' : '取得額ベース（YOC） ' + pct(yoc, 2);
+      statNow = {cost: costTotal, value: valueTotal, gain: gainTotal, realized: realizedTotal, hasSell: hasAnySell,
+                 div: divTotal, yld: yld, yoc: yoc, costFound: costFound};
+      if (openStat) showStatHelp(openStat);
 
       if (!found.length) {
         $('chartbox').hidden = true;
