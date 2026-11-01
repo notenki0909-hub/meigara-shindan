@@ -97,6 +97,32 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
 .disc{margin-top:30px;padding:12px;background:var(--wbg);border:1px solid var(--wbd);
   border-radius:8px;font-size:11.5px;color:var(--wfg)}
 .disc a{color:var(--wfg)}
+.tabbar{display:flex;gap:4px;flex-wrap:wrap;align-items:flex-end;border-bottom:1px solid var(--line);margin:16px 0 0}
+.tabbar[hidden],.tabtools[hidden],.seltools[hidden],.codewrap[hidden]{display:none}
+.tabbar .tab{padding:7px 14px;border:1px solid var(--line);border-bottom:none;border-radius:8px 8px 0 0;
+  background:var(--th);color:var(--muted);font-size:13px;cursor:pointer;margin-bottom:-1px}
+.tabbar .tab.on{background:var(--card);color:var(--fg);font-weight:700;border-bottom:1px solid var(--card)}
+.tabbar .tab.add{background:none;border-style:dashed;color:var(--accent)}
+.tab .tc{display:inline-block;min-width:18px;margin-left:6px;padding:0 5px;border-radius:9px;background:var(--line);
+  color:var(--muted);font-size:11px;font-weight:400;text-align:center}
+.tabtools{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0 0;font-size:12.5px}
+.tabtools input{padding:6px 9px;border:1px solid var(--line);border-radius:8px;background:var(--field);color:var(--fg);font:inherit;width:220px;max-width:100%}
+.tabtools button{padding:5px 10px;font-size:12px}
+.seltools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0 0;font-size:12.5px}
+.seltools select{padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--field);color:var(--fg);font:inherit;font-size:12.5px;max-width:100%}
+.seltools button{padding:5px 12px;font-size:12px}
+.seltools button:disabled{opacity:.45;cursor:default}
+#selcount{font-weight:700}
+#selmsg{font-size:12px;color:var(--gA)}
+.bklbl{font-size:12px;color:var(--muted);white-space:nowrap}
+#bkstr{flex:1;min-width:220px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font:13px/1.4 monospace;background:var(--field);color:var(--fg)}
+#bkstat{font-size:12px;color:var(--gA)}
+th.sortable{cursor:pointer;user-select:none;white-space:nowrap}
+th.sortable.on{color:var(--fg)}
+th.sortable .si{margin-left:3px;font-size:10px;opacity:.55}
+th.sortable.on .si{opacity:1;color:var(--accent)}
+th.ck,td.ck{width:28px;text-align:center;padding-left:6px;padding-right:2px}
+#list{overflow-x:auto}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>ウォッチリスト</h1><span class="pagenav"><a href="terms.html">利用規約・免責事項</a><a href="guide.html">使い方・見方</a><a href="index.html">ランキング</a><a href="portfolio.html">ポートフォリオ</a></span></div>
 <div id="theme-bar">
@@ -127,26 +153,47 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
 </div>
 <div class="sub" id="asof"></div>
 
+<div class="tabbar" id="tabbar" role="tablist" hidden></div>
+<div class="tabtools" id="tabtools" hidden>
+  <label>タブの名前 <input id="tabname" maxlength="20" placeholder="例）高配当・NISA用・要確認"></label>
+  <button type="button" id="tabdel" class="ghost" title="このタブだけを削除します（銘柄は「全て」に残ります）">このタブを削除</button>
+</div>
+
 <div class="box">
   <h2>あなたの銘柄リスト</h2>
   <div class="codewrap">
+    <span class="bklbl" id="codelbl">全て</span>
     <input id="codestr" readonly value="">
     <button type="button" id="copy">コピー</button>
     <span id="copystat"></span>
   </div>
+  <div class="codewrap" id="bkwrap" hidden>
+    <span class="bklbl">全タブの控え</span>
+    <input id="bkstr" readonly value="">
+    <button type="button" id="bkcopy">コピー</button>
+    <span id="bkstat"></span>
+  </div>
   <p>基本は<b>この銘柄リストをコピーして控えておく</b>方式です。次回、下の入力欄に貼り付けて「リストに追加」を押せばウォッチリストが復元されます（いまのウォッチ銘柄一覧に追加されます）。</p>
-  <p><b>同じ端末・同じブラウザ</b>を使う場合は、一度開けば以降はこのページを開くだけで前回のウォッチリストが表示されます（貼り付け不要）。</p>
+  <p class="note" id="bknote" hidden>タブを作った場合は、タブ名つきの<b>「全タブの控え」</b>もコピーして控えてください。下の入力欄にそのまま貼り付けて「リストに追加」を押すと、タブごと復元されます。</p>
+  <p><b>同じ端末・同じブラウザ</b>を使う場合は、一度開けば以降はこのページを開くだけで前回のウォッチリスト（タブも）が表示されます（貼り付け不要）。</p>
   <p class="note">別の端末でも、同じ銘柄リストを貼り付ければ同じ顔ぶれが見られます。銘柄を足し引きしたら、新しく表示される銘柄リストを控え直してください。スコア・軍・利回りは各端末でその時点の最新が表示されます。</p>
 </div>
 
 <div class="box">
   <h2>銘柄リストを貼り付けて追加</h2>
   <textarea id="paste" placeholder="例）9433,8058,2914,4502　（カンマ・スペース・改行区切りのどれでも可。いまのウォッチ銘柄一覧に追加されます）"></textarea>
-  <div style="margin-top:8px"><button type="button" id="load">リストに追加</button></div>
+  <div style="margin-top:8px"><button type="button" id="load">リストに追加</button> <span class="sk" id="pastenote"></span></div>
 </div>
 
 <div id="missbox"></div>
-<div class="listhead" id="listhead" hidden><h2>ウォッチ銘柄一覧</h2><button type="button" id="wlclearall" class="ghost" title="登録されている銘柄をすべて削除します">全て削除</button></div>
+<div class="listhead" id="listhead" hidden><h2 id="listtitle">ウォッチ銘柄一覧</h2><button type="button" id="wlclearall" class="ghost" title="登録されている銘柄をすべて削除します">全て削除</button></div>
+<div class="seltools" id="seltools" hidden>
+  <span id="selcount">0件選択中</span>
+  <select id="seltarget" aria-label="追加先のタブ"></select>
+  <button type="button" id="selgo" disabled>選んだ銘柄をタブに追加</button>
+  <button type="button" id="selrm" class="ghost" disabled hidden>選んだ銘柄をこのタブから外す</button>
+  <span id="selmsg"></span>
+</div>
 <div id="list"></div>
 
 <div class="disc" id="disc"></div>
@@ -235,8 +282,15 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
   apply();
 })();
 (function(){
-  var WL_KEY = 'wl_codes';
+  var WL_KEY = 'wl_codes', TAB_KEY = 'wl_tabs', SEL_KEY = 'wl_tabsel', SORT_KEY = 'wl_sort';
   var $ = function(id){ return document.getElementById(id); };
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function lsGet(k){ try { return localStorage.getItem(k); } catch(e) { return null; } }
+  function lsSet(k, v){ try { localStorage.setItem(k, v); } catch(e) {} }
 
   function parseCodes(str){
     var seen = {}, out = [];
@@ -248,44 +302,133 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
     });
     return out;
   }
+  function codeKey(c){ return String(c); }
+  function secOf(s){ return s.sector || ''; }
+  function priceTxt(v){
+    if (typeof v !== 'number') return '―';
+    return v.toLocaleString('ja-JP', {maximumFractionDigits:0});
+  }
+  function newId(){ return 't' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5); }
 
+  // ---- 状態 ----------------------------------------------------------------
+  // master = ウォッチリスト全体（「全て」タブ）。タブの銘柄は必ず master の部分集合にそろえる。
   var params = new URLSearchParams(location.search);
-  var codes = parseCodes(params.get('codes') || '');
-  if (!codes.length) {
-    try { codes = parseCodes(localStorage.getItem(WL_KEY) || ''); } catch(e) {}
+  var master = parseCodes(params.get('codes') || '');
+  if (!master.length) master = parseCodes(lsGet(WL_KEY) || '');
+
+  var tabs = [];
+  try {
+    var arr = JSON.parse(lsGet(TAB_KEY) || '[]');
+    if (Array.isArray(arr)) arr.forEach(function(t){
+      if (!t || typeof t.id !== 'string') return;
+      tabs.push({
+        id: t.id,
+        name: String(t.name || '').replace(/\s+/g, ' ').trim().slice(0, 20) || 'タブ',
+        codes: parseCodes(Array.isArray(t.codes) ? t.codes.join(',') : '')
+      });
+    });
+  } catch(e) {}
+  tabs.forEach(function(t){ master = parseCodes(master.concat(t.codes).join(',')); });
+
+  var cur = lsGet(SEL_KEY) || 'all';
+  if (cur !== 'all' && !tabs.some(function(t){ return t.id === cur; })) cur = 'all';
+
+  var SORTKEYS = ['sel', 'tim', 'yield', 'sector'];
+  var sort = {key: 'sel', dir: -1};
+  try {
+    var sv = JSON.parse(lsGet(SORT_KEY) || 'null');
+    if (sv && SORTKEYS.indexOf(sv.key) >= 0 && (sv.dir === 1 || sv.dir === -1)) sort = {key: sv.key, dir: sv.dir};
+  } catch(e) {}
+
+  var checked = {};      // 一覧の左端チェック（タブへの追加用）
+  var byCode = null;     // ranking.json 読み込み後に作る
+  var loading = false;
+
+  function tabById(id){
+    for (var i = 0; i < tabs.length; i++) if (tabs[i].id === id) return tabs[i];
+    return null;
+  }
+  function curTab(){ return cur === 'all' ? null : tabById(cur); }
+  function curCodes(){ var t = curTab(); return t ? t.codes : master; }
+  function addToMaster(list){ master = parseCodes(master.concat(list).join(',')); }
+  function uniqueName(name, exceptId){
+    name = (name || '').replace(/\s+/g, ' ').trim().slice(0, 20) || 'タブ';
+    var base = name, n = 2;
+    while (tabs.some(function(t){ return t.id !== exceptId && t.name === name; })) {
+      name = base.slice(0, 16) + '(' + n + ')';
+      n++;
+    }
+    return name;
   }
 
-  function persist(list){
-    var s = list.join(',');
-    try { localStorage.setItem(WL_KEY, s); } catch(e) {}
-    $('codestr').value = s;
-    var u = list.length ? ('?codes=' + encodeURIComponent(s)) : location.pathname;
+  // 選定スコア降順（控えの並び順。表示の並べ替えとは別）
+  function selDesc(a, b){
+    var av = byCode[a].sel, bv = byCode[b].sel;
+    if (typeof av !== 'number') return typeof bv === 'number' ? 1 : 0;
+    if (typeof bv !== 'number') return -1;
+    return bv - av;
+  }
+  function ordered(list){
+    if (!byCode) return list.slice();
+    var f = [], m = [];
+    list.forEach(function(c){ (byCode[c] ? f : m).push(c); });
+    f.sort(selDesc);
+    return f.concat(m);
+  }
+
+  function save(){
+    master = ordered(master);
+    tabs.forEach(function(t){ t.codes = ordered(t.codes); });
+    lsSet(WL_KEY, master.join(','));
+    lsSet(TAB_KEY, JSON.stringify(tabs));
+    lsSet(SEL_KEY, cur);
+    var u = master.length ? ('?codes=' + encodeURIComponent(master.join(','))) : location.pathname;
     history.replaceState(null, '', u);
   }
 
-  $('copy').addEventListener('click', function(){
-    var el = $('codestr');
+  function backupText(){
+    return JSON.stringify({
+      v: 1,
+      all: master.join(','),
+      tabs: tabs.map(function(t){ return {n: t.name, c: t.codes.join(',')}; })
+    });
+  }
+  function restoreBackup(txt){
+    var o = null;
+    try { o = JSON.parse(txt); } catch(e) {}
+    if (!o || typeof o !== 'object' || !Array.isArray(o.tabs)) {
+      alert('タブ込みの控えを読み取れませんでした。');
+      return false;
+    }
+    var made = 0;
+    addToMaster(parseCodes(o.all || ''));
+    o.tabs.forEach(function(x){
+      if (!x) return;
+      var name = String(x.n || '').replace(/\s+/g, ' ').trim().slice(0, 20);
+      if (!name) return;
+      var codes = parseCodes(x.c || '');
+      var t = null;
+      tabs.forEach(function(y){ if (y.name === name) t = y; });
+      if (!t) { t = {id: newId(), name: name, codes: []}; tabs.push(t); made++; }
+      t.codes = parseCodes(t.codes.concat(codes).join(','));
+      addToMaster(codes);
+    });
+    alert('タブ込みの控えから復元しました（新しく作ったタブ：' + made + '個。同じ名前のタブには銘柄を追加しました）。');
+    return true;
+  }
+
+  // ---- 共通部品 -------------------------------------------------------------
+  function copyFrom(inputId, statId){
+    var el = $(inputId);
     el.select();
     var ok = false;
     try { ok = document.execCommand('copy'); } catch(e) {}
     if (navigator.clipboard) { navigator.clipboard.writeText(el.value).then(function(){}, function(){}); ok = true; }
-    $('copystat').textContent = ok ? 'コピーしました' : '手動でコピーしてください';
-    setTimeout(function(){ $('copystat').textContent = ''; }, 2500);
-  });
-
-  $('load').addEventListener('click', function(){
-    var added = parseCodes($('paste').value);
-    if (!added.length) { alert('銘柄コードが読み取れませんでした。'); return; }
-    // いまのウォッチ銘柄一覧に追加する（置き換えではない。重複は除く）
-    var merged = parseCodes(codes.concat(added).join(','));
-    location.href = 'watchlist.html?codes=' + encodeURIComponent(merged.join(','));
-  });
-
-  $('wlclearall').addEventListener('click', function(){
-    if (!confirm('ウォッチ銘柄一覧に登録されている銘柄をすべて削除します。よろしいですか？（事前に上の銘柄リストを控えてください）')) return;
-    try { localStorage.setItem(WL_KEY, ''); } catch(e) {}
-    location.href = 'watchlist.html';
-  });
+    $(statId).textContent = ok ? 'コピーしました' : '手動でコピーしてください';
+    setTimeout(function(){ $(statId).textContent = ''; }, 2500);
+  }
+  $('copy').addEventListener('click', function(){ copyFrom('codestr', 'copystat'); });
+  $('bkcopy').addEventListener('click', function(){ copyFrom('bkstr', 'bkstat'); });
 
   var DISC = 'このページは、ランキングページで「ウォッチリストへ追加」した銘柄だけを一覧にしたものです。'
     + '銘柄選定／買い時のスコア・軍は公開データを機械的なルールで算出した分類であり、'
@@ -302,16 +445,6 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
   }
   var DIRC = {'↑':'up','↓':'dn','→':'fl'};
 
-  if (!codes.length) {
-    $('codestr').value = '';
-    $('list').innerHTML = '<div class="empty">まだ銘柄が登録されていません。'
-      + '<a href="index.html">ランキングページ</a>で左端の☆にチェックを入れて'
-      + '「ウォッチリストへ追加」を押すか、上の欄に銘柄リストを貼り付けてください。</div>';
-    return;
-  }
-  $('codestr').value = codes.join(',');
-  $('listhead').hidden = false;
-
   // 母集団から外れた銘柄（ranking.json の retired）の注記：「データの更新は〇年〇月〇日まで」
   function retNote(r){
     if (!r || !r.until) return '';
@@ -321,80 +454,347 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
     return '<div class="retnote">対象外（参考）：データの更新は' + d + (ended ? 'で終了しました' : 'まで') + '</div>';
   }
 
-  fetch('ranking.json', {cache:'no-cache'}).then(function(r){ return r.json(); }).then(function(j){
-    $('asof').textContent = '対象データ：' + (j.generated_at || '') + ' 時点のランキング';
-    var byCode = {};
-    (j.groups || []).forEach(function(g){
-      (g.stocks || []).forEach(function(s){ byCode[String(s.code)] = s; });
+  // ---- 並べ替え -------------------------------------------------------------
+  function sortVal(s, k){
+    if (k === 'sector') return secOf(s);
+    var v = s[k];
+    return (typeof v === 'number') ? v : null;
+  }
+  function sortedFound(list){
+    return list.slice().sort(function(a, b){
+      var A = sortVal(byCode[a], sort.key), B = sortVal(byCode[b], sort.key);
+      var aE = (A === null || A === ''), bE = (B === null || B === '');
+      if (aE !== bE) return aE ? 1 : -1;          // 値なしは常に末尾
+      var r = 0;
+      if (!aE) r = (sort.key === 'sector') ? A.localeCompare(B, 'ja') : (A - B);
+      if (r) return r * sort.dir;
+      return selDesc(a, b) || (a < b ? -1 : (a > b ? 1 : 0));
     });
-    (j.retired || []).forEach(function(s){ byCode[String(s.code)] = s; });
-    var found = [], missing = [];
-    codes.forEach(function(c){ (byCode[c] ? found : missing).push(c); });
-    found.sort(function(a, b){
-      var av = byCode[a].sel, bv = byCode[b].sel;
-      if (typeof av !== 'number') return 1;
-      if (typeof bv !== 'number') return -1;
-      return bv - av;   // 選定スコア降順
-    });
+  }
+  function sortTh(key, label, cls){
+    var on = (sort.key === key);
+    var mark = on ? (sort.dir === -1 ? '▼' : '▲') : '⇅';
+    return '<th class="' + cls + ' sortable' + (on ? ' on' : '') + '" data-sort="' + key + '"'
+      + ' title="クリックで並べ替え（もう一度押すと昇順／降順が入れ替わります）">'
+      + label + '<span class="si">' + mark + '</span></th>';
+  }
 
-    persist(found.concat(missing));
+  // ---- 描画 -----------------------------------------------------------------
+  function tabBtn(id, label, n){
+    return '<button type="button" class="tab' + (cur === id ? ' on' : '') + '" data-tab="' + id + '"'
+      + ' role="tab" aria-selected="' + (cur === id ? 'true' : 'false') + '">'
+      + label + '<span class="tc">' + n + '</span></button>';
+  }
+  function renderTabs(forceName){
+    var show = master.length || tabs.length;
+    $('tabbar').hidden = !show;
+    var h = tabBtn('all', '全て', master.length);
+    tabs.forEach(function(t){ h += tabBtn(t.id, esc(t.name), t.codes.length); });
+    h += '<button type="button" class="tab add" id="tabadd" title="ウォッチリストから絞り込んだ銘柄だけのタブを作ります">＋ タブを追加</button>';
+    $('tabbar').innerHTML = h;
+    var t = curTab();
+    $('tabtools').hidden = !t;
+    if (t && (forceName || document.activeElement !== $('tabname'))) $('tabname').value = t.name;
+  }
+
+  function renderSelTools(){
+    var t = curTab();
+    $('seltools').hidden = !curCodes().length;
+    var opts = '<option value="">追加先のタブを選ぶ…</option>';
+    tabs.forEach(function(x){ if (!t || x.id !== t.id) opts += '<option value="' + x.id + '">' + esc(x.name) + '</option>'; });
+    opts += '<option value="__new">＋ 新しいタブを作って追加</option>';
+    var prev = $('seltarget').value;
+    $('seltarget').innerHTML = opts;
+    if (prev && $('seltarget').querySelector('option[value="' + prev + '"]')) $('seltarget').value = prev;
+    $('selrm').hidden = !t;
+    updateSelCount();
+  }
+  function selectedCodes(){ return curCodes().filter(function(c){ return checked[c]; }); }
+  function updateSelCount(){
+    var n = selectedCodes().length;
+    $('selcount').textContent = n + '件選択中';
+    $('selgo').disabled = !n;
+    $('selrm').disabled = !n;
+    var all = $('ckall');
+    if (all) {
+      var total = curCodes().filter(function(c){ return byCode && byCode[c]; }).length;
+      all.checked = total > 0 && n === total;
+      all.indeterminate = n > 0 && n < total;
+    }
+  }
+
+  function render(forceName){
+    renderTabs(forceName);
+    var t = curTab(), list = curCodes();
+    $('codelbl').textContent = t ? ('タブ「' + t.name + '」') : '全て';
+    $('codestr').value = ordered(list).join(',');
+    $('bkwrap').hidden = !tabs.length;
+    $('bknote').hidden = !tabs.length;
+    $('bkstr').value = tabs.length ? backupText() : '';
+    $('pastenote').textContent = '追加先：' + (t ? ('タブ「' + t.name + '」（全体のウォッチリストにも入ります）') : 'ウォッチリスト全体（「全て」タブ）');
+
+    if (!master.length && !tabs.length) {
+      $('listhead').hidden = true;
+      $('seltools').hidden = true;
+      $('missbox').innerHTML = '';
+      $('list').innerHTML = '<div class="empty">まだ銘柄が登録されていません。'
+        + '<a href="index.html">ランキングページ</a>で左端の☆にチェックを入れて'
+        + '「ウォッチリストへ追加」を押すか、上の欄に銘柄リストを貼り付けてください。</div>';
+      return;
+    }
+    $('listhead').hidden = false;
+    $('listtitle').textContent = t ? t.name : 'ウォッチ銘柄一覧';
+    $('wlclearall').hidden = !!t || !master.length;
+
+    if (!byCode) { withData(function(){ render(forceName); }); return; }
+
+    var found = [], missing = [];
+    list.forEach(function(c){ (byCode[c] ? found : missing).push(c); });
 
     if (missing.length) {
-      $('missbox').innerHTML = '<div class="miss">次の銘柄は現在のランキングに見つかりませんでした'
-        + '（ユニバース外・上場廃止・コード誤りの可能性）：<b>' + missing.join(', ') + '</b>'
+      $('missbox').innerHTML = '<div class="miss">次の銘柄は現在のランキングに見つかりませんでした（ユニバース外・上場廃止・コード誤りの可能性）'
+        + '：<b>' + missing.join(', ') + '</b>'
         + '　※銘柄リストには残してあります。</div>';
+    } else {
+      $('missbox').innerHTML = '';
     }
 
+    renderSelTools();
+
+    if (!list.length) {
+      $('list').innerHTML = '<div class="empty">このタブにはまだ銘柄がありません。'
+        + '「全て」タブで銘柄の左のチェックボックスにチェックを入れ、'
+        + '「追加先のタブを選ぶ」から「' + esc(t.name) + '」を選んで追加してください。</div>';
+      return;
+    }
     if (!found.length) {
       $('list').innerHTML = '<div class="empty">表示できる銘柄がありませんでした。</div>';
       return;
     }
 
-    var rows = found.map(function(c){
+    var rows = sortedFound(found).map(function(c){
       var s = byCode[c];
       var tcls = {'1軍':'t1','2軍':'t2','3軍':'t3'}[s.tier] || 't0';
       var dcls = DIRC[s.dir] || 'fl';
       var yraw = s['yield'];
       var yv = (typeof yraw === 'number') ? yraw.toFixed(2) + '%' : '―';
-      var pv = (typeof s.price === 'number') ? s.price.toLocaleString('ja-JP', {maximumFractionDigits:0}) : '―';
       var cov = Array.isArray(s.cov_sel) ? (s.cov_sel[2] || '') : (s.cov_sel || '');
       return '<tr class="' + tcls + '">'
+        + '<td class="ck"><input type="checkbox" class="rowck" data-code="' + s.code + '"' + (checked[c] ? ' checked' : '') + ' aria-label="タブに追加する銘柄として選ぶ"></td>'
         + '<td class="tier">' + (s.tier || '―') + '<span class="dir ' + dcls + '">' + (s.dir || '') + '</span></td>'
         + '<td class="code"><a href="reports/' + s.code + '.html">' + s.code + '</a></td>'
         + '<td>' + (s.name || s.code) + retNote(s.retired) + '</td>'
-        + '<td class="n">' + pv + '</td>'
-        + '<td class="sec">' + (s.sector || '') + '</td>'
+        + '<td class="n">' + priceTxt(s.price) + '</td>'
+        + '<td class="sec">' + esc(secOf(s)) + '</td>'
         + '<td class="n">' + numTxt(s.sel, 0) + '</td>'
         + '<td class="n">' + numTxt(s.tim, 0) + '</td>'
         + '<td class="n">' + yv + '</td>'
         + '<td class="sk">' + streakTxt(s.streak_up, s.streak_flat) + '</td>'
         + '<td class="cv">' + cov + '</td>'
-        + '<td class="x"><button type="button" data-code="' + s.code + '" title="このリストから外す">✕</button></td>'
+        + '<td class="x"><button type="button" data-code="' + s.code + '" title="'
+        + (t ? 'このタブから外す（ウォッチリスト全体には残ります）' : 'ウォッチリストから外す') + '">✕</button></td>'
         + '</tr>';
     }).join('');
 
     $('list').innerHTML = '<table><thead><tr>'
-      + '<th>軍</th><th>コード</th><th>銘柄</th><th class="n">終値</th><th>業種</th><th class="n">選定</th>'
-      + '<th class="n">買い時</th><th class="n">利回り</th><th>増配</th><th>カバレッジ</th><th></th>'
+      + '<th class="ck"><input type="checkbox" id="ckall" aria-label="全て選ぶ"></th>'
+      + '<th>軍</th><th>コード</th><th>銘柄</th><th class="n">終値</th>'
+      + sortTh('sector', '業種', '')
+      + sortTh('sel', '選定', 'n') + sortTh('tim', '買い時', 'n') + sortTh('yield', '利回り', 'n')
+      + '<th>増配</th><th>カバレッジ</th><th></th>'
       + '</tr></thead><tbody>' + rows + '</tbody></table>';
+    updateSelCount();
+  }
 
-    $('list').addEventListener('click', function(e){
-      var b = e.target.closest('button[data-code]');
-      if (!b) return;
-      var c = b.dataset.code;
-      var next = found.concat(missing).filter(function(x){ return x !== c; });
-      if (!next.length) {
-        // 空にしてから開く（保存済みのリストが残っていると、最後の1件が再表示されてしまう）
-        try { localStorage.setItem(WL_KEY, ''); } catch(e) {}
-        location.href = 'watchlist.html';
-        return;
-      }
-      location.href = 'watchlist.html?codes=' + encodeURIComponent(next.join(','));
+  function withData(cb){
+    if (byCode) { cb(); return; }
+    if (loading) return;
+    loading = true;
+    fetch('ranking.json', {cache:'no-cache'}).then(function(r){ return r.json(); }).then(function(j){
+      $('asof').textContent = '対象データ：' + (j.generated_at || '') + ' 時点のランキング';
+      var m = {};
+      (j.groups || []).forEach(function(g){
+        (g.stocks || []).forEach(function(s){ m[codeKey(s.code)] = s; });
+      });
+      (j.retired || []).forEach(function(s){ m[codeKey(s.code)] = s; });
+      byCode = m;
+      loading = false;
+      save();
+      cb();
+    }).catch(function(){
+      loading = false;
+      $('list').innerHTML = '<div class="empty">ランキングデータ（ranking.json）を読み込めませんでした。'
+        + 'このページはサーバー経由（https://...）で開いてください。</div>';
     });
-  }).catch(function(){
-    $('list').innerHTML = '<div class="empty">ランキングデータ（ranking.json）を読み込めませんでした。'
-      + 'このページはサーバー経由（https://...）で開いてください。</div>';
+  }
+
+  // ---- 操作 -----------------------------------------------------------------
+  function setTab(id){
+    cur = id;
+    checked = {};
+    save();
+    render(true);
+  }
+  function addTab(){
+    var t = {id: newId(), name: uniqueName('タブ' + (tabs.length + 1)), codes: []};
+    tabs.push(t);
+    cur = t.id;
+    checked = {};
+    save();
+    render(true);
+    $('tabname').focus();
+    $('tabname').select();
+  }
+
+  $('tabbar').addEventListener('click', function(e){
+    var b = e.target.closest('.tab');
+    if (!b) return;
+    if (b.id === 'tabadd') { addTab(); return; }
+    setTab(b.dataset.tab);
   });
+
+  $('tabname').addEventListener('input', function(){
+    var t = curTab();
+    if (!t) return;
+    var v = this.value.replace(/\s+/g, ' ').trim().slice(0, 20);
+    if (!v) return;                      // 空欄の間は直前の名前のまま
+    t.name = v;
+    lsSet(TAB_KEY, JSON.stringify(tabs));
+    renderTabs(false);
+    $('codelbl').textContent = 'タブ「' + t.name + '」';
+    $('listtitle').textContent = t.name;
+  });
+  $('tabname').addEventListener('change', function(){
+    var t = curTab();
+    if (!t) return;
+    t.name = uniqueName(this.value, t.id);   // 空欄・重複名はここで整える
+    save();
+    render(true);
+  });
+  $('tabdel').addEventListener('click', function(){
+    var t = curTab();
+    if (!t) return;
+    if (!confirm('タブ「' + t.name + '」を削除します（' + t.codes.length + '銘柄）。'
+      + '銘柄そのものは「全て」のウォッチリストに残ります。よろしいですか？')) return;
+    tabs = tabs.filter(function(x){ return x.id !== t.id; });
+    setTab('all');
+  });
+
+  $('load').addEventListener('click', function(){
+    var txt = $('paste').value.trim();
+    if (txt.charAt(0) === '{') {
+      if (!restoreBackup(txt)) return;
+    } else {
+      var added = parseCodes(txt);
+      if (!added.length) { alert('銘柄コードが読み取れませんでした。'); return; }
+      // いまの一覧に追加する（置き換えではない。重複は除く）。タブ表示中はそのタブにも入れる
+      addToMaster(added);
+      var t = curTab();
+      if (t) t.codes = parseCodes(t.codes.concat(added).join(','));
+    }
+    $('paste').value = '';
+    save();
+    render(true);
+  });
+
+  $('wlclearall').addEventListener('click', function(){
+    if (!confirm('ウォッチ銘柄一覧に登録されている銘柄をすべて削除します。'
+      + (tabs.length ? 'タブの中の銘柄も空になります（タブ自体は残ります）。' : '')
+      + 'よろしいですか？（事前に上の銘柄リストを控えてください）')) return;
+    master = [];
+    tabs.forEach(function(t){ t.codes = []; });
+    checked = {};
+    save();
+    render(true);
+  });
+
+  function removeCode(c){
+    var t = curTab();
+    if (t) {
+      t.codes = t.codes.filter(function(x){ return x !== c; });
+    } else {
+      var inTabs = tabs.filter(function(x){ return x.codes.indexOf(c) >= 0; });
+      if (inTabs.length && !confirm('この銘柄はタブ「' + inTabs.map(function(x){ return x.name; }).join('」「')
+        + '」にも入っています。ウォッチリストから外すと、これらのタブからも外れます。よろしいですか？')) return;
+      master = master.filter(function(x){ return x !== c; });
+      tabs.forEach(function(x){ x.codes = x.codes.filter(function(y){ return y !== c; }); });
+    }
+    delete checked[c];
+    save();
+    render();
+  }
+
+  $('list').addEventListener('click', function(e){
+    var th = e.target.closest('th[data-sort]');
+    if (th) {
+      var k = th.dataset.sort;
+      if (sort.key === k) sort.dir = -sort.dir;
+      else sort = {key: k, dir: (k === 'sector' ? 1 : -1)};
+      lsSet(SORT_KEY, JSON.stringify(sort));
+      render();
+      return;
+    }
+    var b = e.target.closest('button[data-code]');
+    if (b) removeCode(b.dataset.code);
+  });
+  $('list').addEventListener('change', function(e){
+    var el = e.target;
+    if (el.id === 'ckall') {
+      curCodes().forEach(function(c){ if (byCode && byCode[c]) checked[c] = el.checked; });
+      $('list').querySelectorAll('.rowck').forEach(function(x){ x.checked = el.checked; });
+      updateSelCount();
+    } else if (el.classList.contains('rowck')) {
+      checked[el.dataset.code] = el.checked;
+      updateSelCount();
+    }
+  });
+
+  var msgTimer = null;
+  function selMsg(txt){
+    $('selmsg').textContent = txt;
+    clearTimeout(msgTimer);
+    msgTimer = setTimeout(function(){ $('selmsg').textContent = ''; }, 4000);
+  }
+  $('selgo').addEventListener('click', function(){
+    var sel = selectedCodes();
+    if (!sel.length) return;
+    var target = $('seltarget').value;
+    if (!target) { alert('追加先のタブを選んでください（「＋ 新しいタブを作って追加」も選べます）。'); return; }
+    var t, made = false;
+    if (target === '__new') {
+      t = {id: newId(), name: uniqueName('タブ' + (tabs.length + 1)), codes: []};
+      tabs.push(t);
+      made = true;
+    } else {
+      t = tabById(target);
+      if (!t) return;
+    }
+    t.codes = parseCodes(t.codes.concat(sel).join(','));
+    checked = {};
+    if (made) {
+      cur = t.id;
+      save();
+      render(true);
+      $('tabname').focus();
+      $('tabname').select();
+    } else {
+      save();
+      render();
+      selMsg(sel.length + '件をタブ「' + t.name + '」に追加しました');
+    }
+  });
+  $('selrm').addEventListener('click', function(){
+    var t = curTab(), sel = selectedCodes();
+    if (!t || !sel.length) return;
+    t.codes = t.codes.filter(function(c){ return sel.indexOf(c) < 0; });
+    checked = {};
+    save();
+    render();
+    selMsg(sel.length + '件をこのタブから外しました（ウォッチリスト全体には残っています）');
+  });
+
+  if (master.length || tabs.length) withData(function(){ render(true); });
+  else render(true);
 })();
 </script>
 </body></html>
