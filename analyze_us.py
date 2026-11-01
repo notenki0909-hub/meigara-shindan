@@ -1518,7 +1518,7 @@ def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warni
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {analyze.THEME_HEAD}
 <title>{analyze.html.escape(meta['name'])}（{meta['code']}）｜米国株 配当スクリーニング</title>
-<style>{analyze.THEME_CSS}{_US_CSS}</style></head><body><div class="wrap">
+<style>{analyze.THEME_CSS}{_US_CSS}{analyze.DPS_CHART_CSS}</style></head><body><div class="wrap">
 <div class="topbar"><h1>{analyze.html.escape(meta['name'])}（{meta['code']}）</h1>
 <span class="blk"><a href="../terms.html">利用規約・免責事項</a><a href="../guide.html">使い方・見方</a><a href="../index.html">ランキング</a><a href="../watchlist.html">ウォッチリスト</a><a href="../portfolio.html">ポートフォリオ</a></span></div>
 {analyze.THEME_BAR}
@@ -1561,7 +1561,8 @@ def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warni
 {tim_blocks}
 
 <h2>推移チャート</h2>
-<div class="charts">{svg_price_us(ctx.get('hist_m'))}{svg_dps_us(ctx.get('dps_series'), ctx.get('dps_src', 'yfinance'))}</div>
+<div class="charts">{svg_price_us(ctx.get('hist_m'))}{analyze.dps_chart_wrap(svg_dps_us(ctx.get('dps_series'), ctx.get('dps_src', 'yfinance')))}</div>
+{analyze.dps_chart_note_html(svg_dps_us(ctx.get('dps_series'), ctx.get('dps_src', 'yfinance')))}
 
 {_earn_block_us(ctx.get('earn'))}
 

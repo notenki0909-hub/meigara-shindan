@@ -2171,6 +2171,41 @@ def svg_price(hist_m):
             f'高値 {hi:,.0f} / 安値 {lo:,.0f} / 直近 {last:,.0f}</text></svg>')
 
 
+DPS_CHART_CSS = (".chartclk{flex:1;min-width:280px;cursor:pointer}.chartclk .chart{display:block;width:100%;box-sizing:border-box}"
+                 ".chartclk:hover .chart{border-color:var(--accent)}"
+                 ".chartnote{margin:8px 0 14px;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:10px;font-size:13px;line-height:1.7}"
+                 ".chartnote p{margin:4px 0}.chartnote ul{margin:4px 0 0 18px;padding:0}")
+
+
+def dps_chart_wrap(svg):
+    """1株配当のグラフ：クリックで「年率」の説明（dps_chart_note_html）を開閉する。配当履歴なしのときはそのまま返す。"""
+    if not svg.startswith("<svg"):
+        return svg
+    return ('<div class="chartclk" role="button" tabindex="0" title="クリックで「年率」の説明が開きます" '
+            'onclick="var n=document.getElementById(\'dpsnote\');n.hidden=!n.hidden" '
+            'onkeydown="if(event.key===\'Enter\'||event.key===\' \'){this.click();event.preventDefault()}">' + svg + '</div>')
+
+
+def dps_chart_note_html(svg):
+    """1株配当グラフの下に置く、案内の一文と説明の箱（初期は非表示）。"""
+    if not svg.startswith("<svg"):
+        return ""
+    return ('<p class="muted" style="font-size:12px;margin:2px 0">1株配当のグラフをクリックすると、「年率」の説明が出ます（もう一度クリックで閉じます）。</p>'
+            '<div id="dpsnote" class="chartnote" hidden>'
+            '<b>グラフの「年率」とは</b>'
+            '<p>表示している<b>最初の年から最後の年まで</b>の、1株配当の<b>年平均成長率（CAGR）</b>です。'
+            '最初の年の配当が、毎年同じ割合で増えて最後の年の配当になったと考えたときの、1年あたりの増加率です。</p>'
+            '<p>計算：<b>年率 ＝（最後の年の配当 ÷ 最初の年の配当）の「年数」乗根 − 1</b>　（年数 ＝ 最後の年 − 最初の年 ＝ 棒の数 − 1）<br>'
+            '例：13年で15円 → 80円（約5.3倍）なら、年率は約13.7%。</p>'
+            '<ul>'
+            '<li>途中の年の増減は計算に入りません。最初と最後の2点だけで決まります。</li>'
+            '<li>表示は最大で直近14年分です。14年より長い履歴があっても、直近14年だけを使います。</li>'
+            '<li>最初か最後の配当が0以下のときは「―」と表示されます。</li>'
+            '<li>特別配当・記念配当が最初か最後の年に含まれると、年率が高く（または低く）出ます。</li>'
+            '<li>指標の「増配率（直近5年・年率）」は、直近5年だけで同じ計算をしたものです（Chowderルールにも使います）。</li>'
+            '</ul></div>')
+
+
 def svg_dps(dps_series, src):
     if not dps_series or len(dps_series) < 2:
         return "<p class='muted'>配当履歴なし</p>"
@@ -3050,6 +3085,7 @@ details.m .mt{{text-align:right;white-space:nowrap}}
 h2{{font-size:15px;margin:26px 0 4px;border-left:4px solid var(--accent);padding-left:8px}}
 .charts{{display:flex;gap:14px;flex-wrap:wrap}}
 .chart{{flex:1;min-width:280px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px}}
+{DPS_CHART_CSS}
 .ct{{fill:var(--muted);font-size:10px}} .cx{{fill:var(--muted);font-size:9px;text-anchor:middle}}
 .cm{{fill:var(--muted);font-size:9px}} .cg{{fill:var(--fg);font-size:10px;font-weight:700}}
 details.chartbox{{border:1px solid var(--line);border-radius:8px;margin:8px 0 4px;background:var(--card)}}
@@ -3123,7 +3159,8 @@ svg.trend{{width:100%;height:auto;border:1px solid var(--line);border-radius:8px
 {tim_blocks}
 
 <h2>推移チャート</h2>
-<div class="charts">{svg_price(ctx.get('hist_m'))}{svg_dps(ctx['dps_series'], ctx['dps_src'])}</div>
+<div class="charts">{svg_price(ctx.get('hist_m'))}{dps_chart_wrap(svg_dps(ctx['dps_series'], ctx['dps_src']))}</div>
+{dps_chart_note_html(svg_dps(ctx['dps_series'], ctx['dps_src']))}
 
 {render_earn_html(ctx.get('earn'))}
 
