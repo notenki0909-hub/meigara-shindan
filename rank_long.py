@@ -1254,11 +1254,11 @@ section.grp[hidden]{{display:none}}
 {filter_panel_html}
 {backup_box}
 {watch_change_html}
+{etf_html}
 <div id="terminfo" class="terminfo" hidden>
   <button type="button" id="terminfo-close" class="ticlose" aria-label="閉じる">✕</button>
   <div id="terminfo-body"></div>
 </div>
-{etf_html}
 <details id="topbox"><summary>全体 品質スコア 上位50（業種横断）</summary>
 <table>{thead.format(rk='<th class="n">#</th>')}
 <tbody>{gt}</tbody></table></details>
