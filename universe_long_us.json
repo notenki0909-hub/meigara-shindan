@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-05T13:19:14",
+ "generated_at": "2026-11-01T12:35:01",
  "market": "us",
  "screen": {
   "_meta": {
@@ -21,7 +21,7 @@
   ]
  },
  "source": "universe_candidates_us.json の index に S&P500 を含む銘柄",
- "count": 503,
+ "count": 506,
  "tickers": [
   {
    "ticker": "A",
@@ -2054,6 +2054,11 @@
    "gics_sector": "Consumer Staples"
   },
   {
+   "ticker": "SKYD",
+   "name": "Skydance",
+   "gics_sector": "Communication Services"
+  },
+  {
    "ticker": "SLB",
    "name": "Schlumberger",
    "gics_sector": "Energy"
@@ -2274,6 +2279,11 @@
    "gics_sector": "Communication Services"
   },
   {
+   "ticker": "TWLO",
+   "name": "Twilio",
+   "gics_sector": "Information Technology"
+  },
+  {
    "ticker": "TXN",
    "name": "Texas Instruments",
    "gics_sector": "Information Technology"
@@ -2409,6 +2419,11 @@
    "gics_sector": "Health Care"
   },
   {
+   "ticker": "VYLR",
+   "name": "Vylor",
+   "gics_sector": "Consumer Staples"
+  },
+  {
    "ticker": "VZ",
    "name": "Verizon",
    "gics_sector": "Communication Services"
@@ -2538,5 +2553,6 @@
    "name": "Zoetis",
    "gics_sector": "Health Care"
   }
- ]
+ ],
+ "_monthly_check_note": "2026-11-01 の月次チェックで 3 銘柄を追加。次の四半期フル再構築(universe-long-quarterly.yml)で正式なリストに置き換わる。"
 }

@@ -64,6 +64,41 @@
       "name": "Trade Desk (The)"
      }
     ]
+   },
+   {
+    "date": "2026-11-01",
+    "kind": "monthly",
+    "added": [
+     {
+      "code": "SKYD",
+      "name": "Skydance"
+     },
+     {
+      "code": "TWLO",
+      "name": "Twilio"
+     },
+     {
+      "code": "VYLR",
+      "name": "Vylor"
+     }
+    ],
+    "removed": [
+     {
+      "code": "CTVA",
+      "name": "Corteva",
+      "reason": "S&P500から除外（月次チェック検知・次回四半期見直しで正式反映）"
+     },
+     {
+      "code": "PSKY",
+      "name": "Paramount Skydance Corporation",
+      "reason": "S&P500から除外（月次チェック検知・次回四半期見直しで正式反映）"
+     },
+     {
+      "code": "WBD",
+      "name": "Warner Bros. Discovery",
+      "reason": "S&P500から除外（月次チェック検知・次回四半期見直しで正式反映）"
+     }
+    ]
    }
   ]
  }
