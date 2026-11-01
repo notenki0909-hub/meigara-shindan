@@ -614,6 +614,29 @@ def _filter_attrs_long(s, unit, grade):
     return " ".join(parts)
 
 
+def _backup_parts(market, page):
+    """「バックアップ（CSV）」欄（絞り込み条件のURL・ウォッチリスト・保有記録を1つのCSVに書き出し／読み込んで復元）。
+    配当株側（38216eae02・1a9a51d0e1）の機能を10年保有側にコピーして移植したもの。ひな形は long_backup_tpl.html。
+    page='index'（ランキング。URLの基準は今のページ）／'sub'（ウォッチリスト・ポートフォリオ。基準は index.html）。
+    -> (css, box, script)。ツール名で日株・米株を分け、配当株ツールのCSVは読み込めない。"""
+    raw = open(os.path.join(HERE, "long_backup_tpl.html"), encoding="utf-8").read()
+    parts = {}
+    for chunk in raw.split("<!--SECTION:")[1:]:
+        name, _, body = chunk.partition("-->")
+        parts[name.strip()] = body.strip("\n")
+    us = (market == "us")
+    base = ("location.href.split(/[?#]/)[0]" if page == "index"
+            else "new URL('index.html', location.href).href.split(/[?#]/)[0]")
+    rep = {"@@SFX@@": "_us" if us else "", "@@MARKET@@": "10年保有（米株）" if us else "10年保有（日株）",
+           "@@WLKEY@@": "pp_wl_long_us" if us else "pp_wl_long_jp", "@@BASE@@": base}
+
+    def fill(t):
+        for k, v in rep.items():
+            t = t.replace(k, v)
+        return t
+    return fill(parts["css"]), fill(parts["box"]), fill(parts["script"])
+
+
 def render(out, m):
     th = m["theme"]
     gen = out["generated_at"]
@@ -622,6 +645,7 @@ def render(out, m):
     market = out["market"]
     terms_json = json.dumps(TERMS, ensure_ascii=False)
     raw_rules = _RAW_RULES_BY_MARKET[market]
+    backup_css, backup_box, backup_script = _backup_parts(market, "index")
     _sd = lambda n: _sec_label(n, market)   # 業種名の表示用（米国はGICSを日本語に）
 
     def _band_fgrp_raw(band_id, lab, rule, num_id=None):
@@ -1137,6 +1161,7 @@ th.wl,th.pf{{cursor:default}}
   color:var(--fg);font-size:13px;max-width:220px}}
 #wlbar[hidden]{{display:none}}
 body.wlon{{padding-bottom:115px}}
+{backup_css}
 .hdr{{cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px}}
 .hdr:hover{{color:var(--accent)}}
 a.sumbtn.wlnav{{border-color:var(--accent);color:var(--accent);text-decoration:none}}
@@ -1231,6 +1256,7 @@ section.grp[hidden]{{display:none}}
   <button id="csvExport" type="button">表示中の銘柄をCSV出力</button>
 </div>
 {filter_panel_html}
+{backup_box}
 {watch_change_html}
 <details id="topbox"><summary>全体 品質スコア 上位50（業種横断）</summary>
 <table>{thead.format(rk='<th class="n">#</th>')}
@@ -1762,6 +1788,7 @@ section.grp[hidden]{{display:none}}
   document.getElementById('terminfo-close').addEventListener('click',function(){{tibox.hidden=true;}});
 }})();
 </script>
+{backup_script}
 </div></body></html>"""
 
 
@@ -1774,6 +1801,7 @@ def render_watchlist(out, m):
     配当株側（wl_tabs 等）とは衝突しない。"""
     th = m["theme"]
     market = out["market"]
+    bk_css, bk_box, bk_script = _backup_parts(market, "sub")
     tpl = open(os.path.join(HERE, "long_watchlist_tpl.html"), encoding="utf-8").read()
     ph = ("例：7203, 9433, 6146　（カンマ・空白・改行区切りのどれでも可。いまのウォッチ銘柄一覧に追加されます）"
           if market == "jp" else
@@ -1789,6 +1817,7 @@ def render_watchlist(out, m):
         "@@SFX@@": "_us" if market == "us" else "",
         "@@SECJA@@": json.dumps(GICS_JA if market == "us" else {}, ensure_ascii=False),
         "@@PLACEHOLDER@@": html.escape(ph, quote=True),
+        "@@BACKUP_CSS@@": bk_css, "@@BACKUP_BOX@@": bk_box, "@@BACKUP_SCRIPT@@": bk_script,
     }
     for k, v in rep.items():
         tpl = tpl.replace(k, v)

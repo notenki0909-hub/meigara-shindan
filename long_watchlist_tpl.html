@@ -123,6 +123,7 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 .island.secbefore{box-shadow:0 -4px 0 0 var(--accent)}
 .island.secend{box-shadow:0 4px 0 0 var(--accent)}
 .idrop{border:2px dashed var(--line);border-radius:10px;padding:18px;text-align:center;color:var(--muted);font-size:12.5px}
+@@BACKUP_CSS@@
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>ウォッチリスト</h1>@@PAGENAV@@</div>
 <div class="sub">@@TITLE@@</div>
@@ -153,6 +154,8 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   <textarea id="paste" placeholder="@@PLACEHOLDER@@"></textarea>
   <div style="margin-top:8px"><button type="button" id="load">リストに追加</button><button type="button" id="clear" class="ghost">クリア</button> <span class="sk" id="pastenote"></span></div>
 </details>
+
+@@BACKUP_BOX@@
 
 <div class="tabbar" id="tabbar" role="tablist" hidden></div>
 <div class="tabtools" id="tabtools" hidden>
@@ -1057,4 +1060,5 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   else render(true);
 })();
 </script>
+@@BACKUP_SCRIPT@@
 </div></body></html>
