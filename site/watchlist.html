@@ -123,6 +123,12 @@ th.sortable .si{margin-left:3px;font-size:10px;opacity:.55}
 th.sortable.on .si{opacity:1;color:var(--accent)}
 th.ck,td.ck{width:28px;text-align:center;padding-left:6px;padding-right:2px}
 #list{overflow-x:auto}
+details.box>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px}
+details.box>summary::-webkit-details-marker{display:none}
+details.box>summary::before{content:'▶';font-size:10px;color:var(--muted)}
+details.box[open]>summary::before{content:'▼'}
+details.box>summary h2{margin:0}
+details.box[open]>summary{margin-bottom:8px}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>ウォッチリスト</h1><span class="pagenav"><a href="terms.html">利用規約・免責事項</a><a href="guide.html">使い方・見方</a><a href="index.html">ランキング</a><a href="portfolio.html">ポートフォリオ</a></span></div>
 <div id="theme-bar">
@@ -159,8 +165,8 @@ th.ck,td.ck{width:28px;text-align:center;padding-left:6px;padding-right:2px}
   <button type="button" id="tabdel" class="ghost" title="このタブだけを削除します（銘柄は「全て」に残ります）">このタブを削除</button>
 </div>
 
-<div class="box">
-  <h2>あなたの銘柄リスト</h2>
+<details class="box">
+  <summary><h2>あなたの銘柄リスト</h2></summary>
   <div class="codewrap">
     <span class="bklbl" id="codelbl">全て</span>
     <input id="codestr" readonly value="">
@@ -177,13 +183,13 @@ th.ck,td.ck{width:28px;text-align:center;padding-left:6px;padding-right:2px}
   <p class="note" id="bknote" hidden>タブを作った場合は、タブ名つきの<b>「全タブの控え」</b>もコピーして控えてください。下の入力欄にそのまま貼り付けて「リストに追加」を押すと、タブごと復元されます。</p>
   <p><b>同じ端末・同じブラウザ</b>を使う場合は、一度開けば以降はこのページを開くだけで前回のウォッチリスト（タブも）が表示されます（貼り付け不要）。</p>
   <p class="note">別の端末でも、同じ銘柄リストを貼り付ければ同じ顔ぶれが見られます。銘柄を足し引きしたら、新しく表示される銘柄リストを控え直してください。スコア・軍・利回りは各端末でその時点の最新が表示されます。</p>
-</div>
+</details>
 
-<div class="box">
-  <h2>銘柄リストを貼り付けて追加</h2>
+<details class="box">
+  <summary><h2>銘柄リストを貼り付けて追加</h2></summary>
   <textarea id="paste" placeholder="例）9433,8058,2914,4502　（カンマ・スペース・改行区切りのどれでも可。いまのウォッチ銘柄一覧に追加されます）"></textarea>
   <div style="margin-top:8px"><button type="button" id="load">リストに追加</button> <span class="sk" id="pastenote"></span></div>
-</div>
+</details>
 
 <div id="missbox"></div>
 <div class="listhead" id="listhead" hidden><h2 id="listtitle">ウォッチ銘柄一覧</h2><button type="button" id="wlclearall" class="ghost" title="登録されている銘柄をすべて削除します">全て削除</button></div>
@@ -539,7 +545,7 @@ th.ck,td.ck{width:28px;text-align:center;padding-left:6px;padding-right:2px}
       $('missbox').innerHTML = '';
       $('list').innerHTML = '<div class="empty">まだ銘柄が登録されていません。'
         + '<a href="index.html">ランキングページ</a>で左端の☆にチェックを入れて'
-        + '「ウォッチリストへ追加」を押すか、上の欄に銘柄リストを貼り付けてください。</div>';
+        + '「ウォッチリストへ追加」を押すか、上の「銘柄リストを貼り付けて追加」を開いて銘柄リストを貼り付けてください。</div>';
       return;
     }
     $('listhead').hidden = false;
