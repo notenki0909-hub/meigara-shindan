@@ -789,7 +789,11 @@ def render_index(out):
         f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"])}</td>'
         f'{_chg_row_cells(s.get("chg"))}'
         f'<td class="n" data-v="{_v(s["sel"])}">{_num(s["sel"],0)}</td>'
-        f'<td class="n" data-v="{_v(s["tim"])}">{_num(s["tim"],0)}</td>{_roe_roa_cells(s)}</tr>'
+        f'<td class="n" data-v="{_v(s["tim"])}">{_num(s["tim"],0)}</td>'
+        f'<td class="n" data-v="{_v(s["yield"])}">{_num(s["yield"],2)}%</td>'
+        f'<td class="sk" data-v="{_v(_streak_val(s["streak_up"], s["streak_flat"]))}">{_streak(s["streak_up"], s["streak_flat"])}</td>'
+        f'{_roe_roa_cells(s)}'
+        f'<td class="cv">{s["cov_sel"]}</td></tr>'
         for i, s in enumerate(out["global_top"]))
 
     return f"""<!doctype html><html lang="ja"><head><meta charset="utf-8">
@@ -1037,7 +1041,9 @@ body.wlon{{padding-bottom:60px}}
 {_chg_header_cells()}
 <th class="n"><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>
 <th class="n"><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th>
-<th class="n" title="ROE（自己資本利益率）。クリックで説明"><span class="hdr" data-term="roe">ROE</span><span class="sortbtn">▼</span></th><th class="n" title="ROA（総資産利益率・決算書ベース）。採点には使わない。クリックで説明"><span class="hdr" data-term="roa">ROA</span><span class="sortbtn">▼</span></th></tr></thead><tbody>{gt}</tbody></table>
+<th class="n"><span class="hdr" data-term="yield">利回り</span><span class="sortbtn">▼</span></th>
+<th><span class="hdr" data-term="streak">増配</span><span class="sortbtn">▼</span></th>
+<th class="n" title="ROE（自己資本利益率）。クリックで説明"><span class="hdr" data-term="roe">ROE</span><span class="sortbtn">▼</span></th><th class="n" title="ROA（総資産利益率・決算書ベース）。採点には使わない。クリックで説明"><span class="hdr" data-term="roa">ROA</span><span class="sortbtn">▼</span></th><th class="hdr" data-term="cov">カバレッジ</th></tr></thead><tbody>{gt}</tbody></table>
 </details>
 {changebox}
 {"".join(secs)}

@@ -794,14 +794,10 @@ def render_index(out):
     grade_by_group = {g["name"]: g["grade"] for g in out["groups"]}
 
     def _rank_rows(stocks, extra=False):
-        """業種横断の一覧表（全体上位50／配当王／配当貴族）の行。extra=Trueで利回り・増配列を足す。"""
+        """業種横断の一覧表（全体上位50／配当王／配当貴族）の行。列は各業種の表と同じ（extraは互換のため残している）。"""
         res = []
         for i, s in enumerate(stocks):
-            ex = ""
-            if extra:
-                sv = _streak_val(s["streak_up"], s["streak_flat"])
-                ex = (f'<td class="n" data-v="{_v(s["yield"])}">{_num(s["yield"],2)}%</td>'
-                      f'<td class="sk" data-v="{_v(sv)}">{_streak(s["streak_up"], s["streak_flat"])}</td>')
+            sv = _streak_val(s["streak_up"], s["streak_flat"])
             res.append(
                 f'<tr class="r" data-tier="{s.get("tier","―")}" {_filter_attrs(s, grade_by_group.get(s["group"], "―"))}>'
                 f'<td class="wl"><input type="checkbox" class="wlc" data-code="{s["code"]}" aria-label="ウォッチリストに追加"></td>'
@@ -814,12 +810,14 @@ def render_index(out):
                 f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"])}</td>'
                 f'{_chg_row_cells(s.get("chg"))}'
                 f'<td class="n" data-v="{_v(s["sel"])}">{_num(s["sel"],0)}</td>'
-                f'<td class="n" data-v="{_v(s["tim"])}">{_num(s["tim"],0)}</td>{_roe_roa_cells(s)}{ex}</tr>')
+                f'<td class="n" data-v="{_v(s["tim"])}">{_num(s["tim"],0)}</td>'
+                f'<td class="n" data-v="{_v(s["yield"])}">{_num(s["yield"],2)}%</td>'
+                f'<td class="sk" data-v="{_v(sv)}">{_streak(s["streak_up"], s["streak_flat"])}</td>'
+                f'{_roe_roa_cells(s)}'
+                f'<td class="cv">{s["cov_sel"]}</td></tr>')
         return "".join(res)
 
     def _rank_head(extra=False):
-        ex = ('<th class="n"><span class="hdr" data-term="yield">利回り</span><span class="sortbtn">▼</span></th>'
-              '<th><span class="hdr" data-term="streak">増配</span><span class="sortbtn">▼</span></th>') if extra else ""
         return ('<table><thead><tr><th class="wl" title="ウォッチリストに追加する銘柄にチェック">☆</th>'
                 '<th class="pf" title="ポートフォリオに追加する銘柄にチェック">💼</th><th class="n">#</th>'
                 '<th class="hdr" data-term="tier">軍</th><th>ティッカー</th><th>銘柄</th><th class="hdr" data-term="sector">業種</th>'
@@ -827,8 +825,12 @@ def render_index(out):
                 + _chg_header_cells() +
                 '<th class="n"><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>'
                 '<th class="n"><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th>'
-                + '<th class="n" title="ROE（自己資本利益率）。クリックで説明"><span class="hdr" data-term="roe">ROE</span><span class="sortbtn">▼</span></th>' + '<th class="n" title="ROA（総資産利益率・決算書ベース）。採点には使わない。クリックで説明"><span class="hdr" data-term="roa">ROA</span><span class="sortbtn">▼</span></th>'
-                + ex + '</tr></thead><tbody>')
+                '<th class="n"><span class="hdr" data-term="yield">利回り</span><span class="sortbtn">▼</span></th>'
+                '<th><span class="hdr" data-term="streak">増配</span><span class="sortbtn">▼</span></th>'
+                '<th class="n" title="ROE（自己資本利益率）。クリックで説明"><span class="hdr" data-term="roe">ROE</span><span class="sortbtn">▼</span></th>'
+                '<th class="n" title="ROA（総資産利益率・決算書ベース）。採点には使わない。クリックで説明"><span class="hdr" data-term="roa">ROA</span><span class="sortbtn">▼</span></th>'
+                '<th class="hdr" data-term="cov">カバレッジ</th>'
+                '</tr></thead><tbody>')
 
     gt = _rank_rows(out["global_top"])
     top_table = _rank_head() + gt + '</tbody></table>'
