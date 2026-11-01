@@ -225,6 +225,17 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   <div style="margin-top:8px"><button type="button" id="load">リストに追加</button> <span class="sk" id="pastenote"></span></div>
 </details>
 
+<details class="box" id="csvbk">
+  <summary><h2>バックアップ（CSV）</h2></summary>
+  <p>「詳しい条件で絞り込む」の条件（URL）、ウォッチリスト（「あなたの銘柄リスト」の全てと、タブ・セクションを含む「全タブの控え」）、ポートフォリオの保有記録（「保有記録の保存・共有」の文字列）を、<b>1つのCSV</b>にまとめて書き出します。ファイル名は「配当株（米株）日付.csv」です。</p>
+  <div class="codewrap">
+    <button type="button" id="bk-export">CSVで書き出す</button>
+    <button type="button" id="bk-import" class="ghost">CSVを読み込んで復元</button>
+    <input type="file" id="bk-file" accept=".csv,text/csv" hidden>
+    <span id="bk-stat" class="sk"></span>
+  </div>
+  <p class="note">読み込むと、いまの絞り込み条件・ウォッチリスト・保有記録が、CSVの内容に置き換わります。このCSVは日株用・米株用で別々です（ほかの種類のCSVは読み込めません）。別の端末へ移すときも、この書き出し・読み込みが使えます。</p>
+</details>
 <div class="tabbar" id="tabbar" role="tablist" hidden></div>
 <div class="tabtools" id="tabtools" hidden>
   <label>タブの名前 <input id="tabname" maxlength="20" placeholder="例）高配当・NISA用・要確認"></label>
@@ -1210,6 +1221,180 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 
   if (master.length || tabs.length) withData(function(){ render(true); });
   else render(true);
+})();
+</script>
+<script>
+/* バックアップ（CSV）: 絞り込み条件のURL・ウォッチリスト・保有記録を1つのCSVに書き出し／読み込んで復元する */
+(function(){
+  var SFX = '_us', MARKET = '配当株（米株）';
+  var $ = function(id){ return document.getElementById(id); };
+  var K = {filters: 'pp_filters' + SFX, wl: 'wl_codes' + SFX, tabs: 'wl_tabs' + SFX, secs: 'wl_secs' + SFX,
+           sel: 'wl_tabsel' + SFX, pf: 'pf_lots' + SFX};
+  var L = {tool: 'ツール', date: 'バックアップ日', fmt: '形式',
+           filters: '詳しい条件で絞り込むのURL', all: 'あなたの銘柄リスト（全て）', tabs: '全タブの控え',
+           pf: '保有記録の保存・共有'};
+  function lsGet(k){ try { return localStorage.getItem(k); } catch(e) { return null; } }
+  function lsSet(k, v){
+    try { if (v === '' || v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch(e) {}
+  }
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function newId(){ return 't' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5); }
+  function splitCodes(s){
+    var seen = {}, out = [];
+    String(s || '').split(/[\s,;、，]+/).forEach(function(t){
+      t = t.trim().toUpperCase();
+      if (t && !seen[t]) { seen[t] = 1; out.push(t); }
+    });
+    return out;
+  }
+  function union(){
+    var all = [];
+    Array.prototype.forEach.call(arguments, function(a){ all = all.concat(a); });
+    return splitCodes(all.join(','));
+  }
+  function jparse(s, d){ try { var v = JSON.parse(s); return (v == null) ? d : v; } catch(e) { return d; } }
+
+  // ---- 書き出し --------------------------------------------------------------
+  function cell(v){
+    var s = String(v == null ? '' : v);
+    if (/[",\r\n]/.test(s)) s = '"' + s.replace(/"/g, '""') + '"';
+    return s;
+  }
+  function collect(){
+    var qs = lsGet(K.filters) || '';
+    var base = new URL('index.html', location.href).href.split(/[?#]/)[0];
+    var tabs = jparse(lsGet(K.tabs), []); if (!Array.isArray(tabs)) tabs = [];
+    var secs = jparse(lsGet(K.secs), {}); if (!secs || typeof secs !== 'object' || Array.isArray(secs)) secs = {};
+    function secsOut(id){
+      return (Array.isArray(secs[id]) ? secs[id] : []).map(function(s){
+        return {n: String(s.name || ''), c: (s.codes || []).join(',')};
+      });
+    }
+    var tabsOut = tabs.map(function(t){
+      return {n: String(t.name || ''), c: (t.codes || []).join(','), s: secsOut(t.id)};
+    });
+    var codes = [splitCodes(lsGet(K.wl) || '')];
+    tabs.forEach(function(t){ codes.push(t.codes || []); });
+    Object.keys(secs).forEach(function(k){ (secs[k] || []).forEach(function(s){ codes.push(s.codes || []); }); });
+    var master = union.apply(null, codes);
+    return {
+      filters: base + (qs ? '?' + qs : ''),
+      all: master.join(','),
+      json: JSON.stringify({v: 2, all: master.join(','), as: secsOut('all'), tabs: tabsOut}),
+      pf: lsGet(K.pf) || ''
+    };
+  }
+  function buildCsv(now){
+    var c = collect();
+    var rows = [
+      ['区分', '項目', '値'],
+      ['バックアップ', L.tool, MARKET],
+      ['バックアップ', L.date, now.getFullYear() + '-' + pad(now.getMonth() + 1) + '-' + pad(now.getDate())],
+      ['バックアップ', L.fmt, '1'],
+      ['絞り込み条件', L.filters, c.filters],
+      ['ウォッチリスト', L.all, c.all],
+      ['ウォッチリスト', L.tabs, c.json],
+      ['ポートフォリオ', L.pf, c.pf]
+    ];
+    return '﻿' + rows.map(function(r){ return r.map(cell).join(','); }).join('\r\n') + '\r\n';
+  }
+  $('bk-export').addEventListener('click', function(){
+    var now = new Date();
+    var name = MARKET + now.getFullYear() + '.' + (now.getMonth() + 1) + '.' + now.getDate() + '.csv';
+    var blob = new Blob([buildCsv(now)], {type: 'text/csv;charset=utf-8'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    $('bk-stat').textContent = '書き出しました：' + name;
+  });
+
+  // ---- 読み込み（復元）-------------------------------------------------------
+  function parseCsv(t){
+    var rows = [], row = [], f = '', q = false;
+    for (var i = 0; i < t.length; i++) {
+      var ch = t.charAt(i);
+      if (q) {
+        if (ch === '"') { if (t.charAt(i + 1) === '"') { f += '"'; i++; } else q = false; }
+        else f += ch;
+      } else if (ch === '"') q = true;
+      else if (ch === ',') { row.push(f); f = ''; }
+      else if (ch === '\n' || ch === '\r') {
+        if (ch === '\r' && t.charAt(i + 1) === '\n') i++;
+        row.push(f); f = ''; rows.push(row); row = [];
+      } else f += ch;
+    }
+    if (f !== '' || row.length) { row.push(f); rows.push(row); }
+    return rows.filter(function(r){ return !(r.length === 1 && r[0] === ''); });
+  }
+  function mkSecs(a){
+    return (Array.isArray(a) ? a : []).map(function(x){
+      return {id: newId(), name: String((x && x.n) || '').replace(/\s+/g, ' ').trim().slice(0, 20) || 'セクション',
+              codes: splitCodes(x && x.c)};
+    });
+  }
+  function restore(text){
+    var rows = parseCsv(text.replace(/^﻿/, '')), v = {};
+    rows.forEach(function(r){ if (r.length >= 3) v[r[1]] = r[2]; });
+    if (!(L.tool in v)) { alert('このファイルはバックアップCSVとして読み取れませんでした。'); return; }
+    if (v[L.tool] !== MARKET) {
+      alert('このCSVは「' + v[L.tool] + '」用です。このページ（' + MARKET + '）では読み込めません。');
+      return;
+    }
+    var info = jparse(v[L.tabs], null);
+    if (v[L.tabs] && (!info || !Array.isArray(info.tabs))) { alert('「全タブの控え」の部分が壊れているため、読み込みを中止しました。'); return; }
+    if (!confirm('このバックアップ（' + (v[L.date] || '日付なし') + '）の内容で、いまの絞り込み条件・ウォッチリスト・保有記録を置き換えます。よろしいですか？\n'
+      + '（元の内容を残したい場合は、先に「CSVで書き出す」で保存してください）')) return;
+    var done = [];
+    if (L.filters in v) {
+      var u = v[L.filters], i = u.indexOf('?');
+      lsSet(K.filters, i >= 0 ? u.slice(i + 1).replace(/#.*$/, '') : '');
+      done.push('絞り込み条件');
+    }
+    if (L.all in v || info) {
+      var tabs = [], secs = {}, codes = [splitCodes(v[L.all] || '')];
+      if (info) {
+        codes.push(splitCodes(info.all));
+        var sa = mkSecs(info.as);
+        if (sa.length) secs.all = sa;
+        info.tabs.forEach(function(x){
+          if (!x) return;
+          var t = {id: newId(), name: String(x.n || '').replace(/\s+/g, ' ').trim().slice(0, 20) || 'タブ', codes: splitCodes(x.c)};
+          tabs.push(t);
+          var ss = mkSecs(x.s);
+          if (ss.length) secs[t.id] = ss;
+        });
+        tabs.forEach(function(t){ codes.push(t.codes); });
+        Object.keys(secs).forEach(function(k){ secs[k].forEach(function(s){ codes.push(s.codes); }); });
+      }
+      var master = union.apply(null, codes);
+      lsSet(K.wl, master.join(','));
+      if (info) {
+        lsSet(K.tabs, tabs.length ? JSON.stringify(tabs) : '');
+        lsSet(K.secs, Object.keys(secs).length ? JSON.stringify(secs) : '');
+        lsSet(K.sel, 'all');
+      }
+      done.push('ウォッチリスト（全て ' + master.length + '銘柄・タブ ' + tabs.length + '個）');
+    }
+    if (L.pf in v) {
+      lsSet(K.pf, v[L.pf]);
+      done.push('保有記録');
+    }
+    alert('復元しました：' + (done.join('、') || '（対象なし）') + '\nページを開き直します。');
+    location.href = location.pathname;
+  }
+  $('bk-import').addEventListener('click', function(){ $('bk-file').click(); });
+  $('bk-file').addEventListener('change', function(){
+    var f = this.files && this.files[0];
+    if (!f) return;
+    var rd = new FileReader();
+    rd.onload = function(){ restore(String(rd.result || '')); };
+    rd.onerror = function(){ alert('ファイルを読み込めませんでした。'); };
+    rd.readAsText(f, 'utf-8');
+    this.value = '';
+  });
 })();
 </script>
 </body></html>
