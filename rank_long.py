@@ -1245,10 +1245,6 @@ section.grp[hidden]{{display:none}}
   <a class="sumbtn wlnav" href="portfolio.html"><b>💼</b>ポートフォリオ<small id="pfnav-hold">保有銘柄数0</small></a>
 </div>
 <div class="sub" style="margin:-4px 0 12px">見出し（軍・品質・業績・財務・CF・買い時・利回り・カバレッジ・業種級）をクリックすると説明が出ます。数字ボタンでその軍だけ表示（もう一度で解除）。☆にチェックを入れて下部の「ウォッチリストへ追加」を、💼にチェックを入れて「ポートフォリオに追加」を押すと、選んだ銘柄がそれぞれウォッチリスト・ポートフォリオの入力欄へ追加されます（☆と💼は別々に選べます）。</div>
-<div id="terminfo" class="terminfo" hidden>
-  <button type="button" id="terminfo-close" class="ticlose" aria-label="閉じる">✕</button>
-  <div id="terminfo-body"></div>
-</div>
 <div class="searchbar">
   <input id="q" type="search" placeholder="コード・銘柄名・業種で検索" autocomplete="off">
   <button id="qclear" type="button">クリア</button>
@@ -1258,6 +1254,10 @@ section.grp[hidden]{{display:none}}
 {filter_panel_html}
 {backup_box}
 {watch_change_html}
+<div id="terminfo" class="terminfo" hidden>
+  <button type="button" id="terminfo-close" class="ticlose" aria-label="閉じる">✕</button>
+  <div id="terminfo-body"></div>
+</div>
 <details id="topbox"><summary>全体 品質スコア 上位50（業種横断）</summary>
 <table>{thead.format(rk='<th class="n">#</th>')}
 <tbody>{gt}</tbody></table></details>
