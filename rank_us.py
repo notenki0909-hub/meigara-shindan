@@ -972,6 +972,7 @@ th.wl,th.pf{{color:var(--muted);cursor:default}}
   background:var(--accent);color:var(--onacc,#fff);font-size:13px;cursor:pointer}}
 #wlbar button.ghost{{background:var(--card);color:var(--muted);border-color:var(--line)}}
 #wlbar button:disabled{{opacity:.4;cursor:default}}
+#wlbar select{{padding:7px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--fg);font-size:13px;max-width:220px}}
 body.wlon{{padding-bottom:60px}}
 .hdr{{cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px}}
 .hdr:hover{{color:var(--accent)}}
@@ -1101,6 +1102,7 @@ body.wlon{{padding-bottom:60px}}
 <div class="disc">{DISC}</div>
 <div id="wlbar" hidden>
 <span>☆ <b id="wlcount">0</b>銘柄</span>
+<label class="wltgt">追加先 <select id="wltab" aria-label="ウォッチリストの追加先（全て／タブ）"></select></label>
 <button type="button" id="wlgo">ウォッチリストへ追加 →</button>
 <button type="button" id="wlclear" class="ghost" title="☆のチェックだけをすべて外します">☆をクリア</button>
 <span>💼 <b id="pfcount">0</b>銘柄</span>
@@ -1516,6 +1518,9 @@ body.wlon{{padding-bottom:60px}}
   var WL_KEY = 'wl_codes_us';
   var WL_SEL_KEY = 'wl_sel_codes_us';
   var PF_SEL_KEY = 'pf_sel_codes_us';
+  // ウォッチリストのタブ（ウォッチリストページが管理）。追加先に選んだタブへも銘柄を入れる
+  var WL_TAB_KEY = 'wl_tabs_us';
+  var WL_TABSEL_KEY = 'wl_tabsel_us';
   function loadCodes(key){{
     try {{ return new Set((localStorage.getItem(key) || '').split(',').map(function(s){{return s.trim();}}).filter(Boolean)); }}
     catch(e) {{ return new Set(); }}
@@ -1528,6 +1533,48 @@ body.wlon{{padding-bottom:60px}}
   var wlNav = document.getElementById('wlnav-n');
   var wlGoBtn = document.getElementById('wlgo');
   var pfGoBtn = document.getElementById('pfgo');
+  var wlTabSel = document.getElementById('wltab');
+  function wlEsc(x){{ return String(x).replace(/[&<>"']/g, function(c){{ return {{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}}[c]; }}); }}
+  function wlLoadTabs(){{
+    try {{
+      var a = JSON.parse(localStorage.getItem(WL_TAB_KEY) || '[]');
+      return Array.isArray(a) ? a.filter(function(t){{ return t && typeof t.id === 'string'; }}) : [];
+    }} catch(e) {{ return []; }}
+  }}
+  function wlTabFill(){{
+    var prev = wlTabSel.value;
+    var h = '<option value="all">全て（ウォッチリスト全体）</option>';
+    wlLoadTabs().forEach(function(t){{ h += '<option value="' + wlEsc(t.id) + '">タブ：' + wlEsc(t.name || 'タブ') + '</option>'; }});
+    h += '<option value="__new">＋ 新しいタブを作って追加</option>';
+    wlTabSel.innerHTML = h;
+    var ok = false;
+    Array.prototype.forEach.call(wlTabSel.options, function(o){{ if (o.value === prev) ok = true; }});
+    if (ok) wlTabSel.value = prev;
+  }}
+  // 選択中の銘柄を、追加先に選んだタブへも入れ、ウォッチリストページがそのタブを開くようにする
+  function wlAddToTab(){{
+    var target = wlTabSel.value, pick = 'all';
+    if (target !== 'all') {{
+      var tabs = wlLoadTabs(), t = null;
+      if (target === '__new') {{
+        var names = tabs.map(function(x){{ return x.name; }}), n = tabs.length + 1, nm = 'タブ' + n;
+        while (names.indexOf(nm) >= 0) {{ n++; nm = 'タブ' + n; }}
+        t = {{id: 't' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), name: nm, codes: []}};
+        tabs.push(t);
+      }} else {{
+        tabs.forEach(function(x){{ if (x.id === target) t = x; }});
+      }}
+      if (t) {{
+        var have = new Set(Array.isArray(t.codes) ? t.codes : []);
+        wlSelSet.forEach(function(c){{ have.add(c); }});
+        t.codes = Array.from(have);
+        pick = t.id;
+        try {{ localStorage.setItem(WL_TAB_KEY, JSON.stringify(tabs)); }} catch(e) {{}}
+      }}
+    }}
+    try {{ localStorage.setItem(WL_TABSEL_KEY, pick); }} catch(e) {{}}
+  }}
+  window.addEventListener('pageshow', wlTabFill);
   function wlSelSave(){{ try {{ localStorage.setItem(WL_SEL_KEY, Array.from(wlSelSet).join(',')); }} catch(e) {{}} }}
   function pfSelSave(){{ try {{ localStorage.setItem(PF_SEL_KEY, Array.from(pfSelSet).join(',')); }} catch(e) {{}} }}
   function wlBadge(){{
@@ -1536,6 +1583,7 @@ body.wlon{{padding-bottom:60px}}
     // 「ウォッチリスト」ボタンには、ウォッチリストページに登録済みの銘柄数を表示する
     if (wlNav) wlNav.innerHTML = '<span class="pfl">登録銘柄数</span>' + loadCodes(WL_KEY).size;
     wlGoBtn.disabled = wlSelSet.size === 0;
+    wlTabFill();
     pfGoBtn.disabled = pfSelSet.size === 0;
     document.getElementById('wlclear').disabled = wlSelSet.size === 0;
     document.getElementById('pfclear').disabled = pfSelSet.size === 0;
@@ -1580,6 +1628,7 @@ body.wlon{{padding-bottom:60px}}
     var reg = loadCodes(WL_KEY);
     wlSelSet.forEach(function(c){{ reg.add(c); }});
     try {{ localStorage.setItem(WL_KEY, Array.from(reg).join(',')); }} catch(e) {{}}
+    wlAddToTab();
     wlSelSave();
     location.href = 'watchlist.html';
   }});
