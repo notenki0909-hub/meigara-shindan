@@ -1,0 +1,101 @@
+{
+ "code": "VYLR",
+ "name": "Vylor",
+ "jp_sector": null,
+ "gics_sector": "Financials",
+ "is_simple": false,
+ "is_reit": false,
+ "price": 72.4000015258789,
+ "price_date": "2026-10-30",
+ "mcap": 48312733696,
+ "q_score": 97.1,
+ "groups": {
+  "業績": 84.26404524400122,
+  "財務": 108.8281784489981,
+  "キャッシュフロー": 100.0,
+  "金融品質": null,
+  "REIT品質": null
+ },
+ "is_fin_simple": false,
+ "is_reit_us": false,
+ "current_pfo": null,
+ "quarter_decel_factor": null,
+ "quarter_decel_detail": null,
+ "q_cov": "高",
+ "bt_score": 67.0,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 62.389884675699456,
+  "fcf_yield": 79.61161332997489,
+  "per_cheap": 20.0,
+  "pbr_cheap": 105.8
+ },
+ "ev_ebit": 28.026933861012957,
+ "fcf_yield": 4.470870999748116,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": 1.1790885090876297,
+ "per_vs_sector": 5.978530057803468,
+ "pbr_vs_sector": 0.7677828,
+ "price_chg": {
+  "d": -0.3852487315921693,
+  "w": -2.9360435977112798,
+  "m": 6.065044330625713,
+  "3m": null,
+  "6m": null,
+  "9m": null,
+  "y": null
+ },
+ "div_yield": 0.7182320290616699,
+ "implied_fcf_growth": 0.0923,
+ "insight": {
+  "flags": {
+   "cutoff": [],
+   "value_trap": []
+  },
+  "raw": {
+   "roe": 2.8411666918543146,
+   "roa": 1.707616149688905,
+   "leverage": 1.6638204624452169,
+   "ocf_ni": 6.664893617021277,
+   "accrual": -9.68445939801764,
+   "capex_da": 0.4292803970223325
+  }
+ },
+ "etf_top": [
+  {
+   "etf": "XLB",
+   "rank": 12,
+   "weight": 3.73156
+  }
+ ],
+ "metric_scores": {
+  "rev_cagr": 100.10333646281471,
+  "eps_cagr": 20.0,
+  "op_margin": 106.9528445131902,
+  "earnings_stability": 110.0,
+  "equity_ratio": null,
+  "de": 109.91536950279583,
+  "net_de": 105.5463200846305,
+  "debt_to_ocf": 109.8510242085661,
+  "interest_coverage": 110.0,
+  "ocf_positive": 100.0,
+  "fcf_positive": 100.0,
+  "fcf_payout": null
+ },
+ "metric_raw": {
+  "rev_cagr": 3.0930028165332413,
+  "eps_cagr": -24.060082282890416,
+  "op_margin": 16.866991159233137,
+  "earnings_stability": 1.1789077212806027,
+  "equity_ratio": null,
+  "de": 0.008463049720417108,
+  "net_de": -0.05463200846304972,
+  "debt_to_ocf": 0.0446927374301676,
+  "interest_coverage": 134.2,
+  "ocf_positive": 1,
+  "fcf_positive": 1,
+  "fcf_payout": null
+ },
+ "_generated_at": "2026-11-02T02:35:59"
+}

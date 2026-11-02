@@ -91,6 +91,16 @@ tr:last-child td{border-bottom:none}
 .stat{background:var(--field);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
 .stat .lbl{font-size:11px;color:var(--muted)}
 .stat .val{font-size:19px;font-weight:700;margin-top:2px}
+.stat[data-help]{cursor:pointer}
+.stat[data-help] .lbl::after{content:' ⓘ';color:var(--accent)}
+.stat[data-help]:focus-visible{outline:2px solid var(--accent)}
+.stat[data-help].on{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 25%,transparent)}
+.stathelp{margin-top:10px;padding:12px 14px;background:var(--info,var(--field));border:1px solid var(--line);border-radius:8px;font-size:12.5px;line-height:1.75}
+.stathelp[hidden]{display:none}
+.stathelp .sh-t{font-size:13.5px;font-weight:700;margin:0 0 4px}
+.stathelp p{margin:4px 0}
+.stathelp .sh-calc{color:var(--muted)}
+.stathelp .sh-x{float:right;border:0;background:none;color:var(--muted);font-size:14px;cursor:pointer;padding:0 2px}
 
 /* 追加フォーム */
 .addrow{margin:6px 0;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--field)}
@@ -170,6 +180,19 @@ td.q,th.q{color:var(--accent)}
    のピンチ検出に必要）までジェスチャーが届かずピンチズームが機能しない。 */
 .pricechart-wrap canvas{touch-action:none}
 .pricechart .pnote{font-size:11px;color:var(--muted);margin-top:4px}
+#csvbk{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:14px 0}
+#csvbk>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px}
+#csvbk>summary::-webkit-details-marker{display:none}
+#csvbk>summary::before{content:'▶';font-size:10px;color:var(--muted)}
+#csvbk[open]>summary::before{content:'▼'}
+#csvbk summary h2{font-size:14px;margin:0}
+#csvbk[open]>summary{margin-bottom:8px}
+#csvbk p{font-size:12.5px;margin:6px 0}
+#csvbk p.note{color:var(--muted)}
+#csvbk .codewrap{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0}
+#csvbk button{padding:8px 14px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);color:var(--onacc,#fff);font-size:13px;cursor:pointer;margin:0}
+#csvbk button.ghost{background:var(--card);color:var(--muted);border-color:var(--line)}
+#csvbk .sk{font-size:11px;color:var(--muted)}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>ポートフォリオ</h1><div class="nav"><a href="terms.html">利用規約・免責事項</a><a href="guide.html">使い方・見方</a><a href="index.html">ランキング</a><a href="watchlist.html">ウォッチリスト</a></div></div>
 <div id="theme-bar">
@@ -223,10 +246,12 @@ td.q,th.q{color:var(--accent)}
 <div class="box" id="summarybox" hidden>
   <h2>サマリー</h2>
   <div class="stats">
-    <div class="stat"><div class="lbl">取得金額合計</div><div class="val" id="st-cost">―</div></div>
-    <div class="stat"><div class="lbl">評価額合計</div><div class="val" id="st-value">―</div></div>
-    <div class="stat"><div class="lbl">評価損益</div><div class="val" id="st-gain">―</div></div>
+    <div class="stat" data-help="cost" tabindex="0" role="button" aria-expanded="false"><div class="lbl">取得金額合計</div><div class="val" id="st-cost">―</div></div>
+    <div class="stat" data-help="value" tabindex="0" role="button" aria-expanded="false"><div class="lbl">評価額合計</div><div class="val" id="st-value">―</div></div>
+    <div class="stat" data-help="gain" tabindex="0" role="button" aria-expanded="false"><div class="lbl">評価損益</div><div class="val" id="st-gain">―</div></div>
+    <div class="stat" data-help="realized" tabindex="0" role="button" aria-expanded="false"><div class="lbl">実現損益（累計）</div><div class="val" id="st-realized">―</div></div>
   </div>
+  <div class="stathelp" id="stathelp" hidden></div>
 </div>
 
 <div class="box" id="chartbox" hidden>
@@ -267,6 +292,18 @@ td.q,th.q{color:var(--accent)}
   <textarea id="paste" placeholder="例）AAPL:100:150.25:2024-03-15;KO:50:58.10:2023-11-02"></textarea>
   <div style="margin-top:8px"><button type="button" id="load">この記録を読み込む</button><button type="button" id="pasteclear" class="ghost" style="margin-left:8px">クリア</button></div>
 </div>
+
+<details id="csvbk">
+  <summary><h2>バックアップ（CSV）</h2></summary>
+  <p>「詳しい条件で絞り込む」の条件（URL）、ウォッチリスト（「あなたの銘柄リスト」の全てと、タブ・セクションを含む「全タブの控え」）、ポートフォリオの保有記録（「保有記録の保存・共有」の文字列）を、<b>1つのCSV</b>にまとめて書き出します。ファイル名は「10年保有（米株）日付.csv」です。</p>
+  <div class="codewrap">
+    <button type="button" id="bk-export">CSVで書き出す</button>
+    <button type="button" id="bk-import" class="ghost">CSVを読み込んで復元</button>
+    <input type="file" id="bk-file" accept=".csv,text/csv" hidden>
+    <span id="bk-stat" class="sk"></span>
+  </div>
+  <p class="note">読み込むと、いまの絞り込み条件・ウォッチリスト・保有記録が、CSVの内容に置き換わります。このCSVは日株用・米株用で別々です（ほかの種類のCSV、配当株ツールのCSVは読み込めません）。別の端末へ移すときも、この書き出し・読み込みが使えます。</p>
+</details>
 
 <div class="disc" id="disc"></div>
 </div>
@@ -1093,6 +1130,73 @@ td.q,th.q{color:var(--accent)}
     });
   }
 
+
+  // ---- サマリーの各項目：クリックで説明（いまの数字を使った計算つき）----
+  // 配当株ツールの同じ機能を、10年保有側にコピーして移植。
+  var statNow = null, openStat = null;
+  var STAT_HELP = {
+    cost: {
+      t: '取得金額合計',
+      body: function(s){ return '<p>いま持っている株を、<strong>いくらで買ったか</strong>の合計です。購入ごとに「株数×取得単価」を足して求めます。</p>'
+        + '<p>売却を記録した分は、売った株数ぶんの取得費を移動平均法（総平均法に準ずる方法）で差し引いてあるので、<strong>残っている株に対応する金額</strong>です。取得単価を空欄で追加した場合は、購入日の終値（または始値）を自動で入れた金額で計算します。</p>'
+        + '<p>現在値を取得できなかった銘柄（ランキングに見つからない銘柄）の取得金額も含みます。</p>'; },
+      calc: function(s){ return '合計：' + dollar(s.cost); }
+    },
+    value: {
+      t: '評価額合計',
+      body: function(s){ return '<p>いま持っている株を<strong>今日の値段で売ったらいくらか</strong>の合計です。「保有株数×現在値（ランキングの最新の終値）」を、銘柄ごとに足して求めます。</p>'
+        + '<p>株価の動きで変わります。現在値を取得できなかった銘柄は含みません。</p>'; },
+      calc: function(s){ return '合計：' + dollar(s.value); }
+    },
+    gain: {
+      t: '評価損益',
+      body: function(s){ return '<p><strong>評価額合計 − 取得金額</strong>です。プラスなら含み益、マイナスなら含み損です。</p>'
+        + '<p>まだ売っていないので、<strong>確定した損益ではありません</strong>（株価しだいで日々変わります）。現在値を取得できた銘柄だけで計算し、税金・手数料・受け取った配当は含みません。</p>'; },
+      calc: function(s){ return '評価額 ' + dollar(s.value) + ' − 取得金額 ' + dollar(s.costFound) + ' = ' + (s.gain >= 0 ? '+' : '') + dollar(s.gain)
+        + (s.costFound > 0 ? '（' + (s.gain >= 0 ? '+' : '') + (s.gain / s.costFound * 100).toFixed(1) + '%）' : ''); }
+    },
+    realized: {
+      t: '実現損益（累計）',
+      body: function(s){ return '<p>株を<strong>売って確定した損益</strong>の累計です。売却の記録ごとに「（売却単価 − そのときの平均取得単価）×売却株数」を足して求めます。平均取得単価は移動平均法（総平均法に準ずる方法）で計算します。</p>'
+        + '<p>売却を1件も記録していないと「―」と表示します。評価損益（まだ売っていない分の含み損益）とは別の数字で、配当・税金・手数料は含みません。実際の取得費の計算方法は証券会社により異なる場合があるため、正確な損益は各証券会社の取引履歴でご確認ください。</p>'; },
+      calc: function(s){ return s.hasSell ? ('累計：' + (s.realized >= 0 ? '+' : '') + dollar(s.realized)) : '売却の記録がまだありません。'; }
+    }
+  };
+  function showStatHelp(k){
+    var el = $('stathelp'), h = STAT_HELP[k];
+    Array.prototype.forEach.call(document.querySelectorAll('.stat[data-help]'), function(c){
+      var on = (c.dataset.help === k);
+      c.classList.toggle('on', on);
+      c.setAttribute('aria-expanded', on ? 'true' : 'false');
+    });
+    if (!h || !statNow) { el.hidden = true; return; }
+    el.innerHTML = '<button type="button" class="sh-x" id="stathelp-close" aria-label="閉じる">✕</button>'
+      + '<div class="sh-t">' + h.t + '</div>' + h.body(statNow) + '<p class="sh-calc">いまの数字：' + h.calc(statNow) + '</p>';
+    el.hidden = false;
+  }
+  function toggleStat(k){
+    openStat = (openStat === k) ? null : k;
+    if (openStat) showStatHelp(openStat);
+    else {
+      $('stathelp').hidden = true;
+      Array.prototype.forEach.call(document.querySelectorAll('.stat[data-help]'), function(c){ c.classList.remove('on'); c.setAttribute('aria-expanded', 'false'); });
+    }
+  }
+  document.querySelector('#summarybox .stats').addEventListener('click', function(e){
+    var c = e.target.closest('.stat[data-help]');
+    if (c) toggleStat(c.dataset.help);
+  });
+  document.querySelector('#summarybox .stats').addEventListener('keydown', function(e){
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var c = e.target.closest('.stat[data-help]');
+    if (!c) return;
+    e.preventDefault();
+    toggleStat(c.dataset.help);
+  });
+  $('stathelp').addEventListener('click', function(e){
+    if (e.target.id === 'stathelp-close') toggleStat(openStat);
+  });
+
   // 業種名（GICS11）の日本語表示。内部の値は英語のまま、表示だけ置き換える
   var SECJA = {"Information Technology":"情報技術","Health Care":"ヘルスケア","Financials":"金融",
     "Consumer Discretionary":"一般消費財","Consumer Staples":"生活必需品","Communication Services":"コミュニケーション",
@@ -1325,6 +1429,16 @@ td.q,th.q{color:var(--accent)}
       gainEl.textContent = (gainTotal >= 0 ? '+' : '') + dollar(gainTotal);
       gainEl.className = 'val ' + (gainTotal >= 0 ? 'pos' : 'neg');
 
+      // 実現損益（累計）＝売却を記録した銘柄の実現損益の合計
+      var realizedTotal = holdings.reduce(function(a,h){ return a + (h.realized || 0); }, 0);
+      var hasAnySell = holdings.some(function(h){ return h.hasSells; });
+      var realizedEl = $('st-realized');
+      realizedEl.textContent = hasAnySell ? ((realizedTotal >= 0 ? '+' : '') + dollar(realizedTotal)) : '―';
+      realizedEl.className = 'val ' + (hasAnySell ? (realizedTotal >= 0 ? 'pos' : 'neg') : '');
+      statNow = {cost: costTotal, value: valueTotal, gain: gainTotal, realized: realizedTotal, hasSell: hasAnySell,
+                 costFound: found.reduce(function(a,h){ return a + h.cost; }, 0)};
+      if (openStat) showStatHelp(openStat);
+
       if (!found.length) {
         $('chartbox').hidden = true;
       } else {
@@ -1425,6 +1539,180 @@ td.q,th.q{color:var(--accent)}
   }
 
   render();
+})();
+</script>
+<script>
+/* バックアップ（CSV）: 絞り込み条件のURL・ウォッチリスト・保有記録を1つのCSVに書き出し／読み込んで復元する */
+(function(){
+  var SFX = '_us', MARKET = '10年保有（米株）';
+  var $ = function(id){ return document.getElementById(id); };
+  var K = {filters: 'pp_filters_long' + SFX, wl: 'pp_wl_long_us', tabs: 'wl_tabs_long' + SFX, secs: 'wl_secs_long' + SFX,
+           sel: 'wl_tabsel_long' + SFX, pf: 'pf_lots_long' + SFX};
+  var L = {tool: 'ツール', date: 'バックアップ日', fmt: '形式',
+           filters: '詳しい条件で絞り込むのURL', all: 'あなたの銘柄リスト（全て）', tabs: '全タブの控え',
+           pf: '保有記録の保存・共有'};
+  function lsGet(k){ try { return localStorage.getItem(k); } catch(e) { return null; } }
+  function lsSet(k, v){
+    try { if (v === '' || v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch(e) {}
+  }
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function newId(){ return 't' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5); }
+  function splitCodes(s){
+    var seen = {}, out = [];
+    String(s || '').split(/[\s,;、，]+/).forEach(function(t){
+      t = t.trim().toUpperCase();
+      if (t && !seen[t]) { seen[t] = 1; out.push(t); }
+    });
+    return out;
+  }
+  function union(){
+    var all = [];
+    Array.prototype.forEach.call(arguments, function(a){ all = all.concat(a); });
+    return splitCodes(all.join(','));
+  }
+  function jparse(s, d){ try { var v = JSON.parse(s); return (v == null) ? d : v; } catch(e) { return d; } }
+
+  // ---- 書き出し --------------------------------------------------------------
+  function cell(v){
+    var s = String(v == null ? '' : v);
+    if (/[",\r\n]/.test(s)) s = '"' + s.replace(/"/g, '""') + '"';
+    return s;
+  }
+  function collect(){
+    var qs = lsGet(K.filters) || '';
+    var base = new URL('index.html', location.href).href.split(/[?#]/)[0];
+    var tabs = jparse(lsGet(K.tabs), []); if (!Array.isArray(tabs)) tabs = [];
+    var secs = jparse(lsGet(K.secs), {}); if (!secs || typeof secs !== 'object' || Array.isArray(secs)) secs = {};
+    function secsOut(id){
+      return (Array.isArray(secs[id]) ? secs[id] : []).map(function(s){
+        return {n: String(s.name || ''), c: (s.codes || []).join(',')};
+      });
+    }
+    var tabsOut = tabs.map(function(t){
+      return {n: String(t.name || ''), c: (t.codes || []).join(','), s: secsOut(t.id)};
+    });
+    var codes = [splitCodes(lsGet(K.wl) || '')];
+    tabs.forEach(function(t){ codes.push(t.codes || []); });
+    Object.keys(secs).forEach(function(k){ (secs[k] || []).forEach(function(s){ codes.push(s.codes || []); }); });
+    var master = union.apply(null, codes);
+    return {
+      filters: base + (qs ? '?' + qs : ''),
+      all: master.join(','),
+      json: JSON.stringify({v: 2, all: master.join(','), as: secsOut('all'), tabs: tabsOut}),
+      pf: lsGet(K.pf) || ''
+    };
+  }
+  function buildCsv(now){
+    var c = collect();
+    var rows = [
+      ['区分', '項目', '値'],
+      ['バックアップ', L.tool, MARKET],
+      ['バックアップ', L.date, now.getFullYear() + '-' + pad(now.getMonth() + 1) + '-' + pad(now.getDate())],
+      ['バックアップ', L.fmt, '1'],
+      ['絞り込み条件', L.filters, c.filters],
+      ['ウォッチリスト', L.all, c.all],
+      ['ウォッチリスト', L.tabs, c.json],
+      ['ポートフォリオ', L.pf, c.pf]
+    ];
+    return '﻿' + rows.map(function(r){ return r.map(cell).join(','); }).join('\r\n') + '\r\n';
+  }
+  $('bk-export').addEventListener('click', function(){
+    var now = new Date();
+    var name = MARKET + now.getFullYear() + '.' + (now.getMonth() + 1) + '.' + now.getDate() + '.csv';
+    var blob = new Blob([buildCsv(now)], {type: 'text/csv;charset=utf-8'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    $('bk-stat').textContent = '書き出しました：' + name;
+  });
+
+  // ---- 読み込み（復元）-------------------------------------------------------
+  function parseCsv(t){
+    var rows = [], row = [], f = '', q = false;
+    for (var i = 0; i < t.length; i++) {
+      var ch = t.charAt(i);
+      if (q) {
+        if (ch === '"') { if (t.charAt(i + 1) === '"') { f += '"'; i++; } else q = false; }
+        else f += ch;
+      } else if (ch === '"') q = true;
+      else if (ch === ',') { row.push(f); f = ''; }
+      else if (ch === '\n' || ch === '\r') {
+        if (ch === '\r' && t.charAt(i + 1) === '\n') i++;
+        row.push(f); f = ''; rows.push(row); row = [];
+      } else f += ch;
+    }
+    if (f !== '' || row.length) { row.push(f); rows.push(row); }
+    return rows.filter(function(r){ return !(r.length === 1 && r[0] === ''); });
+  }
+  function mkSecs(a){
+    return (Array.isArray(a) ? a : []).map(function(x){
+      return {id: newId(), name: String((x && x.n) || '').replace(/\s+/g, ' ').trim().slice(0, 20) || 'セクション',
+              codes: splitCodes(x && x.c)};
+    });
+  }
+  function restore(text){
+    var rows = parseCsv(text.replace(/^﻿/, '')), v = {};
+    rows.forEach(function(r){ if (r.length >= 3) v[r[1]] = r[2]; });
+    if (!(L.tool in v)) { alert('このファイルはバックアップCSVとして読み取れませんでした。'); return; }
+    if (v[L.tool] !== MARKET) {
+      alert('このCSVは「' + v[L.tool] + '」用です。このページ（' + MARKET + '）では読み込めません。');
+      return;
+    }
+    var info = jparse(v[L.tabs], null);
+    if (v[L.tabs] && (!info || !Array.isArray(info.tabs))) { alert('「全タブの控え」の部分が壊れているため、読み込みを中止しました。'); return; }
+    if (!confirm('このバックアップ（' + (v[L.date] || '日付なし') + '）の内容で、いまの絞り込み条件・ウォッチリスト・保有記録を置き換えます。よろしいですか？\n'
+      + '（元の内容を残したい場合は、先に「CSVで書き出す」で保存してください）')) return;
+    var done = [];
+    if (L.filters in v) {
+      var u = v[L.filters], i = u.indexOf('?');
+      lsSet(K.filters, i >= 0 ? u.slice(i + 1).replace(/#.*$/, '') : '');
+      done.push('絞り込み条件');
+    }
+    if (L.all in v || info) {
+      var tabs = [], secs = {}, codes = [splitCodes(v[L.all] || '')];
+      if (info) {
+        codes.push(splitCodes(info.all));
+        var sa = mkSecs(info.as);
+        if (sa.length) secs.all = sa;
+        info.tabs.forEach(function(x){
+          if (!x) return;
+          var t = {id: newId(), name: String(x.n || '').replace(/\s+/g, ' ').trim().slice(0, 20) || 'タブ', codes: splitCodes(x.c)};
+          tabs.push(t);
+          var ss = mkSecs(x.s);
+          if (ss.length) secs[t.id] = ss;
+        });
+        tabs.forEach(function(t){ codes.push(t.codes); });
+        Object.keys(secs).forEach(function(k){ secs[k].forEach(function(s){ codes.push(s.codes); }); });
+      }
+      var master = union.apply(null, codes);
+      lsSet(K.wl, master.join(','));
+      if (info) {
+        lsSet(K.tabs, tabs.length ? JSON.stringify(tabs) : '');
+        lsSet(K.secs, Object.keys(secs).length ? JSON.stringify(secs) : '');
+        lsSet(K.sel, 'all');
+      }
+      done.push('ウォッチリスト（全て ' + master.length + '銘柄・タブ ' + tabs.length + '個）');
+    }
+    if (L.pf in v) {
+      lsSet(K.pf, v[L.pf]);
+      done.push('保有記録');
+    }
+    alert('復元しました：' + (done.join('、') || '（対象なし）') + '\nページを開き直します。');
+    location.href = location.pathname;
+  }
+  $('bk-import').addEventListener('click', function(){ $('bk-file').click(); });
+  $('bk-file').addEventListener('change', function(){
+    var f = this.files && this.files[0];
+    if (!f) return;
+    var rd = new FileReader();
+    rd.onload = function(){ restore(String(rd.result || '')); };
+    rd.onerror = function(){ alert('ファイルを読み込めませんでした。'); };
+    rd.readAsText(f, 'utf-8');
+    this.value = '';
+  });
 })();
 </script>
 </body></html>

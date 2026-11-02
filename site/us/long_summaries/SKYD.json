@@ -1,0 +1,100 @@
+{
+ "code": "SKYD",
+ "name": "Skydance",
+ "jp_sector": null,
+ "gics_sector": "Communication Services",
+ "is_simple": false,
+ "is_reit": false,
+ "price": 7.949999809265137,
+ "price_date": "2026-10-30",
+ "mcap": 40085315584,
+ "q_score": 73.6,
+ "groups": {
+  "業績": 69.18584512738293,
+  "財務": 61.72830135788743,
+  "キャッシュフロー": 103.33333333333333,
+  "金融品質": null,
+  "REIT品質": null
+ },
+ "is_fin_simple": false,
+ "is_reit_us": false,
+ "current_pfo": null,
+ "quarter_decel_factor": null,
+ "quarter_decel_detail": null,
+ "q_cov": "高",
+ "bt_score": 38.8,
+ "bt_cov": "高",
+ "bt_components": {
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 36.2653078939522,
+  "per_cheap": null,
+  "pbr_cheap": 110.0
+ },
+ "ev_ebit": 32.101564417910446,
+ "fcf_yield": 1.2198980920464144,
+ "per_band_pos": null,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 2.0472936491014315,
+ "per_vs_sector": null,
+ "pbr_vs_sector": 0.12832929491525422,
+ "price_chg": {
+  "d": 0.6329077632166724,
+  "w": 2.316600113004874,
+  "m": -14.882230413429042,
+  "3m": -3.2846769950442556,
+  "6m": -28.313798919020062,
+  "9m": -29.08117946287463,
+  "y": -49.937029269693866
+ },
+ "div_yield": 2.5157233307969995,
+ "implied_fcf_growth": 0.2708,
+ "insight": {
+  "flags": {
+   "cutoff": [],
+   "value_trap": [
+    "PBR 0.76倍（1倍割れ）かつROE -52.9%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+   ]
+  },
+  "raw": {
+   "roe": -52.9376550072693,
+   "roa": -14.281759032808822,
+   "leverage": 3.706662105533225,
+   "ocf_ni": 0.1983695652173913,
+   "accrual": -15.510422950599906,
+   "capex_da": 0.6709183673469388,
+   "shares_chg_pct": 70.46208044460029,
+   "sbc_rev_pct": 0.8386677164276178,
+   "fcf_less_sbc_pct": 0.8352445828911786
+  }
+ },
+ "etf_top": [],
+ "metric_scores": {
+  "rev_cagr": 89.89264824881475,
+  "eps_cagr": null,
+  "op_margin": 62.882278437681855,
+  "earnings_stability": 54.78260869565217,
+  "equity_ratio": null,
+  "de": 102.3360129992303,
+  "net_de": 104.57719243231944,
+  "debt_to_ocf": 20.0,
+  "interest_coverage": 20.0,
+  "ocf_positive": 100.0,
+  "fcf_positive": 100.0,
+  "fcf_payout": 110.0
+ },
+ "metric_raw": {
+  "rev_cagr": 0.7258458559833203,
+  "eps_cagr": null,
+  "op_margin": 5.504398726594324,
+  "earnings_stability": 0.62,
+  "equity_ratio": null,
+  "de": 1.2663987000769692,
+  "net_de": 0.8880526810912511,
+  "debt_to_ocf": 19.69148936170213,
+  "interest_coverage": -6.182558139534883,
+  "ocf_positive": 1,
+  "fcf_positive": 1,
+  "fcf_payout": 34.355828220858896
+ },
+ "_generated_at": "2026-11-02T02:30:47"
+}
