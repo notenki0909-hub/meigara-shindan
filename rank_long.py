@@ -1424,12 +1424,13 @@ section.grp[hidden]{{display:none}}
     var needle=(q.value||'').trim().normalize('NFKC').toLowerCase();
     var pActive=panelActive();
     var filtering=!!needle||!!activeTier||pActive;
-    var n=0;
+    var n=0,counted={{}};
     document.querySelectorAll('tr.r').forEach(function(tr){{
       var okT=!needle||tr.textContent.normalize('NFKC').toLowerCase().indexOf(needle)!==-1;
       var okTier=!activeTier||tr.dataset.tier===activeTier;
       var show=okT&&okTier&&(!pActive||panelOk(tr));
-      tr.hidden=!show;if(show)n++;
+      tr.hidden=!show;
+      if(show){{var ce=tr.querySelector('.code'),ck=ce?ce.textContent.trim():'';if(!ck||!counted[ck]){{if(ck)counted[ck]=true;n++;}}}}
     }});
     document.querySelectorAll('section.grp').forEach(function(sec){{
       var any=sec.querySelector('tbody tr.r:not([hidden])');sec.hidden=filtering&&!any;
