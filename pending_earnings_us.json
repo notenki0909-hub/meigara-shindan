@@ -2642,8 +2642,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  },
  "AROC": {
   "ticker": "AROC",
@@ -2651,8 +2651,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  },
  "CBT": {
   "ticker": "CBT",
@@ -2660,8 +2660,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  },
  "CLX": {
   "ticker": "CLX",
@@ -2669,8 +2669,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  },
  "CRC": {
   "ticker": "CRC",
@@ -2678,8 +2678,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  },
  "CSR": {
   "ticker": "CSR",
@@ -2687,8 +2687,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  },
  "EQH": {
   "ticker": "EQH",
@@ -2696,17 +2696,18 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  },
  "ETR": {
   "ticker": "ETR",
   "name": "Entergy",
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "next_retry_at": "2026-11-02T12:13:03",
+  "resolved_at": "2026-11-02T16:02:13"
  },
  "IIPR": {
   "ticker": "IIPR",
@@ -2714,8 +2715,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  },
  "IRT": {
   "ticker": "IRT",
@@ -2723,8 +2724,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  },
  "O": {
   "ticker": "O",
@@ -2732,8 +2733,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  },
  "OGS": {
   "ticker": "OGS",
@@ -2741,8 +2742,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  },
  "OTTR": {
   "ticker": "OTTR",
@@ -2750,17 +2751,18 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  },
  "PEG": {
   "ticker": "PEG",
   "name": "Public Service Enterprise Group",
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "next_retry_at": "2026-11-02T12:13:03",
+  "resolved_at": "2026-11-02T16:02:13"
  },
  "SAFT": {
   "ticker": "SAFT",
@@ -2768,8 +2770,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  },
  "SBAC": {
   "ticker": "SBAC",
@@ -2777,8 +2779,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  },
  "SBRA": {
   "ticker": "SBRA",
@@ -2786,8 +2788,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  },
  "TNC": {
   "ticker": "TNC",
@@ -2795,8 +2797,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  },
  "UTL": {
   "ticker": "UTL",
@@ -2804,8 +2806,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  },
  "VOYA": {
   "ticker": "VOYA",
@@ -2813,8 +2815,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  },
  "WMB": {
   "ticker": "WMB",
@@ -2822,7 +2824,7 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03"
+  "attempts": 2,
+  "next_retry_at": "2026-11-02T22:02:13"
  }
 }
