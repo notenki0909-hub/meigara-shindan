@@ -1,87 +1,87 @@
 {
- "generated_at": "2026-10-05T20:11:19",
+ "generated_at": "2026-11-02T12:55:33",
  "top_n": 15,
  "etfs": [
   {
    "etf": "XLK",
    "label": "情報技術",
    "provider": "State Street",
-   "as_of": "2026-10-02",
+   "as_of": "2026-10-30",
    "holdings": [
-    {
-     "ticker": "NVDA",
-     "name": "NVIDIA CORP",
-     "weight": 15.521473
-    },
     {
      "ticker": "AAPL",
      "name": "APPLE INC",
-     "weight": 13.35111
+     "weight": 15.32159
+    },
+    {
+     "ticker": "NVDA",
+     "name": "NVIDIA CORP",
+     "weight": 15.086094
     },
     {
      "ticker": "MSFT",
      "name": "MICROSOFT CORP",
-     "weight": 10.535576
-    },
-    {
-     "ticker": "AMD",
-     "name": "ADVANCED MICRO DEVICES",
-     "weight": 5.135779
+     "weight": 11.805784
     },
     {
      "ticker": "AVGO",
      "name": "BROADCOM INC",
-     "weight": 4.632125
+     "weight": 4.725858
+    },
+    {
+     "ticker": "AMD",
+     "name": "ADVANCED MICRO DEVICES",
+     "weight": 4.544372
     },
     {
      "ticker": "MU",
      "name": "MICRON TECHNOLOGY INC",
-     "weight": 4.415333
-    },
-    {
-     "ticker": "INTC",
-     "name": "INTEL CORP",
-     "weight": 3.291396
-    },
-    {
-     "ticker": "CSCO",
-     "name": "CISCO SYSTEMS INC",
-     "weight": 2.454795
-    },
-    {
-     "ticker": "LRCX",
-     "name": "LAM RESEARCH CORP",
-     "weight": 2.413683
+     "weight": 4.038234
     },
     {
      "ticker": "PLTR",
      "name": "PALANTIR TECHNOLOGIES INC A",
-     "weight": 2.410554
+     "weight": 2.612664
+    },
+    {
+     "ticker": "CSCO",
+     "name": "CISCO SYSTEMS INC",
+     "weight": 2.540717
+    },
+    {
+     "ticker": "INTC",
+     "name": "INTEL CORP",
+     "weight": 2.01544
     },
     {
      "ticker": "AMAT",
      "name": "APPLIED MATERIALS INC",
-     "weight": 2.380085
+     "weight": 1.91033
+    },
+    {
+     "ticker": "LRCX",
+     "name": "LAM RESEARCH CORP",
+     "weight": 1.84549
     },
     {
      "ticker": "PANW",
      "name": "PALO ALTO NETWORKS INC",
-     "weight": 1.824251
-    },
-    {
-     "ticker": "CRWD",
-     "name": "CROWDSTRIKE HOLDINGS INC   A",
-     "weight": 1.526446
-    },
-    {
-     "ticker": "KLAC",
-     "name": "KLA CORP",
-     "weight": 1.500485
+     "weight": 1.839206
     },
     {
      "ticker": "TXN",
      "name": "TEXAS INSTRUMENTS INC",
-     "weight": 1.489398
+     "weight": 1.694607
+    },
+    {
+     "ticker": "CRWD",
+     "name": "CROWDSTRIKE HOLDINGS INC   A",
+     "weight": 1.572955
+    },
+    {
+     "ticker": "IBM",
+     "name": "INTL BUSINESS MACHINES CORP",
+     "weight": 1.498154
     }
    ]
   },
@@ -89,82 +89,82 @@
    "etf": "XLF",
    "label": "金融",
    "provider": "State Street",
-   "as_of": "2026-10-02",
+   "as_of": "2026-10-30",
    "holdings": [
     {
      "ticker": "BRK-B",
      "name": "BERKSHIRE HATHAWAY INC CL B",
-     "weight": 12.409071
+     "weight": 12.682141
     },
     {
      "ticker": "JPM",
      "name": "JPMORGAN CHASE + CO",
-     "weight": 11.711267
+     "weight": 11.24572
     },
     {
      "ticker": "V",
      "name": "VISA INC CLASS A SHARES",
-     "weight": 8.146809
+     "weight": 8.846814
     },
     {
      "ticker": "MA",
      "name": "MASTERCARD INC   A",
-     "weight": 5.919258
+     "weight": 6.475616
     },
     {
      "ticker": "BAC",
      "name": "BANK OF AMERICA CORP",
-     "weight": 4.633397
+     "weight": 4.082399
     },
     {
      "ticker": "GS",
      "name": "GOLDMAN SACHS GROUP INC",
-     "weight": 3.48311
+     "weight": 3.269289
     },
     {
      "ticker": "WFC",
      "name": "WELLS FARGO + CO",
-     "weight": 3.224766
+     "weight": 3.165686
     },
     {
      "ticker": "MS",
      "name": "MORGAN STANLEY",
-     "weight": 3.011116
+     "weight": 2.761331
     },
     {
      "ticker": "C",
      "name": "CITIGROUP INC",
-     "weight": 2.857243
+     "weight": 2.568166
     },
     {
      "ticker": "AXP",
      "name": "AMERICAN EXPRESS CO",
-     "weight": 2.113943
-    },
-    {
-     "ticker": "SCHW",
-     "name": "SCHWAB (CHARLES) CORP",
-     "weight": 2.083656
+     "weight": 2.109871
     },
     {
      "ticker": "BLK",
      "name": "BLACKROCK INC",
-     "weight": 2.023216
+     "weight": 2.074544
     },
     {
-     "ticker": "PGR",
-     "name": "PROGRESSIVE CORP",
-     "weight": 1.620676
-    },
-    {
-     "ticker": "COF",
-     "name": "CAPITAL ONE FINANCIAL CORP",
-     "weight": 1.58355
+     "ticker": "SCHW",
+     "name": "SCHWAB (CHARLES) CORP",
+     "weight": 1.79666
     },
     {
      "ticker": "SPGI",
      "name": "S+P GLOBAL INC",
-     "weight": 1.54611
+     "weight": 1.76853
+    },
+    {
+     "ticker": "PGR",
+     "name": "PROGRESSIVE CORP",
+     "weight": 1.687813
+    },
+    {
+     "ticker": "CB",
+     "name": "CHUBB LTD",
+     "weight": 1.604658
     }
    ]
   },
@@ -172,82 +172,82 @@
    "etf": "XLI",
    "label": "資本財・サービス",
    "provider": "State Street",
-   "as_of": "2026-10-02",
+   "as_of": "2026-10-30",
    "holdings": [
-    {
-     "ticker": "CAT",
-     "name": "CATERPILLAR INC",
-     "weight": 7.188044
-    },
     {
      "ticker": "GE",
      "name": "GENERAL ELECTRIC",
-     "weight": 5.931895
+     "weight": 5.883536
     },
     {
-     "ticker": "GEV",
-     "name": "GE VERNOVA INC",
-     "weight": 4.870741
+     "ticker": "CAT",
+     "name": "CATERPILLAR INC",
+     "weight": 5.378615
     },
     {
      "ticker": "RTX",
      "name": "RTX CORP",
-     "weight": 4.603979
+     "weight": 5.059581
     },
     {
-     "ticker": "DE",
-     "name": "DEERE + CO",
-     "weight": 3.19027
-    },
-    {
-     "ticker": "ETN",
-     "name": "EATON CORP PLC",
-     "weight": 3.13255
+     "ticker": "GEV",
+     "name": "GE VERNOVA INC",
+     "weight": 4.29294
     },
     {
      "ticker": "UNP",
      "name": "UNION PACIFIC CORP",
-     "weight": 3.05816
+     "weight": 3.393422
+    },
+    {
+     "ticker": "DE",
+     "name": "DEERE + CO",
+     "weight": 3.186287
+    },
+    {
+     "ticker": "ETN",
+     "name": "EATON CORP PLC",
+     "weight": 2.70002
     },
     {
      "ticker": "BA",
      "name": "BOEING CO/THE",
-     "weight": 2.83
+     "weight": 2.547702
     },
     {
      "ticker": "UBER",
      "name": "UBER TECHNOLOGIES INC",
-     "weight": 2.573516
-    },
-    {
-     "ticker": "PH",
-     "name": "PARKER HANNIFIN CORP",
-     "weight": 2.268463
+     "weight": 2.504299
     },
     {
      "ticker": "LMT",
      "name": "LOCKHEED MARTIN CORP",
-     "weight": 1.898994
+     "weight": 2.430878
     },
     {
      "ticker": "ADP",
      "name": "AUTOMATIC DATA PROCESSING",
-     "weight": 1.893802
+     "weight": 2.193447
     },
     {
-     "ticker": "TT",
-     "name": "TRANE TECHNOLOGIES PLC",
-     "weight": 1.888335
+     "ticker": "PH",
+     "name": "PARKER HANNIFIN CORP",
+     "weight": 2.131749
+    },
+    {
+     "ticker": "CSX",
+     "name": "CSX CORP",
+     "weight": 1.80981
+    },
+    {
+     "ticker": "GD",
+     "name": "GENERAL DYNAMICS CORP",
+     "weight": 1.778004
     },
     {
      "ticker": "PWR",
      "name": "QUANTA SERVICES INC",
-     "weight": 1.881809
-    },
-    {
-     "ticker": "VRT",
-     "name": "VERTIV HOLDINGS CO A",
-     "weight": 1.79614
+     "weight": 1.753672
     }
    ]
   },
@@ -255,82 +255,82 @@
    "etf": "XLB",
    "label": "素材",
    "provider": "State Street",
-   "as_of": "2026-10-02",
+   "as_of": "2026-10-30",
    "holdings": [
     {
      "ticker": "LIN",
      "name": "LINDE PLC",
-     "weight": 12.338446
+     "weight": 12.864612
     },
     {
      "ticker": "NEM",
      "name": "NEWMONT CORP",
-     "weight": 6.797268
-    },
-    {
-     "ticker": "FCX",
-     "name": "FREEPORT MCMORAN INC",
-     "weight": 5.774915
-    },
-    {
-     "ticker": "ECL",
-     "name": "ECOLAB INC",
-     "weight": 4.727628
-    },
-    {
-     "ticker": "SHW",
-     "name": "SHERWIN WILLIAMS CO/THE",
-     "weight": 4.685356
+     "weight": 6.096169
     },
     {
      "ticker": "VMC",
      "name": "VULCAN MATERIALS CO",
-     "weight": 4.573413
+     "weight": 5.144647
     },
     {
-     "ticker": "STLD",
-     "name": "STEEL DYNAMICS INC",
-     "weight": 4.531873
-    },
-    {
-     "ticker": "MLM",
-     "name": "MARTIN MARIETTA MATERIALS",
-     "weight": 4.469395
+     "ticker": "ECL",
+     "name": "ECOLAB INC",
+     "weight": 5.08776
     },
     {
      "ticker": "APD",
      "name": "AIR PRODUCTS + CHEMICALS INC",
-     "weight": 4.42058
+     "weight": 4.899095
+    },
+    {
+     "ticker": "MLM",
+     "name": "MARTIN MARIETTA MATERIALS",
+     "weight": 4.868812
+    },
+    {
+     "ticker": "FCX",
+     "name": "FREEPORT MCMORAN INC",
+     "weight": 4.868343
     },
     {
      "ticker": "NUE",
      "name": "NUCOR CORP",
-     "weight": 4.382404
+     "weight": 4.853841
+    },
+    {
+     "ticker": "STLD",
+     "name": "STEEL DYNAMICS INC",
+     "weight": 4.763073
+    },
+    {
+     "ticker": "SHW",
+     "name": "SHERWIN WILLIAMS CO/THE",
+     "weight": 4.74163
     },
     {
      "ticker": "CRH",
      "name": "CRH PLC",
-     "weight": 4.311962
-    },
-    {
-     "ticker": "VYLR",
-     "name": "VYLOR INC",
-     "weight": 3.73156
+     "weight": 4.645738
     },
     {
      "ticker": "PPG",
      "name": "PPG INDUSTRIES INC",
-     "weight": 3.606416
+     "weight": 3.985135
     },
     {
-     "ticker": "SW",
-     "name": "SMURFIT WESTROCK PLC",
-     "weight": 3.44263
+     "ticker": "DOW",
+     "name": "DOW INC",
+     "weight": 3.759526
     },
     {
      "ticker": "IFF",
      "name": "INTL FLAVORS + FRAGRANCES",
-     "weight": 3.244509
+     "weight": 3.559929
+    },
+    {
+     "ticker": "PKG",
+     "name": "PACKAGING CORP OF AMERICA",
+     "weight": 3.411401
     }
    ]
   },
@@ -338,82 +338,82 @@
    "etf": "XLY",
    "label": "一般消費財・サービス",
    "provider": "State Street",
-   "as_of": "2026-10-02",
+   "as_of": "2026-10-30",
    "holdings": [
     {
      "ticker": "AMZN",
      "name": "AMAZON.COM INC",
-     "weight": 23.379288
+     "weight": 21.30673
     },
     {
      "ticker": "TSLA",
      "name": "TESLA INC",
-     "weight": 18.271281
+     "weight": 18.799593
     },
     {
      "ticker": "HD",
      "name": "HOME DEPOT INC",
-     "weight": 4.934001
+     "weight": 5.477474
     },
     {
      "ticker": "MCD",
      "name": "MCDONALD S CORP",
-     "weight": 4.199249
+     "weight": 4.458685
     },
     {
      "ticker": "TJX",
      "name": "TJX COMPANIES INC",
-     "weight": 4.041905
-    },
-    {
-     "ticker": "BKNG",
-     "name": "BOOKING HOLDINGS INC",
-     "weight": 3.294928
+     "weight": 4.077242
     },
     {
      "ticker": "SBUX",
      "name": "STARBUCKS CORP",
-     "weight": 2.977384
+     "weight": 3.109081
     },
     {
      "ticker": "LOW",
      "name": "LOWE S COS INC",
-     "weight": 2.795566
+     "weight": 3.083951
+    },
+    {
+     "ticker": "BKNG",
+     "name": "BOOKING HOLDINGS INC",
+     "weight": 2.927994
     },
     {
      "ticker": "MAR",
      "name": "MARRIOTT INTERNATIONAL  CL A",
-     "weight": 2.116619
-    },
-    {
-     "ticker": "ROST",
-     "name": "ROSS STORES INC",
-     "weight": 2.021647
+     "weight": 2.244865
     },
     {
      "ticker": "HLT",
      "name": "HILTON WORLDWIDE HOLDINGS IN",
-     "weight": 1.982078
-    },
-    {
-     "ticker": "DASH",
-     "name": "DOORDASH INC   A",
-     "weight": 1.962662
-    },
-    {
-     "ticker": "RCL",
-     "name": "ROYAL CARIBBEAN CRUISES LTD",
-     "weight": 1.905019
-    },
-    {
-     "ticker": "ORLY",
-     "name": "O REILLY AUTOMOTIVE INC",
-     "weight": 1.893957
+     "weight": 2.112062
     },
     {
      "ticker": "GM",
      "name": "GENERAL MOTORS CO",
-     "weight": 1.893884
+     "weight": 2.016383
+    },
+    {
+     "ticker": "RCL",
+     "name": "ROYAL CARIBBEAN CRUISES LTD",
+     "weight": 2.008855
+    },
+    {
+     "ticker": "ROST",
+     "name": "ROSS STORES INC",
+     "weight": 1.925359
+    },
+    {
+     "ticker": "ORLY",
+     "name": "O REILLY AUTOMOTIVE INC",
+     "weight": 1.874307
+    },
+    {
+     "ticker": "ABNB",
+     "name": "AIRBNB INC CLASS A",
+     "weight": 1.813312
     }
    ]
   },
@@ -421,82 +421,82 @@
    "etf": "XLE",
    "label": "エネルギー",
    "provider": "State Street",
-   "as_of": "2026-10-02",
+   "as_of": "2026-10-30",
    "holdings": [
     {
      "ticker": "XOM",
      "name": "EXXONMOBIL HOLDINGS CORP",
-     "weight": 23.734681
+     "weight": 24.349968
     },
     {
      "ticker": "CVX",
      "name": "CHEVRON CORP",
-     "weight": 17.907668
+     "weight": 18.336278
     },
     {
      "ticker": "COP",
      "name": "CONOCOPHILLIPS",
-     "weight": 6.677208
+     "weight": 7.291499
     },
     {
      "ticker": "MPC",
      "name": "MARATHON PETROLEUM CORP",
-     "weight": 4.916502
-    },
-    {
-     "ticker": "VLO",
-     "name": "VALERO ENERGY CORP",
-     "weight": 4.857413
+     "weight": 4.652221
     },
     {
      "ticker": "PSX",
      "name": "PHILLIPS 66",
-     "weight": 4.717722
+     "weight": 4.531733
+    },
+    {
+     "ticker": "VLO",
+     "name": "VALERO ENERGY CORP",
+     "weight": 4.293484
     },
     {
      "ticker": "WMB",
      "name": "WILLIAMS COS INC",
-     "weight": 4.364719
+     "weight": 4.133958
     },
     {
      "ticker": "EOG",
      "name": "EOG RESOURCES INC",
-     "weight": 3.875271
+     "weight": 4.077386
     },
     {
      "ticker": "SLB",
      "name": "SLB LTD",
-     "weight": 3.780136
-    },
-    {
-     "ticker": "KMI",
-     "name": "KINDER MORGAN INC",
-     "weight": 3.181644
+     "weight": 3.745274
     },
     {
      "ticker": "TRGP",
      "name": "TARGA RESOURCES CORP",
-     "weight": 3.157034
+     "weight": 3.171692
     },
     {
-     "ticker": "BKR",
-     "name": "BAKER HUGHES CO",
-     "weight": 2.904963
+     "ticker": "KMI",
+     "name": "KINDER MORGAN INC",
+     "weight": 3.089284
     },
     {
      "ticker": "OKE",
      "name": "ONEOK INC",
-     "weight": 2.894878
+     "weight": 2.84169
     },
     {
      "ticker": "DVN",
      "name": "DEVON ENERGY CORP",
-     "weight": 2.739058
+     "weight": 2.693741
+    },
+    {
+     "ticker": "BKR",
+     "name": "BAKER HUGHES CO",
+     "weight": 2.574489
     },
     {
      "ticker": "OXY",
      "name": "OCCIDENTAL PETROLEUM CORP",
-     "weight": 2.214814
+     "weight": 2.19308
     }
    ]
   },
@@ -504,82 +504,82 @@
    "etf": "XLC",
    "label": "コミュニケーション・サービス",
    "provider": "State Street",
-   "as_of": "2026-10-02",
+   "as_of": "2026-10-30",
    "holdings": [
     {
      "ticker": "META",
      "name": "META PLATFORMS INC CLASS A",
-     "weight": 22.41174
+     "weight": 22.047179
     },
     {
      "ticker": "GOOGL",
      "name": "ALPHABET INC CL A",
-     "weight": 11.700466
+     "weight": 11.101324
     },
     {
      "ticker": "GOOG",
      "name": "ALPHABET INC CL C",
-     "weight": 9.390721
-    },
-    {
-     "ticker": "WBD",
-     "name": "WARNER BROS DISCOVERY INC",
-     "weight": 4.973484
+     "weight": 8.940291
     },
     {
      "ticker": "DIS",
      "name": "WALT DISNEY CO/THE",
-     "weight": 4.400742
-    },
-    {
-     "ticker": "T",
-     "name": "AT+T INC",
-     "weight": 4.3348
-    },
-    {
-     "ticker": "TTWO",
-     "name": "TAKE TWO INTERACTIVE SOFTWRE",
-     "weight": 4.307713
-    },
-    {
-     "ticker": "VZ",
-     "name": "VERIZON COMMUNICATIONS INC",
-     "weight": 4.141868
-    },
-    {
-     "ticker": "TMUS",
-     "name": "T MOBILE US INC",
-     "weight": 4.139808
-    },
-    {
-     "ticker": "NFLX",
-     "name": "NETFLIX INC",
-     "weight": 3.957105
-    },
-    {
-     "ticker": "APP",
-     "name": "APPLOVIN CORP CLASS A",
-     "weight": 3.944644
+     "weight": 5.564077
     },
     {
      "ticker": "CMCSA",
      "name": "COMCAST CORP CLASS A",
-     "weight": 3.935435
+     "weight": 4.933944
+    },
+    {
+     "ticker": "TTWO",
+     "name": "TAKE TWO INTERACTIVE SOFTWRE",
+     "weight": 4.706065
+    },
+    {
+     "ticker": "VZ",
+     "name": "VERIZON COMMUNICATIONS INC",
+     "weight": 4.698756
+    },
+    {
+     "ticker": "TMUS",
+     "name": "T MOBILE US INC",
+     "weight": 4.609297
+    },
+    {
+     "ticker": "T",
+     "name": "AT+T INC",
+     "weight": 4.448045
+    },
+    {
+     "ticker": "NFLX",
+     "name": "NETFLIX INC",
+     "weight": 4.266351
     },
     {
      "ticker": "LYV",
      "name": "LIVE NATION ENTERTAINMENT IN",
-     "weight": 3.376318
+     "weight": 4.144649
     },
     {
-     "ticker": "RDDT",
-     "name": "REDDIT INC CL A",
-     "weight": 2.728095
+     "ticker": "APP",
+     "name": "APPLOVIN CORP CLASS A",
+     "weight": 3.91373
     },
     {
      "ticker": "OMC",
      "name": "OMNICOM GROUP",
-     "weight": 2.569004
+     "weight": 3.278867
+    },
+    {
+     "ticker": "ECHO",
+     "name": "ECHOSTAR CORP A",
+     "weight": 1.97404
+    },
+    {
+     "ticker": "RDDT",
+     "name": "REDDIT INC CL A",
+     "weight": 1.971117
     }
    ]
   },
@@ -587,82 +587,82 @@
    "etf": "XLV",
    "label": "ヘルスケア",
    "provider": "State Street",
-   "as_of": "2026-10-02",
+   "as_of": "2026-10-30",
    "holdings": [
     {
      "ticker": "LLY",
      "name": "ELI LILLY + CO",
-     "weight": 15.143433
+     "weight": 16.899589
     },
     {
      "ticker": "JNJ",
      "name": "JOHNSON + JOHNSON",
-     "weight": 10.217637
+     "weight": 9.809612
     },
     {
      "ticker": "ABBV",
      "name": "ABBVIE INC",
-     "weight": 7.691056
+     "weight": 7.764221
     },
     {
      "ticker": "MRK",
      "name": "MERCK + CO. INC.",
-     "weight": 5.89558
+     "weight": 5.496349
     },
     {
      "ticker": "UNH",
      "name": "UNITEDHEALTH GROUP INC",
-     "weight": 5.527972
+     "weight": 5.442739
     },
     {
      "ticker": "TMO",
      "name": "THERMO FISHER SCIENTIFIC INC",
-     "weight": 4.009333
+     "weight": 3.839844
     },
     {
      "ticker": "AMGN",
      "name": "AMGEN INC",
-     "weight": 3.608359
+     "weight": 3.753805
     },
     {
      "ticker": "GILD",
      "name": "GILEAD SCIENCES INC",
-     "weight": 2.972014
+     "weight": 3.153283
     },
     {
      "ticker": "ABT",
      "name": "ABBOTT LABORATORIES",
-     "weight": 2.793881
+     "weight": 2.73804
     },
     {
      "ticker": "PFE",
      "name": "PFIZER INC",
-     "weight": 2.623948
+     "weight": 2.591845
     },
     {
      "ticker": "ISRG",
      "name": "INTUITIVE SURGICAL INC",
-     "weight": 2.292992
+     "weight": 2.274004
     },
     {
      "ticker": "DHR",
      "name": "DANAHER CORP",
-     "weight": 2.217816
+     "weight": 2.164875
     },
     {
      "ticker": "VRTX",
      "name": "VERTEX PHARMACEUTICALS INC",
-     "weight": 2.118449
+     "weight": 2.110583
     },
     {
      "ticker": "BMY",
      "name": "BRISTOL MYERS SQUIBB CO",
-     "weight": 2.06855
+     "weight": 1.901617
     },
     {
-     "ticker": "CVS",
-     "name": "CVS HEALTH CORP",
-     "weight": 1.831203
+     "ticker": "MDT",
+     "name": "MEDTRONIC PLC",
+     "weight": 1.760504
     }
    ]
   },
@@ -670,82 +670,82 @@
    "etf": "XLP",
    "label": "生活必需品",
    "provider": "State Street",
-   "as_of": "2026-10-02",
+   "as_of": "2026-10-30",
    "holdings": [
     {
      "ticker": "WMT",
      "name": "WALMART INC",
-     "weight": 10.590123
+     "weight": 11.150206
     },
     {
      "ticker": "COST",
      "name": "COSTCO WHOLESALE CORP",
-     "weight": 9.306059
+     "weight": 9.093966
     },
     {
      "ticker": "PG",
      "name": "PROCTER + GAMBLE CO/THE",
-     "weight": 7.677239
+     "weight": 7.607845
     },
     {
      "ticker": "KO",
      "name": "COCA COLA CO/THE",
-     "weight": 7.559307
+     "weight": 7.379897
     },
     {
      "ticker": "PM",
      "name": "PHILIP MORRIS INTERNATIONAL",
-     "weight": 6.659462
+     "weight": 6.592215
     },
     {
      "ticker": "MO",
      "name": "ALTRIA GROUP INC",
-     "weight": 4.564039
-    },
-    {
-     "ticker": "TGT",
-     "name": "TARGET CORP",
-     "weight": 4.556261
+     "weight": 4.699715
     },
     {
      "ticker": "CL",
      "name": "COLGATE PALMOLIVE CO",
-     "weight": 4.403329
+     "weight": 4.425899
     },
     {
      "ticker": "MDLZ",
      "name": "MONDELEZ INTERNATIONAL INC A",
-     "weight": 4.288862
+     "weight": 4.254075
     },
     {
      "ticker": "PEP",
      "name": "PEPSICO INC",
-     "weight": 4.237147
+     "weight": 4.108431
+    },
+    {
+     "ticker": "TGT",
+     "name": "TARGET CORP",
+     "weight": 4.007484
     },
     {
      "ticker": "MNST",
      "name": "MONSTER BEVERAGE CORP",
-     "weight": 4.025629
+     "weight": 3.944558
     },
     {
      "ticker": "KDP",
      "name": "KEURIG DR PEPPER INC",
-     "weight": 2.709264
-    },
-    {
-     "ticker": "ADM",
-     "name": "ARCHER DANIELS MIDLAND CO",
-     "weight": 2.541836
+     "weight": 2.841657
     },
     {
      "ticker": "SYY",
      "name": "SYSCO CORP",
-     "weight": 2.430958
+     "weight": 2.311411
     },
     {
      "ticker": "KR",
      "name": "KROGER CO",
-     "weight": 2.204817
+     "weight": 2.216206
+    },
+    {
+     "ticker": "KVUE",
+     "name": "KENVUE INC",
+     "weight": 2.161021
     }
    ]
   },
@@ -753,82 +753,82 @@
    "etf": "XLU",
    "label": "公益事業",
    "provider": "State Street",
-   "as_of": "2026-10-02",
+   "as_of": "2026-10-30",
    "holdings": [
     {
      "ticker": "NEE",
      "name": "NEXTERA ENERGY INC",
-     "weight": 12.786543
+     "weight": 12.784133
     },
     {
      "ticker": "SO",
      "name": "SOUTHERN CO/THE",
-     "weight": 7.68386
+     "weight": 7.89233
     },
     {
      "ticker": "DUK",
      "name": "DUKE ENERGY CORP",
-     "weight": 7.099837
+     "weight": 7.271827
     },
     {
      "ticker": "CEG",
      "name": "CONSTELLATION ENERGY",
-     "weight": 6.769287
+     "weight": 6.32952
     },
     {
      "ticker": "AEP",
      "name": "AMERICAN ELECTRIC POWER",
-     "weight": 5.193493
+     "weight": 5.189703
     },
     {
      "ticker": "D",
      "name": "DOMINION ENERGY INC",
-     "weight": 4.30217
+     "weight": 4.289768
     },
     {
      "ticker": "SRE",
      "name": "SEMPRA",
-     "weight": 4.089045
+     "weight": 4.120017
     },
     {
      "ticker": "ETR",
      "name": "ENTERGY CORP",
-     "weight": 3.75679
+     "weight": 3.761736
     },
     {
      "ticker": "XEL",
      "name": "XCEL ENERGY INC",
-     "weight": 3.558328
-    },
-    {
-     "ticker": "VST",
-     "name": "VISTRA CORP",
-     "weight": 3.524304
+     "weight": 3.650228
     },
     {
      "ticker": "EXC",
      "name": "EXELON CORP",
-     "weight": 3.354428
+     "weight": 3.488477
+    },
+    {
+     "ticker": "VST",
+     "name": "VISTRA CORP",
+     "weight": 3.19591
     },
     {
      "ticker": "ED",
      "name": "CONSOLIDATED EDISON INC",
-     "weight": 3.050698
-    },
-    {
-     "ticker": "PEG",
-     "name": "PUBLIC SERVICE ENTERPRISE GP",
-     "weight": 2.706898
+     "weight": 3.158157
     },
     {
      "ticker": "WEC",
      "name": "WEC ENERGY GROUP INC",
-     "weight": 2.641136
+     "weight": 2.768967
+    },
+    {
+     "ticker": "PEG",
+     "name": "PUBLIC SERVICE ENTERPRISE GP",
+     "weight": 2.710857
     },
     {
      "ticker": "AEE",
      "name": "AMEREN CORPORATION",
-     "weight": 2.207481
+     "weight": 2.240438
     }
    ]
   },
@@ -836,82 +836,82 @@
    "etf": "XLRE",
    "label": "不動産",
    "provider": "State Street",
-   "as_of": "2026-10-02",
+   "as_of": "2026-10-30",
    "holdings": [
     {
      "ticker": "WELL",
      "name": "WELLTOWER INC",
-     "weight": 11.595606
+     "weight": 11.336401
     },
     {
      "ticker": "PLD",
      "name": "PROLOGIS INC",
-     "weight": 8.655524
+     "weight": 8.154339
     },
     {
      "ticker": "EQIX",
      "name": "EQUINIX INC",
-     "weight": 7.15083
+     "weight": 6.706193
     },
     {
      "ticker": "AMT",
      "name": "AMERICAN TOWER CORP",
-     "weight": 5.340107
-    },
-    {
-     "ticker": "SPG",
-     "name": "SIMON PROPERTY GROUP INC",
-     "weight": 4.672955
+     "weight": 5.866383
     },
     {
      "ticker": "PSA",
      "name": "PUBLIC STORAGE",
-     "weight": 4.581904
+     "weight": 4.975234
+    },
+    {
+     "ticker": "SPG",
+     "name": "SIMON PROPERTY GROUP INC",
+     "weight": 4.804622
     },
     {
      "ticker": "DLR",
      "name": "DIGITAL REALTY TRUST INC",
-     "weight": 4.491278
-    },
-    {
-     "ticker": "VTR",
-     "name": "VENTAS INC",
-     "weight": 4.470432
-    },
-    {
-     "ticker": "CBRE",
-     "name": "CBRE GROUP INC   A",
-     "weight": 4.362543
+     "weight": 4.313069
     },
     {
      "ticker": "VMRK",
      "name": "VIVMARK RESIDENTIAL",
-     "weight": 4.324871
+     "weight": 4.299118
+    },
+    {
+     "ticker": "VTR",
+     "name": "VENTAS INC",
+     "weight": 4.281779
     },
     {
      "ticker": "O",
      "name": "REALTY INCOME CORP",
-     "weight": 4.283028
-    },
-    {
-     "ticker": "IRM",
-     "name": "IRON MOUNTAIN INC",
-     "weight": 3.987879
+     "weight": 4.274264
     },
     {
      "ticker": "CCI",
      "name": "CROWN CASTLE INC",
-     "weight": 3.339476
+     "weight": 4.229857
+    },
+    {
+     "ticker": "CBRE",
+     "name": "CBRE GROUP INC   A",
+     "weight": 4.11611
+    },
+    {
+     "ticker": "IRM",
+     "name": "IRON MOUNTAIN INC",
+     "weight": 3.889544
     },
     {
      "ticker": "EXR",
      "name": "EXTRA SPACE STORAGE INC",
-     "weight": 3.325913
+     "weight": 3.583644
     },
     {
      "ticker": "VICI",
      "name": "VICI PROPERTIES INC",
-     "weight": 2.946394
+     "weight": 3.019028
     }
    ]
   },
@@ -919,82 +919,82 @@
    "etf": "SOXX",
    "label": "半導体（iShares）",
    "provider": "iShares",
-   "as_of": "2026-10-02",
+   "as_of": "2026-10-30",
    "holdings": [
     {
      "ticker": "AMD",
      "name": "ADVANCED MICRO DEVICES",
-     "weight": 9.28
-    },
-    {
-     "ticker": "INTC",
-     "name": "INTEL CORPORATION",
-     "weight": 9.18
-    },
-    {
-     "ticker": "MU",
-     "name": "MICRON TECHNOLOGY",
-     "weight": 7.72
+     "weight": 9.24
     },
     {
      "ticker": "NVDA",
      "name": "NVIDIA",
-     "weight": 7.3
+     "weight": 7.98
+    },
+    {
+     "ticker": "MU",
+     "name": "MICRON TECHNOLOGY",
+     "weight": 7.95
     },
     {
      "ticker": "AVGO",
      "name": "BROADCOM INC",
-     "weight": 6.61
+     "weight": 7.58
     },
     {
-     "ticker": "MRVL",
-     "name": "MARVELL TECHNOLOGY",
-     "weight": 4.43
+     "ticker": "INTC",
+     "name": "INTEL CORPORATION",
+     "weight": 6.33
     },
     {
-     "ticker": "KLAC",
-     "name": "KLA",
-     "weight": 4.06
-    },
-    {
-     "ticker": "AMAT",
-     "name": "APPLIED MATERIAL INC",
-     "weight": 4.06
-    },
-    {
-     "ticker": "LRCX",
-     "name": "LAM RESEARCH",
-     "weight": 3.97
+     "ticker": "TXN",
+     "name": "TEXAS INSTRUMENT",
+     "weight": 4.96
     },
     {
      "ticker": "ADI",
      "name": "ANALOG DEVICES",
-     "weight": 3.97
-    },
-    {
-     "ticker": "TXN",
-     "name": "TEXAS INSTRUMENT INC",
-     "weight": 3.88
+     "weight": 4.96
     },
     {
      "ticker": "QCOM",
      "name": "QUALCOMM",
-     "weight": 3.74
+     "weight": 4.16
     },
     {
-     "ticker": "TER",
-     "name": "TERADYNE",
-     "weight": 3.32
+     "ticker": "MRVL",
+     "name": "MARVELL TECHNOLOGY",
+     "weight": 4.0
+    },
+    {
+     "ticker": "KLAC",
+     "name": "KLA",
+     "weight": 3.88
+    },
+    {
+     "ticker": "NXPI",
+     "name": "NXP SEMICONDUCTORS NV",
+     "weight": 3.8
+    },
+    {
+     "ticker": "AMAT",
+     "name": "APPLIED MATERIAL INC",
+     "weight": 3.66
     },
     {
      "ticker": "MPWR",
      "name": "MONOLITHIC POWER SYSTEMS INC",
-     "weight": 3.25
+     "weight": 3.42
     },
     {
-     "ticker": "SKHY",
-     "name": "SK HYNIX AMERICAN DEPOSITARY SHARE",
-     "weight": 3.13
+     "ticker": "LRCX",
+     "name": "LAM RESEARCH",
+     "weight": 3.42
+    },
+    {
+     "ticker": "TSM",
+     "name": "TAIWAN SEMICONDUCTOR MANUFACTURING",
+     "weight": 3.22
     }
    ]
   },
@@ -1002,82 +1002,82 @@
    "etf": "SPY",
    "label": "S&P500",
    "provider": "State Street",
-   "as_of": "2026-10-02",
+   "as_of": "2026-10-30",
    "holdings": [
-    {
-     "ticker": "NVDA",
-     "name": "NVIDIA CORP",
-     "weight": 8.504512
-    },
     {
      "ticker": "AAPL",
      "name": "APPLE INC",
-     "weight": 7.31531
+     "weight": 7.69866
+    },
+    {
+     "ticker": "NVDA",
+     "name": "NVIDIA CORP",
+     "weight": 7.580313
     },
     {
      "ticker": "MSFT",
      "name": "MICROSOFT CORP",
-     "weight": 5.772583
+     "weight": 5.931658
     },
     {
      "ticker": "AMZN",
      "name": "AMAZON.COM INC",
-     "weight": 3.708586
+     "weight": 3.610928
     },
     {
      "ticker": "GOOGL",
      "name": "ALPHABET INC CL A",
-     "weight": 3.027691
+     "weight": 2.513416
     },
     {
      "ticker": "AVGO",
      "name": "BROADCOM INC",
-     "weight": 2.538098
-    },
-    {
-     "ticker": "GOOG",
-     "name": "ALPHABET INC CL C",
-     "weight": 2.430157
+     "weight": 2.374549
     },
     {
      "ticker": "META",
      "name": "META PLATFORMS INC CLASS A",
-     "weight": 2.411735
+     "weight": 2.075744
     },
     {
-     "ticker": "MU",
-     "name": "MICRON TECHNOLOGY INC",
-     "weight": 1.82362
-    },
-    {
-     "ticker": "TSLA",
-     "name": "TESLA INC",
-     "weight": 1.56871
-    },
-    {
-     "ticker": "AMD",
-     "name": "ADVANCED MICRO DEVICES",
-     "weight": 1.554299
-    },
-    {
-     "ticker": "BRK-B",
-     "name": "BERKSHIRE HATHAWAY INC CL B",
-     "weight": 1.406241
+     "ticker": "GOOG",
+     "name": "ALPHABET INC CL C",
+     "weight": 2.024183
     },
     {
      "ticker": "LLY",
      "name": "ELI LILLY + CO",
-     "weight": 1.373638
+     "weight": 1.736258
+    },
+    {
+     "ticker": "TSLA",
+     "name": "TESLA INC",
+     "weight": 1.724754
+    },
+    {
+     "ticker": "BRK-B",
+     "name": "BERKSHIRE HATHAWAY INC CL B",
+     "weight": 1.546567
+    },
+    {
+     "ticker": "MU",
+     "name": "MICRON TECHNOLOGY INC",
+     "weight": 1.529482
     },
     {
      "ticker": "JPM",
      "name": "JPMORGAN CHASE + CO",
-     "weight": 1.327025
+     "weight": 1.371416
+    },
+    {
+     "ticker": "AMD",
+     "name": "ADVANCED MICRO DEVICES",
+     "weight": 1.261412
     },
     {
      "ticker": "XOM",
      "name": "EXXONMOBIL HOLDINGS CORP",
-     "weight": 1.01287
+     "weight": 1.178659
     }
    ]
   },
@@ -1085,82 +1085,82 @@
    "etf": "QQQ",
    "label": "Nasdaq-100",
    "provider": "Invesco",
-   "as_of": "2026-10-02",
+   "as_of": "2026-10-30",
    "holdings": [
-    {
-     "ticker": "NVDA",
-     "name": "NVIDIA Corp",
-     "weight": 8.429398
-    },
     {
      "ticker": "AAPL",
      "name": "Apple Inc",
-     "weight": 7.280801
+     "weight": 8.169369
+    },
+    {
+     "ticker": "NVDA",
+     "name": "NVIDIA Corp",
+     "weight": 8.010571
     },
     {
      "ticker": "MSFT",
      "name": "Microsoft Corp",
-     "weight": 5.745398
+     "weight": 6.294596
     },
     {
      "ticker": "MU",
      "name": "Micron Technology Inc",
-     "weight": 5.010509
-    },
-    {
-     "ticker": "AMD",
-     "name": "Advanced Micro Devices Inc",
-     "weight": 4.271175
+     "weight": 4.480251
     },
     {
      "ticker": "AMZN",
      "name": "Amazon.com Inc",
-     "weight": 4.056039
+     "weight": 4.210582
     },
     {
-     "ticker": "META",
-     "name": "Meta Platforms Inc",
-     "weight": 3.236793
-    },
-    {
-     "ticker": "GOOGL",
-     "name": "Alphabet Inc Class A",
-     "weight": 3.013517
+     "ticker": "AMD",
+     "name": "Advanced Micro Devices Inc",
+     "weight": 3.694949
     },
     {
      "ticker": "TSLA",
      "name": "Tesla Inc",
-     "weight": 2.910585
+     "weight": 3.411212
     },
     {
-     "ticker": "SPCX",
-     "name": "Space Exploration Technologies Corp",
-     "weight": 2.814527
-    },
-    {
-     "ticker": "GOOG",
-     "name": "Alphabet Inc Class C",
-     "weight": 2.812359
-    },
-    {
-     "ticker": "INTC",
-     "name": "Intel Corp",
-     "weight": 2.587958
-    },
-    {
-     "ticker": "AVGO",
-     "name": "Broadcom Inc",
-     "weight": 2.526052
+     "ticker": "META",
+     "name": "Meta Platforms Inc",
+     "weight": 2.970095
     },
     {
      "ticker": "WMT",
      "name": "Walmart Inc",
-     "weight": 2.092761
+     "weight": 2.693251
     },
     {
-     "ticker": "CSCO",
-     "name": "Cisco Systems Inc",
-     "weight": 1.832078
+     "ticker": "GOOGL",
+     "name": "Alphabet Inc Class A",
+     "weight": 2.66701
+    },
+    {
+     "ticker": "SPCX",
+     "name": "Space Exploration Technologies Corp",
+     "weight": 2.591302
+    },
+    {
+     "ticker": "AVGO",
+     "name": "Broadcom Inc",
+     "weight": 2.519619
+    },
+    {
+     "ticker": "GOOG",
+     "name": "Alphabet Inc Class C",
+     "weight": 2.497485
+    },
+    {
+     "ticker": "COST",
+     "name": "Costco Wholesale Corp",
+     "weight": 2.015876
+    },
+    {
+     "ticker": "PLTR",
+     "name": "Palantir Technologies Inc",
+     "weight": 1.899304
     }
    ]
   }
