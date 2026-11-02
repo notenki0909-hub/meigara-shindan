@@ -1239,13 +1239,16 @@ body.wlon{{padding-bottom:60px}}
     var needle = q.value.trim().normalize('NFKC').toLowerCase();
     var pActive = panelActive();
     var filtering = !!needle || !!activeTier || pActive;
-    var total = 0;
+    var total = 0, counted = {{}};
     document.querySelectorAll('tr.r').forEach(function(tr){{
       var textOk = !needle || tr.textContent.normalize('NFKC').toLowerCase().indexOf(needle) !== -1;
       var tierOk = !activeTier || tr.dataset.tier === activeTier;
       var show = textOk && tierOk && (!pActive || panelOk(tr));
       tr.hidden = !show;
-      if (show) total++;
+      if (show) {{
+        var ce = tr.querySelector('.code'), ck = ce ? ce.textContent.trim() : '';
+        if (!ck || !counted[ck]) {{ if (ck) counted[ck] = true; total++; }}
+      }}
     }});
     document.querySelectorAll('section.grp').forEach(function(sec){{
       var any = sec.querySelector('tr.r:not([hidden])');
