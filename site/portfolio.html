@@ -170,8 +170,8 @@ tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
 .txform{margin-top:6px}
 .txform[hidden],.editform[hidden]{display:none}
 .txtypebtns{display:flex;gap:6px}
-.txtypebtns button.txtype{background:var(--card);color:var(--fg);border-color:var(--line);padding:5px 12px;font-size:12.5px}
-.txtypebtns button.txtype.active{background:var(--accent);color:var(--onacc,#fff);border-color:var(--accent)}
+.txtypebtns button.txtype,.txtypebtns button.edtype{background:var(--card);color:var(--fg);border-color:var(--line);padding:5px 12px;font-size:12.5px}
+.txtypebtns button.txtype.active,.txtypebtns button.edtype.active{background:var(--accent);color:var(--onacc,#fff);border-color:var(--accent)}
 .newtxbtn{background:var(--card);color:var(--accent);border:1px dashed var(--accent);border-radius:8px;padding:6px 12px;font-size:12.5px;margin-bottom:6px;cursor:pointer}
 .editform{margin:4px 0}
 .editform .ed-typelabel{font-weight:700}
@@ -1095,25 +1095,56 @@ details.box[open]>summary{margin-bottom:8px}
     });
   }
   // 既存の取引記録（lots配列中のインデックス=gidx）を修正・削除する。
-  // 種別（買い/売り）は修正フォームでは変更不可（履歴の意味を変えないため）で、
-  // 株数・単価・日付のみ変更できる。
-  function updateLot(gidx, shares, price, date, onDone, src){
+  // 株数・単価・日付に加えて、種別（買い/売り）も変更できる（買い・売りの入力ミスの修正用）。
+  // 種別を変えると、同じ銘柄の後ろの売却が保有株数を超えてしまうことがあるため、
+  // 種別を変えたときだけ、その銘柄の全取引を日付順に通して確認する。
+  function setEditType(ef, type){
+    type = (type === 's') ? 's' : 'b';
+    ef.dataset.type = type;
+    ef.querySelector('.ed-typelabel').textContent = (type === 's' ? '売却記録の修正' : '購入記録の修正');
+    ef.querySelectorAll('.edtype').forEach(function(b){ b.classList.toggle('active', b.dataset.type === type); });
+  }
+  function sellsStayValid(code, gidx, type, shares, date){
+    var list = [];
+    lots.forEach(function(x, i){
+      if (x.code !== code) return;
+      list.push(i === gidx ? {shares:shares, date:date, type:type} : x);
+    });
+    list.sort(function(a, b){
+      if (a.date !== b.date) return a.date < b.date ? -1 : 1;
+      return ((a.type === 's') ? 1 : 0) - ((b.type === 's') ? 1 : 0);
+    });
+    var held = 0;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].type === 's') {
+        if (list[i].shares > held) return false;
+        held -= list[i].shares;
+      } else held += list[i].shares;
+    }
+    return true;
+  }
+  function updateLot(gidx, shares, price, date, onDone, src, newType){
     var l = lots[gidx];
     if (!l) return;
+    var type = (newType === 's' || newType === 'b') ? newType : l.type;
     shares = parseFloat(shares);
     date = (date || '').trim();
     if (!(shares > 0)) { alert('株数は1以上の数値で入力してください。'); return; }
     if (!isDate(date)) { alert('日付を入力してください。'); return; }
-    if (l.type === 's') {
+    if (type === 's') {
       var held = sharesHeldAt(l.code, date, gidx);
       if (shares > held) {
         alert('売却できる保有株がありません（' + date + '時点の保有株数：' + held.toLocaleString('ja-JP') + '株）。日付をご確認ください。');
         return;
       }
     }
+    if (type !== l.type && !sellsStayValid(l.code, gidx, type, shares, date)) {
+      alert('「' + (type === 's' ? '売り' : '買い') + '」に変更すると、保有株数を超える売却が出てしまいます。ほかの記録の株数・日付・種別もあわせてご確認ください。');
+      return;
+    }
 
     var finish = function(p){
-      lots[gidx] = {code:l.code, shares:shares, price:p, date:date, type:l.type};
+      lots[gidx] = {code:l.code, shares:shares, price:p, date:date, type:type};
       persist();
       if (onDone) onDone();
       render();
@@ -1127,7 +1158,7 @@ details.box[open]>summary{margin-bottom:8px}
     loadPD(l.code).then(function(pd){
       var r = lookupPrice(pd, date, src);
       if (r.price == null) {
-        alert(priceNotFoundMsg(r, (l.type === 's' ? '売却日' : '購入日'), date));
+        alert(priceNotFoundMsg(r, (type === 's' ? '売却日' : '購入日'), date));
         return;
       }
       finish(r.price);
@@ -1544,12 +1575,17 @@ details.box[open]>summary{margin-bottom:8px}
       form2.querySelectorAll('.txtype').forEach(function(b){ b.classList.toggle('active', b === txtype); });
       return;
     }
+    var edtype = e.target.closest('button.edtype');
+    if (edtype) {
+      setEditType(edtype.closest('.editform'), edtype.dataset.type);
+      return;
+    }
     var edupdate = e.target.closest('button.ed-update');
     if (edupdate) {
       var ef3 = edupdate.closest('.editform');
       updateLot(parseInt(ef3.dataset.gidx, 10),
         ef3.querySelector('.ed-shares').value, ef3.querySelector('.ed-price').value, ef3.querySelector('.ed-date').value,
-        null, ef3.querySelector('.pricesrc').value);
+        null, ef3.querySelector('.pricesrc').value, ef3.dataset.type);
       return;
     }
     var eddelete = e.target.closest('button.ed-delete');
@@ -1594,7 +1630,7 @@ details.box[open]>summary{margin-bottom:8px}
       var l = lots[gidx];
       if (!l) return;
       ef.dataset.gidx = gidx;
-      ef.querySelector('.ed-typelabel').textContent = (l.type === 's' ? '売却記録の修正' : '購入記録の修正');
+      setEditType(ef, l.type);
       ef.querySelector('.ed-shares').value = l.shares;
       ef.querySelector('.ed-price').value = l.price;
       ef.querySelector('.ed-date').value = l.date;
@@ -1813,10 +1849,10 @@ details.box[open]>summary{margin-bottom:8px}
             + '　（' + amtPart + '）</div>';
         }).join('');
         var newtxbtn = '<button type="button" class="newtxbtn" data-code="' + h.code + '">＋ 新規買付・売却を記録</button>';
-        var txform = '<div class="addrow txform" data-code="' + h.code + '" data-type="s" hidden>'
+        var txform = '<div class="addrow txform" data-code="' + h.code + '" data-type="b" hidden>'
           + '<div class="txtypebtns">'
-          + '<button type="button" class="txtype active" data-type="s">売却を記録</button>'
-          + '<button type="button" class="txtype" data-type="b">買い足しを記録</button>'
+          + '<button type="button" class="txtype active" data-type="b">新規買付を記録</button>'
+          + '<button type="button" class="txtype" data-type="s">売却を記録</button>'
           + '</div>'
           + '<div class="addrow-body">'
           + '<label>株数<input class="tx-shares" type="number" min="1" step="1" placeholder="100"></label>'
@@ -1827,6 +1863,10 @@ details.box[open]>summary{margin-bottom:8px}
           + '</div></div>';
         var editform = '<div class="addrow editform" data-code="' + h.code + '" data-gidx="" hidden>'
           + '<div class="addrow-head"><span class="nm ed-typelabel"></span></div>'
+          + '<div class="txtypebtns edtypebtns">'
+          + '<button type="button" class="edtype" data-type="b">買い</button>'
+          + '<button type="button" class="edtype" data-type="s">売り</button>'
+          + '</div>'
           + '<div class="addrow-body">'
           + '<label>株数<input class="ed-shares" type="number" min="1" step="1"></label>'
           + '<label>単価（円・空欄で自動取得）<input class="ed-price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
