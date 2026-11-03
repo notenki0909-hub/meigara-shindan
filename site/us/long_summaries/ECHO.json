@@ -5,9 +5,9 @@
  "gics_sector": "Communication Services",
  "is_simple": false,
  "is_reit": false,
- "price": 96.94000244140625,
- "price_date": "2026-10-30",
- "mcap": 28191688704,
+ "price": 98.2300033569336,
+ "price_date": "2026-11-02",
+ "mcap": 28566841344,
  "q_score": 33.4,
  "groups": {
   "業績": 31.90209266085381,
@@ -31,20 +31,20 @@
   "pbr_cheap": 75.0
  },
  "ev_ebit": null,
- "fcf_yield": -6.17705103899263,
+ "fcf_yield": -6.095931219801296,
  "per_band_pos": null,
  "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": null,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.337139813559322,
+ "pbr_vs_sector": 0.341626186440678,
  "price_chg": {
-  "d": -0.7372529118412019,
-  "w": 8.823529915567917,
-  "m": 9.847028262216707,
-  "3m": 13.207994336980832,
-  "6m": -21.3021576544573,
-  "9m": -14.379083734120258,
-  "y": 31.676173356169702
+  "d": 1.3307209439230805,
+  "w": 10.04929532380352,
+  "m": 4.222815232820798,
+  "3m": 7.237996717527917,
+  "6m": -18.372938053676346,
+  "9m": -15.718575045157767,
+  "y": 34.26735708025714
  },
  "div_yield": 0.0,
  "implied_fcf_growth": null,
@@ -66,7 +66,13 @@
    "fcf_less_sbc_pct": -11.84730625260705
   }
  },
- "etf_top": [],
+ "etf_top": [
+  {
+   "etf": "XLC",
+   "rank": 14,
+   "weight": 1.97404
+  }
+ ],
  "metric_scores": {
   "rev_cagr": 55.70627798256144,
   "eps_cagr": null,
@@ -95,5 +101,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-02T02:12:36"
+ "_generated_at": "2026-11-03T04:05:05"
 }

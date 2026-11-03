@@ -5,9 +5,9 @@
  "gics_sector": "Communication Services",
  "is_simple": false,
  "is_reit": false,
- "price": 279.8399963378906,
- "price_date": "2026-10-30",
- "mcap": 3440352690176,
+ "price": 278.989990234375,
+ "price_date": "2026-11-02",
+ "mcap": 3429902843904,
  "q_score": 108.5,
  "groups": {
   "業績": 110.0,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 59.4,
+ "bt_score": 59.5,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 48.39476321103652,
+  "fcf_yield": 48.48127321554365,
   "per_cheap": 109.9,
-  "pbr_cheap": 71.4
+  "pbr_cheap": 71.5
  },
- "ev_ebit": 26.88284697010981,
- "fcf_yield": 2.1296072408277387,
+ "ev_ebit": 26.80186489281535,
+ "fcf_yield": 2.136095491165774,
  "per_band_pos": 1.0,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.7144672812570032,
- "per_vs_sector": 0.7059446859903381,
- "pbr_vs_sector": 0.8841387627118644,
+ "ev_ebit_vs_sector": 1.6564811429428523,
+ "per_vs_sector": 0.7060124154589372,
+ "pbr_vs_sector": 0.8814532203389829,
  "price_chg": {
-  "d": -1.4023010653303247,
-  "w": -12.607350237180516,
-  "m": -17.265845430050287,
-  "3m": -25.078314095654807,
-  "6m": -27.444321977102916,
-  "9m": -17.20710167518029,
-  "y": 1.9193607725147332
+  "d": -0.3037471821895288,
+  "w": -11.9349744367108,
+  "m": -18.7802066275473,
+  "3m": -26.124720046772342,
+  "6m": -27.20417736872146,
+  "9m": -18.825107436187814,
+  "y": -0.8846172569156541
  },
- "div_yield": 0.31446541292026425,
- "implied_fcf_growth": 0.1934,
+ "div_yield": 0.3154235029223544,
+ "implied_fcf_growth": 0.193,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -68,17 +68,17 @@
   {
    "etf": "XLC",
    "rank": 2,
-   "weight": 11.700466
+   "weight": 11.101324
   },
   {
    "etf": "SPY",
    "rank": 5,
-   "weight": 3.027691
+   "weight": 2.513416
   },
   {
    "etf": "QQQ",
-   "rank": 8,
-   "weight": 3.013517
+   "rank": 10,
+   "weight": 2.66701
   }
  ],
  "metric_scores": {
@@ -109,5 +109,5 @@
   "fcf_positive": 1,
   "fcf_payout": 13.715775393770643
  },
- "_generated_at": "2026-11-02T02:16:53"
+ "_generated_at": "2026-11-03T04:08:55"
 }

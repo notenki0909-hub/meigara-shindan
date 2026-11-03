@@ -5,9 +5,9 @@
  "gics_sector": "Financials",
  "is_simple": true,
  "is_reit": false,
- "price": 542.489990234375,
- "price_date": "2026-10-30",
- "mcap": 1161313648640,
+ "price": 556.1099853515625,
+ "price_date": "2026-11-02",
+ "mcap": 1190470090752,
  "q_score": 85.3,
  "groups": {
   "業績": null,
@@ -32,22 +32,22 @@
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": 0.2916049986121742,
+ "per_band_pos": 0.2916743553190579,
  "pbr_band_pos": 1.0,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 0.7886771676300577,
- "pbr_vs_sector": 0.00041552132,
+ "per_vs_sector": 0.7886429479768786,
+ "pbr_vs_sector": 0.00042595356,
  "price_chg": {
-  "d": 0.09778733490151126,
-  "w": 0.05532890529480472,
-  "m": 8.389608438436568,
-  "3m": 5.719681714170299,
-  "6m": 14.688902778860236,
-  "9m": 12.894094356747088,
-  "y": 14.025975092278852
+  "d": 2.5106445026392477,
+  "w": 1.3763285377297763,
+  "m": 10.635629584049621,
+  "3m": 7.519047378539767,
+  "6m": 18.695039356225763,
+  "9m": 14.123001826395187,
+  "y": 16.214577890010307
  },
  "div_yield": 0.0,
- "implied_fcf_growth": 0.1917,
+ "implied_fcf_growth": 0.1951,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,12 +64,12 @@
   {
    "etf": "XLF",
    "rank": 1,
-   "weight": 12.409071
+   "weight": 12.682141
   },
   {
    "etf": "SPY",
-   "rank": 12,
-   "weight": 1.406241
+   "rank": 11,
+   "weight": 1.546567
   }
  ],
  "metric_scores": {
@@ -100,5 +100,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-02T02:06:35"
+ "_generated_at": "2026-11-03T03:59:40"
 }

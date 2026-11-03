@@ -5,9 +5,9 @@
  "gics_sector": "Information Technology",
  "is_simple": false,
  "is_reit": false,
- "price": 204.63999938964844,
- "price_date": "2026-10-30",
- "mcap": 4941441662976,
+ "price": 202.05999755859375,
+ "price_date": "2026-11-02",
+ "mcap": 4879142617088,
  "q_score": 108.4,
  "groups": {
   "業績": 110.0,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 61.2,
+ "bt_score": 62.1,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 27.608137749522548,
-  "fcf_yield": 46.08577458257436,
+  "ev_ebit_vs_sector": 29.74535241176263,
+  "fcf_yield": 46.418849262960265,
   "per_cheap": 110.0,
-  "pbr_cheap": 39.0
+  "pbr_cheap": 41.0
  },
- "ev_ebit": 37.901605704372365,
- "fcf_yield": 1.9564330936930774,
+ "ev_ebit": 37.423804651445316,
+ "fcf_yield": 1.9814136947220202,
  "per_band_pos": null,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 1.4834287946916775,
- "per_vs_sector": 0.6599757653061225,
- "pbr_vs_sector": 1.6104231343283582,
+ "ev_ebit_vs_sector": 1.4647281663970768,
+ "per_vs_sector": 0.6599989795918367,
+ "pbr_vs_sector": 1.5901197014925375,
  "price_chg": {
-  "d": -4.221662509528712,
-  "w": -2.9958319696068325,
-  "m": -11.357533202539305,
-  "3m": -0.9678668243841448,
-  "6m": 3.11917487356812,
-  "9m": 7.068484362316285,
-  "y": -1.15919338017344
+  "d": -1.2607514849246049,
+  "w": -6.453704833984375,
+  "m": -13.631117677126369,
+  "3m": -4.661698956780924,
+  "6m": 1.8037091435497032,
+  "9m": 8.862667363907528,
+  "y": -0.4090895724538246
  },
- "div_yield": 0.48866301944026697,
- "implied_fcf_growth": 0.2051,
+ "div_yield": 0.49490251018637077,
+ "implied_fcf_growth": 0.2033,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -68,23 +68,23 @@
  "etf_top": [
   {
    "etf": "XLK",
-   "rank": 1,
-   "weight": 15.521473
+   "rank": 2,
+   "weight": 15.086094
   },
   {
    "etf": "SOXX",
-   "rank": 4,
-   "weight": 7.3
+   "rank": 2,
+   "weight": 7.98
   },
   {
    "etf": "SPY",
-   "rank": 1,
-   "weight": 8.504512
+   "rank": 2,
+   "weight": 7.580313
   },
   {
    "etf": "QQQ",
-   "rank": 1,
-   "weight": 8.429398
+   "rank": 2,
+   "weight": 8.010571
   }
  ],
  "metric_scores": {
@@ -115,5 +115,5 @@
   "fcf_positive": 1,
   "fcf_payout": 1.0074889321031073
  },
- "_generated_at": "2026-11-02T02:26:05"
+ "_generated_at": "2026-11-03T04:17:13"
 }

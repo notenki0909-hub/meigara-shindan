@@ -126,7 +126,11 @@ th.sortable.on{color:var(--fg)}
 th.sortable .si{margin-left:3px;font-size:10px;opacity:.55}
 th.sortable.on .si{opacity:1;color:var(--accent)}
 th.ck,td.ck{width:28px;text-align:center;padding-left:6px;padding-right:2px}
-#list{overflow-x:auto;padding:4px;margin:-4px;position:relative}
+#list{overflow-x:auto;padding:4px;margin:-4px;position:relative;scrollbar-width:none}
+#list::-webkit-scrollbar{display:none}
+#hbar{position:sticky;bottom:0;z-index:20;overflow-x:scroll;overflow-y:hidden;height:18px;margin:4px -4px 0;background:var(--bg);border-top:1px solid var(--line)}
+#hbar[hidden]{display:none}
+#hbar>div{height:1px}
 details.box>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px}
 details.box>summary::-webkit-details-marker{display:none}
 details.box>summary::before{content:'▶';font-size:10px;color:var(--muted)}
@@ -244,6 +248,7 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   <span class="sk">行頭の ⠿ をドラッグして、並べ替え・セクションへ移動</span>
 </div>
 <div id="list"></div>
+<div id="hbar" hidden><div></div></div>
 
 <div class="disc" id="disc"></div>
 
@@ -1238,6 +1243,28 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 
   if (master.length || tabs.length) withData(function(){ render(true); });
   else render(true);
+})();
+</script>
+<script>
+/* 横スクロールバー: リストが長くても画面の下端に常に横スクロールバーが出るよう、#list と連動する帯を置く
+   （配当株ツールの同じ機能を、コピーして移植） */
+(function(){
+  var list = document.getElementById('list'), bar = document.getElementById('hbar');
+  if (!list || !bar) return;
+  var inner = bar.firstElementChild;
+  function sync(){
+    var over = list.scrollWidth > list.clientWidth + 1;
+    bar.hidden = !over;
+    if (!over) return;
+    inner.style.width = list.scrollWidth + 'px';
+    if (bar.scrollLeft !== list.scrollLeft) bar.scrollLeft = list.scrollLeft;
+  }
+  bar.addEventListener('scroll', function(){ if (list.scrollLeft !== bar.scrollLeft) list.scrollLeft = bar.scrollLeft; });
+  list.addEventListener('scroll', function(){ if (bar.scrollLeft !== list.scrollLeft) bar.scrollLeft = list.scrollLeft; });
+  window.addEventListener('resize', sync);
+  if (window.MutationObserver) new MutationObserver(sync).observe(list, {childList: true});
+  if (window.ResizeObserver) new ResizeObserver(sync).observe(list);
+  sync();
 })();
 </script>
 <script>

@@ -5,9 +5,9 @@
  "gics_sector": "Utilities",
  "is_simple": false,
  "is_reit": false,
- "price": 79.81999969482422,
- "price_date": "2026-10-30",
- "mcap": 51234418688,
+ "price": 79.33000183105469,
+ "price_date": "2026-11-02",
+ "mcap": 50919899136,
  "q_score": 84.3,
  "groups": {
   "業績": 95.39769164260994,
@@ -22,31 +22,31 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 58.1,
+ "bt_score": 46.5,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 51.00206445509371,
+  "ev_ebit_vs_sector": 51.538143019554305,
   "fcf_yield": 20.0,
-  "per_cheap": 103.3,
-  "pbr_cheap": 106.9
+  "per_cheap": 68.1,
+  "pbr_cheap": 105.3
  },
- "ev_ebit": 29.78166678985759,
- "fcf_yield": -13.321123133184948,
- "per_band_pos": 0.7552566796507405,
- "pbr_band_pos": 0.9816527509419832,
- "ev_ebit_vs_sector": 1.27873193601793,
- "per_vs_sector": 0.8818037914691942,
- "pbr_vs_sector": 0.8283107500000001,
+ "ev_ebit": 29.67242067940257,
+ "fcf_yield": -13.403404397505522,
+ "per_band_pos": 0.08932098737327376,
+ "pbr_band_pos": 0.8852650097558881,
+ "ev_ebit_vs_sector": 1.2740412485788997,
+ "per_vs_sector": 1.0300590995260663,
+ "pbr_vs_sector": 0.8579258333333334,
  "price_chg": {
-  "d": 0.9868405494206423,
-  "w": 2.2677726763093764,
-  "m": 13.139611966091103,
-  "3m": 2.7416619725612934,
-  "6m": -3.342216123798336,
-  "9m": 4.943468652275329,
-  "y": 0.1631286854502978
+  "d": -0.6138785588109985,
+  "w": 1.8880056629587028,
+  "m": 11.106442767093716,
+  "3m": 2.032156695890275,
+  "6m": -2.266842896880328,
+  "9m": 6.483223934301585,
+  "y": -2.7699406891459666
  },
- "div_yield": 2.969180667829141,
+ "div_yield": 2.987520415097526,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -69,7 +69,7 @@
   {
    "etf": "XLU",
    "rank": 9,
-   "weight": 3.558328
+   "weight": 3.650228
   }
  ],
  "metric_scores": {
@@ -100,5 +100,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-02T02:37:21"
+ "_generated_at": "2026-11-03T04:27:17"
 }

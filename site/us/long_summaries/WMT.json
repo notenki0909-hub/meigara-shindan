@@ -5,9 +5,9 @@
  "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
- "price": 123.51000213623047,
- "price_date": "2026-10-30",
- "mcap": 982902374400,
+ "price": 127.69000244140625,
+ "price_date": "2026-11-02",
+ "mcap": 1013060075520,
  "q_score": 97.8,
  "groups": {
   "業績": 90.58659591767726,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 30.1,
+ "bt_score": 29.9,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 40.24344823205804,
+  "fcf_yield": 39.64082270552426,
   "per_cheap": 30.0,
-  "pbr_cheap": 44.4
+  "pbr_cheap": 41.8
  },
- "ev_ebit": 34.84561188264878,
- "fcf_yield": 1.5182586174043533,
+ "ev_ebit": 35.85676699145012,
+ "fcf_yield": 1.4730617029143194,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.8310883805911078,
- "per_vs_sector": 1.888185654008439,
- "pbr_vs_sector": 1.5129465151515153,
+ "ev_ebit_vs_sector": 1.8842231734866064,
+ "per_vs_sector": 1.952088270042194,
+ "pbr_vs_sector": 1.5641498484848486,
  "price_chg": {
-  "d": 1.8639192876127586,
-  "w": 3.019436787898244,
-  "m": 18.463456364452348,
-  "3m": 11.56174072586822,
-  "6m": -6.147419142915245,
-  "9m": 3.667955992084493,
-  "y": 20.54460593387595
+  "d": 3.384341537428903,
+  "w": 6.151801038787497,
+  "m": 22.472664324868475,
+  "3m": 14.468847107211346,
+  "6m": -2.025626757122767,
+  "9m": 2.9260075401001284,
+  "y": 24.904625108520918
  },
- "div_yield": 0.8015545161338743,
- "implied_fcf_growth": 0.2402,
+ "div_yield": 0.7753152017161925,
+ "implied_fcf_growth": 0.2444,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -67,12 +67,12 @@
   {
    "etf": "XLP",
    "rank": 1,
-   "weight": 10.590123
+   "weight": 11.150206
   },
   {
    "etf": "QQQ",
-   "rank": 14,
-   "weight": 2.092761
+   "rank": 9,
+   "weight": 2.693251
   }
  ],
  "metric_scores": {
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 50.30489847885814
  },
- "_generated_at": "2026-11-02T02:36:50"
+ "_generated_at": "2026-11-03T04:26:49"
 }

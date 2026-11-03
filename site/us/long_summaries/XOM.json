@@ -5,9 +5,9 @@
  "gics_sector": "Energy",
  "is_simple": false,
  "is_reit": false,
- "price": 187.25,
- "price_date": "2026-10-30",
- "mcap": 763792785408,
+ "price": 179.6699981689453,
+ "price_date": "2026-11-02",
+ "mcap": 732873949184,
  "q_score": 90.9,
  "groups": {
   "業績": 70.87628966715283,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 55.8,
+ "bt_score": 58.7,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 46.51382675157219,
-  "fcf_yield": 61.218858397371974,
-  "per_cheap": 71.2,
-  "pbr_cheap": 44.4
+  "ev_ebit_vs_sector": 52.35990899829633,
+  "fcf_yield": 62.95781928354835,
+  "per_cheap": 71.9,
+  "pbr_cheap": 47.4
  },
- "ev_ebit": 23.473651523601863,
- "fcf_yield": 3.091414379802898,
+ "ev_ebit": 22.56261268147799,
+ "fcf_yield": 3.2218364462661264,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.3180040159237432,
- "per_vs_sector": 0.8918704629629629,
- "pbr_vs_sector": 1.5124712631578947,
+ "ev_ebit_vs_sector": 1.266850796264907,
+ "per_vs_sector": 0.8557670370370369,
+ "pbr_vs_sector": 1.4512453684210527,
  "price_chg": {
-  "d": 2.160514408271741,
-  "w": 2.2051160624879884,
-  "m": 14.302277883195668,
-  "3m": 20.75970782164005,
-  "6m": 22.585924713584294,
-  "9m": 32.425748290400456,
-  "y": 60.79863023373531
+  "d": -4.048065063313588,
+  "w": -2.6389917060615,
+  "m": 9.548200833246568,
+  "3m": 16.69913635614464,
+  "6m": 16.904154671637706,
+  "9m": 29.819368563938408,
+  "y": 56.65707066379788
  },
- "div_yield": 2.2002670226969294,
- "implied_fcf_growth": 0.1425,
+ "div_yield": 2.3821450679681524,
+ "implied_fcf_growth": 0.1368,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -67,12 +67,12 @@
   {
    "etf": "XLE",
    "rank": 1,
-   "weight": 23.734681
+   "weight": 24.349968
   },
   {
    "etf": "SPY",
    "rank": 15,
-   "weight": 1.01287
+   "weight": 1.178659
   }
  ],
  "metric_scores": {
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 72.97560562425886
  },
- "_generated_at": "2026-11-02T02:37:25"
+ "_generated_at": "2026-11-03T04:27:21"
 }

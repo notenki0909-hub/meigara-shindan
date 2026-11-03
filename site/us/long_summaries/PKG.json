@@ -5,9 +5,9 @@
  "gics_sector": "Consumer Discretionary",
  "is_simple": false,
  "is_reit": false,
- "price": 256.82000732421875,
- "price_date": "2026-10-30",
- "mcap": 22882224128,
+ "price": 258.6400146484375,
+ "price_date": "2026-11-02",
+ "mcap": 23044384768,
  "q_score": 93.5,
  "groups": {
   "業績": 84.04848578062811,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 62.7,
+ "bt_score": 62.3,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 65.09658043098392,
-  "fcf_yield": 62.45508046911945,
+  "ev_ebit_vs_sector": 64.29515033661687,
+  "fcf_yield": 62.15632903403302,
   "per_cheap": 60.4,
   "pbr_cheap": 75.0
  },
- "ev_ebit": 21.282558649036165,
- "fcf_yield": 3.184131035183959,
+ "ev_ebit": 21.411729144495776,
+ "fcf_yield": 3.1617246775524763,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.1554049212288906,
- "per_vs_sector": 1.0698337837837837,
- "pbr_vs_sector": 0.5302841739130435,
+ "ev_ebit_vs_sector": 1.1624174345546023,
+ "per_vs_sector": 1.0695028378378377,
+ "pbr_vs_sector": 0.5340421195652174,
  "price_chg": {
-  "d": 0.8997008430851272,
-  "w": 3.853780701534082,
-  "m": 11.801837019716999,
-  "3m": 2.2820546696003197,
-  "6m": 17.77492901017299,
-  "9m": 15.398788498102544,
-  "y": 30.597516041321416
+  "d": 0.7086703809338069,
+  "w": 1.931114151964275,
+  "m": 13.170570686339067,
+  "3m": 1.236894854291637,
+  "6m": 18.6095650482339,
+  "9m": 15.608802627032548,
+  "y": 31.851554761362834
  },
- "div_yield": 2.336266579272146,
- "implied_fcf_growth": 0.1384,
+ "div_yield": 2.319826654880004,
+ "implied_fcf_growth": 0.1394,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -65,7 +65,13 @@
    "fcf_less_sbc_pct": 7.602371708586876
   }
  },
- "etf_top": [],
+ "etf_top": [
+  {
+   "etf": "XLB",
+   "rank": 15,
+   "weight": 3.411401
+  }
+ ],
  "metric_scores": {
   "rev_cagr": 95.42751095563938,
   "eps_cagr": 59.804505158961746,
@@ -94,5 +100,5 @@
   "fcf_positive": 1,
   "fcf_payout": 61.70738402415592
  },
- "_generated_at": "2026-11-02T02:28:02"
+ "_generated_at": "2026-11-03T04:18:58"
 }
