@@ -2260,11 +2260,11 @@
  "KTB": {
   "ticker": "KTB",
   "name": "Kontoor Brands",
-  "target_date": "2026-10-29",
-  "detected_at": "2026-10-29T05:52:23",
-  "status": "giveup",
-  "attempts": 9,
-  "next_retry_at": "2026-10-31T18:38:23"
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
  },
  "LHX": {
   "ticker": "LHX",
@@ -2641,9 +2641,10 @@
   "name": "Acadia Realty Trust",
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "next_retry_at": "2026-11-02T22:02:13",
+  "resolved_at": "2026-11-03T01:13:56"
  },
  "AROC": {
   "ticker": "AROC",
@@ -2651,8 +2652,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "attempts": 3,
+  "next_retry_at": "2026-11-03T07:13:56"
  },
  "CBT": {
   "ticker": "CBT",
@@ -2660,17 +2661,18 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "attempts": 3,
+  "next_retry_at": "2026-11-03T07:13:56"
  },
  "CLX": {
   "ticker": "CLX",
   "name": "Clorox",
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "next_retry_at": "2026-11-02T22:02:13",
+  "resolved_at": "2026-11-03T01:13:56"
  },
  "CRC": {
   "ticker": "CRC",
@@ -2678,8 +2680,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "attempts": 3,
+  "next_retry_at": "2026-11-03T07:13:56"
  },
  "CSR": {
   "ticker": "CSR",
@@ -2687,8 +2689,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "attempts": 3,
+  "next_retry_at": "2026-11-03T07:13:56"
  },
  "EQH": {
   "ticker": "EQH",
@@ -2696,8 +2698,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "attempts": 3,
+  "next_retry_at": "2026-11-03T07:13:56"
  },
  "ETR": {
   "ticker": "ETR",
@@ -2715,8 +2717,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "attempts": 3,
+  "next_retry_at": "2026-11-03T07:13:56"
  },
  "IRT": {
   "ticker": "IRT",
@@ -2724,8 +2726,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "attempts": 3,
+  "next_retry_at": "2026-11-03T07:13:56"
  },
  "O": {
   "ticker": "O",
@@ -2733,8 +2735,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "attempts": 3,
+  "next_retry_at": "2026-11-03T07:13:56"
  },
  "OGS": {
   "ticker": "OGS",
@@ -2742,8 +2744,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "attempts": 3,
+  "next_retry_at": "2026-11-03T07:13:56"
  },
  "OTTR": {
   "ticker": "OTTR",
@@ -2751,8 +2753,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "attempts": 3,
+  "next_retry_at": "2026-11-03T07:13:56"
  },
  "PEG": {
   "ticker": "PEG",
@@ -2770,8 +2772,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "attempts": 3,
+  "next_retry_at": "2026-11-03T07:13:56"
  },
  "SBAC": {
   "ticker": "SBAC",
@@ -2779,8 +2781,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "attempts": 3,
+  "next_retry_at": "2026-11-03T07:13:56"
  },
  "SBRA": {
   "ticker": "SBRA",
@@ -2788,8 +2790,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "attempts": 3,
+  "next_retry_at": "2026-11-03T07:13:56"
  },
  "TNC": {
   "ticker": "TNC",
@@ -2797,8 +2799,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "attempts": 3,
+  "next_retry_at": "2026-11-03T07:13:56"
  },
  "UTL": {
   "ticker": "UTL",
@@ -2806,8 +2808,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "attempts": 3,
+  "next_retry_at": "2026-11-03T07:13:56"
  },
  "VOYA": {
   "ticker": "VOYA",
@@ -2815,8 +2817,8 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "attempts": 3,
+  "next_retry_at": "2026-11-03T07:13:56"
  },
  "WMB": {
   "ticker": "WMB",
@@ -2824,7 +2826,313 @@
   "target_date": "2026-11-02",
   "detected_at": "2026-11-02T06:13:03",
   "status": "pending",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13"
+  "attempts": 3,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "ADM": {
+  "ticker": "ADM",
+  "name": "Archer Daniels Midland",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "ADT": {
+  "ticker": "ADT",
+  "name": "ADT Inc.",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "AFG": {
+  "ticker": "AFG",
+  "name": "American Financial Group",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "AIG": {
+  "ticker": "AIG",
+  "name": "American International Group",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "AMGN": {
+  "ticker": "AMGN",
+  "name": "Amgen",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "ASH": {
+  "ticker": "ASH",
+  "name": "Ashland Global",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "BR": {
+  "ticker": "BR",
+  "name": "Broadridge Financial Solutions",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "DD": {
+  "ticker": "DD",
+  "name": "DuPont",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "GEF": {
+  "ticker": "GEF",
+  "name": "Greif, Inc.",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "GPK": {
+  "ticker": "GPK",
+  "name": "Graphic Packaging",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "HLNE": {
+  "ticker": "HLNE",
+  "name": "Hamilton Lane",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "HMN": {
+  "ticker": "HMN",
+  "name": "Horace Mann Educators Corporation",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "HNI": {
+  "ticker": "HNI",
+  "name": "HNI Corporation",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "IOSP": {
+  "ticker": "IOSP",
+  "name": "Innospec, Inc.",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "JKHY": {
+  "ticker": "JKHY",
+  "name": "Jack Henry & Associates",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "JXN": {
+  "ticker": "JXN",
+  "name": "Jackson Financial, Inc.",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "KDP": {
+  "ticker": "KDP",
+  "name": "Keurig Dr Pepper",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "LPX": {
+  "ticker": "LPX",
+  "name": "Louisiana-Pacific",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "LTC": {
+  "ticker": "LTC",
+  "name": "LTC Properties, Inc.",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "MOS": {
+  "ticker": "MOS",
+  "name": "Mosaic Company (The)",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "MTDR": {
+  "ticker": "MTDR",
+  "name": "Matador Resources",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "MZTI": {
+  "ticker": "MZTI",
+  "name": "The Marzetti Company",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "NXRT": {
+  "ticker": "NXRT",
+  "name": "NexPoint Residential Trust, Inc.",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "OHI": {
+  "ticker": "OHI",
+  "name": "Omega Healthcare Investors",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "OVV": {
+  "ticker": "OVV",
+  "name": "Ovintiv",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "PFE": {
+  "ticker": "PFE",
+  "name": "Pfizer",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "PNW": {
+  "ticker": "PNW",
+  "name": "Pinnacle West Capital",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "PRU": {
+  "ticker": "PRU",
+  "name": "Prudential Financial",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "SM": {
+  "ticker": "SM",
+  "name": "SM Energy Company",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "SWKS": {
+  "ticker": "SWKS",
+  "name": "Skyworks Solutions",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "SYY": {
+  "ticker": "SYY",
+  "name": "Sysco",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "UNM": {
+  "ticker": "UNM",
+  "name": "Unum",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "WTRG": {
+  "ticker": "WTRG",
+  "name": "Essential Utilities",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
+ },
+ "YUM": {
+  "ticker": "YUM",
+  "name": "Yum! Brands",
+  "target_date": "2026-11-03",
+  "detected_at": "2026-11-03T01:13:56",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-03T07:13:56"
  }
 }
