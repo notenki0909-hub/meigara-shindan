@@ -1250,6 +1250,7 @@ section.grp[hidden]{{display:none}}
   <button id="qclear" type="button">クリア</button>
   <span class="hit" id="qhit"></span>
   <button id="csvExport" type="button">表示中の銘柄をCSV出力</button>
+  <button id="csvCopy" type="button" title="いま表示中の銘柄を、ExcelやGoogleスプレッドシートにそのまま貼り付けられる形でコピーします">表示中の銘柄をクリップボードにコピー</button>
 </div>
 {filter_panel_html}
 {backup_box}
@@ -1544,7 +1545,8 @@ section.grp[hidden]{{display:none}}
     var n=parseFloat(v);
     return isNaN(n)?'':n.toFixed(digits);
   }}
-  document.getElementById('csvExport').addEventListener('click',function(){{
+  // 表示中の銘柄を表（見出し＋行）にする。CSV出力とクリップボードコピーで共通
+  function visibleTable(){{
     var seen={{}};
     var rows=[];
     document.querySelectorAll('tr.r').forEach(function(tr){{
@@ -1565,7 +1567,11 @@ section.grp[hidden]{{display:none}}
       ]);
     }});
     var header=['コード','銘柄名','業種グループ','業種級','軍','終値','品質スコア','買い時スコア','カバレッジ','ROE(%)','ROA(%)','業種の区分','ETF上位15'];
-    var lines=[header].concat(rows).map(function(r){{return r.map(csvCell).join(',');}});
+    return {{header:header,rows:rows}};
+  }}
+  document.getElementById('csvExport').addEventListener('click',function(){{
+    var t=visibleTable();
+    var lines=[t.header].concat(t.rows).map(function(r){{return r.map(csvCell).join(',');}});
     var blob=new Blob(['﻿'+lines.join('\\r\\n')],{{type:'text/csv;charset=utf-8;'}});
     var url=URL.createObjectURL(blob);
     var a=document.createElement('a');
@@ -1575,6 +1581,41 @@ section.grp[hidden]{{display:none}}
     a.click();
     document.body.removeChild(a);
     setTimeout(function(){{URL.revokeObjectURL(url);}},1000);
+  }});
+  // Excel／スプレッドシートへ貼り付ける用: タブ区切り（引用符・タブ・改行を含む値は "…" で囲む）。配当株ツールの同じ機能をコピーして移植
+  function tsvCell(v){{
+    var s=v==null?'':String(v);
+    if(/["\\t\\r\\n]/.test(s))s='"'+s.replace(/"/g,'""')+'"';
+    return s;
+  }}
+  function copyText(text){{
+    function legacy(){{
+      return new Promise(function(res,rej){{
+        var ta=document.createElement('textarea');
+        ta.value=text;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;left:-9999px;top:0';
+        document.body.appendChild(ta);ta.select();
+        var ok=false;try{{ok=document.execCommand('copy');}}catch(e){{}}
+        ta.remove();
+        if(ok)res();else rej(new Error('copy failed'));
+      }});
+    }}
+    if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(text).catch(legacy);
+    return legacy();
+  }}
+  var csvCopyBtn=document.getElementById('csvCopy'),csvCopyLabel=csvCopyBtn.textContent,csvCopyTimer=null;
+  function csvCopyMsg(msg){{
+    csvCopyBtn.textContent=msg;
+    clearTimeout(csvCopyTimer);
+    csvCopyTimer=setTimeout(function(){{csvCopyBtn.textContent=csvCopyLabel;}},2500);
+  }}
+  csvCopyBtn.addEventListener('click',function(){{
+    var t=visibleTable();
+    var text=[t.header].concat(t.rows).map(function(r){{return r.map(tsvCell).join('\\t');}}).join('\\r\\n')+'\\r\\n';
+    copyText(text).then(function(){{
+      csvCopyMsg(t.rows.length+'銘柄をコピーしました');
+    }},function(){{
+      csvCopyMsg('コピーできませんでした（CSV出力をお使いください）');
+    }});
   }});
 
   restoreFromUrl();
