@@ -156,8 +156,8 @@ td.q,th.q{color:var(--accent)}
 .txbadge.sell{background:color-mix(in srgb, var(--gC) 18%, transparent);color:var(--gC)}
 .txform{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
 .txmodebtns{display:flex;gap:6px;margin-bottom:8px}
-.txmode{background:var(--card);color:var(--fg);border:1px solid var(--line);padding:5px 12px;font-size:12.5px;border-radius:7px;cursor:pointer}
-.txmode.active{background:var(--accent);color:var(--onacc,#fff);border-color:var(--accent)}
+.txmode,.edmode{background:var(--card);color:var(--fg);border:1px solid var(--line);padding:5px 12px;font-size:12.5px;border-radius:7px;cursor:pointer}
+.txmode.active,.edmode.active{background:var(--accent);color:var(--onacc,#fff);border-color:var(--accent)}
 .txform .addrow-body{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .txform input,.txform select{padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);font-size:13px}
 .txform input.shares{width:6em}
@@ -944,25 +944,57 @@ td.q,th.q{color:var(--accent)}
     });
   }
 
-  // 既存の取引記録（グローバルインデックス gidx で識別）の修正。種別（買い/売り）は
-  // 記録の意味を変えないため変更不可（株数・単価・日付のみ）。
-  function updateLot(gidx, shares, price, date, src){
+  // 既存の取引記録（グローバルインデックス gidx で識別）の修正。株数・単価・日付に加えて、
+  // 種別（買い/売り）も変更できる（買い・売りの入力ミスの修正用）。種別を変えると、同じ銘柄の
+  // 後ろの売却が保有株数を超えてしまうことがあるため、種別を変えたときだけ、その銘柄の全取引を
+  // 日付順（同日は買いが先）に通して確認する。配当株ツールの同じ機能を、コピーして移植。
+  function setEditType(ef, type){
+    type = (type === 's') ? 's' : 'b';
+    ef.dataset.type = type;
+    ef.querySelector('.eftitle').textContent = (type === 's' ? '売却記録の修正' : '購入記録の修正');
+    ef.querySelectorAll('.edmode').forEach(function(b){ b.classList.toggle('active', b.dataset.mode === type); });
+  }
+  function sellsStayValid(code, gidx, type, shares, date){
+    var list = [];
+    lots.forEach(function(x, i){
+      if (x.code !== code) return;
+      list.push(i === gidx ? {shares:shares, date:date, type:type} : x);
+    });
+    list.sort(function(a, b){
+      if (a.date !== b.date) return a.date < b.date ? -1 : 1;
+      return ((a.type === 's') ? 1 : 0) - ((b.type === 's') ? 1 : 0);
+    });
+    var held = 0;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].type === 's') {
+        if (list[i].shares > held) return false;
+        held -= list[i].shares;
+      } else held += list[i].shares;
+    }
+    return true;
+  }
+  function updateLot(gidx, shares, price, date, src, newType){
     var l = lots[gidx];
     if (!l) return;
+    var type = (newType === 's' || newType === 'b') ? newType : l.type;
     shares = parseFloat(shares);
     date = (date || '').trim();
     if (!(shares > 0)) { alert('株数は1以上の数値で入力してください。'); return; }
-    if (!isDate(date)) { alert((l.type==='s'?'売却日':'購入日') + 'を入力してください。'); return; }
-    if (l.type === 's') {
+    if (!isDate(date)) { alert((type==='s'?'売却日':'購入日') + 'を入力してください。'); return; }
+    if (type === 's') {
       var cur = sharesHeldAt(l.code, date, gidx);
       if (shares > cur) { alert('売却できる保有株がありません（' + date + '時点の保有株数：' + cur.toLocaleString('ja-JP') + '株）。日付をご確認ください。'); return; }
     }
+    if (type !== l.type && !sellsStayValid(l.code, gidx, type, shares, date)) {
+      alert('「' + (type === 's' ? '売り' : '買い') + '」に変更すると、保有株数を超える売却が出てしまいます。ほかの記録の株数・日付・種別もあわせてご確認ください。');
+      return;
+    }
     resolvePrice(l.code, date, price, src).then(function(r){
       if (r.price == null) {
-        alert(priceNotFoundMsg(r, (l.type==='s'?'売却日':'購入日'), date));
+        alert(priceNotFoundMsg(r, (type==='s'?'売却日':'購入日'), date));
         return;
       }
-      lots[gidx] = {code:l.code, shares:shares, price:r.price, date:date, type:l.type};
+      lots[gidx] = {code:l.code, shares:shares, price:r.price, date:date, type:type};
       persist();
       render();
     });
@@ -1284,6 +1316,12 @@ td.q,th.q{color:var(--accent)}
       return;
     }
 
+    var edModeBtn = e.target.closest('.edmode');
+    if (edModeBtn) {
+      setEditType(edModeBtn.closest('.editform'), edModeBtn.dataset.mode);
+      return;
+    }
+
     var modeBtn = e.target.closest('.txmode');
     if (modeBtn) {
       modeBtn.closest('.txmodebtns').querySelectorAll('.txmode').forEach(function(b){ b.classList.remove('active'); });
@@ -1296,7 +1334,7 @@ td.q,th.q{color:var(--accent)}
       var form2 = submitBtn.closest('.txform');
       var code2 = form2.dataset.code;
       var activeMode = form2.querySelector('.txmode.active');
-      var mode = activeMode ? activeMode.dataset.mode : 's';
+      var mode = activeMode ? activeMode.dataset.mode : 'b';
       var sh = form2.querySelector('.shares').value;
       var pr = form2.querySelector('.price').value;
       var dt = form2.querySelector('.date').value;
@@ -1322,7 +1360,7 @@ td.q,th.q{color:var(--accent)}
       edf.querySelector('.efshares').value = l.shares;
       edf.querySelector('.efprice').value = l.price;
       edf.querySelector('.efdate').value = l.date;
-      edf.querySelector('.eftitle').textContent = (l.type === 's' ? '売却記録の修正' : '購入記録の修正');
+      setEditType(edf, l.type);
       edf.hidden = false;
       return;
     }
@@ -1334,7 +1372,7 @@ td.q,th.q{color:var(--accent)}
       var sh2 = edf2.querySelector('.efshares').value;
       var pr2 = edf2.querySelector('.efprice').value;
       var dt2 = edf2.querySelector('.efdate').value;
-      updateLot(gidx2, sh2, pr2, dt2, edf2.querySelector('.pricesrc').value);
+      updateLot(gidx2, sh2, pr2, dt2, edf2.querySelector('.pricesrc').value, edf2.dataset.type);
       return;
     }
 
@@ -1465,12 +1503,12 @@ td.q,th.q{color:var(--accent)}
         var detHidden = openDetail[h.code] ? '' : ' hidden';
         var detail = '<tr class="detail" data-idx="' + idx + '" data-code="' + h.code + '"' + detHidden + '><td colspan="11"><div class="lots' + (lotsOpen[h.code] ? ' lotsopen' : '') + '">'
           + '<b>購入ロット内訳</b>'
-          + '<p class="note" style="margin:4px 0 8px">各記録をクリックすると修正・削除できます。新しい買付・売却は「＋新規買付・売却を記録」ボタンから追加できます。取得費・実現損益は「総平均法に準ずる方法（移動平均法）」で計算した参考値です（国税庁の定める上場株式の取得費計算方法）。正確な損益は証券会社の取引履歴でご確認ください。</p>'
+          + '<p class="note" style="margin:4px 0 8px">各記録をクリックすると修正・削除できます（買い／売りの入力ミスは、修正の画面で切り替えられます）。新しい買付・売却は「＋新規買付・売却を記録」ボタンから追加できます。取得費・実現損益は「総平均法に準ずる方法（移動平均法）」で計算した参考値です（国税庁の定める上場株式の取得費計算方法）。正確な損益は証券会社の取引履歴でご確認ください。</p>'
           + '<button type="button" class="newtx-btn" data-code="' + h.code + '">＋ 新規買付・売却を記録</button>'
           + '<div class="txform" data-code="' + h.code + '" hidden>'
           + '<div class="txmodebtns">'
-          + '<button type="button" class="txmode sell active" data-mode="s">売却を記録</button>'
-          + '<button type="button" class="txmode buy" data-mode="b">買い足しを記録</button>'
+          + '<button type="button" class="txmode buy active" data-mode="b">新規買付を記録</button>'
+          + '<button type="button" class="txmode sell" data-mode="s">売却を記録</button>'
           + '</div>'
           + '<div class="addrow-body">'
           + '<label>株数<input class="shares" type="number" min="1" step="1" placeholder="100"></label>'
@@ -1483,6 +1521,10 @@ td.q,th.q{color:var(--accent)}
           + lotToggle
           + '<div class="editform" data-code="' + h.code + '" hidden>'
           + '<p class="eftitle"></p>'
+          + '<div class="txmodebtns edmodebtns">'
+          + '<button type="button" class="edmode" data-mode="b">買い</button>'
+          + '<button type="button" class="edmode" data-mode="s">売り</button>'
+          + '</div>'
           + '<div class="addrow-body">'
           + '<label>株数<input class="efshares" type="number" min="1" step="1"></label>'
           + '<label>単価（円・空欄で自動取得）<input class="efprice" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
