@@ -10,7 +10,7 @@
  "price_date": "2026-11-02",
  "mcap": 187946696704,
  "sel_score": 78.7,
- "tim_score": 75.7,
+ "tim_score": 91.2,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -20,18 +20,18 @@
   "高"
  ],
  "cov_tim": [
+  5,
   7,
-  7,
-  "高"
+  "中"
  ],
  "groups": {
   "業績": 86.7,
   "財務": 82.2,
   "キャッシュフロー": 60.0,
   "配当の持続力": 77.5,
-  "配当利回りセオリー": 61.7,
+  "配当利回りセオリー": null,
   "利回り水準とChowder": 97.3,
-  "株価バリュエーション": 82.7,
+  "株価バリュエーション": 104.2,
   "金利スプレッド": 68.6
  },
  "div_yield": 2.9211295034079843,
@@ -45,10 +45,10 @@
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 0.9099769999999999,
+ "per_vs_sector": 0.9055638500000001,
  "pbr_vs_sector": 0.7386240333333334,
- "per_band_pos": 0.0,
- "yield_band_pos": 0.21656758261598383,
+ "per_band_pos": null,
+ "yield_band_pos": null,
  "next_earn": "2026-11-09",
  "earn_disc_date": "2026-08-06",
  "buyback_yen": 10006000000.0,
@@ -60,5 +60,5 @@
  "leverage": 2.15,
  "insight_flags": [],
  "kind": "gen",
- "_generated_at": "2026-11-03T00:14:36"
+ "_generated_at": "2026-11-03T22:44:20"
 }
