@@ -824,8 +824,16 @@ def calc_technicals(hist_d):
     return out
 
 
+# 配当性向（純利益ベース）の求め方（配当株の日本株 generate() だけが使う。10年保有側は既定の "yahoo" のまま＝従来どおり）。
+#   "annual" … 直近の決算期の「1株配当 ÷ その期の1株利益」（決算短信・IR BANK と同じ基準）。純損失の期は「赤字」とし、
+#              数値は出さず採点しない。決算期の値が出せない銘柄は「―」（採点から外す）。
+#   "yahoo"  … 従来：Yahoo Finance の payoutRatio（直近12ヶ月ベース）。EPSの取得が不正確な銘柄で
+#              数百〜数千％になることがあった。比較検証用に残している。
+PAYOUT_BASIS = "annual"
+
+
 def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb_10y, div_policies,
-                  drop_in_progress=False):
+                  drop_in_progress=False, payout_basis="yahoo"):
     """全指標を分野別 dict に。各指標は {v, disp, ref, key}（key は rules 参照名）。"""
     info = yd["info"]
     isr, bsr, cfr = yd["is_rows"], yd["bs_rows"], yd["cf_rows"]
@@ -1115,10 +1123,63 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
         if is_num(raw):
             yld_fwd = raw if raw > 1 else raw * 100
 
-    payout_ni = info.get("payoutRatio")
-    payout_ni = payout_ni * 100 if is_num(payout_ni) else None
-    if payout_ni is None and eps and is_num(eps[0]) and is_num(fwd_dps) and eps[0] > 0:
-        payout_ni = fwd_dps / eps[0] * 100
+    # 各期の「1株配当 ÷ その期のEPS」（推移グラフ用の系列。配当性向の行の値にも使う）
+    eps_yr = {y: e for y, e in zip(is_years, eps or []) if is_num(e) and e != 0}
+    payout_series = []
+    # annual基準では、特別配当を含む「実際の年間配当」（yf_fy＝会計年度ごとの合計。決算短信の年間配当と同じ）を使う。
+    # 連続増配用の dps_series は、支払回数が最頻値を超える年を落とすため、年1回払いから年2回払いに変えた会社で
+    # 最近の年がすべて消え、配当性向を計算できなくなる（大和ハウス・西松建設など）。yahoo基準（10年保有側）は従来どおり。
+    pay_dps = [(fy, v) for fy, v, _n in yf_fy] if payout_basis == "annual" else dps_series
+    if payout_basis == "annual" and dps_src.startswith("IR BANK"):
+        pay_dps = dps_series
+    for fy, d in pay_dps:  # [(会計年度, 1株配当)]
+        if payout_basis == "annual":
+            # 会計年度の対応づけ：配当の年度ラベル fy は「その期の開始年」（12月決算だけは期の終わりと同じ年）。
+            # 対応するEPSの年（決算期末の西暦）は、12月決算なら fy、それ以外は fy+1。該当年のEPSが無い場合は
+            # 前後の年のEPSで代用せず、その年は対応づけない（最新期のEPS未公表のときに1年ずれるのを防ぐ）。
+            y = fy if fye_month == 12 else fy + 1
+            y = y if y in eps_yr else None
+        else:
+            y = fy + 1 if (fy + 1) in eps_yr else (fy if fy in eps_yr else None)
+        if y is not None and is_num(d):
+            payout_series.append((y, d / eps_yr[y] * 100))
+    payout_state = None    # "赤字"＝直近の決算期が純損失。None＝値あり、または算出できない
+    payout_fy = None       # 値の決算期（例：2026年3月期）
+    payout_why = None      # 算出できなかった理由（表示用）
+    if payout_basis == "annual":
+        payout_ni = None
+        if payout_series:
+            y_last, p_last = payout_series[-1]
+            payout_fy = f"{y_last}年{fye_month}月期"
+            e_last, e_prev = eps_yr.get(y_last), eps_yr.get(y_last - 1)
+            # Yahooの年間EPSの信頼性チェック（誤った値を出さない）
+            ni_c = row(isr, "Net Income Common Stockholders", "Net Income")
+            sh_c = row(isr, "Basic Average Shares", "Diluted Average Shares")
+            e_calc = None
+            if y_last in is_years and ni_c and sh_c:
+                ix = is_years.index(y_last)
+                if ix < len(ni_c) and ix < len(sh_c) and is_num(ni_c[ix]) and is_num(sh_c[ix]) and sh_c[ix] > 0:
+                    e_calc = ni_c[ix] / sh_c[ix]
+            if is_num(e_last) and is_num(e_prev) and e_last == e_prev:
+                # 前の年とまったく同じ値＝最新期が未更新（前期の値が入っている）疑い
+                payout_fy = None
+                payout_why = "Yahooの1株利益が前の年と同じ値で、更新遅れの疑いがあるため"
+            elif is_num(e_last) and is_num(e_calc) and ((e_last > 0) != (e_calc > 0) or (e_last > 0 and abs(e_calc / e_last - 1) > 0.20)):
+                # Yahooの1株利益が、同じ表の「純利益÷平均株式数」と、符号が逆、または（黒字のとき）2割以上違う
+                # （株式分割の反映のずれ、訂正前の値のままなど）。どちらも赤字なら、金額がずれていても赤字として扱う。
+                payout_fy = None
+                payout_why = "Yahooの1株利益が、純利益÷株式数と大きく違い信頼できないため"
+            elif is_num(p_last) and p_last < 0:
+                payout_state = "赤字"
+            elif is_num(p_last):
+                payout_ni = p_last
+        else:
+            payout_why = "決算期ごとの1株配当と1株利益を対応づけられなかったため"
+    else:
+        payout_ni = info.get("payoutRatio")
+        payout_ni = payout_ni * 100 if is_num(payout_ni) else None
+        if payout_ni is None and eps and is_num(eps[0]) and is_num(fwd_dps) and eps[0] > 0:
+            payout_ni = fwd_dps / eps[0] * 100
     roe = info.get("returnOnEquity")
     roe = roe * 100 if is_num(roe) else None
 
@@ -1172,18 +1233,25 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
     pn_txt = f"業種目安 {pn[0]}〜{pn[1]}%" if pn else "―"
     if sec_avg.get("payout_note"):
         pn_txt += f"（{sec_avg['payout_note']}）"
-    # 推移は「その期の1株配当 ÷ その期のEPS」で統一（行の値＝yfinance予想/TTMと
-    # 方法を合わせる。CFの配当支払額÷純利益だと前期分が混ざり景気敏感株で歪む）
-    eps_yr = {y: e for y, e in zip(is_years, eps or []) if is_num(e) and e != 0}
-    payout_series = []
-    for fy, d in dps_series:  # dps_series = [(会計年度, 1株配当)]
-        y = fy + 1 if (fy + 1) in eps_yr else (fy if fy in eps_yr else None)
-        if y is not None and is_num(d):
-            payout_series.append((y, d / eps_yr[y] * 100))
-    M["配当"].append({"name": "配当性向（純利益ベース）", "v": payout_ni, "disp": fmt_pct(payout_ni),
-                      "ref": pn_txt + "／80%超は警戒。推移＝各期の1株配当÷EPS（行の値は予想/直近12ヶ月ベース）",
+    # 推移は「その期の1株配当 ÷ その期のEPS」（CFの配当支払額÷純利益だと前期分が混ざり景気敏感株で歪む）。
+    # annual基準では、行の値も同じ計算の直近の決算期（上で算出済み）。
+    if payout_basis == "annual":
+        if payout_state == "赤字":
+            p_disp = "赤字"
+            p_ref = pn_txt + f"／直近の決算期（{payout_fy}）は純損失のため算出せず、採点もしません。推移＝各期の1株配当÷EPS"
+        elif is_num(payout_ni):
+            p_disp = fmt_pct(payout_ni)
+            p_ref = pn_txt + f"／80%超は警戒。値＝直近の決算期（{payout_fy}）の1株配当÷1株利益。推移＝各期の同じ計算"
+        else:
+            p_disp = "―"
+            p_ref = pn_txt + f"／{payout_why or '決算期ごとの1株配当と1株利益から算出できなかったため'}、算出せず採点から外しています"
+    else:
+        p_disp = fmt_pct(payout_ni)
+        p_ref = pn_txt + "／80%超は警戒。推移＝各期の1株配当÷EPS（行の値は予想/直近12ヶ月ベース）"
+    M["配当"].append({"name": "配当性向（純利益ベース）", "v": payout_ni, "disp": p_disp,
+                      "ref": p_ref,
                       "key": "payout_ni", "series": payout_series, "series_kind": "pct",
-                      "series_current": payout_ni})
+                      "series_current": payout_ni, "state": payout_state, "fy": payout_fy, "why": payout_why})
     M["配当"].append({"name": "ROE（配当の原資の効率）", "v": roe, "disp": fmt_pct(roe),
                       "ref": f"業種中央値 {fmt_pct(sec_avg.get('roe'))}／10%以上で優良" if sec_avg.get("roe") is not None else "10%以上で優良", "key": "roe"})
 
@@ -2664,7 +2732,7 @@ METRIC_HELP = {
     "streak_up": {"what": "連続で増配してきた年数。10年以上で優良、20年超で王道クラス。景気に関係なく増やせる証拠。", "unit": "年"},
     "streak_flat": {"what": "減配せずに配当を維持・増加してきた年数＝直近の減配からの経過年数。危機でも下げなかったかを見る。分割調整のゆらぎも「減配」として途切れるため、実際の無減配記録より短く出ることがある（過小評価側）。過去に一度減配していても、その経過年数が長ければ得点は上がっていく設計＝過去の減配を恒久的な減点にはしない（詳しくは「減配履歴」参照）。", "unit": "年"},
     "div_policy": {"what": "会社が『累進配当（減配しない）』や『DOE（自己資本の一定％を配当）』を配当方針として公式に掲げているか。掲げていれば減配耐性が高い。手管理リスト（2026-09時点）で、宣言ありなら加点、宣言なしは減点しない（連続増配の実績で判断する）。連続増配20年超の銘柄は連続増配年数で既に評価されるため、公式宣言のある銘柄だけを対象にしている。", "unit": ""},
-    "payout_ni": {"what": "純利益のうち配当に回す割合。低め〜中位だと不況でも減配せずに済む余裕がある。高すぎると次の減益で減配リスク。", "unit": "%"},
+    "payout_ni": {"what": "純利益のうち配当に回す割合（直近の決算期の1株配当÷1株利益。決算短信・IR BANKと同じ基準）。低め〜中位だと不況でも減配せずに済む余裕がある。高すぎると次の減益で減配リスク。純損失（赤字）の期は計算せず「赤字」と表示し、この項目は採点しない。", "unit": "%"},
     "roe": {"what": "自己資本をどれだけ効率よく利益に変えているか。10％以上で優良。低いと増配の元手が細い。", "unit": "%"},
     "roic_vs_sector": {"what": "投下資本（有利子負債＋自己資本−現金）をどれだけ利益に変えているかを、同じ業種の中央値と比べた倍率。ROEはレバレッジで水増しされるが、ROICは借金に頼らない『事業そのものの稼ぐ力』を映す。1.0＝業種平均並み、1.1超で優良。", "unit": "倍"},
     "per_band_pos": {"what": "今のPERが、その銘柄自身の過去数年のレンジの中でどの位置にあるか。下限（＝低PER）に近いほど、その銘柄の物差しで割安。業種平均比（PER対業種）と違い、成長性の高い銘柄でも『自分史比で安いか』を見られる。", "unit": ""},
@@ -2828,6 +2896,9 @@ def why_block_html(item, rule, jp_sector, is_simple, dom):
         return f"{disp} → 減配耐性が高い方針なので加点（{score:.0f}点／◎）。会社の最新開示で要確認。"
     if not rule:
         return "参考値のため判定していません。"
+    if key == "payout_ni" and item.get("state") == "赤字":
+        return (f"直近の決算期（{item.get('fy') or ''}）は純損失（赤字）のため、配当性向は計算できません。"
+                "この項目は採点せず、ほかの指標で配当の持続力を見ています（⚠赤字）。")
     if v is None or score is None:
         return "この指標の値を取得できなかったため判定していません（―）。"
     pt = f"{score:.0f}点"
@@ -3348,7 +3419,8 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
     try:
         M, flags, ctx = build_metrics(yd, irbank, sec_avg, is_simple, jp_sector,
                                       rate_sensitive, jgb_10y, div_policies,
-                                      drop_in_progress=True)   # 配当側のみ。10年保有側は既定(False)のまま
+                                      drop_in_progress=True,   # 配当側のみ。10年保有側は既定(False)のまま
+                                      payout_basis=PAYOUT_BASIS)   # 同上（配当性向の求め方）
         ctx["hist_m"] = yd["hist_m"]
         ctx["jgb_src"] = jgb_src
         ctx["earn"] = build_earnings(yd, yd["price"])
@@ -3473,7 +3545,9 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
         "cov_tim": [coverage["買い時"][0], coverage["買い時"][1], tlab_cov],
         "groups": {g: (round(v, 1) if is_num(v) else None) for g, v in groups.items()},
         "div_yield": gv("div_yield"), "streak_up": gv("streak_up"), "streak_flat": gv("streak_flat"),
-        "payout_ni": gv("payout_ni"), "roe": gv("roe"), "div_policy": gv("div_policy"),
+        "payout_ni": gv("payout_ni"), "payout_state": (rowmap.get("payout_ni") or {}).get("state"),
+        "payout_fy": (rowmap.get("payout_ni") or {}).get("fy"),
+        "roe": gv("roe"), "div_policy": gv("div_policy"),
         "dgr5": gv("dgr5"), "chowder": gv("chowder"), "ocf_positive": gv("ocf_positive"),
         "fcf_positive": gv("fcf_positive"), "fcf_payout": gv("fcf_payout"),
         "per_vs_sector": gv("per_vs_sector"), "pbr_vs_sector": gv("pbr_vs_sector"),

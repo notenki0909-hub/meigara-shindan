@@ -152,6 +152,9 @@ def compute(yd, M, is_simple, is_reit, sel_score, tim_score, info, sec_med=None,
     pn = _m_val(M, "配当", "payout_ni")
     if _num(pn) and pn > 100:
         flags.append({"k": "payout", "t": f"配当性向が100%超（{pn:.0f}%：純利益を上回る配当）"})
+    pitem = next((x for x in (M.get("配当") or []) if x.get("key") == "payout_ni"), None)
+    if pitem and pitem.get("state") == "赤字":
+        flags.append({"k": "payout_loss", "t": f"直近の決算期（{pitem.get('fy') or ''}）は純損失（赤字）のため、配当性向は算出していません（配当は利益で賄えていません）"})
     # バリュートラップ注意：買い時が高い（割安に見える）のに質が低め、または PBR1倍割れかつROE5%未満
     pbr = (info or {}).get("priceToBook")
     roe_for_trap = roe if _num(roe) else _m_val(M, "配当", "roe")
