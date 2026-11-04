@@ -73,7 +73,14 @@ def load_universe_codes():
     if not os.path.isfile(UNIV):
         sys.exit(f"{UNIV} がありません。先に build_universe.py でユニバースを作ってください。")
     j = json.load(open(UNIV, encoding="utf-8"))
-    return {c["code"]: c["name"] for c in j.get("codes", [])}
+    uni = {c["code"]: c["name"] for c in j.get("codes", [])}
+    try:   # 日株講座Gp（kouza_pins.json）の銘柄も、母集団に入っていなくても決算短信を検知する
+        import kouza
+        for c, n in kouza.pinned_pairs():
+            uni.setdefault(c, n or "")
+    except Exception:
+        pass
+    return uni
 
 
 def load_json_or(path, default):
@@ -105,13 +112,13 @@ def poll_once(date_str, uni=None):
             skip_tracked += 1
             continue  # 既に監視中（同日に複数開示があっても最初の1件で足りる）
         pending[code] = {
-            "code": code, "name": uni.get(code, it["name"]),
+            "code": code, "name": (uni.get(code) or it["name"]),
             "detected_at": now.isoformat(timespec="seconds"),
             "pubdate": it["pubdate"], "title": it["title"], "doc_url": it["doc_url"],
             "status": "pending", "attempts": 0,
             "next_retry_at": (now + dt.timedelta(hours=6)).isoformat(timespec="seconds"),
         }
-        detect_log.append({"code": code, "name": uni.get(code, it["name"]),
+        detect_log.append({"code": code, "name": (uni.get(code) or it["name"]),
                            "detected_at": now.isoformat(timespec="seconds"),
                            "title": it["title"]})
         new_count += 1

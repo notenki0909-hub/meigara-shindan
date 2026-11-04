@@ -1745,6 +1745,8 @@ details.box[open]>summary{margin-bottom:8px}
         (g.stocks || []).forEach(function(s){ byCode[String(s.code)] = s; });
       });
       (j.retired || []).forEach(function(s){ byCode[String(s.code)] = s; });
+      // 日株講座Gpのうち母集団に入っていない銘柄（条件外）も、名前・価格・スコアを引けるようにする
+      ((j.kouza && j.kouza.extra) || []).forEach(function(s){ byCode[String(s.code)] = s; });
 
       renderAddCodes(byCode);
       persistPendingAdd();

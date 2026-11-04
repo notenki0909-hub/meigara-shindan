@@ -93,6 +93,8 @@ def main():
     ap.add_argument("--limit", type=int, default=0, help="先頭N件だけ（0=全部）")
     ap.add_argument("--with-retired", action="store_true",
                     help="母集団から外れた銘柄のうち、更新継続期限内のものも対象に足す（div_universe.py。ポートフォリオ等で保有している人のため）")
+    ap.add_argument("--with-kouza", action="store_true",
+                    help="日株講座Gp（kouza_pins.json）の銘柄も対象に足す。母集団のスクリーニングに関係なく診断し、個別レポートを作る")
     ap.add_argument("--only-stale", action="store_true", help="--hours より古いサマリだけ再生成")
     ap.add_argument("--hours", type=float, default=20)
     ap.add_argument("--jgb", type=float, default=None, help="10年国債利回り(%)。省略時は同梱値")
@@ -112,6 +114,12 @@ def main():
         retired = [(c, n) for c, n in div_universe.active_retired_codes("jp") if c not in have]
         print(f"母集団から外れた銘柄（更新継続中）：{len(retired)}件を追加")
         codes = codes + retired
+    if args.with_kouza:
+        import kouza
+        have = {c for c, _ in codes}
+        pins = [(c, n) for c, n in kouza.pinned_pairs() if c not in have]
+        print(f"日株講座Gp：母集団に入っていない銘柄 {len(pins)}件を追加")
+        codes = codes + pins
     if args.only_stale:
         codes = [(c, n) for c, n in codes if is_stale(c, args.hours)]
     if args.limit:

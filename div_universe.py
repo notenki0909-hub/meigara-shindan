@@ -289,18 +289,33 @@ def cmd_record(args, today=None):
 
 
 # ---------------------------------------------------------------- 他スクリプトが使う部品
+def _pinned(market):
+    """日株講座Gp（kouza_pins.json）の銘柄。母集団から外れても「外れた銘柄」「更新終了」にはしない（講座Gpとして更新を続ける）。"""
+    if market != "jp":
+        return set()
+    try:
+        import kouza
+        return kouza.pinned_set()
+    except Exception:
+        return set()
+
+
 def active_retired_codes(market, today=None):
     """夜間更新（batch）の対象に足す、更新継続中（期限内）の外れた銘柄 → [(code, name)]"""
     today = (today or today_jst()).isoformat()
+    pins = _pinned(market)
     return [(c, v.get("name") or None) for c, v in sorted((load_history(market).get("retired") or {}).items())
-            if v.get("until", "") >= today]
+            if v.get("until", "") >= today and c not in pins]
 
 
 def retired_info(market, today=None):
     """ランキング用：{code: {removed_on, until, expired, reason, name, sector}}（更新終了後の記録も含む）"""
     today = (today or today_jst()).isoformat()
+    pins = _pinned(market)
     out = {}
     for c, v in (load_history(market).get("retired") or {}).items():
+        if c in pins:
+            continue
         out[c] = {**v, "expired": v.get("until", "") < today}
     return out
 

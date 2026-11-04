@@ -22,6 +22,7 @@ import statistics as st
 import analyze
 import div_insight
 import div_universe
+import kouza
 
 HERE = os.path.dirname(__file__)
 SITE = os.path.join(HERE, "site")
@@ -192,6 +193,14 @@ def main():
             uni_ids = None
     ret_info = div_universe.retired_info("jp")
     retired_rows = []
+    # 日株講座Gp（kouza_pins.json）：母集団のスクリーニングに関係なく載せる銘柄。母集団に入っていない銘柄は
+    # 業種別の表・全体上位50・業種の中央値・軍分けには入れず（既存ランキングに影響させない）、kz_extra として
+    # ranking.json の kouza.extra に別に出し、講座Gpの欄にだけ「条件外」の印つきで載せる。
+    kz = kouza.load()
+    kz_pins = {c for lv in kz["levels"] for c in lv["add"]}
+    kz_names = kouza.names()
+    kz_rows = {}     # 講座Gpの銘柄（母集団の内外とも） code_key → 行
+    kz_extra = []    # 母集団に入っていない講座Gpの銘柄の行
 
     rows = []
     for p in sorted(glob.glob(os.path.join(SUM, "*.json"))):
@@ -226,11 +235,20 @@ def main():
         }
         code_key = div_universe._norm("jp", os.path.basename(p)[:-5])   # 識別はファイル名（summaryの"code"は255Aが255になる等の既存の欠けがあるため）
         if uni_ids is not None and code_key not in uni_ids:
+            if code_key in kz_pins:
+                row.update({"tier": "―", "dir": "→", "kz_out": True})
+                if kz_names.get(code_key):
+                    row["name"] = kz_names[code_key]      # 日本語名（診断済みのsummaryに英語名が入っている場合の保険）
+                kz_extra.append(row)
+                kz_rows[code_key] = row
+                continue
             if code_key in ret_info:
                 row.update({"tier": "―", "dir": "→", "retired": ret_info[code_key]})
                 retired_rows.append(row)
             continue
         rows.append(row)
+        if code_key in kz_pins:
+            kz_rows[code_key] = row
 
     # 業種ごとのROE・ROA中央値（個別レポートの「業種との比較」用。表示専用。n>=5の業種のみ）。内容が変わったときだけ書く。
     try:
@@ -277,6 +295,18 @@ def main():
         [r for r in rows if isinstance(r["sel"], (int, float))],
         key=lambda r: -r["sel"])[:50]
 
+    kouza_out = None
+    if any(lv["cum"] for lv in kz["levels"]):
+        kouza_out = {
+            "name": kz["name"],
+            "levels": [{
+                "name": lv["name"], "add": len(lv["add"]),
+                "items": [({"code": kz_rows[c]["code"]} if c in kz_rows else {"missing": c, "name": kz["names"].get(c, "")})
+                          for c in lv["cum"]],
+            } for lv in kz["levels"]],
+            "extra": kz_extra,
+        }
+
     out = {
         "generated_at": dt.datetime.now().isoformat(timespec="seconds"),
         "screen": {k: scfg.get(k) for k in
@@ -285,7 +315,7 @@ def main():
                    "1軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "1軍"),
                    "2軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "2軍"),
                    "3軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "3軍")},
-        "groups": groups_out, "global_top": global_top, "retired": retired_rows,
+        "groups": groups_out, "global_top": global_top, "retired": retired_rows, "kouza": kouza_out,
     }
     # generated_at は毎回変わるので、それをマスクした上でHTML本文が前回と同じなら
     # 書き込みをスキップする（でないと earnings-retry/nightly が「何も変わっていない」
@@ -777,14 +807,16 @@ def render_index(out):
                     '</tr></thead><tbody>' + "".join(trs) + '</tbody></table></section>')
 
     grade_by_group = {g["name"]: g["grade"] for g in out["groups"]}
-    gt = "".join(
+
+    def top_row(s, no, badge=""):
+        return (
         f'<tr class="r" data-tier="{s.get("tier","―")}" {_filter_attrs(s, grade_by_group.get(s["group"], "―"))}>'
         f'<td class="wl"><input type="checkbox" class="wlc" data-code="{s["code"]}" aria-label="ウォッチリストに追加"></td>'
         f'<td class="pf"><input type="checkbox" class="pfc" data-code="{s["code"]}" aria-label="ポートフォリオに追加"></td>'
-        f'<td class="n">{i+1}</td>'
+        f'<td class="n">{no}</td>'
         f'<td class="tier">{s.get("tier","―")}</td>'
         f'<td class="code"><a href="reports/{s["code"]}.html">{s["code"]}</a></td>'
-        f'<td class="nm">{html.escape(s["name"])}{div_universe.newbadge(s["code"], nm_new, until_iso)}{_flagmark(s)}</td>'
+        f'<td class="nm">{html.escape(s["name"])}{div_universe.newbadge(s["code"], nm_new, until_iso)}{_flagmark(s)}{badge}</td>'
         f'<td class="sec">{html.escape(s["group"])}</td>'
         f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"])}</td>'
         f'{_chg_row_cells(s.get("chg"))}'
@@ -793,8 +825,58 @@ def render_index(out):
         f'<td class="n" data-v="{_v(s["yield"])}">{_num(s["yield"],2)}%</td>'
         f'<td class="sk" data-v="{_v(_streak_val(s["streak_up"], s["streak_flat"]))}">{_streak(s["streak_up"], s["streak_flat"])}</td>'
         f'{_roe_roa_cells(s)}'
-        f'<td class="cv">{s["cov_sel"]}</td></tr>'
-        for i, s in enumerate(out["global_top"]))
+        f'<td class="cv">{s["cov_sel"]}</td></tr>')
+
+    gt = "".join(top_row(s, i + 1) for i, s in enumerate(out["global_top"]))
+
+    # 日株講座Gpの欄（全体上位50の下。折りたたみ）。各段階は下の段階の銘柄をすべて含む積み上げ。
+    kouzabox = ""
+    kzd = out.get("kouza")
+    if kzd:
+        kz_extra_by = {x["code"]: x for x in kzd.get("extra") or []}
+        kz_thead = ('<thead><tr><th class="wl" title="ウォッチリストに追加する銘柄にチェック">☆</th>'
+                    '<th class="pf" title="ポートフォリオに追加する銘柄にチェック">💼</th><th class="n">#</th>'
+                    '<th class="hdr" data-term="tier">軍</th><th>コード</th><th>銘柄</th><th>グループ</th>'
+                    '<th class="n"><span class="hdr" data-term="price">終値</span><span class="sortbtn">▼</span></th>'
+                    + _chg_header_cells() +
+                    '<th class="n"><span class="hdr" data-term="sel">選定</span><span class="sortbtn">▼</span></th>'
+                    '<th class="n"><span class="hdr" data-term="tim">買い時</span><span class="sortbtn">▼</span></th>'
+                    '<th class="n"><span class="hdr" data-term="yield">利回り</span><span class="sortbtn">▼</span></th>'
+                    '<th><span class="hdr" data-term="streak">増配</span><span class="sortbtn">▼</span></th>'
+                    '<th class="n" title="ROE（自己資本利益率）。クリックで説明"><span class="hdr" data-term="roe">ROE</span><span class="sortbtn">▼</span></th>'
+                    '<th class="n" title="ROA（総資産利益率・決算書ベース）。採点には使わない。クリックで説明"><span class="hdr" data-term="roa">ROA</span><span class="sortbtn">▼</span></th>'
+                    '<th class="hdr" data-term="cov">カバレッジ</th></tr></thead>')
+        kz_out_badge = ('<span class="kzout" title="母集団のスクリーニング条件（利回り・時価総額・減配なし）に合わない銘柄です。'
+                        '講座Gpとして固定で載せています">条件外</span>')
+        kz_lvs = []
+        for lv in kzd["levels"]:
+            if not lv["items"]:
+                continue
+            trs = []
+            for i, it in enumerate(lv["items"]):
+                if "code" in it:
+                    st = by_code_all.get(it["code"]) or kz_extra_by.get(it["code"])
+                    if st is not None:
+                        trs.append(top_row(st, i + 1, kz_out_badge if st.get("kz_out") else ""))
+                        continue
+                    label = it["code"]
+                else:
+                    label = f'{it["missing"]} {html.escape(it.get("name") or "")}'
+                trs.append(f'<tr class="kzwait"><td colspan="23">{label}　診断データを取得中です（次回の夜間更新で表示されます）</td></tr>')
+            n_all = len(lv["items"])
+            kz_lvs.append(
+                f'<div class="kzlv"><h3>{html.escape(lv["name"])} <span class="gmeta">{n_all}銘柄'
+                f'（下の段階 {n_all - lv["add"]}銘柄 ＋ この段階で追加 {lv["add"]}銘柄）</span></h3>'
+                f'<table>{kz_thead}<tbody>{"".join(trs)}</tbody></table></div>')
+        if kz_lvs:
+            n_total = len(kzd["levels"][-1]["items"]) if kzd["levels"] else 0
+            kouzabox = (
+                f'<details id="kouzabox"><summary>{html.escape(kzd.get("name") or "日株講座Gp")}'
+                f'（講座で使う銘柄・全{n_total}銘柄）</summary>'
+                '<p class="kznote">講座で使う銘柄を、段階ごとにまとめた欄です。上の段階ほど銘柄が増え、各段階は下の段階の銘柄をすべて含みます。'
+                '「条件外」の印がついた銘柄は、母集団のスクリーニング条件に合わないため、業種別の表・全体上位50・業種の中央値・軍分けには'
+                '入れていません（スコアや個別レポートは、ほかの銘柄と同じように見られます）。</p>'
+                + "".join(kz_lvs) + '</details>')
 
     return f"""<!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -900,7 +982,13 @@ details{{margin:14px 0}}summary{{cursor:pointer;font-weight:600;font-size:13px}}
 .fempty{{padding:20px;text-align:center;color:var(--muted);font-size:13px}}
 .fempty[hidden]{{display:none}}
 tr[hidden]{{display:none}}
-section.grp[hidden],details[hidden]{{display:none}}
+section.grp[hidden],details[hidden],.kzlv[hidden]{{display:none}}
+#kouzabox>summary{{font-size:14px;font-weight:700}}
+#kouzabox .kznote{{font-size:12.5px;color:var(--muted);margin:6px 0 10px}}
+#kouzabox .kzlv{{margin:14px 0 18px}}
+#kouzabox .kzlv h3{{font-size:14px;margin:0 0 6px}}
+.kzout{{display:inline-block;margin-left:6px;padding:0 6px;border:1px solid var(--line);border-radius:9px;font-size:10.5px;font-weight:400;color:var(--muted);white-space:nowrap;vertical-align:1px}}
+tr.kzwait td{{color:var(--muted);font-size:12.5px;padding:8px}}
 .sumbtn{{font:inherit;background:var(--card);border:1px solid var(--line);border-radius:8px;
   padding:8px 14px;min-width:78px;text-align:center;cursor:pointer;color:inherit}}
 .sumbtn:hover{{border-color:var(--accent)}}
@@ -1067,6 +1155,7 @@ body.wlon{{padding-bottom:60px}}
 <th><span class="hdr" data-term="streak">増配</span><span class="sortbtn">▼</span></th>
 <th class="n" title="ROE（自己資本利益率）。クリックで説明"><span class="hdr" data-term="roe">ROE</span><span class="sortbtn">▼</span></th><th class="n" title="ROA（総資産利益率・決算書ベース）。採点には使わない。クリックで説明"><span class="hdr" data-term="roa">ROA</span><span class="sortbtn">▼</span></th><th class="hdr" data-term="cov">カバレッジ</th></tr></thead><tbody>{gt}</tbody></table>
 </details>
+{kouzabox}
 {"".join(secs)}
 <div class="disc">{DISC}</div>
 <div id="wlbar" hidden>
@@ -1258,6 +1347,11 @@ body.wlon{{padding-bottom:60px}}
     if (topbox) {{
       var anyTop = topbox.querySelector('tr.r:not([hidden])');
       topbox.hidden = filtering && !anyTop;
+    }}
+    var kzbox = document.getElementById('kouzabox');
+    if (kzbox) {{
+      kzbox.querySelectorAll('.kzlv').forEach(function(d){{ d.hidden = filtering && !d.querySelector('tr.r:not([hidden])'); }});
+      kzbox.hidden = filtering && !kzbox.querySelector('tr.r:not([hidden])');
     }}
     hit.textContent = filtering ? (total + '件ヒット') : '';
     fhit.textContent = pActive ? (total + '件該当') : '';

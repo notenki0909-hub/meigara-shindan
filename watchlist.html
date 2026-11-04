@@ -808,6 +808,8 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
         (g.stocks || []).forEach(function(s){ m[codeKey(s.code)] = s; });
       });
       (j.retired || []).forEach(function(s){ m[codeKey(s.code)] = s; });
+      // 日株講座Gpのうち母集団に入っていない銘柄（条件外）も、名前・価格・スコアを引けるようにする
+      ((j.kouza && j.kouza.extra) || []).forEach(function(s){ m[codeKey(s.code)] = s; });
       byCode = m;
       loading = false;
       save();
