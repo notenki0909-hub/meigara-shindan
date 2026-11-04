@@ -548,6 +548,81 @@ def clean_dps_series(yf_fy):
     return [(fy, v) for fy, v, n in yf_fy if n <= mode]
 
 
+def clean_dps_series_persistent(yf_fy, notes=None, override=None):
+    """clean_dps_series の改良版（配当株の日本株の generate() だけが使う）。支払回数が最頻値を超える年を、
+    ①前後の年も同じ回数以上なら「払い方が変わった（年1回→年2回など）」とみなして残す、
+    ②孤立していても、前年の1.3倍以内なら（回数が増えただけで金額は急増していない）残す、
+    ③それ以外（孤立していて金額が急増＝記念配当・特別配当の疑い）は、従来どおり落とす。
+    従来の clean_dps_series は、払い方を変えた会社の最近の年をすべて落とし、連続増配などが短く出ていた。
+    ②は判定に迷う年なので、③の落とした年とあわせて notes（[{"fy","kind","n","v"}]）に記録する（個別レポートの注記用）。
+    kind: "kept_isolated"＝②で残した／"dropped_special"＝③で落とした／"forced_regular"・"forced_special"＝手動の上書き。
+    override（dps_overrides.json のその銘柄の分）: {"special":[落とす年度],"regular":[残す年度]}。IR BANKの備考欄・
+    決算短信で確認した誤判定だけをここで直す。返り値: [(fy, dps)]（古い順）。"""
+    if not yf_fy:
+        return []
+    ov_sp = set((override or {}).get("special") or [])
+    ov_rg = set((override or {}).get("regular") or [])
+    counts = [n for _, _, n in yf_fy]
+    mode = max(set(counts), key=counts.count)
+    out = []
+    for i, (fy, v, n) in enumerate(yf_fy):
+        def note(kind):
+            if notes is not None:
+                notes.append({"fy": fy, "kind": kind, "n": n, "v": v, "mode": mode})
+        if fy in ov_sp:
+            note("forced_special")
+            continue
+        if fy in ov_rg:
+            note("forced_regular")
+            out.append((fy, v))
+            continue
+        if n <= mode:
+            out.append((fy, v))
+            continue
+        pn = yf_fy[i - 1][2] if i > 0 else None
+        nn = yf_fy[i + 1][2] if i + 1 < len(yf_fy) else None
+        if (pn is not None and pn >= n) or (nn is not None and nn >= n):
+            out.append((fy, v))
+            continue
+        pv = yf_fy[i - 1][1] if i > 0 else None
+        if pv and v <= pv * 1.3:
+            note("kept_isolated")
+            out.append((fy, v))
+        else:
+            note("dropped_special")
+    return out
+
+
+def load_dps_overrides():
+    """dps_overrides.json（銘柄ごとの手動上書き）。無い・壊れているときは空。"""
+    try:
+        d = load_json("dps_overrides.json")
+    except Exception:
+        return {}
+    return {k: v for k, v in d.items() if not k.startswith("_") and isinstance(v, dict)}
+
+
+def dps_notes_text(notes, last_fy):
+    """clean_dps_series_persistent の notes から、個別レポート用の注記（直近12年度ぶん）を作る。無ければ None。"""
+    items = [x for x in (notes or []) if x["fy"] >= last_fy - 11]
+    if not items:
+        return None
+    parts = []
+    for x in items:
+        y, n, v = x["fy"], x["n"], x["v"]
+        if x["kind"] == "kept_isolated":
+            parts.append(f"{y}年度：支払いが{n}回に増えました（通常{x['mode']}回）。払い方の変更とみなして計算に含めています"
+                         "（普通配当に記念配当などが加わっている場合は、連続増配が実際より長く出ることがあります）")
+        elif x["kind"] == "dropped_special":
+            parts.append(f"{y}年度：支払いが{n}回で金額が急増（{_fmt_dps(v)}円）。記念配当・特別配当の可能性があるため、"
+                         "連続増配などの計算から除いています")
+        elif x["kind"] == "forced_special":
+            parts.append(f"{y}年度：記念配当・特別配当を含むと確認したため、連続増配などの計算から除いています（手動確認）")
+        elif x["kind"] == "forced_regular":
+            parts.append(f"{y}年度：普通配当と確認したため、連続増配などの計算に含めています（手動確認）")
+    return "／".join(parts)
+
+
 def _fmt_dps(v, usd=False):
     t = f"{v:,.2f}".rstrip("0").rstrip(".")
     return f"${t}" if usd else t
@@ -831,9 +906,14 @@ def calc_technicals(hist_d):
 #              数百〜数千％になることがあった。比較検証用に残している。
 PAYOUT_BASIS = "annual"
 
+# 連続増配などに使う年別配当の「支払回数での整理」の方式（配当株の日本株 generate() だけが使う。10年保有側・米国株は既定の "legacy"＝従来どおり）。
+#   "persistent" … clean_dps_series_persistent（払い方の変更は残し、特殊配当の疑いだけ落とす）
+#   "legacy"     … clean_dps_series（比較検証用に残している）
+DPS_CLEAN = "persistent"
+
 
 def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb_10y, div_policies,
-                  drop_in_progress=False, payout_basis="yahoo"):
+                  drop_in_progress=False, payout_basis="yahoo", dps_clean="legacy"):
     """全指標を分野別 dict に。各指標は {v, disp, ref, key}（key は rules 参照名）。"""
     info = yd["info"]
     isr, bsr, cfr = yd["is_rows"], yd["bs_rows"], yd["cf_rows"]
@@ -1085,7 +1165,12 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
         except Exception:
             fye_month = 3
     yf_fy = annual_dps_from_divs(yd["divs"], fye_month, drop_in_progress)
-    dps_series = clean_dps_series(yf_fy)  # 支払回数が異常な年（特殊配当）を除外
+    # 支払回数が異常な年（特殊配当）を除外。dps_clean="persistent" は払い方の変更（年1回→年2回など）を残す改良版
+    dps_notes = []
+    if dps_clean == "persistent":
+        dps_series = clean_dps_series_persistent(yf_fy, dps_notes, load_dps_overrides().get(yd["code"]))
+    else:
+        dps_series = clean_dps_series(yf_fy)
     dps_src = "yfinance（会計年度換算）"
     if irbank and len(irbank) >= len(dps_series):
         dps_series = irbank
@@ -1337,6 +1422,12 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
             cut_disp = f"最終減配 {last_cut_fy}年度（{yrs_txt}前）。回復途上"
         else:
             cut_disp = f"最終減配 {last_cut_fy}年度（{yrs_txt}前）。直近の減配歴が新しく要注意"
+    _dn = dps_notes_text(dps_notes, yf_fy[-1][0]) if (dps_notes and yf_fy) else None
+    if _dn:
+        M["参考"].append({"name": "配当の年別データの整理（注記）", "v": None, "disp": _dn,
+                          "ref": "支払い回数が通常より多い年の扱い。払い方の変更（年1回→年2回など）は残し、金額が急増した年は特別配当の疑いとして除く。"
+                                 "迷う年だけを表示しています（採点には直接影響しません。連続増配などの数字に反映されます）",
+                          "key": None})
     M["参考"].append({"name": "減配履歴", "v": None, "disp": cut_disp,
                       "ref": "「連続非減配年数」の裏側にある事実。過去に減配があってもスコアを恒久的には"
                              "下げない：その後の非減配年数が長い（目安10年以上）か、累進配当・DOE宣言が"
@@ -3473,7 +3564,8 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
         M, flags, ctx = build_metrics(yd, irbank, sec_avg, is_simple, jp_sector,
                                       rate_sensitive, jgb_10y, div_policies,
                                       drop_in_progress=True,   # 配当側のみ。10年保有側は既定(False)のまま
-                                      payout_basis=PAYOUT_BASIS)   # 同上（配当性向の求め方）
+                                      payout_basis=PAYOUT_BASIS,   # 同上（配当性向の求め方）
+                                      dps_clean=DPS_CLEAN)         # 同上（年別配当の整理の方式）
         ctx["hist_m"] = yd["hist_m"]
         ctx["jgb_src"] = jgb_src
         ctx["earn"] = build_earnings(yd, yd["price"])
