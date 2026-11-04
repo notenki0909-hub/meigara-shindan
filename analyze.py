@@ -1126,6 +1126,7 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
     # 各期の「1株配当 ÷ その期のEPS」（推移グラフ用の系列。配当性向の行の値にも使う）
     eps_yr = {y: e for y, e in zip(is_years, eps or []) if is_num(e) and e != 0}
     payout_series = []
+    dps_of_y = {}          # {決算期の西暦: その期の1株配当}（配当性向の代替計算用）
     # annual基準では、特別配当を含む「実際の年間配当」（yf_fy＝会計年度ごとの合計。決算短信の年間配当と同じ）を使う。
     # 連続増配用の dps_series は、支払回数が最頻値を超える年を落とすため、年1回払いから年2回払いに変えた会社で
     # 最近の年がすべて消え、配当性向を計算できなくなる（大和ハウス・西松建設など）。yahoo基準（10年保有側）は従来どおり。
@@ -1143,9 +1144,11 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
             y = fy + 1 if (fy + 1) in eps_yr else (fy if fy in eps_yr else None)
         if y is not None and is_num(d):
             payout_series.append((y, d / eps_yr[y] * 100))
+            dps_of_y[y] = d
     payout_state = None    # "赤字"＝直近の決算期が純損失。None＝値あり、または算出できない
     payout_fy = None       # 値の決算期（例：2026年3月期）
     payout_why = None      # 算出できなかった理由（表示用）
+    payout_src = None      # "calc"＝Yahooの1株利益が使えず、純利益÷平均株式数で求めた
     if payout_basis == "annual":
         payout_ni = None
         if payout_series:
@@ -1160,15 +1163,61 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
                 ix = is_years.index(y_last)
                 if ix < len(ni_c) and ix < len(sh_c) and is_num(ni_c[ix]) and is_num(sh_c[ix]) and sh_c[ix] > 0:
                     e_calc = ni_c[ix] / sh_c[ix]
+            bad_why = None
             if is_num(e_last) and is_num(e_prev) and e_last == e_prev:
                 # 前の年とまったく同じ値＝最新期が未更新（前期の値が入っている）疑い
-                payout_fy = None
-                payout_why = "Yahooの1株利益が前の年と同じ値で、更新遅れの疑いがあるため"
+                bad_why = "Yahooの1株利益が前の年と同じ値で、更新遅れの疑いがあるため"
             elif is_num(e_last) and is_num(e_calc) and ((e_last > 0) != (e_calc > 0) or (e_last > 0 and abs(e_calc / e_last - 1) > 0.20)):
                 # Yahooの1株利益が、同じ表の「純利益÷平均株式数」と、符号が逆、または（黒字のとき）2割以上違う
                 # （株式分割の反映のずれ、訂正前の値のままなど）。どちらも赤字なら、金額がずれていても赤字として扱う。
+                bad_why = "Yahooの1株利益が、純利益÷株式数と大きく違い信頼できないため"
+            if bad_why:
                 payout_fy = None
-                payout_why = "Yahooの1株利益が、純利益÷株式数と大きく違い信頼できないため"
+                payout_why = bad_why
+                # 代替：同じ決算期の「純利益 ÷ 平均株式数」で1株利益を求める（純利益が前の年と同じ値＝未更新なら使わない）
+                ni_stale = False
+                if y_last in is_years and ni_c:
+                    ix = is_years.index(y_last)
+                    if (y_last - 1) in is_years:
+                        ip = is_years.index(y_last - 1)
+                        ni_stale = (ip < len(ni_c) and ix < len(ni_c) and is_num(ni_c[ip]) and ni_c[ip] == ni_c[ix])
+                d_last = dps_of_y.get(y_last)
+                # 代替値を出してよいか、2つの確認をする（誤った値を出すより「―」にする）。
+                #  ①株式数の確認：「平均株式数」から求めた1株利益と、「現在の発行済株式数」から求めた1株利益が1割以内で一致
+                #    （株式分割・併合や、Yahooの株式数の誤りで基準がずれている銘柄を外す）
+                #  ②配当の確認：1株配当 × 平均株式数 が、キャッシュフローの配当支払額と近い（0.6〜1.67倍。
+                #    配当が分割調整済みなのに株式数は未調整、などのずれを外す）
+                sub_ok = False
+                if is_num(e_calc) and e_calc != 0 and is_num(d_last) and not ni_stale and y_last in is_years:
+                    ix = is_years.index(y_last)
+                    so = info.get("sharesOutstanding")
+                    e_so = (ni_c[ix] / so) if (is_num(so) and so > 0 and ix < len(ni_c) and is_num(ni_c[ix])) else None
+                    chk1 = is_num(e_so) and e_so != 0 and (e_so > 0) == (e_calc > 0) and abs(e_calc / e_so - 1) <= 0.10
+                    dp = divpaid[cf_years.index(y_last)] if (divpaid and y_last in cf_years and cf_years.index(y_last) < len(divpaid)) else None
+                    chk2 = False
+                    if is_num(dp) and dp != 0 and ix < len(sh_c) and is_num(sh_c[ix]) and sh_c[ix] > 0:
+                        ratio = d_last * sh_c[ix] / abs(dp)
+                        chk2 = 0.6 <= ratio <= 1.67
+                    # ③純利益の行のずれの確認：Yahooの1株利益 × 平均株式数 が、純利益の行の「別の年」の値とほぼ一致するなら、
+                    #    純利益の行が1年ずれている疑いがある（Yahooの年別データの並び違い）ので使わない。
+                    #    （1株利益が前の年と同じ＝更新遅れのときは、この一致は当然なので確認しない）
+                    chk3 = True
+                    if is_num(e_last) and not (is_num(e_prev) and e_last == e_prev) and ix < len(sh_c) and is_num(sh_c[ix]):
+                        implied = e_last * sh_c[ix]
+                        for j in (ix - 1, ix + 1):
+                            if 0 <= j < len(ni_c) and is_num(ni_c[j]) and ni_c[j] != 0 and abs(implied / ni_c[j] - 1) < 0.03:
+                                chk3 = False
+                    sub_ok = bool(chk1 and chk2 and chk3)
+                if sub_ok:
+                    p_alt = d_last / e_calc * 100
+                    payout_series[-1] = (y_last, p_alt)
+                    payout_fy = f"{y_last}年{fye_month}月期"
+                    payout_why = None
+                    payout_src = "calc"
+                    if p_alt < 0:
+                        payout_state = "赤字"
+                    else:
+                        payout_ni = p_alt
             elif is_num(p_last) and p_last < 0:
                 payout_state = "赤字"
             elif is_num(p_last):
@@ -1239,9 +1288,13 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
         if payout_state == "赤字":
             p_disp = "赤字"
             p_ref = pn_txt + f"／直近の決算期（{payout_fy}）は純損失のため算出せず、採点もしません。推移＝各期の1株配当÷EPS"
+            if payout_src == "calc":
+                p_ref += "（この期の純損失は、Yahooの1株利益ではなく純利益÷平均株式数で判定）"
         elif is_num(payout_ni):
             p_disp = fmt_pct(payout_ni)
             p_ref = pn_txt + f"／80%超は警戒。値＝直近の決算期（{payout_fy}）の1株配当÷1株利益。推移＝各期の同じ計算"
+            if payout_src == "calc":
+                p_ref += "（この期の1株利益はYahooの値に不備があるため、純利益÷平均株式数で求めた値を使用）"
         else:
             p_disp = "―"
             p_ref = pn_txt + f"／{payout_why or '決算期ごとの1株配当と1株利益から算出できなかったため'}、算出せず採点から外しています"
@@ -1251,7 +1304,7 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
     M["配当"].append({"name": "配当性向（純利益ベース）", "v": payout_ni, "disp": p_disp,
                       "ref": p_ref,
                       "key": "payout_ni", "series": payout_series, "series_kind": "pct",
-                      "series_current": payout_ni, "state": payout_state, "fy": payout_fy, "why": payout_why})
+                      "series_current": payout_ni, "state": payout_state, "fy": payout_fy, "src": payout_src, "why": payout_why})
     M["配当"].append({"name": "ROE（配当の原資の効率）", "v": roe, "disp": fmt_pct(roe),
                       "ref": f"業種中央値 {fmt_pct(sec_avg.get('roe'))}／10%以上で優良" if sec_avg.get("roe") is not None else "10%以上で優良", "key": "roe"})
 
