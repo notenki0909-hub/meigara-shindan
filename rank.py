@@ -233,6 +233,8 @@ def main():
             "fcf_positive": s.get("fcf_positive"), "fcf_payout": s.get("fcf_payout"),
             "chg": _price_changes(s["code"]),
         }
+        if s.get("review"):
+            row["review"] = s["review"]      # 「手動で調べる必要がある銘柄」欄用（analyze.py の review_items）
         code_key = div_universe._norm("jp", os.path.basename(p)[:-5])   # 識別はファイル名（summaryの"code"は255Aが255になる等の既存の欠けがあるため）
         if uni_ids is not None and code_key not in uni_ids:
             if code_key in kz_pins:
@@ -307,6 +309,11 @@ def main():
             "extra": kz_extra,
         }
 
+    # 「手動で調べる必要がある銘柄」（データの自動判定に迷いがあり、IR BANK・決算短信で確認するとよい銘柄）。
+    # 表示専用。母集団の外の講座Gp銘柄も含める。
+    review_out = [{"code": r["code"], "name": r["name"], "sector": r.get("sector") or "", "items": r["review"]}
+                  for r in sorted(rows + kz_extra, key=lambda r: r["code"]) if r.get("review")]
+
     out = {
         "generated_at": dt.datetime.now().isoformat(timespec="seconds"),
         "screen": {k: scfg.get(k) for k in
@@ -316,6 +323,7 @@ def main():
                    "2軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "2軍"),
                    "3軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "3軍")},
         "groups": groups_out, "global_top": global_top, "retired": retired_rows, "kouza": kouza_out,
+        "review": review_out,
     }
     # generated_at は毎回変わるので、それをマスクした上でHTML本文が前回と同じなら
     # 書き込みをスキップする（でないと earnings-retry/nightly が「何も変わっていない」
@@ -878,6 +886,24 @@ def render_index(out):
                 '入れていません（スコアや個別レポートは、ほかの銘柄と同じように見られます）。</p>'
                 + "".join(kz_lvs) + '</details>')
 
+    # 手動で調べる必要がある銘柄の欄（折りたたみ。見出しだけ表示）。class="r" は絞り込み・件数の対象になるので使わない。
+    reviewbox = ""
+    rvd = out.get("review") or []
+    if rvd:
+        rv_trs = []
+        for x in rvd:
+            for i, it in enumerate(x["items"]):
+                first = f'<td class="rvc" rowspan="{len(x["items"])}"><a href="reports/{x["code"]}.html">{x["code"]}</a></td>'                         f'<td class="rvn" rowspan="{len(x["items"])}">{html.escape(x["name"])}</td>' if i == 0 else ""
+                rv_trs.append(f'<tr>{first}<td>{html.escape(it["where"])}</td><td>{html.escape(it["why"])}</td>'
+                              f'<td>{html.escape(it["how"])}</td></tr>')
+        reviewbox = (
+            f'<details id="reviewbox"><summary>手動で調べる必要がある銘柄（{len(rvd)}銘柄）</summary>'
+            '<p class="rvnote">データの自動判定に迷いがあり、数字が実態とずれている可能性がある銘柄です。ずれている場合、連続増配などの数字が'
+            '実際より長く、または短く出ます。表の「改善方法」の確認をすると直せます。確認が済んだ銘柄は、表から外れます。'
+            '銘柄のコードを押すと個別レポートが開きます。</p>'
+            '<table class="rvt"><thead><tr><th>コード</th><th>銘柄</th><th>どこが怪しいか</th><th>理由</th><th>改善方法</th></tr></thead>'
+            f'<tbody>{"".join(rv_trs)}</tbody></table></details>')
+
     return f"""<!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 {THEME_HEAD}
@@ -984,6 +1010,14 @@ details{{margin:14px 0}}summary{{cursor:pointer;font-weight:600;font-size:13px}}
 tr[hidden]{{display:none}}
 section.grp[hidden],details[hidden],.kzlv[hidden]{{display:none}}
 #kouzabox>summary{{font-size:14px;font-weight:700}}
+#reviewbox{{margin:14px 0}}
+#reviewbox>summary{{font-size:14px;font-weight:700;cursor:pointer}}
+#reviewbox .rvnote{{font-size:12.5px;color:var(--muted);margin:6px 0 10px}}
+#reviewbox .rvt{{width:100%;max-width:100%;table-layout:fixed;border-collapse:collapse;font-size:12.5px}}
+#reviewbox .rvt th,#reviewbox .rvt td{{border:1px solid var(--line);padding:6px 8px;vertical-align:top;text-align:left;line-height:1.55;white-space:normal;overflow-wrap:anywhere}}
+#reviewbox .rvt th{{background:var(--th)}}
+#reviewbox .rvt th:nth-child(1){{width:60px}}#reviewbox .rvt th:nth-child(2){{width:120px}}#reviewbox .rvt th:nth-child(3){{width:15%}}
+#reviewbox .rvt th:nth-child(4){{width:34%}}
 #kouzabox .kznote{{font-size:12.5px;color:var(--muted);margin:6px 0 10px}}
 #kouzabox .kzlv{{margin:14px 0 18px}}
 #kouzabox .kzlv h3{{font-size:14px;margin:0 0 6px}}
@@ -1156,6 +1190,7 @@ body.wlon{{padding-bottom:60px}}
 <th class="n" title="ROE（自己資本利益率）。クリックで説明"><span class="hdr" data-term="roe">ROE</span><span class="sortbtn">▼</span></th><th class="n" title="ROA（総資産利益率・決算書ベース）。採点には使わない。クリックで説明"><span class="hdr" data-term="roa">ROA</span><span class="sortbtn">▼</span></th><th class="hdr" data-term="cov">カバレッジ</th></tr></thead><tbody>{gt}</tbody></table>
 </details>
 {kouzabox}
+{reviewbox}
 {"".join(secs)}
 <div class="disc">{DISC}</div>
 <div id="wlbar" hidden>

@@ -623,6 +623,28 @@ def dps_notes_text(notes, last_fy):
     return "／".join(parts)
 
 
+def review_items_dps(notes, last_fy, code):
+    """「手動で調べる必要がある銘柄」欄用の項目（配当の年別データ）。notes は clean_dps_series_persistent の記録。
+    手動で確認済み（dps_overrides.json に登録済み）の年は含めない。
+    返り値: [{"k","where","why","how"}]（where＝どこが怪しいか／how＝改善方法）"""
+    out = []
+    for x in notes or []:
+        if x["fy"] < last_fy - 11 or x["kind"] not in ("kept_isolated", "dropped_special"):
+            continue
+        y, n, v = x["fy"], x["n"], x["v"]
+        where = f"{y}年度の年間配当（{n}回払い・{_fmt_dps(v)}円）"
+        if x["kind"] == "dropped_special":
+            why = (f"通常は年{x['mode']}回払いなのに{n}回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、"
+                   "連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます")
+        else:
+            why = (f"通常は年{x['mode']}回払いなのに{n}回払いです。払い方の変更とみなして計算に含めています。"
+                   "記念配当・特別配当だった場合は、連続増配が実際より長く出ます")
+        how = (f"IR BANK（irbank.net/{code}/dividend）の備考欄か決算短信で、{y}年度の配当に記念・特別配当が含まれるかを確認し、"
+               "dps_overrides.json に登録（含まれる→special／普通配当→regular）")
+        out.append({"k": "dps", "where": where, "why": why, "how": how})
+    return out
+
+
 def _fmt_dps(v, usd=False):
     t = f"{v:,.2f}".rstrip("0").rstrip(".")
     return f"${t}" if usd else t
@@ -1423,6 +1445,7 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
         else:
             cut_disp = f"最終減配 {last_cut_fy}年度（{yrs_txt}前）。直近の減配歴が新しく要注意"
     _dn = dps_notes_text(dps_notes, yf_fy[-1][0]) if (dps_notes and yf_fy) else None
+    review_items = review_items_dps(dps_notes, yf_fy[-1][0], yd["code"]) if (dps_notes and yf_fy) else []
     if _dn:
         M["参考"].append({"name": "配当の年別データの整理（注記）", "v": None, "disp": _dn,
                           "ref": "支払い回数が通常より多い年の扱い。払い方の変更（年1回→年2回など）は残し、金額が急増した年は特別配当の疑いとして除く。"
@@ -1561,6 +1584,7 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
     ctx = {
         "per": per, "pbr": pbr, "yld_fwd": yld_fwd, "dgr5": dgr5,
         "yband_pos": yband_pos, "yrange": yrange, "dps_series": dps_series, "dps_src": dps_src,
+        "review_items": review_items,
         "op_margin": op_margin, "roe": roe, "equity_ratio": equity_ratio,
         "streak_up": streak_up, "chowder": chowder, "tec": tec,
         "rev_series": rev, "ni_series": ni, "eps_series": eps,
@@ -3707,6 +3731,7 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
         "roa": (round(insight["raw"]["roa"], 2) if is_num(insight["raw"].get("roa")) else None),
         "leverage": (round(insight["raw"]["leverage"], 2) if is_num(insight["raw"].get("leverage")) else None),
         "insight_flags": insight["flags"],
+        "review": ctx.get("review_items") or [],      # 「手動で調べる必要がある銘柄」欄用（ランキングページに表示）
         "kind": ("fin" if insight["raw"].get("fin_like") else "gen"),   # 業種の区分（ROAが構造的に低く出る金融・REITを分ける）
     }
     try:
