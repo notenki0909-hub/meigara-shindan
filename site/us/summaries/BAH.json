@@ -1,16 +1,16 @@
 {
  "code": "BAH",
  "name": "Booz Allen Hamilton Holding Corporation",
- "asof": "2026-11-03",
+ "asof": "2026-11-04",
  "gics_sector": "Industrials",
  "industry": "Consulting Services",
  "is_simple": false,
  "is_reit": false,
  "price": 88.0199966430664,
  "price_date": "2026-11-02",
- "mcap": 10482914304,
- "sel_score": 84.8,
- "tim_score": 102.3,
+ "mcap": 10363817984,
+ "sel_score": 81.9,
+ "tim_score": 102.4,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -25,17 +25,17 @@
   "中"
  ],
  "groups": {
-  "業績": 94.0,
+  "業績": 83.7,
   "財務": 49.9,
   "キャッシュフロー": 103.3,
   "配当の持続力": 98.3,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 98.5,
-  "株価バリュエーション": 92.1,
+  "株価バリュエーション": 92.8,
   "金利スプレッド": null
  },
  "div_yield": 2.6812089184349044,
- "total_yield": 8.385729461656545,
+ "total_yield": 8.45128323779493,
  "streak_up": 11,
  "streak_flat": 11,
  "payout_ni": 36.020002,
@@ -46,18 +46,24 @@
  "fcf_positive": 1,
  "fcf_payout": 29.02208201892745,
  "interest_coverage": 5.144230769230769,
- "per_vs_sector": 0.40677681547619043,
- "pbr_vs_sector": 1.257760895522388,
+ "per_vs_sector": 0.40215541666666665,
+ "pbr_vs_sector": 1.2434714925373134,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2027-01-22",
  "earn_disc_date": "2026-10-23",
- "quarter_decel_factor": null,
- "quarter_decel_detail": null,
- "warnings": [],
+ "quarter_decel_factor": 0.8904242217175456,
+ "quarter_decel_detail": {
+  "rev_yoy_q": -3.875432525951561,
+  "profit_yoy_q": -13.427561837455826,
+  "gap": -10.478788914122717
+ },
+ "warnings": [
+  "直近四半期の増収率が年次トレンドから大きく下振れ（年率+6.6%に対し直近四半期は-3.9%）、かつ営業利益/純利益も前年同期比マイナス（-13.4%）だったため、業績スコアを11%減点しています。年次決算にはまだ反映されていない直近の変化のため、最新の決算内容もあわせてご確認ください。"
+ ],
  "roa": 11.96,
  "leverage": 6.44,
  "insight_flags": [],
  "kind": "gen",
- "_generated_at": "2026-11-03T03:18:35"
+ "_generated_at": "2026-11-04T01:52:42"
 }

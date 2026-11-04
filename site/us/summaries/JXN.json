@@ -1,14 +1,14 @@
 {
  "code": "JXN",
  "name": "Jackson Financial Inc.",
- "asof": "2026-11-03",
+ "asof": "2026-11-04",
  "gics_sector": "Financials",
  "industry": "Insurance - Life",
  "is_simple": true,
  "is_reit": false,
  "price": 137.63999938964844,
  "price_date": "2026-11-02",
- "mcap": 9322184704,
+ "mcap": 9526047744,
  "sel_score": 40.0,
  "tim_score": 71.6,
  "sel_label": "選定スコア基準未達",
@@ -36,7 +36,7 @@
   "金融品質": 30.0
  },
  "div_yield": 2.615518756149273,
- "total_yield": 9.791948115170047,
+ "total_yield": 9.638368294368005,
  "streak_up": 5,
  "streak_flat": 5,
  "payout_ni": 373.63,
@@ -47,8 +47,8 @@
  "fcf_positive": 1,
  "fcf_payout": 4.637026745397708,
  "interest_coverage": -0.14,
- "per_vs_sector": 8.554913294797688,
- "pbr_vs_sector": 0.39813428,
+ "per_vs_sector": 8.93412832369942,
+ "pbr_vs_sector": 0.40684088,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.21517920723834263,
  "next_earn": "2026-11-03",
@@ -57,8 +57,7 @@
  "quarter_decel_detail": null,
  "warnings": [
   "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。",
-  "⚠ 配当性向が100%超（374%：純利益を上回る配当）",
-  "⚠ バリュートラップ注意：PBR 1.00倍（1倍割れ）かつROE 0.3%（5%未満）"
+  "⚠ 配当性向が100%超（374%：純利益を上回る配当）"
  ],
  "roa": 0.01,
  "leverage": 35.43,
@@ -66,12 +65,8 @@
   {
    "k": "payout",
    "t": "配当性向が100%超（374%：純利益を上回る配当）"
-  },
-  {
-   "k": "trap",
-   "t": "バリュートラップ注意：PBR 1.00倍（1倍割れ）かつROE 0.3%（5%未満）"
   }
  ],
  "kind": "fin",
- "_generated_at": "2026-11-03T03:32:54"
+ "_generated_at": "2026-11-04T02:06:34"
 }
