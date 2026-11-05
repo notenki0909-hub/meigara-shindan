@@ -899,7 +899,8 @@ def render_index(out):
         reviewbox = (
             f'<details id="reviewbox"><summary>手動で調べる必要がある銘柄（{len(rvd)}銘柄）</summary>'
             '<p class="rvnote">データの自動判定に迷いがあり、数字が実態とずれている可能性がある銘柄です。ずれている場合、連続増配などの数字が'
-            '実際より長く、または短く出ます。表の「改善方法」の確認をすると直せます。確認が済んだ銘柄は、表から外れます。'
+            '実際より長く、または短く出ます。表の「改善方法」の確認をすると直せます。配当の年別データは、確認が済むと表から外れます。'
+            'PER・PBR・EPSの項目は、Yahoo Financeの値が直るまで表示が続きます（その間、該当の指標は「―」で採点から外しています）。'
             '銘柄のコードを押すと個別レポートが開きます。</p>'
             '<table class="rvt"><thead><tr><th>コード</th><th>銘柄</th><th>どこが怪しいか</th><th>理由</th><th>改善方法</th></tr></thead>'
             f'<tbody>{"".join(rv_trs)}</tbody></table></details>')

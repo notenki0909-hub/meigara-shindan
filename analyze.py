@@ -933,9 +933,53 @@ PAYOUT_BASIS = "annual"
 #   "legacy"     … clean_dps_series（比較検証用に残している）
 DPS_CLEAN = "persistent"
 
+# 財務データ（Yahoo Finance）の不備を自動で見つけ、PER・PBR・EPS成長率を「―」にして採点から外す（配当株の日本株 generate() だけ。
+# 10年保有側・米国株は既定の False＝従来どおり）。置き換えはしない（どちらが正しいか機械では決められない銘柄があるため）。
+#   R1 PER … Yahoo の PER と「直近4四半期の純利益から求めたPER（株価×発行済株式数÷4四半期の純利益）」の比が 0.5〜2倍を外れたら外す。
+#            （IR BANKの四半期データで照合：正しい値は0.7〜1.3倍、誤りは19倍以上。四半期が4期そろわない・純利益がマイナスの銘柄は判定しない）
+#   R2 PBR … Yahoo の PBR と「株価÷(純資産÷発行済株式数)」の比が 0.6〜1.6 を外れたら外す。
+#   R3 EPS推移 … 最新期の1株利益が「前の年と同じ値」「純利益÷平均株式数と食い違う」「純利益の行がずれている」のとき、EPS成長率を外す。
+FIN_GUARD = True
+
+
+def fin_eps_problem(is_years, eps, ni_c, sh_c):
+    """最新期の1株利益（Yahoo）が信頼できないときの種類を返す（無ければ None）。
+    "stale"＝前の年と同じ値（更新遅れ）／"mismatch"＝純利益÷平均株式数と食い違う（符号が逆、または黒字で2割超）／
+    "shift"＝1株利益×株式数が、最新期ではなく前の年の純利益と一致（年別データの並び違い）。"""
+    if not eps or len(eps) < 2 or not is_num(eps[0]):
+        return None
+    e0, e1 = eps[0], eps[1]
+    if is_num(e1) and e0 == e1:
+        return "stale"
+    n0 = ni_c[0] if ni_c and is_num(ni_c[0]) else None
+    n1 = ni_c[1] if ni_c and len(ni_c) > 1 and is_num(ni_c[1]) else None
+    s0 = sh_c[0] if sh_c and is_num(sh_c[0]) and sh_c[0] > 0 else None
+    if s0 is None:
+        return None
+    if is_num(n0):
+        ec = n0 / s0
+        if (e0 > 0) != (ec > 0) or (e0 > 0 and abs(ec / e0 - 1) > 0.20):
+            return "mismatch"
+    if is_num(n1) and n1 != 0 and abs(e0 * s0 / n1 - 1) < 0.03 and not (is_num(n0) and abs(e0 * s0 / n0 - 1) < 0.03):
+        return "shift"
+    return None
+
+
+def fin_ttm_per(yd, price):
+    """直近4四半期の純利益から求めたPER（株価×発行済株式数÷4四半期の純利益）と、使った純利益。求められなければ (None, None)。"""
+    qr = yd.get("q_rows") or {}
+    qni = qr.get("Net Income Common Stockholders") or qr.get("Net Income")
+    so = (yd.get("info") or {}).get("sharesOutstanding")
+    if not qni or len(qni) < 4 or not all(is_num(x) for x in qni[:4]) or not (is_num(so) and so > 0 and is_num(price) and price > 0):
+        return None, None
+    ttm = sum(qni[:4])
+    if ttm <= 0:
+        return None, ttm
+    return price * so / ttm, ttm
+
 
 def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb_10y, div_policies,
-                  drop_in_progress=False, payout_basis="yahoo", dps_clean="legacy"):
+                  drop_in_progress=False, payout_basis="yahoo", dps_clean="legacy", fin_guard=False):
     """全指標を分野別 dict に。各指標は {v, disp, ref, key}（key は rules 参照名）。"""
     info = yd["info"]
     isr, bsr, cfr = yd["is_rows"], yd["bs_rows"], yd["cf_rows"]
@@ -980,7 +1024,22 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
             M[target].append({"name": name, "v": None, "disp": "―", "ref": "データ不足", "key": key})
 
     growth_row("売上高（推移／年率）", rev, "rev_cagr", "業績")
-    if eps and len([x for x in eps if is_num(x)]) >= 2:
+    review_fin = []   # 財務データの不備（「手動で調べる必要がある銘柄」欄用。PER・PBR・EPS）
+    _eps_bad = None
+    if fin_guard:
+        _eps_bad = fin_eps_problem(is_years, eps,
+                                   row(isr, "Net Income Common Stockholders", "Net Income"),
+                                   row(isr, "Basic Average Shares", "Diluted Average Shares"))
+    if _eps_bad:
+        _eps_msg = {"stale": "最新期の1株利益が前の年と同じ値（更新遅れの疑い）",
+                    "mismatch": "最新期の1株利益が、純利益÷平均株式数と大きく食い違う（株式分割の反映ずれ・訂正前の値など）",
+                    "shift": "最新期の1株利益×株式数が、最新期ではなく前の年の純利益と一致（年別データの並び違いの疑い）"}[_eps_bad]
+        review_fin.append({"k": "eps", "where": "EPS（1株利益）の推移",
+                           "why": _eps_msg + "。EPSの成長率が正しく計算できないため、採点から外しています",
+                           "how": f"IR BANK（irbank.net/{yd['code']}/results）の最新期のEPSと、Yahooの値を比べて確認"})
+        M["業績"].append({"name": "EPS（推移／年率）", "v": None, "disp": "―",
+                          "ref": "Yahoo Financeの1株利益に不備の疑いがあるため算出せず、採点もしません", "key": "eps_cagr"})
+    elif eps and len([x for x in eps if is_num(x)]) >= 2:
         xs = [x for x in eps if is_num(x)]
         c = cagr(xs[-1], xs[0], len(xs) - 1)
         M["業績"].append({"name": "EPS（推移／年率）", "v": c,
@@ -1486,6 +1545,26 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
     pbr = info.get("priceToBook")
     per = per if is_num(per) and per > 0 else None
     pbr = pbr if is_num(pbr) and pbr > 0 else None
+    if fin_guard and per:
+        _pt, _ttm = fin_ttm_per(yd, price)
+        if is_num(_pt) and not (0.5 <= per / _pt <= 2.0):
+            review_fin.append({"k": "per", "where": f"PER（Yahoo表示 {per:.1f}倍）",
+                               "why": f"直近4四半期の純利益（{_ttm / 1e8:,.1f}億円）から求めたPERは{_pt:.1f}倍で、Yahoo表示と{per / _pt:.1f}倍ずれています。"
+                                      "Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
+                               "how": f"IR BANK（irbank.net/{yd['code']}/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、"
+                                      "Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）"})
+            per = None
+    if fin_guard and pbr:
+        _eq = row(bsr, "Stockholders Equity", "Common Stock Equity")
+        _so = info.get("sharesOutstanding")
+        if _eq and is_num(_eq[0]) and _eq[0] > 0 and is_num(_so) and _so > 0 and is_num(price) and price > 0:
+            _pc = price / (_eq[0] / _so)
+            if not (0.6 <= _pc / pbr <= 1.6):
+                review_fin.append({"k": "pbr", "where": f"PBR（Yahoo表示 {pbr:.2f}倍）",
+                                   "why": f"株価÷（純資産÷発行済株式数）で求めたPBRは{_pc:.2f}倍で、Yahoo表示と{_pc / pbr:.2f}倍ずれています。"
+                                          "どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
+                                   "how": f"IR BANK（irbank.net/{yd['code']}/results）の1株純資産（BPS）で、株価÷BPSを計算して確認"})
+                pbr = None
     ey = (1 / per * 100) if per else None
 
     per_vs = safe_div(per, sec_avg.get("per"))
@@ -1584,7 +1663,7 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
     ctx = {
         "per": per, "pbr": pbr, "yld_fwd": yld_fwd, "dgr5": dgr5,
         "yband_pos": yband_pos, "yrange": yrange, "dps_series": dps_series, "dps_src": dps_src,
-        "review_items": review_items,
+        "review_items": review_fin + review_items,
         "op_margin": op_margin, "roe": roe, "equity_ratio": equity_ratio,
         "streak_up": streak_up, "chowder": chowder, "tec": tec,
         "rev_series": rev, "ni_series": ni, "eps_series": eps,
@@ -3589,7 +3668,8 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
                                       rate_sensitive, jgb_10y, div_policies,
                                       drop_in_progress=True,   # 配当側のみ。10年保有側は既定(False)のまま
                                       payout_basis=PAYOUT_BASIS,   # 同上（配当性向の求め方）
-                                      dps_clean=DPS_CLEAN)         # 同上（年別配当の整理の方式）
+                                      dps_clean=DPS_CLEAN,         # 同上（年別配当の整理の方式）
+                                      fin_guard=FIN_GUARD)         # 同上（財務データの不備の自動チェック）
         ctx["hist_m"] = yd["hist_m"]
         ctx["jgb_src"] = jgb_src
         ctx["earn"] = build_earnings(yd, yd["price"])
