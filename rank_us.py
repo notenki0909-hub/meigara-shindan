@@ -224,6 +224,8 @@ def main():
             "fcf_positive": s.get("fcf_positive"), "fcf_payout": s.get("fcf_payout"),
             "chg": _price_changes(s["code"]),
         }
+        if s.get("review"):
+            row["review"] = s["review"]      # 「手動で調べる必要がある銘柄」欄用（analyze_us.py の review_items）
         code_key = div_universe._norm("us", os.path.basename(p)[:-5])   # 識別はファイル名（summaryの"code"は255Aが255になる等の既存の欠けがあるため）
         if uni_ids is not None and code_key not in uni_ids:
             if code_key in ret_info:
@@ -292,6 +294,11 @@ def main():
                    "3軍": sum(1 for g in groups_out for s in g["stocks"] if s["tier"] == "3軍")},
         "groups": groups_out, "global_top": global_top, "retired": retired_rows, "royalty": royalty,
     }
+    # 「手動で調べる必要がある銘柄」（データの自動判定に迷いがあり、SEC提出書類で確認するとよい銘柄）。表示専用。
+    review_out = [{"code": r["code"], "name": r["name"], "sector": r.get("sector_jp") or "", "items": r["review"]}
+                  for r in sorted(rows, key=lambda r: r["code"]) if r.get("review")]
+    if review_out:
+        out["review"] = review_out      # 無いときはキー自体を出さない（従来と同じ出力）
 
     new_html = render_index(out)
     gen = out["generated_at"]
@@ -855,6 +862,25 @@ def render_index(out):
             + _rank_head(True) + _rank_rows(d["stocks"], True) + '</tbody></table>' + note + '</details>')
     roy_html = "\n".join(roy_boxes)
 
+    # 手動で調べる必要がある銘柄の欄（折りたたみ。見出しだけ表示）。class="r" は絞り込み・件数の対象になるので使わない。
+    reviewbox = ""
+    rvd = out.get("review") or []
+    if rvd:
+        rv_trs = []
+        for x in rvd:
+            for i, it in enumerate(x["items"]):
+                first = (f'<td class="rvc" rowspan="{len(x["items"])}"><a href="reports/{html.escape(x["code"])}.html">{html.escape(x["code"])}</a></td>'
+                         f'<td class="rvn" rowspan="{len(x["items"])}">{html.escape(x["name"])}</td>') if i == 0 else ""
+                rv_trs.append(f'<tr>{first}<td>{html.escape(it["where"])}</td><td>{html.escape(it["why"])}</td>'
+                              f'<td>{html.escape(it["how"])}</td></tr>')
+        reviewbox = (
+            f'<details id="reviewbox"><summary>手動で調べる必要がある銘柄（{len(rvd)}銘柄）</summary>'
+            '<p class="rvnote">Yahoo Financeのデータに不備の疑いがあり、数字が実態とずれている可能性がある銘柄です。該当の指標は「―」にして、'
+            '採点から外しています。表の「改善方法」の確認をすると、原因が分かります。Yahooの値が直るまで、表示が続きます。'
+            '銘柄のコードを押すと個別レポートが開きます。</p>'
+            '<table class="rvt"><thead><tr><th>コード</th><th>銘柄</th><th>どこが怪しいか</th><th>理由</th><th>改善方法</th></tr></thead>'
+            f'<tbody>{"".join(rv_trs)}</tbody></table></details>')
+
     return f"""<!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 {THEME_HEAD}
@@ -871,6 +897,14 @@ h1{{font-size:20px;margin:0 0 4px}}
 .summary{{display:flex;gap:14px;flex-wrap:wrap;margin:12px 0 22px}}
 .summary b{{display:block;font-size:20px}}
 h2{{font-size:15px;margin:26px 0 6px;border-bottom:2px solid var(--line);padding-bottom:4px}}
+#reviewbox{{margin:14px 0}}
+#reviewbox>summary{{font-size:14px;font-weight:700;cursor:pointer}}
+#reviewbox .rvnote{{font-size:12.5px;color:var(--muted);margin:6px 0 10px}}
+#reviewbox .rvt{{width:100%;max-width:100%;table-layout:fixed;border-collapse:collapse;font-size:12.5px}}
+#reviewbox .rvt th,#reviewbox .rvt td{{border:1px solid var(--line);padding:6px 8px;vertical-align:top;text-align:left;line-height:1.55;white-space:normal;overflow-wrap:anywhere}}
+#reviewbox .rvt th{{background:var(--th)}}
+#reviewbox .rvt th:nth-child(1){{width:60px}}#reviewbox .rvt th:nth-child(2){{width:120px}}#reviewbox .rvt th:nth-child(3){{width:15%}}
+#reviewbox .rvt th:nth-child(4){{width:34%}}
 .grade{{font-size:11px;padding:1px 7px;border-radius:10px;vertical-align:middle}}
 .gradeA{{background:color-mix(in srgb,var(--gA) 15%,transparent);color:var(--gA)}}
 .gradeB{{background:color-mix(in srgb,var(--gB) 15%,transparent);color:var(--gB)}}
@@ -1118,6 +1152,7 @@ body.wlon{{padding-bottom:60px}}
 {top_table}
 </details>
 {roy_html}
+{reviewbox}
 {"".join(secs)}
 <div class="disc">{DISC}</div>
 <div id="wlbar" hidden>

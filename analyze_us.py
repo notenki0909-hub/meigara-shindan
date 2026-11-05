@@ -375,6 +375,29 @@ def _reit_quality_md(rq_score, rq_parts):
     return "\n".join(lines) + "\n"
 
 
+# ---------------------------------------------------------------- 財務データの不備の自動チェック（配当株の米国株 generate_us だけ）
+# Yahoo Financeの年次の1株利益（EPS）の「桁」が実態とずれている銘柄を見つけ、EPSの成長率・PERの自社過去レンジ内の位置を「―」にして採点から外す。
+# 判定：決算書の平均株式数 ÷ 発行済株式数 が 2.5倍超 または 0.4倍未満（通常は1倍前後）。
+#   SEC（米国証券取引委員会）の提出書類との照合：S&P500から選んだ65銘柄のうち、この特徴のDLR・FEは1株利益が約4分の1に小さく出ていると確認
+#   （この特徴のない銘柄は、年次のEPSがSECと一致する割合が約9割。ずれの多くは分割調整・継続事業の定義の差で、この判定の対象外）。
+#   全521銘柄で該当するのはDLR・FE・WMGの3銘柄だけ（誤検出なし）。日本株用のPER・PBRの判定（四半期の純利益や貸借対照表から求める方式）は、
+#   米国株ではYahooの決算書側のずれによる誤検出が多い（PER・PBR自体はSECとほぼ一致）ため、使わない。
+FIN_GUARD_US = True
+
+
+def eps_scale_problem_us(yd):
+    """決算書の平均株式数 ÷ 発行済株式数 が極端（2.5倍超／0.4倍未満）なら、その倍率。そうでなければ None。"""
+    try:
+        sh = analyze.row(yd["is_rows"], "Diluted Average Shares", "Basic Average Shares")
+        so = (yd.get("info") or {}).get("sharesOutstanding")
+        if not sh or not is_num(sh[0]) or sh[0] <= 0 or not is_num(so) or so <= 0:
+            return None
+        r = sh[0] / so
+        return r if (r > 2.5 or r < 0.4) else None
+    except Exception:
+        return None
+
+
 # ---------------------------------------------------------------- 配当王・貴族の年数評価（床上げ）
 # 配当王（50年以上連続増配）・配当貴族（S&P500で25年以上連続増配）の公式リスト（dividend_royalty_us.json）に載る銘柄は、
 # Yahooの配当履歴が短い（王の大半は履歴が40年前後）・スピンオフや合併で過去の配当が調整されて偽の減配に見える、などの理由で、
@@ -521,7 +544,7 @@ def fetch_yf_us(ticker):
 
 
 # ---------------------------------------------------------------- 指標計算
-def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10y, royalty_floor=False):
+def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10y, royalty_floor=False, fin_guard=False):
     """全指標を分野別 dict に。analyze.build_metrics の米国株版。
     - 通貨表示は fmt_usd、ラベルは英語。
     - IR BANK は使わない。div_policy（累進配当宣言リスト）も無し。
@@ -558,6 +581,18 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
     opi = analyze.row(isr, "Operating Income", "Total Operating Income As Reported", "EBIT")
     ni = analyze.row(isr, "Net Income", "Net Income Common Stockholders", "Net Income Continuous Operations")
     eps = analyze.row(isr, "Basic EPS", "Diluted EPS")
+    review_fin = []   # 財務データの不備（「手動で調べる必要がある銘柄」欄・個別レポートの枠用）
+    _eps_ratio = eps_scale_problem_us(yd) if fin_guard else None
+    if _eps_ratio is not None:
+        review_fin.append({
+            "k": "eps", "where": "EPS（1株利益）の推移・PERの自社過去レンジ内の位置",
+            "why": f"決算書の平均株式数が発行済株式数の{_eps_ratio:.1f}倍（通常は1倍前後）で、Yahoo Financeの年次の1株利益の桁がずれている疑いがあります。"
+                   "同じ特徴の銘柄で、SEC（米国証券取引委員会）の提出書類と照合して、1株利益が実際より小さく出ていることを確認しています。"
+                   "EPSの成長率と、PERの自社過去レンジ内の位置を「―」にして、採点から外しています（現在のPER・PBRはSECとほぼ一致するため、そのまま使っています）",
+            "how": "SEC EDGAR（米国の公式な開示書類の検索）で、この会社の最新の年次報告書（10-K）にある希薄化後1株利益を探し、Yahooの値と比べて確認。"
+                   "Yahooが誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
+            "keys": ["eps_cagr", "per_band_pos"], "names": []})
+        eps = None
 
     def growth_row(name, s, key, target, years=is_years, kind="usd"):
         xs = [x for x in (s or []) if is_num(x)]
@@ -571,7 +606,10 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
 
     growth_row("売上高（推移／年率）", rev, "rev_cagr", "業績")
     xs = [x for x in (eps or []) if is_num(x)]
-    if len(xs) >= 2:
+    if _eps_ratio is not None:
+        M["業績"].append({"name": "EPS（推移／年率）", "v": None, "disp": "―",
+                          "ref": "Yahoo Financeの1株利益に不備の疑いがあるため算出せず、採点もしません", "key": "eps_cagr"})
+    elif len(xs) >= 2:
         c = cagr(xs[-1], xs[0], len(xs) - 1)
         M["業績"].append({"name": "EPS（推移／年率）", "v": c,
                           "disp": " ← ".join(f"${fmt_num(x, 2)}" for x in eps if x is not None)[:120],
@@ -979,7 +1017,9 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
                           "ref": "0＝レンジ上端（高PER＝割高）／100＝下端（低PER＝割安）", "key": "per_band_pos", "rangeband": rb_per})
     else:
         M["期待"].append({"name": "PERの自社過去レンジ内の位置", "v": None,
-                          "disp": "履歴不足で算出不可", "ref": "3年以上の株価・EPSが必要", "key": "per_band_pos"})
+                          "disp": "―" if _eps_ratio is not None else "履歴不足で算出不可",
+                          "ref": ("Yahoo Financeの1株利益に不備の疑いがあるため算出せず、採点もしません"
+                                  if _eps_ratio is not None else "3年以上の株価・EPSが必要"), "key": "per_band_pos"})
     M["参考"].append({"name": "益回り（1÷PER）", "v": None, "disp": fmt_pct(ey),
                       "ref": "米10年国債利回りとの比較に使う", "key": None})
     if yrange:
@@ -1018,6 +1058,7 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
         "op_margin": op_margin, "roe": roe, "equity_ratio": equity_ratio,
         "streak_up": streak_up, "streak_flat": streak_flat, "chowder": chowder, "tec": tec,
         "royalty": royalty,
+        "review_items": review_fin,
         "rev_series": rev, "ni_series": ni, "eps_series": eps,
         "fwd_dps": fwd_dps, "payout_ni": payout_ni,
         "per_band_pos": per_band_pos, "yield_spread": yield_spread, "ust_10y": ust_10y,
@@ -1190,7 +1231,7 @@ def _industry_label(name):
 LABEL_MARK = {"good": "◎", "warn": "△", "bad": "▲", None: "―"}
 
 
-def _metric_details_html_us(it, gics_key, gics_disp, is_simple, rules):
+def _metric_details_html_us(it, gics_key, gics_disp, is_simple, rules, hl_keys=()):
     """日本版 analyze._metric_details_html の米国版。ルール参照は英語GICSキー、
     表示は日本語セクター名。見るポイント／過去レンジ／推移／判定ルール／この銘柄／点。"""
     key = it.get("key")
@@ -1220,9 +1261,10 @@ def _metric_details_html_us(it, gics_key, gics_disp, is_simple, rules):
             band_p = ('<p class="rule"><b>過去レンジ内の位置：</b>塗り分けたゾーン（割安・標準・割高。'
                       'どちらが割安かは帯の右のラベルを参照）に、折れ線＝年次の実績推移、▶＝現在の値を'
                       f'重ねたグラフ。</p><div class="trendwrap wide">{bsvg}</div>')
+    _hl = bool(it.get("key") and it.get("key") in hl_keys)
     return (
-        '<details class="m"><summary>'
-        f'<span class="mn">{analyze.html.escape(it["name"])}</span>'
+        f'<details class="m{" rvhl" if _hl else ""}"><summary>'
+        f'<span class="mn">{analyze.html.escape(it["name"])}{analyze.RV_BADGE if _hl else ""}</span>'
         f'<span class="mv">{analyze.html.escape(str(it.get("disp","")))}</span>'
         f'<span class="mr">{analyze.html.escape(str(it.get("ref","")))}</span>'
         f'<span class="mt">{analyze.tag(it)}</span></summary>'
@@ -1233,7 +1275,7 @@ def _metric_details_html_us(it, gics_key, gics_disp, is_simple, rules):
         '</div></details>')
 
 
-def _group_section_us(head, sg, groups, rowmap, gics_key, gics_disp, is_simple, rules, quarter_trend_rows=None):
+def _group_section_us(head, sg, groups, rowmap, gics_key, gics_disp, is_simple, rules, quarter_trend_rows=None, hl_keys=()):
     out = []
     for gname, gdef in sg[head].items():
         out.append(f'<div class="domhead"><b>{analyze.html.escape(gname)}</b> {analyze.bar(groups.get(gname))}</div>')
@@ -1243,7 +1285,7 @@ def _group_section_us(head, sg, groups, rowmap, gics_key, gics_disp, is_simple, 
             if it is None:
                 continue
             got = True
-            out.append(_metric_details_html_us(it, gics_key, gics_disp, is_simple, rules))
+            out.append(_metric_details_html_us(it, gics_key, gics_disp, is_simple, rules, hl_keys))
         if not got:
             out.append('<div class="plain"><span class="mn">―</span><span class="mv2">この業種では評価対象外</span></div>')
         if gname == "業績" and quarter_trend_rows:
@@ -1487,6 +1529,14 @@ h2{font-size:15px;margin:26px 0 4px;border-left:4px solid var(--accent);padding-
 .legend{font-size:11.5px;color:var(--muted);margin:2px 0 12px;line-height:1.5}
 .domhead{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px 10px;margin:16px 0 0;font-size:14px}
 details.m{border-bottom:1px solid var(--line)}
+.rvnotice{border:2px solid #d97706;background:rgba(245,158,11,.13);border-radius:8px;padding:10px 14px;margin:12px 0}
+.rvnotice .rvt0{font-weight:700;font-size:15px;color:#b45309;margin-bottom:6px}
+.rvnotice ul{margin:4px 0 6px;padding-left:20px}
+.rvnotice li{margin:6px 0;font-size:13px;line-height:1.65}
+.rvnotice .rvhow{font-size:12px;color:var(--muted);margin-top:2px}
+.rvnotice .rvsub{font-size:12.5px;margin:6px 0 0}
+.rvb{display:inline-block;margin-left:6px;padding:0 7px;border-radius:9px;background:#d97706;color:#fff;font-size:11px;font-weight:700;vertical-align:1px}
+details.m.rvhl,.plain.rvhl{background:rgba(245,158,11,.17);border-left:4px solid #d97706}
 details.m>summary{list-style:none;cursor:pointer;display:grid;
   grid-template-columns:minmax(130px,1.5fr) 1fr 1.25fr 86px;gap:10px;align-items:start;
   padding:9px 6px 9px 22px;position:relative;font-size:13px}
@@ -1553,8 +1603,10 @@ def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warni
     gk = meta["gics_sector"]
     gd = gics_jp(gk)
     is_simple = meta["is_simple"]
-    sel_blocks = _group_section_us("選定", sg, groups, rowmap, gk, gd, is_simple, rules, quarter_trend_rows)
-    tim_blocks = _group_section_us("買い時", sg, groups, rowmap, gk, gd, is_simple, rules)
+    rv_items = ctx.get("review_items") or []
+    hl_keys = {k for x in rv_items for k in (x.get("keys") or [])}
+    sel_blocks = _group_section_us("選定", sg, groups, rowmap, gk, gd, is_simple, rules, quarter_trend_rows, hl_keys)
+    tim_blocks = _group_section_us("買い時", sg, groups, rowmap, gk, gd, is_simple, rules, None, hl_keys)
     sel_chart = (
         '<details class="chartbox"><summary>銘柄選定の指標スコアを一覧グラフで見る</summary>'
         '<div class="cbody">'
@@ -1623,6 +1675,7 @@ def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warni
 <div class="sub">GICS業種：<b>{gics_jp(meta['gics_sector'])}</b>　細分類：<b title="{analyze.html.escape(meta['gics_sector'])} ／ yfinance: {analyze.html.escape(meta['industry'] or '―')}">{analyze.html.escape(_industry_label(meta['industry']))}</b>{simple_note}<br>
 株価 {price_s}{pdate_s} &nbsp;｜&nbsp; 時価総額 {mcap_s} &nbsp;｜&nbsp; 生成 {meta['today']}</div>
 
+{analyze.render_review_notice(rv_items)}
 {render_company_html_us(ctx.get('company'))}
 {warn_html}
 
@@ -1755,7 +1808,8 @@ def generate_us(ticker, cfg=None, log=None):
     log("[2/3] scoring")
     try:
         M, flags, ctx = build_metrics_us(yd, sec_avg, is_simple, gics, rate_sensitive, ust_10y,
-                                         royalty_floor=ROYALTY_FLOOR)   # 配当王・貴族の床上げは、配当株の米国株だけ（10年保有側は既定のFalse）
+                                         royalty_floor=ROYALTY_FLOOR,   # 配当王・貴族の床上げは、配当株の米国株だけ（10年保有側は既定のFalse）
+                                         fin_guard=FIN_GUARD_US)        # 財務データの不備の自動チェックも同じ（既定False）
         ctx["earn"] = analyze.build_earnings(yd, yd["price"])
         ctx["company"] = analyze.build_company_overview(info)
         ctx["hist_m"] = yd.get("hist_m")
@@ -1900,7 +1954,8 @@ def generate_us(ticker, cfg=None, log=None):
         "groups": {g: (round(v, 1) if is_num(v) else None) for g, v in groups.items()},
         "div_yield": gv("div_yield"), "total_yield": gv("total_yield"),
         "streak_up": gv("streak_up"), "streak_flat": gv("streak_flat"),
-        **({"royalty": ctx["royalty"]} if ctx.get("royalty") else {}),    # 王・貴族のときだけ（それ以外のsummaryは従来と同じ）
+        **({"royalty": ctx["royalty"]} if ctx.get("royalty") else {}),
+        **({"review": ctx["review_items"]} if ctx.get("review_items") else {}),   # 不備があるときだけ（それ以外のsummaryは従来と同じ）    # 王・貴族のときだけ（それ以外のsummaryは従来と同じ）
         "payout_ni": gv("payout_ni"), "roe": gv("roe"), "chowder": gv("chowder"), "dgr5": gv("dgr5"),
         "ocf_positive": gv("ocf_positive"),
         "fcf_positive": gv("fcf_positive"), "fcf_payout": gv("fcf_payout"),
