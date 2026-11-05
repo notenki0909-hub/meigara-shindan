@@ -5,12 +5,12 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 1430.5,
- "price_date": "2026-11-02",
- "mcap": 308829519872,
+ "price": 1483.5,
+ "price_date": "2026-11-05",
+ "mcap": 320271646720,
  "q_score": 86.2,
  "groups": {
-  "業績": 76.23751983681399,
+  "業績": 76.23776952331343,
   "財務": 86.95821845084272,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
@@ -22,39 +22,39 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 84.2,
+ "bt_score": 79.1,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": 110.0,
-  "per_cheap": 92.9,
-  "pbr_cheap": 74.0
+  "per_cheap": 72.8,
+  "pbr_cheap": 73.7
  },
  "ev_ebit": null,
- "fcf_yield": 86.3806672725351,
- "per_band_pos": 0.5251681430493184,
+ "fcf_yield": 83.29460404380563,
+ "per_band_pos": 0.17641309421191653,
  "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 0.9919389208633093,
- "pbr_vs_sector": 0.67624617,
+ "per_vs_sector": 1.0254287050359712,
+ "pbr_vs_sector": 0.70130104,
  "price_chg": {
-  "d": -1.2085635359115998,
-  "w": -1.0377032168799705,
-  "m": -5.764163372859022,
-  "3m": -9.633607075173723,
-  "6m": -7.679896740884152,
-  "9m": -15.254739336492895,
-  "y": -0.06985679357317531
+  "d": 3.379790940766547,
+  "w": 2.063983488132104,
+  "m": -0.0673627484001349,
+  "3m": -5.539637058261704,
+  "6m": -4.751203852327446,
+  "9m": -11.432835820895527,
+  "y": 0.4060913705583813
  },
- "div_yield": 3.704998252359315,
- "implied_fcf_growth": -0.4152,
+ "div_yield": 3.572632288506909,
+ "implied_fcf_growth": -0.4059,
  "insight": {
   "flags": {
    "cutoff": [
     "自己資本比率が10%未満（5.7%）"
    ],
    "value_trap": [
-    "PBR 0.68倍（1倍割れ）かつROE 4.4%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+    "PBR 0.70倍（1倍割れ）かつROE 4.4%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
    ]
   },
   "raw": {
@@ -70,7 +70,7 @@
  "etf_top": null,
  "metric_scores": {
   "rev_cagr": 104.00002371580476,
-  "eps_cagr": 48.475015957823224,
+  "eps_cagr": 48.475515330822105,
   "op_margin": null,
   "earnings_stability": null,
   "equity_ratio": 47.059660029129674,
@@ -84,7 +84,7 @@
  },
  "metric_raw": {
   "rev_cagr": 6.600021344224283,
-  "eps_cagr": -11.745619813707453,
+  "eps_cagr": -11.745457517482816,
   "op_margin": null,
   "earnings_stability": null,
   "equity_ratio": 5.735440505097693,
@@ -96,5 +96,5 @@
   "fcf_positive": 1,
   "fcf_payout": 4.288729200169435
  },
- "_generated_at": "2026-11-04T00:04:25"
+ "_generated_at": "2026-11-05T00:30:04"
 }
