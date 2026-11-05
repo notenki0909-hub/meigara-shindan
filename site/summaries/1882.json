@@ -1,21 +1,21 @@
 {
  "code": "1882",
  "name": "東亜道路工業",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "建設業",
  "industry": "Engineering & Construction",
  "is_simple": false,
  "is_reit": false,
- "price": 1526.0,
- "price_date": "2026-11-04",
- "mcap": 70518423552,
- "sel_score": 88.9,
- "tim_score": 90.8,
+ "price": 1547.0,
+ "price_date": "2026-11-05",
+ "mcap": 71488864256,
+ "sel_score": 86.3,
+ "tim_score": 90.2,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
  "cov_sel": [
-  16,
+  15,
   16,
   "高"
  ],
@@ -25,47 +25,75 @@
   "高"
  ],
  "groups": {
-  "業績": 90.1,
+  "業績": 85.5,
   "財務": 108.7,
   "キャッシュフロー": 100.6,
-  "配当の持続力": 64.1,
-  "配当利回りセオリー": 98.3,
+  "配当の持続力": 59.6,
+  "配当利回りセオリー": 97.1,
   "利回り水準とChowder": 110.0,
-  "株価バリュエーション": 53.5,
+  "株価バリュエーション": 53.4,
   "金利スプレッド": null
  },
- "div_yield": 5.897771952817824,
- "streak_up": 2,
- "streak_flat": 9,
- "payout_ni": 121.25999999999999,
+ "div_yield": 5.817711700064641,
+ "streak_up": 0,
+ "streak_flat": 10,
+ "payout_ni": 121.51487127845886,
+ "payout_state": null,
+ "payout_fy": "2026年3月期",
  "roe": 6.7940004,
  "div_policy": null,
- "dgr5": 45.08512717664996,
- "chowder": 50.98289912946779,
+ "dgr5": 43.096908110525554,
+ "chowder": 48.914619810590196,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 64.69795876075018,
- "per_vs_sector": 1.5938368217054262,
- "pbr_vs_sector": 0.9811290714285715,
+ "per_vs_sector": 1.6157703100775194,
+ "pbr_vs_sector": 0.9946307857142858,
  "per_band_pos": 0.0,
- "yield_band_pos": 0.5830707032673681,
+ "yield_band_pos": 0.5714628086678786,
  "next_earn": null,
  "earn_disc_date": "2016-02-07",
  "buyback_yen": 520000000.0,
- "total_yield": 6.635167903844089,
+ "total_yield": 6.5450977138330115,
  "total_payout": 197.4314068884997,
  "interest_coverage": 102.92592592592592,
  "warnings": [
-  "⚠ 配当性向が100%超（121%：純利益を上回る配当）"
+  "⚠ 配当性向が100%超（122%：純利益を上回る配当）"
  ],
  "roa": 3.87,
  "leverage": 1.65,
  "insight_flags": [
   {
    "k": "payout",
-   "t": "配当性向が100%超（121%：純利益を上回る配当）"
+   "t": "配当性向が100%超（122%：純利益を上回る配当）"
+  }
+ ],
+ "review": [
+  {
+   "k": "eps",
+   "where": "EPS（1株利益）の推移",
+   "why": "最新期の1株利益が前の年と同じ値（更新遅れの疑い）。EPSの成長率が正しく計算できないため、採点から外しています",
+   "how": "IR BANK（irbank.net/1882/results）の最新期のEPSと、Yahooの値を比べて確認",
+   "keys": [
+    "eps_cagr"
+   ],
+   "names": []
+  },
+  {
+   "k": "dps",
+   "where": "2025年度の年間配当（2回払い・90円）",
+   "why": "通常は年1回払いなのに2回払いです。払い方の変更とみなして計算に含めています。記念配当・特別配当だった場合は、連続増配が実際より長く出ます",
+   "how": "IR BANK（irbank.net/1882/dividend）の備考欄か決算短信で、2025年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-04T22:58:39"
+ "_generated_at": "2026-11-05T22:59:07"
 }

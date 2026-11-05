@@ -1,16 +1,16 @@
 {
  "code": "417A",
  "name": "ブルーゾーンホールディングス",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "小売業",
  "industry": "Grocery Stores",
  "is_simple": false,
  "is_reit": false,
- "price": 1915.5,
- "price_date": "2026-11-04",
- "mcap": 386974416896,
- "sel_score": 98.8,
- "tim_score": 88.9,
+ "price": 2052.0,
+ "price_date": "2026-11-05",
+ "mcap": 414550523904,
+ "sel_score": 102.2,
+ "tim_score": 86.1,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -20,45 +20,62 @@
   "高"
  ],
  "cov_tim": [
+  5,
   7,
-  7,
-  "高"
+  "中"
  ],
  "groups": {
   "業績": 97.0,
   "財務": 104.2,
   "キャッシュフロー": 102.2,
-  "配当の持続力": 93.9,
+  "配当の持続力": 105.3,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 80.6,
-  "株価バリュエーション": 107.0,
-  "金利スプレッド": 35.2
+  "利回り水準とChowder": 79.1,
+  "株価バリュエーション": 97.7,
+  "金利スプレッド": 32.3
  },
- "div_yield": 1.6705820934481859,
+ "div_yield": 1.5594541910331383,
  "streak_up": 15,
  "streak_flat": 18,
- "payout_ni": 92.61,
+ "payout_ni": 27.607626606850143,
+ "payout_state": null,
+ "payout_fy": "2026年3月期",
  "roe": 12.517,
  "div_policy": null,
  "dgr5": 15.452961087615979,
- "chowder": 17.123543181064164,
+ "chowder": 17.012415278649115,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 49.869662921348315,
- "per_vs_sector": 0.7063133920704846,
- "pbr_vs_sector": 0.95467885,
- "per_band_pos": 1.0,
+ "per_vs_sector": null,
+ "pbr_vs_sector": 1.02271,
+ "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-09",
  "earn_disc_date": null,
  "buyback_yen": 2000000.0,
- "total_yield": 1.6710989234794944,
+ "total_yield": 1.5599366412737423,
  "total_payout": 23.520935751822343,
  "interest_coverage": 32.475425330812854,
  "warnings": [],
  "roa": 5.52,
  "leverage": 2.14,
  "insight_flags": [],
+ "review": [
+  {
+   "k": "per",
+   "where": "PER（Yahoo表示 17.3倍）",
+   "why": "直近4四半期の純利益（107.2億円）から求めたPERは38.7倍で、Yahoo表示と0.4倍ずれています。Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
+   "how": "IR BANK（irbank.net/417A/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
+   "keys": [
+    "per_vs_sector",
+    "per_band_pos"
+   ],
+   "names": [
+    "益回り（1÷PER）"
+   ]
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-04T23:12:42"
+ "_generated_at": "2026-11-05T23:09:35"
 }

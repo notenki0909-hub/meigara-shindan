@@ -1,16 +1,16 @@
 {
  "code": "1799",
  "name": "第一建設工業",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "建設業",
  "industry": "Engineering & Construction",
  "is_simple": false,
  "is_reit": false,
- "price": 3285.0,
- "price_date": "2026-11-04",
- "mcap": 58167914496,
+ "price": 3280.0,
+ "price_date": "2026-11-05",
+ "mcap": 58079379456,
  "sel_score": 97.5,
- "tim_score": 104.7,
+ "tim_score": 108.9,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -20,9 +20,9 @@
   "中"
  ],
  "cov_tim": [
+  5,
   6,
-  6,
-  "高"
+  "中"
  ],
  "groups": {
   "業績": 105.5,
@@ -31,28 +31,30 @@
   "配当の持続力": 85.5,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 109.6,
-  "株価バリュエーション": 88.9,
+  "株価バリュエーション": 105.9,
   "金利スプレッド": null
  },
- "div_yield": 4.87062404870624,
+ "div_yield": 4.878048780487805,
  "streak_up": 5,
  "streak_flat": 13,
- "payout_ni": 54.64,
+ "payout_ni": 54.5870151137798,
+ "payout_state": null,
+ "payout_fy": "2026年3月期",
  "roe": 6.0149997,
  "div_policy": null,
  "dgr5": 36.31015546557932,
- "chowder": 41.18077951428556,
+ "chowder": 41.18820424606712,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 104.92564354517036,
- "per_vs_sector": 0.869591472868217,
- "pbr_vs_sector": 1.4503249285714288,
- "per_band_pos": 0.9401673949871043,
+ "per_vs_sector": 0.868297519379845,
+ "pbr_vs_sector": null,
+ "per_band_pos": 0.944938301250005,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 2850477000.0,
- "total_yield": 9.77105244587014,
+ "total_yield": 9.785947292315871,
  "total_payout": 101.41694956524803,
  "interest_coverage": null,
  "warnings": [
@@ -66,6 +68,18 @@
    "t": "FCF配当性向が100%超（105%：フリーCFで配当を賄えていない）"
   }
  ],
+ "review": [
+  {
+   "k": "pbr",
+   "where": "PBR（Yahoo表示 2.03倍）",
+   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは0.78倍で、Yahoo表示と0.38倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
+   "how": "IR BANK（irbank.net/1799/results）の1株純資産（BPS）で、株価÷BPSを計算して確認",
+   "keys": [
+    "pbr_vs_sector"
+   ],
+   "names": []
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-04T22:57:14"
+ "_generated_at": "2026-11-05T22:58:01"
 }

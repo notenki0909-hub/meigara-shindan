@@ -1,0 +1,89 @@
+{
+ "code": "2914",
+ "name": "日本たばこ産業",
+ "asof": "2026-11-05",
+ "jp_sector": "食料品",
+ "industry": "Tobacco",
+ "is_simple": false,
+ "is_reit": false,
+ "price": 7769.0,
+ "price_date": "2026-11-05",
+ "mcap": 13793313685504,
+ "sel_score": 86.4,
+ "tim_score": 63.7,
+ "sel_label": "選定スコア上位（質・持続力とも高水準）",
+ "tim_label": "買い時スコア中位（妥当水準）",
+ "comment": "選定は上位水準、買い時は中位（妥当水準）。",
+ "cov_sel": [
+  16,
+  16,
+  "高"
+ ],
+ "cov_tim": [
+  7,
+  7,
+  "高"
+ ],
+ "groups": {
+  "業績": 85.6,
+  "財務": 102.7,
+  "キャッシュフロー": 86.0,
+  "配当の持続力": 72.7,
+  "配当利回りセオリー": 40.0,
+  "利回り水準とChowder": 100.3,
+  "株価バリュエーション": 46.4,
+  "金利スプレッド": 84.0
+ },
+ "div_yield": 3.50109409190372,
+ "streak_up": 1,
+ "streak_flat": 4,
+ "payout_ni": 81.43095768374164,
+ "payout_state": null,
+ "payout_fy": "2025年12月期",
+ "roe": 14.658,
+ "div_policy": null,
+ "dgr5": 8.72740612100731,
+ "chowder": 12.22850021291103,
+ "ocf_positive": 1,
+ "fcf_positive": 1,
+ "fcf_payout": 101.47382489265505,
+ "per_vs_sector": 1.08058865,
+ "pbr_vs_sector": 2.7892691666666667,
+ "per_band_pos": 0.0,
+ "yield_band_pos": 0.0,
+ "next_earn": "2027-02-10",
+ "earn_disc_date": "2026-10-28",
+ "buyback_yen": 1622000000.0,
+ "total_yield": 3.5128534126658124,
+ "total_payout": 70.26510511099133,
+ "interest_coverage": 4.790003791100136,
+ "warnings": [
+  "⚠ FCF配当性向が100%超（101%：フリーCFで配当を賄えていない）"
+ ],
+ "roa": 6.06,
+ "leverage": 2.06,
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（101%：フリーCFで配当を賄えていない）"
+  }
+ ],
+ "review": [
+  {
+   "k": "dps",
+   "where": "2014年度の年間配当（3回払い・150円）",
+   "why": "通常は年2回払いなのに3回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
+   "how": "IR BANK（irbank.net/2914/dividend）の備考欄か決算短信で、2014年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-11-05T23:43:46"
+}

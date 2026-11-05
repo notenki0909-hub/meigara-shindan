@@ -1,16 +1,16 @@
 {
  "code": "6104",
  "name": "芝浦機械",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "機械",
  "industry": "Specialty Industrial Machinery",
  "is_simple": false,
  "is_reit": false,
- "price": 4630.0,
- "price_date": "2026-11-04",
- "mcap": 109485662208,
+ "price": 4505.0,
+ "price_date": "2026-11-05",
+ "mcap": 106529792000,
  "sel_score": 59.1,
- "tim_score": 64.2,
+ "tim_score": 65.2,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア中位（妥当水準）",
  "comment": "選定スコアが基準未達の水準。",
@@ -29,48 +29,66 @@
   "財務": 109.1,
   "キャッシュフロー": 20.0,
   "配当の持続力": 44.4,
-  "配当利回りセオリー": 48.3,
-  "利回り水準とChowder": 95.5,
+  "配当利回りセオリー": 49.7,
+  "利回り水準とChowder": 96.8,
   "株価バリュエーション": 56.7,
   "金利スプレッド": null
  },
- "div_yield": 3.023758099352052,
+ "div_yield": 3.107658157602664,
  "streak_up": 0,
  "streak_flat": 4,
- "payout_ni": 2341.14,
+ "payout_ni": 321.76511146862794,
+ "payout_state": null,
+ "payout_fy": "2026年3月期",
  "roe": 0.123,
  "div_policy": null,
  "dgr5": 10.494795379650323,
- "chowder": 13.518553479002374,
+ "chowder": 13.602453537252988,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 34.43864069264069,
- "pbr_vs_sector": 0.5177227999999999,
+ "per_vs_sector": 32.77674891774892,
+ "pbr_vs_sector": 0.5037453888888889,
  "per_band_pos": 0.0,
- "yield_band_pos": 0.0832071361386421,
+ "yield_band_pos": 0.09683549018584263,
  "next_earn": null,
  "earn_disc_date": "2019-02-06",
  "buyback_yen": 0.0,
- "total_yield": 3.023758099352052,
+ "total_yield": 3.107658157602664,
  "total_payout": 321.88715953307394,
  "interest_coverage": 23.78205128205128,
  "warnings": [
-  "⚠ 配当性向が100%超（2341%：純利益を上回る配当）",
-  "⚠ バリュートラップ注意：PBR 0.93倍（1倍割れ）かつROE 0.9%（5%未満）"
+  "⚠ 配当性向が100%超（322%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：PBR 0.91倍（1倍割れ）かつROE 0.9%（5%未満）"
  ],
  "roa": 0.59,
  "leverage": 1.46,
  "insight_flags": [
   {
    "k": "payout",
-   "t": "配当性向が100%超（2341%：純利益を上回る配当）"
+   "t": "配当性向が100%超（322%：純利益を上回る配当）"
   },
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.93倍（1倍割れ）かつROE 0.9%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.91倍（1倍割れ）かつROE 0.9%（5%未満）"
+  }
+ ],
+ "review": [
+  {
+   "k": "dps",
+   "where": "2020年度の年間配当（3回払い・199.3円）",
+   "why": "通常は年2回払いなのに3回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
+   "how": "IR BANK（irbank.net/6104/dividend）の備考欄か決算短信で、2020年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-04T23:24:01"
+ "_generated_at": "2026-11-05T23:17:59"
 }

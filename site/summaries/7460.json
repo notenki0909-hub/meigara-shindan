@@ -1,16 +1,16 @@
 {
  "code": "7460",
  "name": "ヤギ",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "繊維製品",
  "industry": "Textile Manufacturing",
  "is_simple": false,
  "is_reit": false,
- "price": 1724.0,
- "price_date": "2026-11-04",
- "mcap": 42014609408,
+ "price": 1692.0,
+ "price_date": "2026-11-05",
+ "mcap": 41234755584,
  "sel_score": 94.4,
- "tim_score": 107.2,
+ "tim_score": 107.6,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -29,36 +29,68 @@
   "財務": 105.5,
   "キャッシュフロー": 103.3,
   "配当の持続力": 81.4,
-  "配当利回りセオリー": 105.9,
-  "利回り水準とChowder": 108.8,
-  "株価バリュエーション": 107.5,
+  "配当利回りセオリー": 106.6,
+  "利回り水準とChowder": 109.1,
+  "株価バリュエーション": 107.7,
   "金利スプレッド": null
  },
- "div_yield": 4.640371229698376,
+ "div_yield": 4.7281323877068555,
  "streak_up": 4,
  "streak_flat": 4,
- "payout_ni": 36.370000000000005,
+ "payout_ni": 35.15413737155219,
+ "payout_state": null,
+ "payout_fy": "2026年3月期",
  "roe": 7.913,
  "div_policy": null,
- "dgr5": 13.875093218175572,
- "chowder": 18.515464447873946,
+ "dgr5": 13.396657763302722,
+ "chowder": 18.124790151009577,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 36.66768014594102,
- "per_vs_sector": 0.5902155172413793,
- "pbr_vs_sector": 0.8001371818181817,
+ "per_vs_sector": 0.5829877339901477,
+ "pbr_vs_sector": 0.7852854545454545,
  "per_band_pos": null,
- "yield_band_pos": 0.8379453814872647,
+ "yield_band_pos": 0.8628020761271267,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 1004000000.0,
- "total_yield": 7.030016198785791,
+ "total_yield": 7.162971604723033,
  "total_payout": 60.217983651226156,
  "interest_coverage": 74.15151515151516,
  "warnings": [],
  "roa": 4.44,
  "leverage": 1.77,
  "insight_flags": [],
+ "review": [
+  {
+   "k": "dps",
+   "where": "2019年度の年間配当（2回払い・16円）",
+   "why": "通常は年1回払いなのに2回払いです。払い方の変更とみなして計算に含めています。記念配当・特別配当だった場合は、連続増配が実際より長く出ます",
+   "how": "IR BANK（irbank.net/7460/dividend）の備考欄か決算短信で、2019年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
+  },
+  {
+   "k": "dps",
+   "where": "2025年度の年間配当（2回払い・52円）",
+   "why": "通常は年1回払いなのに2回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
+   "how": "IR BANK（irbank.net/7460/dividend）の備考欄か決算短信で、2025年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-04T23:34:13"
+ "_generated_at": "2026-11-05T23:25:32"
 }

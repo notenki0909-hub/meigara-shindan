@@ -1,16 +1,16 @@
 {
  "code": "4820",
  "name": "イーエムシステムズ",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "サービス業",
  "industry": "Health Information Services",
  "is_simple": false,
  "is_reit": false,
- "price": 547.0,
- "price_date": "2026-11-04",
- "mcap": 37890961408,
+ "price": 568.0,
+ "price_date": "2026-11-05",
+ "mcap": 39345643520,
  "sel_score": 91.7,
- "tim_score": 101.5,
+ "tim_score": 99.3,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -29,35 +29,37 @@
   "財務": 109.3,
   "キャッシュフロー": 73.3,
   "配当の持続力": 74.1,
-  "配当利回りセオリー": 107.2,
-  "利回り水準とChowder": 109.8,
-  "株価バリュエーション": 80.7,
+  "配当利回りセオリー": 106.1,
+  "利回り水準とChowder": 109.2,
+  "株価バリュエーション": 74.5,
   "金利スプレッド": null
  },
- "div_yield": 4.93601462522852,
+ "div_yield": 4.753521126760563,
  "streak_up": 14,
  "streak_flat": 5,
- "payout_ni": 124.01998999999999,
+ "payout_ni": 110.04514672686231,
+ "payout_state": null,
+ "payout_fy": "2025年12月期",
  "roe": 7.4939995999999995,
  "div_policy": null,
  "dgr5": 32.63807197299777,
- "chowder": 37.57408659822629,
+ "chowder": 37.39159309975833,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 473.8437001594896,
- "per_vs_sector": 1.256316,
- "pbr_vs_sector": 1.0548987222222221,
- "per_band_pos": 0.5653386881170017,
- "yield_band_pos": 0.8887758600115644,
+ "per_vs_sector": 1.3045475,
+ "pbr_vs_sector": 1.0953975555555555,
+ "per_band_pos": 0.4988903180987202,
+ "yield_band_pos": 0.8435987384049698,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 0.0,
- "total_yield": 4.93601462522852,
+ "total_yield": 4.753521126760563,
  "total_payout": 121.16639477977162,
  "interest_coverage": 725.8,
  "warnings": [
   "⚠ FCF配当性向が100%超（474%：フリーCFで配当を賄えていない）",
-  "⚠ 配当性向が100%超（124%：純利益を上回る配当）"
+  "⚠ 配当性向が100%超（110%：純利益を上回る配当）"
  ],
  "roa": 8.91,
  "leverage": 1.35,
@@ -68,9 +70,25 @@
   },
   {
    "k": "payout",
-   "t": "配当性向が100%超（124%：純利益を上回る配当）"
+   "t": "配当性向が100%超（110%：純利益を上回る配当）"
+  }
+ ],
+ "review": [
+  {
+   "k": "dps",
+   "where": "2020年度の年間配当（3回払い・16円）",
+   "why": "通常は年2回払いなのに3回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
+   "how": "IR BANK（irbank.net/4820/dividend）の備考欄か決算短信で、2020年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-04T23:18:13"
+ "_generated_at": "2026-11-05T23:13:33"
 }

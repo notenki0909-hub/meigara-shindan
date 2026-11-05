@@ -1,16 +1,16 @@
 {
  "code": "6310",
  "name": "井関農機",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "機械",
  "industry": "Farm & Heavy Construction Machinery",
  "is_simple": false,
  "is_reit": false,
- "price": 1609.0,
- "price_date": "2026-11-04",
- "mcap": 36416053248,
+ "price": 1634.0,
+ "price_date": "2026-11-05",
+ "mcap": 36981870592,
  "sel_score": 80.3,
- "tim_score": 97.6,
+ "tim_score": 96.8,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -29,43 +29,61 @@
   "財務": 96.8,
   "キャッシュフロー": 103.3,
   "配当の持続力": 71.2,
-  "配当利回りセオリー": 105.7,
-  "利回り水準とChowder": 74.2,
+  "配当利回りセオリー": 104.6,
+  "利回り水準とChowder": 73.4,
   "株価バリュエーション": 110.0,
   "金利スプレッド": null
  },
- "div_yield": 2.7967681789931635,
+ "div_yield": 2.7539779681762546,
  "streak_up": 1,
  "streak_flat": 9,
- "payout_ni": 34.96,
+ "payout_ni": 32.83005434547668,
+ "payout_state": null,
+ "payout_fy": "2025年12月期",
  "roe": 3.7049998,
  "div_policy": null,
  "dgr5": 5.922384104881218,
- "chowder": 8.719152283874381,
+ "chowder": 8.676362073057472,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 4.055654233274127,
- "per_vs_sector": 0.608807619047619,
- "pbr_vs_sector": 0.2574722611111111,
+ "per_vs_sector": 0.618267012987013,
+ "pbr_vs_sector": 0.2614727611111111,
  "per_band_pos": null,
- "yield_band_pos": 0.8296969131615366,
+ "yield_band_pos": 0.7855249924588279,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 0.0,
- "total_yield": 2.7967681789931635,
+ "total_yield": 2.7539779681762546,
  "total_payout": 24.845846935074356,
  "interest_coverage": 4.189928057553957,
  "warnings": [
-  "⚠ バリュートラップ注意：PBR 0.46倍（1倍割れ）かつROE 3.7%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.47倍（1倍割れ）かつROE 3.7%（5%未満）"
  ],
  "roa": 1.32,
  "leverage": 2.84,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.46倍（1倍割れ）かつROE 3.7%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.47倍（1倍割れ）かつROE 3.7%（5%未満）"
+  }
+ ],
+ "review": [
+  {
+   "k": "dps",
+   "where": "2015年度の年間配当（2回払い・45円）",
+   "why": "通常は年1回払いなのに2回払いです。払い方の変更とみなして計算に含めています。記念配当・特別配当だった場合は、連続増配が実際より長く出ます",
+   "how": "IR BANK（irbank.net/6310/dividend）の備考欄か決算短信で、2015年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-04T23:26:06"
+ "_generated_at": "2026-11-05T23:19:37"
 }

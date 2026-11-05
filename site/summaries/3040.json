@@ -1,16 +1,16 @@
 {
  "code": "3040",
  "name": "ソリトンシステムズ",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "情報・通信業",
  "industry": "Software - Infrastructure",
  "is_simple": false,
  "is_reit": false,
- "price": 2808.0,
- "price_date": "2026-11-04",
- "mcap": 52064223232,
+ "price": 2736.0,
+ "price_date": "2026-11-05",
+ "mcap": 50729242624,
  "sel_score": 99.3,
- "tim_score": 85.5,
+ "tim_score": 86.6,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -29,26 +29,28 @@
   "財務": 109.2,
   "キャッシュフロー": 103.3,
   "配当の持続力": 94.3,
-  "配当利回りセオリー": 101.5,
-  "利回り水準とChowder": 98.2,
-  "株価バリュエーション": 53.3,
-  "金利スプレッド": 70.4
+  "配当利回りセオリー": 102.1,
+  "利回り水準とChowder": 99.3,
+  "株価バリュエーション": 54.6,
+  "金利スプレッド": 72.5
  },
- "div_yield": 2.9914529914529915,
+ "div_yield": 3.070175438596491,
  "streak_up": 5,
  "streak_flat": 10,
- "payout_ni": 33.94,
+ "payout_ni": 45.68141443194315,
+ "payout_state": null,
+ "payout_fy": "2025年12月期",
  "roe": 24.094999,
  "div_policy": null,
  "dgr5": 40.113103235340276,
- "chowder": 43.104556226793264,
+ "chowder": 43.18327867393677,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 35.629804849201655,
- "per_vs_sector": 0.9512423756906075,
- "pbr_vs_sector": 1.83564925,
+ "per_vs_sector": 0.8845986740331491,
+ "pbr_vs_sector": 1.78858135,
  "per_band_pos": 0.0,
- "yield_band_pos": 0.6617048380708634,
+ "yield_band_pos": 0.6830841625471241,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": null,
@@ -59,6 +61,22 @@
  "roa": 8.76,
  "leverage": 1.98,
  "insight_flags": [],
+ "review": [
+  {
+   "k": "dps",
+   "where": "2015年度の年間配当（3回払い・11.25円）",
+   "why": "通常は年2回払いなのに3回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
+   "how": "IR BANK（irbank.net/3040/dividend）の備考欄か決算短信で、2015年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-04T23:06:27"
+ "_generated_at": "2026-11-05T23:04:58"
 }

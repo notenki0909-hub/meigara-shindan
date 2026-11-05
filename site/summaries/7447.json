@@ -1,21 +1,21 @@
 {
  "code": "7447",
  "name": "ナガイレーベン",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "繊維製品",
  "industry": "Apparel Manufacturing",
  "is_simple": false,
  "is_reit": false,
- "price": 1662.0,
- "price_date": "2026-11-04",
- "mcap": 48870236160,
- "sel_score": 82.3,
- "tim_score": 94.9,
+ "price": 1741.0,
+ "price_date": "2026-11-05",
+ "mcap": 51193188352,
+ "sel_score": 83.4,
+ "tim_score": 92.9,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
  "cov_sel": [
-  12,
+  11,
   16,
   "中"
  ],
@@ -25,34 +25,36 @@
   "高"
  ],
  "groups": {
-  "業績": 83.5,
+  "業績": 89.2,
   "財務": 110.0,
   "キャッシュフロー": 84.3,
-  "配当の持続力": 55.4,
-  "配当利回りセオリー": 102.9,
-  "利回り水準とChowder": 79.1,
-  "株価バリュエーション": 98.9,
+  "配当の持続力": 53.4,
+  "配当利回りセオリー": 101.3,
+  "利回り水準とChowder": 77.5,
+  "株価バリュエーション": 95.4,
   "金利スプレッド": null
  },
- "div_yield": 4.21179302045728,
+ "div_yield": 4.02067777139575,
  "streak_up": 0,
  "streak_flat": 0,
- "payout_ni": 72.019994,
+ "payout_ni": 79.35608207686204,
+ "payout_state": null,
+ "payout_fy": "2026年8月期",
  "roe": 6.595,
  "div_policy": null,
  "dgr5": 3.131030647754507,
- "chowder": 7.342823668211787,
+ "chowder": 7.151708419150257,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 105.39710286643648,
- "per_vs_sector": 0.938467684729064,
- "pbr_vs_sector": 1.1375083636363637,
+ "per_vs_sector": 0.9789241379310345,
+ "pbr_vs_sector": 1.1915777272727273,
  "per_band_pos": 1.0,
- "yield_band_pos": 0.7154941151055559,
+ "yield_band_pos": 0.6527277311367097,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 2181514000.0,
- "total_yield": 8.67568386980324,
+ "total_yield": 8.282014230848315,
  "total_payout": null,
  "interest_coverage": null,
  "warnings": [
@@ -66,6 +68,18 @@
    "t": "FCF配当性向が100%超（105%：フリーCFで配当を賄えていない）"
   }
  ],
+ "review": [
+  {
+   "k": "eps",
+   "where": "EPS（1株利益）の推移",
+   "why": "最新期の1株利益×株式数が、最新期ではなく前の年の純利益と一致（年別データの並び違いの疑い）。EPSの成長率が正しく計算できないため、採点から外しています",
+   "how": "IR BANK（irbank.net/7447/results）の最新期のEPSと、Yahooの値を比べて確認",
+   "keys": [
+    "eps_cagr"
+   ],
+   "names": []
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-04T23:33:58"
+ "_generated_at": "2026-11-05T23:25:25"
 }

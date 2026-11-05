@@ -1,16 +1,16 @@
 {
  "code": "3543",
  "name": "コメダホールディングス",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "サービス業",
  "industry": "Restaurants",
  "is_simple": false,
  "is_reit": false,
- "price": 2942.0,
- "price_date": "2026-11-04",
- "mcap": 133941518336,
- "sel_score": 94.1,
- "tim_score": 68.8,
+ "price": 3030.0,
+ "price_date": "2026-11-05",
+ "mcap": 137947922432,
+ "sel_score": 98.9,
+ "tim_score": 65.0,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア中位（妥当水準）",
  "comment": "選定は上位水準、買い時は中位（妥当水準）。",
@@ -20,52 +20,62 @@
   "高"
  ],
  "cov_tim": [
+  4,
   6,
-  6,
-  "高"
+  "中"
  ],
  "groups": {
   "業績": 106.7,
   "財務": 98.1,
   "キャッシュフロー": 103.3,
-  "配当の持続力": 74.1,
-  "配当利回りセオリー": 79.2,
-  "利回り水準とChowder": 77.0,
-  "株価バリュエーション": 39.1,
+  "配当の持続力": 90.1,
+  "配当利回りセオリー": 64.5,
+  "利回り水準とChowder": 75.8,
+  "株価バリュエーション": 53.0,
   "金利スプレッド": null
  },
- "div_yield": 2.107409925220938,
+ "div_yield": 2.046204620462046,
  "streak_up": 5,
  "streak_flat": 5,
- "payout_ni": 770.14003,
+ "payout_ni": 42.259473165234546,
+ "payout_state": null,
+ "payout_fy": "2026年2月期",
  "roe": 13.642000000000001,
  "div_policy": null,
  "dgr5": 8.997698704834534,
- "chowder": 11.105108630055472,
+ "chowder": 11.04390332529658,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 25.219971352568038,
- "per_vs_sector": 18.5732315,
- "pbr_vs_sector": 1.4269838333333333,
- "per_band_pos": 0.0,
- "yield_band_pos": 0.3924561919696781,
+ "per_vs_sector": null,
+ "pbr_vs_sector": 1.4696672222222222,
+ "per_band_pos": null,
+ "yield_band_pos": 0.24480295242552205,
  "next_earn": "2027-01-20",
  "earn_disc_date": null,
  "buyback_yen": 1000000000.0,
- "total_yield": 2.8540044184171722,
+ "total_yield": 2.7711158640459717,
  "total_payout": 53.62946912242686,
  "interest_coverage": 57.21686746987952,
- "warnings": [
-  "⚠ 配当性向が100%超（770%：純利益を上回る配当）"
- ],
+ "warnings": [],
  "roa": 5.85,
  "leverage": 2.21,
- "insight_flags": [
+ "insight_flags": [],
+ "review": [
   {
-   "k": "payout",
-   "t": "配当性向が100%超（770%：純利益を上回る配当）"
+   "k": "per",
+   "where": "PER（Yahoo表示 382.6倍）",
+   "why": "直近4四半期の純利益（68.2億円）から求めたPERは20.2倍で、Yahoo表示と18.9倍ずれています。Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
+   "how": "IR BANK（irbank.net/3543/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
+   "keys": [
+    "per_vs_sector",
+    "per_band_pos"
+   ],
+   "names": [
+    "益回り（1÷PER）"
+   ]
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-04T23:09:29"
+ "_generated_at": "2026-11-05T23:07:13"
 }

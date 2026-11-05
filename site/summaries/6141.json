@@ -1,16 +1,16 @@
 {
  "code": "6141",
  "name": "ＤＭＧ森精機",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "機械",
  "industry": "Specialty Industrial Machinery",
  "is_simple": false,
  "is_reit": false,
- "price": 2698.0,
- "price_date": "2026-11-04",
- "mcap": 421158289408,
- "sel_score": 69.5,
- "tim_score": 95.2,
+ "price": 2708.0,
+ "price_date": "2026-11-05",
+ "mcap": 422719291392,
+ "sel_score": 72.9,
+ "tim_score": 95.1,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -28,44 +28,55 @@
   "業績": 60.9,
   "財務": 95.5,
   "キャッシュフロー": 60.0,
-  "配当の持続力": 58.8,
-  "配当利回りセオリー": 108.7,
+  "配当の持続力": 70.2,
+  "配当利回りセオリー": 108.6,
   "利回り水準とChowder": 106.3,
   "株価バリュエーション": 56.2,
   "金利スプレッド": null
  },
- "div_yield": 3.8917716827279465,
+ "div_yield": 3.877400295420975,
  "streak_up": 5,
  "streak_flat": 5,
- "payout_ni": 166.72,
+ "payout_ni": 67.48071979434448,
+ "payout_state": null,
+ "payout_fy": "2025年12月期",
  "roe": 3.2649999999999997,
  "div_policy": null,
  "dgr5": 39.32590113656098,
- "chowder": 43.21767281928893,
+ "chowder": 43.203301431981956,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 1.8795708658008656,
- "pbr_vs_sector": 0.6567598888888889,
+ "per_vs_sector": 1.8546027705627706,
+ "pbr_vs_sector": 0.6591941111111111,
  "per_band_pos": 0.0,
- "yield_band_pos": 0.949987036642017,
+ "yield_band_pos": 0.9447702833397446,
  "next_earn": "2027-02-10",
  "earn_disc_date": "2026-10-29",
  "buyback_yen": 65518000000.0,
- "total_yield": 19.44839294550665,
+ "total_yield": 19.376574649222405,
  "total_payout": 331.6315066783173,
  "interest_coverage": 2.2872453185726065,
- "warnings": [
-  "⚠ 配当性向が100%超（167%：純利益を上回る配当）"
- ],
+ "warnings": [],
  "roa": 2.77,
  "leverage": 2.55,
- "insight_flags": [
+ "insight_flags": [],
+ "review": [
   {
-   "k": "payout",
-   "t": "配当性向が100%超（167%：純利益を上回る配当）"
+   "k": "dps",
+   "where": "2015年度の年間配当（3回払い・39円）",
+   "why": "通常は年2回払いなのに3回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
+   "how": "IR BANK（irbank.net/6141/dividend）の備考欄か決算短信で、2015年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-04T23:24:26"
+ "_generated_at": "2026-11-05T23:18:20"
 }

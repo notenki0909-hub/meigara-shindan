@@ -1,16 +1,16 @@
 {
  "code": "2201",
  "name": "森永製菓",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "食料品",
  "industry": "Confectioners",
  "is_simple": false,
  "is_reit": false,
- "price": 2458.0,
- "price_date": "2026-11-04",
- "mcap": 206396325888,
- "sel_score": 98.9,
- "tim_score": 91.0,
+ "price": 2547.0,
+ "price_date": "2026-11-05",
+ "mcap": 213869592576,
+ "sel_score": 99.3,
+ "tim_score": 88.3,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -28,31 +28,33 @@
   "業績": 104.5,
   "財務": 107.8,
   "キャッシュフロー": 73.3,
-  "配当の持続力": 98.3,
-  "配当利回りセオリー": 96.2,
-  "利回り水準とChowder": 93.3,
-  "株価バリュエーション": 100.3,
-  "金利スプレッド": 66.6
+  "配当の持続力": 99.7,
+  "配当利回りセオリー": 90.5,
+  "利回り水準とChowder": 94.1,
+  "株価バリュエーション": 98.9,
+  "金利スプレッド": 64.0
  },
- "div_yield": 2.8478437754271764,
- "streak_up": 4,
- "streak_flat": 24,
- "payout_ni": 31.96,
+ "div_yield": 2.7483313702394976,
+ "streak_up": 5,
+ "streak_flat": 25,
+ "payout_ni": 30.795470696925193,
+ "payout_state": null,
+ "payout_fy": "2026年3月期",
  "roe": 12.764000000000001,
  "div_policy": null,
- "dgr5": 10.756634324829006,
- "chowder": 13.604478100256182,
+ "dgr5": 12.543954530480296,
+ "chowder": 15.292285900719794,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 132.94593228903486,
- "per_vs_sector": 0.6043173000000001,
- "pbr_vs_sector": 1.1909745,
+ "per_vs_sector": 0.6261986,
+ "pbr_vs_sector": 1.2340976666666668,
  "per_band_pos": 1.0,
- "yield_band_pos": 0.5618256318235851,
+ "yield_band_pos": 0.5054760012318863,
  "next_earn": "2026-11-12",
  "earn_disc_date": "2026-08-05",
  "buyback_yen": 4754000000.0,
- "total_yield": 5.151179350586462,
+ "total_yield": 4.971181258687587,
  "total_payout": 71.1905432029271,
  "interest_coverage": 190.00746268656715,
  "warnings": [
@@ -66,6 +68,22 @@
    "t": "FCF配当性向が100%超（133%：フリーCFで配当を賄えていない）"
   }
  ],
+ "review": [
+  {
+   "k": "dps",
+   "where": "2025年度の年間配当（2回払い・65円）",
+   "why": "通常は年1回払いなのに2回払いです。払い方の変更とみなして計算に含めています。記念配当・特別配当だった場合は、連続増配が実際より長く出ます",
+   "how": "IR BANK（irbank.net/2201/dividend）の備考欄か決算短信で、2025年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-04T23:02:14"
+ "_generated_at": "2026-11-05T23:01:47"
 }

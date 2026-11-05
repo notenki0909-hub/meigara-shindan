@@ -1,16 +1,16 @@
 {
  "code": "6036",
  "name": "ＫｅｅＰｅｒ技研",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "化学",
  "industry": "Specialty Chemicals",
  "is_simple": false,
  "is_reit": false,
- "price": 1807.0,
- "price_date": "2026-11-04",
- "mcap": 98630082560,
+ "price": 1853.0,
+ "price_date": "2026-11-05",
+ "mcap": 101140865024,
  "sel_score": 101.1,
- "tim_score": 98.4,
+ "tim_score": 98.1,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -30,29 +30,31 @@
   "キャッシュフロー": 85.9,
   "配当の持続力": 94.2,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 95.2,
+  "利回り水準とChowder": 94.3,
   "株価バリュエーション": 80.0,
   "金利スプレッド": null
  },
- "div_yield": 2.7670171555063643,
+ "div_yield": 2.698327037236913,
  "streak_up": 7,
  "streak_flat": 7,
- "payout_ni": 16.66,
+ "payout_ni": 13.881177123820102,
+ "payout_state": null,
+ "payout_fy": "2026年6月期",
  "roe": 45.582,
  "div_policy": null,
  "dgr5": 51.571656651039824,
- "chowder": 54.33867380654619,
+ "chowder": 54.26998368827674,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 101.69998263460602,
- "per_vs_sector": 0.5225684895833334,
- "pbr_vs_sector": 3.0238886923076924,
+ "per_vs_sector": 0.522581875,
+ "pbr_vs_sector": 3.1008665384615384,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 376000.0,
- "total_yield": 2.7673983779389535,
+ "total_yield": 2.698698795971536,
  "total_payout": 27.766160618317713,
  "interest_coverage": 774.3675898245812,
  "warnings": [
@@ -66,6 +68,36 @@
    "t": "FCF配当性向が100%超（102%：フリーCFで配当を賄えていない）"
   }
  ],
+ "review": [
+  {
+   "k": "dps",
+   "where": "2015年度の年間配当（2回払い・1.5円）",
+   "why": "通常は年1回払いなのに2回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
+   "how": "IR BANK（irbank.net/6036/dividend）の備考欄か決算短信で、2015年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
+  },
+  {
+   "k": "dps",
+   "where": "2025年度の年間配当（2回払い・50円）",
+   "why": "通常は年1回払いなのに2回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
+   "how": "IR BANK（irbank.net/6036/dividend）の備考欄か決算短信で、2025年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-04T23:56:40"
+ "_generated_at": "2026-11-05T23:42:22"
 }

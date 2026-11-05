@@ -1,16 +1,16 @@
 {
  "code": "9759",
  "name": "ＮＳＤ",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "情報・通信業",
  "industry": "Software - Application",
  "is_simple": false,
  "is_reit": false,
- "price": 3056.0,
- "price_date": "2026-11-04",
- "mcap": 230175064064,
- "sel_score": 105.7,
- "tim_score": 95.6,
+ "price": 3139.0,
+ "price_date": "2026-11-05",
+ "mcap": 236426543104,
+ "sel_score": 106.0,
+ "tim_score": 94.7,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -28,37 +28,83 @@
   "業績": 107.9,
   "財務": 109.8,
   "キャッシュフロー": 102.9,
-  "配当の持続力": 101.4,
+  "配当の持続力": 102.5,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 100.2,
-  "株価バリュエーション": 81.8,
-  "金利スプレッド": 74.4
+  "利回り水準とChowder": 99.1,
+  "株価バリュエーション": 80.4,
+  "金利スプレッド": 72.2
  },
- "div_yield": 3.1413612565445024,
- "streak_up": 12,
- "streak_flat": 11,
- "payout_ni": 54.94,
+ "div_yield": 3.0582988212806623,
+ "streak_up": 13,
+ "streak_flat": 12,
+ "payout_ni": 56.30828787612177,
+ "payout_state": null,
+ "payout_fy": "2026年3月期",
  "roe": 19.544001,
  "div_policy": null,
- "dgr5": 26.19146889603865,
- "chowder": 29.332830152583153,
+ "dgr5": 17.978912471277987,
+ "chowder": 21.03721129255865,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 43.74588978034986,
- "per_vs_sector": 0.9581192817679557,
- "pbr_vs_sector": 1.63221525,
+ "per_vs_sector": 0.9577809944751381,
+ "pbr_vs_sector": 1.67654575,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": "2027-01-29",
  "earn_disc_date": "2015-01-28",
  "buyback_yen": 2001000000.0,
- "total_yield": 4.010699561341769,
+ "total_yield": 3.904650493021595,
  "total_payout": 66.51548927665462,
  "interest_coverage": 861.1818181818181,
  "warnings": [],
  "roa": 13.35,
  "leverage": 1.32,
  "insight_flags": [],
+ "review": [
+  {
+   "k": "dps",
+   "where": "2014年度の年間配当（2回払い・36.95円）",
+   "why": "通常は年1回払いなのに2回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
+   "how": "IR BANK（irbank.net/9759/dividend）の備考欄か決算短信で、2014年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
+  },
+  {
+   "k": "dps",
+   "where": "2019年度の年間配当（2回払い・46円）",
+   "why": "通常は年1回払いなのに2回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
+   "how": "IR BANK（irbank.net/9759/dividend）の備考欄か決算短信で、2019年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
+  },
+  {
+   "k": "dps",
+   "where": "2022年度の年間配当（2回払い・67円）",
+   "why": "通常は年1回払いなのに2回払いです。払い方の変更とみなして計算に含めています。記念配当・特別配当だった場合は、連続増配が実際より長く出ます",
+   "how": "IR BANK（irbank.net/9759/dividend）の備考欄か決算短信で、2022年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-04T23:53:54"
+ "_generated_at": "2026-11-05T23:40:13"
 }

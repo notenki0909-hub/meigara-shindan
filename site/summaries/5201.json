@@ -1,16 +1,16 @@
 {
  "code": "5201",
  "name": "ＡＧＣ",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "卸売業",
  "industry": "Conglomerates",
  "is_simple": false,
  "is_reit": false,
- "price": 5410.0,
- "price_date": "2026-11-04",
- "mcap": 1149199056896,
- "sel_score": 90.3,
- "tim_score": 96.8,
+ "price": 4951.0,
+ "price_date": "2026-11-05",
+ "mcap": 1051697676288,
+ "sel_score": 88.5,
+ "tim_score": 105.9,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -28,44 +28,62 @@
   "業績": 88.7,
   "財務": 107.6,
   "キャッシュフロー": 100.1,
-  "配当の持続力": 71.4,
-  "配当利回りセオリー": 86.7,
-  "利回り水準とChowder": 105.9,
-  "株価バリュエーション": 104.9,
+  "配当の持続力": 65.3,
+  "配当利回りセオリー": 104.3,
+  "利回り水準とChowder": 107.5,
+  "株価バリュエーション": 107.1,
   "金利スプレッド": null
  },
- "div_yield": 3.8817005545286505,
+ "div_yield": 4.241567360129267,
  "streak_up": 0,
  "streak_flat": 11,
- "payout_ni": 49.130002,
+ "payout_ni": 64.37768240343348,
+ "payout_state": null,
+ "payout_fy": "2025年12月期",
  "roe": 6.104,
  "div_policy": null,
  "dgr5": 11.842691472014465,
- "chowder": 15.724392026543116,
+ "chowder": 16.084258832143732,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 68.66673853783247,
- "per_vs_sector": 0.9360478102189782,
- "pbr_vs_sector": 0.6266189583333334,
+ "per_vs_sector": 0.8455273722627737,
+ "pbr_vs_sector": 0.5734548,
  "per_band_pos": null,
- "yield_band_pos": 0.467192829207729,
+ "yield_band_pos": 0.7737888191723011,
  "next_earn": "2026-11-05",
  "earn_disc_date": "2023-11-01",
  "buyback_yen": 15000000.0,
- "total_yield": 3.883005811429967,
+ "total_yield": 4.242993625522659,
  "total_payout": 64.4877244729765,
  "interest_coverage": 9.139222338204593,
  "warnings": [
-  "⚠ バリュートラップ注意：PBR 0.75倍（1倍割れ）かつROE 4.7%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.69倍（1倍割れ）かつROE 4.7%（5%未満）"
  ],
  "roa": 2.34,
  "leverage": 1.99,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.75倍（1倍割れ）かつROE 4.7%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.69倍（1倍割れ）かつROE 4.7%（5%未満）"
+  }
+ ],
+ "review": [
+  {
+   "k": "dps",
+   "where": "2019年度の年間配当（3回払い・175円）",
+   "why": "通常は年2回払いなのに3回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
+   "how": "IR BANK（irbank.net/5201/dividend）の備考欄か決算短信で、2019年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-04T23:20:28"
+ "_generated_at": "2026-11-05T23:15:17"
 }

@@ -1,16 +1,16 @@
 {
  "code": "6498",
  "name": "キッツ",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "機械",
  "industry": "Specialty Industrial Machinery",
  "is_simple": false,
  "is_reit": false,
- "price": 1824.0,
- "price_date": "2026-11-04",
- "mcap": 158701469696,
- "sel_score": 94.9,
- "tim_score": 92.7,
+ "price": 1754.0,
+ "price_date": "2026-11-05",
+ "mcap": 152610947072,
+ "sel_score": 94.4,
+ "tim_score": 96.9,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -28,31 +28,33 @@
   "業績": 101.0,
   "財務": 105.6,
   "キャッシュフロー": 73.3,
-  "配当の持続力": 90.3,
-  "配当利回りセオリー": 88.4,
-  "利回り水準とChowder": 105.4,
-  "株価バリュエーション": 85.7,
+  "配当の持続力": 88.5,
+  "配当利回りセオリー": 96.9,
+  "利回り水準とChowder": 105.9,
+  "株価バリュエーション": 86.0,
   "金利スプレッド": null
  },
- "div_yield": 3.618421052631579,
- "streak_up": 8,
- "streak_flat": 4,
- "payout_ni": 44.04,
+ "div_yield": 3.762827822120866,
+ "streak_up": 5,
+ "streak_flat": 5,
+ "payout_ni": 40.19719378081153,
+ "payout_state": null,
+ "payout_fy": "2025年12月期",
  "roe": 10.453,
  "div_policy": null,
- "dgr5": 19.225907763835547,
- "chowder": 22.844328816467126,
+ "dgr5": 24.10825601578461,
+ "chowder": 27.871083837905477,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 178.55924978687128,
- "per_vs_sector": 0.5897896536796536,
- "pbr_vs_sector": 0.7104665,
+ "per_vs_sector": 0.5482363636363636,
+ "pbr_vs_sector": 0.6832007777777777,
  "per_band_pos": 0.0,
- "yield_band_pos": 0.4839968740994982,
+ "yield_band_pos": 0.5694105903340054,
  "next_earn": "2026-11-09",
  "earn_disc_date": null,
  "buyback_yen": 108000000.0,
- "total_yield": 3.6864733524665327,
+ "total_yield": 3.8335960088545784,
  "total_payout": 37.4792847797645,
  "interest_coverage": 49.4306784660767,
  "warnings": [
@@ -66,6 +68,22 @@
    "t": "FCF配当性向が100%超（179%：フリーCFで配当を賄えていない）"
   }
  ],
+ "review": [
+  {
+   "k": "dps",
+   "where": "2020年度の年間配当（3回払い・18円）",
+   "why": "通常は年2回払いなのに3回払いです。払い方の変更とみなして計算に含めています。記念配当・特別配当だった場合は、連続増配が実際より長く出ます",
+   "how": "IR BANK（irbank.net/6498/dividend）の備考欄か決算短信で、2020年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-04T23:28:08"
+ "_generated_at": "2026-11-05T23:21:07"
 }

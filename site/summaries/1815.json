@@ -1,21 +1,21 @@
 {
  "code": "1815",
  "name": "鉄建建設",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "建設業",
  "industry": "Engineering & Construction",
  "is_simple": false,
  "is_reit": false,
- "price": 2079.0,
- "price_date": "2026-11-04",
- "mcap": 57924689920,
- "sel_score": 79.0,
- "tim_score": 109.1,
+ "price": 2101.0,
+ "price_date": "2026-11-05",
+ "mcap": 58537652224,
+ "sel_score": 76.8,
+ "tim_score": 109.0,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
  "cov_sel": [
-  15,
+  14,
   16,
   "高"
  ],
@@ -25,34 +25,36 @@
   "高"
  ],
  "groups": {
-  "業績": 85.7,
+  "業績": 78.1,
   "財務": 94.9,
   "キャッシュフロー": 20.0,
   "配当の持続力": 87.8,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 110.0,
-  "株価バリュエーション": 106.1,
+  "株価バリュエーション": 105.8,
   "金利スプレッド": null
  },
- "div_yield": 5.531505531505532,
+ "div_yield": 5.473584007615421,
  "streak_up": 3,
  "streak_flat": 13,
- "payout_ni": 41.77,
+ "payout_ni": 47.09201809504872,
+ "payout_state": null,
+ "payout_fy": "2026年3月期",
  "roe": 7.725,
  "div_policy": null,
  "dgr5": 16.271101521949817,
- "chowder": 21.802607053455347,
+ "chowder": 21.74468552956524,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 0.7919936434108527,
- "pbr_vs_sector": 0.5451868285714286,
- "per_band_pos": 0.6825816554044296,
+ "per_vs_sector": 0.800374496124031,
+ "pbr_vs_sector": 0.550956,
+ "per_band_pos": 0.6578149477651684,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": "2016-02-09",
  "buyback_yen": 0.0,
- "total_yield": 5.531505531505532,
+ "total_yield": 5.473584007615421,
  "total_payout": 33.90336050904752,
  "interest_coverage": 7.214285714285714,
  "warnings": [
@@ -66,6 +68,18 @@
    "t": "営業キャッシュフローが2期連続マイナス"
   }
  ],
+ "review": [
+  {
+   "k": "eps",
+   "where": "EPS（1株利益）の推移",
+   "why": "最新期の1株利益が前の年と同じ値（更新遅れの疑い）。EPSの成長率が正しく計算できないため、採点から外しています",
+   "how": "IR BANK（irbank.net/1815/results）の最新期のEPSと、Yahooの値を比べて確認",
+   "keys": [
+    "eps_cagr"
+   ],
+   "names": []
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-04T22:57:54"
+ "_generated_at": "2026-11-05T22:58:32"
 }

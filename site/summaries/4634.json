@@ -1,14 +1,14 @@
 {
  "code": "4634",
  "name": "ａｒｔｉｅｎｃｅ",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "化学",
  "industry": "Specialty Chemicals",
  "is_simple": false,
  "is_reit": false,
- "price": 4820.0,
- "price_date": "2026-11-04",
- "mcap": 226046869504,
+ "price": 4830.0,
+ "price_date": "2026-11-05",
+ "mcap": 226515845120,
  "sel_score": 93.2,
  "tim_score": 57.9,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
@@ -30,29 +30,31 @@
   "キャッシュフロー": 103.2,
   "配当の持続力": 74.8,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 49.6,
-  "株価バリュエーション": 102.0,
+  "利回り水準とChowder": 49.5,
+  "株価バリュエーション": 101.8,
   "金利スプレッド": null
  },
- "div_yield": 2.4896265560165975,
+ "div_yield": 2.484472049689441,
  "streak_up": 0,
  "streak_flat": 15,
- "payout_ni": 27.939999999999998,
+ "payout_ni": 47.50593824228028,
+ "payout_state": null,
+ "payout_fy": "2025年12月期",
  "roe": 6.555,
  "div_policy": null,
  "dgr5": 2.1295687600135116,
- "chowder": 4.619195316030109,
+ "chowder": 4.614040809702953,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 41.23125103016318,
- "per_vs_sector": 0.6377442708333334,
- "pbr_vs_sector": 0.6202183307692308,
- "per_band_pos": 0.4652325708598561,
+ "per_vs_sector": 0.6390673958333334,
+ "pbr_vs_sector": 0.6215050769230769,
+ "per_band_pos": 0.46075997199887664,
  "yield_band_pos": 0.0,
  "next_earn": "2026-11-13",
  "earn_disc_date": null,
  "buyback_yen": 10450000000.0,
- "total_yield": 7.112561623832293,
+ "total_yield": 7.097835849676132,
  "total_payout": 149.4487427466151,
  "interest_coverage": 13.974025974025974,
  "warnings": [
@@ -66,6 +68,22 @@
    "t": "バリュートラップ注意：PBR 0.81倍（1倍割れ）かつROE 3.9%（5%未満）"
   }
  ],
+ "review": [
+  {
+   "k": "dps",
+   "where": "2017年度の年間配当（3回払い・120円）",
+   "why": "通常は年2回払いなのに3回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
+   "how": "IR BANK（irbank.net/4634/dividend）の備考欄か決算短信で、2017年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-04T23:17:00"
+ "_generated_at": "2026-11-05T23:12:39"
 }

@@ -1,16 +1,16 @@
 {
  "code": "6908",
  "name": "イリソ電子工業",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "電気機器",
  "industry": "Electronic Components",
  "is_simple": false,
  "is_reit": false,
- "price": 2643.0,
- "price_date": "2026-11-04",
- "mcap": 56429260800,
+ "price": 2589.0,
+ "price_date": "2026-11-05",
+ "mcap": 55276335104,
  "sel_score": 83.0,
- "tim_score": 104.9,
+ "tim_score": 105.2,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -30,43 +30,61 @@
   "キャッシュフロー": 103.3,
   "配当の持続力": 56.8,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 105.9,
-  "株価バリュエーション": 94.1,
+  "利回り水準とChowder": 106.2,
+  "株価バリュエーション": 94.7,
   "金利スプレッド": null
  },
- "div_yield": 3.7835792659856224,
+ "div_yield": 3.8624951718810348,
  "streak_up": 0,
  "streak_flat": 6,
- "payout_ni": 83.62999599999999,
+ "payout_ni": 83.61903169161302,
+ "payout_state": null,
+ "payout_fy": "2026年3月期",
  "roe": 3.505,
  "div_policy": null,
  "dgr5": 14.869835499703509,
- "chowder": 18.65341476568913,
+ "chowder": 18.732330671584542,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 39.19239904988123,
- "per_vs_sector": 0.7592091836734695,
- "pbr_vs_sector": 0.29122529230769234,
- "per_band_pos": 0.24680575795535498,
+ "per_vs_sector": 0.7518246598639456,
+ "pbr_vs_sector": 0.28527516538461534,
+ "per_band_pos": 0.2631070722228382,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": "2026-09-30",
  "buyback_yen": 268000000.0,
- "total_yield": 4.258510172753765,
+ "total_yield": 4.347331946055317,
  "total_payout": 94.5162553858206,
  "interest_coverage": 37.35668789808917,
  "warnings": [
   "yfinance の業種『Electronic Components』が対応表に無く、sector（industry未対応） で 電気機器 に割り当てました。業種平均との比較は目安です。",
-  "⚠ バリュートラップ注意：PBR 0.76倍（1倍割れ）かつROE 3.4%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.74倍（1倍割れ）かつROE 3.4%（5%未満）"
  ],
  "roa": 2.69,
  "leverage": 1.27,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.76倍（1倍割れ）かつROE 3.4%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.74倍（1倍割れ）かつROE 3.4%（5%未満）"
+  }
+ ],
+ "review": [
+  {
+   "k": "dps",
+   "where": "2016年度の年間配当（2回払い・40円）",
+   "why": "通常は年1回払いなのに2回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
+   "how": "IR BANK（irbank.net/6908/dividend）の備考欄か決算短信で、2016年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-04T23:30:20"
+ "_generated_at": "2026-11-05T23:22:41"
 }
