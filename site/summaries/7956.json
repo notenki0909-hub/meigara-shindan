@@ -1,16 +1,16 @@
 {
  "code": "7956",
  "name": "ピジョン",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "化学",
  "industry": "Household & Personal Products",
  "is_simple": false,
  "is_reit": false,
  "price": 2055.5,
  "price_date": "2026-11-04",
- "mcap": 245534310400,
- "sel_score": 90.6,
- "tim_score": 75.1,
+ "mcap": 256404471808,
+ "sel_score": 90.0,
+ "tim_score": 74.0,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -28,16 +28,18 @@
   "業績": 97.5,
   "財務": 109.8,
   "キャッシュフロー": 90.3,
-  "配当の持続力": 67.0,
+  "配当の持続力": 65.1,
   "配当利回りセオリー": 100.3,
   "利回り水準とChowder": 64.6,
-  "株価バリュエーション": 39.8,
+  "株価バリュエーション": 35.3,
   "金利スプレッド": null
  },
  "div_yield": 3.6973972269520794,
  "streak_up": 0,
  "streak_flat": 18,
- "payout_ni": 99.160004,
+ "payout_ni": 106.0711793440335,
+ "payout_state": null,
+ "payout_fy": "2025年12月期",
  "roe": 11.1990005,
  "div_policy": null,
  "dgr5": 1.087212085035083,
@@ -45,20 +47,44 @@
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 91.82129891085114,
- "per_vs_sector": 1.4206116145833334,
- "pbr_vs_sector": 2.2105879230769228,
- "per_band_pos": 0.34780692405277097,
+ "per_vs_sector": 1.4587275,
+ "pbr_vs_sector": 2.3084538461538457,
+ "per_band_pos": 0.2597520861898689,
  "yield_band_pos": 0.6121842715527435,
  "next_earn": "2026-11-05",
- "earn_disc_date": "2026-08-05",
+ "earn_disc_date": "2026-11-04",
  "buyback_yen": 0.0,
  "total_yield": 3.6973972269520794,
  "total_payout": 106.24270711785297,
  "interest_coverage": 155.86046511627907,
- "warnings": [],
+ "warnings": [
+  "⚠ 配当性向が100%超（106%：純利益を上回る配当）"
+ ],
  "roa": 7.78,
  "leverage": 1.33,
- "insight_flags": [],
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（106%：純利益を上回る配当）"
+  }
+ ],
+ "review": [
+  {
+   "k": "dps",
+   "where": "2019年度の年間配当（3回払い・104円）",
+   "why": "通常は年2回払いなのに3回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
+   "how": "IR BANK（irbank.net/7956/dividend）の備考欄か決算短信で、2019年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-04T23:37:09"
+ "_generated_at": "2026-11-05T19:57:13",
+ "_earnings_reflected_via": "tdnet_retry"
 }

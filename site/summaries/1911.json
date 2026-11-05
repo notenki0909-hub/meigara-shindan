@@ -1,16 +1,16 @@
 {
  "code": "1911",
  "name": "住友林業",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "建設業",
  "industry": "Residential Construction",
  "is_simple": false,
  "is_reit": false,
  "price": 1252.0,
  "price_date": "2026-11-04",
- "mcap": 767703646208,
+ "mcap": 839752482816,
  "sel_score": 86.6,
- "tim_score": 96.7,
+ "tim_score": 96.4,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -31,13 +31,15 @@
   "配当の持続力": 91.7,
   "配当利回りセオリー": 84.6,
   "利回り水準とChowder": 106.6,
-  "株価バリュエーション": 107.7,
+  "株価バリュエーション": 106.4,
   "金利スプレッド": null
  },
  "div_yield": 3.993610223642172,
  "streak_up": 2,
  "streak_flat": 16,
- "payout_ni": 38.529998,
+ "payout_ni": 30.437029805317867,
+ "payout_state": null,
+ "payout_fy": "2025年12月期",
  "roe": 10.3269994,
  "div_policy": null,
  "dgr5": 31.7855045819432,
@@ -45,14 +47,14 @@
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 178.6638293106345,
- "per_vs_sector": 0.6992886434108527,
- "pbr_vs_sector": 0.5009448571428572,
- "per_band_pos": 0.7192825720212501,
+ "per_vs_sector": 0.7649167441860465,
+ "pbr_vs_sector": 0.5479584285714286,
+ "per_band_pos": 0.6721690736545378,
  "yield_band_pos": 0.4462784506595575,
  "next_earn": "2026-11-05",
- "earn_disc_date": "2026-08-06",
+ "earn_disc_date": "2026-11-04",
  "buyback_yen": 6049000000.0,
- "total_yield": 4.781544477944398,
+ "total_yield": 4.713941526470295,
  "total_payout": 35.58115988224927,
  "interest_coverage": 14.666060054595086,
  "warnings": [
@@ -66,6 +68,23 @@
    "t": "FCF配当性向が100%超（179%：フリーCFで配当を賄えていない）"
   }
  ],
+ "review": [
+  {
+   "k": "dps",
+   "where": "2020年度の年間配当（3回払い・18.33円）",
+   "why": "通常は年2回払いなのに3回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
+   "how": "IR BANK（irbank.net/1911/dividend）の備考欄か決算短信で、2020年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
+   "keys": [
+    "streak_up",
+    "streak_flat",
+    "dgr5"
+   ],
+   "names": [
+    "配当の年別データの整理（注記）"
+   ]
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-04T22:58:55"
+ "_generated_at": "2026-11-05T19:55:57",
+ "_earnings_reflected_via": "tdnet_retry"
 }

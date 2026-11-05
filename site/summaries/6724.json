@@ -1,14 +1,14 @@
 {
  "code": "6724",
  "name": "セイコーエプソン",
- "asof": "2026-11-04",
+ "asof": "2026-11-05",
  "jp_sector": "電気機器",
  "industry": "Computer Hardware",
  "is_simple": false,
  "is_reit": false,
  "price": 3058.0,
  "price_date": "2026-11-04",
- "mcap": 972555878400,
+ "mcap": 923578204160,
  "sel_score": 75.0,
  "tim_score": 49.7,
  "sel_label": "選定スコア中位（一部に弱点）",
@@ -37,7 +37,9 @@
  "div_yield": 2.6160889470241986,
  "streak_up": 0,
  "streak_flat": 13,
- "payout_ni": 130.25999,
+ "payout_ni": 130.2587572610456,
+ "payout_state": null,
+ "payout_fy": "2026年3月期",
  "roe": 2.97,
  "div_policy": null,
  "dgr5": 3.6019681902083045,
@@ -45,14 +47,14 @@
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 46.01440133532597,
- "per_vs_sector": 1.8567226530612246,
- "pbr_vs_sector": 0.4355473846153846,
+ "per_vs_sector": 1.738699319727891,
+ "pbr_vs_sector": 0.4136133076923077,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.0,
  "next_earn": "2026-11-05",
- "earn_disc_date": "2026-08-05",
+ "earn_disc_date": "2026-11-04",
  "buyback_yen": 1000000.0,
- "total_yield": 2.616191768879704,
+ "total_yield": 2.6161972215585583,
  "total_payout": 130.26207351244437,
  "interest_coverage": 12.439057855019437,
  "warnings": [
@@ -66,6 +68,8 @@
    "t": "配当性向が100%超（130%：純利益を上回る配当）"
   }
  ],
+ "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-04T23:28:48"
+ "_generated_at": "2026-11-05T19:56:42",
+ "_earnings_reflected_via": "tdnet_retry"
 }
