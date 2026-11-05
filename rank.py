@@ -895,7 +895,7 @@ def render_index(out):
             for i, it in enumerate(x["items"]):
                 first = f'<td class="rvc" rowspan="{len(x["items"])}"><a href="reports/{x["code"]}.html">{x["code"]}</a></td>'                         f'<td class="rvn" rowspan="{len(x["items"])}">{html.escape(x["name"])}</td>' if i == 0 else ""
                 rv_trs.append(f'<tr>{first}<td>{html.escape(it["where"])}</td><td>{html.escape(it["why"])}</td>'
-                              f'<td>{html.escape(it["how"])}</td></tr>')
+                              f'<td>{analyze.linkify_irbank(it["how"])}</td></tr>')
         reviewbox = (
             f'<details id="reviewbox"><summary>手動で調べる必要がある銘柄（{len(rvd)}銘柄）</summary>'
             '<p class="rvnote">データの自動判定に迷いがあり、数字が実態とずれている可能性がある銘柄です。ずれている場合、連続増配などの数字が'

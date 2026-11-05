@@ -3238,13 +3238,20 @@ KEY_DOMAIN = {k: dom for dom, ks in DOMAIN_KEYS.items() for k in ks}
 RV_BADGE = '<span class="rvb">要確認</span>'
 
 
+def linkify_irbank(text):
+    """文中の「irbank.net/コード/ページ」を、日本語の文字を含まない正しいURLのリンクにする（HTMLエスケープ済みの文字列を返す）。"""
+    return re.sub(r"irbank\.net/[0-9A-Za-z]+/[a-z]+",
+                  lambda m: f'<a href="https://{m.group(0)}" target="_blank" rel="noopener">{m.group(0)}</a>',
+                  html.escape(text))
+
+
 def render_review_notice(items):
     """個別レポートの企業概要の上に出す「手動で調べる必要がある理由」の枠。該当する分析結果の行は rvhl（色付き）で示す。"""
     if not items:
         return ""
     lis = "".join(
         f'<li><b>{html.escape(x["where"])}</b>：{html.escape(x["why"])}'
-        f'<div class="rvhow">確認方法：{html.escape(x["how"])}</div></li>' for x in items)
+        f'<div class="rvhow">確認方法：{linkify_irbank(x["how"])}</div></li>' for x in items)
     return ('<div class="rvnotice"><div class="rvt0">⚠ この銘柄には、手動で調べる必要がある項目があります</div>'
             f'<ul>{lis}</ul>'
             '<p class="rvsub">下の分析結果のうち、<span class="rvb">要確認</span>の印と色が付いた行が、この項目に該当します。'
