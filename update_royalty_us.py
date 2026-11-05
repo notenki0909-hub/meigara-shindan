@@ -88,11 +88,15 @@ def main():
         print(f"{key}: {len(old)} → {len(new[key])}銘柄  追加={sorted(n - o)}  除外={sorted(o - n)}")
         if n != o:
             changed = True
-    if not changed:
-        print("入れ替えなし（社名表記の差のみ・変化なし）→ 書き換えスキップ")
-        return
     if args.dry_run:
         print("--dry-run：書き込まない")
+        return
+    # 確認日＝最後に取得・検査に成功した日（入れ替えがなくても毎回更新する）。analyze_us.py が、リストの鮮度の判定に使う
+    # （古いリストで評価を引き上げ続けないため）。取得日＝入れ替えがあった日。
+    cfg["確認日"] = dt.date.today().isoformat()
+    if not changed:
+        print("入れ替えなし（社名表記の差のみ・変化なし）→ 確認日だけ更新")
+        json.dump(cfg, open(PATH, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         return
     cfg["aristocrats"], cfg["kings"] = new["aristocrats"], new["kings"]
     cfg["取得日"] = dt.date.today().isoformat()

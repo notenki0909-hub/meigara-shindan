@@ -21,6 +21,7 @@
   [ ] render_html_us / render_md_us（英語・USD）
 """
 import datetime as dt
+import json
 import os
 
 import analyze
@@ -374,6 +375,68 @@ def _reit_quality_md(rq_score, rq_parts):
     return "\n".join(lines) + "\n"
 
 
+# ---------------------------------------------------------------- 配当王・貴族の年数評価（床上げ）
+# 配当王（50年以上連続増配）・配当貴族（S&P500で25年以上連続増配）の公式リスト（dividend_royalty_us.json）に載る銘柄は、
+# Yahooの配当履歴が短い（王の大半は履歴が40年前後）・スピンオフや合併で過去の配当が調整されて偽の減配に見える、などの理由で、
+# 計算した連続増配・連続非減配の年数が、実際より大幅に短く出る。そのため、リストの年数（王50・貴族25）を下限として評価する。
+# 次の場合は引き上げない（計算値のまま評価し、注記を出す）：
+#   ・リストの確認日が古い（ROYALTY_MAX_AGE_DAYS日超）…古いリストで評価を上げ続けないため
+#   ・直近3年に、データ上で10%超の減配がある…リストの更新が遅れていて、実際に減配した可能性があるため
+ROYALTY_FLOOR = True
+ROYALTY_MAX_AGE_DAYS = 70
+_ROYALTY_CACHE = {}
+
+
+def _royalty_load():
+    if "d" not in _ROYALTY_CACHE:
+        try:
+            _ROYALTY_CACHE["d"] = json.load(open(os.path.join(HERE, "dividend_royalty_us.json"), encoding="utf-8"))
+        except Exception:
+            _ROYALTY_CACHE["d"] = {}
+    return _ROYALTY_CACHE["d"]
+
+
+def royalty_info(ticker):
+    """公式リストの区分。{"kind":"王"|"貴族","years":50|25,"asof":確認日,"age":日数,"fresh":bool} または None。"""
+    d = _royalty_load()
+    kind = None
+    if any(e.get("ticker") == ticker for e in d.get("kings") or []):
+        kind, years = "王", 50
+    elif any(e.get("ticker") == ticker for e in d.get("aristocrats") or []):
+        kind, years = "貴族", 25
+    if kind is None:
+        return None
+    asof = d.get("確認日") or d.get("取得日")
+    try:
+        age = (dt.date.today() - dt.date.fromisoformat(asof)).days
+    except Exception:
+        age = None
+    return {"kind": kind, "years": years, "asof": asof, "age": age,
+            "fresh": age is not None and age <= ROYALTY_MAX_AGE_DAYS}
+
+
+def recent_cut_rate(divs, years=3, thr=0.10):
+    """直近years年に、1回あたり配当額の前年同期比で thr(10%)超の減配があれば、その下落率（負の値）を返す。無ければ None。"""
+    if not divs:
+        return None
+    ds = sorted(divs)
+    anchor0 = ds[-1][0]
+    rates = []
+    for k in range(years + 2):
+        anchor = anchor0 - dt.timedelta(days=365 * k)
+        best = min(ds, key=lambda p: abs((p[0] - anchor).days))
+        if abs((best[0] - anchor).days) > 120:
+            break
+        rates.append(best[1])
+    worst = None
+    for i in range(min(years, len(rates) - 1)):
+        if rates[i + 1] > 0:
+            ch = rates[i] / rates[i + 1] - 1
+            if ch < -thr and (worst is None or ch < worst):
+                worst = ch
+    return worst
+
+
 # ---------------------------------------------------------------- 連続非減配年数
 def nocut_streak_rate(divs, max_years=60):
     """連続非減配年数を『1回あたり配当額の前年同期比』で数える。
@@ -458,7 +521,7 @@ def fetch_yf_us(ticker):
 
 
 # ---------------------------------------------------------------- 指標計算
-def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10y):
+def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10y, royalty_floor=False):
     """全指標を分野別 dict に。analyze.build_metrics の米国株版。
     - 通貨表示は fmt_usd、ラベルは英語。
     - IR BANK は使わない。div_policy（累進配当宣言リスト）も無し。
@@ -697,6 +760,24 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
     # 連続増配/非減配は rate 方式（決算期のズレに強い）
     streak_up = up_streak_rate(divs)
     streak_flat = nocut_streak_rate(divs)
+    royalty = None          # 配当王・貴族の床上げの結果（summaryにも出す）
+    streak_up_raw, streak_flat_raw = streak_up, streak_flat
+    if royalty_floor:      # 配当株の米国株 generate_us() だけが True で呼ぶ（10年保有側 analyze_long は既定のFalse＝従来どおり）
+        _ri = royalty_info(yd["code"])
+        if _ri:
+            royalty = dict(_ri, floored=False, raw_up=streak_up, raw_flat=streak_flat, warn=None,
+                           hist_years=(dt.date.today().year - sorted(divs)[0][0].year) if divs else None)
+            _cut = recent_cut_rate(divs)
+            if not _ri["fresh"]:
+                royalty["warn"] = f"リストの確認日（{_ri['asof']}）が古いため、リストの年数での評価引き上げは行っていません"
+            elif _cut is not None:
+                royalty["warn"] = (f"リストでは配当{_ri['kind']}ですが、直近3年にデータ上で{abs(_cut) * 100:.0f}%の減配があるため、"
+                                   "リストの年数での評価引き上げは行っていません（リストの更新が遅れている可能性）")
+            else:
+                if is_num(streak_up) and streak_up < _ri["years"]:
+                    streak_up = _ri["years"]; royalty["floored"] = True
+                if is_num(streak_flat) and streak_flat < _ri["years"]:
+                    streak_flat = _ri["years"]; royalty["floored"] = True
     dgr5 = None
     if len(dps_series) >= 3:
         vals = [v for _, v in dps_series]
@@ -774,12 +855,27 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
 
     M["配当"].append({"name": "増配率（直近5年・年率）", "v": dgr5, "disp": fmt_pct(dgr5),
                       "ref": f"5%以上が目安（0%以上で及第）／出所：{dps_src}", "key": "dgr5"})
+    def _sdisp(v, raw):
+        if not is_num(v):
+            return "―"
+        if royalty and royalty["floored"] and v != raw:
+            return f"{v}年以上（配当{royalty['kind']}・リスト基準。計算値 {raw}年）"
+        return f"{v}年"
     M["配当"].append({"name": "連続増配 年数", "v": streak_up,
-                      "disp": f"{streak_up}年" if is_num(streak_up) else "―",
+                      "disp": _sdisp(streak_up, streak_up_raw),
                       "ref": "25年以上で配当貴族、50年以上で配当王の水準", "key": "streak_up"})
     M["配当"].append({"name": "連続 非減配 年数", "v": streak_flat,
-                      "disp": f"{streak_flat}年" if is_num(streak_flat) else "―",
+                      "disp": _sdisp(streak_flat, streak_flat_raw),
                       "ref": "不況局面でも減配せず持続してきたか", "key": "streak_flat"})
+    if royalty and (royalty["floored"] or royalty["warn"]):
+        if royalty["floored"]:
+            _rd = (f"配当{royalty['kind']}のリスト（{royalty['years']}年以上）に載っているため、連続増配・連続非減配をリストの年数まで引き上げて評価"
+                   f"（計算値：連続増配 {streak_up_raw}年／連続非減配 {streak_flat_raw}年。Yahooの配当履歴は{royalty['hist_years']}年分）")
+            _rr = ("計算値が短い主な原因は、Yahooの配当履歴が短いこと、スピンオフ・合併による過去の配当の調整、増配幅が小さい年の判定です。"
+                   f"リストの確認日：{royalty['asof']}。直近3年にデータ上で10%超の減配があれば、引き上げません")
+        else:
+            _rd, _rr = royalty["warn"], f"リストの確認日：{royalty['asof']}"
+        M["参考"].append({"name": "配当王・貴族リストによる年数評価", "v": None, "disp": _rd, "ref": _rr, "key": None})
     pn = sec_avg.get("payout")
     pn_txt = f"業種目安 {pn[0]}〜{pn[1]}%" if pn else "―"
     M["配当"].append({"name": "配当性向（純利益ベース）", "v": payout_ni, "disp": fmt_pct(payout_ni),
@@ -921,6 +1017,7 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
         "yband_pos": yband_pos, "yrange": yrange, "dps_series": dps_series, "dps_src": dps_src,
         "op_margin": op_margin, "roe": roe, "equity_ratio": equity_ratio,
         "streak_up": streak_up, "streak_flat": streak_flat, "chowder": chowder, "tec": tec,
+        "royalty": royalty,
         "rev_series": rev, "ni_series": ni, "eps_series": eps,
         "fwd_dps": fwd_dps, "payout_ni": payout_ni,
         "per_band_pos": per_band_pos, "yield_spread": yield_spread, "ust_10y": ust_10y,
@@ -1657,7 +1754,8 @@ def generate_us(ticker, cfg=None, log=None):
 
     log("[2/3] scoring")
     try:
-        M, flags, ctx = build_metrics_us(yd, sec_avg, is_simple, gics, rate_sensitive, ust_10y)
+        M, flags, ctx = build_metrics_us(yd, sec_avg, is_simple, gics, rate_sensitive, ust_10y,
+                                         royalty_floor=ROYALTY_FLOOR)   # 配当王・貴族の床上げは、配当株の米国株だけ（10年保有側は既定のFalse）
         ctx["earn"] = analyze.build_earnings(yd, yd["price"])
         ctx["company"] = analyze.build_company_overview(info)
         ctx["hist_m"] = yd.get("hist_m")
@@ -1802,6 +1900,7 @@ def generate_us(ticker, cfg=None, log=None):
         "groups": {g: (round(v, 1) if is_num(v) else None) for g, v in groups.items()},
         "div_yield": gv("div_yield"), "total_yield": gv("total_yield"),
         "streak_up": gv("streak_up"), "streak_flat": gv("streak_flat"),
+        "royalty": ctx.get("royalty"),
         "payout_ni": gv("payout_ni"), "roe": gv("roe"), "chowder": gv("chowder"), "dgr5": gv("dgr5"),
         "ocf_positive": gv("ocf_positive"),
         "fcf_positive": gv("fcf_positive"), "fcf_payout": gv("fcf_payout"),
