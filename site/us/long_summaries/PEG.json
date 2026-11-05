@@ -5,12 +5,12 @@
  "gics_sector": "Utilities",
  "is_simple": false,
  "is_reit": false,
- "price": 72.80999755859375,
- "price_date": "2026-11-03",
- "mcap": 36289961984,
- "q_score": 82.7,
+ "price": 73.22000122070312,
+ "price_date": "2026-11-04",
+ "mcap": 36501299200,
+ "q_score": 91.4,
  "groups": {
-  "業績": 73.86024336011775,
+  "業績": 95.74618141589559,
   "財務": 97.02547635651574,
   "キャッシュフロー": 73.33333333333333,
   "金融品質": null,
@@ -19,39 +19,35 @@
  "is_fin_simple": false,
  "is_reit_us": false,
  "current_pfo": null,
- "quarter_decel_factor": 0.7714171183421799,
- "quarter_decel_detail": {
-  "rev_yoy_q": -8.948306595365418,
-  "profit_yoy_q": -43.57405140758874,
-  "gap": -16.42914408289101
- },
+ "quarter_decel_factor": null,
+ "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 71.0,
+ "bt_score": 71.1,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 96.45301286273533,
-  "fcf_yield": 20.95526875123074,
-  "per_cheap": 95.5,
-  "pbr_cheap": 106.4
+  "ev_ebit_vs_sector": 97.53031448733614,
+  "fcf_yield": 20.949737884033087,
+  "per_cheap": 94.7,
+  "pbr_cheap": 106.6
  },
- "ev_ebit": 20.2550208,
- "fcf_yield": 0.07164515634230542,
- "per_band_pos": 0.5487639716410938,
+ "ev_ebit": 20.32593932885906,
+ "fcf_yield": 0.07123034130248164,
+ "per_band_pos": 0.5426872931902752,
  "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.8810361374510658,
- "per_vs_sector": 0.9747771090047392,
- "pbr_vs_sector": 0.8896627916666666,
+ "ev_ebit_vs_sector": 0.8716097482358087,
+ "per_vs_sector": 0.9802662085308057,
+ "pbr_vs_sector": 0.8750920833333333,
  "price_chg": {
-  "d": -2.1107821360561774,
-  "w": -0.01373542470802791,
-  "m": 6.0133914313723835,
-  "3m": -3.6139837488040616,
-  "6m": -8.679299519605577,
-  "9m": -10.728298506524458,
-  "y": -9.620159179328658
+  "d": 0.5631145115468916,
+  "w": 1.0349109802219036,
+  "m": 2.0772309968468683,
+  "3m": -2.4253726980533963,
+  "6m": -7.725264488085881,
+  "9m": -8.634886725291334,
+  "y": -10.004915595603837
  },
- "div_yield": 3.6808131985491053,
- "implied_fcf_growth": 0.7153,
+ "div_yield": 3.660202069543566,
+ "implied_fcf_growth": 0.7163,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -90,7 +86,7 @@
  },
  "metric_raw": {
   "rev_cagr": 7.480837487525593,
-  "eps_cagr": 27.003320832428358,
+  "eps_cagr": 27.103560274855653,
   "op_margin": 24.490466798159105,
   "earnings_stability": 0.6385345997286296,
   "equity_ratio": null,
@@ -102,5 +98,5 @@
   "fcf_positive": 1,
   "fcf_payout": 4838.461538461539
  },
- "_generated_at": "2026-11-04T02:53:59"
+ "_generated_at": "2026-11-05T03:05:24"
 }
