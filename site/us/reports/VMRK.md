@@ -1,4 +1,4 @@
-# Vivmark Residential（VMRK）｜米国株 配当スクリーニング
+# AvalonBay Communities, Inc.（VMRK）｜米国株 配当スクリーニング
 
 - GICS業種：**不動産**　細分類：REIT（住宅）（簡易判定）
 - 株価：$63.72  ｜  時価総額：$49.31B  ｜  生成：2026-11-05

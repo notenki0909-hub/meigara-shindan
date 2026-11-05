@@ -6,11 +6,11 @@
  "industry": "Credit Services",
  "is_simple": false,
  "is_reit": false,
- "price": 8.260000228881836,
- "price_date": "2026-11-03",
+ "price": 9.069999694824219,
+ "price_date": "2026-11-04",
  "mcap": 850619264,
  "sel_score": 41.9,
- "tim_score": 102.3,
+ "tim_score": 101.3,
  "sel_label": "選定スコア基準未達",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は最下位水準。低評価には理由があることが多い（バリュートラップの可能性）。",
@@ -30,17 +30,17 @@
   "キャッシュフロー": 103.3,
   "配当の持続力": 51.4,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 83.7,
+  "利回り水準とChowder": 80.3,
   "株価バリュエーション": 110.0,
   "金利スプレッド": null
  },
- "div_yield": 7.74818380467088,
- "total_yield": 20.797500308276422,
+ "div_yield": 7.0562295648721465,
+ "total_yield": 20.10554606847769,
  "streak_up": 0,
  "streak_flat": 12,
  "payout_ni": 200.0,
  "roe": -1.975,
- "chowder": 7.74818380467088,
+ "chowder": 7.0562295648721465,
  "dgr5": 0.0,
  "ocf_positive": 1,
  "fcf_positive": 1,
@@ -51,12 +51,12 @@
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-04",
- "earn_disc_date": "2026-08-06",
+ "earn_disc_date": "2026-11-04",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
   "⚠ 配当性向が100%超（200%：純利益を上回る配当）",
-  "⚠ バリュートラップ注意：買い時が高い（102）のに質が低め（選定42）。安さの理由を確認"
+  "⚠ バリュートラップ注意：買い時が高い（101）のに質が低め（選定42）。安さの理由を確認"
  ],
  "roa": -0.16,
  "leverage": 20.29,
@@ -67,9 +67,10 @@
   },
   {
    "k": "trap",
-   "t": "バリュートラップ注意：買い時が高い（102）のに質が低め（選定42）。安さの理由を確認"
+   "t": "バリュートラップ注意：買い時が高い（101）のに質が低め（選定42）。安さの理由を確認"
   }
  ],
  "kind": "fin",
- "_generated_at": "2026-11-05T02:21:18"
+ "_generated_at": "2026-11-05T06:54:38",
+ "_earnings_reflected_via": "earnings_watch_us"
 }
