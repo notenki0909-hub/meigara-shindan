@@ -421,6 +421,108 @@ def _insight_extras(yd, market, is_simple, is_reit, q_score, bt_score, tiers, ra
     return {"rows": rows, "flags": flags, "raw": rawv}
 
 
+# ---------------------------------------------------------------- データ不備の疑い（表示専用）
+# Yahoo Finance の財務データの不備を見つけて知らせる。**採点には一切使わない**（スコアも順位も変えない）。
+# 配当株ツール側の自動チェック（fin_guard）の判定を、10年保有側にコピーして移植したもの（共有コードには依存しない・
+# 外して採点から除く処理はしない）。2026-11-06の照合（IR BANK・SEC）で、判定の確からしさが違うため2段階に分ける：
+#   high  ＝「最新期の1株利益が前の年と同じ値」（更新遅れ）。照合では日本株3/3・米国1/2が本当の不備
+#   check ＝それ以外（1株利益・PER・PBRを、決算書から求め直した値とのズレ）。誤判定が多い（日本株で6割超）ので、
+#           「Yahoo側が正しい場合も多い。IR BANK・決算短信（米国はSEC）で確認」と控えめに出す
+def _eps_stale_or_bad_jp(is_years, eps, ni_c, sh_c):
+    """最新期の1株利益が信頼できないときの種類（無ければ None）。stale＝前の年と同じ値／mismatch＝純利益÷平均株式数と食い違う／
+    shift＝1株利益×株式数が前の年の純利益と一致（年別データのずれ）。"""
+    if not eps or len(eps) < 2 or not LC.is_num(eps[0]):
+        return None
+    e0, e1 = eps[0], eps[1]
+    if LC.is_num(e1) and e0 == e1:
+        return "stale"
+    n0 = ni_c[0] if ni_c and LC.is_num(ni_c[0]) else None
+    n1 = ni_c[1] if ni_c and len(ni_c) > 1 and LC.is_num(ni_c[1]) else None
+    s0 = sh_c[0] if sh_c and LC.is_num(sh_c[0]) and sh_c[0] > 0 else None
+    if s0 is None:
+        return None
+    if LC.is_num(n0):
+        ec = n0 / s0
+        if (e0 > 0) != (ec > 0) or (e0 > 0 and abs(ec / e0 - 1) > 0.20):
+            return "mismatch"
+    if LC.is_num(n1) and n1 != 0 and abs(e0 * s0 / n1 - 1) < 0.03 and not (LC.is_num(n0) and abs(e0 * s0 / n0 - 1) < 0.03):
+        return "shift"
+    return None
+
+
+def _data_notices(yd, market, code):
+    """データ不備の疑いのリスト [{tier, k, where, why, how}]。該当が無ければ []。"""
+    out = []
+    info = yd.get("info") or {}
+    isr, bsr = yd.get("is_rows") or {}, yd.get("bs_rows") or {}
+    price = yd.get("price")
+    eps = analyze.row(isr, "Basic EPS", "Diluted EPS") or []
+    jp = (market == "jp")
+    how_eps = (f"IR BANK（irbank.net/{code}/results）の最新期のEPSと、決算短信の1株当たり当期純利益を、Yahooの値と比べる" if jp else
+               "SEC EDGAR で、この会社の最新の年次報告書（10-K）の希薄化後1株利益を、Yahooの値と比べる")
+    if jp:
+        kind = _eps_stale_or_bad_jp(yd.get("is_years") or [], eps,
+                                    analyze.row(isr, "Net Income Common Stockholders", "Net Income") or [],
+                                    analyze.row(isr, "Basic Average Shares", "Diluted Average Shares") or [])
+    else:
+        kind = "stale" if (len(eps) >= 2 and LC.is_num(eps[0]) and LC.is_num(eps[1]) and eps[0] == eps[1] and eps[0] != 0) else None
+        if kind is None:
+            try:
+                sh = analyze.row(isr, "Diluted Average Shares", "Basic Average Shares")
+                so = info.get("sharesOutstanding")
+                if sh and LC.is_num(sh[0]) and sh[0] > 0 and LC.is_num(so) and so > 0:
+                    r = sh[0] / so
+                    if r > 2.5 or r < 0.4:
+                        out.append({"tier": "check", "k": "eps", "where": "EPS（1株利益）の推移・PERの自社過去レンジ内の位置",
+                                    "why": f"決算書の平均株式数が発行済株式数の{r:.1f}倍（通常は1倍前後）で、Yahooの年次の1株利益の桁がずれている疑いがあります。"
+                                           "ただし、株式の種類が複数ある会社や、合併で株式が組み替わった会社では、Yahooの値が正しくても出ます",
+                                    "how": how_eps})
+            except Exception:
+                pass
+    if kind == "stale":
+        out.append({"tier": "high", "k": "eps", "where": "EPS（1株利益）の推移",
+                    "why": "最新期の1株利益が、前の年と同じ値です（更新遅れの疑い）。EPSの成長率が、実際より低く（または高く）計算されている可能性があります",
+                    "how": how_eps})
+    elif kind in ("mismatch", "shift"):
+        msg = {"mismatch": "最新期の1株利益が、純利益÷平均株式数と大きく食い違っています（株式分割の反映ずれ・訂正前の値などの疑い）。"
+                           "ただし、Yahoo側の純利益・株式数の方がずれていて、1株利益は正しい場合も多くあります",
+               "shift": "最新期の1株利益×株式数が、最新期ではなく前の年の純利益と一致しています（年別データの並び違いの疑い）"}[kind]
+        out.append({"tier": "check", "k": "eps", "where": "EPS（1株利益）の推移", "why": msg, "how": how_eps})
+    if jp:
+        per = info.get("trailingPE")
+        if LC.is_num(per) and per > 0:
+            try:
+                qr = yd.get("q_rows") or {}
+                qni = qr.get("Net Income Common Stockholders") or qr.get("Net Income")
+                so = info.get("sharesOutstanding")
+                if qni and len(qni) >= 4 and all(LC.is_num(x) for x in qni[:4]) and LC.is_num(so) and so > 0 and LC.is_num(price) and price > 0:
+                    ttm = sum(qni[:4])
+                    if ttm > 0:
+                        pt = price * so / ttm
+                        if not (0.5 <= per / pt <= 2.0):
+                            out.append({"tier": "check", "k": "per", "where": f"PER（Yahoo表示 {per:.1f}倍）",
+                                        "why": f"直近4四半期の純利益（{ttm / 1e8:,.1f}億円）から求めたPERは{pt:.1f}倍で、Yahoo表示と{per / pt:.1f}倍ずれています。"
+                                               "ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
+                                        "how": f"IR BANK（irbank.net/{code}/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する"})
+            except Exception:
+                pass
+        pbr = info.get("priceToBook")
+        if LC.is_num(pbr) and pbr > 0:
+            try:
+                eq = analyze.row(bsr, "Stockholders Equity", "Common Stock Equity")
+                so = info.get("sharesOutstanding")
+                if eq and LC.is_num(eq[0]) and eq[0] > 0 and LC.is_num(so) and so > 0 and LC.is_num(price) and price > 0:
+                    pc = price / (eq[0] / so)
+                    if not (0.6 <= pc / pbr <= 1.6):
+                        out.append({"tier": "check", "k": "pbr", "where": f"PBR（Yahoo表示 {pbr:.2f}倍）",
+                                    "why": f"株価÷（純資産÷発行済株式数）で求めたPBRは{pc:.2f}倍で、Yahoo表示と{pc / pbr:.2f}倍ずれています。"
+                                           "ただし、照合ではYahoo側のPBRが正しい場合が多くありました（株式数のデータのずれなど）",
+                                    "how": f"IR BANK（irbank.net/{code}/results）の1株純資産（BPS）で、株価÷BPSを計算して確認する"})
+            except Exception:
+                pass
+    return out
+
+
 def _raw_financial_quality(yd, info):
     """銀行・保険・証券（is_simple かつ REIT でない）向けの品質サブスコアの素材。
     ROE・増収率(売上高CAGR)・EPS成長率(CAGR)・利益の安定度(純利益の最大減益率)。"""
@@ -1239,6 +1341,29 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
                           '決算資料で確かめてください。「継続企業の前提に関する注記（GC注記）」の有無は'
                           'このツールでは取得できないため、有価証券報告書・10-Kで確認してください。</div></div>')
 
+    # データ不備の疑い（Yahooの財務データ。表示専用・採点には使わない）
+    dn_html = ""
+    dn = extras.get("data_notice") or []
+    if dn:
+        esc = analyze.html.escape
+        code_ = meta["code"]
+        links = (f'<a href="https://irbank.net/{esc(str(code_))}/results" target="_blank" rel="noopener">IR BANK 決算まとめ</a>'
+                 f'・<a href="https://irbank.net/{esc(str(code_))}/quarter" target="_blank" rel="noopener">四半期</a>'
+                 '・決算短信（会社のIRページ／東証TDnet）' if market == "jp" else
+                 f'<a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK={esc(str(code_))}&amp;type=10-K" '
+                 'target="_blank" rel="noopener">SEC EDGAR（10-K）</a>')
+        for tier, title, cls in (
+                ("high", "データに不備の疑い（確度が高い）", "warn"),
+                ("check", "データの確認をおすすめする項目（Yahooの値とのズレ。Yahoo側が正しい場合も多い）", "dnote")):
+            its = [d for d in dn if d.get("tier") == tier]
+            if not its:
+                continue
+            dn_html += (f'<div class="{cls}"><b>{title}</b><ul>'
+                        + "".join(f'<li><b>{esc(d["where"])}</b>：{esc(d["why"])}<br>'
+                                  f'<span class="dnhow">確認の方法：{esc(d["how"])}</span></li>' for d in its)
+                        + f'</ul><div class="dnfoot">確認先：{links}。'
+                          '採点は、Yahooの値をそのまま使っています（確認して誤りだったときも、点は自動では直りません。表示のみ）。</div></div>')
+
     warn_html = ("" if not warnings else
                  '<div class="warn"><b>データ上の注意</b><ul>'
                  + "".join(f"<li>{w}</li>" for w in warnings) + "</ul></div>")
@@ -1342,6 +1467,10 @@ table.subt tr:last-child td{{border-bottom:none}}
 .legend{{font-size:11px;color:var(--muted);margin:4px 0 8px}}
 .mv2{{color:var(--fg)}}
 details.m.hl>summary{{grid-template-columns:minmax(150px,1fr) 2fr auto}}
+.dnote{{margin:14px 0;padding:10px 12px;background:var(--field);border:1px solid var(--line);border-radius:8px;font-size:12px}}
+.dnote ul,.warn ul{{margin:4px 0 0;padding-left:18px}}
+.dnhow{{color:var(--muted)}}
+.dnfoot{{margin-top:6px;font-size:11px;color:var(--muted)}}
 @media(max-width:600px){{details.m.hl>summary{{grid-template-columns:1fr}}
   details.m.hl>summary .mr{{display:block}}}}
 </style></head><body><div class="wrap">
@@ -1365,6 +1494,7 @@ details.m.hl>summary{{grid-template-columns:minmax(150px,1fr) 2fr auto}}
 </div>
 {warn_html}
 {chk_html}
+{dn_html}
 
 <h2>会社概要</h2>
 <div class="cobox">{comp_html}</div>
@@ -1518,6 +1648,11 @@ def generate_long(code, cfg=None, market="jp", name=None):
                                   _sector_roe_roa(market).get(seckey))
     except Exception:
         insight = {"rows": [], "flags": {}, "raw": {}}
+    # データ不備の疑い（表示専用・採点には使わない）。失敗しても本体の診断は止めない。
+    try:
+        data_notice = _data_notices(yd, market, code)
+    except Exception:
+        data_notice = []
 
     ig = LC.implied_fcf_growth(raw["mcap"], raw["fcf"])
     hg = None
@@ -1541,7 +1676,7 @@ def generate_long(code, cfg=None, market="jp", name=None):
               "div_yield": rowmap.get("div_yield", {}).get("v"),
               "fin_q": fin_q, "fq_parts": fq_parts,
               "reit_q": reit_q, "reit_parts": reit_parts,
-              "quarter_trend_rows": quarter_trend_rows, "insight": insight}
+              "quarter_trend_rows": quarter_trend_rows, "insight": insight, "data_notice": data_notice}
     if market == "us":
         extras["etf_rows"], extras["etf_asof"] = _etf_ranks(code)
 
@@ -1613,6 +1748,7 @@ def generate_long(code, cfg=None, market="jp", name=None):
         "implied_fcf_growth": ig,
         # 見方を深める指標・注意フラグ（表示専用。採点には使わない）
         "insight": {"flags": insight["flags"], "raw": insight["raw"]},
+        **({"data_notice": data_notice} if data_notice else {}),
         "etf_top": ([{"etf": n, "rank": r, "weight": w} for n, _lab, r, w in extras.get("etf_rows", [])]
                     if market == "us" else None),
         # 「詳しい条件で絞り込む」フィルタ用の個別指標。score は0〜110（常に高いほど良い、

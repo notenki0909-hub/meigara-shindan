@@ -459,6 +459,8 @@ def build(market):
             # 主要ETFの上位15銘柄での順位（米国のみ。表示・絞り込み専用）
             "etfs": etf_map.get(str(code).upper(), []),
             "etf_asof": etf_asof,
+            # データ不備の疑い（Yahooの財務データ。表示専用・採点には使わない）。該当しない銘柄は空
+            "data_notice": s.get("data_notice") or [],
         }
         if q is None:
             if code in watch:
@@ -833,6 +835,17 @@ def render(out, m):
         tip = html.escape("／".join(tips) + "（採点しない・参考。詳細は個別レポート）", quote=True)
         return f' <span class="warnmark" title="{tip}">⚠</span>'
 
+    def _datamark(s):
+        """データ不備の疑い（表示専用）。確度が高いものは橙の「不備疑い」、それ以外は灰色の「要確認」。"""
+        dn = s.get("data_notice") or []
+        if not dn:
+            return ""
+        high = [d for d in dn if d.get("tier") == "high"]
+        lab, cls = ("不備疑い", "hi") if high else ("要確認", "chk")
+        tip = html.escape("／".join(d.get("where", "") for d in dn)
+                          + "（Yahooの財務データの確認の目安。採点しない・参考。詳細は個別レポートと、上部の「データの確認が必要な銘柄」）", quote=True)
+        return f' <span class="dnmark {cls}" title="{tip}">{lab}</span>'
+
     def _etfmark(s):
         """主要ETFの上位15銘柄に入っている銘柄に小さな「ETF」マーク。表示専用。"""
         es = s.get("etfs") or []
@@ -861,7 +874,7 @@ def render(out, m):
             f'<td class="tier">{s.get("tier","―")}<span class="dir {dcls}">{s.get("dir","")}</span></td>'
             f'<td class="code">{codecell}</td>'
             f'<td class="nm">{html.escape(str(s["name"]))}'
-            f'{_newbadge(s)}{_warnmark(s)}{_etfmark(s)}'
+            f'{_newbadge(s)}{_warnmark(s)}{_datamark(s)}{_etfmark(s)}'
             f'</td>'
             f'<td class="sec">{html.escape(_sd(str(s["sector"])))}</td>'
             f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"], unit)}</td>'
@@ -916,6 +929,46 @@ def render(out, m):
                     + thead.format(rk="") + '<tbody>' + trs + '</tbody></table></section>')
 
     gt = "".join(row_html(s, with_rank=i + 1) for i, s in enumerate(out["global_top"]))
+
+    # ---- データの確認が必要な銘柄（Yahooの財務データの不備の疑い。表示専用・絞り込み/ソートの対象外）----
+    dn_review_html = ""
+    dn_rows = []
+    seen_dn = set()
+    for g_ in out["groups"]:
+        for s_ in g_["stocks"]:
+            if s_.get("data_notice") and s_["code"] not in seen_dn:
+                seen_dn.add(s_["code"])
+                dn_rows.append(s_)
+    if dn_rows:
+        def _dn_link(code):
+            c = html.escape(str(code), quote=True)
+            if out["market"] == "jp":
+                return (f'<a href="https://irbank.net/{c}/results" target="_blank" rel="noopener">IR BANK</a>'
+                        f'・<a href="https://irbank.net/{c}/quarter" target="_blank" rel="noopener">四半期</a>・決算短信')
+            return (f'<a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK={c}&amp;type=10-K" '
+                    'target="_blank" rel="noopener">SEC EDGAR</a>')
+        trs_dn = []
+        n_hi = n_chk = 0
+        for s_ in sorted(dn_rows, key=lambda r: (0 if any(d.get("tier") == "high" for d in r["data_notice"]) else 1, r["code"])):
+            hi_ = any(d.get("tier") == "high" for d in s_["data_notice"])
+            n_hi += 1 if hi_ else 0
+            n_chk += 0 if hi_ else 1
+            body = "<br>".join(
+                f'<b>{html.escape(d.get("where", ""))}</b>：{html.escape(d.get("why", ""))}' for d in s_["data_notice"])
+            badge_ = ('<span class="dnmark hi">不備疑い</span>' if hi_ else '<span class="dnmark chk">要確認</span>')
+            trs_dn.append(
+                f'<tr><td>{badge_}</td>'
+                f'<td>{_code_cell(s_["code"], m["report_dirs"])}</td><td>{html.escape(str(s_["name"]))}</td>'
+                f'<td>{body}</td><td>{_dn_link(s_["code"])}</td></tr>')
+        dn_review_html = (
+            f'<details id="dnreview"><summary>データの確認が必要な銘柄（不備の疑い {n_hi}銘柄／要確認 {n_chk}銘柄）</summary>'
+            '<p>Yahoo Financeの財務データ（1株利益・PER・PBR）の不備を見つける自動チェックの結果です。<b>採点・順位・軍には使っていません</b>（表示のみ）。'
+            '「不備疑い」は確度が高いもの（最新期の1株利益が前の年と同じ値＝更新遅れ）、「要確認」は決算書から求め直した値とのズレで、'
+            'Yahoo側が正しい場合も多くあります（日本株の照合では、誤判定が6割を超えました）。気になる銘柄は、'
+            + ('IR BANK・決算短信' if out["market"] == "jp" else 'SEC EDGAR（10-K）')
+            + 'で確かめてください。確認して誤りだったときも、点は自動では直りません。</p>'
+            '<div style="overflow-x:auto"><table><thead><tr><th>区分</th><th>コード</th><th>銘柄名</th><th>内容</th><th>確認先</th></tr></thead><tbody>'
+            + "".join(trs_dn) + '</tbody></table></div></details>')
 
     # ---- 米国版のみ：主要ETFの上位15銘柄（fetch_etf_top_us.py が作る etf_top_us.json）----
     # 絞り込み・検索・ソートの対象（tr.r）にはしない（別クラスtr.e）。母集団外の銘柄は採点なし。
@@ -1111,6 +1164,15 @@ h2{{font-size:15px;margin:26px 0 6px;border-bottom:2px solid var(--line);padding
   background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent);
   border:1px solid color-mix(in srgb,var(--accent) 45%,transparent)}}
 .warnmark{{font-size:11px;cursor:help;vertical-align:middle;color:var(--mid,#d29922)}}
+.dnmark{{font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;vertical-align:middle;cursor:help;border:1px solid var(--line)}}
+.dnmark.hi{{background:color-mix(in srgb,var(--mid,#d29922) 22%,transparent);color:var(--mid,#d29922);border-color:var(--mid,#d29922)}}
+.dnmark.chk{{background:color-mix(in srgb,var(--fg) 8%,transparent);color:var(--muted)}}
+#dnreview{{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:12px 0}}
+#dnreview>summary{{cursor:pointer;font-weight:700;font-size:13.5px}}
+#dnreview p{{font-size:12px;margin:8px 0;color:var(--muted)}}
+#dnreview table{{width:100%;border-collapse:collapse;font-size:12px}}
+#dnreview th,#dnreview td{{padding:5px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}}
+#dnreview th{{color:var(--muted);font-weight:700}}
 .etfmark{{font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;vertical-align:middle;cursor:help;
   background:color-mix(in srgb,var(--fg) 8%,transparent);color:var(--muted);
   border:1px solid var(--line)}}
@@ -1255,6 +1317,7 @@ section.grp[hidden]{{display:none}}
 {filter_panel_html}
 {backup_box}
 {watch_change_html}
+{dn_review_html}
 {etf_html}
 <div id="terminfo" class="terminfo" hidden>
   <button type="button" id="terminfo-close" class="ticlose" aria-label="閉じる">✕</button>
