@@ -641,7 +641,8 @@ def review_items_dps(notes, last_fy, code):
                    "記念配当・特別配当だった場合は、連続増配が実際より長く出ます")
         how = (f"IR BANK（irbank.net/{code}/dividend）の備考欄か決算短信で、{y}年度の配当に記念・特別配当が含まれるかを確認し、"
                "dps_overrides.json に登録（含まれる→special／普通配当→regular）")
-        out.append({"k": "dps", "where": where, "why": why, "how": how})
+        out.append({"k": "dps", "where": where, "why": why, "how": how,
+                    "keys": ["streak_up", "streak_flat", "dgr5"], "names": ["配当の年別データの整理（注記）"]})
     return out
 
 
@@ -1036,7 +1037,8 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
                     "shift": "最新期の1株利益×株式数が、最新期ではなく前の年の純利益と一致（年別データの並び違いの疑い）"}[_eps_bad]
         review_fin.append({"k": "eps", "where": "EPS（1株利益）の推移",
                            "why": _eps_msg + "。EPSの成長率が正しく計算できないため、採点から外しています",
-                           "how": f"IR BANK（irbank.net/{yd['code']}/results）の最新期のEPSと、Yahooの値を比べて確認"})
+                           "how": f"IR BANK（irbank.net/{yd['code']}/results）の最新期のEPSと、Yahooの値を比べて確認",
+                           "keys": ["eps_cagr"], "names": []})
         M["業績"].append({"name": "EPS（推移／年率）", "v": None, "disp": "―",
                           "ref": "Yahoo Financeの1株利益に不備の疑いがあるため算出せず、採点もしません", "key": "eps_cagr"})
     elif eps and len([x for x in eps if is_num(x)]) >= 2:
@@ -1552,7 +1554,8 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
                                "why": f"直近4四半期の純利益（{_ttm / 1e8:,.1f}億円）から求めたPERは{_pt:.1f}倍で、Yahoo表示と{per / _pt:.1f}倍ずれています。"
                                       "Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
                                "how": f"IR BANK（irbank.net/{yd['code']}/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、"
-                                      "Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）"})
+                                      "Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
+                               "keys": ["per_vs_sector", "per_band_pos"], "names": ["益回り（1÷PER）"]})
             per = None
     if fin_guard and pbr:
         _eq = row(bsr, "Stockholders Equity", "Common Stock Equity")
@@ -1563,7 +1566,8 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
                 review_fin.append({"k": "pbr", "where": f"PBR（Yahoo表示 {pbr:.2f}倍）",
                                    "why": f"株価÷（純資産÷発行済株式数）で求めたPBRは{_pc:.2f}倍で、Yahoo表示と{_pc / pbr:.2f}倍ずれています。"
                                           "どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
-                                   "how": f"IR BANK（irbank.net/{yd['code']}/results）の1株純資産（BPS）で、株価÷BPSを計算して確認"})
+                                   "how": f"IR BANK（irbank.net/{yd['code']}/results）の1株純資産（BPS）で、株価÷BPSを計算して確認",
+                                   "keys": ["pbr_vs_sector"], "names": []})
                 pbr = None
     ey = (1 / per * 100) if per else None
 
@@ -3231,7 +3235,23 @@ def tag(item):
 KEY_DOMAIN = {k: dom for dom, ks in DOMAIN_KEYS.items() for k in ks}
 
 
-def _metric_details_html(it, jp, is_simple, rules):
+RV_BADGE = '<span class="rvb">要確認</span>'
+
+
+def render_review_notice(items):
+    """個別レポートの企業概要の上に出す「手動で調べる必要がある理由」の枠。該当する分析結果の行は rvhl（色付き）で示す。"""
+    if not items:
+        return ""
+    lis = "".join(
+        f'<li><b>{html.escape(x["where"])}</b>：{html.escape(x["why"])}'
+        f'<div class="rvhow">確認方法：{html.escape(x["how"])}</div></li>' for x in items)
+    return ('<div class="rvnotice"><div class="rvt0">⚠ この銘柄には、手動で調べる必要がある項目があります</div>'
+            f'<ul>{lis}</ul>'
+            '<p class="rvsub">下の分析結果のうち、<span class="rvb">要確認</span>の印と色が付いた行が、この項目に該当します。'
+            '数字は参考として見て、確認が済むまでは判断の根拠にしすぎないでください。</p></div>')
+
+
+def _metric_details_html(it, jp, is_simple, rules, hl_keys=()):
     dom = KEY_DOMAIN.get(it.get("key"), "")
     rule = rule_for(it["key"], jp, rules) if it.get("key") else None
     wht = METRIC_HELP.get(it.get("key"), {}).get("what", "")
@@ -3257,9 +3277,10 @@ def _metric_details_html(it, jp, is_simple, rules):
             band_p = (f'<p class="rule"><b>過去レンジ内の位置：</b>塗り分けたゾーン（割安・標準・割高。'
                       f'どちらが割安かは帯の右のラベルを参照）に、折れ線＝年次の実績推移、▶＝現在の値を'
                       f'重ねたグラフ。</p><div class="trendwrap wide">{bsvg}</div>')
+    _hl = bool(it.get("key") and it.get("key") in hl_keys)
     return (
-        '<details class="m"><summary>'
-        f'<span class="mn">{it["name"]}</span>'
+        f'<details class="m{" rvhl" if _hl else ""}"><summary>'
+        f'<span class="mn">{it["name"]}{RV_BADGE if _hl else ""}</span>'
         f'<span class="mv">{it["disp"]}</span>'
         f'<span class="mr">{it.get("ref","")}</span>'
         f'<span class="mt">{tag(it)}</span></summary>'
@@ -3276,6 +3297,9 @@ def render_html(meta, dom_scores, detail, groups, sel_score, tim_score, vd, M, c
     jp = meta["jp_sector"]
     rowmap = {r["key"]: r for dom in detail for r in detail[dom] if r.get("key")}
     sg = rules["score_groups"]
+    rv_items = ctx.get("review_items") or []
+    hl_keys = {k for x in rv_items for k in (x.get("keys") or [])}
+    hl_names = {n for x in rv_items for n in (x.get("names") or [])}
 
     def head_section(head):
         out = []
@@ -3287,7 +3311,7 @@ def render_html(meta, dom_scores, detail, groups, sel_score, tim_score, vd, M, c
                 if it is None:
                     continue
                 got = True
-                out.append(_metric_details_html(it, jp, meta["is_simple"], rules))
+                out.append(_metric_details_html(it, jp, meta["is_simple"], rules, hl_keys))
             if not got:
                 out.append('<div class="plain"><span class="mn">―</span>'
                            '<span class="mv2">この業種では評価対象外</span></div>')
@@ -3311,15 +3335,16 @@ def render_html(meta, dom_scores, detail, groups, sel_score, tim_score, vd, M, c
         if sp and len([1 for _, v in sp if is_num(v)]) >= 2:
             trend = (f'<p class="rule"><b>推移：</b>古い→新しい</p>'
                      f'<div class="trendwrap">{svg_trend(sp, it.get("series_kind", "yen"), full_labels=bool(it.get("series_full_labels")))}</div>')
+        _rc, _rb = (" rvhl", RV_BADGE) if it["name"] in hl_names else ("", "")
         if h or trend:
             ref_blocks.append(
-                '<details class="m"><summary>'
-                f'<span class="mn">{it["name"]}</span>'
+                f'<details class="m{_rc}"><summary>'
+                f'<span class="mn">{it["name"]}{_rb}</span>'
                 f'<span class="mv2">{it["disp"]}{link_html}</span></summary>'
                 f'<div class="mbody">{(f"<p class=\"what\">{h}</p>" if h else "")}{trend}</div></details>')
         else:
             ref_blocks.append(
-                f'<div class="plain"><span class="mn">{it["name"]}</span>'
+                f'<div class="plain{_rc}"><span class="mn">{it["name"]}{_rb}</span>'
                 f'<span class="mv2">{it["disp"]}{link_html}</span></div>')
 
     legend = ("各行をクリックすると「見るポイント／判定ルール／この評価になった理由」が開きます。"
@@ -3395,6 +3420,14 @@ a{{color:var(--accent)}}
 .domhead{{background:var(--card);border:1px solid var(--line);border-radius:6px;
   padding:8px 10px;margin:16px 0 0;font-size:14px}}
 details.m{{border-bottom:1px solid var(--line)}}
+.rvnotice{{border:2px solid #d97706;background:rgba(245,158,11,.13);border-radius:8px;padding:10px 14px;margin:12px 0}}
+.rvnotice .rvt0{{font-weight:700;font-size:15px;color:#b45309;margin-bottom:6px}}
+.rvnotice ul{{margin:4px 0 6px;padding-left:20px}}
+.rvnotice li{{margin:6px 0;font-size:13px;line-height:1.65}}
+.rvnotice .rvhow{{font-size:12px;color:var(--muted);margin-top:2px}}
+.rvnotice .rvsub{{font-size:12.5px;margin:6px 0 0}}
+.rvb{{display:inline-block;margin-left:6px;padding:0 7px;border-radius:9px;background:#d97706;color:#fff;font-size:11px;font-weight:700;vertical-align:1px}}
+details.m.rvhl,.plain.rvhl{{background:rgba(245,158,11,.17);border-left:4px solid #d97706}}
 details.m>summary{{list-style:none;cursor:pointer;display:grid;
   grid-template-columns:minmax(130px,1.5fr) 1fr 1.25fr 86px;gap:10px;align-items:start;
   padding:9px 6px 9px 22px;position:relative;font-size:13px}}
@@ -3469,6 +3502,8 @@ svg.trend{{width:100%;height:auto;border:1px solid var(--line);border-radius:8px
 現在株価 <b>{fmt_num(meta['price'],1)}円</b>{f"（{meta['price_date']} 終値）" if meta.get('price_date') else ''}　｜　時価総額 {fmt_yen(meta['mcap'])}　｜　レポート作成 {meta['today']}
 {('　｜　取得単価 ' + fmt_num(meta['cost'],0) + '円 → YOC <b>' + fmt_pct(meta['yoc'],2) + '</b>') if meta.get('yoc') else ''}
 </div>
+
+{render_review_notice(rv_items)}
 
 {render_company_html(ctx.get('company'))}
 
