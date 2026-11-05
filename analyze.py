@@ -1668,6 +1668,7 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
         "per": per, "pbr": pbr, "yld_fwd": yld_fwd, "dgr5": dgr5,
         "yband_pos": yband_pos, "yrange": yrange, "dps_series": dps_series, "dps_src": dps_src,
         "review_items": review_fin + review_items,
+        "payout_basis": payout_basis,
         "op_margin": op_margin, "roe": roe, "equity_ratio": equity_ratio,
         "streak_up": streak_up, "chowder": chowder, "tec": tec,
         "rev_series": rev, "ni_series": ni, "eps_series": eps,
@@ -2983,7 +2984,7 @@ METRIC_HELP = {
     "streak_up": {"what": "連続で増配してきた年数。10年以上で優良、20年超で王道クラス。景気に関係なく増やせる証拠。", "unit": "年"},
     "streak_flat": {"what": "減配せずに配当を維持・増加してきた年数＝直近の減配からの経過年数。危機でも下げなかったかを見る。分割調整のゆらぎも「減配」として途切れるため、実際の無減配記録より短く出ることがある（過小評価側）。過去に一度減配していても、その経過年数が長ければ得点は上がっていく設計＝過去の減配を恒久的な減点にはしない（詳しくは「減配履歴」参照）。", "unit": "年"},
     "div_policy": {"what": "会社が『累進配当（減配しない）』や『DOE（自己資本の一定％を配当）』を配当方針として公式に掲げているか。掲げていれば減配耐性が高い。手管理リスト（2026-09時点）で、宣言ありなら加点、宣言なしは減点しない（連続増配の実績で判断する）。連続増配20年超の銘柄は連続増配年数で既に評価されるため、公式宣言のある銘柄だけを対象にしている。", "unit": ""},
-    "payout_ni": {"what": "純利益のうち配当に回す割合（直近の決算期の1株配当÷1株利益。決算短信・IR BANKと同じ基準）。低め〜中位だと不況でも減配せずに済む余裕がある。高すぎると次の減益で減配リスク。純損失（赤字）の期は計算せず「赤字」と表示し、この項目は採点しない。", "unit": "%"},
+    "payout_ni": {"what": "純利益のうち配当に回す割合。低め〜中位だと不況でも減配せずに済む余裕がある。高すぎると次の減益で減配リスク。", "unit": "%"},
     "roe": {"what": "自己資本をどれだけ効率よく利益に変えているか。10％以上で優良。低いと増配の元手が細い。", "unit": "%"},
     "roic_vs_sector": {"what": "投下資本（有利子負債＋自己資本−現金）をどれだけ利益に変えているかを、同じ業種の中央値と比べた倍率。ROEはレバレッジで水増しされるが、ROICは借金に頼らない『事業そのものの稼ぐ力』を映す。1.0＝業種平均並み、1.1超で優良。", "unit": "倍"},
     "per_band_pos": {"what": "今のPERが、その銘柄自身の過去数年のレンジの中でどの位置にあるか。下限（＝低PER）に近いほど、その銘柄の物差しで割安。業種平均比（PER対業種）と違い、成長性の高い銘柄でも『自分史比で安いか』を見られる。", "unit": ""},
@@ -3258,10 +3259,15 @@ def render_review_notice(items):
             '数字は参考として見て、確認が済むまでは判断の根拠にしすぎないでください。</p></div>')
 
 
-def _metric_details_html(it, jp, is_simple, rules, hl_keys=()):
+JP_PAYOUT_WHAT = "純利益のうち配当に回す割合（直近の決算期の1株配当÷1株利益。決算短信・IR BANKと同じ基準）。低め〜中位だと不況でも減配せずに済む余裕がある。高すぎると次の減益で減配リスク。純損失（赤字）の期は計算せず「赤字」と表示し、この項目は採点しない。"
+
+
+def _metric_details_html(it, jp, is_simple, rules, hl_keys=(), jp_div=False):
     dom = KEY_DOMAIN.get(it.get("key"), "")
     rule = rule_for(it["key"], jp, rules) if it.get("key") else None
     wht = METRIC_HELP.get(it.get("key"), {}).get("what", "")
+    if jp_div and it.get("key") == "payout_ni":
+        wht = JP_PAYOUT_WHAT      # 配当株の日本株だけ：配当性向の求め方が違う（直近の決算期の1株配当÷1株利益）
     rb = rule_block_html(it.get("key"), rule, jp)
     wb = why_block_html(it, rule, jp, is_simple, dom)
     what_p = f'<p class="what"><b>見るポイント：</b>{wht}</p>' if wht else ""
@@ -3318,7 +3324,7 @@ def render_html(meta, dom_scores, detail, groups, sel_score, tim_score, vd, M, c
                 if it is None:
                     continue
                 got = True
-                out.append(_metric_details_html(it, jp, meta["is_simple"], rules, hl_keys))
+                out.append(_metric_details_html(it, jp, meta["is_simple"], rules, hl_keys, ctx.get("payout_basis") == "annual"))
             if not got:
                 out.append('<div class="plain"><span class="mn">―</span>'
                            '<span class="mv2">この業種では評価対象外</span></div>')
