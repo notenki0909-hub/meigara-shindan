@@ -377,23 +377,26 @@ def _reit_quality_md(rq_score, rq_parts):
 
 # ---------------------------------------------------------------- 財務データの不備の自動チェック（配当株の米国株 generate_us だけ）
 # Yahoo Financeの年次の1株利益（EPS）の「桁」が実態とずれている銘柄を見つけ、EPSの成長率・PERの自社過去レンジ内の位置を「―」にして採点から外す。
-# 判定：決算書の平均株式数 ÷ 発行済株式数 が 2.5倍超 または 0.4倍未満（通常は1倍前後）。
+# 判定：決算書の平均株式数が、「時価総額÷株価」（全クラス合計の発行済株式数）の 2.5倍超（通常は1倍前後。平均株式数が過大＝EPSが過小になる向きだけ）。
 #   SEC（米国証券取引委員会）の提出書類との照合：S&P500から選んだ65銘柄のうち、この特徴のDLR・FEは1株利益が約4分の1に小さく出ていると確認
 #   （この特徴のない銘柄は、年次のEPSがSECと一致する割合が約9割。ずれの多くは分割調整・継続事業の定義の差で、この判定の対象外）。
-#   全521銘柄で該当するのはDLR・FE・WMGの3銘柄だけ（誤検出なし）。日本株用のPER・PBRの判定（四半期の純利益や貸借対照表から求める方式）は、
-#   米国株ではYahooの決算書側のずれによる誤検出が多い（PER・PBR自体はSECとほぼ一致）ため、使わない。
+#   ※基準を「Yahooの発行済株式数（sharesOutstanding）」にすると、複数の株式クラスを持つ会社（WMG・NWS・TKOなど。sharesOutstandingが一部のクラス分しかない）を
+#   誤検出するため、全クラス合計の「時価総額÷株価」を基準にしている（2026-11-06修正。10年保有側セッションの照合で判明）。配当側の521銘柄で該当するのはDLR・FEの2銘柄だけ。
+#   日本株用のPER・PBRの判定（四半期の純利益や貸借対照表から求める方式）は、米国株ではYahooの決算書側のずれによる誤検出が多い（PER・PBR自体はSECとほぼ一致）ため、使わない。
 FIN_GUARD_US = True
 
 
 def eps_scale_problem_us(yd):
-    """決算書の平均株式数 ÷ 発行済株式数 が極端（2.5倍超／0.4倍未満）なら、その倍率。そうでなければ None。"""
+    """決算書の平均株式数 ÷ （時価総額÷株価） が 2.5倍超なら、その倍率。そうでなければ None。
+    時価総額÷株価は全クラス合計の株式数（sharesOutstandingは複数クラスの会社で一部のクラス分しかないことがある）。"""
     try:
         sh = analyze.row(yd["is_rows"], "Diluted Average Shares", "Basic Average Shares")
-        so = (yd.get("info") or {}).get("sharesOutstanding")
-        if not sh or not is_num(sh[0]) or sh[0] <= 0 or not is_num(so) or so <= 0:
+        mc = (yd.get("info") or {}).get("marketCap")
+        px = yd.get("price")
+        if not sh or not is_num(sh[0]) or sh[0] <= 0 or not is_num(mc) or mc <= 0 or not is_num(px) or px <= 0:
             return None
-        r = sh[0] / so
-        return r if (r > 2.5 or r < 0.4) else None
+        r = sh[0] / (mc / px)
+        return r if r > 2.5 else None
     except Exception:
         return None
 
@@ -586,7 +589,7 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
     if _eps_ratio is not None:
         review_fin.append({
             "k": "eps", "where": "EPS（1株利益）の推移・PERの自社過去レンジ内の位置",
-            "why": f"決算書の平均株式数が発行済株式数の{_eps_ratio:.1f}倍（通常は1倍前後）で、Yahoo Financeの年次の1株利益の桁がずれている疑いがあります。"
+            "why": f"決算書の平均株式数が、時価総額÷株価から求めた株式数の{_eps_ratio:.1f}倍（通常は1倍前後）で、Yahoo Financeの年次の1株利益の桁がずれている疑いがあります。"
                    "同じ特徴の銘柄で、SEC（米国証券取引委員会）の提出書類と照合して、1株利益が実際より小さく出ていることを確認しています。"
                    "EPSの成長率と、PERの自社過去レンジ内の位置を「―」にして、採点から外しています（現在のPER・PBRはSECとほぼ一致するため、そのまま使っています）",
             "how": "SEC EDGAR（米国の公式な開示書類の検索）で、この会社の最新の年次報告書（10-K）にある希薄化後1株利益を探し、Yahooの値と比べて確認。"
