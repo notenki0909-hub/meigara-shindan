@@ -964,7 +964,7 @@ def render(out, m):
             f'<details id="dnreview"><summary>データの確認が必要な銘柄（不備の疑い {n_hi}銘柄／要確認 {n_chk}銘柄）</summary>'
             '<p>Yahoo Financeの財務データ（1株利益・PER・PBR）の不備を見つける自動チェックの結果です。<b>採点・順位・軍には使っていません</b>（表示のみ）。'
             '「不備疑い」は確度が高いもの（最新期の1株利益が前の年と同じ値＝更新遅れ）、「要確認」は決算書から求め直した値とのズレで、'
-            'Yahoo側が正しい場合も多くあります（日本株の照合では、誤判定が6割を超えました）。気になる銘柄は、'
+            'Yahoo側が正しい場合も多くあります（日本株の照合では、半数近くが誤判定でした）。気になる銘柄は、'
             + ('IR BANK・決算短信' if out["market"] == "jp" else 'SEC EDGAR（10-K）')
             + 'で確かめてください。確認して誤りだったときも、点は自動では直りません。</p>'
             '<div style="overflow-x:auto"><table><thead><tr><th>区分</th><th>コード</th><th>銘柄名</th><th>内容</th><th>確認先</th></tr></thead><tbody>'

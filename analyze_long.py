@@ -428,9 +428,12 @@ def _insight_extras(yd, market, is_simple, is_reit, q_score, bt_score, tiers, ra
 #   high  ＝「最新期の1株利益が前の年と同じ値」（更新遅れ）。照合では日本株3/3・米国1/2が本当の不備
 #   check ＝それ以外（1株利益・PER・PBRを、決算書から求め直した値とのズレ）。誤判定が多い（日本株で6割超）ので、
 #           「Yahoo側が正しい場合も多い。IR BANK・決算短信（米国はSEC）で確認」と控えめに出す
-def _eps_stale_or_bad_jp(is_years, eps, ni_c, sh_c):
+def _eps_stale_or_bad_jp(is_years, eps, ni_c, sh_c, so=None):
     """最新期の1株利益が信頼できないときの種類（無ければ None）。stale＝前の年と同じ値／mismatch＝純利益÷平均株式数と食い違う／
-    shift＝1株利益×株式数が前の年の純利益と一致（年別データのずれ）。"""
+    shift＝1株利益×株式数が前の年の純利益と一致（年別データのずれ）。
+    【2026-11-06 見直し】IR BANKとの照合で誤判定が多かったため、配当株ツール側の見直し（cbfe6d17a8）に合わせて、純利益から求め直す
+    判定（mismatch・shift）をしない条件を足した：①平均株式数÷発行済株式数が0.75〜1.33の外（株式分割の反映ずれなど）
+    ②純利益の行がEPSの行と1年分入れ替わっている ③shiftは最新期の純利益が欠損のとき判定しない。staleはそのまま。"""
     if not eps or len(eps) < 2 or not LC.is_num(eps[0]):
         return None
     e0, e1 = eps[0], eps[1]
@@ -441,12 +444,36 @@ def _eps_stale_or_bad_jp(is_years, eps, ni_c, sh_c):
     s0 = sh_c[0] if sh_c and LC.is_num(sh_c[0]) and sh_c[0] > 0 else None
     if s0 is None:
         return None
+    if LC.is_num(so) and so > 0 and not (0.75 <= s0 / so <= 1.33):
+        return None
+    e1_, s1_ = (eps[1] if len(eps) > 1 else None), (sh_c[1] if sh_c and len(sh_c) > 1 else None)
+    if (LC.is_num(n0) and LC.is_num(n1) and LC.is_num(e1_) and LC.is_num(s1_) and n0 != 0 and n1 != 0
+            and abs(e0 * s0 / n1 - 1) < 0.03 and abs(e1_ * s1_ / n0 - 1) < 0.03):
+        return None
     if LC.is_num(n0):
         ec = n0 / s0
         if (e0 > 0) != (ec > 0) or (e0 > 0 and abs(ec / e0 - 1) > 0.20):
             return "mismatch"
-    if LC.is_num(n1) and n1 != 0 and abs(e0 * s0 / n1 - 1) < 0.03 and not (LC.is_num(n0) and abs(e0 * s0 / n0 - 1) < 0.03):
+    if LC.is_num(n0) and LC.is_num(n1) and n1 != 0 and abs(e0 * s0 / n1 - 1) < 0.03 and abs(e0 * s0 / n0 - 1) >= 0.03:
         return "shift"
+    return None
+
+
+def _quarter_pbr_jp(code, price, shares):
+    """直近四半期の貸借対照表の純資産から求めたPBR（取れなければ None）。決算期末の古い純資産で外れたときの再確認にだけ使う。"""
+    try:
+        import io as _io
+        import contextlib as _cl
+        import yfinance as _yf
+        with _cl.redirect_stdout(_io.StringIO()), _cl.redirect_stderr(_io.StringIO()):
+            q = _yf.Ticker(f"{code}.T").quarterly_balance_sheet
+        for k in ("Stockholders Equity", "Common Stock Equity"):
+            if q is not None and not q.empty and k in q.index:
+                v = q.loc[k].dropna()
+                if len(v) and float(v.iloc[0]) > 0 and LC.is_num(shares) and shares > 0 and LC.is_num(price) and price > 0:
+                    return price / (float(v.iloc[0]) / shares)
+    except Exception:
+        pass
     return None
 
 
@@ -463,7 +490,8 @@ def _data_notices(yd, market, code):
     if jp:
         kind = _eps_stale_or_bad_jp(yd.get("is_years") or [], eps,
                                     analyze.row(isr, "Net Income Common Stockholders", "Net Income") or [],
-                                    analyze.row(isr, "Basic Average Shares", "Diluted Average Shares") or [])
+                                    analyze.row(isr, "Basic Average Shares", "Diluted Average Shares") or [],
+                                    so=info.get("sharesOutstanding"))
     else:
         kind = "stale" if (len(eps) >= 2 and LC.is_num(eps[0]) and LC.is_num(eps[1]) and eps[0] == eps[1] and eps[0] != 0) else None
         if kind is None:
@@ -498,7 +526,9 @@ def _data_notices(yd, market, code):
                 qr = yd.get("q_rows") or {}
                 qni = qr.get("Net Income Common Stockholders") or qr.get("Net Income")
                 so = info.get("sharesOutstanding")
-                if qni and len(qni) >= 4 and all(LC.is_num(x) for x in qni[:4]) and LC.is_num(so) and so > 0 and LC.is_num(price) and price > 0:
+                qd = [dt.date.fromisoformat(d) for d in (yd.get("q_dates") or [])[:4]]
+                q_ok = len(qd) >= 4 and all(75 <= (qd[i] - qd[i + 1]).days <= 105 for i in range(3))   # 日付が飛んでいる（新規上場直後など）と足しても直近12か月にならない
+                if q_ok and qni and len(qni) >= 4 and all(LC.is_num(x) for x in qni[:4]) and LC.is_num(so) and so > 0 and LC.is_num(price) and price > 0:
                     ttm = sum(qni[:4])
                     if ttm > 0:
                         pt = price * so / ttm
@@ -517,10 +547,12 @@ def _data_notices(yd, market, code):
                 if eq and LC.is_num(eq[0]) and eq[0] > 0 and LC.is_num(so) and so > 0 and LC.is_num(price) and price > 0:
                     pc = price / (eq[0] / so)
                     if not (0.6 <= pc / pbr <= 1.6):
-                        out.append({"tier": "check", "k": "pbr", "where": f"PBR（Yahoo表示 {pbr:.2f}倍）",
-                                    "why": f"株価÷（純資産÷発行済株式数）で求めたPBRは{pc:.2f}倍で、Yahoo表示と{pc / pbr:.2f}倍ずれています。"
-                                           "ただし、照合ではYahoo側のPBRが正しい場合が多くありました（株式数のデータのずれなど）",
-                                    "how": f"IR BANK（irbank.net/{code}/results）の1株純資産（BPS）で、株価÷BPSを計算して確認する"})
+                        qp = _quarter_pbr_jp(code, price, so)   # 決算期末の古い純資産が原因のことがあるため、直近四半期で再確認
+                        if not (qp is not None and 0.6 <= qp / pbr <= 1.6):
+                            out.append({"tier": "check", "k": "pbr", "where": f"PBR（Yahoo表示 {pbr:.2f}倍）",
+                                        "why": f"株価÷（純資産÷発行済株式数）で求めたPBRは{pc:.2f}倍で、Yahoo表示と{pc / pbr:.2f}倍ずれています。"
+                                               "ただし、照合ではYahoo側のPBRが正しい場合が多くありました（株式数のデータのずれなど）",
+                                        "how": f"IR BANK（irbank.net/{code}/results）の1株純資産（BPS）で、株価÷BPSを計算して確認する"})
             except Exception:
                 pass
     return out
