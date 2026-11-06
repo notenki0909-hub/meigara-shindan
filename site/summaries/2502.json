@@ -1,16 +1,23 @@
 {
  "code": "2502",
  "name": "アサヒグループホールディングス",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "食料品",
  "industry": "Beverages - Brewers",
  "is_simple": false,
  "is_reit": false,
- "price": 1783.5,
- "price_date": "2026-11-05",
- "mcap": 2608658120704,
+ "sel_dev": {
+  "dev": 38,
+  "rank": 26,
+  "n": 31,
+  "basis": "業種",
+  "name": "食料品"
+ },
+ "price": 1698.5,
+ "price_date": "2026-11-06",
+ "mcap": 2484331872256,
  "sel_score": 81.1,
- "tim_score": 101.3,
+ "tim_score": 102.9,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -30,11 +37,11 @@
   "キャッシュフロー": 60.0,
   "配当の持続力": 93.4,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 97.2,
-  "株価バリュエーション": 105.8,
-  "金利スプレッド": 83.4
+  "利回り水準とChowder": 98.9,
+  "株価バリュエーション": 107.4,
+  "金利スプレッド": 88.0
  },
- "div_yield": 3.476310625175217,
+ "div_yield": 3.6502796585222255,
  "streak_up": 18,
  "streak_flat": 25,
  "payout_ni": 63.968507811538935,
@@ -43,32 +50,32 @@
  "roe": 5.574,
  "div_policy": null,
  "dgr5": 8.034838876427974,
- "chowder": 11.511149501603192,
+ "chowder": 11.685118534950199,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 0.8114195000000001,
- "pbr_vs_sector": 0.6817138333333334,
- "per_band_pos": 0.761077220344835,
+ "per_vs_sector": 0.7727479500000001,
+ "pbr_vs_sector": 0.649223975,
+ "per_band_pos": 0.8552322435552757,
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-13",
  "earn_disc_date": "2026-08-13",
  "buyback_yen": 70006000000.0,
- "total_yield": 6.159912567660017,
+ "total_yield": 6.4681801484607195,
  "total_payout": 123.1028015858654,
  "interest_coverage": 7.285709277049295,
  "warnings": [
-  "⚠ バリュートラップ注意：PBR 0.82倍（1倍割れ）かつROE 4.0%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.78倍（1倍割れ）かつROE 4.0%（5%未満）"
  ],
  "roa": 2.02,
  "leverage": 2.01,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.82倍（1倍割れ）かつROE 4.0%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.78倍（1倍割れ）かつROE 4.0%（5%未満）"
   }
  ],
  "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:03:08"
+ "_generated_at": "2026-11-06T22:35:17"
 }

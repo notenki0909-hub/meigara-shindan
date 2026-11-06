@@ -1,16 +1,23 @@
 {
  "code": "6807",
  "name": "日本航空電子工業",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "電気機器",
  "industry": "Electronic Components",
  "is_simple": false,
  "is_reit": false,
- "price": 2305.0,
- "price_date": "2026-11-05",
- "mcap": 155422113792,
+ "sel_dev": {
+  "dev": 39,
+  "rank": 26,
+  "n": 29,
+  "basis": "業種",
+  "name": "電気機器"
+ },
+ "price": 2107.0,
+ "price_date": "2026-11-06",
+ "mcap": 142071316480,
  "sel_score": 72.4,
- "tim_score": 92.9,
+ "tim_score": 97.7,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -29,12 +36,12 @@
   "財務": 106.1,
   "キャッシュフロー": 60.0,
   "配当の持続力": 63.7,
-  "配当利回りセオリー": 102.6,
-  "利回り水準とChowder": 87.3,
-  "株価バリュエーション": 81.2,
+  "配当利回りセオリー": 109.7,
+  "利回り水準とChowder": 90.0,
+  "株価バリュエーション": 83.9,
   "金利スプレッド": null
  },
- "div_yield": 2.1691973969631237,
+ "div_yield": 2.3730422401518747,
  "streak_up": 0,
  "streak_flat": 5,
  "payout_ni": 57.21369314389244,
@@ -43,27 +50,33 @@
  "roe": 3.814,
  "div_policy": null,
  "dgr5": 19.13578981670916,
- "chowder": 21.304987213672284,
+ "chowder": 21.508832056861035,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 0.9892915986394558,
- "pbr_vs_sector": 0.41740396153846154,
+ "per_vs_sector": 0.904311224489796,
+ "pbr_vs_sector": 0.3815488615384615,
  "per_band_pos": 0.0,
- "yield_band_pos": 0.704294917126554,
+ "yield_band_pos": 0.9888480833499267,
  "next_earn": "2027-02-03",
  "earn_disc_date": "2026-10-28",
  "buyback_yen": 0.0,
- "total_yield": 2.1691973969631237,
+ "total_yield": 2.3730422401518747,
  "total_payout": 57.20752581694724,
  "interest_coverage": 13.427172582619338,
  "warnings": [
-  "yfinance の業種『Electronic Components』が対応表に無く、sector（industry未対応） で 電気機器 に割り当てました。業種平均との比較は目安です。"
+  "yfinance の業種『Electronic Components』が対応表に無く、sector（industry未対応） で 電気機器 に割り当てました。業種平均との比較は目安です。",
+  "⚠ バリュートラップ注意：PBR 0.99倍（1倍割れ）かつROE 4.9%（5%未満）"
  ],
  "roa": 3.05,
  "leverage": 1.61,
- "insight_flags": [],
+ "insight_flags": [
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：PBR 0.99倍（1倍割れ）かつROE 4.9%（5%未満）"
+  }
+ ],
  "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:21:58"
+ "_generated_at": "2026-11-06T23:00:54"
 }

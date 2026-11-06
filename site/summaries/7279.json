@@ -1,16 +1,23 @@
 {
  "code": "7279",
  "name": "ハイレックスコーポレーション",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "卸売業",
  "industry": "Conglomerates",
  "is_simple": false,
  "is_reit": false,
- "price": 2261.0,
- "price_date": "2026-11-05",
- "mcap": 82220539904,
+ "sel_dev": {
+  "dev": 43,
+  "rank": 33,
+  "n": 45,
+  "basis": "業種",
+  "name": "卸売業"
+ },
+ "price": 2189.0,
+ "price_date": "2026-11-06",
+ "mcap": 79602286592,
  "sel_score": 90.9,
- "tim_score": 108.6,
+ "tim_score": 108.7,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -30,11 +37,11 @@
   "キャッシュフロー": 102.3,
   "配当の持続力": 88.8,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 105.1,
+  "利回り水準とChowder": 105.5,
   "株価バリュエーション": 110.0,
   "金利スプレッド": null
  },
- "div_yield": 3.538257408226449,
+ "div_yield": 3.654636820465966,
  "streak_up": 3,
  "streak_flat": 6,
  "payout_ni": 20.456263618979857,
@@ -43,32 +50,32 @@
  "roe": 22.256999999999998,
  "div_policy": null,
  "dgr5": 18.664882623542333,
- "chowder": 22.203140031768783,
+ "chowder": 22.3195194440083,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 49.70742223591007,
- "per_vs_sector": 0.14128506569343066,
- "pbr_vs_sector": 0.3210802166666667,
+ "per_vs_sector": 0.1426539781021898,
+ "pbr_vs_sector": 0.3108556333333334,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": "2016-09-01",
  "buyback_yen": 1500000000.0,
- "total_yield": 5.3626190601340955,
+ "total_yield": 5.539004800607317,
  "total_payout": 36.98776576790593,
  "interest_coverage": 33.229885057471265,
  "warnings": [
-  "⚠ バリュートラップ注意：PBR 0.39倍（1倍割れ）かつROE 4.8%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.37倍（1倍割れ）かつROE 4.8%（5%未満）"
  ],
  "roa": 3.04,
  "leverage": 1.58,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.39倍（1倍割れ）かつROE 4.8%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.37倍（1倍割れ）かつROE 4.8%（5%未満）"
   }
  ],
  "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:24:46"
+ "_generated_at": "2026-11-06T23:04:39"
 }

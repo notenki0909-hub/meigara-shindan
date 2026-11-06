@@ -1,16 +1,23 @@
 {
  "code": "6143",
  "name": "ソディック",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "機械",
  "industry": "Specialty Industrial Machinery",
  "is_simple": false,
  "is_reit": false,
- "price": 1313.0,
- "price_date": "2026-11-05",
- "mcap": 65619636224,
+ "sel_dev": {
+  "dev": 41,
+  "rank": 41,
+  "n": 50,
+  "basis": "業種",
+  "name": "機械"
+ },
+ "price": 1285.0,
+ "price_date": "2026-11-06",
+ "mcap": 64220286976,
  "sel_score": 82.9,
- "tim_score": 54.0,
+ "tim_score": 54.6,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア下位（やや割高水準）",
  "comment": "選定は中位、買い時は下位（やや割高水準）。",
@@ -30,11 +37,11 @@
   "キャッシュフロー": 103.3,
   "配当の持続力": 75.1,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 48.9,
-  "株価バリュエーション": 86.7,
+  "利回り水準とChowder": 49.8,
+  "株価バリュエーション": 88.1,
   "金利スプレッド": null
  },
- "div_yield": 2.208682406702209,
+ "div_yield": 2.2568093385214008,
  "streak_up": 0,
  "streak_flat": 8,
  "payout_ni": 32.5148559255522,
@@ -43,29 +50,29 @@
  "roe": 8.344,
  "div_policy": null,
  "dgr5": 3.012896281839894,
- "chowder": 5.2215786885421025,
+ "chowder": 5.269705620361295,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 30.203829524397776,
- "per_vs_sector": 0.44202372294372294,
- "pbr_vs_sector": 0.3818795,
- "per_band_pos": 0.0,
+ "per_vs_sector": 0.43259744588744586,
+ "pbr_vs_sector": 0.37373586111111107,
+ "per_band_pos": 0.04212541982626266,
  "yield_band_pos": 0.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 0.0,
- "total_yield": 2.208682406702209,
+ "total_yield": 2.2568093385214008,
  "total_payout": 32.49889233495791,
  "interest_coverage": 14.718009478672986,
  "warnings": [
-  "⚠ バリュートラップ注意：PBR 0.69倍（1倍割れ）かつROE 5.0%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.67倍（1倍割れ）かつROE 5.0%（5%未満）"
  ],
  "roa": 2.9,
  "leverage": 1.72,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.69倍（1倍割れ）かつROE 5.0%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.67倍（1倍割れ）かつROE 5.0%（5%未満）"
   }
  ],
  "review": [
@@ -85,5 +92,5 @@
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:42:34"
+ "_generated_at": "2026-11-06T23:28:27"
 }

@@ -1,16 +1,23 @@
 {
  "code": "7943",
  "name": "ニチハ",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "建設業",
  "industry": "Building Products & Equipment",
  "is_simple": false,
  "is_reit": false,
- "price": 2934.0,
- "price_date": "2026-11-05",
- "mcap": 95480848384,
+ "sel_dev": {
+  "dev": 28,
+  "rank": 65,
+  "n": 67,
+  "basis": "業種",
+  "name": "建設業"
+ },
+ "price": 2798.0,
+ "price_date": "2026-11-06",
+ "mcap": 91055013888,
  "sel_score": 75.5,
- "tim_score": 96.9,
+ "tim_score": 97.2,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -29,12 +36,12 @@
   "財務": 107.0,
   "キャッシュフロー": 90.8,
   "配当の持続力": 50.6,
-  "配当利回りセオリー": 109.9,
-  "利回り水準とChowder": 102.8,
+  "配当利回りセオリー": 110.0,
+  "利回り水準とChowder": 103.7,
   "株価バリュエーション": 65.0,
   "金利スプレッド": null
  },
- "div_yield": 3.885480572597137,
+ "div_yield": 4.07433881343817,
  "streak_up": 0,
  "streak_flat": 7,
  "payout_ni": 153.41138473960436,
@@ -43,23 +50,23 @@
  "roe": 3.4799999999999995,
  "div_policy": null,
  "dgr5": 9.32422271713589,
- "chowder": 13.209703289733026,
+ "chowder": 13.39856153057406,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 90.68998109640832,
- "per_vs_sector": 1.8071020930232555,
- "pbr_vs_sector": 0.5682970714285714,
+ "per_vs_sector": 1.7233372093023256,
+ "pbr_vs_sector": 0.5419547642857143,
  "per_band_pos": null,
- "yield_band_pos": 0.9947193427893962,
+ "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": "2026-05-12",
  "buyback_yen": 2500000000.0,
- "total_yield": 6.503806700100348,
+ "total_yield": 6.819931717388593,
  "total_payout": 254.94770716009657,
  "interest_coverage": 13.30791788856305,
  "warnings": [
   "⚠ 配当性向が100%超（153%：純利益を上回る配当）",
-  "⚠ バリュートラップ注意：PBR 0.80倍（1倍割れ）かつROE 2.0%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.76倍（1倍割れ）かつROE 2.0%（5%未満）"
  ],
  "roa": 1.48,
  "leverage": 1.38,
@@ -70,10 +77,10 @@
   },
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.80倍（1倍割れ）かつROE 2.0%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.76倍（1倍割れ）かつROE 2.0%（5%未満）"
   }
  ],
  "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:27:28"
+ "_generated_at": "2026-11-06T23:08:20"
 }

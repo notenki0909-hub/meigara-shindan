@@ -1,16 +1,23 @@
 {
  "code": "6457",
  "name": "グローリー",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "その他製品",
  "industry": "Business Equipment & Supplies",
  "is_simple": false,
  "is_reit": false,
- "price": 5033.0,
- "price_date": "2026-11-05",
- "mcap": 256361529344,
+ "sel_dev": {
+  "dev": 51,
+  "rank": 21,
+  "n": 35,
+  "basis": "業種",
+  "name": "その他製品"
+ },
+ "price": 4661.0,
+ "price_date": "2026-11-06",
+ "mcap": 237413285888,
  "sel_score": 94.1,
- "tim_score": 84.0,
+ "tim_score": 91.5,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -20,7 +27,7 @@
   "高"
  ],
  "cov_tim": [
-  4,
+  5,
   6,
   "中"
  ],
@@ -29,12 +36,12 @@
   "財務": 104.0,
   "キャッシュフロー": 103.3,
   "配当の持続力": 83.6,
-  "配当利回りセオリー": 63.8,
-  "利回り水準とChowder": 96.9,
-  "株価バリュエーション": 106.9,
+  "配当利回りセオリー": 77.7,
+  "利回り水準とChowder": 100.5,
+  "株価バリュエーション": 107.0,
   "金利スプレッド": null
  },
- "div_yield": 3.05980528511822,
+ "div_yield": 3.304012014589144,
  "streak_up": 3,
  "streak_flat": 7,
  "payout_ni": 39.338274033226796,
@@ -43,36 +50,25 @@
  "roe": 8.012999599999999,
  "div_policy": null,
  "dgr5": 11.15648817398467,
- "chowder": 14.21629345910289,
+ "chowder": 14.460500188573814,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 17.635486071035096,
- "per_vs_sector": 0.7774720967741935,
- "pbr_vs_sector": null,
+ "per_vs_sector": 0.7485703225806452,
+ "pbr_vs_sector": 0.7587667333333333,
  "per_band_pos": null,
- "yield_band_pos": 0.23760134611810585,
+ "yield_band_pos": 0.37710682910785903,
  "next_earn": "2026-11-10",
  "earn_disc_date": "2011-02-03",
  "buyback_yen": 4332000000.0,
- "total_yield": 4.7496064074180815,
+ "total_yield": 5.128678222209734,
  "total_payout": 70.86084225370169,
  "interest_coverage": 4.876277314887596,
  "warnings": [],
  "roa": 1.46,
  "leverage": 2.3,
  "insight_flags": [],
- "review": [
-  {
-   "k": "pbr",
-   "where": "PBR（Yahoo表示 1.23倍）",
-   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは0.55倍で、Yahoo表示と0.45倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
-   "how": "IR BANK（irbank.net/6457/results）の1株純資産（BPS）で、株価÷BPSを計算して確認",
-   "keys": [
-    "pbr_vs_sector"
-   ],
-   "names": []
-  }
- ],
+ "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:20:36"
+ "_generated_at": "2026-11-06T22:58:58"
 }

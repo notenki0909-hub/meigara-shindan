@@ -1,16 +1,23 @@
 {
  "code": "4182",
  "name": "三菱瓦斯化学",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "化学",
  "industry": "Specialty Chemicals",
  "is_simple": false,
  "is_reit": false,
- "price": 3250.0,
- "price_date": "2026-11-05",
- "mcap": 633823756288,
+ "sel_dev": {
+  "dev": 48,
+  "rank": 41,
+  "n": 59,
+  "basis": "業種",
+  "name": "化学"
+ },
+ "price": 3055.0,
+ "price_date": "2026-11-06",
+ "mcap": 595794329600,
  "sel_score": 88.2,
- "tim_score": 91.4,
+ "tim_score": 101.0,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -29,12 +36,12 @@
   "財務": 104.8,
   "キャッシュフロー": 103.3,
   "配当の持続力": 69.4,
-  "配当利回りセオリー": 82.7,
-  "利回り水準とChowder": 92.4,
-  "株価バリュエーション": 106.7,
+  "配当利回りセオリー": 101.0,
+  "利回り水準とChowder": 95.3,
+  "株価バリュエーション": 107.8,
   "金利スプレッド": null
  },
- "div_yield": 3.3846153846153846,
+ "div_yield": 3.600654664484452,
  "streak_up": 2,
  "streak_flat": 16,
  "payout_ni": null,
@@ -43,23 +50,23 @@
  "roe": -3.37,
  "div_policy": null,
  "dgr5": 7.394092378577932,
- "chowder": 10.778707763193317,
+ "chowder": 10.994747043062384,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 26.05786473248936,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.7322288923076923,
+ "pbr_vs_sector": 0.6882951846153846,
  "per_band_pos": null,
- "yield_band_pos": 0.42684955017301035,
+ "yield_band_pos": 0.641414709563425,
  "next_earn": "2026-11-10",
  "earn_disc_date": "2026-08-06",
  "buyback_yen": 7000000.0,
- "total_yield": 3.3857197925727314,
+ "total_yield": 3.6018295665693207,
  "total_payout": null,
  "interest_coverage": -4.943396226415095,
  "warnings": [
   "⚠ 直近の決算期（2026年3月期）は純損失（赤字）のため、配当性向は算出していません（配当は利益で賄えていません）",
-  "⚠ バリュートラップ注意：PBR 0.95倍（1倍割れ）かつROE -6.2%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.89倍（1倍割れ）かつROE -6.2%（5%未満）"
  ],
  "roa": -3.62,
  "leverage": 1.72,
@@ -70,10 +77,10 @@
   },
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.95倍（1倍割れ）かつROE -6.2%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.89倍（1倍割れ）かつROE -6.2%（5%未満）"
   }
  ],
  "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:09:39"
+ "_generated_at": "2026-11-06T22:44:10"
 }

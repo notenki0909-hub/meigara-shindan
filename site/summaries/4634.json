@@ -1,16 +1,23 @@
 {
  "code": "4634",
  "name": "ａｒｔｉｅｎｃｅ",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "化学",
  "industry": "Specialty Chemicals",
  "is_simple": false,
  "is_reit": false,
- "price": 4830.0,
- "price_date": "2026-11-05",
- "mcap": 226515845120,
+ "sel_dev": {
+  "dev": 53,
+  "rank": 28,
+  "n": 59,
+  "basis": "業種",
+  "name": "化学"
+ },
+ "price": 4620.0,
+ "price_date": "2026-11-06",
+ "mcap": 216667340800,
  "sel_score": 93.2,
- "tim_score": 57.9,
+ "tim_score": 59.3,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア中位（妥当水準）",
  "comment": "選定は上位水準、買い時は中位（妥当水準）。",
@@ -30,11 +37,11 @@
   "キャッシュフロー": 103.2,
   "配当の持続力": 74.8,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 49.5,
-  "株価バリュエーション": 101.8,
+  "利回り水準とChowder": 51.6,
+  "株価バリュエーション": 105.2,
   "金利スプレッド": null
  },
- "div_yield": 2.484472049689441,
+ "div_yield": 2.5974025974025974,
  "streak_up": 0,
  "streak_flat": 15,
  "payout_ni": 47.50593824228028,
@@ -43,29 +50,29 @@
  "roe": 6.555,
  "div_policy": null,
  "dgr5": 2.1295687600135116,
- "chowder": 4.614040809702953,
+ "chowder": 4.726971357416109,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 41.23125103016318,
- "per_vs_sector": 0.6390673958333334,
- "pbr_vs_sector": 0.6215050769230769,
- "per_band_pos": 0.46075997199887664,
+ "per_vs_sector": 0.6112818229166667,
+ "pbr_vs_sector": 0.5944831076923077,
+ "per_band_pos": 0.5546843720206012,
  "yield_band_pos": 0.0,
  "next_earn": "2026-11-13",
  "earn_disc_date": null,
  "buyback_yen": 10450000000.0,
- "total_yield": 7.097835849676132,
+ "total_yield": 7.420464514078874,
  "total_payout": 149.4487427466151,
  "interest_coverage": 13.974025974025974,
  "warnings": [
-  "⚠ バリュートラップ注意：PBR 0.81倍（1倍割れ）かつROE 3.9%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.77倍（1倍割れ）かつROE 3.9%（5%未満）"
  ],
  "roa": 2.24,
  "leverage": 1.74,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.81倍（1倍割れ）かつROE 3.9%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.77倍（1倍割れ）かつROE 3.9%（5%未満）"
   }
  ],
  "review": [
@@ -85,5 +92,5 @@
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:12:39"
+ "_generated_at": "2026-11-06T22:48:20"
 }

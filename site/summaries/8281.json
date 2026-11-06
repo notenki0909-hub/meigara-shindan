@@ -1,16 +1,23 @@
 {
  "code": "8281",
  "name": "ゼビオホールディングス",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "小売業",
  "industry": "Specialty Retail",
  "is_simple": false,
  "is_reit": false,
- "price": 1123.0,
- "price_date": "2026-11-05",
- "mcap": 46471901184,
+ "sel_dev": {
+  "dev": 27,
+  "rank": 43,
+  "n": 45,
+  "basis": "業種",
+  "name": "小売業"
+ },
+ "price": 1062.0,
+ "price_date": "2026-11-06",
+ "mcap": 43947601920,
  "sel_score": 68.7,
- "tim_score": 74.7,
+ "tim_score": 82.2,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -29,12 +36,12 @@
   "財務": 108.3,
   "キャッシュフロー": 60.0,
   "配当の持続力": 56.8,
-  "配当利回りセオリー": 85.6,
-  "利回り水準とChowder": 66.1,
+  "配当利回りセオリー": 101.0,
+  "利回り水準とChowder": 69.4,
   "株価バリュエーション": 65.0,
-  "金利スプレッド": 73.8
+  "金利スプレッド": 78.6
  },
- "div_yield": 3.1166518254674975,
+ "div_yield": 3.295668549905838,
  "streak_up": 2,
  "streak_flat": 5,
  "payout_ni": null,
@@ -43,23 +50,23 @@
  "roe": 0.096000003,
  "div_policy": null,
  "dgr5": 3.131030647754507,
- "chowder": 6.247682473222005,
+ "chowder": 6.426699197660344,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 5.583675770925111,
- "pbr_vs_sector": 0.19408092,
+ "per_vs_sector": 5.471829339207049,
+ "pbr_vs_sector": 0.18353869,
  "per_band_pos": null,
- "yield_band_pos": 0.455891856797815,
+ "yield_band_pos": 0.6401784983214606,
  "next_earn": null,
  "earn_disc_date": "2016-01-28",
  "buyback_yen": 262000000.0,
- "total_yield": 3.680433365117967,
+ "total_yield": 3.891833047065277,
  "total_payout": null,
  "interest_coverage": -21.485436893203882,
  "warnings": [
   "⚠ 直近の決算期（2026年3月期）は純損失（赤字）のため、配当性向は算出していません（配当は利益で賄えていません）",
-  "⚠ バリュートラップ注意：PBR 0.39倍（1倍割れ）かつROE -1.8%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.37倍（1倍割れ）かつROE -1.8%（5%未満）"
  ],
  "roa": -1.05,
  "leverage": 1.74,
@@ -70,10 +77,10 @@
   },
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.39倍（1倍割れ）かつROE -1.8%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.37倍（1倍割れ）かつROE -1.8%（5%未満）"
   }
  ],
  "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:31:32"
+ "_generated_at": "2026-11-06T23:13:47"
 }

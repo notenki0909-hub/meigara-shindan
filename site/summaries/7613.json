@@ -1,16 +1,23 @@
 {
  "code": "7613",
  "name": "シークス",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "電気機器",
  "industry": "Electronic Components",
  "is_simple": false,
  "is_reit": false,
- "price": 1595.0,
- "price_date": "2026-11-05",
- "mcap": 75184553984,
+ "sel_dev": {
+  "dev": 48,
+  "rank": 17,
+  "n": 29,
+  "basis": "業種",
+  "name": "電気機器"
+ },
+ "price": 1573.0,
+ "price_date": "2026-11-06",
+ "mcap": 74147528704,
  "sel_score": 84.2,
- "tim_score": 97.4,
+ "tim_score": 98.6,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -29,12 +36,12 @@
   "財務": 105.4,
   "キャッシュフロー": 103.3,
   "配当の持続力": 80.1,
-  "配当利回りセオリー": 98.1,
-  "利回り水準とChowder": 97.9,
-  "株価バリュエーション": 95.3,
+  "配当利回りセオリー": 100.0,
+  "利回り水準とChowder": 98.5,
+  "株価バリュエーション": 96.0,
   "金利スプレッド": null
  },
- "div_yield": 3.1347962382445136,
+ "div_yield": 3.178639542275906,
  "streak_up": 16,
  "streak_flat": 16,
  "payout_ni": 92.76789095039759,
@@ -43,14 +50,14 @@
  "roe": 3.795,
  "div_policy": null,
  "dgr5": 11.060497971884509,
- "chowder": 14.195294210129022,
+ "chowder": 14.239137514160415,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 9.752622717264604,
- "per_vs_sector": 0.6528484013605443,
- "pbr_vs_sector": 0.26281953846153844,
- "per_band_pos": 0.2604475316774261,
- "yield_band_pos": 0.5812197550829254,
+ "per_vs_sector": 0.6438435374149659,
+ "pbr_vs_sector": 0.2591944423076923,
+ "per_band_pos": 0.2787243915655273,
+ "yield_band_pos": 0.6015191015518013,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": null,
@@ -59,17 +66,17 @@
  "interest_coverage": 8.337028824833704,
  "warnings": [
   "yfinance の業種『Electronic Components』が対応表に無く、sector（industry未対応） で 電気機器 に割り当てました。業種平均との比較は目安です。",
-  "⚠ バリュートラップ注意：PBR 0.68倍（1倍割れ）かつROE 2.4%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.67倍（1倍割れ）かつROE 2.4%（5%未満）"
  ],
  "roa": 1.2,
  "leverage": 2.01,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.68倍（1倍割れ）かつROE 2.4%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.67倍（1倍割れ）かつROE 2.4%（5%未満）"
   }
  ],
  "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:26:19"
+ "_generated_at": "2026-11-06T23:06:47"
 }

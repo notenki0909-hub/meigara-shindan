@@ -1,16 +1,23 @@
 {
  "code": "2908",
  "name": "フジッコ",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "食料品",
  "industry": "Packaged Foods",
  "is_simple": false,
  "is_reit": false,
- "price": 1603.0,
- "price_date": "2026-11-05",
- "mcap": 45642727424,
+ "sel_dev": {
+  "dev": 32,
+  "rank": 31,
+  "n": 31,
+  "basis": "業種",
+  "name": "食料品"
+ },
+ "price": 1579.0,
+ "price_date": "2026-11-06",
+ "mcap": 44959367168,
  "sel_score": 76.6,
- "tim_score": 84.3,
+ "tim_score": 84.7,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -30,11 +37,11 @@
   "キャッシュフロー": 60.0,
   "配当の持続力": 56.4,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 60.1,
+  "利回り水準とChowder": 60.9,
   "株価バリュエーション": 80.0,
-  "金利スプレッド": 67.2
+  "金利スプレッド": 68.4
  },
- "div_yield": 2.8696194635059262,
+ "div_yield": 2.9132362254591513,
  "streak_up": 0,
  "streak_flat": 15,
  "payout_ni": 91.66998804304504,
@@ -43,32 +50,32 @@
  "roe": 1.8579999999999999,
  "div_policy": null,
  "dgr5": 2.8346722100213606,
- "chowder": 5.704291673527287,
+ "chowder": 5.747908435480512,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 1.7322239,
- "pbr_vs_sector": 0.5470247500000001,
+ "per_vs_sector": 1.7062891,
+ "pbr_vs_sector": 0.538865875,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 0.0,
- "total_yield": 2.8696194635059262,
+ "total_yield": 2.9132362254591513,
  "total_payout": 91.94677871148458,
  "interest_coverage": null,
  "warnings": [
-  "⚠ バリュートラップ注意：PBR 0.66倍（1倍割れ）かつROE 2.1%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.65倍（1倍割れ）かつROE 2.1%（5%未満）"
  ],
  "roa": 1.78,
  "leverage": 1.15,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.66倍（1倍割れ）かつROE 2.1%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.65倍（1倍割れ）かつROE 2.1%（5%未満）"
   }
  ],
  "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:04:35"
+ "_generated_at": "2026-11-06T22:37:17"
 }

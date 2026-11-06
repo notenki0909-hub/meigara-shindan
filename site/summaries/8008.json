@@ -1,16 +1,23 @@
 {
  "code": "8008",
  "name": "ヨンドシーホールディングス",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "繊維製品",
  "industry": "Apparel Manufacturing",
  "is_simple": false,
  "is_reit": false,
- "price": 1980.0,
- "price_date": "2026-11-05",
- "mcap": 42556436480,
+ "sel_dev": {
+  "dev": 36,
+  "rank": 10,
+  "n": 11,
+  "basis": "業種",
+  "name": "繊維製品"
+ },
+ "price": 1896.0,
+ "price_date": "2026-11-06",
+ "mcap": 40751013888,
  "sel_score": 78.0,
- "tim_score": 79.9,
+ "tim_score": 92.3,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -29,12 +36,12 @@
   "財務": 84.8,
   "キャッシュフロー": 73.3,
   "配当の持続力": 58.4,
-  "配当利回りセオリー": 74.6,
-  "利回り水準とChowder": 66.6,
-  "株価バリュエーション": 106.0,
+  "配当利回りセオリー": 100.0,
+  "利回り水準とChowder": 68.1,
+  "株価バリュエーション": 106.6,
   "金利スプレッド": null
  },
- "div_yield": 4.292929292929292,
+ "div_yield": 4.4831223628691985,
  "streak_up": 0,
  "streak_flat": 23,
  "payout_ni": 99.44883776659479,
@@ -43,22 +50,23 @@
  "roe": 6.317,
  "div_policy": null,
  "dgr5": 0.4890208856860756,
- "chowder": 4.781950178615368,
+ "chowder": 4.972143248555274,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 456.7430025445293,
- "per_vs_sector": 0.7979135467980296,
- "pbr_vs_sector": 0.9192307272727271,
+ "per_vs_sector": 0.7814509359605911,
+ "pbr_vs_sector": 0.8802330454545454,
  "per_band_pos": 1.0,
- "yield_band_pos": 0.3456236710097444,
+ "yield_band_pos": 0.6005679226582623,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 0.0,
- "total_yield": 4.292929292929292,
+ "total_yield": 4.4831223628691985,
  "total_payout": 100.16741071428572,
  "interest_coverage": 21.77777777777778,
  "warnings": [
-  "⚠ FCF配当性向が100%超（457%：フリーCFで配当を賄えていない）"
+  "⚠ FCF配当性向が100%超（457%：フリーCFで配当を賄えていない）",
+  "⚠ バリュートラップ注意：PBR 0.97倍（1倍割れ）かつROE 4.4%（5%未満）"
  ],
  "roa": 2.6,
  "leverage": 1.68,
@@ -66,9 +74,13 @@
   {
    "k": "fcf_payout",
    "t": "FCF配当性向が100%超（457%：フリーCFで配当を賄えていない）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：PBR 0.97倍（1倍割れ）かつROE 4.4%（5%未満）"
   }
  ],
  "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:28:30"
+ "_generated_at": "2026-11-06T23:09:48"
 }

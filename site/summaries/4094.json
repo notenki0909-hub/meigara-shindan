@@ -1,16 +1,23 @@
 {
  "code": "4094",
  "name": "日本化学産業",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "化学",
  "industry": "Specialty Chemicals",
  "is_simple": false,
  "is_reit": false,
- "price": 2019.0,
- "price_date": "2026-11-05",
- "mcap": 39364673536,
+ "sel_dev": {
+  "dev": 52,
+  "rank": 30,
+  "n": 59,
+  "basis": "業種",
+  "name": "化学"
+ },
+ "price": 1985.0,
+ "price_date": "2026-11-06",
+ "mcap": 38701772800,
  "sel_score": 91.7,
- "tim_score": 102.8,
+ "tim_score": 103.2,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -29,12 +36,12 @@
   "財務": 109.8,
   "キャッシュフロー": 86.6,
   "配当の持続力": 76.8,
-  "配当利回りセオリー": 109.4,
-  "利回り水準とChowder": 108.2,
-  "株価バリュエーション": 83.8,
+  "配当利回りセオリー": 110.0,
+  "利回り水準とChowder": 108.4,
+  "株価バリュエーション": 84.0,
   "金利スプレッド": null
  },
- "div_yield": 4.457652303120357,
+ "div_yield": 4.534005037783375,
  "streak_up": 13,
  "streak_flat": 5,
  "payout_ni": 76.7590618336887,
@@ -43,14 +50,14 @@
  "roe": 4.527,
  "div_policy": null,
  "dgr5": 26.30393918952243,
- "chowder": 30.761591492642786,
+ "chowder": 30.837944227305805,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 100.171613369639,
- "per_vs_sector": 0.9181546354166666,
- "pbr_vs_sector": 0.5818604615384616,
+ "per_vs_sector": 0.9026928645833334,
+ "pbr_vs_sector": 0.572061923076923,
  "per_band_pos": 0.0,
- "yield_band_pos": 0.9746198259870469,
+ "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": null,
@@ -59,7 +66,7 @@
  "interest_coverage": 3274.4465161923454,
  "warnings": [
   "⚠ FCF配当性向が100%超（100%：フリーCFで配当を賄えていない）",
-  "⚠ バリュートラップ注意：PBR 0.76倍（1倍割れ）かつROE 4.5%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.74倍（1倍割れ）かつROE 4.5%（5%未満）"
  ],
  "roa": 3.7,
  "leverage": 1.21,
@@ -70,10 +77,10 @@
   },
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.76倍（1倍割れ）かつROE 4.5%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.74倍（1倍割れ）かつROE 4.5%（5%未満）"
   }
  ],
  "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:09:04"
+ "_generated_at": "2026-11-06T22:43:24"
 }

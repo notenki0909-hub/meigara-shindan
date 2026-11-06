@@ -1,22 +1,32 @@
 {
  "code": "4345",
  "name": "シーティーエス",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "その他金融業",
  "industry": "Rental & Leasing Services",
  "is_simple": false,
  "is_reit": false,
- "price": 811.0,
- "price_date": "2026-11-05",
- "mcap": 33197697024,
- "sel_score": 106.6,
- "tim_score": 100.8,
+ "excl_domains": [
+  "キャッシュフロー"
+ ],
+ "sel_dev": {
+  "dev": 67,
+  "rank": 1,
+  "n": 25,
+  "basis": "業種",
+  "name": "その他金融業"
+ },
+ "price": 783.0,
+ "price_date": "2026-11-06",
+ "mcap": 32051537920,
+ "sel_score": 107.6,
+ "tim_score": 101.0,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
  "cov_sel": [
+  14,
   15,
-  16,
   "高"
  ],
  "cov_tim": [
@@ -27,14 +37,15 @@
  "groups": {
   "業績": 107.4,
   "財務": 110.0,
-  "キャッシュフロー": 103.3,
+  "キャッシュフロー": null,
   "配当の持続力": 104.3,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 105.7,
-  "株価バリュエーション": 77.4,
-  "金利スプレッド": null
+  "利回り水準とChowder": 106.1,
+  "株価バリュエーション": 77.9,
+  "金利スプレッド": null,
+  "リース・信販品質": 110.0
  },
- "div_yield": 3.6991368680641186,
+ "div_yield": 3.8314176245210727,
  "streak_up": 14,
  "streak_flat": 14,
  "payout_ni": 44.57423916384876,
@@ -43,25 +54,27 @@
  "roe": 16.89,
  "div_policy": null,
  "dgr5": 17.95567912712226,
- "chowder": 21.65481599518638,
+ "chowder": 21.787096751643332,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 37.66769865841073,
- "per_vs_sector": 0.891584964028777,
- "pbr_vs_sector": 1.8680825,
+ "per_vs_sector": 0.8608027338129497,
+ "pbr_vs_sector": 1.8035864,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 46000000.0,
- "total_yield": 3.837700696653628,
+ "total_yield": 3.974936478795133,
  "total_payout": 42.479523454951604,
  "interest_coverage": 74.7843137254902,
- "warnings": [],
+ "warnings": [
+  "その他金融業（リース・信販など）は、リース資産・貸付債権の積み増しが営業CFに含まれ、成長するほど営業CFが赤字になる構造のため、キャッシュフロー（営業CF・FCF・FCF配当性向）は採点せず参考表示のみです。代わりに「リース・信販品質」スコア（ROA・総資産成長率・利払い余力）を銘柄選定に使い、業績・財務・配当の持続力は通常どおり採点しています。貸倒費用・延滞率・調達構成はYahoo Financeで取れないため、決算短信で確認してください。"
+ ],
  "roa": 13.03,
  "leverage": 1.31,
  "insight_flags": [],
  "review": [],
  "kind": "fin",
- "_generated_at": "2026-11-05T23:10:57"
+ "_generated_at": "2026-11-06T22:45:51"
 }

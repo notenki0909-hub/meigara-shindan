@@ -1,64 +1,72 @@
 {
  "code": "6724",
  "name": "セイコーエプソン",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "電気機器",
  "industry": "Computer Hardware",
  "is_simple": false,
  "is_reit": false,
- "price": 3058.0,
- "price_date": "2026-11-04",
- "mcap": 923578204160,
- "sel_score": 75.0,
- "tim_score": 49.7,
+ "sel_dev": {
+  "dev": 42,
+  "rank": 24,
+  "n": 29,
+  "basis": "業種",
+  "name": "電気機器"
+ },
+ "price": 2657.0,
+ "price_date": "2026-11-06",
+ "mcap": 845023150080,
+ "sel_score": 76.3,
+ "tim_score": 71.2,
  "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "選定は中位、買い時は下位（やや割高水準）。",
+ "tim_label": "買い時スコア中位（妥当水準）",
+ "comment": "選定・買い時とも中位水準。",
  "cov_sel": [
   16,
   16,
   "高"
  ],
  "cov_tim": [
+  4,
   6,
-  6,
-  "高"
+  "中"
  ],
  "groups": {
   "業績": 53.5,
   "財務": 106.5,
   "キャッシュフロー": 102.7,
-  "配当の持続力": 52.7,
-  "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 59.3,
-  "株価バリュエーション": 56.7,
+  "配当の持続力": 57.2,
+  "配当利回りセオリー": 53.6,
+  "利回り水準とChowder": 66.5,
+  "株価バリュエーション": 110.0,
   "金利スプレッド": null
  },
- "div_yield": 2.6160889470241986,
+ "div_yield": 3.0109145652992093,
  "streak_up": 0,
  "streak_flat": 13,
  "payout_ni": 130.2587572610456,
  "payout_state": null,
  "payout_fy": "2026年3月期",
- "roe": 2.97,
+ "roe": 5.215,
  "div_policy": null,
  "dgr5": 3.6019681902083045,
- "chowder": 6.218057137232503,
+ "chowder": 6.612882755507513,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 46.01440133532597,
- "per_vs_sector": 1.738699319727891,
- "pbr_vs_sector": 0.4136133076923077,
- "per_band_pos": 0.0,
- "yield_band_pos": 0.0,
- "next_earn": "2026-11-05",
+ "per_vs_sector": null,
+ "pbr_vs_sector": 0.37332883076923074,
+ "per_band_pos": null,
+ "yield_band_pos": 0.1364444944826782,
+ "next_earn": "2027-02-03",
  "earn_disc_date": "2026-11-04",
  "buyback_yen": 1000000.0,
- "total_yield": 2.6161972215585583,
+ "total_yield": 3.0110329052523697,
  "total_payout": 130.26207351244437,
  "interest_coverage": 12.439057855019437,
  "warnings": [
-  "⚠ 配当性向が100%超（130%：純利益を上回る配当）"
+  "⚠ 配当性向が100%超（130%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：PBR 0.97倍（1倍割れ）かつROE 2.1%（5%未満）"
  ],
  "roa": 1.19,
  "leverage": 1.8,
@@ -66,10 +74,27 @@
   {
    "k": "payout",
    "t": "配当性向が100%超（130%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：PBR 0.97倍（1倍割れ）かつROE 2.1%（5%未満）"
   }
  ],
- "review": [],
+ "review": [
+  {
+   "k": "per",
+   "where": "PER（Yahoo表示 19.2倍）",
+   "why": "直近4四半期の純利益（182.0億円）から求めたPERは46.4倍で、Yahoo表示と0.4倍ずれています。Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
+   "how": "IR BANK（irbank.net/6724/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
+   "keys": [
+    "per_vs_sector",
+    "per_band_pos"
+   ],
+   "names": [
+    "益回り（1÷PER）"
+   ]
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-05T19:56:42",
- "_earnings_reflected_via": "tdnet_retry"
+ "_generated_at": "2026-11-06T23:00:18"
 }

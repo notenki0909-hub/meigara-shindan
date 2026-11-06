@@ -1,22 +1,32 @@
 {
  "code": "9699",
  "name": "ニシオホールディングス",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "その他金融業",
  "industry": "Rental & Leasing Services",
  "is_simple": false,
  "is_reit": false,
- "price": 4370.0,
- "price_date": "2026-11-05",
- "mcap": 119425875968,
- "sel_score": 102.3,
- "tim_score": 80.8,
+ "excl_domains": [
+  "キャッシュフロー"
+ ],
+ "sel_dev": {
+  "dev": 57,
+  "rank": 9,
+  "n": 25,
+  "basis": "業種",
+  "name": "その他金融業"
+ },
+ "price": 4100.0,
+ "price_date": "2026-11-06",
+ "mcap": 112047161344,
+ "sel_score": 96.7,
+ "tim_score": 94.0,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
  "cov_sel": [
-  14,
-  16,
+  13,
+  15,
   "高"
  ],
  "cov_tim": [
@@ -27,14 +37,15 @@
  "groups": {
   "業績": 103.1,
   "財務": 110.0,
-  "キャッシュフロー": 103.3,
+  "キャッシュフロー": null,
   "配当の持続力": 94.1,
-  "配当利回りセオリー": 68.1,
-  "利回り水準とChowder": 98.1,
-  "株価バリュエーション": 84.2,
-  "金利スプレッド": null
+  "配当利回りセオリー": 94.4,
+  "利回り水準とChowder": 101.0,
+  "株価バリュエーション": 85.0,
+  "金利スプレッド": null,
+  "リース・信販品質": 65.9
  },
- "div_yield": 3.0205949656750573,
+ "div_yield": 3.2195121951219514,
  "streak_up": 7,
  "streak_flat": 15,
  "payout_ni": 30.032783878585022,
@@ -43,25 +54,27 @@
  "roe": 7.7410005,
  "div_policy": null,
  "dgr5": 10.534229649286942,
- "chowder": 13.554824614962,
+ "chowder": 13.753741844408893,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 12.841881126326223,
- "per_vs_sector": 0.7395635971223022,
- "pbr_vs_sector": 0.83751,
+ "per_vs_sector": 0.7101235971223021,
+ "pbr_vs_sector": 0.7857645,
  "per_band_pos": 0.0,
- "yield_band_pos": 0.28067062315889235,
+ "yield_band_pos": 0.5435919534396053,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": null,
  "total_yield": null,
  "total_payout": 28.887604261293255,
  "interest_coverage": 10.866666666666667,
- "warnings": [],
+ "warnings": [
+  "その他金融業（リース・信販など）は、リース資産・貸付債権の積み増しが営業CFに含まれ、成長するほど営業CFが赤字になる構造のため、キャッシュフロー（営業CF・FCF・FCF配当性向）は採点せず参考表示のみです。代わりに「リース・信販品質」スコア（ROA・総資産成長率・利払い余力）を銘柄選定に使い、業績・財務・配当の持続力は通常どおり採点しています。貸倒費用・延滞率・調達構成はYahoo Financeで取れないため、決算短信で確認してください。"
+ ],
  "roa": 4.07,
  "leverage": 2.15,
  "insight_flags": [],
  "review": [],
  "kind": "fin",
- "_generated_at": "2026-11-05T23:39:45"
+ "_generated_at": "2026-11-06T23:24:46"
 }

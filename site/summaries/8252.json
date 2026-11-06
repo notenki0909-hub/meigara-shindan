@@ -1,21 +1,31 @@
 {
  "code": "8252",
  "name": "丸井グループ",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "その他金融業",
  "industry": "Credit Services",
  "is_simple": false,
  "is_reit": false,
- "price": 2917.0,
- "price_date": "2026-11-05",
- "mcap": 507660107776,
- "sel_score": 89.6,
- "tim_score": 97.3,
+ "excl_domains": [
+  "キャッシュフロー"
+ ],
+ "sel_dev": {
+  "dev": 58,
+  "rank": 8,
+  "n": 25,
+  "basis": "業種",
+  "name": "その他金融業"
+ },
+ "price": 2802.5,
+ "price_date": "2026-11-06",
+ "mcap": 487733100544,
+ "sel_score": 98.2,
+ "tim_score": 97.4,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
  "cov_sel": [
-  14,
+  15,
   16,
   "高"
  ],
@@ -27,14 +37,15 @@
  "groups": {
   "業績": 107.5,
   "財務": 106.7,
-  "キャッシュフロー": 20.0,
+  "キャッシュフロー": null,
   "配当の持続力": 92.5,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 108.6,
+  "利回り水準とChowder": 109.3,
   "株価バリュエーション": 59.4,
-  "金利スプレッド": null
+  "金利スプレッド": null,
+  "リース・信販品質": 77.3
  },
- "div_yield": 4.593760713061364,
+ "div_yield": 4.781445138269403,
  "streak_up": 14,
  "streak_flat": 16,
  "payout_ni": 82.72813388064415,
@@ -43,25 +54,27 @@
  "roe": 12.443,
  "div_policy": null,
  "dgr5": 20.764760361828593,
- "chowder": 25.358521074889957,
+ "chowder": 25.546205500097997,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 1.274481438848921,
- "pbr_vs_sector": 2.2103357,
+ "per_vs_sector": 1.2744545323741008,
+ "pbr_vs_sector": 2.1235743,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-10",
  "earn_disc_date": "2026-08-04",
  "buyback_yen": 7701000000.0,
- "total_yield": 6.110720561204088,
+ "total_yield": 6.360382469242138,
  "total_payout": 102.22994802640821,
  "interest_coverage": 6.9913594470046085,
- "warnings": [],
+ "warnings": [
+  "その他金融業（リース・信販など）は、リース資産・貸付債権の積み増しが営業CFに含まれ、成長するほど営業CFが赤字になる構造のため、キャッシュフロー（営業CF・FCF・FCF配当性向）は採点せず参考表示のみです。代わりに「リース・信販品質」スコア（ROA・総資産成長率・利払い余力）を銘柄選定に使い、業績・財務・配当の持続力は通常どおり採点しています。貸倒費用・延滞率・調達構成はYahoo Financeで取れないため、決算短信で確認してください。"
+ ],
  "roa": 2.5,
  "leverage": 4.67,
  "insight_flags": [],
  "review": [],
  "kind": "fin",
- "_generated_at": "2026-11-05T23:31:12"
+ "_generated_at": "2026-11-06T23:13:22"
 }

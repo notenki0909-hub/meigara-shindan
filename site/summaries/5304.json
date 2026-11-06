@@ -1,16 +1,23 @@
 {
  "code": "5304",
  "name": "ＳＥＣカーボン",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "化学",
  "industry": "Specialty Chemicals",
  "is_simple": false,
  "is_reit": false,
- "price": 2131.0,
- "price_date": "2026-11-05",
- "mcap": 41884815360,
+ "sel_dev": {
+  "dev": 41,
+  "rank": 49,
+  "n": 59,
+  "basis": "業種",
+  "name": "化学"
+ },
+ "price": 2042.0,
+ "price_date": "2026-11-06",
+ "mcap": 40135516160,
  "sel_score": 81.0,
- "tim_score": 95.7,
+ "tim_score": 96.9,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -29,12 +36,12 @@
   "財務": 109.3,
   "キャッシュフロー": 102.4,
   "配当の持続力": 52.5,
-  "配当利回りセオリー": 107.8,
-  "利回り水準とChowder": 109.0,
+  "配当利回りセオリー": 110.0,
+  "利回り水準とChowder": 109.7,
   "株価バリュエーション": 56.7,
   "金利スプレッド": null
  },
- "div_yield": 4.692632566870014,
+ "div_yield": 4.897159647404505,
  "streak_up": 0,
  "streak_flat": 5,
  "payout_ni": null,
@@ -43,23 +50,23 @@
  "roe": 0.63,
  "div_policy": null,
  "dgr5": 20.11244339814313,
- "chowder": 24.805075965013145,
+ "chowder": 25.009603045547635,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 48.10369659145463,
- "per_vs_sector": 4.747202083333334,
- "pbr_vs_sector": 0.4193161076923077,
+ "per_vs_sector": 4.429578125,
+ "pbr_vs_sector": 0.40180361538461534,
  "per_band_pos": 0.0,
- "yield_band_pos": 0.9119488269705512,
+ "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 0.0,
- "total_yield": 4.692632566870014,
+ "total_yield": 4.897159647404505,
  "total_payout": null,
  "interest_coverage": null,
  "warnings": [
   "⚠ 直近の決算期（2026年3月期）は純損失（赤字）のため、配当性向は算出していません（配当は利益で賄えていません）",
-  "⚠ バリュートラップ注意：PBR 0.55倍（1倍割れ）かつROE -0.1%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.52倍（1倍割れ）かつROE -0.1%（5%未満）"
  ],
  "roa": -0.09,
  "leverage": 1.12,
@@ -70,10 +77,10 @@
   },
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.55倍（1倍割れ）かつROE -0.1%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.52倍（1倍割れ）かつROE -0.1%（5%未満）"
   }
  ],
  "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:15:49"
+ "_generated_at": "2026-11-06T22:52:31"
 }

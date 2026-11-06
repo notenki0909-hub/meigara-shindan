@@ -1,16 +1,23 @@
 {
  "code": "2207",
  "name": "ｍｅｉｔｏ",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "食料品",
  "industry": "Confectioners",
  "is_simple": false,
  "is_reit": false,
- "price": 3495.0,
- "price_date": "2026-11-05",
- "mcap": 56436379648,
+ "sel_dev": {
+  "dev": 40,
+  "rank": 25,
+  "n": 31,
+  "basis": "業種",
+  "name": "食料品"
+ },
+ "price": 3315.0,
+ "price_date": "2026-11-06",
+ "mcap": 53529784320,
  "sel_score": 82.5,
- "tim_score": 90.6,
+ "tim_score": 93.2,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -29,12 +36,12 @@
   "財務": 107.5,
   "キャッシュフロー": 20.0,
   "配当の持続力": 80.2,
-  "配当利回りセオリー": 106.5,
-  "利回り水準とChowder": 86.9,
-  "株価バリュエーション": 103.4,
-  "金利スプレッド": 47.9
+  "配当利回りセオリー": 110.0,
+  "利回り水準とChowder": 88.5,
+  "株価バリュエーション": 104.9,
+  "金利スプレッド": 51.0
  },
- "div_yield": 2.1459227467811157,
+ "div_yield": 2.262443438914027,
  "streak_up": 3,
  "streak_flat": 10,
  "payout_ni": 30.020195404180996,
@@ -43,32 +50,32 @@
  "roe": 5.0970003,
  "div_policy": null,
  "dgr5": 18.040295913696937,
- "chowder": 20.186218660478055,
+ "chowder": 20.302739352610963,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 0.9481309,
- "pbr_vs_sector": 0.7274815416666668,
+ "per_vs_sector": 0.8993000999999999,
+ "pbr_vs_sector": 0.6900146666666667,
  "per_band_pos": null,
- "yield_band_pos": 0.8603848738173212,
+ "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": "2013-02-07",
  "buyback_yen": 1501000000.0,
- "total_yield": 4.805554724172126,
+ "total_yield": 5.066489857309908,
  "total_payout": 69.87283990870557,
  "interest_coverage": 35.37096774193548,
  "warnings": [
-  "⚠ バリュートラップ注意：PBR 0.87倍（1倍割れ）かつROE 4.9%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.83倍（1倍割れ）かつROE 4.9%（5%未満）"
  ],
  "roa": 3.06,
  "leverage": 1.61,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.87倍（1倍割れ）かつROE 4.9%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.83倍（1倍割れ）かつROE 4.9%（5%未満）"
   }
  ],
  "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:01:50"
+ "_generated_at": "2026-11-06T22:33:33"
 }

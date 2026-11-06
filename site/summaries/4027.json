@@ -1,16 +1,23 @@
 {
  "code": "4027",
  "name": "テイカ",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "化学",
  "industry": "Specialty Chemicals",
  "is_simple": false,
  "is_reit": false,
- "price": 2140.0,
- "price_date": "2026-11-05",
- "mcap": 47854178304,
+ "sel_dev": {
+  "dev": 32,
+  "rank": 55,
+  "n": 59,
+  "basis": "業種",
+  "name": "化学"
+ },
+ "price": 2070.0,
+ "price_date": "2026-11-06",
+ "mcap": 46288855040,
  "sel_score": 72.5,
- "tim_score": 108.2,
+ "tim_score": 108.4,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -30,11 +37,11 @@
   "キャッシュフロー": 60.0,
   "配当の持続力": 55.8,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 103.9,
-  "株価バリュエーション": 109.7,
+  "利回り水準とChowder": 104.5,
+  "株価バリュエーション": 110.0,
   "金利スプレッド": null
  },
- "div_yield": 3.7383177570093453,
+ "div_yield": 3.864734299516908,
  "streak_up": 1,
  "streak_flat": 5,
  "payout_ni": null,
@@ -43,23 +50,23 @@
  "roe": -0.5930000000000001,
  "div_policy": null,
  "dgr5": 10.756634324829006,
- "chowder": 14.494952081838353,
+ "chowder": 14.621368624345914,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.6105574615384615,
+ "pbr_vs_sector": 0.5905859769230769,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 0.0,
- "total_yield": 3.7383177570093453,
+ "total_yield": 3.864734299516908,
  "total_payout": null,
  "interest_coverage": -5.838028169014085,
  "warnings": [
   "⚠ 直近の決算期（2026年3月期）は純損失（赤字）のため、配当性向は算出していません（配当は利益で賄えていません）",
-  "⚠ バリュートラップ注意：PBR 0.79倍（1倍割れ）かつROE -1.4%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.77倍（1倍割れ）かつROE -1.4%（5%未満）"
  ],
  "roa": -0.99,
  "leverage": 1.45,
@@ -70,10 +77,10 @@
   },
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.79倍（1倍割れ）かつROE -1.4%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.77倍（1倍割れ）かつROE -1.4%（5%未満）"
   }
  ],
  "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:08:29"
+ "_generated_at": "2026-11-06T22:42:37"
 }

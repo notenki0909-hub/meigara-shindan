@@ -1,16 +1,23 @@
 {
  "code": "1793",
  "name": "大本組",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "建設業",
  "industry": "Engineering & Construction",
  "is_simple": false,
  "is_reit": false,
- "price": 1998.0,
- "price_date": "2026-11-05",
- "mcap": 50817302528,
+ "sel_dev": {
+  "dev": 33,
+  "rank": 63,
+  "n": 67,
+  "basis": "業種",
+  "name": "建設業"
+ },
+ "price": 1951.0,
+ "price_date": "2026-11-06",
+ "mcap": 49621901312,
  "sel_score": 79.5,
- "tim_score": 86.8,
+ "tim_score": 86.9,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -30,11 +37,11 @@
   "キャッシュフロー": 20.0,
   "配当の持続力": 76.7,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 105.7,
+  "利回り水準とChowder": 106.0,
   "株価バリュエーション": 20.0,
   "金利スプレッド": null
  },
- "div_yield": 3.7037037037037033,
+ "div_yield": 3.7929267042542283,
  "streak_up": 3,
  "streak_flat": 22,
  "payout_ni": 70.09673349221927,
@@ -43,18 +50,18 @@
  "roe": 3.313,
  "div_policy": null,
  "dgr5": 14.869835499703509,
- "chowder": 18.57353920340721,
+ "chowder": 18.662762203957737,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 1.5541210852713179,
+ "per_vs_sector": 1.5160415503875968,
  "pbr_vs_sector": null,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 0.0,
- "total_yield": 3.7037037037037033,
+ "total_yield": 3.7929267042542283,
  "total_payout": 58.41147269718698,
  "interest_coverage": 53.07692307692308,
  "warnings": [
@@ -71,8 +78,8 @@
  "review": [
   {
    "k": "pbr",
-   "where": "PBR（Yahoo表示 1.42倍）",
-   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは0.74倍で、Yahoo表示と0.52倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
+   "where": "PBR（Yahoo表示 1.39倍）",
+   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは0.73倍で、Yahoo表示と0.52倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
    "how": "IR BANK（irbank.net/1793/results）の1株純資産（BPS）で、株価÷BPSを計算して確認",
    "keys": [
     "pbr_vs_sector"
@@ -81,5 +88,5 @@
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-05T22:57:57"
+ "_generated_at": "2026-11-06T22:28:17"
 }

@@ -1,16 +1,23 @@
 {
  "code": "4611",
  "name": "大日本塗料",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "化学",
  "industry": "Specialty Chemicals",
  "is_simple": false,
  "is_reit": false,
- "price": 1826.0,
- "price_date": "2026-11-05",
- "mcap": 52157374464,
+ "sel_dev": {
+  "dev": 35,
+  "rank": 52,
+  "n": 59,
+  "basis": "業種",
+  "name": "化学"
+ },
+ "price": 1787.0,
+ "price_date": "2026-11-06",
+ "mcap": 51043389440,
  "sel_score": 75.2,
- "tim_score": 86.9,
+ "tim_score": 89.9,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -29,12 +36,12 @@
   "財務": 97.8,
   "キャッシュフロー": 60.0,
   "配当の持続力": 68.3,
-  "配当利回りセオリー": 83.9,
-  "利回り水準とChowder": 100.7,
-  "株価バリュエーション": 76.2,
+  "配当利回りセオリー": 89.1,
+  "利回り水準とChowder": 101.6,
+  "株価バリュエーション": 77.4,
   "金利スプレッド": null
  },
- "div_yield": 3.1763417305585984,
+ "div_yield": 3.2456631225517625,
  "streak_up": 3,
  "streak_flat": 15,
  "payout_ni": 98.03921568627452,
@@ -43,32 +50,32 @@
  "roe": 3.5709999999999997,
  "div_policy": null,
  "dgr5": 18.330744502429685,
- "chowder": 21.507086232988282,
+ "chowder": 21.576407624981446,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 1.0836846875000001,
- "pbr_vs_sector": 0.6028164615384615,
+ "per_vs_sector": 1.0605390625,
+ "pbr_vs_sector": 0.5899414153846154,
  "per_band_pos": 0.0,
- "yield_band_pos": 0.438515683901234,
+ "yield_band_pos": 0.49139325441902015,
  "next_earn": null,
  "earn_disc_date": "2016-02-08",
  "buyback_yen": 0.0,
- "total_yield": 3.1763417305585984,
+ "total_yield": 3.2456631225517625,
  "total_payout": 82.70142180094787,
  "interest_coverage": 16.25777777777778,
  "warnings": [
-  "⚠ バリュートラップ注意：PBR 0.78倍（1倍割れ）かつROE 2.5%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.77倍（1倍割れ）かつROE 2.5%（5%未満）"
  ],
  "roa": 1.23,
  "leverage": 2.06,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.78倍（1倍割れ）かつROE 2.5%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.77倍（1倍割れ）かつROE 2.5%（5%未満）"
   }
  ],
  "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:12:19"
+ "_generated_at": "2026-11-06T22:48:00"
 }

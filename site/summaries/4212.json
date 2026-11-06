@@ -1,16 +1,23 @@
 {
  "code": "4212",
  "name": "積水樹脂",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "建設業",
  "industry": "Building Products & Equipment",
  "is_simple": false,
  "is_reit": false,
- "price": 2799.0,
- "price_date": "2026-11-05",
- "mcap": 83775447040,
+ "sel_dev": {
+  "dev": 50,
+  "rank": 42,
+  "n": 67,
+  "basis": "業種",
+  "name": "建設業"
+ },
+ "price": 2691.0,
+ "price_date": "2026-11-06",
+ "mcap": 80542957568,
  "sel_score": 93.6,
- "tim_score": 92.3,
+ "tim_score": 94.9,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -29,12 +36,12 @@
   "財務": 107.0,
   "キャッシュフロー": 95.1,
   "配当の持続力": 94.5,
-  "配当利回りセオリー": 100.3,
-  "利回り水準とChowder": 76.7,
-  "株価バリュエーション": 95.9,
+  "配当利回りセオリー": 102.7,
+  "利回り水準とChowder": 79.1,
+  "株価バリュエーション": 99.3,
   "金利スプレッド": null
  },
- "div_yield": 3.1439799928545913,
+ "div_yield": 3.2701597918989225,
  "streak_up": 21,
  "streak_flat": 17,
  "payout_ni": 55.168186345873885,
@@ -43,32 +50,32 @@
  "roe": 6.001,
  "div_policy": null,
  "dgr5": 5.154749679728043,
- "chowder": 8.298729672582635,
+ "chowder": 8.424909471626966,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 81.1362792424805,
- "per_vs_sector": 1.125456511627907,
- "pbr_vs_sector": 0.6000343785714286,
- "per_band_pos": 0.828710622797946,
- "yield_band_pos": 0.6113449428552927,
+ "per_vs_sector": 1.082030542635659,
+ "pbr_vs_sector": 0.5768819285714286,
+ "per_band_pos": 0.9572719509712585,
+ "yield_band_pos": 0.7072261887244794,
  "next_earn": null,
  "earn_disc_date": "2017-01-25",
  "buyback_yen": 2091000000.0,
- "total_yield": 5.639938025763227,
+ "total_yield": 5.866289935536411,
  "total_payout": 107.57232704402514,
  "interest_coverage": 28.446351931330472,
  "warnings": [
-  "⚠ バリュートラップ注意：PBR 0.84倍（1倍割れ）かつROE 4.0%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.81倍（1倍割れ）かつROE 4.0%（5%未満）"
  ],
  "roa": 2.79,
  "leverage": 1.44,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.84倍（1倍割れ）かつROE 4.0%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.81倍（1倍割れ）かつROE 4.0%（5%未満）"
   }
  ],
  "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:10:15"
+ "_generated_at": "2026-11-06T22:44:54"
 }

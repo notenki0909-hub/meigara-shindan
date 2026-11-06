@@ -1,40 +1,47 @@
 {
  "code": "2501",
  "name": "サッポロビール",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "食料品",
  "industry": "Beverages - Brewers",
  "is_simple": false,
  "is_reit": false,
- "price": 2330.0,
- "price_date": "2026-11-05",
- "mcap": 908637044736,
+ "sel_dev": {
+  "dev": 43,
+  "rank": 21,
+  "n": 31,
+  "basis": "業種",
+  "name": "食料品"
+ },
+ "price": 2161.5,
+ "price_date": "2026-11-06",
+ "mcap": 842926653440,
  "sel_score": 84.7,
- "tim_score": 79.8,
+ "tim_score": 78.3,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
+ "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
  "cov_sel": [
   16,
   16,
   "高"
  ],
  "cov_tim": [
-  4,
+  5,
   7,
-  "低"
+  "中"
  ],
  "groups": {
   "業績": 75.2,
   "財務": 89.3,
   "キャッシュフロー": 103.3,
   "配当の持続力": 80.1,
-  "配当利回りセオリー": 101.1,
-  "利回り水準とChowder": 80.1,
-  "株価バリュエーション": null,
-  "金利スプレッド": 34.2
+  "配当利回りセオリー": 103.5,
+  "利回り水準とChowder": 81.8,
+  "株価バリュエーション": 63.1,
+  "金利スプレッド": 37.5
  },
- "div_yield": 1.6309012875536482,
+ "div_yield": 1.7580383992597735,
  "streak_up": 4,
  "streak_flat": 16,
  "payout_ni": 35.98560575769692,
@@ -43,31 +50,29 @@
  "roe": 2.3810001,
  "div_policy": null,
  "dgr5": 18.94608218221061,
- "chowder": 20.576983469764258,
+ "chowder": 20.704120581470384,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 12.977661140626001,
  "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "pbr_vs_sector": 1.3694313333333334,
  "per_band_pos": null,
- "yield_band_pos": 0.6457589142914082,
+ "yield_band_pos": 0.7398625521287578,
  "next_earn": "2026-11-12",
  "earn_disc_date": "2026-08-06",
  "buyback_yen": 60000000.0,
- "total_yield": 1.6375045842547453,
+ "total_yield": 1.765156456300103,
  "total_payout": 21.104728690122062,
  "interest_coverage": 6.5,
- "warnings": [
-  "買い時スコアは取得できた指標が少なく（4/7・カバレッジ低）、点数は目安です。"
- ],
+ "warnings": [],
  "roa": 2.98,
  "leverage": 2.99,
  "insight_flags": [],
  "review": [
   {
    "k": "per",
-   "where": "PER（Yahoo表示 108.9倍）",
-   "why": "直近4四半期の純利益（3,131.6億円）から求めたPERは2.9倍で、Yahoo表示と37.5倍ずれています。Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
+   "where": "PER（Yahoo表示 101.0倍）",
+   "why": "直近4四半期の純利益（3,131.6億円）から求めたPERは2.7倍で、Yahoo表示と37.5倍ずれています。Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
    "how": "IR BANK（irbank.net/2501/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
    "keys": [
     "per_vs_sector",
@@ -76,18 +81,8 @@
    "names": [
     "益回り（1÷PER）"
    ]
-  },
-  {
-   "k": "pbr",
-   "where": "PBR（Yahoo表示 1.77倍）",
-   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは4.15倍で、Yahoo表示と2.34倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
-   "how": "IR BANK（irbank.net/2501/results）の1株純資産（BPS）で、株価÷BPSを計算して確認",
-   "keys": [
-    "pbr_vs_sector"
-   ],
-   "names": []
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:03:04"
+ "_generated_at": "2026-11-06T22:35:12"
 }

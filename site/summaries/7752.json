@@ -1,16 +1,23 @@
 {
  "code": "7752",
  "name": "リコー",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "その他製品",
  "industry": "Business Equipment & Supplies",
  "is_simple": false,
  "is_reit": false,
- "price": 1770.0,
- "price_date": "2026-11-05",
- "mcap": 987410661376,
+ "sel_dev": {
+  "dev": 47,
+  "rank": 26,
+  "n": 35,
+  "basis": "業種",
+  "name": "その他製品"
+ },
+ "price": 1678.5,
+ "price_date": "2026-11-06",
+ "mcap": 936366571520,
  "sel_score": 90.9,
- "tim_score": 92.9,
+ "tim_score": 98.0,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -29,12 +36,12 @@
   "財務": 99.2,
   "キャッシュフロー": 101.4,
   "配当の持続力": 83.2,
-  "配当利回りセオリー": 92.7,
-  "利回り水準とChowder": 91.5,
-  "株価バリュエーション": 94.9,
+  "配当利回りセオリー": 101.1,
+  "利回り水準とChowder": 93.3,
+  "株価バリュエーション": 97.7,
   "金利スプレッド": null
  },
- "div_yield": 2.4858757062146895,
+ "div_yield": 2.621388144176348,
  "streak_up": 5,
  "streak_flat": 5,
  "payout_ni": 40.899795501022496,
@@ -43,32 +50,32 @@
  "roe": 7.453,
  "div_policy": null,
  "dgr5": 21.67286837864115,
- "chowder": 24.15874408485584,
+ "chowder": 24.2942565228175,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 57.2879716220574,
- "per_vs_sector": 0.951042258064516,
- "pbr_vs_sector": 0.5652345333333334,
- "per_band_pos": 0.3496348263063363,
- "yield_band_pos": 0.5271601330816998,
+ "per_vs_sector": 0.9240419354838709,
+ "pbr_vs_sector": 0.5360148,
+ "per_band_pos": 0.42013411117901134,
+ "yield_band_pos": 0.6424374980664438,
  "next_earn": "2026-11-06",
- "earn_disc_date": "2026-08-03",
+ "earn_disc_date": "2026-11-05",
  "buyback_yen": 7553000000.0,
- "total_yield": 3.2508056685339706,
+ "total_yield": 3.4280166836530666,
  "total_payout": 51.861898004275275,
  "interest_coverage": 9.449134694625034,
  "warnings": [
-  "⚠ バリュートラップ注意：PBR 0.85倍（1倍割れ）かつROE 4.8%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.80倍（1倍割れ）かつROE 4.8%（5%未満）"
  ],
  "roa": 2.19,
  "leverage": 2.2,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.85倍（1倍割れ）かつROE 4.8%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.80倍（1倍割れ）かつROE 4.8%（5%未満）"
   }
  ],
  "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:26:42"
+ "_generated_at": "2026-11-06T23:07:18"
 }

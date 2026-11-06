@@ -1,28 +1,35 @@
 {
  "code": "3193",
  "name": "エターナルホスピタリティグループ",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "jp_sector": "サービス業",
  "industry": "Restaurants",
  "is_simple": false,
  "is_reit": false,
- "price": 1354.0,
- "price_date": "2026-11-05",
- "mcap": 15620128768,
+ "sel_dev": {
+  "dev": 53,
+  "rank": 20,
+  "n": 41,
+  "basis": "業種",
+  "name": "サービス業"
+ },
+ "price": 1284.0,
+ "price_date": "2026-11-06",
+ "mcap": 14812589056,
  "sel_score": 97.4,
- "tim_score": 89.0,
+ "tim_score": 99.2,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "選定・買い時とも上位水準。",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定・買い時とも上位水準。",
  "cov_sel": [
   16,
   16,
   "高"
  ],
  "cov_tim": [
-  5,
+  3,
   6,
-  "中"
+  "低"
  ],
  "groups": {
   "業績": 105.4,
@@ -30,11 +37,11 @@
   "キャッシュフロー": 103.3,
   "配当の持続力": 77.9,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 81.0,
-  "株価バリュエーション": 58.6,
+  "利回り水準とChowder": 82.2,
+  "株価バリュエーション": null,
   "金利スプレッド": null
  },
- "div_yield": 1.6986706056129988,
+ "div_yield": 1.791277258566978,
  "streak_up": 0,
  "streak_flat": 4,
  "payout_ni": 40.25905828811482,
@@ -43,29 +50,44 @@
  "roe": 12.920000000000002,
  "div_policy": null,
  "dgr5": 41.88404747480776,
- "chowder": 43.582718080420754,
+ "chowder": 43.67532473337474,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 26.949415569720607,
- "per_vs_sector": 1.1552901500000001,
+ "per_vs_sector": null,
  "pbr_vs_sector": null,
- "per_band_pos": 0.09952917738641248,
+ "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 32000.0,
- "total_yield": 1.6988754694811223,
+ "total_yield": 1.7914932910234178,
  "total_payout": 40.56813767737707,
  "interest_coverage": 66.43475755114872,
- "warnings": [],
+ "warnings": [
+  "買い時スコアは取得できた指標が少なく（3/6・カバレッジ低）、点数は目安です。"
+ ],
  "roa": 5.73,
  "leverage": 2.16,
  "insight_flags": [],
  "review": [
   {
+   "k": "per",
+   "where": "PER（Yahoo表示 23.7倍）",
+   "why": "直近4四半期の純利益（13.2億円）から求めたPERは11.2倍で、Yahoo表示と2.1倍ずれています。Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
+   "how": "IR BANK（irbank.net/3193/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
+   "keys": [
+    "per_vs_sector",
+    "per_band_pos"
+   ],
+   "names": [
+    "益回り（1÷PER）"
+   ]
+  },
+  {
    "k": "pbr",
-   "where": "PBR（Yahoo表示 2.94倍）",
-   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは1.47倍で、Yahoo表示と0.50倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
+   "where": "PBR（Yahoo表示 2.79倍）",
+   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは1.39倍で、Yahoo表示と0.50倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
    "how": "IR BANK（irbank.net/3193/results）の1株純資産（BPS）で、株価÷BPSを計算して確認",
    "keys": [
     "pbr_vs_sector"
@@ -74,5 +96,5 @@
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-05T23:41:55"
+ "_generated_at": "2026-11-06T23:27:37"
 }
