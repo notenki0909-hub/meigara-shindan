@@ -1,54 +1,67 @@
 {
  "code": "WMG",
  "name": "Warner Music Group Corp.",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "gics_sector": "Communication Services",
  "industry": "Entertainment",
  "is_simple": false,
  "is_reit": false,
- "price": 32.54999923706055,
- "price_date": "2026-11-04",
- "mcap": 17027222528,
- "sel_score": 73.0,
- "tim_score": 87.0,
+ "price": 31.920000076293945,
+ "price_date": "2026-11-05",
+ "mcap": 16697663488,
+ "sel_score": 77.2,
+ "tim_score": 82.8,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア中位（妥当水準）",
  "comment": "選定・買い時とも中位水準。",
  "cov_sel": [
-  17,
+  16,
   17,
   "高"
  ],
  "cov_tim": [
-  7,
+  6,
   7,
   "高"
  ],
  "groups": {
-  "業績": 87.8,
+  "業績": 102.5,
   "財務": 38.8,
   "キャッシュフロー": 81.6,
-  "配当の持続力": 85.8,
+  "配当の持続力": 86.0,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 97.8,
-  "株価バリュエーション": 60.2,
-  "金利スプレッド": 53.5
+  "利回り水準とChowder": 98.4,
+  "株価バリュエーション": 37.3,
+  "金利スプレッド": 54.8
  },
- "div_yield": 2.457757354074349,
- "total_yield": 2.551724529129994,
+ "div_yield": 2.506265658170022,
+ "total_yield": 2.602087447916226,
  "streak_up": 6,
  "streak_flat": 6,
+ "review": [
+  {
+   "k": "eps",
+   "where": "EPS（1株利益）の推移・PERの自社過去レンジ内の位置",
+   "why": "決算書の平均株式数が発行済株式数の3.6倍（通常は1倍前後）で、Yahoo Financeの年次の1株利益の桁がずれている疑いがあります。同じ特徴の銘柄で、SEC（米国証券取引委員会）の提出書類と照合して、1株利益が実際より小さく出ていることを確認しています。EPSの成長率と、PERの自社過去レンジ内の位置を「―」にして、採点から外しています（現在のPER・PBRはSECとほぼ一致するため、そのまま使っています）",
+   "how": "SEC EDGAR（米国の公式な開示書類の検索）で、この会社の最新の年次報告書（10-K）にある希薄化後1株利益を探し、Yahooの値と比べて確認。Yahooが誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
+   "keys": [
+    "eps_cagr",
+    "per_band_pos"
+   ],
+   "names": []
+  }
+ ],
  "payout_ni": 60.8,
  "roe": 70.074,
- "chowder": 11.046326319435614,
+ "chowder": 11.094834623531288,
  "dgr5": 8.588568965361265,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 111.33720930232558,
  "interest_coverage": 4.0246913580246915,
- "per_vs_sector": 1.257970966183575,
- "pbr_vs_sector": 3.378413220338983,
- "per_band_pos": 1.0,
+ "per_vs_sector": 1.233623188405797,
+ "pbr_vs_sector": 3.3130247457627116,
+ "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-19",
  "earn_disc_date": "2026-08-05",
@@ -71,5 +84,5 @@
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-05T02:36:33"
+ "_generated_at": "2026-11-06T02:38:33"
 }

@@ -1,23 +1,23 @@
 {
  "code": "FE",
  "name": "FirstEnergy Corp.",
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "gics_sector": "Utilities",
  "industry": "Utilities - Regulated Electric",
  "is_simple": false,
  "is_reit": false,
- "price": 47.189998626708984,
- "price_date": "2026-11-03",
- "mcap": 27312187392,
- "sel_score": 82.4,
- "tim_score": 76.5,
+ "price": 47.18000030517578,
+ "price_date": "2026-11-04",
+ "mcap": 27265873920,
+ "sel_score": 82.1,
+ "tim_score": 76.6,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア下位（やや割高水準）",
  "comment": "選定は中位、買い時は下位（やや割高水準）。",
  "cov_sel": [
-  15,
+  14,
   17,
-  "高"
+  "中"
  ],
  "cov_tim": [
   6,
@@ -25,31 +25,44 @@
   "高"
  ],
  "groups": {
-  "業績": 107.1,
+  "業績": 106.2,
   "財務": 80.5,
   "キャッシュフロー": 60.0,
   "配当の持続力": 72.1,
-  "配当利回りセオリー": 51.0,
+  "配当利回りセオリー": 51.1,
   "利回り水準とChowder": 92.4,
-  "株価バリュエーション": 91.1,
+  "株価バリュエーション": 91.3,
   "金利スプレッド": 93.1
  },
- "div_yield": 3.9415131471253364,
+ "div_yield": 3.9423484272338016,
  "total_yield": null,
  "streak_up": 3,
  "streak_flat": 12,
+ "review": [
+  {
+   "k": "eps",
+   "where": "EPS（1株利益）の推移・PERの自社過去レンジ内の位置",
+   "why": "決算書の平均株式数が発行済株式数の4.0倍（通常は1倍前後）で、Yahoo Financeの年次の1株利益の桁がずれている疑いがあります。同じ特徴の銘柄で、SEC（米国証券取引委員会）の提出書類と照合して、1株利益が実際より小さく出ていることを確認しています。EPSの成長率と、PERの自社過去レンジ内の位置を「―」にして、採点から外しています（現在のPER・PBRはSECとほぼ一致するため、そのまま使っています）",
+   "how": "SEC EDGAR（米国の公式な開示書類の検索）で、この会社の最新の年次報告書（10-K）にある希薄化後1株利益を探し、Yahooの値と比べて確認。Yahooが誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
+   "keys": [
+    "eps_cagr",
+    "per_band_pos"
+   ],
+   "names": []
+  }
+ ],
  "payout_ni": 87.92,
  "roe": 10.041001,
- "chowder": 6.383410580349941,
+ "chowder": 6.384245860458407,
  "dgr5": 2.4418974332246046,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": 2.510658914728682,
- "per_vs_sector": 1.0802023696682463,
- "pbr_vs_sector": 0.8770951666666668,
+ "per_vs_sector": 1.0783708056872037,
+ "pbr_vs_sector": 0.8756078333333334,
  "per_band_pos": null,
- "yield_band_pos": 0.11042213724956171,
+ "yield_band_pos": 0.11106554543879846,
  "next_earn": "2027-02-16",
  "earn_disc_date": "2026-10-27",
  "quarter_decel_factor": null,
@@ -59,5 +72,5 @@
  "leverage": 4.47,
  "insight_flags": [],
  "kind": "gen",
- "_generated_at": "2026-11-05T02:10:18"
+ "_generated_at": "2026-11-06T02:10:36"
 }

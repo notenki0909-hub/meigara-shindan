@@ -1,64 +1,64 @@
 {
  "code": "ASH",
  "name": "Ashland Inc.",
- "asof": "2026-11-04",
+ "asof": "2026-11-06",
  "gics_sector": "Materials",
  "industry": "Specialty Chemicals",
  "is_simple": false,
  "is_reit": false,
- "price": 73.0199966430664,
- "price_date": "2026-11-03",
- "mcap": 3343831552,
- "sel_score": 64.3,
- "tim_score": 83.1,
+ "price": 76.44000244140625,
+ "price_date": "2026-11-04",
+ "mcap": 3493117952,
+ "sel_score": 62.7,
+ "tim_score": 81.7,
  "sel_label": "選定スコア下位（質に不安）",
- "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "選定スコアが基準未達の水準。",
+ "tim_label": "買い時スコア下位（やや割高水準）",
+ "comment": "選定・買い時とも下位水準。",
  "cov_sel": [
-  15,
+  14,
   17,
-  "高"
+  "中"
  ],
  "cov_tim": [
+  5,
   6,
-  6,
-  "高"
+  "中"
  ],
  "groups": {
-  "業績": 64.4,
-  "財務": 59.4,
+  "業績": 49.3,
+  "財務": 72.5,
   "キャッシュフロー": 60.0,
-  "配当の持続力": 70.6,
-  "配当利回りセオリー": 98.4,
-  "利回り水準とChowder": 80.9,
-  "株価バリュエーション": 56.5,
+  "配当の持続力": 67.8,
+  "配当利回りセオリー": 92.5,
+  "利回り水準とChowder": 79.0,
+  "株価バリュエーション": 64.3,
   "金利スプレッド": null
  },
- "div_yield": 2.300739629189676,
- "total_yield": 5.291320896364704,
+ "div_yield": 2.1978021276069093,
+ "total_yield": 5.060574051547942,
  "streak_up": 6,
  "streak_flat": 17,
  "payout_ni": 106.73001,
- "roe": 3.9899999999999998,
- "chowder": 10.047377215213285,
+ "roe": 1.33299995,
+ "chowder": 9.944439713630517,
  "dgr5": 7.746637586023608,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
- "interest_coverage": -12.262295081967213,
- "per_vs_sector": 1.8741337944664032,
- "pbr_vs_sector": 0.6165958965517242,
- "per_band_pos": 0.0,
- "yield_band_pos": 0.5838687160389565,
- "next_earn": "2026-11-03",
+ "interest_coverage": null,
+ "per_vs_sector": 5.481853754940711,
+ "pbr_vs_sector": 0.6547380689655173,
+ "per_band_pos": null,
+ "yield_band_pos": 0.524978991811819,
+ "next_earn": "2027-02-01",
  "earn_disc_date": "2026-11-03",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
   "⚠ 配当性向が100%超（107%：純利益を上回る配当）",
-  "⚠ バリュートラップ注意：買い時が高い（83）のに質が低め（選定64）。安さの理由を確認"
+  "⚠ バリュートラップ注意：買い時が高い（82）のに質が低め（選定63）。安さの理由を確認"
  ],
- "roa": -18.33,
+ "roa": null,
  "leverage": 2.42,
  "insight_flags": [
   {
@@ -67,10 +67,9 @@
   },
   {
    "k": "trap",
-   "t": "バリュートラップ注意：買い時が高い（83）のに質が低め（選定64）。安さの理由を確認"
+   "t": "バリュートラップ注意：買い時が高い（82）のに質が低め（選定63）。安さの理由を確認"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-04T06:30:53",
- "_earnings_reflected_via": "earnings_watch_us"
+ "_generated_at": "2026-11-06T02:00:22"
 }
