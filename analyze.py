@@ -940,10 +940,15 @@ DPS_CLEAN = "persistent"
 #            （IR BANKの四半期データで照合：正しい値は0.7〜1.3倍、誤りは19倍以上。四半期が4期そろわない・純利益がマイナスの銘柄は判定しない）
 #   R2 PBR … Yahoo の PBR と「株価÷(純資産÷発行済株式数)」の比が 0.6〜1.6 を外れたら外す。
 #   R3 EPS推移 … 最新期の1株利益が「前の年と同じ値」「純利益÷平均株式数と食い違う」「純利益の行がずれている」のとき、EPS成長率を外す。
+# 【2026-11-06 見直し】IR BANK・10年保有側セッションの照合で、誤検出（Yahooの値が正しいのに外す）が見つかったため、次を足した：
+#   R1 … 直近4四半期の日付が連続していない（417Aの新規上場直後など）ときは判定しない。
+#   R2 … 決算期末の古い純資産で外れたときは、直近四半期の貸借対照表の純資産で再確認し、整合すれば外さない（サッポロ・グローリー）。
+#   R3 … 最新期の純利益が欠損／純利益の行がEPSの行と1年分入れ替わっている（SOMPO）／平均株式数が発行済株式数と大きく食い違う（クレディセゾン）ときは、
+#        純利益から求め直す判定（mismatch・shift）をしない。「前の年と同じ値」（stale）は、照合で5/5が本当の不備だったので、そのまま。
 FIN_GUARD = True
 
 
-def fin_eps_problem(is_years, eps, ni_c, sh_c):
+def fin_eps_problem(is_years, eps, ni_c, sh_c, so=None):
     """最新期の1株利益（Yahoo）が信頼できないときの種類を返す（無ければ None）。
     "stale"＝前の年と同じ値（更新遅れ）／"mismatch"＝純利益÷平均株式数と食い違う（符号が逆、または黒字で2割超）／
     "shift"＝1株利益×株式数が、最新期ではなく前の年の純利益と一致（年別データの並び違い）。"""
@@ -957,12 +962,20 @@ def fin_eps_problem(is_years, eps, ni_c, sh_c):
     s0 = sh_c[0] if sh_c and is_num(sh_c[0]) and sh_c[0] > 0 else None
     if s0 is None:
         return None
+    # 純利益÷平均株式数で求め直す判定は、株式数の行が発行済株式数と大きく食い違うとき（株式分割の反映ずれなど）は信頼できないので、しない
+    if is_num(so) and so > 0 and not (0.75 <= s0 / so <= 1.33):
+        return None
+    # 純利益の行が、EPSの行と1年分入れ替わっている（EPS×株式数が隣の年の純利益と交差して一致する）ときは、EPSは正しいので、しない
+    e1_, s1_ = (eps[1] if len(eps) > 1 else None), (sh_c[1] if sh_c and len(sh_c) > 1 else None)
+    if (is_num(n0) and is_num(n1) and is_num(e1_) and is_num(s1_) and n0 != 0 and n1 != 0
+            and abs(e0 * s0 / n1 - 1) < 0.03 and abs(e1_ * s1_ / n0 - 1) < 0.03):
+        return None
     if is_num(n0):
         ec = n0 / s0
         if (e0 > 0) != (ec > 0) or (e0 > 0 and abs(ec / e0 - 1) > 0.20):
             return "mismatch"
-    if is_num(n1) and n1 != 0 and abs(e0 * s0 / n1 - 1) < 0.03 and not (is_num(n0) and abs(e0 * s0 / n0 - 1) < 0.03):
-        return "shift"
+    if is_num(n0) and is_num(n1) and n1 != 0 and abs(e0 * s0 / n1 - 1) < 0.03 and abs(e0 * s0 / n0 - 1) >= 0.03:
+        return "shift"          # 最新期の純利益が欠損（None）のときは判定しない（欠損は「ずれ」ではない）
     return None
 
 
@@ -973,10 +986,35 @@ def fin_ttm_per(yd, price):
     so = (yd.get("info") or {}).get("sharesOutstanding")
     if not qni or len(qni) < 4 or not all(is_num(x) for x in qni[:4]) or not (is_num(so) and so > 0 and is_num(price) and price > 0):
         return None, None
+    # 直近4つの四半期の日付が連続していないと（新規上場直後で飛んでいる等）、足しても直近12か月にならないので判定しない
+    try:
+        _qd = [dt.date.fromisoformat(d) for d in (yd.get("q_dates") or [])[:4]]
+        if len(_qd) < 4 or not all(75 <= (_qd[i] - _qd[i + 1]).days <= 105 for i in range(3)):
+            return None, None
+    except Exception:
+        return None, None
     ttm = sum(qni[:4])
     if ttm <= 0:
         return None, ttm
     return price * so / ttm, ttm
+
+
+def fin_quarter_pbr(code, price, shares):
+    """直近四半期の貸借対照表の純資産から求めたPBR（株価÷(純資産÷発行済株式数)）。取れなければ None。
+    決算期末の古い純資産だと、直近で純資産が大きく変わった会社（売却益など）を誤って「ずれ」と判定するため、外れたときの再確認にだけ使う。"""
+    try:
+        import io as _io, contextlib as _cl
+        import yfinance as _yf
+        with _cl.redirect_stdout(_io.StringIO()), _cl.redirect_stderr(_io.StringIO()):
+            q = _yf.Ticker(f"{code}.T").quarterly_balance_sheet
+        for k in ("Stockholders Equity", "Common Stock Equity"):
+            if q is not None and not q.empty and k in q.index:
+                v = q.loc[k].dropna()
+                if len(v) and float(v.iloc[0]) > 0 and is_num(shares) and shares > 0 and is_num(price) and price > 0:
+                    return price / (float(v.iloc[0]) / shares)
+    except Exception:
+        pass
+    return None
 
 
 def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb_10y, div_policies,
@@ -1030,7 +1068,8 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
     if fin_guard:
         _eps_bad = fin_eps_problem(is_years, eps,
                                    row(isr, "Net Income Common Stockholders", "Net Income"),
-                                   row(isr, "Basic Average Shares", "Diluted Average Shares"))
+                                   row(isr, "Basic Average Shares", "Diluted Average Shares"),
+                                   so=info.get("sharesOutstanding"))
     if _eps_bad:
         _eps_msg = {"stale": "最新期の1株利益が前の年と同じ値（更新遅れの疑い）",
                     "mismatch": "最新期の1株利益が、純利益÷平均株式数と大きく食い違う（株式分割の反映ずれ・訂正前の値など）",
@@ -1562,6 +1601,11 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
         _so = info.get("sharesOutstanding")
         if _eq and is_num(_eq[0]) and _eq[0] > 0 and is_num(_so) and _so > 0 and is_num(price) and price > 0:
             _pc = price / (_eq[0] / _so)
+            if not (0.6 <= _pc / pbr <= 1.6):
+                # 決算期末の古い純資産で外れたときだけ、直近四半期の純資産で再確認する（整合すれば外さない。取得できないときは従来どおり外す）
+                _pq = fin_quarter_pbr(yd.get("code"), price, _so)
+                if _pq is not None:
+                    _pc = _pq
             if not (0.6 <= _pc / pbr <= 1.6):
                 review_fin.append({"k": "pbr", "where": f"PBR（Yahoo表示 {pbr:.2f}倍）",
                                    "why": f"株価÷（純資産÷発行済株式数）で求めたPBRは{_pc:.2f}倍で、Yahoo表示と{_pc / pbr:.2f}倍ずれています。"
