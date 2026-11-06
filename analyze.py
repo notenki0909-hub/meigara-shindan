@@ -947,6 +947,12 @@ DPS_CLEAN = "persistent"
 #        純利益から求め直す判定（mismatch・shift）をしない。「前の年と同じ値」（stale）は、照合で5/5が本当の不備だったので、そのまま。
 FIN_GUARD = True
 
+# リース・信販など（東証33業種の「その他金融業」）は、営業CFにリース資産・貸付債権の積み増しが含まれるため、成長するほど営業CFが赤字になる
+# （CFグループが下限の20点に張り付き、選定スコアを約11〜13点押し下げていた）。Yahooのデータでは足し戻しも成り立たない（信販は黒字化するがリースは赤字のまま）ため、
+# この業種ではキャッシュフローのグループを採点しない（銀行・保険・証券の簡易判定と同じ考え方。業績・財務は業種別のしきい値があるのでそのまま採点）。
+# 【配当株の日本株 generate() だけに効く。10年保有側は score_all の既定（空）のまま＝従来どおり】
+DOMAIN_EXCLUDE_JP = {"その他金融業": ("キャッシュフロー",)}
+
 
 def fin_eps_problem(is_years, eps, ni_c, sh_c, so=None):
     """最新期の1株利益（Yahoo）が信頼できないときの種類を返す（無ければ None）。
@@ -1829,12 +1835,13 @@ def metric_label(key, v, rule):
     return None
 
 
-def score_all(M, jp_sector, rules, is_simple):
+def score_all(M, jp_sector, rules, is_simple, exclude_domains=()):
+    excl_doms = set(exclude_domains or ())     # 配当株の日本株だけが渡す（業種ごとに採点しない分野）。既定は空＝従来どおり
     detail = {}
     dom_scores = {}
     by_key = {}  # key -> 採点済み item（グループ集計用）
     for dom, keys in DOMAIN_KEYS.items():
-        excluded = is_simple and dom in ("業績", "財務", "キャッシュフロー")
+        excluded = (is_simple and dom in ("業績", "財務", "キャッシュフロー")) or dom in excl_doms
         pts = []
         rows_out = []
         for item in M.get(dom, []):
@@ -1875,7 +1882,7 @@ def score_all(M, jp_sector, rules, is_simple):
         num = den = 0.0
         cov_scored = cov_possible = 0
         for gname, gdef in sg[head].items():
-            excluded_grp = is_simple and gname in simple_ex
+            excluded_grp = (is_simple and gname in simple_ex) or gname in excl_doms
             gpts = [by_key[k]["score"] for k in gdef["keys"]
                     if k in by_key and is_num(by_key[k]["score"])]
             gscore = None if excluded_grp else ((sum(gpts) / len(gpts)) if gpts else None)
@@ -3177,7 +3184,7 @@ def rule_block_html(key, rule, jp_sector):
     return "―"
 
 
-def why_block_html(item, rule, jp_sector, is_simple, dom):
+def why_block_html(item, rule, jp_sector, is_simple, dom, excl_doms=()):
     key = item.get("key")
     v = item.get("v")
     score = item.get("score")
@@ -3186,6 +3193,9 @@ def why_block_html(item, rule, jp_sector, is_simple, dom):
     if is_simple and dom in ("業績", "財務", "キャッシュフロー"):
         return (f"{jp_sector} ではこの分野を構造的に別基準で見るため、本ツールでは採点していません"
                 "（上のルールは通常業種向けの参考）。")
+    if dom in excl_doms:
+        return (f"{jp_sector}（リース・信販など）では、リース資産・貸付債権の積み増しが営業CFに含まれ、成長するほど営業CFが赤字になる構造のため、"
+                "この分野は採点していません（参考表示のみ）。")
     if key == "div_policy":
         if not is_num(v):
             return "累進配当・DOE の公式宣言はリストで確認できませんでした。減点はせず、連続増配の実績で判断しています。"
@@ -3313,7 +3323,7 @@ def _metric_details_html(it, jp, is_simple, rules, hl_keys=(), jp_div=False):
     if jp_div and it.get("key") == "payout_ni":
         wht = JP_PAYOUT_WHAT      # 配当株の日本株だけ：配当性向の求め方が違う（直近の決算期の1株配当÷1株利益）
     rb = rule_block_html(it.get("key"), rule, jp)
-    wb = why_block_html(it, rule, jp, is_simple, dom)
+    wb = why_block_html(it, rule, jp, is_simple, dom, DOMAIN_EXCLUDE_JP.get(jp, ()) if jp_div else ())
     what_p = f'<p class="what"><b>見るポイント：</b>{wht}</p>' if wht else ""
     sc = it.get("score")
     sc_txt = f"{sc:.0f} / 110" if is_num(sc) else "―（不採点）"
@@ -3668,7 +3678,8 @@ def render_md(meta, dom_scores, detail, groups, sel_score, tim_score, vd, M, ctx
                     j = {"good": "◎良好", "warn": "△注意", "bad": "▲弱い"}.get(lab, "―")
                 scn = f"{sc:.0f}" if is_num(sc) else "―"
                 rule = rule_for(k, jp, rules)
-                why = re.sub(r"<[^>]+>", "", why_block_html(it, rule, jp, meta["is_simple"], KEY_DOMAIN.get(k, ""))).replace("|", "／")
+                why = re.sub(r"<[^>]+>", "", why_block_html(it, rule, jp, meta["is_simple"], KEY_DOMAIN.get(k, ""),
+                                                                      DOMAIN_EXCLUDE_JP.get(jp, ()) if ctx.get("payout_basis") == "annual" else ())).replace("|", "／")
                 L.append(f"| {it['name']} | {it['disp']} | {it.get('ref','')} | {scn} | {j}　{why} |")
             if not any_row:
                 L.append("| ― | この業種では評価対象外 |  |  |  |")
@@ -3766,7 +3777,8 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
         ctx["jgb_src"] = jgb_src
         ctx["earn"] = build_earnings(yd, yd["price"])
         ctx["company"] = build_company_overview(info)
-        dom_scores, detail, groups, sel_score, tim_score, coverage = score_all(M, jp_sector, rules, is_simple)
+        dom_scores, detail, groups, sel_score, tim_score, coverage = score_all(
+            M, jp_sector, rules, is_simple, exclude_domains=DOMAIN_EXCLUDE_JP.get(jp_sector, ()))   # リース・信販はCFを採点しない（配当側だけ）
 
         # 銀行・保険・証券：業績・財務・CFの代役として金融品質スコアをsel_scoreに
         # 合成する。score_all()自体・DOMAIN_KEYS・build_metrics()には一切手を
@@ -3808,6 +3820,9 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
     if is_simple and not is_reit:
         warnings.append("銀行・保険・証券は自己資本比率・D/E・ROA・営業CFが構造的に別水準のため財務・CF・業績は参考表示のみです。"
                          "代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。買い時は通常どおりの判定です。")
+    if DOMAIN_EXCLUDE_JP.get(jp_sector):
+        warnings.append(f"{jp_sector}（リース・信販など）は、リース資産・貸付債権の積み増しが営業CFに含まれ、成長するほど営業CFが赤字になる構造のため、"
+                        "キャッシュフロー（営業CF・FCF・FCF配当性向）は採点せず参考表示のみです。業績・財務・配当の持続力は通常どおり採点しています。")
     if industry and not smap["industry_map"].get(industry):
         warnings.append(f"yfinance の業種『{industry}』が対応表に無く、{sector_src} で {jp_sector} に割り当てました。業種平均との比較は目安です。")
 
@@ -3877,6 +3892,7 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
     res["summary"] = {
         "code": code, "name": name, "asof": TODAY.isoformat(),
         "jp_sector": jp_sector, "industry": industry, "is_simple": is_simple, "is_reit": is_reit,
+        **({"excl_domains": list(DOMAIN_EXCLUDE_JP[jp_sector])} if DOMAIN_EXCLUDE_JP.get(jp_sector) else {}),   # 採点から外した分野（該当業種だけ。他のsummaryは従来と同じ）
         "price": yd["price"], "price_date": meta["price_date"], "mcap": info.get("marketCap"),
         "sel_score": round(sel_score, 1) if is_num(sel_score) else None,
         "tim_score": round(tim_score, 1) if is_num(tim_score) else None,
