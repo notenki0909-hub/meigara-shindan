@@ -1064,6 +1064,66 @@ DPS_CLEAN = "persistent"
 #        純利益から求め直す判定（mismatch・shift）をしない。「前の年と同じ値」（stale）は、照合で5/5が本当の不備だったので、そのまま。
 FIN_GUARD = True
 
+# 【業種内偏差値】選定スコアが、同じ業種の中でどの位置か（表示専用。採点・軍・業種級・10年保有側には一切影響しない）。
+# 業種ごとに選定スコアの中央値が違う（鉄鋼86.5〜情報・通信100.5）ため、業種をまたいで見るための目安として併記する。偏差値50＝その業種の平均。
+# 母集団（配当株ランキングの対象銘柄）の分布から rank.py が site/sector_score_stats.json を書き出し、個別レポートは前回の書き出しを読む（1日遅れ）。
+# 業種の銘柄数が SEL_DEV_MIN_N 未満のときは、その業種が属するグループ（rank.py の14グループ）の分布で出す（それも不足なら出さない）。
+SEL_DEV_MIN_N = 10
+
+
+def build_score_stats(rows):
+    """rows: {"sel", "sector", "group"} を持つ辞書のリスト。業種別・グループ別の選定スコアの分布（件数・平均・標準偏差・昇順のスコア）。"""
+    secs, grps, s2g = {}, {}, {}
+    for r in rows:
+        v = r.get("sel")
+        if not is_num(v):
+            continue
+        secs.setdefault(r.get("sector"), []).append(v)
+        grps.setdefault(r.get("group"), []).append(v)
+        s2g[r.get("sector")] = r.get("group")
+
+    def st(vs):
+        n = len(vs)
+        m = sum(vs) / n
+        sd = (sum((x - m) ** 2 for x in vs) / n) ** 0.5
+        return {"n": n, "mean": round(m, 2), "std": round(sd, 2), "scores": sorted(round(x, 1) for x in vs)}
+    return {"asof": dt.date.today().isoformat(), "min_n": SEL_DEV_MIN_N,
+            "sectors": {k: st(v) for k, v in secs.items() if k},
+            "groups": {k: st(v) for k, v in grps.items() if k}, "sector_to_group": s2g}
+
+
+def calc_sel_dev(sel, sector, group, stats):
+    """選定スコア sel の、業種（足りなければグループ）内の偏差値（50＋10×(sel−平均)÷標準偏差）と順位。出せなければ None。"""
+    if not is_num(sel) or not stats:
+        return None
+    for basis, key, pool in (("業種", sector, stats.get("sectors") or {}), ("グループ", group, stats.get("groups") or {})):
+        t = pool.get(key) if key else None
+        if t and t.get("n", 0) >= SEL_DEV_MIN_N and t.get("std", 0) > 0:
+            dev = 50.0 + 10.0 * (sel - t["mean"]) / t["std"]
+            rank = 1 + sum(1 for x in t["scores"] if x > round(sel, 1) + 1e-9)
+            return {"dev": int(round(dev)), "rank": rank, "n": t["n"], "basis": basis, "name": key}
+    return None
+
+
+_SCORE_STATS_CACHE = {}
+
+
+def load_score_stats():
+    if "d" not in _SCORE_STATS_CACHE:
+        try:
+            _SCORE_STATS_CACHE["d"] = json.load(open(os.path.join(HERE, "site", "sector_score_stats.json"), encoding="utf-8"))
+        except Exception:
+            _SCORE_STATS_CACHE["d"] = None
+    return _SCORE_STATS_CACHE["d"]
+
+
+def _sel_dev_html(d):
+    if not d:
+        return ""
+    return ('<div class="devline" title="選定スコアが、同じ業種（銘柄数が少ない業種はグループ）の中でどの位置かの目安。偏差値50＝その業種の平均。採点には使っていません。">'
+            f'{d["basis"]}内偏差値 <b>{d["dev"]}</b>（{html.escape(str(d["name"]))} {d["n"]}銘柄中 {d["rank"]}位）</div>')
+
+
 # リース・信販など（東証33業種の「その他金融業」）は、営業CFにリース資産・貸付債権の積み増しが含まれるため、成長するほど営業CFが赤字になる
 # （CFグループが下限の20点に張り付き、選定スコアを約11〜13点押し下げていた）。Yahooのデータでは足し戻しも成り立たない（信販は黒字化するがリースは赤字のまま）ため、
 # この業種ではキャッシュフローのグループを採点しない（銀行・保険・証券の簡易判定と同じ考え方。業績・財務は業種別のしきい値があるのでそのまま採点）。
@@ -3588,6 +3648,8 @@ h1{{font-size:20px;margin:0 0 2px}}
 .sblk .lab{{font-size:12.5px;font-weight:700}}
 .gbar{{height:10px;border-radius:5px;background:var(--line);overflow:hidden;margin:4px 0 6px}}
 .gbar>i{{display:block;height:100%}}
+.devline{{font-size:11.5px;color:var(--muted);margin:-2px 0 5px}}
+.devline b{{color:var(--fg)}}
 .gbar>i.hi{{background:var(--hi)}} .gbar>i.mid{{background:var(--mid)}} .gbar>i.lo{{background:var(--lo)}}
 .sblk .sub{{font-size:11.5px;color:var(--muted)}}
 .sblk .cov{{font-size:11px;color:var(--muted);margin:0 0 5px}}
@@ -3698,6 +3760,7 @@ svg.trend{{width:100%;height:auto;border:1px solid var(--line);border-radius:8px
     <div class="sblk">
       <div class="hd"><b>銘柄選定</b><span class="num {sel_cls}">{sel_n}</span><span class="lab {sel_cls}">{vd['選定ラベル']}</span></div>
       <div class="gbar"><i class="{sel_cls}" style="width:{sel_w:.0f}%"></i></div>
+      {_sel_dev_html(ctx.get("sel_dev"))}
       <div class="cov cov-{sel_cl}">{sel_cov_h}</div>
       <div class="sub">＝配当株としての質のスコア（業績・財務・CF・配当の持続力）<br>
         成長性：{vd['成長性']}　／　安定性：{vd['安定性']}</div>
@@ -3762,6 +3825,9 @@ def render_md(meta, dom_scores, detail, groups, sel_score, tim_score, vd, M, ctx
     (sel_sc, sel_ps), (_, sel_cl) = vd["選定cov"]
     (tim_sc, tim_ps), (_, tim_cl) = vd["買い時cov"]
     L.append(f"\n## 銘柄選定: {sn} ― {vd['選定ラベル']}")
+    _sd = ctx.get("sel_dev")
+    if _sd:
+        L.append(f"- {_sd['basis']}内偏差値: {_sd['dev']}（{_sd['name']} {_sd['n']}銘柄中 {_sd['rank']}位。偏差値50＝その{_sd['basis']}の平均。採点には使わない）")
     L.append(f"- 成長性: {vd['成長性']}　／　安定性: {vd['安定性']}")
     L.append(f"- 採点できた指標: {sel_sc}/{sel_ps}　カバレッジ: **{sel_cl}**")
     L.append(f"\n## 買い時: {tn} ― {vd['買い時ラベル']}")
@@ -3942,6 +4008,14 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
                 fq_score, fq_parts = _ls, _lparts
                 ctx["fq_kind"], ctx["lq_lender"] = "lease", bool(_lraw.get("lender"))
 
+        # 業種内偏差値（表示専用）。前回の rank.py の書き出し（site/sector_score_stats.json）を読む。無ければ出さない。
+        try:
+            _stt = load_score_stats()
+            ctx["sel_dev"] = (calc_sel_dev(sel_score, jp_sector, (_stt.get("sector_to_group") or {}).get(jp_sector), _stt)
+                              if _stt else None)
+        except Exception:
+            ctx["sel_dev"] = None
+
         vd = verdicts(sel_score, tim_score, groups, dom_scores, ctx, sec_avg, is_simple, coverage)
     except Exception as e:
         res["error"] = f"採点失敗: {e}"
@@ -4037,7 +4111,8 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
     res["summary"] = {
         "code": code, "name": name, "asof": TODAY.isoformat(),
         "jp_sector": jp_sector, "industry": industry, "is_simple": is_simple, "is_reit": is_reit,
-        **({"excl_domains": list(DOMAIN_EXCLUDE_JP[jp_sector])} if DOMAIN_EXCLUDE_JP.get(jp_sector) else {}),   # 採点から外した分野（該当業種だけ。他のsummaryは従来と同じ）
+        **({"excl_domains": list(DOMAIN_EXCLUDE_JP[jp_sector])} if DOMAIN_EXCLUDE_JP.get(jp_sector) else {}),
+        **({"sel_dev": ctx["sel_dev"]} if ctx.get("sel_dev") else {}),    # 業種内偏差値（表示専用。出せるときだけ）   # 採点から外した分野（該当業種だけ。他のsummaryは従来と同じ）
         "price": yd["price"], "price_date": meta["price_date"], "mcap": info.get("marketCap"),
         "sel_score": round(sel_score, 1) if is_num(sel_score) else None,
         "tim_score": round(tim_score, 1) if is_num(tim_score) else None,

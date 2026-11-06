@@ -265,6 +265,23 @@ def main():
     except Exception as _e:
         print("業種中央値の書き出しをスキップ:", _e)
 
+    # 業種内偏差値（表示専用。採点・軍には使わない）。業種別・グループ別の選定スコアの分布を site/sector_score_stats.json に書き出し
+    # （個別レポートが次回の更新で読む）、各銘柄に偏差値と業種内順位を付ける。内容が変わったときだけ書く。
+    try:
+        _ss = analyze.build_score_stats(rows)
+        _sp = os.path.join(SITE, "sector_score_stats.json")
+        _new = json.dumps(_ss, ensure_ascii=False, separators=(",", ":"))
+        _old = open(_sp, encoding="utf-8").read() if os.path.isfile(_sp) else None
+        if _old != _new:
+            os.makedirs(SITE, exist_ok=True)
+            open(_sp, "w", encoding="utf-8").write(_new)
+        for _r in rows + kz_extra:
+            _d = analyze.calc_sel_dev(_r.get("sel"), _r.get("sector"), _r.get("group") or _ss["sector_to_group"].get(_r.get("sector")), _ss)
+            if _d:
+                _r["dev"], _r["dev_rank"], _r["dev_n"], _r["dev_basis"], _r["dev_name"] = _d["dev"], _d["rank"], _d["n"], _d["basis"], _d["name"]
+    except Exception as _e:
+        print("業種内偏差値の計算をスキップ:", _e)
+
     today_str = dt.date.today().isoformat()
     hist = load_history()
     update_history(hist, rows, today_str)
@@ -371,6 +388,16 @@ def main():
 
 
 # ---------------------------------------------------------------- HTML
+def _sel_cell(s):
+    """選定スコアのセル。業種内偏差値があれば、数字の下に小さく添える（並べ替えは data-v＝選定スコア）。"""
+    dev = s.get("dev")
+    sub = ""
+    if isinstance(dev, int):
+        tip = f'{s.get("dev_basis")}内（{s.get("dev_name")} {s.get("dev_n")}銘柄中 {s.get("dev_rank")}位）の偏差値。50＝平均。採点には使っていません'
+        sub = f'<span class="dv" title="{html.escape(tip)}">偏差値{dev}</span>'
+    return f'<td class="n" data-v="{_v(s["sel"])}">{_num(s["sel"], 0)}{sub}</td>'
+
+
 def _num(v, d=1):
     return f"{v:.{d}f}" if isinstance(v, (int, float)) else "―"
 
@@ -485,7 +512,7 @@ def _filter_attrs(s, grade):
     mcap = s.get("mcap")
     mcap_oku = mcap / 1e8 if isinstance(mcap, (int, float)) else None  # 円→億円（フィルタ表記の単位に合わせる）
     return (
-        f'data-sel="{_v(s.get("sel"))}" data-tim="{_v(s.get("tim"))}" '
+        f'data-sel="{_v(s.get("sel"))}" data-tim="{_v(s.get("tim"))}" data-dev="{_v(s.get("dev"))}" '
         f'data-yld="{_v(s.get("yield"))}" data-price="{_v(s.get("price"))}" '
         f'data-grade="{html.escape(grade or "―")}" data-group="{html.escape(s.get("group") or "")}" '
         f'data-payout="{_v(s.get("payout_ni"))}" data-roe="{_v(s.get("roe"))}" '
@@ -792,7 +819,7 @@ def render_index(out):
                 f'<td class="sec">{html.escape(s["sector"])}</td>'
                 f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"])}</td>'
                 f'{_chg_row_cells(s.get("chg"))}'
-                f'<td class="n" data-v="{_v(s["sel"])}">{_num(s["sel"],0)}</td>'
+                f'{_sel_cell(s)}'
                 f'<td class="n" data-v="{_v(s["tim"])}">{_num(s["tim"],0)}</td>'
                 f'<td class="n" data-v="{_v(s["yield"])}">{_num(s["yield"],2)}%</td>'
                 f'<td class="sk" data-v="{_v(streak_v)}">{_streak(s["streak_up"], s["streak_flat"])}</td>'
@@ -828,7 +855,7 @@ def render_index(out):
         f'<td class="sec">{html.escape(s["group"])}</td>'
         f'<td class="n px" data-v="{_v(s["price"])}">{_price(s["price"])}</td>'
         f'{_chg_row_cells(s.get("chg"))}'
-        f'<td class="n" data-v="{_v(s["sel"])}">{_num(s["sel"],0)}</td>'
+        f'{_sel_cell(s)}'
         f'<td class="n" data-v="{_v(s["tim"])}">{_num(s["tim"],0)}</td>'
         f'<td class="n" data-v="{_v(s["yield"])}">{_num(s["yield"],2)}%</td>'
         f'<td class="sk" data-v="{_v(_streak_val(s["streak_up"], s["streak_flat"]))}">{_streak(s["streak_up"], s["streak_flat"])}</td>'
@@ -1034,6 +1061,7 @@ a.sumbtn{{text-decoration:none;color:inherit}}
 a.sumbtn.wlnav{{border-color:var(--accent);color:var(--accent)}}
 a.sumbtn.wlnav b{{color:var(--accent)}}
 .hdr{{cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px}}
+.dv{{display:block;font-size:10px;font-weight:normal;color:var(--muted);line-height:1.2}}
 .hdr:hover{{color:var(--accent)}}
 .sortbtn{{cursor:pointer;color:var(--muted);font-size:10px;margin-left:4px;user-select:none;display:inline-block}}
 .sortbtn:hover{{color:var(--accent)}}
@@ -1086,6 +1114,7 @@ body.wlon{{padding-bottom:60px}}
   <details class="fmaj"><summary class="fmajh">① 銘柄選定</summary>
     <div class="fsec"><div class="fsecbody">
       <div class="fgrp"><label class="flbl" for="f_sel">選定スコア 以上</label><input id="f_sel" type="number" min="0" max="110"></div>
+      <div class="fgrp"><label class="flbl" for="f_dev" title="選定スコアが、同じ業種（銘柄数が少ない業種はグループ）の中でどの位置かの目安。50＝その業種の平均。業種をまたいで比べるときに使います">業種内偏差値 以上</label><input id="f_dev" type="number" min="0" max="100"></div>
     </div></div>
     <div class="fsec"><span class="fsech">業績</span><div class="fsecbody">
       <div class="fgrp"><span class="flbl">評価</span>
@@ -1218,7 +1247,7 @@ body.wlon{{padding-bottom:60px}}
 
   // 数値フィルタ：id接尾辞 -> [data属性名, 比較方向('ge'=以上/'le'=以下), 割合系(0-1値を%表示にする)か]
   var NUM_FILTERS = [
-    ['sel','sel','ge',false], ['tim','tim','ge',false], ['yld','yld','ge',false],
+    ['sel','sel','ge',false], ['dev','dev','ge',false], ['tim','tim','ge',false], ['yld','yld','ge',false],
     ['strup','streakup','ge',false], ['strflat','streakflat','ge',false],
     ['dg','dgr5','ge',false], ['roe','roe','ge',false], ['roa','roa','ge',false],
     ['mc','mcap','ge',false],
@@ -1490,10 +1519,10 @@ body.wlon{{padding-bottom:60px}}
         tr.dataset.grade || '', tr.dataset.tier || '', csvNum(tr.dataset.price, 0),
         csvNum(tr.dataset.sel, 1), csvNum(tr.dataset.tim, 1), csvNum(tr.dataset.yld, 2),
         tr.dataset.streakup || '', tr.dataset.streakflat || '', tr.dataset.cov || '',
-        csvNum(tr.dataset.roe, 1), csvNum(tr.dataset.roa, 1), (tr.dataset.kind === 'fin' ? '金融・REIT等' : '一般企業')
+        csvNum(tr.dataset.roe, 1), csvNum(tr.dataset.roa, 1), (tr.dataset.kind === 'fin' ? '金融・REIT等' : '一般企業'), csvNum(tr.dataset.dev, 0)
       ]);
     }});
-    var header = ['コード','銘柄名','業種グループ','業種級','軍','終値','選定スコア','買い時スコア','利回り(%)','連続増配年数','連続非減配年数','カバレッジ','ROE(%)','ROA(%)','業種の区分'];
+    var header = ['コード','銘柄名','業種グループ','業種級','軍','終値','選定スコア','買い時スコア','利回り(%)','連続増配年数','連続非減配年数','カバレッジ','ROE(%)','ROA(%)','業種の区分','業種内偏差値'];
     return {{header: header, rows: rows}};
   }}
   document.getElementById('csvExport').addEventListener('click', function(){{
