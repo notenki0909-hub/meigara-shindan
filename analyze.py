@@ -369,6 +369,101 @@ def classify_sector(info, smap):
 # score_all() の結果を受け取った後に別途合成する（10年保有ツール自身が採用して
 # いるのと同じ「呼び出し側で後から合成」方式）。
 _FQ_JP_CACHE = None
+_LQ_JP_CACHE = None
+
+
+def load_lq_cfg_jp():
+    global _LQ_JP_CACHE
+    if _LQ_JP_CACHE is None:
+        _LQ_JP_CACHE = load_json("lease_quality_jp.json")
+    return _LQ_JP_CACHE
+
+
+def raw_lease_quality_jp(yd, info):
+    """リース・信販の専用品質スコアの生の値。ROA(%)・総資産成長率(CAGR %)・利払い余力(倍)と、事業の型（資金調達型／非調達型）。"""
+    cfg = load_lq_cfg_jp()
+    isr, bsr = yd.get("is_rows") or {}, yd.get("bs_rows") or {}
+    ni = row(isr, "Net Income", "Net Income Common Stockholders") or []
+    ta = row(bsr, "Total Assets") or []
+    eq = row(bsr, "Stockholders Equity", "Common Stock Equity") or []
+    ie = row(isr, "Interest Expense", "Interest Expense Non Operating") or []
+    pt = row(isr, "Pretax Income") or []
+
+    def g0(L):
+        return L[0] if L and is_num(L[0]) else None
+    n0, t0, e0, i0, p0 = g0(ni), g0(ta), g0(eq), g0(ie), g0(pt)
+    roa = (n0 / t0 * 100.0) if (n0 is not None and t0 and t0 > 0) else None
+    eq_ratio = (e0 / t0 * 100.0) if (e0 is not None and t0 and t0 > 0) else None
+    cover = None
+    if p0 is not None and i0 is not None and abs(i0) > 0:
+        cover = min((p0 + abs(i0)) / abs(i0), cfg.get("int_cover_cap", 500.0))
+    lender = (eq_ratio is not None and eq_ratio < cfg.get("equity_ratio_lender_max", 30.0))
+    return {"roa": roa, "asset_growth": (cagr_of(ta) if lender else None), "int_cover": cover,
+            "lender": lender, "eq_ratio": eq_ratio}
+
+
+def lease_quality_score_jp(raw_vals):
+    """raw_vals: raw_lease_quality_jp() の返り値。取得できた指標だけを均等ウェイトで合成（欠損は埋めず再正規化）。
+    返り値: (score 0..110|None, {key: (raw, score)}, 取得できた指標数, 対象の指標数)"""
+    cfg = load_lq_cfg_jp()
+    rules, w = cfg["rules"], cfg["weights"]
+    lender = bool(raw_vals.get("lender"))
+    parts, num, den, got, possible = {}, 0.0, 0.0, 0, 0
+    for k, wt in w.items():
+        if k == "asset_growth" and not lender:
+            continue            # 非調達型には使わない
+        rk = ("roa_lender" if lender else "roa_light") if k == "roa" else k
+        v = raw_vals.get(k)
+        sc = score_metric(k, v, rules.get(rk))
+        parts[k] = (v, sc)
+        possible += 1
+        if is_num(sc):
+            got += 1
+            num += wt * sc
+            den += wt
+    total = round(num / den, 1) if den > 0 else None
+    return total, parts, got, possible
+
+
+_LQ_JP_LABELS = {
+    "roa": ("ROA（純利益÷総資産）", "%"),
+    "asset_growth": ("総資産の成長率（CAGR）", "%"),
+    "int_cover": ("利払い余力（（税引前利益＋支払利息）÷支払利息）", "倍"),
+}
+
+
+def _lease_quality_html_jp(lq_score, lq_parts, lender):
+    rows = []
+    for k, (label, unit) in _LQ_JP_LABELS.items():
+        if k not in (lq_parts or {}):
+            continue
+        raw_v, sc = lq_parts[k]
+        raw_s = (f"{raw_v:.1f}{unit}" if k != "int_cover" else f"{raw_v:.1f}倍") if is_num(raw_v) else "―"
+        sc_s = f"{sc:.0f} / 110" if is_num(sc) else "―"
+        rows.append(f'<div class="plain"><span class="mn">{label}</span>'
+                    f'<span class="mv2">{raw_s}（点数 {sc_s}）</span></div>')
+    typ = ("資金調達型（自己資本比率30%未満。借入で資産を積む事業。ROAの基準は資金調達型向け）" if lender
+           else "非調達型（自己資本比率30%以上。保証・レンタル・サービスなど。ROAの基準は非調達型向け、総資産成長率は使わない）")
+    note = ('<p class="rule">リース・信販などは、リース資産・貸付債権の積み増しが営業キャッシュフローに含まれ、成長するほど営業CFが赤字になる'
+            f'ため、キャッシュフローの代わりにこの品質スコアを使います。この銘柄の型：{typ}。取得できた指標を均等ウェイトで合成し、'
+            '「業績」「財務」「配当の持続力」と合わせて銘柄選定スコアを算出します。貸倒費用・延滞率・調達構成などはYahoo Financeで取れないため、'
+            '決算短信・有価証券報告書で確認してください。</p>')
+    return (f'<div class="domhead"><b>リース・信販品質</b> {bar(lq_score)}</div>'
+            f'<div class="plain" style="grid-template-columns:1fr">{note}</div>' + "".join(rows))
+
+
+def _lease_quality_md_jp(lq_score, lq_parts, lender):
+    lines = [f"### リース・信販品質（{lq_score:.0f} / 110）" if is_num(lq_score) else "### リース・信販品質（―）",
+             "キャッシュフローの代役として、ROA・総資産成長率（資金調達型のみ）・利払い余力を均等ウェイトで合成。"
+             + ("この銘柄は資金調達型。" if lender else "この銘柄は非調達型。"), ""]
+    for k, (label, unit) in _LQ_JP_LABELS.items():
+        if k not in (lq_parts or {}):
+            continue
+        raw_v, sc = lq_parts[k]
+        raw_s = f"{raw_v:.1f}{unit}" if is_num(raw_v) else "―"
+        sc_s = f"{sc:.0f}/110" if is_num(sc) else "―"
+        lines.append(f"- {label}：{raw_s}（点数 {sc_s}）")
+    return "\n".join(lines) + "\n"
 
 
 def load_fq_cfg_jp():
@@ -394,20 +489,30 @@ def worst_yoy_decline_pct(series):
     return round(worst, 1)
 
 
-def raw_financial_quality_jp(yd, info):
-    """ROE・増収率(売上高CAGR)・EPS成長率(CAGR)・利益の安定度(純利益の最大下落率)。"""
+def raw_financial_quality_jp(yd, info, bank=False):
+    """ROE・増収率(売上高CAGR)・EPS成長率(CAGR)・利益の安定度(純利益の最大下落率)。
+    bank=True（銀行業）のときは、経費率（営業経費÷総収益）と貸出金の成長率（Net Loan のCAGR）も足す（financial_quality_jp.json の bank_extra）。"""
     isr = yd.get("is_rows") or {}
     rev = row(isr, "Total Revenue", "Operating Revenue") or []
     ni = row(isr, "Net Income", "Net Income Common Stockholders",
             "Net Income Continuous Operations") or []
     eps = row(isr, "Basic EPS", "Diluted EPS") or []
     roe = info.get("returnOnEquity")
-    return {
+    out = {
         "roe": (roe * 100.0 if is_num(roe) else None),
         "rev_growth": cagr_of(rev),
         "eps_growth": cagr_of(eps),
         "profit_stability": worst_yoy_decline_pct(ni),
     }
+    if bank:
+        opx = row(isr, "Operating Expense") or []
+        loan = row(yd.get("bs_rows") or {}, "Net Loan") or []
+        o0 = opx[0] if opx and is_num(opx[0]) else None
+        r0 = rev[0] if rev and is_num(rev[0]) and rev[0] > 0 else None
+        out["cost_ratio"] = (abs(o0) / r0 * 100.0) if (o0 is not None and r0) else None
+        out["loan_growth"] = cagr_of(loan) if len([x for x in loan if is_num(x)]) >= 3 else None
+        out["_bank"] = True
+    return out
 
 
 def financial_quality_score_jp(raw_vals):
@@ -416,6 +521,9 @@ def financial_quality_score_jp(raw_vals):
     返り値: (score 0..110|None, {key: (raw, score)})"""
     cfg = load_fq_cfg_jp()
     rules, w, fill = cfg["rules"], cfg["weights"], cfg.get("missing_fill", 60)
+    if raw_vals.get("_bank") and cfg.get("bank_extra"):          # 銀行業だけ指標を足す（保険・証券は従来の4指標）
+        rules = {**rules, **cfg["bank_extra"]["rules"]}
+        w = {**w, **cfg["bank_extra"]["weights"]}
     parts = {}
     num = den = 0.0
     for k, wt in w.items():
@@ -433,12 +541,16 @@ _FQ_JP_METRIC_LABELS = {
     "rev_growth": "増収率（売上高CAGR）",
     "eps_growth": "EPS成長率（CAGR）",
     "profit_stability": "利益の安定度（純利益の最大下落率）",
+    "cost_ratio": "経費率（営業経費÷総収益。低いほど良い）",
+    "loan_growth": "貸出金の成長率（CAGR）",
 }
 
 
 def _financial_quality_html_jp(fq_score, fq_parts):
     rows = []
     for k, label in _FQ_JP_METRIC_LABELS.items():
+        if k not in (fq_parts or {}):
+            continue                       # 銀行業だけの指標（経費率・貸出金の成長率）は、銀行以外では出さない
         raw, sc = (fq_parts or {}).get(k, (None, None))
         raw_s = f"{raw:.1f}%" if is_num(raw) else "―"
         sc_s = f"{sc:.0f} / 110" if is_num(sc) else "―"
@@ -446,8 +558,11 @@ def _financial_quality_html_jp(fq_score, fq_parts):
                     f'<span class="mv2">{raw_s}（点数 {sc_s}）</span></div>')
     note = ('<p class="rule">銀行・保険・証券は業績・財務・キャッシュフローの構造がバランスシートの'
             '性質上ほかの業種と根本的に異なり採点できないため、代わりにROE・増収率・EPS成長率・'
-            '利益の安定度を均等ウェイトで合成した品質スコアを使用しています。「配当の持続力」と'
-            '合わせて銘柄選定スコアを算出します。</p>')
+            + ('利益の安定度・経費率・貸出金の成長率の6指標' if "cost_ratio" in (fq_parts or {}) else '利益の安定度')
+            + 'を均等ウェイトで合成した品質スコアを使用しています。「配当の持続力」と'
+            '合わせて銘柄選定スコアを算出します。'
+            + ('貸倒費用・不良債権・自己資本比率の規制値（CET1）はYahoo Financeで取れないため、決算短信で確認してください。'
+               if "cost_ratio" in (fq_parts or {}) else '') + '</p>')
     return (f'<div class="domhead"><b>金融品質</b> {bar(fq_score)}</div>'
             f'<div class="plain" style="grid-template-columns:1fr">{note}</div>' + "".join(rows))
 
@@ -456,6 +571,8 @@ def _financial_quality_md_jp(fq_score, fq_parts):
     lines = [f"### 金融品質（{fq_score:.0f} / 110）" if is_num(fq_score) else "### 金融品質（―）",
              "業績・財務・CFの代役として、ROE・増収率・EPS成長率・利益の安定度を均等ウェイトで合成。", ""]
     for k, label in _FQ_JP_METRIC_LABELS.items():
+        if k not in (fq_parts or {}):
+            continue
         raw, sc = (fq_parts or {}).get(k, (None, None))
         raw_s = f"{raw:.1f}%" if is_num(raw) else "―"
         sc_s = f"{sc:.0f}/110" if is_num(sc) else "―"
@@ -3603,7 +3720,7 @@ svg.trend{{width:100%;height:auto;border:1px solid var(--line);border-radius:8px
 {sel_chart}
 <div class="legend">{legend}</div>
 {sel_blocks}
-{_financial_quality_html_jp(fq_score, fq_parts) if fq_score is not None else ""}
+{(_lease_quality_html_jp(fq_score, fq_parts, ctx.get("lq_lender")) if ctx.get("fq_kind") == "lease" else _financial_quality_html_jp(fq_score, fq_parts)) if fq_score is not None else ""}
 
 <h2>② 買い時の指標</h2>
 {tim_blocks}
@@ -3685,7 +3802,8 @@ def render_md(meta, dom_scores, detail, groups, sel_score, tim_score, vd, M, ctx
                 L.append("| ― | この業種では評価対象外 |  |  |  |")
             L.append("")
         if head == "選定" and fq_score is not None:
-            L.append(_financial_quality_md_jp(fq_score, fq_parts))
+            L.append(_lease_quality_md_jp(fq_score, fq_parts, ctx.get("lq_lender")) if ctx.get("fq_kind") == "lease"
+                     else _financial_quality_md_jp(fq_score, fq_parts))
     em = render_earn_md(ctx.get("earn"))
     if em:
         L.append(em)
@@ -3786,7 +3904,7 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
         # （10年保有ツールと同じ「呼び出し側で後から合成」方式）。
         fq_score = fq_parts = None
         if is_simple and not is_reit:
-            fin_q = raw_financial_quality_jp(yd, info)
+            fin_q = raw_financial_quality_jp(yd, info, bank=(jp_sector == "銀行業"))
             fq_score, fq_parts = financial_quality_score_jp(fin_q)
             if fq_score is not None:
                 div_w = rules["score_groups"]["選定"]["配当の持続力"]["weight"]
@@ -3797,6 +3915,32 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
                     sel_score = round((fq_score * 0.70 + div_score * div_w) / (0.70 + div_w), 1)
                 else:
                     sel_score = round(fq_score, 1)
+
+        # リース・信販など（DOMAIN_EXCLUDE_JP の業種）：キャッシュフローを採点しない代わりに、専用の品質スコア（lease_quality_jp.json）を
+        # キャッシュフローのグループの重みで銘柄選定に入れる（金融品質と同じ『呼び出し側で後から合成』方式。配当側だけ）。
+        if DOMAIN_EXCLUDE_JP.get(jp_sector) and not is_simple:
+            _lraw = raw_lease_quality_jp(yd, info)
+            _ls, _lparts, _lgot, _lposs = lease_quality_score_jp(_lraw)
+            if _ls is not None:
+                _sg = rules["score_groups"]["選定"]
+                groups = dict(groups)
+                groups["リース・信販品質"] = _ls
+                _num = _den = 0.0
+                for _gn, _gd in _sg.items():
+                    _gv = groups.get(_gn)
+                    if _gn == "キャッシュフロー":
+                        _gv, _wt = _ls, _gd["weight"]
+                    else:
+                        _wt = _gd["weight"]
+                    if is_num(_gv):
+                        _num += _wt * _gv
+                        _den += _wt
+                sel_score = round(_num / _den, 1) if _den else sel_score
+                coverage = dict(coverage)
+                _cs, _cp = coverage["選定"]
+                coverage["選定"] = (_cs + _lgot, _cp + _lposs)
+                fq_score, fq_parts = _ls, _lparts
+                ctx["fq_kind"], ctx["lq_lender"] = "lease", bool(_lraw.get("lender"))
 
         vd = verdicts(sel_score, tim_score, groups, dom_scores, ctx, sec_avg, is_simple, coverage)
     except Exception as e:
@@ -3822,7 +3966,8 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
                          "代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。買い時は通常どおりの判定です。")
     if DOMAIN_EXCLUDE_JP.get(jp_sector):
         warnings.append(f"{jp_sector}（リース・信販など）は、リース資産・貸付債権の積み増しが営業CFに含まれ、成長するほど営業CFが赤字になる構造のため、"
-                        "キャッシュフロー（営業CF・FCF・FCF配当性向）は採点せず参考表示のみです。業績・財務・配当の持続力は通常どおり採点しています。")
+                        "キャッシュフロー（営業CF・FCF・FCF配当性向）は採点せず参考表示のみです。代わりに「リース・信販品質」スコア（ROA・総資産成長率・利払い余力）を銘柄選定に使い、"
+                        "業績・財務・配当の持続力は通常どおり採点しています。貸倒費用・延滞率・調達構成はYahoo Financeで取れないため、決算短信で確認してください。")
     if industry and not smap["industry_map"].get(industry):
         warnings.append(f"yfinance の業種『{industry}』が対応表に無く、{sector_src} で {jp_sector} に割り当てました。業種平均との比較は目安です。")
 

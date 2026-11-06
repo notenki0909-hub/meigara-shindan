@@ -17,5 +17,26 @@
     "rev_growth": {"dir": "higher_better", "good": 16.0, "warn": 7.5, "_note": "売上高の年率成長(CAGR %、直近〜4年)。高いほど良い。銀行・保険・証券36銘柄のp75/p25で校正。"},
     "eps_growth": {"dir": "higher_better", "good": 46.0, "warn": 16.5, "_note": "EPSの年率成長(CAGR %、直近〜4年)。高いほど良い。銀行・保険・証券36銘柄のp75/p25で校正。"},
     "profit_stability": {"dir": "higher_better", "good": 0.0, "warn": -9.5, "_note": "直近数年の純利益、前年比の最大下落率(%)。0＝減益なし。銀行・保険・証券36銘柄のp75/p25で校正。"}
+  },
+  "bank_extra": {
+    "_note": "2026-11-06、銀行業（38行）だけに足す2指標。経費率（営業経費÷総収益。Yahooの Operating Expense と Total Revenue）は銀行間の差が大きい（p25=63.5/中央値=69.5/p75=75.5、範囲51〜91）うえ、既存の選定スコアとの相関が−0.59で、ROEなど既存4指標と別の情報を持つ。貸出金の成長率（Net Loan のCAGR）は p25=2.8/中央値=4.3/p75=6.1。ROA（p25=0.25〜p75=0.41%）と自己資本比率（p25=4.5〜p75=5.7%）は銀行間の差が小さく、ROEとも重なる（相関0.5）ため足さない。良好≈p25（経費率は低いほど良い）またはp75、注意≈p75またはp25で校正（既存4指標と同じ方針）。保険・証券は従来の4指標のまま。貸倒費用・不良債権・CET1はYahooで取れない。",
+    "weights": {
+      "cost_ratio": 0.25,
+      "loan_growth": 0.25
+    },
+    "rules": {
+      "cost_ratio": {
+        "dir": "lower_better",
+        "good": 63.5,
+        "warn": 75.5,
+        "_note": "経費率(%)＝営業経費÷総収益。低いほど良い。銀行38行のp25/p75で校正。"
+      },
+      "loan_growth": {
+        "dir": "higher_better",
+        "good": 6.1,
+        "warn": 2.8,
+        "_note": "貸出金(Net Loan)の年率成長(CAGR %)。銀行38行のp75/p25で校正。"
+      }
+    }
   }
 }
