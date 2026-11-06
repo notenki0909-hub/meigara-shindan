@@ -5,9 +5,9 @@
  "gics_sector": "Information Technology",
  "is_simple": false,
  "is_reit": false,
- "price": 29.760000228881836,
- "price_date": "2026-11-04",
- "mcap": 15347407872,
+ "price": 29.389999389648438,
+ "price_date": "2026-11-05",
+ "mcap": 15156596736,
  "q_score": 92.4,
  "groups": {
   "業績": 97.08878559229008,
@@ -22,36 +22,38 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 108.8,
+ "bt_score": 109.0,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 106.28675266309163,
+  "ev_ebit_vs_sector": 107.02221035471136,
   "fcf_yield": 110.0,
   "per_cheap": 110.0,
   "pbr_cheap": 110.0
  },
- "ev_ebit": 15.963279063104036,
- "fcf_yield": 11.904290387259476,
+ "ev_ebit": 15.854802010233087,
+ "fcf_yield": 12.0541572215912,
  "per_band_pos": null,
  "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.629963656791793,
- "per_vs_sector": 0.11661806887755101,
- "pbr_vs_sector": 0.08213067164179105,
+ "ev_ebit_vs_sector": 0.6042226375851024,
+ "per_vs_sector": 0.11206948979591837,
+ "pbr_vs_sector": 0.06973874179104478,
  "price_chg": {
-  "d": -23.67273929788636,
-  "w": -18.421050980480736,
-  "m": -10.951520468557163,
-  "3m": -30.483533580428755,
-  "6m": -35.262128695617534,
-  "9m": -42.29202946481949,
-  "y": -52.15434105490606
+  "d": -1.2432823803351867,
+  "w": -21.164162145922816,
+  "m": -13.098759151833296,
+  "3m": -31.283612169535246,
+  "6m": -37.79894309069114,
+  "9m": -42.168438476709255,
+  "y": -53.460017926358404
  },
- "div_yield": 5.91397844913971,
- "implied_fcf_growth": -0.0434,
+ "div_yield": 5.988431563628736,
+ "implied_fcf_growth": -0.0452,
  "insight": {
   "flags": {
    "cutoff": [],
-   "value_trap": []
+   "value_trap": [
+    "PBR 0.93倍（1倍割れ）かつROE 2.7%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+   ]
   },
   "raw": {
    "roe": 2.7483991654075837,
@@ -94,5 +96,5 @@
   "fcf_positive": 1,
   "fcf_payout": 46.36015325670498
  },
- "_generated_at": "2026-11-05T02:52:56"
+ "_generated_at": "2026-11-06T02:55:02"
 }

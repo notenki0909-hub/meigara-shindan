@@ -5,12 +5,12 @@
  "gics_sector": "Health Care",
  "is_simple": false,
  "is_reit": false,
- "price": 45.81999969482422,
- "price_date": "2026-11-04",
- "mcap": 66414866432,
- "q_score": 104.9,
+ "price": 44.63999938964844,
+ "price_date": "2026-11-05",
+ "mcap": 64704487424,
+ "q_score": 96.0,
  "groups": {
-  "業績": 110.0,
+  "業績": 87.77862181866247,
   "財務": 102.25373052227377,
   "キャッシュフロー": 100.0,
   "金融品質": null,
@@ -19,35 +19,39 @@
  "is_fin_simple": false,
  "is_reit_us": false,
  "current_pfo": null,
- "quarter_decel_factor": null,
- "quarter_decel_detail": null,
+ "quarter_decel_factor": 0.7979874710787498,
+ "quarter_decel_detail": {
+  "rev_yoy_q": 1.4412635735439272,
+  "profit_yoy_q": -6.761904761904757,
+  "gap": -15.100626446062513
+ },
  "q_cov": "高",
- "bt_score": 98.8,
+ "bt_score": 100.1,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 100.57748996832707,
-  "fcf_yield": 88.33811329446335,
-  "per_cheap": 107.6,
+  "ev_ebit_vs_sector": 102.18657585626522,
+  "fcf_yield": 90.14454247856692,
+  "per_cheap": 108.0,
   "pbr_cheap": 110.0
  },
- "ev_ebit": 19.110014211029966,
- "fcf_yield": 5.125358497084751,
+ "ev_ebit": 18.679296757491816,
+ "fcf_yield": 5.260840685892519,
  "per_band_pos": 1.0,
  "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.8297878511085526,
- "per_vs_sector": 0.8192090677966102,
- "pbr_vs_sector": 0.4983338461538461,
+ "ev_ebit_vs_sector": 0.773469845030717,
+ "per_vs_sector": 0.7981119915254238,
+ "pbr_vs_sector": 0.4855002884615385,
  "price_chg": {
-  "d": 5.333332631779819,
-  "w": 7.989628482832956,
-  "m": 8.603937393392581,
-  "3m": -7.058822710123469,
-  "6m": -18.17857197352818,
-  "9m": -39.311258682352026,
-  "y": -53.524696828480934
+  "d": -2.575295314349535,
+  "w": 4.567816410561876,
+  "m": 7.359301163638587,
+  "3m": -9.470699358309298,
+  "6m": -21.088917040010692,
+  "9m": -42.50386432177099,
+  "y": -54.83609768959942
  },
  "div_yield": 0.0,
- "implied_fcf_growth": 0.0737,
+ "implied_fcf_growth": 0.0702,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -94,5 +98,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-05T02:44:22"
+ "_generated_at": "2026-11-06T02:46:28"
 }
