@@ -295,7 +295,8 @@ python earnings_retry.py --force         # 期限無視で全件処理（テス�
 | `nightly.yml` | 毎晩 03:00 JST | `batch.py --only-stale --hours 20` → `rank.py` → mainへコミット |
 | `tdnet-watch.yml` | 平日 11:00〜17:30 JST・30分おき | `tdnet_watch.py` → mainへコミット |
 | `earnings-retry.yml` | 6時間おき | `earnings_retry.py` → `rank.py` → mainへコミット |
-| `universe-quarterly.yml` | 1/4/7/10月の1日（目安）＋手動 | JPXの `data_j.xlsx` を取得 → `build_universe.py all` → 全銘柄診断 → **PRを作成**（銘柄の出入りは人間が確認してからマージ。直接mainには入れない） |
+| `universe-quarterly.yml` | 1/4/7/10月の1日 0:00 UTC（目安）＋手動 | JPXの `data_j.xlsx` を取得 → `build_universe.py all` → 安全確認（`div_universe.py guard`）を通ったときだけ、母集団ファイル（`universe.json`・`universe_history_jp.json`）を**直接mainにコミット**（PRは作らない。2026-10-05に、人がPRを確認してからマージする方式から変更）。異常があればIssueで通知して見送り、内容を確認したうえで手動実行（Run workflow）の `force` を true にすると反映できる。全銘柄の診断は毎晩の更新が行い、新しく入った銘柄は翌日の夜間更新の後にランキングへ出る |
+| `universe-quarterly-us.yml` | 1/4/7/10月の2日 0:30 UTC（目安）＋手動 | S&P 500/400/600 の構成銘柄入れ替えに追従。日本株と同じ方式で、母集団ファイル（`universe_us.json`・`universe_history_us.json`）を安全確認のうえ直接mainにコミットする |
 
 セットアップ手順：
 
@@ -366,9 +367,9 @@ GitHubへpush済みであること。
    - Root directory: `/`（リポジトリ直下＝この`銘柄診断ツール`フォルダがそのままrootの想定）
 4. Save and Deploy → 初回は今ある `site/` がそのまま公開される
 5. 以降は `main` に `site/` を含むpushがあるたび自動で再デプロイ（nightly/tdnet-watch/
-   earnings-retryのコミット、universe-quarterly のPRをマージした時も含む）
-6. `universe-quarterly-update` ブランチのPRにも自動でプレビューURLが付くので、
-   マージ前に新しいユニバースの見た目を確認できる
+   earnings-retryのコミット、universe-quarterly の母集団コミットも含む）
+6. 以前は `universe-quarterly-update` ブランチのPRにプレビューURLが付いたが、2026-10-05から
+   母集団は直接mainにコミットする方式に変わったため、PRのプレビューは出ない（そのブランチは削除済み）
 7. 独自ドメインを付けたい場合は Pages プロジェクトの Custom domains から追加（任意）
 
 **容量の目安**（Cloudflare Pages Freeプラン）：ビルド 500回/月・ファイル数 20,000・
@@ -445,8 +446,12 @@ python rank_long.py jp                  # → site/long/index.html + ranking.jso
 python analyze_long.py 7203             # 単体：out_long/7203_*.html
 ```
 
-自動更新：`nightly-long.yml` / `nightly-long-us.yml`（`batch_long → calib_long → rank_long`）。母集団の
-四半期見直しは `universe-long-quarterly.yml`（PR・2パスで EV/EBIT 中央値を確定）。
+自動更新：`nightly-long.yml` / `nightly-long-us.yml`（`batch_long → calib_long → rank_long`）。
+
+母集団の見直し：
+
+- `universe-long-quarterly.yml`：1・4・7・10月の5日 5:00 UTC（配当株側の四半期見直しの数日後）。日本株は `universe.json`（配当株側の四半期見直しの結果）と各銘柄の最新時価総額から、時価総額3,000億円以上を再抽出する（銀行・保険・証券も対象、J-REITは対象外）。米国株は S&P500 の構成銘柄入れ替え（Wikipedia）に追従する。安全確認（`universe_guard.py`。銘柄数が前回の90〜110%、追加・除外が max(15, 5%) 以内など）を通ったときだけ、母集団ファイル（`universe_long*.json` など）を**直接mainにコミット**する（PRは作らない）。異常があればIssueで通知して見送り、手動実行の `force` を true にすると反映できる。全銘柄の診断・ランキング再生成はここでは行わず、毎晩の更新が行う。
+- `monthly-check-long-us.yml`：毎月1日 6:00 UTC。S&P500の入れ替えを検知し、追加銘柄は軽量診断して `universe_long_us.json` に追記（ランキングに「NEW!」を表示）、除外銘柄は `universe_long_watch_us.json` に暫定の対象外として記録するだけ（正式な反映は四半期の見直し）。安全確認を通ったら母集団ファイルだけを直接mainにコミットする（PRは作らない）。
 
 | 追加ファイル | 役割 |
 |---|---|
