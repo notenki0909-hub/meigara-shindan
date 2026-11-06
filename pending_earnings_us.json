@@ -2823,9 +2823,10 @@
   "name": "Apple Hospitality REIT, Inc.",
   "target_date": "2026-11-05",
   "detected_at": "2026-11-05T06:53:04",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-11-06T12:52:34"
+  "next_retry_at": "2026-11-06T12:52:34",
+  "resolved_at": "2026-11-06T19:27:21"
  },
  "BDX": {
   "ticker": "BDX",
@@ -2843,8 +2844,8 @@
   "target_date": "2026-11-05",
   "detected_at": "2026-11-05T06:53:04",
   "status": "pending",
-  "attempts": 3,
-  "next_retry_at": "2026-11-06T12:52:34"
+  "attempts": 4,
+  "next_retry_at": "2026-11-07T01:27:21"
  },
  "CI": {
   "ticker": "CI",
@@ -2881,9 +2882,10 @@
   "name": "Chesapeake Utilities Corp.",
   "target_date": "2026-11-05",
   "detected_at": "2026-11-05T06:53:04",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-11-06T12:52:34"
+  "next_retry_at": "2026-11-06T12:52:34",
+  "resolved_at": "2026-11-06T19:27:21"
  },
  "CPT": {
   "ticker": "CPT",
@@ -3031,8 +3033,8 @@
   "target_date": "2026-11-05",
   "detected_at": "2026-11-05T06:53:04",
   "status": "pending",
-  "attempts": 3,
-  "next_retry_at": "2026-11-06T12:52:34"
+  "attempts": 4,
+  "next_retry_at": "2026-11-07T01:27:21"
  },
  "LCII": {
   "ticker": "LCII",
@@ -3179,9 +3181,10 @@
   "name": "StepStone Group",
   "target_date": "2026-11-05",
   "detected_at": "2026-11-05T06:53:04",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 3,
-  "next_retry_at": "2026-11-06T12:52:34"
+  "next_retry_at": "2026-11-06T12:52:34",
+  "resolved_at": "2026-11-06T19:27:21"
  },
  "STRA": {
   "ticker": "STRA",
@@ -3268,26 +3271,29 @@
   "name": "Franklin Resources",
   "target_date": "2026-11-06",
   "detected_at": "2026-11-06T06:52:34",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 1,
-  "next_retry_at": "2026-11-06T12:52:34"
+  "next_retry_at": "2026-11-06T12:52:34",
+  "resolved_at": "2026-11-06T19:27:21"
  },
  "ESNT": {
   "ticker": "ESNT",
   "name": "Essent Group Ltd.",
   "target_date": "2026-11-06",
   "detected_at": "2026-11-06T06:52:34",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 1,
-  "next_retry_at": "2026-11-06T12:52:34"
+  "next_retry_at": "2026-11-06T12:52:34",
+  "resolved_at": "2026-11-06T19:27:21"
  },
  "STWD": {
   "ticker": "STWD",
   "name": "Starwood Property Trust",
   "target_date": "2026-11-06",
   "detected_at": "2026-11-06T06:52:34",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 1,
-  "next_retry_at": "2026-11-06T12:52:34"
+  "next_retry_at": "2026-11-06T12:52:34",
+  "resolved_at": "2026-11-06T19:27:21"
  }
 }
