@@ -192,6 +192,61 @@ def implied_fcf_growth(mcap, fcf, disc=0.10, term_g=0.025, years=10):
     return round((lo + hi) / 2, 4)
 
 
+# ------------------------------------------- リース・信販品質（日本株・その他金融業。配当株ツールの設計をコピー）
+_LEASE_CACHE = None
+LEASE_Q_KEY = "リース・信販品質"
+LEASE_W = {"業績": 0.28, "財務": 0.27, LEASE_Q_KEY: 0.15}
+
+
+def load_lease_cfg():
+    """lease_quality_long.json（リース・信販向けの専用品質スコア。配当側の校正値のコピー）。"""
+    global _LEASE_CACHE
+    if _LEASE_CACHE is None:
+        with open(os.path.join(HERE, "lease_quality_long.json"), encoding="utf-8") as f:
+            _LEASE_CACHE = json.load(f)
+    return _LEASE_CACHE
+
+
+def lease_quality_score(raw_vals):
+    """raw_vals: {"roa": %|None, "asset_growth": %|None, "int_cover": 倍|None, "lender": bool}。
+    取得できた指標だけを均等ウェイトで合成（欠損は埋めず再正規化。総資産成長率は資金調達型だけ）。
+    返り値: (score 0..110|None, {key: (raw, score)}, 取得できた指標数, 対象の指標数)"""
+    cfg = load_lease_cfg()
+    rules, w = cfg["rules"], cfg["weights"]
+    lender = bool(raw_vals.get("lender"))
+    parts, num, den, got, possible = {}, 0.0, 0.0, 0, 0
+    for k, wt in w.items():
+        if k == "asset_growth" and not lender:
+            continue
+        rk = ("roa_lender" if lender else "roa_light") if k == "roa" else k
+        v = raw_vals.get(k)
+        sc = analyze.score_metric(k, v, rules.get(rk)) if is_num(v) else None
+        parts[k] = (v, sc)
+        possible += 1
+        if is_num(sc):
+            got += 1
+            num += wt * sc
+            den += wt
+    return (round(num / den, 1) if den > 0 else None), parts, got, possible
+
+
+def quality_score_lease(group_scores):
+    """業績0.28・財務0.27・リース・信販品質0.15（キャッシュフローは採点しない）を、取得できたグループで再正規化。"""
+    num = den = 0.0
+    for g, w in LEASE_W.items():
+        v = group_scores.get(g)
+        if is_num(v):
+            num += w * v
+            den += w
+    return round(num / den, 1) if den > 0 else None
+
+
+def quality_coverage_lease(group_scores):
+    """通常銘柄と同じ分母（QUALITY_Wの数）で、取れたグループ数を数える（キャッシュフローの代わりにリース・信販品質）。"""
+    got = sum(1 for g in LEASE_W if is_num(group_scores.get(g)))
+    return got, len(QUALITY_W), ("高" if got >= 3 else "中" if got == 2 else "低")
+
+
 # ---------------------------------------------------------------- スコア合成
 def score_val(key, v, rules):
     """buytiming_long.json の rule で v を 20〜110 点に。analyze.score_metric を流用。"""

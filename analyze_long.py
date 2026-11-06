@@ -267,7 +267,7 @@ def _sec_label(name, market):
     return GICS_JA.get(name, name) if market == "us" else name
 
 
-def _insight_extras(yd, market, is_simple, is_reit, q_score, bt_score, tiers, raw, sec_med=None):
+def _insight_extras(yd, market, is_simple, is_reit, q_score, bt_score, tiers, raw, sec_med=None, is_lease=False):
     """『見方を深める指標』と、資料（銘柄分析の基礎）の基準にもとづく注意フラグ。
     **表示専用**：品質スコア・買い時スコアの計算には一切使わない（2026-10-06決定。
     過去4〜5期のデータでは、採点に組み込める根拠が得られなかったため）。
@@ -285,7 +285,9 @@ def _insight_extras(yd, market, is_simple, is_reit, q_score, bt_score, tiers, ra
     dep = g(cfr, "Depreciation And Amortization", "Depreciation Amortization Depletion") \
         or g(isr, "Reconciled Depreciation")
     sbc = g(cfr, "Stock Based Compensation")
-    fin_like = bool(is_simple)   # 銀行・保険・証券・REIT：CF・設備投資・自己資本比率の物差しは当てはまらない
+    # 銀行・保険・証券・REIT：CF・設備投資・自己資本比率の物差しは当てはまらない。リース・信販（is_lease）も、営業CFにリース資産・貸付債権の
+    # 積み増しが入り、借入で資産を積む構造のため、CFの「足切り」・利益の質・自己資本比率の足切り・借入依存の高ROEの注意は出さない
+    fin_like = bool(is_simple) or bool(is_lease)
 
     rows, flags, rawv = [], {}, {}
     pc = lambda v, d=1: f"{v:.{d}f}%"
@@ -304,7 +306,8 @@ def _insight_extras(yd, market, is_simple, is_reit, q_score, bt_score, tiers, ra
             flags["lev_roe"] = True
             note = "ROEは高いがROAが低い＝借入に頼って高く見えている可能性（景気悪化時に返済負担が重くなる）"
         if fin_like:
-            note = "銀行・保険・証券・REITは構造上レバレッジが大きく、ROAは低く出るのが普通"
+            note = ("リース・信販は借入で資産を積む構造上レバレッジが大きく、ROAは低く出るのが普通" if is_lease
+                    else "銀行・保険・証券・REITは構造上レバレッジが大きく、ROAは低く出るのが普通")
             flags.pop("lev_roe", None)
         rows.append(("ROE・ROA・財務レバレッジ",
                      f"ROE {pc(roe)}／ROA {pc(roa)}／総資産÷自己資本 {lev:.1f}倍　… {note}"))
@@ -330,7 +333,8 @@ def _insight_extras(yd, market, is_simple, is_reit, q_score, bt_score, tiers, ra
         rows.append(("ROEの目安と業種比較", f"{pc(roe)}　… {lab_txt}" + _vs_sector(roe, "roe")))
     if LC.is_num(roa):
         if fin_like:
-            lab = "銀行・保険・証券・REITは構造上低く出るため、目安をそのまま当てはめず、同業との比較で見る"
+            lab = ("リース・信販は借入で資産を積む構造上低く出るため、目安をそのまま当てはめず、同業との比較で見る" if is_lease
+                   else "銀行・保険・証券・REITは構造上低く出るため、目安をそのまま当てはめず、同業との比較で見る")
         elif LC.is_num(ni0) and ni0 <= 0:
             lab = "赤字のため目安に当てはめない"
         else:
@@ -556,6 +560,31 @@ def _data_notices(yd, market, code):
             except Exception:
                 pass
     return out
+
+
+def _raw_lease_quality(yd, info):
+    """リース・信販（日本株のその他金融業）の専用品質スコアの生の値（配当株ツールの raw_lease_quality_jp のコピー）。
+    ROA(%)＝純利益÷総資産（期末）・総資産成長率(CAGR %。資金調達型のみ)・利払い余力(倍)＝（税引前利益＋支払利息）÷支払利息（上限500倍）。
+    自己資本比率が30%未満＝資金調達型（借入で資産を積む）、以上＝非調達型。"""
+    cfg = LC.load_lease_cfg()
+    isr, bsr = yd.get("is_rows") or {}, yd.get("bs_rows") or {}
+    ni = analyze.row(isr, "Net Income", "Net Income Common Stockholders") or []
+    ta = analyze.row(bsr, "Total Assets") or []
+    eq = analyze.row(bsr, "Stockholders Equity", "Common Stock Equity") or []
+    ie = analyze.row(isr, "Interest Expense", "Interest Expense Non Operating") or []
+    pt = analyze.row(isr, "Pretax Income") or []
+
+    def g0(L):
+        return L[0] if L and LC.is_num(L[0]) else None
+    n0, t0, e0, i0, p0 = g0(ni), g0(ta), g0(eq), g0(ie), g0(pt)
+    roa = (n0 / t0 * 100.0) if (n0 is not None and t0 and t0 > 0) else None
+    eq_ratio = (e0 / t0 * 100.0) if (e0 is not None and t0 and t0 > 0) else None
+    cover = None
+    if p0 is not None and i0 is not None and abs(i0) > 0:
+        cover = min((p0 + abs(i0)) / abs(i0), cfg.get("int_cover_cap", 500.0))
+    lender = (eq_ratio is not None and eq_ratio < cfg.get("equity_ratio_lender_max", 30.0))
+    return {"roa": roa, "asset_growth": (analyze.cagr_of(ta) if lender else None), "int_cover": cover,
+            "lender": lender, "eq_ratio": eq_ratio}
 
 
 def _raw_financial_quality(yd, info):
@@ -1140,14 +1169,69 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
         ]
     else:
         q_blocks = []
+        lease_on = extras.get("lease_q") is not None
         for gname in ("業績", "財務", "キャッシュフロー"):
-            q_blocks.append(f'<div class="domhead"><b>{gname}</b> {analyze.bar(groups.get(gname))}</div>')
+            if gname == "キャッシュフロー" and lease_on:
+                q_blocks.append('<div class="domhead"><b>キャッシュフロー（この業種では採点しない・参考表示）</b></div>'
+                                '<div class="legend">リース・信販は、営業CFにリース資産・貸付債権の積み増しが入り、事業が成長するほど赤字に出るため、'
+                                '品質スコアには使っていません（下の「リース・信販品質」が代わりに入ります）。</div>')
+            else:
+                q_blocks.append(f'<div class="domhead"><b>{gname}</b> {analyze.bar(groups.get(gname))}</div>')
             rows = [r for r in (detail.get(gname) or []) if r.get("key")]
             q_blocks += ([mdh(r) for r in rows] if rows else
                          ['<div class="plain"><span class="mn">―</span>'
                           '<span class="mv2">この業種では評価対象外</span></div>'])
             if gname == "業績" and extras.get("quarter_trend_rows"):
                 q_blocks += [mdh(r) for r in extras["quarter_trend_rows"]]
+        if lease_on:
+            lr, lp = extras["lease_raw"], extras["lease_parts"]
+            lcfg = LC.load_lease_cfg()["rules"]
+            lender = bool(lr.get("lender"))
+            kind = "資金調達型（借入で資産を積む。自己資本比率30%未満）" if lender else "非調達型（保証・レンタル・サービスなど。自己資本比率30%以上）"
+            eqr = lr.get("eq_ratio")
+            eq_txt = ("（この銘柄の自己資本比率 " + format(eqr, ".1f") + "%）") if LC.is_num(eqr) else ""
+            q_blocks.append(f'<div class="domhead"><b>リース・信販品質（キャッシュフローの代わり）</b> {analyze.bar(groups.get(LC.LEASE_Q_KEY))}</div>'
+                            f'<div class="legend">事業の型：<b>{kind}</b>{eq_txt}。'
+                            f'採点できた指標 <b>{extras.get("lease_got")}/{extras.get("lease_poss")}</b>。ROAの基準は型で違います。</div>')
+
+            def _lq_rule(key):
+                return lcfg[("roa_lender" if lender else "roa_light") if key == "roa" else key]
+
+            def _lq_why(key, v, lab, unit):
+                if not LC.is_num(v):
+                    return "データを取得できませんでした（取れない指標は外して、残りで平均しています）。"
+                rr = _lq_rule(key)
+                w = "良好" if v >= rr["good"] else "弱い" if v < rr["warn"] else "やや弱い"
+                return f"{lab} {v:.1f}{unit}（{w}）。"
+
+            def _lq_gauge(key, v, title, kind_="pct"):
+                if not LC.is_num(v):
+                    return ""
+                rr = _lq_rule(key)
+                return _gauge_svg(v, rr["good"], rr["warn"], "higher_better", kind_, title)
+
+            rr_roa = _lq_rule("roa")
+            q_blocks.append(_detail_row(
+                "lq_roa", "ROA（純利益÷総資産）",
+                f"{lr['roa']:.2f}%" if LC.is_num(lr.get("roa")) else "算出不可",
+                f"{rr_roa['good']}%以上＝良好 ／ {rr_roa['warn']}%未満＝弱い（{'資金調達型' if lender else '非調達型'}の基準）。",
+                _lq_why("roa", lr.get("roa"), "ROA", "%"), lp["roa"][1], figure=_lq_gauge("roa", lr.get("roa"), "ROA")))
+            if lender:
+                rr_g = _lq_rule("asset_growth")
+                q_blocks.append(_detail_row(
+                    "lq_asset_growth", "総資産の成長率（年率）",
+                    f"{lr['asset_growth']:.1f}%" if LC.is_num(lr.get("asset_growth")) else "算出不可",
+                    f"{rr_g['good']}%以上＝良好 ／ {rr_g['warn']}%未満＝弱い。資金調達型は成長の源泉が資産の積み増しのため見る。"
+                    "ただし与信リスクとは切り離された指標で、買収による成長も高く出る。",
+                    _lq_why("asset_growth", lr.get("asset_growth"), "総資産成長率", "%"), lp["asset_growth"][1],
+                    figure=_lq_gauge("asset_growth", lr.get("asset_growth"), "総資産の成長率")))
+            rr_i = _lq_rule("int_cover")
+            q_blocks.append(_detail_row(
+                "lq_int_cover", "利払い余力（（税引前利益＋支払利息）÷支払利息）",
+                f"{lr['int_cover']:.1f}倍" if LC.is_num(lr.get("int_cover")) else "算出不可（支払利息を取得できない）",
+                f"{rr_i['good']}倍以上＝良好 ／ {rr_i['warn']}倍未満＝弱い（上限500倍）。会社によってYahooが一部の利息しか拾わない場合がある。",
+                _lq_why("int_cover", lr.get("int_cover"), "利払い余力", "倍"), lp["int_cover"][1],
+                figure=_lq_gauge("int_cover", lr.get("int_cover"), "利払い余力", "mul")))
     q_html = "".join(q_blocks)
 
     # 買い時の指標（6行）
@@ -1534,7 +1618,7 @@ details.m.hl>summary{{grid-template-columns:minmax(150px,1fr) 2fr auto}}
 <h2>会社概要</h2>
 <div class="cobox">{comp_html}</div>
 
-<h2>① 品質の指標（{'REIT向け代替指標(FFO)' if extras.get('reit_q') else '銀行・保険・証券向け代替指標' if is_fin_simple else '業績・財務・キャッシュフロー'}）</h2>
+<h2>① 品質の指標（{'REIT向け代替指標(FFO)' if extras.get('reit_q') else '銀行・保険・証券向け代替指標' if is_fin_simple else '業績・財務・リース・信販向け専用指標（CFは採点しない）' if extras.get('lease_q') is not None else '業績・財務・キャッシュフロー'}）</h2>
 {q_html}
 
 <h2>② 買い時の指標（割安さ・配当は不使用）</h2>
@@ -1655,6 +1739,20 @@ def generate_long(code, cfg=None, market="jp", name=None):
         groups["REIT品質"] = rq_score
         ffo_pairs = _ffo_pairs(yd, reit_q["ffo_series"], reit_q["shares"])
 
+    # リース・信販（日本株のその他金融業）：営業CFにリース資産・貸付債権の積み増しが入り、成長するほど赤字に出て、
+    # キャッシュフローのグループが最低点に張り付く歪みがあるため、CFを採点せず、専用の品質スコア（lease_quality_long.json）を
+    # CFのグループの重み（0.15）で入れる。配当株ツールの同じ見直し（2026-11-06）をコピーして移植。
+    lease_raw = lease_q = lease_parts = None
+    lease_got = lease_poss = 0
+    if market == "jp" and jp_sector == "その他金融業" and not is_simple:
+        lease_raw = _raw_lease_quality(yd, info)
+        _lq, lease_parts, lease_got, lease_poss = LC.lease_quality_score(lease_raw)
+        if _lq is not None:
+            lease_q = _lq
+            groups = dict(groups)
+            groups[LC.LEASE_Q_KEY] = _lq
+            groups["キャッシュフロー"] = None
+
     # 直近四半期の急減速チェック（米国株・通常の業績/財務/CF採点の銘柄のみ）。
     # 年次データだけだと、直近1年以内に始まった急減速が確定決算に反映されるまで
     # （最大1年程度）品質スコアに出ない問題への対応。詳細は_recent_quarter_decel_usを参照。
@@ -1667,8 +1765,12 @@ def generate_long(code, cfg=None, market="jp", name=None):
             groups["業績"] = groups["業績"] * decel_factor
         quarter_trend_rows = _recent_quarters_trend_us(yd)
 
-    q_score = LC.quality_score(groups)
-    q_cov = LC.quality_coverage(groups)
+    if lease_q is not None:
+        q_score = LC.quality_score_lease(groups)
+        q_cov = LC.quality_coverage_lease(groups)
+    else:
+        q_score = LC.quality_score(groups)
+        q_cov = LC.quality_coverage(groups)
 
     raw = _raw_valuation(yd)
     pbr_pairs = _pbr_pairs(yd, raw)
@@ -1680,7 +1782,7 @@ def generate_long(code, cfg=None, market="jp", name=None):
     try:
         insight = _insight_extras(yd, market, is_simple, is_reit, q_score, bt_score,
                                   tuple(LC.load_bt_cfg()[f"tim_tiers_{market}"]), raw,
-                                  _sector_roe_roa(market).get(seckey))
+                                  _sector_roe_roa(market).get(seckey), is_lease=(lease_q is not None))
     except Exception:
         insight = {"rows": [], "flags": {}, "raw": {}}
     # データ不備の疑い（表示専用・採点には使わない）。失敗しても本体の診断は止めない。
@@ -1711,7 +1813,9 @@ def generate_long(code, cfg=None, market="jp", name=None):
               "div_yield": rowmap.get("div_yield", {}).get("v"),
               "fin_q": fin_q, "fq_parts": fq_parts,
               "reit_q": reit_q, "reit_parts": reit_parts,
-              "quarter_trend_rows": quarter_trend_rows, "insight": insight, "data_notice": data_notice}
+              "quarter_trend_rows": quarter_trend_rows, "insight": insight, "data_notice": data_notice,
+              "lease_q": lease_q, "lease_raw": lease_raw, "lease_parts": lease_parts,
+              "lease_got": lease_got, "lease_poss": lease_poss}
     if market == "us":
         extras["etf_rows"], extras["etf_asof"] = _etf_ranks(code)
 
@@ -1730,6 +1834,10 @@ def generate_long(code, cfg=None, market="jp", name=None):
                         "（ROE・増収率・EPS成長率・利益の安定度）で評価しています。"
                         "買い時スコアもEV/EBIT・FCF利回りが構造的に使えないため、"
                         "PER割安度・PBR割安度のみで合成しています。")
+    if lease_q is not None:
+        warnings.append("リース・信販（その他金融業）は、営業CFにリース資産・貸付債権の積み増しが入り、事業が成長するほど赤字に出るため、"
+                        "品質スコアではキャッシュフローを採点せず、代わりに専用の「リース・信販品質」（ROA・総資産成長率・利払い余力）を使っています。"
+                        "貸倒費用・延滞率・調達構成はYahoo Financeで取れないため、補助の評価です。決算短信・有価証券報告書で確認してください。")
     if not yd.get("is_rows"):
         warnings.append("損益計算書を取得できず、業績の評価が限定的です。")
     if not is_fin_simple and not is_reit_us and not LC.is_num(btd["ev_median"]):
@@ -1765,7 +1873,8 @@ def generate_long(code, cfg=None, market="jp", name=None):
         "q_score": q_score,
         "groups": {"業績": groups.get("業績"), "財務": groups.get("財務"),
                    "キャッシュフロー": groups.get("キャッシュフロー"),
-                   "金融品質": groups.get("金融品質"), "REIT品質": groups.get("REIT品質")},
+                   "金融品質": groups.get("金融品質"), "REIT品質": groups.get("REIT品質"),
+                   **({LC.LEASE_Q_KEY: groups.get(LC.LEASE_Q_KEY)} if lease_q is not None else {})},
         "is_fin_simple": is_fin_simple, "is_reit_us": is_reit_us,
         "current_pfo": btd.get("current_pfo"),
         "quarter_decel_factor": decel_factor if decel_factor < 1.0 else None,
@@ -1784,6 +1893,10 @@ def generate_long(code, cfg=None, market="jp", name=None):
         # 見方を深める指標・注意フラグ（表示専用。採点には使わない）
         "insight": {"flags": insight["flags"], "raw": insight["raw"]},
         **({"data_notice": data_notice} if data_notice else {}),
+        **({"lease_quality": {"score": lease_q, "lender": bool(lease_raw.get("lender")), "eq_ratio": lease_raw.get("eq_ratio"),
+                              "got": lease_got, "possible": lease_poss,
+                              "parts": {k: {"raw": v[0], "score": v[1]} for k, v in (lease_parts or {}).items()}}}
+           if lease_q is not None else {}),
         "etf_top": ([{"etf": n, "rank": r, "weight": w} for n, _lab, r, w in extras.get("etf_rows", [])]
                     if market == "us" else None),
         # 「詳しい条件で絞り込む」フィルタ用の個別指標。score は0〜110（常に高いほど良い、
