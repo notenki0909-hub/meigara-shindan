@@ -468,14 +468,17 @@ def _data_notices(yd, market, code):
         kind = "stale" if (len(eps) >= 2 and LC.is_num(eps[0]) and LC.is_num(eps[1]) and eps[0] == eps[1] and eps[0] != 0) else None
         if kind is None:
             try:
+                # 基準は「決算書の平均株式数 ÷ （時価総額÷株価）が2.5倍超」の一方向。YahooのsharesOutstandingは、
+                # 株式の種類が複数ある会社で一部の種類分しか入らず誤判定になる（NWS・TKO・SKYD）ため、全種類の合計である
+                # 時価総額÷株価を使う（配当株ツール側の同じ判定の修正に合わせた。2026-11-06）
                 sh = analyze.row(isr, "Diluted Average Shares", "Basic Average Shares")
-                so = info.get("sharesOutstanding")
-                if sh and LC.is_num(sh[0]) and sh[0] > 0 and LC.is_num(so) and so > 0:
-                    r = sh[0] / so
-                    if r > 2.5 or r < 0.4:
+                mc = info.get("marketCap")
+                if sh and LC.is_num(sh[0]) and sh[0] > 0 and LC.is_num(mc) and mc > 0 and LC.is_num(price) and price > 0:
+                    r = sh[0] / (mc / price)
+                    if r > 2.5:
                         out.append({"tier": "check", "k": "eps", "where": "EPS（1株利益）の推移・PERの自社過去レンジ内の位置",
-                                    "why": f"決算書の平均株式数が発行済株式数の{r:.1f}倍（通常は1倍前後）で、Yahooの年次の1株利益の桁がずれている疑いがあります。"
-                                           "ただし、株式の種類が複数ある会社や、合併で株式が組み替わった会社では、Yahooの値が正しくても出ます",
+                                    "why": f"決算書の平均株式数が、時価総額÷株価から求めた株式数の{r:.1f}倍（通常は1倍前後）で、Yahooの年次の1株利益の桁がずれている疑いがあります。"
+                                           "ただし、Yahoo側が正しい場合もあります",
                                     "how": how_eps})
             except Exception:
                 pass
