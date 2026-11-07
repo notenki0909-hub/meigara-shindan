@@ -1,16 +1,16 @@
 {
  "code": "KMB",
  "name": "Kimberly-Clark Corporation",
- "asof": "2026-11-05",
+ "asof": "2026-11-07",
  "gics_sector": "Consumer Staples",
  "industry": "Household & Personal Products",
  "is_simple": false,
  "is_reit": false,
- "price": 110.6050033569336,
- "price_date": "2026-11-05",
- "mcap": 67871641600,
- "sel_score": 79.9,
- "tim_score": 94.2,
+ "price": 108.43000030517578,
+ "price_date": "2026-11-06",
+ "mcap": 66536972288,
+ "sel_score": 80.2,
+ "tim_score": 95.6,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア中位（妥当水準）",
  "comment": "選定・買い時とも中位水準。",
@@ -28,21 +28,21 @@
   "業績": 84.5,
   "財務": 58.9,
   "キャッシュフロー": 86.1,
-  "配当の持続力": 91.4,
+  "配当の持続力": 92.3,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 84.8,
-  "株価バリュエーション": 67.5,
-  "金利スプレッド": 102.9
+  "利回り水準とChowder": 85.2,
+  "株価バリュエーション": 73.4,
+  "金利スプレッド": 103.5
  },
- "div_yield": 4.6290853438856105,
- "total_yield": 4.836830429573946,
+ "div_yield": 4.721940409102445,
+ "total_yield": 4.93385266653083,
  "streak_up": 50,
  "streak_flat": 50,
  "royalty": {
   "kind": "王",
   "years": 50,
   "asof": "2026-11-05",
-  "age": 0,
+  "age": 2,
   "fresh": true,
   "floored": true,
   "raw_up": 41,
@@ -50,26 +50,25 @@
   "warn": null,
   "hist_years": 41
  },
- "payout_ni": 100.2,
- "roe": 104.91299999999998,
- "chowder": 7.952167658795952,
+ "payout_ni": 97.330004,
+ "roe": 78.37999500000001,
+ "chowder": 8.045022724012787,
  "dgr5": 3.3230823149103417,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 101.28126906650397,
  "interest_coverage": 9.015625,
- "per_vs_sector": 0.9204886919831223,
- "pbr_vs_sector": 3.184784090909091,
- "per_band_pos": 0.41348132305496793,
+ "per_vs_sector": 0.8731117721518987,
+ "pbr_vs_sector": 1.8637310606060606,
+ "per_band_pos": 0.5718433020307824,
  "yield_band_pos": 1.0,
- "next_earn": "2026-11-05",
+ "next_earn": "2027-02-02",
  "earn_disc_date": "2026-11-05",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
   "⚠ 自己資本比率が10%未満（8.8%）",
-  "⚠ FCF配当性向が100%超（101%：フリーCFで配当を賄えていない）",
-  "⚠ 配当性向が100%超（100%：純利益を上回る配当）"
+  "⚠ FCF配当性向が100%超（101%：フリーCFで配当を賄えていない）"
  ],
  "roa": 11.82,
  "leverage": 11.38,
@@ -81,13 +80,8 @@
   {
    "k": "fcf_payout",
    "t": "FCF配当性向が100%超（101%：フリーCFで配当を賄えていない）"
-  },
-  {
-   "k": "payout",
-   "t": "配当性向が100%超（100%：純利益を上回る配当）"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-05T20:02:47",
- "_earnings_reflected_via": "earnings_watch_us"
+ "_generated_at": "2026-11-07T01:49:40"
 }
