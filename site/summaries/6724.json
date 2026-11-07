@@ -1,7 +1,7 @@
 {
  "code": "6724",
  "name": "セイコーエプソン",
- "asof": "2026-11-06",
+ "asof": "2026-11-07",
  "jp_sector": "電気機器",
  "industry": "Computer Hardware",
  "is_simple": false,
@@ -17,7 +17,7 @@
  "price_date": "2026-11-06",
  "mcap": 845023150080,
  "sel_score": 76.3,
- "tim_score": 71.2,
+ "tim_score": 65.5,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア中位（妥当水準）",
  "comment": "選定・買い時とも中位水準。",
@@ -27,9 +27,9 @@
   "高"
  ],
  "cov_tim": [
-  4,
   6,
-  "中"
+  6,
+  "高"
  ],
  "groups": {
   "業績": 53.5,
@@ -38,7 +38,7 @@
   "配当の持続力": 57.2,
   "配当利回りセオリー": 53.6,
   "利回り水準とChowder": 66.5,
-  "株価バリュエーション": 110.0,
+  "株価バリュエーション": 86.7,
   "金利スプレッド": null
  },
  "div_yield": 3.0109145652992093,
@@ -54,9 +54,9 @@
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 46.01440133532597,
- "per_vs_sector": null,
- "pbr_vs_sector": 0.37332883076923074,
- "per_band_pos": null,
+ "per_vs_sector": 0.6545530612244899,
+ "pbr_vs_sector": 0.3713941923076923,
+ "per_band_pos": 0.0,
  "yield_band_pos": 0.1364444944826782,
  "next_earn": "2027-02-03",
  "earn_disc_date": "2026-11-04",
@@ -80,21 +80,7 @@
    "t": "バリュートラップ注意：PBR 0.97倍（1倍割れ）かつROE 2.1%（5%未満）"
   }
  ],
- "review": [
-  {
-   "k": "per",
-   "where": "PER（Yahoo表示 19.2倍）",
-   "why": "直近4四半期の純利益（182.0億円）から求めたPERは46.4倍で、Yahoo表示と0.4倍ずれています。Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
-   "how": "IR BANK（irbank.net/6724/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
-   "keys": [
-    "per_vs_sector",
-    "per_band_pos"
-   ],
-   "names": [
-    "益回り（1÷PER）"
-   ]
-  }
- ],
+ "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-06T23:00:18"
+ "_generated_at": "2026-11-07T21:36:04"
 }

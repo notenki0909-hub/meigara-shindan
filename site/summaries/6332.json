@@ -1,14 +1,14 @@
 {
  "code": "6332",
  "name": "月島ホールディングス",
- "asof": "2026-11-06",
+ "asof": "2026-11-07",
  "jp_sector": "機械",
  "industry": "Pollution & Treatment Controls",
  "is_simple": false,
  "is_reit": false,
  "sel_dev": {
-  "dev": 54,
-  "rank": 21,
+  "dev": 53,
+  "rank": 24,
   "n": 50,
   "basis": "業種",
   "name": "機械"
@@ -16,7 +16,7 @@
  "price": 2180.0,
  "price_date": "2026-11-06",
  "mcap": 86330671104,
- "sel_score": 97.0,
+ "sel_score": 95.6,
  "tim_score": 108.3,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
@@ -27,15 +27,15 @@
   "高"
  ],
  "cov_tim": [
+  4,
   6,
-  6,
-  "高"
+  "中"
  ],
  "groups": {
   "業績": 101.8,
   "財務": 102.7,
   "キャッシュフロー": 84.7,
-  "配当の持続力": 93.5,
+  "配当の持続力": 89.0,
   "配当利回りセオリー": 108.4,
   "利回り水準とChowder": 106.6,
   "株価バリュエーション": 110.0,
@@ -47,16 +47,16 @@
  "payout_ni": 20.59657369938695,
  "payout_state": null,
  "payout_fy": "2026年3月期",
- "roe": 16.319999,
+ "roe": 8.757,
  "div_policy": null,
  "dgr5": 28.777958738116638,
  "chowder": 32.76878442619003,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 104.5128749668171,
- "per_vs_sector": 0.2429020346320346,
- "pbr_vs_sector": 0.4961845944444444,
- "per_band_pos": 1.0,
+ "per_vs_sector": null,
+ "pbr_vs_sector": 0.49548727777777773,
+ "per_band_pos": null,
  "yield_band_pos": 0.9371952731622578,
  "next_earn": null,
  "earn_disc_date": "2016-01-27",
@@ -75,7 +75,21 @@
    "t": "FCF配当性向が100%超（105%：フリーCFで配当を賄えていない）"
   }
  ],
- "review": [],
+ "review": [
+  {
+   "k": "per",
+   "where": "PER（Yahoo表示 11.3倍）",
+   "why": "直近4四半期の純利益（165.2億円）から求めたPERは5.2倍で、Yahoo表示と2.2倍ずれています。Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
+   "how": "IR BANK（irbank.net/6332/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
+   "keys": [
+    "per_vs_sector",
+    "per_band_pos"
+   ],
+   "names": [
+    "益回り（1÷PER）"
+   ]
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-06T22:57:47"
+ "_generated_at": "2026-11-07T21:33:51"
 }

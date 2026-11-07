@@ -1,26 +1,26 @@
 {
  "code": "6143",
  "name": "ソディック",
- "asof": "2026-11-06",
+ "asof": "2026-11-07",
  "jp_sector": "機械",
  "industry": "Specialty Industrial Machinery",
  "is_simple": false,
  "is_reit": false,
  "sel_dev": {
-  "dev": 41,
-  "rank": 41,
+  "dev": 42,
+  "rank": 40,
   "n": 50,
   "basis": "業種",
   "name": "機械"
  },
  "price": 1285.0,
  "price_date": "2026-11-06",
- "mcap": 64220286976,
- "sel_score": 82.9,
- "tim_score": 54.6,
+ "mcap": 64160866304,
+ "sel_score": 83.9,
+ "tim_score": 59.1,
  "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "選定は中位、買い時は下位（やや割高水準）。",
+ "tim_label": "買い時スコア中位（妥当水準）",
+ "comment": "選定・買い時とも中位水準。",
  "cov_sel": [
   15,
   16,
@@ -35,10 +35,10 @@
   "業績": 67.9,
   "財務": 95.9,
   "キャッシュフロー": 103.3,
-  "配当の持続力": 75.1,
+  "配当の持続力": 78.5,
   "配当利回りセオリー": 40.0,
   "利回り水準とChowder": 49.8,
-  "株価バリュエーション": 88.1,
+  "株価バリュエーション": 106.7,
   "金利スプレッド": null
  },
  "div_yield": 2.2568093385214008,
@@ -47,16 +47,16 @@
  "payout_ni": 32.5148559255522,
  "payout_state": null,
  "payout_fy": "2025年12月期",
- "roe": 8.344,
+ "roe": 10.095,
  "div_policy": null,
  "dgr5": 3.012896281839894,
  "chowder": 5.269705620361295,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 30.203829524397776,
- "per_vs_sector": 0.43259744588744586,
- "pbr_vs_sector": 0.37373586111111107,
- "per_band_pos": 0.04212541982626266,
+ "per_vs_sector": 0.3532366233766233,
+ "pbr_vs_sector": 0.36073538888888884,
+ "per_band_pos": 0.6094445087372842,
  "yield_band_pos": 0.0,
  "next_earn": null,
  "earn_disc_date": null,
@@ -65,14 +65,14 @@
  "total_payout": 32.49889233495791,
  "interest_coverage": 14.718009478672986,
  "warnings": [
-  "⚠ バリュートラップ注意：PBR 0.67倍（1倍割れ）かつROE 5.0%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.65倍（1倍割れ）かつROE 5.0%（5%未満）"
  ],
  "roa": 2.9,
  "leverage": 1.72,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.67倍（1倍割れ）かつROE 5.0%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.65倍（1倍割れ）かつROE 5.0%（5%未満）"
   }
  ],
  "review": [
@@ -92,5 +92,5 @@
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-06T23:28:27"
+ "_generated_at": "2026-11-07T22:00:22"
 }
