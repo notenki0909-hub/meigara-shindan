@@ -5,9 +5,9 @@
  "gics_sector": "Real Estate",
  "is_simple": true,
  "is_reit": true,
- "price": 174.6699981689453,
- "price_date": "2026-11-05",
- "mcap": 65966518272,
+ "price": 174.1999969482422,
+ "price_date": "2026-11-06",
+ "mcap": 67065409536,
  "q_score": 96.9,
  "groups": {
   "業績": null,
@@ -18,14 +18,14 @@
  },
  "is_fin_simple": false,
  "is_reit_us": true,
- "current_pfo": 20.593782288787082,
+ "current_pfo": 20.93684007086608,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "低",
- "bt_score": 72.1,
+ "bt_score": 70.3,
  "bt_cov": "高",
  "bt_components": {
-  "ffo_cheap": 72.1
+  "ffo_cheap": 70.3
  },
  "ev_ebit": null,
  "fcf_yield": null,
@@ -35,16 +35,16 @@
  "per_vs_sector": null,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": -5.522504567402442,
-  "w": -4.504950701540567,
-  "m": -3.2138322228217775,
-  "3m": -9.871003396064692,
-  "6m": -10.32446900933498,
-  "9m": 6.085639018462707,
-  "y": 3.803407460620001
+  "d": -0.2690795360566267,
+  "w": -3.5971223629083893,
+  "m": -1.0620834316960592,
+  "3m": -8.938842567027605,
+  "6m": -10.808458795878318,
+  "9m": 1.503322400920104,
+  "y": 4.6120540948432875
  },
- "div_yield": 2.7938398415049726,
- "implied_fcf_growth": 0.1196,
+ "div_yield": 2.801377775827362,
+ "implied_fcf_growth": 0.1219,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -57,6 +57,15 @@
    "shares_chg_pct": 18.000958275516243
   }
  },
+ "data_notice": [
+  {
+   "tier": "check",
+   "k": "eps",
+   "where": "EPS（1株利益）の推移・PERの自社過去レンジ内の位置",
+   "why": "決算書の平均株式数が、時価総額÷株価から求めた株式数の3.6倍（通常は1倍前後）で、Yahooの年次の1株利益の桁がずれている疑いがあります。ただし、Yahoo側が正しい場合もあります",
+   "how": "SEC EDGAR で、この会社の最新の年次報告書（10-K）の希薄化後1株利益を、Yahooの値と比べる"
+  }
+ ],
  "etf_top": [
   {
    "etf": "XLRE",
@@ -92,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 71.65707074559643
  },
- "_generated_at": "2026-11-06T02:51:26"
+ "_generated_at": "2026-11-07T02:20:06"
 }
