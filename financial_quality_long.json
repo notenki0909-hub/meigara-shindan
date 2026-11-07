@@ -15,6 +15,27 @@
     "eps_growth": 0.25,
     "profit_stability": 0.25
   },
+  "bank_extra": {
+    "_note": "2026-11-08、日本株の銀行業（約44行）だけに足す2指標。配当株ツールの financial_quality_jp.json の bank_extra（2026-11-06）の値をコピーしたもので、10年保有側で再校正はしていない。配当側が校正を見直したら、確認のうえ追従する。経費率（営業経費÷総収益。Yahooの Operating Expense と Total Revenue）は銀行間の差が大きく、ROEなど既存4指標と別の情報を持つ。貸出金の成長率は Net Loan のCAGR。保険・証券・米国の金融は従来の4指標のまま。配当側との違い：この2指標が取れない銀行は、60点で埋めずに外して残りで平均する（リース・信販の専用スコアと同じ扱い。60で埋めると、経費率が取れない大手行が不利になる）。貸倒費用・不良債権・CET1はYahooで取れない。",
+    "weights": {
+      "cost_ratio": 0.25,
+      "loan_growth": 0.25
+    },
+    "rules": {
+      "cost_ratio": {
+        "dir": "lower_better",
+        "good": 63.5,
+        "warn": 75.5,
+        "_note": "経費率(%)＝営業経費÷総収益。低いほど良い。"
+      },
+      "loan_growth": {
+        "dir": "higher_better",
+        "good": 6.1,
+        "warn": 2.8,
+        "_note": "貸出金(Net Loan)の年率成長(CAGR %)。"
+      }
+    }
+  },
   "missing_fill": 60,
   "rules": {
     "roe": {"dir": "higher_better", "good": 10.0, "warn": 5.0, "_note": "自己資本利益率(%)。yfinanceのreturnOnEquity。高いほど良い。"},

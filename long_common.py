@@ -78,14 +78,15 @@ def quality_coverage(group_scores):
     return got, len(QUALITY_W), ("高" if got >= 3 else "中" if got == 2 else "低")
 
 
-def quality_coverage_sub(parts):
+def quality_coverage_sub(parts, skip=()):
     """専用の品質スコア（金融品質・REIT品質）で採点する銘柄のカバレッジ。
     parts: {指標key: (生の値, 点)}（weighted_metric_score の返り値の2つ目）。
     通常の銘柄は「業績・財務・CFの3グループ中いくつ採点できたか」で数えるが、これらの銘柄は採点できるグループが
     専用スコアの1つだけなので常に「低」になり、1軍に入れなかった。専用スコアの中の指標（4つ）が
     いくつ取れたかで数える：全部＝高・1つ欠け＝中・それ以下＝低。返り値は (取れた数, 指標の数, ラベル)。"""
-    n = len(parts or {})
-    got = sum(1 for v in (parts or {}).values() if is_num(v[1]))
+    parts = {k: v for k, v in (parts or {}).items() if k not in skip}      # skip＝取れなければ外す指標（銀行の経費率・貸出金成長）
+    n = len(parts)
+    got = sum(1 for v in parts.values() if is_num(v[1]))
     return got, n, ("高" if n and got >= n else "中" if n and got == n - 1 else "低")
 
 
@@ -123,11 +124,39 @@ def weighted_metric_score(raw_vals, cfg):
     return total, parts
 
 
-def financial_quality_score(raw_vals):
+def financial_quality_score(raw_vals, bank=False):
     """raw_vals: {"roe": %|None, "rev_growth": %|None, "eps_growth": %|None,
     "profit_stability": %|None}。financial_quality_long.json の均等ウェイトで合成。
+    bank=True（日本株の銀行業）のときは、経費率・貸出金の成長率（bank_extra）も足す。
+    この2指標は、取れない銀行は60点で埋めずに外して、残りで平均する（既存の4指標は従来どおり欠損を60で補う）。
     返り値: (score 0..110|None, {key: (raw, score)})"""
-    return weighted_metric_score(raw_vals, load_fq_cfg())
+    cfg = load_fq_cfg()
+    ex = cfg.get("bank_extra")
+    if not (bank and ex):
+        return weighted_metric_score(raw_vals, cfg)
+    fill = cfg.get("missing_fill", 60)
+    rules = {**cfg["rules"], **ex["rules"]}
+    parts = {}
+    num = den = 0.0
+    for k, wt in cfg["weights"].items():
+        v = raw_vals.get(k)
+        s = score_val(k, v, rules)
+        parts[k] = (v, s)
+        num += wt * (s if is_num(s) else fill)
+        den += wt
+    for k, wt in ex["weights"].items():
+        v = raw_vals.get(k)
+        s = score_val(k, v, rules)
+        parts[k] = (v, s)
+        if is_num(s):
+            num += wt * s
+            den += wt
+    return (round(num / den, 1) if den > 0 else None), parts
+
+
+def bank_extra_keys():
+    """銀行業だけに足す指標のキー（カバレッジの数え方では「あれば加点」の扱いなので除く）。"""
+    return tuple((load_fq_cfg().get("bank_extra") or {}).get("weights", {}).keys())
 
 
 def reit_quality_score(raw_vals):

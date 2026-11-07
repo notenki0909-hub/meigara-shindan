@@ -587,21 +587,33 @@ def _raw_lease_quality(yd, info):
             "lender": lender, "eq_ratio": eq_ratio}
 
 
-def _raw_financial_quality(yd, info):
+def _raw_financial_quality(yd, info, bank=False):
     """銀行・保険・証券（is_simple かつ REIT でない）向けの品質サブスコアの素材。
-    ROE・増収率(売上高CAGR)・EPS成長率(CAGR)・利益の安定度(純利益の最大減益率)。"""
+    ROE・増収率(売上高CAGR)・EPS成長率(CAGR)・利益の安定度(純利益の最大減益率)。
+    bank=True（日本株の銀行業）のときは、経費率（営業経費÷総収益）と貸出金の成長率（Net Loan のCAGR）も足す
+    （配当株ツールの raw_financial_quality_jp(bank=True) のコピー）。"""
     isr = yd.get("is_rows") or {}
     rev = analyze.row(isr, "Total Revenue") or []
     ni = analyze.row(isr, "Net Income") or []
     eps = analyze.row(isr, "Diluted EPS", "Basic EPS") or []
     roe = info.get("returnOnEquity")
-    return {
+    out = {
         "roe": (roe * 100.0 if LC.is_num(roe) else None),
         "rev_growth": analyze.cagr_of(rev),
         "eps_growth": analyze.cagr_of(eps),
         "profit_stability": LC.worst_yoy_decline_pct(ni),
         "rev_series": rev, "eps_series": eps, "ni_series": ni,
     }
+    if bank:
+        rev_b = analyze.row(isr, "Total Revenue", "Operating Revenue") or []
+        opx = analyze.row(isr, "Operating Expense") or []
+        loan = analyze.row(yd.get("bs_rows") or {}, "Net Loan") or []
+        o0 = opx[0] if opx and LC.is_num(opx[0]) else None
+        r0 = rev_b[0] if rev_b and LC.is_num(rev_b[0]) and rev_b[0] > 0 else None
+        out["cost_ratio"] = (abs(o0) / r0 * 100.0) if (o0 is not None and r0) else None
+        out["loan_growth"] = analyze.cagr_of(loan) if len([x for x in loan if LC.is_num(x)]) >= 3 else None
+        out["_bank"] = True
+    return out
 
 
 def _raw_reit_quality(yd, info):
@@ -1126,6 +1138,28 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
                        fqp["profit_stability"][1],
                        figure=_fq_gauge("profit_stability", fq['profit_stability'], "利益の安定度")),
         ]
+        if fq.get("_bank"):                      # 日本株の銀行業だけ：経費率・貸出金の成長率
+            bx = LC.load_fq_cfg()["bank_extra"]["rules"]
+            cr, lg = fq.get("cost_ratio"), fq.get("loan_growth")
+            cr_s, lg_s = fqp["cost_ratio"][1], fqp["loan_growth"][1]
+            cr_w = ("データを取得できませんでした（取れない指標は外して、残りで平均しています）。" if not LC.is_num(cr) else
+                    f"経費率 {cr:.1f}%（" + ("良好" if cr <= bx["cost_ratio"]["good"] else "弱い" if cr > bx["cost_ratio"]["warn"] else "やや弱い") + "）。")
+            lg_w = ("データを取得できませんでした（取れない指標は外して、残りで平均しています）。" if not LC.is_num(lg) else
+                    f"貸出金の成長率 {lg:.1f}%（" + ("良好" if lg >= bx["loan_growth"]["good"] else "弱い" if lg < bx["loan_growth"]["warn"] else "やや弱い") + "）。")
+            q_blocks.append(_detail_row(
+                "fq_cost_ratio", "経費率（営業経費÷総収益）",
+                f"{cr:.1f}%" if LC.is_num(cr) else "算出不可",
+                f"{bx['cost_ratio']['good']}%以下＝良好 ／ {bx['cost_ratio']['warn']}%超＝弱い。低いほど効率よく稼げている（銀行業のみ）。",
+                cr_w, cr_s,
+                figure=(_gauge_svg(cr, bx["cost_ratio"]["good"], bx["cost_ratio"]["warn"], "lower_better", "pct", "経費率")
+                        if LC.is_num(cr) else "")))
+            q_blocks.append(_detail_row(
+                "fq_loan_growth", "貸出金の成長率（年率）",
+                f"{lg:.1f}%" if LC.is_num(lg) else "算出不可（データ不足）",
+                f"{bx['loan_growth']['good']}%以上＝良好 ／ {bx['loan_growth']['warn']}%未満＝弱い。本業の貸出が伸びているか（銀行業のみ）。",
+                lg_w, lg_s,
+                figure=(_gauge_svg(lg, bx["loan_growth"]["good"], bx["loan_growth"]["warn"], "higher_better", "pct", "貸出金の成長率")
+                        if LC.is_num(lg) else "")))
     elif extras.get("reit_q") and extras.get("reit_parts"):
         rq, rqp = extras["reit_q"], extras["reit_parts"]
         rq_rules = LC.load_reit_cfg()["rules"]
@@ -1723,8 +1757,9 @@ def generate_long(code, cfg=None, market="jp", name=None):
     is_fin_simple = bool(is_simple and not is_reit)
     fin_q = fq_parts = None
     if is_fin_simple:
-        fin_q = _raw_financial_quality(yd, info)
-        fq_score, fq_parts = LC.financial_quality_score(fin_q)
+        is_bank_jp = bool(market == "jp" and jp_sector == "銀行業")
+        fin_q = _raw_financial_quality(yd, info, bank=is_bank_jp)
+        fq_score, fq_parts = LC.financial_quality_score(fin_q, bank=is_bank_jp)
         groups = dict(groups)
         groups["金融品質"] = fq_score
 
@@ -1771,7 +1806,7 @@ def generate_long(code, cfg=None, market="jp", name=None):
     elif is_fin_simple or is_reit_us:
         # 銀行・保険・証券／米国REIT：採点できるグループは専用スコア1つだけなので、専用スコア内の指標の取得数で数える
         q_score = LC.quality_score(groups)
-        q_cov = LC.quality_coverage_sub(fq_parts if is_fin_simple else reit_parts)
+        q_cov = LC.quality_coverage_sub(fq_parts if is_fin_simple else reit_parts, skip=LC.bank_extra_keys())
     else:
         q_score = LC.quality_score(groups)
         q_cov = LC.quality_coverage(groups)
@@ -1835,7 +1870,7 @@ def generate_long(code, cfg=None, market="jp", name=None):
                         "品質スコアは算出していません（本ツールの対象外）。")
     elif is_fin_simple:
         warnings.append("銀行・保険・証券は業績・財務・CFの代わりに、専用の品質サブスコア"
-                        "（ROE・増収率・EPS成長率・利益の安定度）で評価しています。"
+                        "（ROE・増収率・EPS成長率・利益の安定度。日本株の銀行は経費率・貸出金の成長率も加える）で評価しています。"
                         "買い時スコアもEV/EBIT・FCF利回りが構造的に使えないため、"
                         "PER割安度・PBR割安度のみで合成しています。")
     if lease_q is not None:
