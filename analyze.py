@@ -719,6 +719,31 @@ def load_dps_overrides():
     return {k: v for k, v in d.items() if not k.startswith("_") and isinstance(v, dict)}
 
 
+def load_fin_overrides():
+    """fin_overrides.json（財務データの自動チェックで外した銘柄の、手動確認の結果）。無い・壊れているときは空。
+    {コード: {"per"|"pbr"|"eps": {"status": "ok"|"error"|"unclear", "note": 説明, "date": 確認日}}}
+      ok＝IR BANK・決算短信で、Yahooの値が正しいと確認（自動チェックの誤検出）→ 外さない（採点に使う）
+      error＝Yahooの値が誤りと確認 → 外したまま。手動欄に『確認済み』と明記する
+      unclear＝確認したが判定できなかった → 外したまま。手動欄に『確認したが判定できず』と明記"""
+    try:
+        d = load_json("fin_overrides.json")
+    except Exception:
+        return {}
+    return {k: v for k, v in d.items() if not k.startswith("_") and isinstance(v, dict)}
+
+
+def _confirm_fin(item, fo):
+    """手動欄の項目に、手動確認の結果（fin_overrides.json）を書き足す。error／unclear のときだけ。"""
+    st = (fo or {}).get("status")
+    if st not in ("error", "unclear"):
+        return
+    head = "【確認済み】" if st == "error" else "【確認したが判定できず】"
+    item["why"] = f"{head}{fo.get('note', '')}（{fo.get('date', '')}）。" + item["why"]
+    item["how"] = ("IR BANK・決算短信で確認済み。Yahooの値が直るまで「―」のままにします（直ったかは夜間更新で自動判定）"
+                   if st == "error" else "IR BANK・決算短信を確認しましたが、どちらが正しいか判定できませんでした。引き続き「―」にしています")
+    item["confirmed"] = st
+
+
 def dps_notes_text(notes, last_fy):
     """clean_dps_series_persistent の notes から、個別レポート用の注記（直近12年度ぶん）を作る。無ければ None。"""
     items = [x for x in (notes or []) if x["fy"] >= last_fy - 11]
@@ -1247,12 +1272,15 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
 
     growth_row("売上高（推移／年率）", rev, "rev_cagr", "業績")
     review_fin = []   # 財務データの不備（「手動で調べる必要がある銘柄」欄用。PER・PBR・EPS）
+    _fo = (load_fin_overrides().get(yd.get("code")) or {}) if fin_guard else {}
     _eps_bad = None
     if fin_guard:
         _eps_bad = fin_eps_problem(is_years, eps,
                                    row(isr, "Net Income Common Stockholders", "Net Income"),
                                    row(isr, "Basic Average Shares", "Diluted Average Shares"),
                                    so=info.get("sharesOutstanding"))
+    if _eps_bad and (_fo.get("eps") or {}).get("status") == "ok":
+        _eps_bad = None                      # 手動確認でYahooの値が正しいと確認済み＝自動チェックの誤検出
     if _eps_bad:
         _eps_msg = {"stale": "最新期の1株利益が前の年と同じ値（更新遅れの疑い）",
                     "mismatch": "最新期の1株利益が、純利益÷平均株式数と大きく食い違う（株式分割の反映ずれ・訂正前の値など）",
@@ -1261,6 +1289,7 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
                            "why": _eps_msg + "。EPSの成長率が正しく計算できないため、採点から外しています",
                            "how": f"IR BANK（irbank.net/{yd['code']}/results）の最新期のEPSと、Yahooの値を比べて確認",
                            "keys": ["eps_cagr"], "names": []})
+        _confirm_fin(review_fin[-1], _fo.get("eps"))
         M["業績"].append({"name": "EPS（推移／年率）", "v": None, "disp": "―",
                           "ref": "Yahoo Financeの1株利益に不備の疑いがあるため算出せず、採点もしません", "key": "eps_cagr"})
     elif eps and len([x for x in eps if is_num(x)]) >= 2:
@@ -1771,13 +1800,14 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
     pbr = pbr if is_num(pbr) and pbr > 0 else None
     if fin_guard and per:
         _pt, _ttm = fin_ttm_per(yd, price)
-        if is_num(_pt) and not (0.5 <= per / _pt <= 2.0):
+        if is_num(_pt) and not (0.5 <= per / _pt <= 2.0) and (_fo.get("per") or {}).get("status") != "ok":
             review_fin.append({"k": "per", "where": f"PER（Yahoo表示 {per:.1f}倍）",
                                "why": f"直近4四半期の純利益（{_ttm / 1e8:,.1f}億円）から求めたPERは{_pt:.1f}倍で、Yahoo表示と{per / _pt:.1f}倍ずれています。"
                                       "Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
                                "how": f"IR BANK（irbank.net/{yd['code']}/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、"
                                       "Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
                                "keys": ["per_vs_sector", "per_band_pos"], "names": ["益回り（1÷PER）"]})
+            _confirm_fin(review_fin[-1], _fo.get("per"))
             per = None
     if fin_guard and pbr:
         _eq = row(bsr, "Stockholders Equity", "Common Stock Equity")
@@ -1789,12 +1819,13 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
                 _pq = fin_quarter_pbr(yd.get("code"), price, _so)
                 if _pq is not None:
                     _pc = _pq
-            if not (0.6 <= _pc / pbr <= 1.6):
+            if not (0.6 <= _pc / pbr <= 1.6) and (_fo.get("pbr") or {}).get("status") != "ok":
                 review_fin.append({"k": "pbr", "where": f"PBR（Yahoo表示 {pbr:.2f}倍）",
                                    "why": f"株価÷（純資産÷発行済株式数）で求めたPBRは{_pc:.2f}倍で、Yahoo表示と{_pc / pbr:.2f}倍ずれています。"
                                           "どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
                                    "how": f"IR BANK（irbank.net/{yd['code']}/results）の1株純資産（BPS）で、株価÷BPSを計算して確認",
                                    "keys": ["pbr_vs_sector"], "names": []})
+                _confirm_fin(review_fin[-1], _fo.get("pbr"))
                 pbr = None
     ey = (1 / per * 100) if per else None
 
