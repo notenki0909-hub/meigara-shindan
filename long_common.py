@@ -154,6 +154,11 @@ def financial_quality_score(raw_vals, bank=False):
     return (round(num / den, 1) if den > 0 else None), parts
 
 
+def us_force_financial_tickers():
+    """米国で、産業分類が銀行・保険系でなくても、金融品質（銀行・保険・証券と同じ専用スコア）で採点する銘柄（GS・MS）。"""
+    return set(t.upper() for t in (load_fq_cfg().get("us_force_financial") or {}).get("tickers", []))
+
+
 def bank_extra_keys():
     """銀行業だけに足す指標のキー（カバレッジの数え方では「あれば加点」の扱いなので除く）。"""
     return tuple((load_fq_cfg().get("bank_extra") or {}).get("weights", {}).keys())

@@ -1724,6 +1724,11 @@ def generate_long(code, cfg=None, market="jp", name=None):
             if gics_sector == "Real Estate" and "REIT" not in (industry or "").upper():
                 is_simple = False
                 is_reit = False
+            # 米国の大手証券（GS・MS）：営業CFがブローカーのバランスシートで巨額のマイナスに振れ、通常の
+            # 業績・財務・CF採点だと品質が不当に低く出るため、銘柄指定で金融品質（is_simple）に切り替える
+            # （financial_quality_long.json の us_force_financial。analyze_us.py 本体は無改変）。
+            if (not is_simple) and (not is_reit) and code in LC.us_force_financial_tickers():
+                is_simple = True
             seckey = gics_sector
             jp_sector = None
             rate_sensitive = set(smap.get("rate_sensitive", []))
@@ -1870,8 +1875,11 @@ def generate_long(code, cfg=None, market="jp", name=None):
                         "品質スコアは算出していません（本ツールの対象外）。")
     elif is_fin_simple:
         warnings.append("銀行・保険・証券は業績・財務・CFの代わりに、専用の品質サブスコア"
-                        "（ROE・増収率・EPS成長率・利益の安定度。日本株の銀行は経費率・貸出金の成長率も加える）で評価しています。"
-                        "買い時スコアもEV/EBIT・FCF利回りが構造的に使えないため、"
+                        + ("（ROE・増収率・EPS成長率・利益の安定度。銀行は経費率・貸出金の成長率も加える）" if market == "jp"
+                           else "（ROE・増収率・EPS成長率・利益の安定度）") + "で評価しています。"
+                        + ("営業キャッシュフローが証券会社のバランスシートの増減で巨額のマイナスに振れ、通常の指標だと品質が不当に低く出るため、"
+                           "この銘柄は銘柄指定でこの専用スコアを使っています。" if (market == "us" and code in LC.us_force_financial_tickers()) else "")
+                        + "買い時スコアもEV/EBIT・FCF利回りが構造的に使えないため、"
                         "PER割安度・PBR割安度のみで合成しています。")
     if lease_q is not None:
         warnings.append("リース・信販（その他金融業）は、営業CFにリース資産・貸付債権の積み増しが入り、事業が成長するほど赤字に出るため、"
