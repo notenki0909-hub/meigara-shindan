@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 64.2,
+ "bt_score": 70.4,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 87.77166445580158,
+  "ev_ebit_vs_sector": 78.59554958508008,
   "fcf_yield": 20.0,
-  "per_cheap": 77.3,
-  "pbr_cheap": 71.7
+  "per_cheap": 73.1,
+  "pbr_cheap": 110.0
  },
  "ev_ebit": 16.814453735726204,
  "fcf_yield": -7.051558971674562,
- "per_band_pos": 0.04619486528339928,
- "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 0.9569979360117361,
- "per_vs_sector": 0.6524308503401361,
- "pbr_vs_sector": 0.8637219230769231,
+ "per_band_pos": 0.0,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 1.0372889411305493,
+ "per_vs_sector": 0.7925871768707483,
+ "pbr_vs_sector": 1.1274288461538462e-05,
  "price_chg": {
   "d": -6.0514372163388845,
   "w": -35.78076525336091,
@@ -46,7 +46,7 @@
   "9m": 20.58252427184466,
   "y": 28.173374613003087
  },
- "div_yield": 1.2077294685990339,
+ "div_yield": 1.288244766505636,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -63,6 +63,15 @@
    "shares_chg_pct": 0.08751662993395914
   }
  },
+ "data_notice": [
+  {
+   "tier": "check",
+   "k": "pbr",
+   "where": "PBR（Yahoo表示 0.00倍）",
+   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは2.34倍で、Yahoo表示と79806.57倍ずれています。ただし、照合ではYahoo側のPBRが正しい場合が多くありました（株式数のデータのずれなど）",
+   "how": "IR BANK（irbank.net/6787/results）の1株純資産（BPS）で、株価÷BPSを計算して確認する"
+  }
+ ],
  "etf_top": null,
  "metric_scores": {
   "rev_cagr": 110.0,
@@ -92,5 +101,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-06T23:51:06"
+ "_generated_at": "2026-11-07T22:20:14"
 }

@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 54.7,
+ "bt_score": 54.9,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
   "fcf_yield": 40.86813153686802,
   "per_cheap": 110.0,
-  "pbr_cheap": 48.1
+  "pbr_cheap": 48.6
  },
  "ev_ebit": 19.47159997372155,
  "fcf_yield": 1.5651098652651019,
  "per_band_pos": null,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.9355467170697365,
- "per_vs_sector": 0.556666554054054,
- "pbr_vs_sector": 1.437603,
+ "ev_ebit_vs_sector": 2.026181058659891,
+ "per_vs_sector": 0.38258777027027024,
+ "pbr_vs_sector": 1.4274768888888887,
  "price_chg": {
   "d": -9.347826086956523,
   "w": -3.833957912943209,
@@ -46,7 +46,7 @@
   "9m": 44.91746307558644,
   "y": 45.867949278530816
  },
- "div_yield": 2.997601918465228,
+ "div_yield": 4.1966426858513195,
  "implied_fcf_growth": 0.236,
  "insight": {
   "flags": {
@@ -67,8 +67,8 @@
   {
    "tier": "check",
    "k": "per",
-   "where": "PER（Yahoo表示 8.2倍）",
-   "why": "直近4四半期の純利益（769.0億円）から求めたPERは21.1倍で、Yahoo表示と0.4倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
+   "where": "PER（Yahoo表示 5.7倍）",
+   "why": "直近4四半期の純利益（769.0億円）から求めたPERは21.1倍で、Yahoo表示と0.3倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
    "how": "IR BANK（irbank.net/7272/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する"
   }
  ],
@@ -101,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 192.13070760487784
  },
- "_generated_at": "2026-11-06T23:54:24"
+ "_generated_at": "2026-11-07T22:23:08"
 }

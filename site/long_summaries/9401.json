@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 50.7,
+ "bt_score": 42.8,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
   "fcf_yield": 20.0,
-  "per_cheap": 56.9,
-  "pbr_cheap": 106.0
+  "per_cheap": 30.0,
+  "pbr_cheap": 101.2
  },
  "ev_ebit": 34.55475814141414,
  "fcf_yield": -0.7203801932055702,
  "per_band_pos": 0.0,
- "pbr_band_pos": 0.6823786729124328,
- "ev_ebit_vs_sector": 2.1842451416823097,
- "per_vs_sector": 1.113587348066298,
- "pbr_vs_sector": 0.2849466,
+ "pbr_band_pos": 0.5243788378750925,
+ "ev_ebit_vs_sector": 2.2570057571139217,
+ "per_vs_sector": 2.0941436464088397,
+ "pbr_vs_sector": 0.31315708,
  "price_chg": {
   "d": -4.420511171837327,
   "w": -0.9165139143476053,
@@ -52,7 +52,7 @@
   "flags": {
    "cutoff": [],
    "value_trap": [
-    "PBR 0.57倍（1倍割れ）かつROE 4.6%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+    "PBR 0.63倍（1倍割れ）かつROE 4.6%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
    ]
   },
   "raw": {
@@ -72,6 +72,13 @@
    "where": "EPS（1株利益）の推移",
    "why": "最新期の1株利益が、前の年と同じ値です（更新遅れの疑い）。EPSの成長率が、実際より低く（または高く）計算されている可能性があります",
    "how": "IR BANK（irbank.net/9401/results）の最新期のEPSと、決算短信の1株当たり当期純利益を、Yahooの値と比べる"
+  },
+  {
+   "tier": "check",
+   "k": "per",
+   "where": "PER（Yahoo表示 37.9倍）",
+   "why": "直近4四半期の純利益（490.1億円）から求めたPERは18.5倍で、Yahoo表示と2.1倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
+   "how": "IR BANK（irbank.net/9401/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する"
   }
  ],
  "etf_top": null,
@@ -103,5 +110,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-07T00:04:42"
+ "_generated_at": "2026-11-07T22:32:11"
 }
