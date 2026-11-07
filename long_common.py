@@ -78,6 +78,17 @@ def quality_coverage(group_scores):
     return got, len(QUALITY_W), ("高" if got >= 3 else "中" if got == 2 else "低")
 
 
+def quality_coverage_sub(parts):
+    """専用の品質スコア（金融品質・REIT品質）で採点する銘柄のカバレッジ。
+    parts: {指標key: (生の値, 点)}（weighted_metric_score の返り値の2つ目）。
+    通常の銘柄は「業績・財務・CFの3グループ中いくつ採点できたか」で数えるが、これらの銘柄は採点できるグループが
+    専用スコアの1つだけなので常に「低」になり、1軍に入れなかった。専用スコアの中の指標（4つ）が
+    いくつ取れたかで数える：全部＝高・1つ欠け＝中・それ以下＝低。返り値は (取れた数, 指標の数, ラベル)。"""
+    n = len(parts or {})
+    got = sum(1 for v in (parts or {}).values() if is_num(v[1]))
+    return got, n, ("高" if n and got >= n else "中" if n and got == n - 1 else "低")
+
+
 # ------------------------------------------------------- 金融品質スコア（v2・銀行/保険/証券）
 def worst_yoy_decline_pct(series):
     """新しい年→古い年の順の系列（analyze.row()と同じ並び）から、前年比の最大下落率(%)を返す。

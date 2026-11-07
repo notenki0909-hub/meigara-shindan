@@ -1606,7 +1606,7 @@ details.m.hl>summary{{grid-template-columns:minmax(150px,1fr) 2fr auto}}
 <div class="score2">
   <div class="sblk"><div class="hd"><b>品質スコア</b><span class="num {qcls}">{qn}</span>
     <span class="lab">{qlab}</span></div>
-    <div class="cov">採点できた指標グループ <b>{qs}/{qp}</b>　カバレッジ <b>{ql}</b></div></div>
+    <div class="cov">{'採点できた指標（金融品質の内訳）' if extras.get('fq_parts') else '採点できた指標（REIT品質の内訳）' if extras.get('reit_parts') else '採点できた指標グループ'} <b>{qs}/{qp}</b>　カバレッジ <b>{ql}</b></div></div>
   <div class="sblk"><div class="hd"><b>買い時スコア</b><span class="num {bcls}">{bn}</span>
     <span class="lab">{blab}</span></div>
     <div class="cov">実データで採点 <b>{bs}/{bp}</b>　カバレッジ <b>{bl}</b>（欠損は中立60で補完）</div></div>
@@ -1768,6 +1768,10 @@ def generate_long(code, cfg=None, market="jp", name=None):
     if lease_q is not None:
         q_score = LC.quality_score_lease(groups)
         q_cov = LC.quality_coverage_lease(groups)
+    elif is_fin_simple or is_reit_us:
+        # 銀行・保険・証券／米国REIT：採点できるグループは専用スコア1つだけなので、専用スコア内の指標の取得数で数える
+        q_score = LC.quality_score(groups)
+        q_cov = LC.quality_coverage_sub(fq_parts if is_fin_simple else reit_parts)
     else:
         q_score = LC.quality_score(groups)
         q_cov = LC.quality_coverage(groups)
