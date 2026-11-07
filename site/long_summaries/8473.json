@@ -5,16 +5,17 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 2876.0,
- "price_date": "2026-11-05",
- "mcap": 1859022487552,
- "q_score": 98.8,
+ "price": 2736.0,
+ "price_date": "2026-11-06",
+ "mcap": 1768527626240,
+ "q_score": 96.4,
  "groups": {
   "業績": 110.0,
   "財務": 84.6028735556306,
-  "キャッシュフロー": 103.33333333333333,
+  "キャッシュフロー": null,
   "金融品質": null,
-  "REIT品質": null
+  "REIT品質": null,
+  "リース・信販品質": 92.4
  },
  "is_fin_simple": false,
  "is_reit_us": false,
@@ -22,48 +23,63 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 108.7,
+ "bt_score": 109.0,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 110.0,
   "fcf_yield": 110.0,
   "per_cheap": 110.0,
-  "pbr_cheap": 104.8
+  "pbr_cheap": 106.1
  },
- "ev_ebit": 5.168686112964824,
- "fcf_yield": 88.89913979342181,
+ "ev_ebit": 4.9792077601340035,
+ "fcf_yield": 93.44807372410956,
  "per_band_pos": null,
- "pbr_band_pos": 0.9426619752361648,
- "ev_ebit_vs_sector": 0.251150928715492,
- "per_vs_sector": 0.28415362589928056,
- "pbr_vs_sector": 0.95593584,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 0.2418265060774164,
+ "per_vs_sector": 0.27667058992805754,
+ "pbr_vs_sector": 0.90940213,
  "price_chg": {
-  "d": 2.348754448398571,
-  "w": -0.2601005722212557,
-  "m": -6.410673608851281,
-  "3m": -5.332455562870308,
-  "6m": -7.4646074646074645,
-  "9m": -17.687464224384662,
-  "y": -15.04947570521341
+  "d": -4.86787204450626,
+  "w": -7.395498392282962,
+  "m": -12.671560804340887,
+  "3m": -6.875425459496254,
+  "6m": -13.390313390313391,
+  "9m": -22.404991491775384,
+  "y": -17.689530685920573
  },
- "div_yield": 3.6509040333796943,
- "implied_fcf_growth": -0.4226,
+ "div_yield": 3.8377192982456143,
+ "implied_fcf_growth": -0.4355,
  "insight": {
   "flags": {
-   "lev_roe": true,
-   "cutoff": [
-    "自己資本比率が10%未満（4.7%）"
-   ],
+   "cutoff": [],
    "value_trap": []
   },
   "raw": {
    "roe": 23.8212153930322,
    "roa": 1.116657352418128,
    "leverage": 21.332609633068923,
-   "ocf_ni": 3.9636159101167743,
-   "accrual": -3.599710000366881,
-   "capex_da": 0.6222064561901384,
    "shares_chg_pct": 18.672273836750453
+  }
+ },
+ "lease_quality": {
+  "score": 92.4,
+  "lender": true,
+  "eq_ratio": 4.687659021565939,
+  "got": 2,
+  "possible": 3,
+  "parts": {
+   "roa": {
+    "raw": 1.116657352418128,
+    "score": 74.76163864051794
+   },
+   "asset_growth": {
+    "raw": 19.743062270417976,
+    "score": 110.0
+   },
+   "int_cover": {
+    "raw": null,
+    "score": null
+   }
   }
  },
  "etf_top": null,
@@ -95,5 +111,5 @@
   "fcf_positive": 1,
   "fcf_payout": 3.3655542142794475
  },
- "_generated_at": "2026-11-06T00:19:42"
+ "_generated_at": "2026-11-07T00:00:40"
 }

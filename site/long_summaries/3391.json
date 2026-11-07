@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 2459.0,
- "price_date": "2026-11-05",
- "mcap": 1116318203904,
+ "price": 2360.5,
+ "price_date": "2026-11-06",
+ "mcap": 1071601876992,
  "q_score": 99.8,
  "groups": {
   "業績": 92.10139910252241,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 78.3,
+ "bt_score": 80.5,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 87.03464992176669,
-  "per_cheap": 102.9,
-  "pbr_cheap": 103.1
+  "ev_ebit_vs_sector": 35.63540519360657,
+  "fcf_yield": 89.831904559606,
+  "per_cheap": 91.3,
+  "pbr_cheap": 105.1
  },
- "ev_ebit": 17.808934072081218,
- "fcf_yield": 5.027598744132502,
- "per_band_pos": 1.0,
+ "ev_ebit": 17.099601475126903,
+ "fcf_yield": 5.2373928419704505,
+ "per_band_pos": 0.5581711164336322,
  "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 1.560818060655672,
- "per_vs_sector": 0.9760787165775402,
- "pbr_vs_sector": 1.03745875,
+ "ev_ebit_vs_sector": 1.4131902045559424,
+ "per_vs_sector": 1.0320493048128343,
+ "pbr_vs_sector": 0.9959013333333333,
  "price_chg": {
-  "d": 5.74070092453236,
-  "w": 14.45194321619734,
-  "m": 15.527366690157397,
-  "3m": 1.4438943894389489,
-  "6m": 14.292354171508247,
-  "9m": -3.265145554681348,
-  "y": -4.430625728721338
+  "d": -4.0056933712891425,
+  "w": 8.081501831501825,
+  "m": 11.108496116733345,
+  "3m": -2.5392237819983454,
+  "6m": 14.698736637512155,
+  "9m": -5.6554756195044025,
+  "y": -11.292747087561072
  },
- "div_yield": 1.9520130134200893,
- "implied_fcf_growth": 0.0764,
+ "div_yield": 2.033467485702182,
+ "implied_fcf_growth": 0.0708,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -63,6 +63,15 @@
    "shares_chg_pct": 86.58992888909557
   }
  },
+ "data_notice": [
+  {
+   "tier": "check",
+   "k": "eps",
+   "where": "EPS（1株利益）の推移",
+   "why": "最新期の1株利益が、純利益÷平均株式数と大きく食い違っています（株式分割の反映ずれ・訂正前の値などの疑い）。ただし、Yahoo側の純利益・株式数の方がずれていて、1株利益は正しい場合も多くあります",
+   "how": "IR BANK（irbank.net/3391/results）の最新期のEPSと、決算短信の1株当たり当期純利益を、Yahooの値と比べる"
+  }
+ ],
  "etf_top": null,
  "metric_scores": {
   "rev_cagr": 110.0,
@@ -92,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 21.281448221794598
  },
- "_generated_at": "2026-11-05T23:51:56"
+ "_generated_at": "2026-11-06T23:37:05"
 }

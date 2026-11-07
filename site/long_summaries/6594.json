@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 1673.0,
- "price_date": "2026-11-05",
- "mcap": 1920567607296,
+ "price": 1613.0,
+ "price_date": "2026-11-06",
+ "mcap": 1851688878080,
  "q_score": 52.7,
  "groups": {
   "業績": 47.96047116910606,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 72.0,
+ "bt_score": 73.1,
  "bt_cov": "中",
  "bt_components": {
   "ev_ebit_vs_sector": null,
-  "fcf_yield": 80.11556144204289,
+  "fcf_yield": 82.35172731593836,
   "per_cheap": null,
-  "pbr_cheap": 87.7
+  "pbr_cheap": 90.2
  },
  "ev_ebit": null,
- "fcf_yield": 4.508667108153217,
+ "fcf_yield": 4.676379548695377,
  "per_band_pos": null,
- "pbr_band_pos": 0.9842719631531218,
+ "pbr_band_pos": 0.991328500270861,
  "ev_ebit_vs_sector": null,
  "per_vs_sector": null,
- "pbr_vs_sector": 1.3415768333333333,
+ "pbr_vs_sector": 1.2934628888888888,
  "price_chg": {
-  "d": -3.4064665127020777,
-  "w": -7.210205213533005,
-  "m": -23.25688073394495,
-  "3m": -35.430335777692015,
-  "6m": -29.468802698145026,
-  "9m": -26.65497588776852,
-  "y": -35.15503875968993
+  "d": -3.5863717872086087,
+  "w": -13.512064343163544,
+  "m": -25.49653579676674,
+  "3m": -39.970227018980275,
+  "6m": -32.7075511055486,
+  "9m": -28.6283185840708,
+  "y": -38.24655436447168
  },
  "div_yield": 0.0,
- "implied_fcf_growth": 0.0912,
+ "implied_fcf_growth": 0.0862,
  "insight": {
   "flags": {
    "cutoff": [
@@ -65,6 +65,15 @@
    "shares_chg_pct": -0.1335207357287871
   }
  },
+ "data_notice": [
+  {
+   "tier": "check",
+   "k": "pbr",
+   "where": "PBR（Yahoo表示 2.33倍）",
+   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは97.58倍で、Yahoo表示と41.91倍ずれています。ただし、照合ではYahoo側のPBRが正しい場合が多くありました（株式数のデータのずれなど）",
+   "how": "IR BANK（irbank.net/6594/results）の1株純資産（BPS）で、株価÷BPSを計算して確認する"
+  }
+ ],
  "etf_top": null,
  "metric_scores": {
   "rev_cagr": 103.88141350731817,
@@ -94,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 26.47588691796009
  },
- "_generated_at": "2026-11-06T00:07:15"
+ "_generated_at": "2026-11-06T23:50:05"
 }

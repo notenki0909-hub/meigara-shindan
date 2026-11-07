@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 2302.5,
- "price_date": "2026-11-05",
- "mcap": 1596799582208,
+ "price": 2141.0,
+ "price_date": "2026-11-06",
+ "mcap": 1484798164992,
  "q_score": 101.3,
  "groups": {
   "業績": 96.37986202853317,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 84.2,
+ "bt_score": 84.7,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 102.50118113463864,
-  "fcf_yield": 104.20153438828122,
-  "per_cheap": 53.3,
-  "pbr_cheap": 76.6
+  "ev_ebit_vs_sector": 104.69269719971942,
+  "fcf_yield": 106.027106519362,
+  "per_cheap": 35.3,
+  "pbr_cheap": 92.9
  },
- "ev_ebit": 7.388224418187302,
- "fcf_yield": 7.260460316484367,
+ "ev_ebit": 6.898701315978793,
+ "fcf_yield": 7.808131955808596,
  "per_band_pos": null,
- "pbr_band_pos": 0.09161513376860209,
- "ev_ebit_vs_sector": 0.7624586602876473,
- "per_vs_sector": 1.2419120945945945,
- "pbr_vs_sector": 0.8350886222222222,
+ "pbr_band_pos": 0.4016427943823293,
+ "ev_ebit_vs_sector": 0.6857555980098203,
+ "per_vs_sector": 1.3545145945945944,
+ "pbr_vs_sector": 0.7765145555555555,
  "price_chg": {
-  "d": 9.071530080530543,
-  "w": 10.723731666265923,
-  "m": 5.257142857142849,
-  "3m": 3.552957049696426,
-  "6m": -0.10845986984815426,
-  "9m": -16.28794764588257,
-  "y": -10.303856641994546
+  "d": -7.014115092290984,
+  "w": 4.925263415829462,
+  "m": -3.165988240615103,
+  "3m": -0.09332711152589823,
+  "6m": -13.96423548322282,
+  "9m": -22.749413674905284,
+  "y": -17.41562198649952
  },
- "div_yield": 3.257328990228013,
- "implied_fcf_growth": 0.0261,
+ "div_yield": 3.503035964502569,
+ "implied_fcf_growth": 0.016,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -63,6 +63,15 @@
    "shares_chg_pct": -10.388372832243753
   }
  },
+ "data_notice": [
+  {
+   "tier": "high",
+   "k": "eps",
+   "where": "EPS（1株利益）の推移",
+   "why": "最新期の1株利益が、前の年と同じ値です（更新遅れの疑い）。EPSの成長率が、実際より低く（または高く）計算されている可能性があります",
+   "how": "IR BANK（irbank.net/7259/results）の最新期のEPSと、決算短信の1株当たり当期純利益を、Yahooの値と比べる"
+  }
+ ],
  "etf_top": null,
  "metric_scores": {
   "rev_cagr": 102.38182264592687,
@@ -92,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 38.69668348643637
  },
- "_generated_at": "2026-11-06T00:11:59"
+ "_generated_at": "2026-11-06T23:54:02"
 }

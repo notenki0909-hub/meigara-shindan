@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": true,
  "is_reit": false,
- "price": 6158.0,
- "price_date": "2026-11-05",
- "mcap": 2496488800256,
+ "price": 5750.0,
+ "price_date": "2026-11-06",
+ "mcap": 2331083014144,
  "q_score": 107.5,
  "groups": {
   "業績": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "低",
- "bt_score": 86.0,
+ "bt_score": 86.6,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": 107.1,
+  "per_cheap": 108.2,
   "pbr_cheap": 65.0
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": 0.9389956790241595,
+ "per_band_pos": 0.9833233042881522,
  "pbr_band_pos": 1.0,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 0.8089119161676648,
- "pbr_vs_sector": 2.7301424,
+ "per_vs_sector": 0.7794964371257486,
+ "pbr_vs_sector": 2.549256,
  "price_chg": {
-  "d": 3.200938495056138,
-  "w": 5.1212017753499595,
-  "m": -3.5249882500391627,
-  "3m": 12.515987575370001,
-  "6m": -4.0062353858144935,
-  "9m": -8.403986315632906,
-  "y": -27.55294117647059
+  "d": -6.62552776875609,
+  "w": -5.131166474179183,
+  "m": -12.227140894519916,
+  "3m": 8.408748114630459,
+  "6m": -8.802537668517052,
+  "9m": -16.40011631288165,
+  "y": -31.318681318681318
  },
  "div_yield": 0.0,
- "implied_fcf_growth": -0.061,
+ "implied_fcf_growth": -0.0711,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -60,6 +60,22 @@
    "shares_chg_pct": 2.634791398486458
   }
  },
+ "data_notice": [
+  {
+   "tier": "check",
+   "k": "per",
+   "where": "PER（Yahoo表示 13.0倍）",
+   "why": "直近4四半期の純利益（772.0億円）から求めたPERは30.2倍で、Yahoo表示と0.4倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
+   "how": "IR BANK（irbank.net/5838/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する"
+  },
+  {
+   "tier": "check",
+   "k": "pbr",
+   "where": "PBR（Yahoo表示 2.55倍）",
+   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは6.27倍で、Yahoo表示と2.46倍ずれています。ただし、照合ではYahoo側のPBRが正しい場合が多くありました（株式数のデータのずれなど）",
+   "how": "IR BANK（irbank.net/5838/results）の1株純資産（BPS）で、株価÷BPSを計算して確認する"
+  }
+ ],
  "etf_top": null,
  "metric_scores": {
   "rev_cagr": null,
@@ -89,5 +105,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-06T00:02:47"
+ "_generated_at": "2026-11-06T23:46:21"
 }

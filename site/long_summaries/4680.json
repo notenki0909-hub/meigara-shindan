@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 1312.5,
- "price_date": "2026-11-05",
- "mcap": 345020366848,
+ "price": 1210.0,
+ "price_date": "2026-11-06",
+ "mcap": 318075928576,
  "q_score": 76.8,
  "groups": {
   "業績": 68.39370318431233,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 61.3,
+ "bt_score": 60.8,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 108.58961657862251,
-  "per_cheap": 69.8,
-  "pbr_cheap": 46.8
+  "fcf_yield": 110.0,
+  "per_cheap": 59.1,
+  "pbr_cheap": 54.0
  },
- "ev_ebit": 53.92108807218588,
- "fcf_yield": 8.576884973586752,
- "per_band_pos": 0.19227685215753798,
- "pbr_band_pos": 0.3362337343663049,
- "ev_ebit_vs_sector": 3.3891318712876104,
- "per_vs_sector": 1.0732245698924732,
- "pbr_vs_sector": 2.681055333333333,
+ "ev_ebit": 50.88201314865779,
+ "fcf_yield": 9.303439003536349,
+ "per_band_pos": 0.05159850422163835,
+ "pbr_band_pos": 0.47955284200678094,
+ "ev_ebit_vs_sector": 3.1196819833634453,
+ "per_vs_sector": 1.1179543548387096,
+ "pbr_vs_sector": 2.4716778,
  "price_chg": {
-  "d": 4.166666666666674,
-  "w": 6.881107491856686,
-  "m": 5.210420841683372,
-  "3m": 7.935855263157898,
-  "6m": 48.82639343070998,
-  "9m": 17.871576111360564,
-  "y": 13.146551724137922
+  "d": -7.80952380952381,
+  "w": -1.944894651539708,
+  "m": -5.283757338551864,
+  "3m": 0.16556291390728006,
+  "6m": 41.52046783625731,
+  "9m": 8.422939068100366,
+  "y": 5.308964316797216
  },
- "div_yield": 1.3714285714285714,
- "implied_fcf_growth": 0.003,
+ "div_yield": 1.487603305785124,
+ "implied_fcf_growth": -0.0084,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -63,6 +63,22 @@
    "shares_chg_pct": -6.2697216847691255
   }
  },
+ "data_notice": [
+  {
+   "tier": "check",
+   "k": "eps",
+   "where": "EPS（1株利益）の推移",
+   "why": "最新期の1株利益が、純利益÷平均株式数と大きく食い違っています（株式分割の反映ずれ・訂正前の値などの疑い）。ただし、Yahoo側の純利益・株式数の方がずれていて、1株利益は正しい場合も多くあります",
+   "how": "IR BANK（irbank.net/4680/results）の最新期のEPSと、決算短信の1株当たり当期純利益を、Yahooの値と比べる"
+  },
+  {
+   "tier": "check",
+   "k": "per",
+   "where": "PER（Yahoo表示 20.8倍）",
+   "why": "直近4四半期の純利益（56.2億円）から求めたPERは56.6倍で、Yahoo表示と0.4倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
+   "how": "IR BANK（irbank.net/4680/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する"
+  }
+ ],
  "etf_top": null,
  "metric_scores": {
   "rev_cagr": 20.0,
@@ -92,5 +108,5 @@
   "fcf_positive": 1,
   "fcf_payout": 15.517707488510407
  },
- "_generated_at": "2026-11-05T23:57:37"
+ "_generated_at": "2026-11-06T23:42:00"
 }

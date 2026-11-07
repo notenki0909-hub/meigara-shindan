@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 7618.0,
- "price_date": "2026-11-05",
- "mcap": 520646557696,
+ "price": 6990.0,
+ "price_date": "2026-11-06",
+ "mcap": 477726343168,
  "q_score": 95.6,
  "groups": {
   "業績": 88.08540002631024,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 42.6,
+ "bt_score": 42.7,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 20.606130964154502,
-  "per_cheap": 109.6,
+  "fcf_yield": 20.660587393835684,
+  "per_cheap": 110.0,
   "pbr_cheap": 20.0
  },
- "ev_ebit": 1710.1657410566218,
- "fcf_yield": 0.04545982231158779,
+ "ev_ebit": 1568.9399436942272,
+ "fcf_yield": 0.049544054537676185,
  "per_band_pos": null,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 126.67894378197198,
- "per_vs_sector": 0.7100355625,
- "pbr_vs_sector": 2.163095777777778,
+ "ev_ebit_vs_sector": 119.5838371718161,
+ "per_vs_sector": 0.6839980000000001,
+ "pbr_vs_sector": 1.984778111111111,
  "price_chg": {
-  "d": -3.6671724835609543,
-  "w": -6.124460874922977,
-  "m": -12.456906458285456,
-  "3m": -26.2179176755448,
-  "6m": -40.57722308892355,
-  "9m": -45.468861846814605,
-  "y": -9.63226571767497
+  "d": -8.243633499606196,
+  "w": -13.810110974106038,
+  "m": -20.87389630971247,
+  "3m": -30.343796711509718,
+  "6m": -45.855925639039505,
+  "9m": -50.7399577167019,
+  "y": -20.47781569965871
  },
- "div_yield": 2.6253609871357315,
- "implied_fcf_growth": 0.7973,
+ "div_yield": 2.8612303290414878,
+ "implied_fcf_growth": 0.7815,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -63,6 +63,22 @@
    "shares_chg_pct": 21.23588965761931
   }
  },
+ "data_notice": [
+  {
+   "tier": "check",
+   "k": "per",
+   "where": "PER（Yahoo表示 7.7倍）",
+   "why": "直近4四半期の純利益（4.4億円）から求めたPERは1086.6倍で、Yahoo表示と0.0倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
+   "how": "IR BANK（irbank.net/6269/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する"
+  },
+  {
+   "tier": "check",
+   "k": "pbr",
+   "where": "PBR（Yahoo表示 1.79倍）",
+   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは328.83倍で、Yahoo表示と184.08倍ずれています。ただし、照合ではYahoo側のPBRが正しい場合が多くありました（株式数のデータのずれなど）",
+   "how": "IR BANK（irbank.net/6269/results）の1株純資産（BPS）で、株価÷BPSを計算して確認する"
+  }
+ ],
  "etf_top": null,
  "metric_scores": {
   "rev_cagr": 110.0,
@@ -92,5 +108,5 @@
   "fcf_positive": 1,
   "fcf_payout": 21.43228341466506
  },
- "_generated_at": "2026-11-06T00:04:15"
+ "_generated_at": "2026-11-06T23:47:34"
 }

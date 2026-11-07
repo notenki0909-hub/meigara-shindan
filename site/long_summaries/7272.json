@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 1840.0,
- "price_date": "2026-11-05",
- "mcap": 1785938182144,
+ "price": 1668.0,
+ "price_date": "2026-11-06",
+ "mcap": 1618991775744,
  "q_score": 78.4,
  "groups": {
   "業績": 76.00099170378695,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 52.4,
+ "bt_score": 54.7,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 38.9174147633567,
+  "fcf_yield": 40.86813153686802,
   "per_cheap": 110.0,
-  "pbr_cheap": 40.7
+  "pbr_cheap": 48.1
  },
- "ev_ebit": 20.90716708782128,
- "fcf_yield": 1.4188061072517526,
+ "ev_ebit": 19.47159997372155,
+ "fcf_yield": 1.5651098652651019,
  "per_band_pos": null,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 2.157602382644095,
- "per_vs_sector": 0.5566594594594594,
- "pbr_vs_sector": 1.585845,
+ "ev_ebit_vs_sector": 1.9355467170697365,
+ "per_vs_sector": 0.556666554054054,
+ "pbr_vs_sector": 1.437603,
  "price_chg": {
-  "d": 6.235565819861422,
-  "w": 5.747126436781613,
-  "m": 1.939058171745156,
-  "3m": 37.00670141474311,
-  "6m": 68.26703246456334,
-  "9m": 57.332193244976494,
-  "y": 65.6165616561656
+  "d": -9.347826086956523,
+  "w": -3.833957912943209,
+  "m": -6.815642458100557,
+  "3m": 25.178236397748588,
+  "6m": 50.813743218806515,
+  "9m": 44.91746307558644,
+  "y": 45.867949278530816
  },
- "div_yield": 2.717391304347826,
- "implied_fcf_growth": 0.2496,
+ "div_yield": 2.997601918465228,
+ "implied_fcf_growth": 0.236,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -63,6 +63,15 @@
    "shares_chg_pct": -4.362833581856584
   }
  },
+ "data_notice": [
+  {
+   "tier": "check",
+   "k": "per",
+   "where": "PER（Yahoo表示 8.2倍）",
+   "why": "直近4四半期の純利益（769.0億円）から求めたPERは21.1倍で、Yahoo表示と0.4倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
+   "how": "IR BANK（irbank.net/7272/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する"
+  }
+ ],
  "etf_top": null,
  "metric_scores": {
   "rev_cagr": 101.18714437149713,
@@ -92,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 192.13070760487784
  },
- "_generated_at": "2026-11-06T00:12:25"
+ "_generated_at": "2026-11-06T23:54:24"
 }

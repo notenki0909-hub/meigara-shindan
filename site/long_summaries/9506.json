@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 1242.5,
+ "price": 1228.5,
  "price_date": "2026-11-06",
- "mcap": 622238367744,
+ "mcap": 615227260928,
  "q_score": 77.8,
  "groups": {
   "業績": 65.91911570266298,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 77.6,
+ "bt_score": 77.5,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 72.05970428798777,
+  "ev_ebit_vs_sector": 70.99686383415734,
   "fcf_yield": 110.0,
   "per_cheap": 20.0,
-  "pbr_cheap": 108.5
+  "pbr_cheap": 108.9
  },
- "ev_ebit": 19.53642493651991,
- "fcf_yield": 59.48781354355327,
+ "ev_ebit": 19.492709616026836,
+ "fcf_yield": 60.1657344379802,
  "per_band_pos": null,
- "pbr_band_pos": 0.976405709460324,
- "ev_ebit_vs_sector": 1.094477587480107,
- "per_vs_sector": 2.2739751999999998,
- "pbr_vs_sector": 0.6925523749999999,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 1.1037774414511232,
+ "per_vs_sector": 2.4111874,
+ "pbr_vs_sector": 0.6847489625,
  "price_chg": {
-  "d": -3.2320872274143264,
-  "w": -6.893967778194076,
-  "m": -0.6794564348521215,
-  "3m": 4.3679126417471625,
-  "6m": 14.147909967845651,
-  "9m": 11.535008976660688,
-  "y": 12.903225806451623
+  "d": -4.322429906542058,
+  "w": -7.943049831397531,
+  "m": -1.7985611510791366,
+  "3m": 3.191936161276776,
+  "6m": 12.86173633440515,
+  "9m": 10.278276481149007,
+  "y": 11.631076783280324
  },
- "div_yield": 3.5412474849094564,
- "implied_fcf_growth": -0.3248,
+ "div_yield": 3.5816035816035816,
+ "implied_fcf_growth": -0.3274,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -62,6 +62,15 @@
    "shares_chg_pct": 0.029614077001927086
   }
  },
+ "data_notice": [
+  {
+   "tier": "check",
+   "k": "per",
+   "where": "PER（Yahoo表示 24.1倍）",
+   "why": "直近4四半期の純利益（833.8億円）から求めたPERは7.4倍で、Yahoo表示と3.3倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
+   "how": "IR BANK（irbank.net/9506/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する"
+  }
+ ],
  "etf_top": null,
  "metric_scores": {
   "rev_cagr": 52.89291478920089,
@@ -91,5 +100,5 @@
   "fcf_positive": 1,
   "fcf_payout": 5.403397486465166
  },
- "_generated_at": "2026-11-06T00:25:46"
+ "_generated_at": "2026-11-07T00:05:50"
 }
