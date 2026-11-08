@@ -23,6 +23,7 @@ import os
 import shutil
 import statistics as st
 
+import analyze
 import analyze_us
 import div_insight
 import div_universe
@@ -211,7 +212,7 @@ def main():
             "streak_up": s.get("streak_up"), "streak_flat": s.get("streak_flat"),
             "next_earn": s.get("next_earn"), "is_simple": s.get("is_simple"),
             "price": s.get("price"), "price_date": s.get("price_date"),
-            "asof": s.get("_generated_at") or s.get("asof"),
+            "asof": s.get("_generated_at") or s.get("asof"), "fetched": s.get("data_fetched_at"),
             "payout_ni": s.get("payout_ni"), "roe": s.get("roe"), "mcap": s.get("mcap"),
             "roa": s.get("roa"), "flags": s.get("insight_flags") or [],
             "kind": s.get("kind") or ("fin" if (s.get("is_simple") or s.get("is_reit")) else "gen"),
@@ -300,6 +301,9 @@ def main():
     if review_out:
         out["review"] = review_out      # 無いときはキー自体を出さない（従来と同じ出力）
 
+    out["data_asof"] = analyze.data_asof_info(rows)       # 分析に使ったYahooデータの取得時刻のまとめ（無ければ None）
+    if out["data_asof"] is None:
+        del out["data_asof"]
     new_html = render_index(out)
     gen = out["generated_at"]
 
@@ -1029,7 +1033,7 @@ body.wlon{{padding-bottom:60px}}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>米国株 配当株 軍分けランキング</h1><span class="pagenav"><a href="terms.html">利用規約・免責事項</a><a href="guide.html">使い方・見方</a></span></div>
 {THEME_BAR}
-<div class="sub">生成 {gen}　｜　スクリーン：{scr}</div>
+<div class="sub">生成 {gen}{analyze.data_asof_html(out.get("data_asof"))}　｜　スクリーン：{scr}</div>
 <div class="sub">表の見出し（軍・業種・終値・選定・買い時・利回り・増配・ROE・ROA・カバレッジ・業種級）をクリックすると説明が出ます。各行の☆にチェックを入れて下部の「ウォッチリストへ追加」を、💼にチェックを入れて「ポートフォリオに追加」を押すと、それぞれ選んだ銘柄がウォッチリスト・保有記録の入力画面に追加されます（☆と💼は別々に選べます。チェックを入れただけでは追加されません）。</div>
 <div class="summary">
   <button type="button" class="sumbtn" data-tier=""><b>{c['total']}</b>銘柄</button>

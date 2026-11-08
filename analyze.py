@@ -156,7 +156,8 @@ def fetch_yf(code, suffix=".T"):
 def _fetch_yf_uncached(code, suffix=".T"):
     tkr = f"{code}{suffix}"
     tk = yf.Ticker(tkr)
-    d = {"code": code, "ticker": tkr}
+    d = {"code": code, "ticker": tkr,
+         "fetched_at": dt.datetime.now().isoformat(timespec="seconds")}   # このデータをYahooから取得した時刻（ランキングの『データ取得』表示用）
 
     try:
         d["info"] = tk.info or {}
@@ -1274,6 +1275,53 @@ def payout_split_factor(yd, info, is_years, isr, fye_month):
     if not (0.8 <= (so / avg) / f <= 1.25):
         return 1.0, None
     return f, "・".join(desc)
+
+
+def data_asof_info(rows, stale_hours=20):
+    """ランキング用：各銘柄の分析に使ったYahooデータの取得時刻（summaryの data_fetched_at）をまとめる。
+    rows: {"fetched","price_date","asof"（そのサマリの生成時刻）} を持つ辞書のリスト。取得時刻が1件も無ければ None。
+    n_stale＝『その銘柄を分析した時点で、データの取得から stale_hours 時間以上たっていた』銘柄の数
+    （取得が失敗した夜に、前日に取得した保存結果で更新した銘柄。ランキングの生成時刻とは別に、データの鮮度を見せるため）。"""
+    def p(x):
+        try:
+            return dt.datetime.fromisoformat(str(x))
+        except Exception:
+            return None
+    known = [(r, p(r.get("fetched"))) for r in rows if r.get("fetched")]
+    known = [(r, t) for r, t in known if t is not None]
+    if not known:
+        return None
+    fs = sorted(t for _r, t in known)
+    stale = []
+    for r, t in known:
+        g = p(r.get("asof"))
+        if g is not None and (g - t).total_seconds() > stale_hours * 3600:
+            stale.append(t)
+    pds = [r.get("price_date") for r in rows if r.get("price_date")]
+    mode = max(set(pds), key=pds.count) if pds else None
+    return {"fetched_min": fs[0].isoformat(timespec="seconds"), "fetched_max": fs[-1].isoformat(timespec="seconds"),
+            "n_known": len(known), "n_unknown": len(rows) - len(known), "n_stale": len(stale),
+            "stale_oldest": min(stale).isoformat(timespec="seconds") if stale else None,
+            "price_date_mode": mode, "price_date_max": max(pds) if pds else None}
+
+
+def data_asof_html(d):
+    """ランキングの『生成 …』の行に添える、データの取得時刻の表示（無ければ空）。"""
+    if not d:
+        return ""
+    def mm(s):
+        return str(s)[:16].replace("T", " ")
+    rng = mm(d["fetched_min"]) if mm(d["fetched_min"]) == mm(d["fetched_max"]) else f'{mm(d["fetched_min"])}〜{mm(d["fetched_max"])}'
+    tip = ("分析に使ったYahoo Financeのデータを取得した時刻（銘柄ごとに異なるため範囲で表示）。生成時刻は、ランキングを作り直した時刻です。"
+           + (f'取得時刻が未記録の銘柄が{d["n_unknown"]}件あります。' if d.get("n_unknown") else ""))
+    out = f'　｜　<span title="{html.escape(tip)}">データ取得 {rng}'
+    if d.get("price_date_mode"):
+        out += f'（株価は {d["price_date_mode"]} 終値）'
+    out += "</span>"
+    if d.get("n_stale"):
+        out += (f'　<span style="color:#d9534f;font-weight:600" title="取得に失敗した夜などに、前日以前に取得したデータで更新した銘柄です">'
+                f'⚠ 取得から20時間以上たったデータで更新した銘柄 {d["n_stale"]}件（最古の取得 {mm(d["stale_oldest"])}）</span>')
+    return out
 
 
 def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb_10y, div_policies,
@@ -3839,7 +3887,7 @@ svg.trend{{width:100%;height:auto;border:1px solid var(--line);border-radius:8px
 <div class="sub">東証33業種：<b>{meta['jp_sector']}</b>
 （yfinance分類：{meta['industry'] or '―'} / {meta['sector'] or '―'}　→ {meta['sector_src']}）
 {'　｜　<b>簡易判定モード</b>（財務・CF・業績は構造的に別基準のため参考表示）' if meta['is_simple'] else ''}<br>
-現在株価 <b>{fmt_num(meta['price'],1)}円</b>{f"（{meta['price_date']} 終値）" if meta.get('price_date') else ''}　｜　時価総額 {fmt_yen(meta['mcap'])}　｜　レポート作成 {meta['today']}
+現在株価 <b>{fmt_num(meta['price'],1)}円</b>{f"（{meta['price_date']} 終値）" if meta.get('price_date') else ''}　｜　時価総額 {fmt_yen(meta['mcap'])}　｜　レポート作成 {meta['today']}{(' （データ取得 ' + meta['fetched'][:16].replace('T', ' ') + '）') if meta.get('fetched') else ''}
 {('　｜　取得単価 ' + fmt_num(meta['cost'],0) + '円 → YOC <b>' + fmt_pct(meta['yoc'],2) + '</b>') if meta.get('yoc') else ''}
 </div>
 
@@ -4178,6 +4226,7 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
         "sector_src": sector_src, "price": yd["price"], "mcap": info.get("marketCap"),
         "price_date": pdate.isoformat() if pdate else None, "ohlc": yd.get("ohlc"),
         "today": TODAY.isoformat(), "is_simple": is_simple, "cost": cost, "yoc": yoc,
+        "fetched": yd.get("fetched_at"),
     }
 
     log("[3/3] レンダリング")
@@ -4203,7 +4252,7 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
     tc_cov, tlab_cov = cov_label(coverage["買い時"])
     ea = ctx.get("earn") or {}
     res["summary"] = {
-        "code": code, "name": name, "asof": TODAY.isoformat(),
+        "code": code, "name": name, "asof": TODAY.isoformat(), "data_fetched_at": yd.get("fetched_at"),
         "jp_sector": jp_sector, "industry": industry, "is_simple": is_simple, "is_reit": is_reit,
         **({"excl_domains": list(DOMAIN_EXCLUDE_JP[jp_sector])} if DOMAIN_EXCLUDE_JP.get(jp_sector) else {}),
         **({"sel_dev": ctx["sel_dev"]} if ctx.get("sel_dev") else {}),    # 業種内偏差値（表示専用。出せるときだけ）   # 採点から外した分野（該当業種だけ。他のsummaryは従来と同じ）

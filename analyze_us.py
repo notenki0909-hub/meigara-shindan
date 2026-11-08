@@ -1676,7 +1676,7 @@ def render_html_us(meta, detail, groups, sel_score, tim_score, vd, M, ctx, warni
 {analyze.THEME_BAR}
 {f'<div class="meta2">前回の値動き（{meta["price_date"] or "―"}）　終値 <b>${fmt_num(meta["ohlc"]["close"],2)}</b>　／　高値 ${fmt_num(meta["ohlc"]["high"],2)}　／　安値 ${fmt_num(meta["ohlc"]["low"],2)}　／　始値 ${fmt_num(meta["ohlc"]["open"],2)}</div>' if meta.get("ohlc") else ""}
 <div class="sub">GICS業種：<b>{gics_jp(meta['gics_sector'])}</b>　細分類：<b title="{analyze.html.escape(meta['gics_sector'])} ／ yfinance: {analyze.html.escape(meta['industry'] or '―')}">{analyze.html.escape(_industry_label(meta['industry']))}</b>{simple_note}<br>
-株価 {price_s}{pdate_s} &nbsp;｜&nbsp; 時価総額 {mcap_s} &nbsp;｜&nbsp; 生成 {meta['today']}</div>
+株価 {price_s}{pdate_s} &nbsp;｜&nbsp; 時価総額 {mcap_s} &nbsp;｜&nbsp; 生成 {meta['today']}{(' （データ取得 ' + meta['fetched'][:16].replace('T', ' ') + '）') if meta.get('fetched') else ''}</div>
 
 {analyze.render_review_notice(rv_items)}
 {render_company_html_us(ctx.get('company'))}
@@ -1923,7 +1923,7 @@ def generate_us(ticker, cfg=None, log=None):
         "code": ticker, "name": name, "gics_sector": gics, "industry": industry, "sector": ysector,
         "price": yd["price"], "mcap": info.get("marketCap"), "ohlc": yd.get("ohlc"),
         "price_date": pdate.isoformat() if pdate else None,
-        "today": TODAY.isoformat(), "is_simple": is_simple,
+        "today": TODAY.isoformat(), "is_simple": is_simple, "fetched": yd.get("fetched_at"),
     }
 
     log("[3/3] rendering")
@@ -1945,7 +1945,7 @@ def generate_us(ticker, cfg=None, log=None):
     _, lab_tim = cov_label_us(coverage["買い時"])
     ea = ctx.get("earn") or {}
     res["summary"] = {
-        "code": ticker, "name": name, "asof": TODAY.isoformat(),
+        "code": ticker, "name": name, "asof": TODAY.isoformat(), "data_fetched_at": yd.get("fetched_at"),
         "gics_sector": gics, "industry": industry, "is_simple": is_simple, "is_reit": is_reit,
         "price": yd["price"], "price_date": meta["price_date"], "mcap": info.get("marketCap"),
         "sel_score": round(sel_score, 1) if is_num(sel_score) else None,
