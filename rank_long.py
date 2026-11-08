@@ -842,7 +842,8 @@ def render(out, m):
         if not dn:
             return ""
         high = [d for d in dn if d.get("tier") == "high"]
-        lab, cls = ("不備疑い", "hi") if high else ("要確認", "chk")
+        conf = [d for d in dn if d.get("tier") == "confirmed"]
+        lab, cls = ("不備疑い", "hi") if high else ("誤り確認済", "cf") if conf else ("要確認", "chk")
         tip = html.escape("／".join(d.get("where", "") for d in dn)
                           + "（Yahooの財務データの確認の目安。採点しない・参考。詳細は個別レポートと、上部の「データの確認が必要な銘柄」）", quote=True)
         return f' <span class="dnmark {cls}" title="{tip}">{lab}</span>'
@@ -949,25 +950,43 @@ def render(out, m):
             return (f'<a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK={c}&amp;type=10-K" '
                     'target="_blank" rel="noopener">SEC EDGAR</a>')
         trs_dn = []
-        n_hi = n_chk = 0
-        for s_ in sorted(dn_rows, key=lambda r: (0 if any(d.get("tier") == "high" for d in r["data_notice"]) else 1, r["code"])):
-            hi_ = any(d.get("tier") == "high" for d in s_["data_notice"])
-            n_hi += 1 if hi_ else 0
-            n_chk += 0 if hi_ else 1
-            body = "<br>".join(
-                f'<b>{html.escape(d.get("where", ""))}</b>：{html.escape(d.get("why", ""))}' for d in s_["data_notice"])
-            badge_ = ('<span class="dnmark hi">不備疑い</span>' if hi_ else '<span class="dnmark chk">要確認</span>')
+        n_hi = n_cf = n_chk = 0
+
+        def _dn_rank(r):
+            tt = [d.get("tier") for d in r["data_notice"]]
+            return 0 if "high" in tt else 1 if "confirmed" in tt else 2
+
+        def _dn_body(d):
+            cf = d.get("confirm")
+            w = f'<b>{html.escape(d.get("where", ""))}</b>：'
+            if not cf:
+                return w + html.escape(d.get("why", ""))
+            if cf.get("status") == "error":
+                return w + html.escape(cf.get("note", "")) + f'<span class="dnconf">（確認済み {html.escape(cf.get("date", ""))}）</span>'
+            return (w + html.escape(d.get("why", "")) + '<br><span class="dnconf">→ 確認したが判定できず（'
+                    + html.escape(cf.get("date", "")) + '）：' + html.escape(cf.get("note", "")) + '</span>')
+        for s_ in sorted(dn_rows, key=lambda r: (_dn_rank(r), r["code"])):
+            rk_ = _dn_rank(s_)
+            n_hi += 1 if rk_ == 0 else 0
+            n_cf += 1 if rk_ == 1 else 0
+            n_chk += 1 if rk_ == 2 else 0
+            body = "<br>".join(_dn_body(d) for d in s_["data_notice"])
+            badge_ = ('<span class="dnmark hi">不備疑い</span>' if rk_ == 0 else
+                      '<span class="dnmark cf">誤り確認済</span>' if rk_ == 1 else '<span class="dnmark chk">要確認</span>')
             trs_dn.append(
                 f'<tr><td>{badge_}</td>'
                 f'<td>{_code_cell(s_["code"], m["report_dirs"])}</td><td>{html.escape(str(s_["name"]))}</td>'
                 f'<td>{body}</td><td>{_dn_link(s_["code"])}</td></tr>')
         dn_review_html = (
-            f'<details id="dnreview"><summary>データの確認が必要な銘柄（不備の疑い {n_hi}銘柄／要確認 {n_chk}銘柄）</summary>'
+            f'<details id="dnreview"><summary>データの確認が必要な銘柄（不備の疑い {n_hi}銘柄／要確認 {n_chk}銘柄'
+            + (f'／誤り確認済み {n_cf}銘柄' if n_cf else '') + '）</summary>'
             '<p>Yahoo Financeの財務データ（1株利益・PER・PBR）の不備を見つける自動チェックの結果です。<b>採点・順位・軍には使っていません</b>（表示のみ）。'
             '「不備疑い」は確度が高いもの（最新期の1株利益が前の年と同じ値＝更新遅れ）、「要確認」は決算書から求め直した値とのズレで、'
-            'Yahoo側が正しい場合も多くあります（日本株の照合では、半数近くが誤判定でした）。気になる銘柄は、'
+            'Yahoo側が正しい場合も多くあります（日本株の照合では、半数近くが誤判定でした）。'
             + ('IR BANK・決算短信' if out["market"] == "jp" else 'SEC EDGAR（10-K）')
-            + 'で確かめてください。確認して誤りだったときも、点は自動では直りません。</p>'
+            + 'で手作業で確認した結果は反映しています：Yahooが正しいと確認できたものはこの欄から外し、Yahooの誤りを確認できたものは「誤り確認済」と表示します'
+              '（判定できなかったものは「要確認」のまま、確認結果を添えています）。まだ確認していない銘柄は、ご自身でも確かめてください。'
+              '確認して誤りだったときも、点は自動では直りません。</p>'
             '<div style="overflow-x:auto"><table><thead><tr><th>区分</th><th>コード</th><th>銘柄名</th><th>内容</th><th>確認先</th></tr></thead><tbody>'
             + "".join(trs_dn) + '</tbody></table></div></details>')
 
@@ -1168,6 +1187,8 @@ h2{{font-size:15px;margin:26px 0 6px;border-bottom:2px solid var(--line);padding
 .dnmark{{font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;vertical-align:middle;cursor:help;border:1px solid var(--line)}}
 .dnmark.hi{{background:color-mix(in srgb,var(--mid,#d29922) 22%,transparent);color:var(--mid,#d29922);border-color:var(--mid,#d29922)}}
 .dnmark.chk{{background:color-mix(in srgb,var(--fg) 8%,transparent);color:var(--muted)}}
+.dnmark.cf{{background:color-mix(in srgb,#e5534b 18%,transparent);color:#e5534b;border-color:#e5534b}}
+.dnconf{{color:var(--muted)}}
 #dnreview{{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:12px 0}}
 #dnreview>summary{{cursor:pointer;font-weight:700;font-size:13.5px}}
 #dnreview p{{font-size:12px;margin:8px 0;color:var(--muted)}}

@@ -559,6 +559,29 @@ def _data_notices(yd, market, code):
                                         "how": f"IR BANK（irbank.net/{code}/results）の1株純資産（BPS）で、株価÷BPSを計算して確認する"})
             except Exception:
                 pass
+    return _apply_data_check(out, market, code)
+
+
+def _apply_data_check(notices, market, code):
+    """手作業の確認結果（data_check_long.json）を反映する。表示専用で、採点には影響しない。
+    ok（Yahooが正しい）＝その検出を外す／error（Yahooの誤りを確認）＝tier を confirmed にして確認結果を添える／
+    unclear（判定できず）＝tier はそのまま、確認結果を添える。"""
+    cfg = (LC.load_data_check().get(market) or {}).get(str(code)) or {}
+    if not cfg:
+        return notices
+    out = []
+    for d in notices:
+        c = cfg.get(d.get("k"))
+        if not (isinstance(c, dict) and c.get("status") in ("ok", "error", "unclear")):
+            out.append(d)
+            continue
+        if c["status"] == "ok":
+            continue
+        d2 = dict(d)
+        d2["confirm"] = {"status": c["status"], "note": c.get("note", ""), "date": c.get("date", "")}
+        if c["status"] == "error":
+            d2["tier"] = "confirmed"
+        out.append(d2)
     return out
 
 
@@ -1505,15 +1528,23 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
                  '・決算短信（会社のIRページ／東証TDnet）' if market == "jp" else
                  f'<a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK={esc(str(code_))}&amp;type=10-K" '
                  'target="_blank" rel="noopener">SEC EDGAR（10-K）</a>')
+        def _dn_li(d):
+            cf = d.get("confirm")
+            if not cf:
+                return (f'<li><b>{esc(d["where"])}</b>：{esc(d["why"])}<br>'
+                        f'<span class="dnhow">確認の方法：{esc(d["how"])}</span></li>')
+            lab = "確認結果（Yahooの誤りを確認）" if cf.get("status") == "error" else "確認結果（判定できず）"
+            return (f'<li><b>{esc(d["where"])}</b>：{esc(d["why"])}<br>'
+                    f'<span class="dnhow">{lab}（{esc(cf.get("date", ""))}）：{esc(cf.get("note", ""))}</span></li>')
         for tier, title, cls in (
                 ("high", "データに不備の疑い（確度が高い）", "warn"),
+                ("confirmed", "Yahooのデータの誤りを確認済み（" + ("IR BANK・決算短信" if market == "jp" else "SECの10-K") + "で確認）", "warn"),
                 ("check", "データの確認をおすすめする項目（Yahooの値とのズレ。Yahoo側が正しい場合も多い）", "dnote")):
             its = [d for d in dn if d.get("tier") == tier]
             if not its:
                 continue
             dn_html += (f'<div class="{cls}"><b>{title}</b><ul>'
-                        + "".join(f'<li><b>{esc(d["where"])}</b>：{esc(d["why"])}<br>'
-                                  f'<span class="dnhow">確認の方法：{esc(d["how"])}</span></li>' for d in its)
+                        + "".join(_dn_li(d) for d in its)
                         + f'</ul><div class="dnfoot">確認先：{links}。'
                           '採点は、Yahooの値をそのまま使っています（確認して誤りだったときも、点は自動では直りません。表示のみ）。</div></div>')
 

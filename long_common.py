@@ -243,6 +243,23 @@ LEASE_Q_KEY = "リース・信販品質"
 LEASE_W = {"業績": 0.28, "財務": 0.27, LEASE_Q_KEY: 0.15}
 
 
+_DC_CACHE = None
+
+
+def load_data_check():
+    """data_check_long.json（データの確認が必要な銘柄を、IR BANK・決算短信／SECで手作業で確認した結果。表示専用）。
+    返り値: {"jp": {コード: {eps|per|pbr: {status, note, date}}}, "us": {...}}。ファイルが無い・壊れていれば空。"""
+    global _DC_CACHE
+    if _DC_CACHE is None:
+        try:
+            with open(os.path.join(HERE, "data_check_long.json"), encoding="utf-8") as f:
+                d = json.load(f)
+            _DC_CACHE = {"jp": d.get("jp") or {}, "us": d.get("us") or {}}
+        except Exception:
+            _DC_CACHE = {"jp": {}, "us": {}}
+    return _DC_CACHE
+
+
 def load_lease_cfg():
     """lease_quality_long.json（リース・信販向けの専用品質スコア。配当側の校正値のコピー）。"""
     global _LEASE_CACHE
