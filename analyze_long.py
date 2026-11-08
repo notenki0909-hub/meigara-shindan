@@ -567,6 +567,7 @@ def _apply_data_fix(yd, market, code):
     """確認してYahooの誤りが分かった値を、IR BANK・SECの値に置き換えた取得データを返す（採点の入口で使う）。
     元の yd は変えない。data_check_long.json の status=error かつ fix のある項目だけが対象。
       eps ：fix.eps（新しい年が先頭。fy, fy-1, … の年に対応）で「Basic EPS」を、その年の欄だけ置き換える（無い年はYahooのまま）。fix.eps_diluted があれば「Diluted EPS」はそちら
+      eps_div：Yahooの1株利益が分割前のまま残っているとき、全年を factor で割る（expect＝Yahooの最新期の値。違えばYahooが直したとみて適用しない）
       pbr ：info の priceToBook を、その日のYahooの株価 ÷ fix.bvps（分割後の1株純資産）で求め直す
       fy：置き換えの基準になる決算期。Yahooの最新期（is_years の先頭）がこの年のときだけ置き換える
           （新しい決算が出て最新期が進んだら、古い値で新しい期を上書きしないよう、自動で止まる）
@@ -590,7 +591,17 @@ def _apply_data_fix(yd, market, code):
         fy = fx.get("fy")
         if fy is None or not years or years[0] != fy:
             continue                                   # Yahooの最新期が、確認した決算期と違う＝置き換えない
-        if k == "eps" and fx.get("eps"):
+        if k == "eps" and fx.get("eps_div"):
+            f, exp = fx["eps_div"].get("factor"), fx["eps_div"].get("expect")
+            lab0 = next((lb for lb in ("Basic EPS", "Diluted EPS") if isr.get(lb) is not None and len(isr[lb]) == len(years)), None)
+            e0 = isr[lab0][0] if lab0 else None
+            if f and exp and LC.is_num(e0) and abs(e0 / exp - 1) < 0.01:
+                for lab in ("Basic EPS", "Diluted EPS"):
+                    cur = isr.get(lab)
+                    if cur is not None and len(cur) == len(years):
+                        isr[lab] = [(x / f if LC.is_num(x) else x) for x in cur]
+                applied[k] = f"1株利益（全年）を分割比{f:g}で割って、分割後の基準にそろえて採点"
+        elif k == "eps" and fx.get("eps"):
             done = False
             for lab, vals in (("Basic EPS", fx["eps"]), ("Diluted EPS", fx.get("eps_diluted") or fx["eps"])):
                 cur = isr.get(lab)
@@ -627,6 +638,7 @@ def _apply_data_check(notices, market, code, applied=None):
     if not cfg:
         return notices
     out = []
+    seen_k = set()
     for d in notices:
         c = cfg.get(d.get("k"))
         if not (isinstance(c, dict) and c.get("status") in ("ok", "error", "unclear")):
@@ -634,6 +646,7 @@ def _apply_data_check(notices, market, code, applied=None):
             continue
         if c["status"] == "ok":
             continue
+        seen_k.add(d.get("k"))
         d2 = dict(d)
         d2["confirm"] = {"status": c["status"], "note": c.get("note", ""), "date": c.get("date", "")}
         if c["status"] == "error":
@@ -641,6 +654,15 @@ def _apply_data_check(notices, market, code, applied=None):
             if applied and applied.get(d.get("k")):
                 d2["confirm"]["replaced"] = applied[d["k"]]
         out.append(d2)
+    # 自動チェックでは検出されなかったが、手作業の確認で誤りが分かって置き換えた項目も、確認結果として載せる
+    wh = {"eps": "EPS（1株利益）の推移", "per": "PER", "pbr": "PBR"}
+    for k, txt in (applied or {}).items():
+        c = cfg.get(k)
+        if k in seen_k or not isinstance(c, dict) or c.get("status") != "error":
+            continue
+        out.append({"tier": "confirmed", "k": k, "where": wh.get(k, k),
+                    "why": "自動チェックには引っかかりませんでしたが、手作業の確認でYahooの値の誤りが分かりました",
+                    "how": "", "confirm": {"status": "error", "note": c.get("note", ""), "date": c.get("date", ""), "replaced": txt}})
     return out
 
 
