@@ -19,6 +19,9 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     timeout-minutes: 180
+    env:
+      # Yahoo取得結果の共有キャッシュ（10年保有側の nightly-long が同じ銘柄を再取得しないため。yf_cache.py）
+      YF_CACHE_DIR: ${{ github.workspace }}/.yf_cache
     steps:
       - uses: actions/checkout@v4
 
@@ -32,6 +35,12 @@ jobs:
       - name: バッチ診断（古い銘柄のみ再取得）
         run: python batch.py --codes universe.json --with-retired --with-kouza --only-stale --hours 20 --sleep 2.0
 
+      - name: 取得結果の共有キャッシュを保存（10年保有側が再利用する）
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .yf_cache
+          key: yf-jp-${{ github.run_id }}
       - name: ランキング再生成
         run: python rank.py
 

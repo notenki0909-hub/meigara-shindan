@@ -147,7 +147,13 @@ def row(rows, *labels):
 
 
 def fetch_yf(code, suffix=".T"):
-    """suffix='.T' は東証。米国株版（analyze_us）は suffix='' で呼ぶ。"""
+    """suffix='.T' は東証。米国株版（analyze_us）は suffix='' で呼ぶ。
+    環境変数 YF_CACHE_DIR を設定したときだけ、取得結果を共有キャッシュ（yf_cache.py）経由にする（未設定なら従来どおり毎回取得）。"""
+    import yf_cache
+    return yf_cache.cached_fetch(_fetch_yf_uncached, code, suffix)
+
+
+def _fetch_yf_uncached(code, suffix=".T"):
     tkr = f"{code}{suffix}"
     tk = yf.Ticker(tkr)
     d = {"code": code, "ticker": tkr}
