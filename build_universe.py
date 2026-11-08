@@ -63,6 +63,13 @@ def normalize_code(raw):
     return s
 
 
+def is_class_share_code(raw):
+    """JPX の『コード』が5桁で末尾が0以外のものは、優先株・社債型種類株式・出資証券などの別銘柄（例: 25935＝伊藤園第１種優先株式）。
+    4桁に切り詰めると普通株と同じコードになって名前が上書き・重複するので、母集団からは除く（普通株は4桁、または末尾0の5桁）。"""
+    s = str(raw).strip()
+    return s.isdigit() and len(s) == 5 and not s.endswith("0")
+
+
 def read_jpx(path):
     import pandas as pd
     ext = os.path.splitext(path)[1].lower()
@@ -101,6 +108,8 @@ def build_candidates(jpx_path, markets):
 
     out = []
     for _, r in df.iterrows():
+        if is_class_share_code(r[c_code]):
+            continue
         code = normalize_code(r[c_code])
         mkt = str(r[c_mkt]).strip()
         sec = str(r[c_sec]).strip()
