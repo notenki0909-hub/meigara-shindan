@@ -441,6 +441,7 @@ def build(market):
             "ev_ebit": s.get("ev_ebit"), "fcf_yield": s.get("fcf_yield"),
             "yield": s.get("div_yield"), "price": s.get("price"),
             "price_date": s.get("price_date"),
+            "data_at": (s.get("data_asof") or {}).get("fetched"),
             "is_simple": s.get("is_simple"), "is_reit": s.get("is_reit"),
             "asof": s.get("_generated_at"), "new": code in watch_new or code in new_map,
             "new_at": new_map.get(code) or watch_new.get(code, {}).get("detected_at"),
@@ -538,6 +539,7 @@ def build(market):
 
     out = {
         "generated_at": dt.datetime.now().isoformat(timespec="seconds"),
+        "data_asof": _data_asof(rows),
         "market": market,
         "universe": {"count": univ.get("count"), "generated_at": univ.get("generated_at")},
         "weights": QUALITY_W,
@@ -640,9 +642,52 @@ def _backup_parts(market, page):
     return fill(parts["css"]), fill(parts["box"]), fill(parts["script"])
 
 
+def _data_asof(rows):
+    """ランキングが使っているYahooのデータの取得時刻（最も古い・最も新しい。UTCのISO）と、株価の基準日（最も古い・最も新しい）。
+    取得時刻が記録されていない銘柄（古いサマリ）の数も返す。"""
+    ts = sorted(r["data_at"] for r in rows if r.get("data_at"))
+    pd_ = sorted(str(r["price_date"])[:10] for r in rows if r.get("price_date"))
+    return {"fetched_min": ts[0] if ts else None, "fetched_max": ts[-1] if ts else None,
+            "price_min": pd_[0] if pd_ else None, "price_max": pd_[-1] if pd_ else None,
+            "n_unrecorded": sum(1 for r in rows if not r.get("data_at"))}
+
+
+def _asof_text(out):
+    """「生成」の横に出す、データの取得時刻の説明（日本時間）。"""
+    a = out.get("data_asof") or {}
+    if not a.get("fetched_min"):
+        return ""
+
+    def jst(x):
+        d = dt.datetime.fromisoformat(x.replace("Z", "+00:00")) + dt.timedelta(hours=9)
+        return d
+    lo, hi = jst(a["fetched_min"]), jst(a["fetched_max"])
+    fmt = lambda d: d.strftime("%m/%d %H:%M")
+    rng = fmt(lo) if lo.strftime("%m/%d %H") == hi.strftime("%m/%d %H") else f"{fmt(lo)}〜{fmt(hi)}"
+    s = f"Yahooのデータ取得 {rng}（日本時間）"
+    if a.get("price_max"):
+        s += f"・株価の基準日 {a['price_max']}"
+        try:                                   # 一部の銘柄だけ基準日が大きく古いとき（売買停止中など）は、最も古い日も添える
+            if (dt.date.fromisoformat(a["price_max"]) - dt.date.fromisoformat(a["price_min"])).days >= 7:
+                s += f"（最も古い銘柄は {a['price_min']}）"
+        except Exception:
+            pass
+    try:
+        gen = dt.datetime.fromisoformat(out["generated_at"])            # 実行環境の時刻（GitHub ActionsではUTC）
+        old_h = (gen - dt.datetime.fromisoformat(a["fetched_min"].replace("Z", "+00:00")).replace(tzinfo=None)).total_seconds() / 3600
+        if old_h >= 30:
+            s += f"（最も古い取得は生成の約{old_h:.0f}時間前）"
+    except Exception:
+        pass
+    if a.get("n_unrecorded"):
+        s += f"（取得時刻が未記録の銘柄 {a['n_unrecorded']}）"
+    return s
+
+
 def render(out, m):
     th = m["theme"]
     gen = out["generated_at"]
+    asof_txt = _asof_text(out)
     c = out["counts"]
     unit = m["unit_price"]
     market = out["market"]
@@ -1315,7 +1360,7 @@ section.grp[hidden]{{display:none}}
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>{html.escape(m["title"])}</h1>{_pagenav("index.html", exclude=("watchlist.html", "portfolio.html"))}</div>
 {th.THEME_BAR}
-<div class="sub">生成 {gen}　｜　{html.escape(m["screen_line"])}</div>
+<div class="sub">生成 {gen}{("　｜　" + html.escape(asof_txt)) if asof_txt else ""}　｜　{html.escape(m["screen_line"])}</div>
 <div class="formula">品質スコア ＝ 業績×0.28 ＋ 財務×0.27 ＋ キャッシュフロー×0.15（取得できた
 グループだけで再正規化・0〜110）。既存の銘柄診断エンジンの「銘柄選定スコア」から
 <b>配当の持続力（連続増配・増配率・配当性向・累進配当宣言など）を除いた</b>もの。
