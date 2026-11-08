@@ -568,6 +568,7 @@ def _apply_data_fix(yd, market, code):
     元の yd は変えない。data_check_long.json の status=error かつ fix のある項目だけが対象。
       eps ：fix.eps（新しい年が先頭。fy, fy-1, … の年に対応）で「Basic EPS」を、その年の欄だけ置き換える（無い年はYahooのまま）。fix.eps_diluted があれば「Diluted EPS」はそちら
       eps_div：Yahooの1株利益が分割前のまま残っているとき、全年を factor で割る（expect＝Yahooの最新期の値。違えばYahooが直したとみて適用しない）
+      ttm_eps：Yahooの直近12か月の1株利益（trailingEps）が誤りのとき、info の trailingPE を、その日のYahooの株価 ÷ fix.ttm_eps で求め直す（expires＝次の決算の発表予定日。その日以降は使わない）
       pbr ：info の priceToBook を、その日のYahooの株価 ÷ fix.bvps（分割後の1株純資産）で求め直す
       fy：置き換えの基準になる決算期。Yahooの最新期（is_years の先頭）がこの年のときだけ置き換える
           （新しい決算が出て最新期が進んだら、古い値で新しい期を上書きしないよう、自動で止まる）
@@ -586,6 +587,9 @@ def _apply_data_fix(yd, market, code):
             continue
         va = fx.get("valid_after")
         if va and today < dt.date.fromisoformat(va):
+            continue
+        ex = fx.get("expires")
+        if ex and today > dt.date.fromisoformat(ex):
             continue
         years = list(yd.get("is_years") or [])
         fy = fx.get("fy")
@@ -617,6 +621,11 @@ def _apply_data_fix(yd, market, code):
                 unit = "ドル" if market == "us" else "円"
                 applied[k] = (f"1株利益を、確認した値に置き換えて採点（最新期 {v0:,.2f}{unit}"
                               + (f"、{len(fx['eps'])}年分）" if len(fx["eps"]) > 1 else "）"))
+        elif k == "per" and fx.get("ttm_eps"):
+            price = yd.get("price")
+            if LC.is_num(price) and price > 0 and fx["ttm_eps"] > 0:
+                info["trailingPE"] = price / fx["ttm_eps"]
+                applied[k] = f"PERを、株価÷直近12か月の1株利益{fx['ttm_eps']:,.2f}円＝{price / fx['ttm_eps']:.1f}倍に置き換えて採点"
         elif k == "pbr" and fx.get("bvps"):
             price = yd.get("price")
             if LC.is_num(price) and price > 0 and fx["bvps"] > 0:
