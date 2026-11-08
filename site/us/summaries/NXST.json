@@ -1,21 +1,21 @@
 {
  "code": "NXST",
  "name": "Nexstar Media Group, Inc.",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
  "gics_sector": "Communication Services",
  "industry": "Broadcasting",
  "is_simple": false,
  "is_reit": false,
  "price": 190.02000427246094,
  "price_date": "2026-11-06",
- "mcap": 5854193152,
- "sel_score": 63.5,
+ "mcap": 5856611840,
+ "sel_score": 68.6,
  "tim_score": 100.5,
- "sel_label": "選定スコア下位（質に不安）",
+ "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
+ "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
  "cov_sel": [
-  17,
+  16,
   17,
   "高"
  ],
@@ -28,18 +28,18 @@
   "業績": 60.8,
   "財務": 39.8,
   "キャッシュフロー": 103.3,
-  "配当の持続力": 67.5,
+  "配当の持続力": 84.3,
   "配当利回りセオリー": 107.8,
   "利回り水準とChowder": 108.1,
   "株価バリュエーション": 84.9,
   "金利スプレッド": 92.4
  },
  "div_yield": 3.9153772406678438,
- "total_yield": 6.050598897255918,
+ "total_yield": 6.049717084504925,
  "streak_up": 0,
  "streak_flat": 13,
- "payout_ni": 140.91,
- "roe": 7.434,
+ "payout_ni": 67.33,
+ "roe": null,
  "chowder": 31.050335104982658,
  "dgr5": 27.134957864314813,
  "ocf_positive": 1,
@@ -47,29 +47,17 @@
  "fcf_payout": 30.41722745625841,
  "interest_coverage": 1.395778364116095,
  "per_vs_sector": 0.8307429951690822,
- "pbr_vs_sector": 0.4732324237288135,
+ "pbr_vs_sector": 0.43804444067796605,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.9126971799440343,
  "next_earn": "2027-02-25",
  "earn_disc_date": "2026-11-05",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [
-  "⚠ 配当性向が100%超（141%：純利益を上回る配当）",
-  "⚠ バリュートラップ注意：買い時が高い（101）のに質が低め（選定64）。安さの理由を確認"
- ],
+ "warnings": [],
  "roa": 1.0,
  "leverage": 5.25,
- "insight_flags": [
-  {
-   "k": "payout",
-   "t": "配当性向が100%超（141%：純利益を上回る配当）"
-  },
-  {
-   "k": "trap",
-   "t": "バリュートラップ注意：買い時が高い（101）のに質が低め（選定64）。安さの理由を確認"
-  }
- ],
+ "insight_flags": [],
  "kind": "gen",
- "_generated_at": "2026-11-07T01:55:58"
+ "_generated_at": "2026-11-08T01:24:54"
 }
