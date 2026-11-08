@@ -3,35 +3,35 @@
  "name": "Goldman Sachs",
  "jp_sector": null,
  "gics_sector": "Financials",
- "is_simple": false,
+ "is_simple": true,
  "is_reit": false,
  "price": 865.8200073242188,
  "price_date": "2026-11-06",
  "mcap": 249732448256,
- "q_score": 70.3,
+ "q_score": 97.3,
  "groups": {
-  "業績": 107.31048244728434,
-  "財務": 59.89117562333963,
-  "キャッシュフロー": 20.0,
-  "金融品質": null,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "金融品質": 97.3,
   "REIT品質": null
  },
- "is_fin_simple": false,
+ "is_fin_simple": true,
  "is_reit_us": false,
  "current_pfo": null,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 63.8,
+ "bt_score": 87.7,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
-  "fcf_yield": 20.0,
+  "fcf_yield": null,
   "per_cheap": 104.6,
   "pbr_cheap": 70.7
  },
  "ev_ebit": null,
- "fcf_yield": -18.907434868694743,
+ "fcf_yield": null,
  "per_band_pos": 0.5990430113142916,
  "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": null,
@@ -50,23 +50,14 @@
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
-   "lev_roe": true,
-   "cutoff": [
-    "営業CFが2期連続マイナス",
-    "自己資本比率が10%未満（6.9%）"
-   ],
+   "cutoff": [],
    "value_trap": []
   },
   "raw": {
    "roe": 13.743878628812853,
    "roa": 0.9493069219375235,
    "leverage": 14.477803027878245,
-   "ocf_ni": -2.6289007918025153,
-   "accrual": 3.576744789245779,
-   "capex_da": 0.9459211732355637,
-   "shares_chg_pct": -11.47798077610127,
-   "sbc_rev_pct": 5.910814474203455,
-   "fcf_less_sbc_pct": -86.92586174356158
+   "shares_chg_pct": -11.47798077610127
   }
  },
  "etf_top": [
@@ -77,17 +68,17 @@
   }
  ],
  "metric_scores": {
-  "rev_cagr": 104.62096489456869,
-  "eps_cagr": 110.0,
+  "rev_cagr": null,
+  "eps_cagr": null,
   "op_margin": null,
   "earnings_stability": null,
   "equity_ratio": null,
-  "de": 20.0,
-  "net_de": 49.67352687001888,
-  "debt_to_ocf": 110.0,
+  "de": null,
+  "net_de": null,
+  "debt_to_ocf": null,
   "interest_coverage": null,
-  "ocf_positive": 20.0,
-  "fcf_positive": 20.0,
+  "ocf_positive": null,
+  "fcf_positive": null,
   "fcf_payout": null
  },
  "metric_raw": {
@@ -104,5 +95,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-07T02:24:41"
+ "_generated_at": "2026-11-08T01:56:15"
 }
