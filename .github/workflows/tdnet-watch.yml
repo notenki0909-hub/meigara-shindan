@@ -40,7 +40,10 @@ jobs:
             echo "変更なし"
             exit 0
           fi
-          git commit -m "chore(tdnet): detect $(date -u +%Y-%m-%dT%H:%MZ)"
+          # 公開サイト(site/)に変更が無いコミット（監視の記録だけ）は、Cloudflare Pagesのビルドを省略する（月500ビルドの節約）
+          skip=""
+          if ! git diff --cached --name-only | grep -q '^site/'; then skip="[CF-Pages-Skip] "; fi
+          git commit -m "${skip}chore(tdnet): detect $(date -u +%Y-%m-%dT%H:%MZ)"
           n=0
           until git push; do
             n=$((n+1))

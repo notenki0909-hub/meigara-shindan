@@ -18,7 +18,7 @@
 python analyze.py 9433                 # KDDI を診断
 python analyze.py 9433 --cost 3000     # 取得単価を入れると YOC も計算
 python analyze.py 8058 --name 三菱商事  # 会社名を明示（省略時は yfinance の名称）
-python analyze.py 8306 --no-irbank     # IR BANK 補助を使わない
+python analyze.py 8306 --irbank        # IR BANK 補助を使う（既定は使わない＝夜間バッチと同じ結果）
 ```
 
 出力先: `out/<コード>_<会社名>.html` と `.md`

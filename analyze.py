@@ -12,7 +12,7 @@ HTMLレポート（＋Markdown）を書き出す。
     python analyze.py 9433
     python analyze.py 9433 --cost 3000        # 取得単価を入れるとYOCも計算
     python analyze.py 8058 --name 三菱商事
-    python analyze.py 8306 --no-irbank        # IR BANK補助を使わない
+    python analyze.py 8306 --irbank           # IR BANK補助を使う（既定は使わない＝夜間バッチと同じ結果になる）
 
 データ源:
     - 主軸 = yfinance（無料・キー不要・遅延なし）
@@ -4190,7 +4190,9 @@ def main():
     ap.add_argument("code", help="証券コード（例: 9433）")
     ap.add_argument("--name", default=None, help="会社名（省略時は yfinance の名称）")
     ap.add_argument("--cost", type=float, default=None, help="取得単価（YOC計算用）")
-    ap.add_argument("--no-irbank", action="store_true", help="IR BANK 補助を使わない")
+    ap.add_argument("--irbank", action="store_true",
+                    help="IR BANK 補助を使う（実験用。既定は使わない＝夜間バッチ・本番サイトと同じ結果。"
+                         "使うと年別配当がIR BANKの年数で丸ごと置き換わり、dps_overrides.json の指定も効かなくなる）")
     ap.add_argument("--jgb", type=float, default=None, help="10年国債利回り(％)を明示（金利スプレッド用）")
     args = ap.parse_args()
 
@@ -4208,7 +4210,7 @@ def main():
 
     print(f"[*] 診断中… {code}.T")
     res = generate(code, name=args.name, cost=args.cost, jgb=jgb_10y,
-                   use_irbank=not args.no_irbank, cfg=cfg,
+                   use_irbank=args.irbank, cfg=cfg,
                    log=lambda m: print("   " + m))
     if not res["ok"]:
         sys.exit(f"失敗: {res['error']}")
