@@ -1,0 +1,47 @@
+name: fetch-data-jp
+
+# 日本株 の Yahoo Finance の取得だけを行う工程（毎晩1回）。配当株ツール（nightly-refresh）と10年保有ツール（nightly-long）が、
+# 同じ銘柄を二重に取得しないよう、ここで一度だけ取得して結果を成果物（artifact）に保存する。分析側は get-yf-store で復元して使う。
+# 取得対象は fetch_data.py jp（配当株と10年保有の和集合）。取れなかった銘柄は、分析側が従来どおり自分で取得する（分析は止まらない）。
+# 決算反映の再取得（earnings-retry など）は、最新を取り直すのが目的なので、この成果物は使わない。
+on:
+  schedule:
+    - cron: "0 18 * * *"   # 18:00 UTC = 03:00 JST
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fetch-data-jp
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    env:
+      YF_CACHE_DIR: ${{ github.workspace }}/.yf_cache
+      YF_CACHE_MAX_AGE_HOURS: "20"   # 保存済みで20時間以内の銘柄はスキップ（途中で止まっても続きから取れる）
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - run: pip install -r requirements.txt
+
+      - name: Yahoo の取得（配当株と10年保有の和集合）
+        run: python fetch_data.py jp --sleep 1.5
+
+      - name: 取得結果を保存（分析側が復元して使う）
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: yf-jp
+          path: .yf_cache
+          retention-days: 3
+          compression-level: 0     # 中身はすでにgzip圧縮済み
+          if-no-files-found: warn

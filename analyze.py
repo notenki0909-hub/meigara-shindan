@@ -196,6 +196,12 @@ def _fetch_yf_uncached(code, suffix=".T"):
     except Exception:
         d["hist_d"] = None
 
+    # 株式分割の履歴（配当側の apply_split_day_fix が使う。取得専用の工程で一緒に取っておけば、分析側はYahooへ取りに行かなくて済む）
+    try:
+        d["splits"] = [(i.date(), float(v)) for i, v in tk.splits.items() if is_num(float(v))]
+    except Exception:
+        d["splits"] = None
+
     # 配当（ex-date ベースの実額）
     try:
         divs = tk.dividends
@@ -835,10 +841,13 @@ def apply_split_day_fix(yd, years=2):
     分割履歴を取れない・補正対象が無いときは、何も変えない。"""
     yd["div_fix"] = []
     try:
-        tk = yf.Ticker(yd["ticker"])
-        sp = tk.splits
         cut = TODAY - dt.timedelta(days=365 * years)
-        splits = [(i.date(), float(v)) for i, v in sp.items() if i.date() >= cut and is_num(float(v))]
+        if yd.get("splits") is not None:        # 取得時に一緒に取った分割履歴があれば、それを使う（Yahooへ取りに行かない）
+            splits = [(d0, v) for d0, v in yd["splits"] if d0 >= cut]
+        else:
+            tk = yf.Ticker(yd["ticker"])
+            sp = tk.splits
+            splits = [(i.date(), float(v)) for i, v in sp.items() if i.date() >= cut and is_num(float(v))]
         if not splits or not yd.get("divs"):
             return yd
         raw = list(yd["divs"])
@@ -1231,6 +1240,42 @@ def fin_quarter_pbr(code, price, shares):
     return None
 
 
+def payout_split_factor(yd, info, is_years, isr, fye_month):
+    """直近の決算期末より後に株式分割があり、Yahooの年次1株利益がまだ分割前の基準のとき、その分割倍率（分割前の基準に合わせる倍率）を返す。
+    Yahooの配当(DPS)は分割のたびに自動で調整されるが、年次の1株利益（財務諸表）は次の決算が出るまで分割前の基準のまま残る。
+    そのまま「配当÷EPS」とすると、分割倍率の分だけ配当性向が小さく出る（例：三井住友FG 2026-09-29の2:1分割で36%が19%）。
+    倍率を適用するのは、次の両方に当てはまるときだけ（誤補正を避ける）：
+      ①株価履歴（hist_d）に、直近の決算期末より後の株式分割が記録されている
+      ②「現在の発行済株式数 ÷ 直近期の平均株式数」が、その分割倍率の0.8〜1.25倍（＝株式数が実際に分割後の基準になっている）
+    価格が連続していて実際には分割されていない銘柄（株式数が変わらない）や、財務諸表の側が既に分割後に直されている銘柄には適用しない。
+    返り値: (倍率, 説明文 or None)"""
+    import calendar
+    hd = yd.get("hist_d")
+    if hd is None or getattr(hd, "empty", True) or "Stock Splits" not in getattr(hd, "columns", []) or not is_years:
+        return 1.0, None
+    y_last = max(is_years)
+    fye = dt.date(y_last, fye_month, calendar.monthrange(y_last, fye_month)[1])
+    ss = hd["Stock Splits"]
+    ss = ss[ss > 0]
+    f, desc = 1.0, []
+    for ix, r in ss.items():
+        if ix.date() > fye and r != 1:
+            f *= float(r)
+            desc.append(f"{ix.date().isoformat()} {r:g}:1")
+    if f == 1.0:
+        return 1.0, None
+    sh = row(isr, "Basic Average Shares", "Diluted Average Shares")
+    so = (info or {}).get("sharesOutstanding")
+    if not (sh and y_last in is_years and is_years.index(y_last) < len(sh)):
+        return 1.0, None
+    avg = sh[is_years.index(y_last)]
+    if not (is_num(so) and so > 0 and is_num(avg) and avg > 0):
+        return 1.0, None
+    if not (0.8 <= (so / avg) / f <= 1.25):
+        return 1.0, None
+    return f, "・".join(desc)
+
+
 def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb_10y, div_policies,
                   drop_in_progress=False, payout_basis="yahoo", dps_clean="legacy", fin_guard=False):
     """全指標を分野別 dict に。各指標は {v, disp, ref, key}（key は rules 参照名）。"""
@@ -1558,7 +1603,16 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
     pay_dps = [(fy, v) for fy, v, _n in yf_fy] if payout_basis == "annual" else dps_series
     if payout_basis == "annual" and dps_src.startswith("IR BANK"):
         pay_dps = dps_series
+    # 株式分割の反映のずれ（Yahooの配当は分割後の基準、年次の1株利益は分割前の基準）を、配当側の自動チェックのときだけ補正する
+    split_f, split_desc = 1.0, None
+    if fin_guard and payout_basis == "annual" and not dps_src.startswith("IR BANK"):
+        try:
+            split_f, split_desc = payout_split_factor(yd, info, is_years, isr, fye_month)
+        except Exception:
+            split_f, split_desc = 1.0, None
     for fy, d in pay_dps:  # [(会計年度, 1株配当)]
+        if is_num(d) and split_f != 1.0:
+            d = d * split_f
         if payout_basis == "annual":
             # 会計年度の対応づけ：配当の年度ラベル fy は「その期の開始年」（12月決算だけは期の終わりと同じ年）。
             # 対応するEPSの年（決算期末の西暦）は、12月決算なら fy、それ以外は fy+1。該当年のEPSが無い場合は
@@ -1720,6 +1774,9 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
             p_ref = pn_txt + f"／80%超は警戒。値＝直近の決算期（{payout_fy}）の1株配当÷1株利益。推移＝各期の同じ計算"
             if payout_src == "calc":
                 p_ref += "（この期の1株利益はYahooの値に不備があるため、純利益÷平均株式数で求めた値を使用）"
+            if split_f != 1.0:
+                p_ref += (f"（株式分割 {split_desc} が決算期末より後で、Yahooの1株利益がまだ分割前の基準のため、"
+                          f"1株配当を分割前の基準（×{split_f:g}）に直して計算）")
         else:
             p_disp = "―"
             p_ref = pn_txt + f"／{payout_why or '決算期ごとの1株配当と1株利益から算出できなかったため'}、算出せず採点から外しています"

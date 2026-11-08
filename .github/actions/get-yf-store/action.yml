@@ -1,0 +1,32 @@
+name: get-yf-store
+description: >
+  取得専用の工程（fetch-data-jp / fetch-data-us）が保存した Yahoo の取得結果を、リポジトリ直下の .yf_cache に復元する。
+  取得結果が無い・古い・ダウンロードに失敗したときも、エラーにはしない（分析側が従来どおり自分で取得する）。
+  使う側は、ジョブの env に YF_CACHE_DIR（${{ github.workspace }}/.yf_cache）・YF_CACHE_READONLY: "1"・YF_CACHE_MAX_AGE_HOURS: "30" を設定し、
+  permissions に actions: read を付ける。
+inputs:
+  market:
+    description: jp または us
+    required: true
+  token:
+    description: GitHub トークン（${{ github.token }}）
+    required: true
+runs:
+  using: composite
+  steps:
+    - id: find
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.token }}
+      run: |
+        id=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow "fetch-data-${{ inputs.market }}.yml" --status success --limit 1 --json databaseId --jq '.[0].databaseId' || true)
+        echo "run_id=${id}" >> "$GITHUB_OUTPUT"
+        echo "取得結果の保存元: fetch-data-${{ inputs.market }} の実行 ${id:-なし}"
+    - if: steps.find.outputs.run_id != ''
+      uses: actions/download-artifact@v4
+      continue-on-error: true
+      with:
+        name: yf-${{ inputs.market }}
+        path: .yf_cache
+        run-id: ${{ steps.find.outputs.run_id }}
+        github-token: ${{ inputs.token }}

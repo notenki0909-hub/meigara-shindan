@@ -29,6 +29,7 @@ import time
 import traceback
 
 import analyze
+import yf_cache
 
 SITE = os.path.join(os.path.dirname(__file__), "site")
 REP = os.path.join(SITE, "reports")
@@ -147,7 +148,7 @@ def main():
                 st, err = "fail", f"{e.__class__.__name__}: {e}"
                 traceback.print_exc()
             emit(code, st, err)
-            if i < len(codes):
+            if i < len(codes) and not yf_cache.LAST_FROM_CACHE:   # 取得専用の工程の保存結果を使った銘柄は、Yahooへ取りに行っていないので待たない
                 time.sleep(args.sleep)
     else:
         with cf.ThreadPoolExecutor(max_workers=args.workers) as ex:

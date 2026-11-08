@@ -4,7 +4,8 @@
   YF_CACHE_DIR            保存先フォルダ。設定したときだけ有効
   YF_CACHE_MAX_AGE_HOURS  この時間以内に保存されたものだけ再利用（既定 12）
   YF_CACHE_READONLY=1     読むだけ（書かない）。後から動く側（nightly-long など）で使える
-キャッシュの中身は fetch_yf() の返り値（dict）をそのままpickle＋gzipしたもの。読んだあとは呼び出し側が自由に書き換えてよい
+キャッシュの中身は {"t": 保存時刻(epoch秒), "data": fetch_yf() の返り値（dict）} をpickle＋gzipしたもの
+（保存時刻はファイルの更新日時ではなく中身に持つ＝zip展開やコピーで日時が変わっても正しく古さを判定できる）。読んだあとは呼び出し側が自由に書き換えてよい
 （読むたびに新しく展開するので、別の銘柄・別のツールに影響しない）。
 取得に失敗した結果（infoも株価も無い）は保存しない。"""
 import gzip
@@ -12,6 +13,9 @@ import os
 import pickle
 import re
 import time
+
+
+LAST_FROM_CACHE = False   # 直近の cached_fetch がキャッシュから返したか（バッチが、Yahooへ取りに行っていないときはスリープを省くために見る）
 
 
 def _dir():
@@ -37,13 +41,19 @@ def load(code, suffix=".T"):
         return None
     p = _path(d, code, suffix)
     try:
-        if time.time() - os.path.getmtime(p) > _max_age_sec():
-            return None
         with gzip.open(p, "rb") as f:
             x = pickle.load(f)
-        return x if isinstance(x, dict) and x.get("code") == code else None
+        if not isinstance(x, dict) or time.time() - float(x.get("t", 0)) > _max_age_sec():
+            return None
+        data = x.get("data")
+        return data if isinstance(data, dict) and data.get("code") == code else None
     except Exception:
         return None
+
+
+def is_fresh(code, suffix=".T"):
+    """この銘柄の取得結果が、有効なキャッシュとして残っているか（取得専用の工程で、取得済みをスキップする判定用）。"""
+    return load(code, suffix) is not None
 
 
 def save(code, suffix, data):
@@ -57,7 +67,7 @@ def save(code, suffix, data):
         p = _path(d, code, suffix)
         tmp = p + ".tmp"
         with gzip.open(tmp, "wb", compresslevel=3) as f:
-            pickle.dump(data, f, protocol=pickle.HIGHEST_PROTOCOL)
+            pickle.dump({"t": time.time(), "data": data}, f, protocol=pickle.HIGHEST_PROTOCOL)
         os.replace(tmp, p)
     except Exception:
         pass
@@ -65,9 +75,12 @@ def save(code, suffix, data):
 
 def cached_fetch(fetch, code, suffix=".T"):
     """fetch(code, suffix) の結果を、キャッシュが有効なら再利用・保存する。"""
+    global LAST_FROM_CACHE
     hit = load(code, suffix)
     if hit is not None:
+        LAST_FROM_CACHE = True
         return hit
+    LAST_FROM_CACHE = False
     data = fetch(code, suffix)
     save(code, suffix, data)
     return data
