@@ -737,7 +737,8 @@ def load_fin_overrides():
     {コード: {"per"|"pbr"|"eps": {"status": "ok"|"error"|"unclear", "note": 説明, "date": 確認日}}}
       ok＝IR BANK・決算短信で、Yahooの値が正しいと確認（自動チェックの誤検出）→ 外さない（採点に使う）
       error＝Yahooの値が誤りと確認 → 外したまま。手動欄に『確認済み』と明記する
-      unclear＝確認したが判定できなかった → 外したまま。手動欄に『確認したが判定できず』と明記"""
+      unclear＝確認したが判定できなかった → 外したまま。手動欄に『確認したが判定できず』と明記
+    fy（任意・確認した時点のYahooの最新の決算期の西暦）：Yahooの最新の決算期がこの年と違う（新しい決算が出た）と、その確認は期限切れとして無視する（build_metrics）。"""
     try:
         d = load_json("fin_overrides.json")
     except Exception:
@@ -1372,6 +1373,10 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
     growth_row("売上高（推移／年率）", rev, "rev_cagr", "業績")
     review_fin = []   # 財務データの不備（「手動で調べる必要がある銘柄」欄用。PER・PBR・EPS）
     _fo = (load_fin_overrides().get(yd.get("code")) or {}) if fin_guard else {}
+    if _fo:
+        # 確認した決算期（fy）より新しい年次決算がYahooに出たら、その確認は期限切れ＝無視して自動チェックに戻す（古い確認が居座らないように）
+        _ly = max([y for y in (yd.get("is_years") or []) if isinstance(y, int)] or [0])
+        _fo = {k: v for k, v in _fo.items() if not (isinstance(v, dict) and v.get("fy") and _ly and _ly != v["fy"])}
     _eps_bad = None
     if fin_guard:
         _eps_bad = fin_eps_problem(is_years, eps,

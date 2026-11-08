@@ -1,122 +1,131 @@
 {
- "_comment": "財務データの自動チェック（PER・PBR・EPS）で外した銘柄の、IR BANK・決算短信による手動確認の結果。コード: {per|pbr|eps: {status: ok（Yahooが正しい→採点に戻す）／error（Yahooが誤り→外したまま・手動欄に『確認済み』と明記）／unclear（判定できず）, note, date}}。IR BANKとの照合で確認した銘柄だけ登録する。",
+ "_comment": "財務データの自動チェック（PER・PBR・EPS）で外した銘柄の、IR BANK・決算短信による手動確認の結果。コード: {per|pbr|eps: {status: ok（Yahooが正しい→採点に戻す）／error（Yahooが誤り→外したまま・手動欄に『確認済み』と明記）／unclear（判定できず）, note, date}}。IR BANKとの照合で確認した銘柄だけ登録する。 fy＝確認した時点のYahooの最新の決算期（西暦）。Yahooの最新の決算期が変わったら、その確認は自動で期限切れになる（確認し直す）。",
  "3543": {
   "per": {
    "status": "error",
    "note": "Yahoo 371倍に対し、IR BANKの実績PERは約19.6倍",
-   "date": "2026-11-07"
+   "date": "2026-11-07",
+   "fy": 2026
   }
  },
  "7283": {
   "per": {
    "status": "error",
    "note": "Yahoo 256倍に対し、IR BANKの実績PERは約8.4倍",
-   "date": "2026-11-07"
-  }
- },
- "6724": {
-  "per": {
-   "status": "error",
-   "note": "Yahoo 19.2倍に対し、IR BANKの実績PER（連結・直近の純利益ベース）は46.43倍。決算の更新がYahooに未反映",
-   "date": "2026-11-07"
+   "date": "2026-11-07",
+   "fy": 2026
   }
  },
  "2501": {
   "per": {
    "status": "unclear",
    "note": "事業売却などの一時的な大きな利益で直近12か月のPERが定まらず、IR BANKでも実績PERは未算出（予想PER 2.8倍）",
-   "date": "2026-11-07"
+   "date": "2026-11-07",
+   "fy": 2025
   }
  },
  "1793": {
   "pbr": {
    "status": "error",
    "note": "Yahoo 1.42倍に対し、IR BANKは0.75倍",
-   "date": "2026-11-07"
+   "date": "2026-11-07",
+   "fy": 2026
   }
  },
  "1799": {
   "pbr": {
    "status": "error",
    "note": "Yahoo 2.03倍に対し、IR BANKは0.78倍",
-   "date": "2026-11-07"
+   "date": "2026-11-07",
+   "fy": 2026
   }
  },
  "7500": {
   "pbr": {
    "status": "error",
    "note": "Yahoo 9.22倍に対し、IR BANKは1.43倍",
-   "date": "2026-11-07"
+   "date": "2026-11-07",
+   "fy": 2026
   }
  },
  "6875": {
   "pbr": {
    "status": "ok",
    "note": "Yahoo 0.39倍とIR BANK 0.40倍が一致（自動チェックの誤検出）",
-   "date": "2026-11-07"
+   "date": "2026-11-07",
+   "fy": 2026
   }
  },
  "1815": {
   "eps": {
    "status": "error",
    "note": "Yahoo 121.4円に対し、IR BANKの最新期のEPSは180.5円",
-   "date": "2026-11-07"
+   "date": "2026-11-07",
+   "fy": 2026
   }
  },
  "1882": {
   "eps": {
    "status": "error",
    "note": "Yahoo 89.22円に対し、IR BANKの最新期のEPSは74.22円",
-   "date": "2026-11-07"
+   "date": "2026-11-07",
+   "fy": 2026
   }
  },
  "2127": {
   "eps": {
    "status": "error",
    "note": "Yahoo 34.54円に対し、IR BANKの最新期のEPSは39.36円",
-   "date": "2026-11-07"
+   "date": "2026-11-07",
+   "fy": 2026
   }
  },
  "2317": {
   "eps": {
    "status": "error",
    "note": "Yahoo 90.82円に対し、IR BANKの最新期のEPSは31.65円",
-   "date": "2026-11-07"
+   "date": "2026-11-07",
+   "fy": 2026
   }
  },
  "4502": {
   "eps": {
    "status": "error",
    "note": "Yahoo 121.75円に対し、IR BANKの最新期のEPSは-96.75円",
-   "date": "2026-11-07"
+   "date": "2026-11-07",
+   "fy": 2026
   }
  },
  "5186": {
   "eps": {
    "status": "error",
    "note": "Yahoo 152.06円に対し、IR BANKの最新期のEPSは490.44円",
-   "date": "2026-11-07"
+   "date": "2026-11-07",
+   "fy": 2026
   }
  },
  "6905": {
   "eps": {
    "status": "error",
    "note": "Yahoo -2.81円に対し、IR BANKの最新期のEPSは-82.8円",
-   "date": "2026-11-07"
+   "date": "2026-11-07",
+   "fy": 2026
   }
  },
  "7259": {
   "eps": {
    "status": "error",
    "note": "Yahoo 137.81円に対し、IR BANKの最新期のEPSは232.64円",
-   "date": "2026-11-07"
+   "date": "2026-11-07",
+   "fy": 2026
   }
  },
  "9409": {
   "eps": {
    "status": "error",
    "note": "Yahoo 254.04円に対し、IR BANKの最新期のEPSは294.32円",
-   "date": "2026-11-07"
+   "date": "2026-11-07",
+   "fy": 2026
   }
  }
 }
