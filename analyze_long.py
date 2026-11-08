@@ -1801,10 +1801,17 @@ details.m.hl>summary{{grid-template-columns:minmax(150px,1fr) 2fr auto}}
 
 
 # ---------------------------------------------------------------- オーケストレーション
-def _data_fetched_at(code, market):
+def _data_fetched_at(code, market, yd=None):
     """このYahooのデータを、いつ取得したか（UTCのISO。例 2026-11-08T03:12:00Z）。
-    共有キャッシュ（yf_cache）から読んだときは、キャッシュに保存された時刻（取得工程が取った時刻）、
+    取得データ自身が持つ取得時刻 yd["fetched_at"]（配当側の取得処理が記録。実行環境のUTCのnaive表記）があればそれを使う
+    （前回の保存を引き継いだ銘柄でも、本当の取得時刻が残る）。無ければ、共有キャッシュ（yf_cache）に保存された時刻、
     その場でYahooから取ったときは、いま。読めなければ、いま。"""
+    try:
+        fa = (yd or {}).get("fetched_at")
+        if fa:
+            return str(fa)[:19] + "Z"
+    except Exception:
+        pass
     try:
         import yf_cache
         if getattr(yf_cache, "LAST_FROM_CACHE", False):
@@ -1841,7 +1848,7 @@ def generate_long(code, cfg=None, market="jp", name=None):
     except Exception as e:
         res["error"] = f"取得失敗: {e}"
         return res
-    data_at = _data_fetched_at(code, market)      # このYahooのデータを取得した時刻（ランキングの「生成」の横に出す）
+    data_at = _data_fetched_at(code, market, yd)  # このYahooのデータを取得した時刻（ランキングの「生成」の横に出す）
 
     info = yd.get("info") or {}
     if not info and yd.get("price") is None:
