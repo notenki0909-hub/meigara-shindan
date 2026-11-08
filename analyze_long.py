@@ -481,8 +481,9 @@ def _quarter_pbr_jp(code, price, shares):
     return None
 
 
-def _data_notices(yd, market, code):
-    """データ不備の疑いのリスト [{tier, k, where, why, how}]。該当が無ければ []。"""
+def _data_notices(yd, market, code, applied=None):
+    """データ不備の疑いのリスト [{tier, k, where, why, how}]。該当が無ければ []。
+    yd は置き換え前のYahooのデータを渡すこと（置き換え後だと、疑いが検出されなくなる）。"""
     out = []
     info = yd.get("info") or {}
     isr, bsr = yd.get("is_rows") or {}, yd.get("bs_rows") or {}
@@ -559,10 +560,66 @@ def _data_notices(yd, market, code):
                                         "how": f"IR BANK（irbank.net/{code}/results）の1株純資産（BPS）で、株価÷BPSを計算して確認する"})
             except Exception:
                 pass
-    return _apply_data_check(out, market, code)
+    return _apply_data_check(out, market, code, applied)
 
 
-def _apply_data_check(notices, market, code):
+def _apply_data_fix(yd, market, code):
+    """確認してYahooの誤りが分かった値を、IR BANK・SECの値に置き換えた取得データを返す（採点の入口で使う）。
+    元の yd は変えない。data_check_long.json の status=error かつ fix のある項目だけが対象。
+      eps ：fix.eps（新しい年が先頭。fy, fy-1, … の年に対応）で「Basic EPS」を、その年の欄だけ置き換える（無い年はYahooのまま）。fix.eps_diluted があれば「Diluted EPS」はそちら
+      pbr ：info の priceToBook を、その日のYahooの株価 ÷ fix.bvps（分割後の1株純資産）で求め直す
+      fy：置き換えの基準になる決算期。Yahooの最新期（is_years の先頭）がこの年のときだけ置き換える
+          （新しい決算が出て最新期が進んだら、古い値で新しい期を上書きしないよう、自動で止まる）
+      valid_after：この日以降だけ置き換える（株価が分割後の基準になる日。それ以前は元のまま）
+    返り値: (yd2, applied)。applied＝{k: 画面に出す説明}（置き換えが無ければ {}）。"""
+    cfg = (LC.load_data_check().get(market) or {}).get(str(code)) or {}
+    applied = {}
+    if not cfg:
+        return yd, applied
+    isr = dict(yd.get("is_rows") or {})
+    info = dict(yd.get("info") or {})
+    today = dt.date.today()
+    for k, c in cfg.items():
+        fx = c.get("fix") if isinstance(c, dict) else None
+        if not fx or c.get("status") != "error":
+            continue
+        va = fx.get("valid_after")
+        if va and today < dt.date.fromisoformat(va):
+            continue
+        years = list(yd.get("is_years") or [])
+        fy = fx.get("fy")
+        if fy is None or not years or years[0] != fy:
+            continue                                   # Yahooの最新期が、確認した決算期と違う＝置き換えない
+        if k == "eps" and fx.get("eps"):
+            done = False
+            for lab, vals in (("Basic EPS", fx["eps"]), ("Diluted EPS", fx.get("eps_diluted") or fx["eps"])):
+                cur = isr.get(lab)
+                if cur is not None and len(cur) == len(years):
+                    cur = list(cur)
+                    for i, v in enumerate(vals):
+                        if (fy - i) in years:
+                            cur[years.index(fy - i)] = v
+                    isr[lab] = cur
+                    done = True
+            if done:
+                v0 = fx["eps"][0]
+                unit = "ドル" if market == "us" else "円"
+                applied[k] = (f"1株利益を、確認した値に置き換えて採点（最新期 {v0:,.2f}{unit}"
+                              + (f"、{len(fx['eps'])}年分）" if len(fx["eps"]) > 1 else "）"))
+        elif k == "pbr" and fx.get("bvps"):
+            price = yd.get("price")
+            if LC.is_num(price) and price > 0 and fx["bvps"] > 0:
+                info["priceToBook"] = price / fx["bvps"]
+                applied[k] = f"PBRを、株価÷1株純資産{fx['bvps']:,.2f}円＝{price / fx['bvps']:.2f}倍に置き換えて採点"
+    if not applied:
+        return yd, applied
+    yd2 = dict(yd)
+    yd2["is_rows"] = isr
+    yd2["info"] = info
+    return yd2, applied
+
+
+def _apply_data_check(notices, market, code, applied=None):
     """手作業の確認結果（data_check_long.json）を反映する。表示専用で、採点には影響しない。
     ok（Yahooが正しい）＝その検出を外す／error（Yahooの誤りを確認）＝tier を confirmed にして確認結果を添える／
     unclear（判定できず）＝tier はそのまま、確認結果を添える。"""
@@ -581,6 +638,8 @@ def _apply_data_check(notices, market, code):
         d2["confirm"] = {"status": c["status"], "note": c.get("note", ""), "date": c.get("date", "")}
         if c["status"] == "error":
             d2["tier"] = "confirmed"
+            if applied and applied.get(d.get("k")):
+                d2["confirm"]["replaced"] = applied[d["k"]]
         out.append(d2)
     return out
 
@@ -1534,8 +1593,9 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
                 return (f'<li><b>{esc(d["where"])}</b>：{esc(d["why"])}<br>'
                         f'<span class="dnhow">確認の方法：{esc(d["how"])}</span></li>')
             lab = "確認結果（Yahooの誤りを確認）" if cf.get("status") == "error" else "確認結果（判定できず）"
+            rep = (f'<br><span class="dnfix">▶ {esc(cf["replaced"])}</span>' if cf.get("replaced") else "")
             return (f'<li><b>{esc(d["where"])}</b>：{esc(d["why"])}<br>'
-                    f'<span class="dnhow">{lab}（{esc(cf.get("date", ""))}）：{esc(cf.get("note", ""))}</span></li>')
+                    f'<span class="dnhow">{lab}（{esc(cf.get("date", ""))}）：{esc(cf.get("note", ""))}</span>{rep}</li>')
         for tier, title, cls in (
                 ("high", "データに不備の疑い（確度が高い）", "warn"),
                 ("confirmed", "Yahooのデータの誤りを確認済み（" + ("IR BANK・決算短信" if market == "jp" else "SECの10-K") + "で確認）", "warn"),
@@ -1546,7 +1606,10 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
             dn_html += (f'<div class="{cls}"><b>{title}</b><ul>'
                         + "".join(_dn_li(d) for d in its)
                         + f'</ul><div class="dnfoot">確認先：{links}。'
-                          '採点は、Yahooの値をそのまま使っています（確認して誤りだったときも、点は自動では直りません。表示のみ）。</div></div>')
+                        + ('採点は、「▶」を付けた項目だけ確認した値に置き換えて計算しています。それ以外は、Yahooの値をそのまま使っています（表示のみ）。'
+                           if any((d.get("confirm") or {}).get("replaced") for d in its) else
+                           '採点は、Yahooの値をそのまま使っています（確認して誤りだったときも、点は自動では直りません。表示のみ）。')
+                        + '</div></div>')
 
     warn_html = ("" if not warnings else
                  '<div class="warn"><b>データ上の注意</b><ul>'
@@ -1654,6 +1717,7 @@ details.m.hl>summary{{grid-template-columns:minmax(150px,1fr) 2fr auto}}
 .dnote{{margin:14px 0;padding:10px 12px;background:var(--field);border:1px solid var(--line);border-radius:8px;font-size:12px}}
 .dnote ul,.warn ul{{margin:4px 0 0;padding-left:18px}}
 .dnhow{{color:var(--muted)}}
+.dnfix{{font-weight:700}}
 .dnfoot{{margin-top:6px;font-size:11px;color:var(--muted)}}
 @media(max-width:600px){{details.m.hl>summary{{grid-template-columns:1fr}}
   details.m.hl>summary .mr{{display:block}}}}
@@ -1732,6 +1796,14 @@ def generate_long(code, cfg=None, market="jp", name=None):
     if not info and yd.get("price") is None:
         res["error"] = "データ取得できず"
         return res
+    # 確認してYahooの誤りが分かった値は、IR BANK・SECの値に置き換えて採点する（data_check_long.json の fix）。
+    # 「データの確認が必要な銘柄」の検出は、置き換え前のYahooのデータ（yd_raw）で行う。
+    yd_raw = yd
+    try:
+        yd, fix_applied = _apply_data_fix(yd_raw, market, code)
+    except Exception:
+        yd, fix_applied = yd_raw, {}
+    info = yd.get("info") or {}
     smap, rules = cfg["smap"], cfg["rules"]
     sec_avg_all = cfg["sec_avg_all"]
 
@@ -1862,7 +1934,7 @@ def generate_long(code, cfg=None, market="jp", name=None):
         insight = {"rows": [], "flags": {}, "raw": {}}
     # データ不備の疑い（表示専用・採点には使わない）。失敗しても本体の診断は止めない。
     try:
-        data_notice = _data_notices(yd, market, code)
+        data_notice = _data_notices(yd_raw, market, code, fix_applied)
     except Exception:
         data_notice = []
 
@@ -1971,6 +2043,7 @@ def generate_long(code, cfg=None, market="jp", name=None):
         # 見方を深める指標・注意フラグ（表示専用。採点には使わない）
         "insight": {"flags": insight["flags"], "raw": insight["raw"]},
         **({"data_notice": data_notice} if data_notice else {}),
+        **({"data_fix": fix_applied} if fix_applied else {}),
         **({"lease_quality": {"score": lease_q, "lender": bool(lease_raw.get("lender")), "eq_ratio": lease_raw.get("eq_ratio"),
                               "got": lease_got, "possible": lease_poss,
                               "parts": {k: {"raw": v[0], "score": v[1]} for k, v in (lease_parts or {}).items()}}}

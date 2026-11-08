@@ -962,7 +962,8 @@ def render(out, m):
             if not cf:
                 return w + html.escape(d.get("why", ""))
             if cf.get("status") == "error":
-                return w + html.escape(cf.get("note", "")) + f'<span class="dnconf">（確認済み {html.escape(cf.get("date", ""))}）</span>'
+                return (w + html.escape(cf.get("note", "")) + f'<span class="dnconf">（確認済み {html.escape(cf.get("date", ""))}）</span>'
+                        + (f'<br><b>▶ {html.escape(cf["replaced"])}</b>' if cf.get("replaced") else ""))
             return (w + html.escape(d.get("why", "")) + '<br><span class="dnconf">→ 確認したが判定できず（'
                     + html.escape(cf.get("date", "")) + '）：' + html.escape(cf.get("note", "")) + '</span>')
         for s_ in sorted(dn_rows, key=lambda r: (_dn_rank(r), r["code"])):
@@ -980,13 +981,13 @@ def render(out, m):
         dn_review_html = (
             f'<details id="dnreview"><summary>データの確認が必要な銘柄（不備の疑い {n_hi}銘柄／要確認 {n_chk}銘柄'
             + (f'／誤り確認済み {n_cf}銘柄' if n_cf else '') + '）</summary>'
-            '<p>Yahoo Financeの財務データ（1株利益・PER・PBR）の不備を見つける自動チェックの結果です。<b>採点・順位・軍には使っていません</b>（表示のみ）。'
+            '<p>Yahoo Financeの財務データ（1株利益・PER・PBR）の不備を見つける自動チェックの結果です。<b>検出した内容そのものは、採点・順位・軍には使っていません</b>（表示のみ）。ただし、確認してYahooの誤りが分かった値は、確認した値に置き換えて採点しています（「▶」で示します）。'
             '「不備疑い」は確度が高いもの（最新期の1株利益が前の年と同じ値＝更新遅れ）、「要確認」は決算書から求め直した値とのズレで、'
             'Yahoo側が正しい場合も多くあります（日本株の照合では、半数近くが誤判定でした）。'
             + ('IR BANK・決算短信' if out["market"] == "jp" else 'SEC EDGAR（10-K）')
             + 'で手作業で確認した結果は反映しています：Yahooが正しいと確認できたものはこの欄から外し、Yahooの誤りを確認できたものは「誤り確認済」と表示します'
               '（判定できなかったものは「要確認」のまま、確認結果を添えています）。まだ確認していない銘柄は、ご自身でも確かめてください。'
-              '確認して誤りだったときも、点は自動では直りません。</p>'
+              '確認していないものは、誤りがあっても、点は自動では直りません。</p>'
             '<div style="overflow-x:auto"><table><thead><tr><th>区分</th><th>コード</th><th>銘柄名</th><th>内容</th><th>確認先</th></tr></thead><tbody>'
             + "".join(trs_dn) + '</tbody></table></div></details>')
 
