@@ -22,6 +22,11 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     timeout-minutes: 180
+    env:
+      # 配当側の夜間更新（nightly-refresh-us）が保存した取得結果を読む（共通の銘柄の二重取得を省く。yf_cache.py）。
+      # 読むだけ（保存しない）。保存が12時間より古い・無い銘柄は、従来どおりここでYahooから取得する。
+      YF_CACHE_DIR: ${{ github.workspace }}/.yf_cache
+      YF_CACHE_READONLY: "1"
     steps:
       - uses: actions/checkout@v4
 
@@ -31,6 +36,13 @@ jobs:
           cache: "pip"
 
       - run: pip install -r requirements.txt
+
+      - name: 配当側が保存した取得結果を復元（共通の銘柄の二重取得を省く）
+        uses: actions/cache/restore@v4
+        with:
+          path: .yf_cache
+          key: yf-us-none
+          restore-keys: yf-us-
 
       - name: バッチ診断（古いサマリだけ再取得）
         run: python batch_long.py us --only-stale --hours 20 --sleep 2.0

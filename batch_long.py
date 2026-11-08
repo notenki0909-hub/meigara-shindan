@@ -27,6 +27,11 @@ import sys
 import time
 import traceback
 
+try:
+    import yf_cache          # 共有キャッシュ（配当側が保存した取得結果）。無くても動く
+except Exception:
+    yf_cache = None
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 CFG = {
@@ -144,8 +149,8 @@ def main():
             counts["fail"] += 1
             failed.append({"code": code, "error": f"{e.__class__.__name__}: {e}"})
             traceback.print_exc()
-        if i < len(todo):
-            time.sleep(args.sleep)
+        if i < len(todo) and not (yf_cache is not None and yf_cache.LAST_FROM_CACHE):
+            time.sleep(args.sleep)              # 保存から読んだ銘柄は、Yahooに取りに行っていないので、待たない
 
     dur = time.time() - t0
     os.makedirs(os.path.dirname(c["log"]), exist_ok=True)
