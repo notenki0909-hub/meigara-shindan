@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 70.4,
+ "bt_score": 60.6,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 78.59554958508008,
   "fcf_yield": 20.0,
   "per_cheap": 73.1,
-  "pbr_cheap": 110.0
+  "pbr_cheap": 70.6
  },
  "ev_ebit": 16.814453735726204,
  "fcf_yield": -7.051558971674562,
  "per_band_pos": 0.0,
- "pbr_band_pos": 1.0,
+ "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": 1.0372889411305493,
  "per_vs_sector": 0.7925871768707483,
- "pbr_vs_sector": 1.1274288461538462e-05,
+ "pbr_vs_sector": 0.9496298584424541,
  "price_chg": {
   "d": -6.0514372163388845,
   "w": -35.78076525336091,
@@ -65,13 +65,25 @@
  },
  "data_notice": [
   {
-   "tier": "check",
+   "tier": "confirmed",
    "k": "pbr",
    "where": "PBR（Yahoo表示 0.00倍）",
    "why": "株価÷（純資産÷発行済株式数）で求めたPBRは2.34倍で、Yahoo表示と79806.57倍ずれています。ただし、照合ではYahoo側のPBRが正しい場合が多くありました（株式数のデータのずれなど）",
-   "how": "IR BANK（irbank.net/6787/results）の1株純資産（BPS）で、株価÷BPSを計算して確認する"
+   "how": "IR BANK（irbank.net/6787/results）の1株純資産（BPS）で、株価÷BPSを計算して確認する",
+   "confirm": {
+    "status": "error",
+    "note": "Yahooは0.00倍（1株純資産の値が桁違い）。決算短信の2026/03期の1株純資産は5,030.31円（2026/10/29の2分割の前）で、分割後は2,515.15円。株価÷2,515.15円で求め直す",
+    "date": "2026-11-08",
+    "replaced": "PBRを、株価÷1株純資産2,515.15円＝2.47倍に置き換えて採点"
+   }
   }
  ],
+ "data_fix": {
+  "pbr": "PBRを、株価÷1株純資産2,515.15円＝2.47倍に置き換えて採点"
+ },
+ "data_asof": {
+  "fetched": "2026-11-08T22:35:41Z"
+ },
  "etf_top": null,
  "metric_scores": {
   "rev_cagr": 110.0,
@@ -101,5 +113,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-07T22:20:14"
+ "_generated_at": "2026-11-08T22:35:44"
 }

@@ -8,12 +8,12 @@
  "price": 7199.0,
  "price_date": "2026-11-06",
  "mcap": 17381840650240,
- "q_score": 106.2,
+ "q_score": 99.5,
  "groups": {
   "業績": null,
   "財務": null,
   "キャッシュフロー": null,
-  "金融品質": 106.2,
+  "金融品質": 99.5,
   "REIT品質": null
  },
  "is_fin_simple": true,
@@ -21,7 +21,7 @@
  "current_pfo": null,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "q_cov": "低",
+ "q_cov": "高",
  "bt_score": 60.5,
  "bt_cov": "高",
  "bt_components": {
@@ -60,6 +60,9 @@
    "shares_chg_pct": -3.776278076485995
   }
  },
+ "data_asof": {
+  "fetched": "2026-11-08T22:41:08Z"
+ },
  "etf_top": null,
  "metric_scores": {
   "rev_cagr": null,
@@ -89,5 +92,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-07T22:28:20"
+ "_generated_at": "2026-11-08T22:41:11"
 }

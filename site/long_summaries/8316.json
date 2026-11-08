@@ -8,12 +8,12 @@
  "price": 3008.0,
  "price_date": "2026-11-06",
  "mcap": 22640240623616,
- "q_score": 102.1,
+ "q_score": 101.9,
  "groups": {
   "業績": null,
   "財務": null,
   "キャッシュフロー": null,
-  "金融品質": 102.1,
+  "金融品質": 101.9,
   "REIT品質": null
  },
  "is_fin_simple": true,
@@ -21,7 +21,7 @@
  "current_pfo": null,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "q_cov": "低",
+ "q_cov": "高",
  "bt_score": 60.9,
  "bt_cov": "高",
  "bt_components": {
@@ -60,6 +60,27 @@
    "shares_chg_pct": -5.379351866673055
   }
  },
+ "data_notice": [
+  {
+   "tier": "confirmed",
+   "k": "eps",
+   "where": "EPS（1株利益）の推移",
+   "why": "自動チェックには引っかかりませんでしたが、手作業の確認でYahooの値の誤りが分かりました",
+   "how": "",
+   "confirm": {
+    "status": "error",
+    "note": "Yahooの2026/03期のEPS 411.97円は、決算短信の見出しの値（2026/9/29の2分割の前の基準）と同じ。決算短信の注記（分割を前期首に行ったと仮定した場合）は205.99円。過去の年もYahooは分割前のままなので、全年を2で割って、分割後の基準にそろえる（株価は分割調整済みのため、そのままだとPERの過去レンジが2分の1に低く出る）",
+    "date": "2026-11-08",
+    "replaced": "1株利益（全年）を分割比2で割って、分割後の基準にそろえて採点"
+   }
+  }
+ ],
+ "data_fix": {
+  "eps": "1株利益（全年）を分割比2で割って、分割後の基準にそろえて採点"
+ },
+ "data_asof": {
+  "fetched": "2026-11-08T22:07:24Z"
+ },
  "etf_top": null,
  "metric_scores": {
   "rev_cagr": null,
@@ -89,5 +110,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-07T22:27:16"
+ "_generated_at": "2026-11-08T22:40:49"
 }

@@ -65,13 +65,25 @@
  },
  "data_notice": [
   {
-   "tier": "high",
+   "tier": "confirmed",
    "k": "eps",
    "where": "EPS（1株利益）の推移",
    "why": "最新期の1株利益が、前の年と同じ値です（更新遅れの疑い）。EPSの成長率が、実際より低く（または高く）計算されている可能性があります",
-   "how": "IR BANK（irbank.net/7259/results）の最新期のEPSと、決算短信の1株当たり当期純利益を、Yahooの値と比べる"
+   "how": "IR BANK（irbank.net/7259/results）の最新期のEPSと、決算短信の1株当たり当期純利益を、Yahooの値と比べる",
+   "confirm": {
+    "status": "error",
+    "note": "Yahooの2026/03期のEPS 137.81円は前の年（2025/03期）と同じ値。IR BANKの2026/03期は232.64円（純利益1,717億円）。なお、Yahooの株価収益率（PER）28.8倍も、IR BANKの直近12か月の純利益（1,516億円）で求めた約10倍とずれている",
+    "date": "2026-11-08",
+    "replaced": "1株利益を、確認した値に置き換えて採点（最新期 232.64円）"
+   }
   }
  ],
+ "data_fix": {
+  "eps": "1株利益を、確認した値に置き換えて採点（最新期 232.64円）"
+ },
+ "data_asof": {
+  "fetched": "2026-11-08T21:58:11Z"
+ },
  "etf_top": null,
  "metric_scores": {
   "rev_cagr": 102.38182264592687,
@@ -89,7 +101,7 @@
  },
  "metric_raw": {
   "rev_cagr": 5.143640381334191,
-  "eps_cagr": 43.547623660498424,
+  "eps_cagr": 70.92170887543388,
   "op_margin": 4.470643820230866,
   "earnings_stability": 1.1274009322860719,
   "equity_ratio": 48.76860314776984,
@@ -101,5 +113,5 @@
   "fcf_positive": 1,
   "fcf_payout": 38.69668348643637
  },
- "_generated_at": "2026-11-07T22:22:49"
+ "_generated_at": "2026-11-08T22:37:49"
 }

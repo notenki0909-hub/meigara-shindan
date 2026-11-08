@@ -22,17 +22,17 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 42.7,
+ "bt_score": 41.5,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
   "fcf_yield": 20.660587393835684,
-  "per_cheap": 110.0,
+  "per_cheap": 105.2,
   "pbr_cheap": 20.0
  },
  "ev_ebit": 1568.9399436942272,
  "fcf_yield": 0.049544054537676185,
- "per_band_pos": null,
+ "per_band_pos": 0.6196970973936898,
  "pbr_band_pos": null,
  "ev_ebit_vs_sector": 126.83427192354303,
  "per_vs_sector": 0.6276091964285715,
@@ -65,20 +65,25 @@
  },
  "data_notice": [
   {
-   "tier": "check",
-   "k": "per",
-   "where": "PER（Yahoo表示 7.0倍）",
-   "why": "直近4四半期の純利益（4.4億円）から求めたPERは1086.6倍で、Yahoo表示と0.0倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
-   "how": "IR BANK（irbank.net/6269/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する"
-  },
-  {
-   "tier": "check",
-   "k": "pbr",
-   "where": "PBR（Yahoo表示 1.79倍）",
-   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは328.83倍で、Yahoo表示と184.08倍ずれています。ただし、照合ではYahoo側のPBRが正しい場合が多くありました（株式数のデータのずれなど）",
-   "how": "IR BANK（irbank.net/6269/results）の1株純資産（BPS）で、株価÷BPSを計算して確認する"
+   "tier": "confirmed",
+   "k": "eps",
+   "where": "EPS（1株利益）の推移",
+   "why": "自動チェックには引っかかりませんでしたが、手作業の確認でYahooの値の誤りが分かりました",
+   "how": "",
+   "confirm": {
+    "status": "error",
+    "note": "Yahooの1株利益は、IR BANKの値のおよそ141〜158分の1（2025/12期 5.28・2024/12期 3.23・2023/12期 1.55・2022/12期 0.66）で、年ごとの比率が為替レートに近い。米ドル建ての値の可能性が高い。IR BANKは826.23・510.30・219.34・87.99円（2025/12期〜2022/12期）。4年分そろえて置き換える",
+    "date": "2026-11-08",
+    "replaced": "1株利益を、確認した値に置き換えて採点（最新期 826.23円、4年分）"
+   }
   }
  ],
+ "data_fix": {
+  "eps": "1株利益を、確認した値に置き換えて採点（最新期 826.23円、4年分）"
+ },
+ "data_asof": {
+  "fetched": "2026-11-08T22:32:27Z"
+ },
  "etf_top": null,
  "metric_scores": {
   "rev_cagr": 110.0,
@@ -96,7 +101,7 @@
  },
  "metric_raw": {
   "rev_cagr": 18.692464980783406,
-  "eps_cagr": 100.0,
+  "eps_cagr": 110.97089603457823,
   "op_margin": 6.63384871143832,
   "earnings_stability": 0.62,
   "equity_ratio": 30.504714679379124,
@@ -108,5 +113,5 @@
   "fcf_positive": 1,
   "fcf_payout": 21.43228341466506
  },
- "_generated_at": "2026-11-07T22:17:08"
+ "_generated_at": "2026-11-08T22:32:30"
 }

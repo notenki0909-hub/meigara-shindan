@@ -63,15 +63,9 @@
    "shares_chg_pct": 0.0030583935228811754
   }
  },
- "data_notice": [
-  {
-   "tier": "check",
-   "k": "pbr",
-   "where": "PBR（Yahoo表示 0.80倍）",
-   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは1.54倍で、Yahoo表示と1.92倍ずれています。ただし、照合ではYahoo側のPBRが正しい場合が多くありました（株式数のデータのずれなど）",
-   "how": "IR BANK（irbank.net/543A/results）の1株純資産（BPS）で、株価÷BPSを計算して確認する"
-  }
- ],
+ "data_asof": {
+  "fetched": "2026-11-08T22:30:48Z"
+ },
  "etf_top": null,
  "metric_scores": {
   "rev_cagr": 92.2952073039867,
@@ -101,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-07T22:14:59"
+ "_generated_at": "2026-11-08T22:30:52"
 }

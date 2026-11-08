@@ -8,12 +8,12 @@
  "price": 5750.0,
  "price_date": "2026-11-06",
  "mcap": 2331083014144,
- "q_score": 107.5,
+ "q_score": 108.3,
  "groups": {
   "業績": null,
   "財務": null,
   "キャッシュフロー": null,
-  "金融品質": 107.5,
+  "金融品質": 108.3,
   "REIT品質": null
  },
  "is_fin_simple": true,
@@ -21,7 +21,7 @@
  "current_pfo": null,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "q_cov": "低",
+ "q_cov": "高",
  "bt_score": 86.6,
  "bt_cov": "高",
  "bt_components": {
@@ -60,22 +60,9 @@
    "shares_chg_pct": 2.634791398486458
   }
  },
- "data_notice": [
-  {
-   "tier": "check",
-   "k": "per",
-   "where": "PER（Yahoo表示 13.0倍）",
-   "why": "直近4四半期の純利益（772.0億円）から求めたPERは30.2倍で、Yahoo表示と0.4倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
-   "how": "IR BANK（irbank.net/5838/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する"
-  },
-  {
-   "tier": "check",
-   "k": "pbr",
-   "where": "PBR（Yahoo表示 2.55倍）",
-   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは6.27倍で、Yahoo表示と2.46倍ずれています。ただし、照合ではYahoo側のPBRが正しい場合が多くありました（株式数のデータのずれなど）",
-   "how": "IR BANK（irbank.net/5838/results）の1株純資産（BPS）で、株価÷BPSを計算して確認する"
-  }
- ],
+ "data_asof": {
+  "fetched": "2026-11-08T22:31:52Z"
+ },
  "etf_top": null,
  "metric_scores": {
   "rev_cagr": null,
@@ -105,5 +92,5 @@
   "fcf_positive": 1,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-07T22:16:03"
+ "_generated_at": "2026-11-08T22:31:55"
 }
