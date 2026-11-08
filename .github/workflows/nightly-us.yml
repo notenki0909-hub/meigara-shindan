@@ -20,6 +20,9 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     timeout-minutes: 180
+    env:
+      # 取得結果の共有キャッシュ（yf_cache.py）。この分析で取得した結果を保存し、後から動く10年保有の nightly-long が復元して使う（共通の銘柄の二重取得を省く）
+      YF_CACHE_DIR: ${{ github.workspace }}/.yf_cache
     steps:
       - uses: actions/checkout@v4
 
@@ -32,6 +35,13 @@ jobs:
 
       - name: バッチ診断（古い銘柄のみ再取得）
         run: python batch_us.py --codes universe_us.json --with-retired --only-stale --hours 20 --sleep 2.0
+
+      - name: 取得結果を保存（10年保有の nightly-long が、共通の銘柄の分だけ再利用する）
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .yf_cache
+          key: yf-us-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: ランキング再生成
         run: python rank_us.py
