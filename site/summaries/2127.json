@@ -1,7 +1,8 @@
 {
  "code": "2127",
  "name": "日本Ｍ＆Ａセンターホールディングス",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
+ "data_fetched_at": "2026-11-08T21:29:29",
  "jp_sector": "証券・商品先物取引業",
  "industry": "Capital Markets",
  "is_simple": true,
@@ -15,7 +16,7 @@
  },
  "price": 611.0,
  "price_date": "2026-11-06",
- "mcap": 193722023936,
+ "mcap": 193884930048,
  "sel_score": 77.5,
  "tim_score": 95.2,
  "sel_label": "選定スコア中位（一部に弱点）",
@@ -75,14 +76,15 @@
   {
    "k": "eps",
    "where": "EPS（1株利益）の推移",
-   "why": "最新期の1株利益が前の年と同じ値（更新遅れの疑い）。EPSの成長率が正しく計算できないため、採点から外しています",
-   "how": "IR BANK（irbank.net/2127/results）の最新期のEPSと、Yahooの値を比べて確認",
+   "why": "【確認済み】Yahoo 34.54円に対し、IR BANKの最新期のEPSは39.36円（2026-11-07）。最新期の1株利益が前の年と同じ値（更新遅れの疑い）。EPSの成長率が正しく計算できないため、採点から外しています",
+   "how": "IR BANK・決算短信で確認済み。Yahooの値が直るまで「―」のままにします（直ったかは夜間更新で自動判定）",
    "keys": [
     "eps_cagr"
    ],
-   "names": []
+   "names": [],
+   "confirmed": "error"
   }
  ],
  "kind": "fin",
- "_generated_at": "2026-11-07T21:12:25"
+ "_generated_at": "2026-11-08T21:29:32"
 }

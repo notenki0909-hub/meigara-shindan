@@ -1,7 +1,8 @@
 {
  "code": "5186",
  "name": "ニッタ",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
+ "data_fetched_at": "2026-11-08T21:46:39",
  "jp_sector": "機械",
  "industry": "Specialty Industrial Machinery",
  "is_simple": false,
@@ -72,14 +73,15 @@
   {
    "k": "eps",
    "where": "EPS（1株利益）の推移",
-   "why": "最新期の1株利益が、純利益÷平均株式数と大きく食い違う（株式分割の反映ずれ・訂正前の値など）。EPSの成長率が正しく計算できないため、採点から外しています",
-   "how": "IR BANK（irbank.net/5186/results）の最新期のEPSと、Yahooの値を比べて確認",
+   "why": "【確認済み】Yahoo 152.06円に対し、IR BANKの最新期のEPSは490.44円（2026-11-07）。最新期の1株利益が、純利益÷平均株式数と大きく食い違う（株式分割の反映ずれ・訂正前の値など）。EPSの成長率が正しく計算できないため、採点から外しています",
+   "how": "IR BANK・決算短信で確認済み。Yahooの値が直るまで「―」のままにします（直ったかは夜間更新で自動判定）",
    "keys": [
     "eps_cagr"
    ],
-   "names": []
+   "names": [],
+   "confirmed": "error"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-07T21:28:36"
+ "_generated_at": "2026-11-08T21:46:42"
 }

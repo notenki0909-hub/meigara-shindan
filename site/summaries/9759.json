@@ -1,7 +1,8 @@
 {
  "code": "9759",
  "name": "ＮＳＤ",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
+ "data_fetched_at": "2026-11-08T22:17:32",
  "jp_sector": "情報・通信業",
  "industry": "Software - Application",
  "is_simple": false,
@@ -15,7 +16,7 @@
  },
  "price": 2997.0,
  "price_date": "2026-11-06",
- "mcap": 225731231744,
+ "mcap": 225525039104,
  "sel_score": 106.0,
  "tim_score": 96.4,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
@@ -61,57 +62,14 @@
  "next_earn": "2027-01-29",
  "earn_disc_date": "2015-01-28",
  "buyback_yen": 2001000000.0,
- "total_yield": 4.089655638048071,
+ "total_yield": 4.0904661022364435,
  "total_payout": 66.51548927665462,
  "interest_coverage": 861.1818181818181,
  "warnings": [],
  "roa": 13.35,
  "leverage": 1.32,
  "insight_flags": [],
- "review": [
-  {
-   "k": "dps",
-   "where": "2014年度の年間配当（2回払い・36.95円）",
-   "why": "通常は年1回払いなのに2回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
-   "how": "IR BANK（irbank.net/9759/dividend）の備考欄か決算短信で、2014年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
-   "keys": [
-    "streak_up",
-    "streak_flat",
-    "dgr5"
-   ],
-   "names": [
-    "配当の年別データの整理（注記）"
-   ]
-  },
-  {
-   "k": "dps",
-   "where": "2019年度の年間配当（2回払い・46円）",
-   "why": "通常は年1回払いなのに2回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
-   "how": "IR BANK（irbank.net/9759/dividend）の備考欄か決算短信で、2019年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
-   "keys": [
-    "streak_up",
-    "streak_flat",
-    "dgr5"
-   ],
-   "names": [
-    "配当の年別データの整理（注記）"
-   ]
-  },
-  {
-   "k": "dps",
-   "where": "2022年度の年間配当（2回払い・67円）",
-   "why": "通常は年1回払いなのに2回払いです。払い方の変更とみなして計算に含めています。記念配当・特別配当だった場合は、連続増配が実際より長く出ます",
-   "how": "IR BANK（irbank.net/9759/dividend）の備考欄か決算短信で、2022年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
-   "keys": [
-    "streak_up",
-    "streak_flat",
-    "dgr5"
-   ],
-   "names": [
-    "配当の年別データの整理（注記）"
-   ]
-  }
- ],
+ "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-07T21:57:45"
+ "_generated_at": "2026-11-08T22:17:34"
 }

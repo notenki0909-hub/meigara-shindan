@@ -1,14 +1,15 @@
 {
  "code": "4922",
  "name": "コーセーホールディングス",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
+ "data_fetched_at": "2026-11-08T21:45:19",
  "jp_sector": "化学",
  "industry": "Household & Personal Products",
  "is_simple": false,
  "is_reit": false,
  "sel_dev": {
-  "dev": 34,
-  "rank": 54,
+  "dev": 33,
+  "rank": 55,
   "n": 59,
   "basis": "業種",
   "name": "化学"
@@ -16,7 +17,7 @@
  "price": 5971.0,
  "price_date": "2026-11-06",
  "mcap": 338856935424,
- "sel_score": 74.3,
+ "sel_score": 73.5,
  "tim_score": 81.7,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
@@ -35,7 +36,7 @@
   "業績": 77.0,
   "財務": 108.6,
   "キャッシュフロー": 60.0,
-  "配当の持続力": 48.1,
+  "配当の持続力": 45.4,
   "配当利回りセオリー": 109.5,
   "利回り水準とChowder": 44.6,
   "株価バリュエーション": 73.5,
@@ -49,8 +50,8 @@
  "payout_fy": "2025年12月期",
  "roe": 4.7059998,
  "div_policy": null,
- "dgr5": -2.015074331874356,
- "chowder": 0.32959155323701594,
+ "dgr5": -5.924857043676224,
+ "chowder": -3.580191158564852,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
@@ -68,22 +69,7 @@
  "roa": 3.84,
  "leverage": 1.38,
  "insight_flags": [],
- "review": [
-  {
-   "k": "dps",
-   "where": "2021年度の年間配当（3回払い・180円）",
-   "why": "通常は年2回払いなのに3回払いです。払い方の変更とみなして計算に含めています。記念配当・特別配当だった場合は、連続増配が実際より長く出ます",
-   "how": "IR BANK（irbank.net/4922/dividend）の備考欄か決算短信で、2021年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
-   "keys": [
-    "streak_up",
-    "streak_flat",
-    "dgr5"
-   ],
-   "names": [
-    "配当の年別データの整理（注記）"
-   ]
-  }
- ],
+ "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-07T21:27:23"
+ "_generated_at": "2026-11-08T21:45:22"
 }

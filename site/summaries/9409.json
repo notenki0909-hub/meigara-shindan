@@ -1,7 +1,8 @@
 {
  "code": "9409",
  "name": "テレビ朝日ホールディングス",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
+ "data_fetched_at": "2026-11-08T22:14:54",
  "jp_sector": "情報・通信業",
  "industry": "Broadcasting",
  "is_simple": false,
@@ -58,7 +59,7 @@
  "pbr_vs_sector": 0.3517293,
  "per_band_pos": 0.09102435272528808,
  "yield_band_pos": 0.6350402222304706,
- "next_earn": "2026-11-11",
+ "next_earn": "2026-11-12",
  "earn_disc_date": "2020-02-05",
  "buyback_yen": 3000000000.0,
  "total_yield": 3.8932256499696876,
@@ -72,14 +73,15 @@
   {
    "k": "eps",
    "where": "EPS（1株利益）の推移",
-   "why": "最新期の1株利益が前の年と同じ値（更新遅れの疑い）。EPSの成長率が正しく計算できないため、採点から外しています",
-   "how": "IR BANK（irbank.net/9409/results）の最新期のEPSと、Yahooの値を比べて確認",
+   "why": "【確認済み】Yahoo 254.04円に対し、IR BANKの最新期のEPSは294.32円（2026-11-07）。最新期の1株利益が前の年と同じ値（更新遅れの疑い）。EPSの成長率が正しく計算できないため、採点から外しています",
+   "how": "IR BANK・決算短信で確認済み。Yahooの値が直るまで「―」のままにします（直ったかは夜間更新で自動判定）",
    "keys": [
     "eps_cagr"
    ],
-   "names": []
+   "names": [],
+   "confirmed": "error"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-07T21:55:10"
+ "_generated_at": "2026-11-08T22:14:57"
 }

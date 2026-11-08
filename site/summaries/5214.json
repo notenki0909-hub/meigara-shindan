@@ -1,14 +1,15 @@
 {
  "code": "5214",
  "name": "日本電気硝子",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
+ "data_fetched_at": "2026-11-08T21:46:53",
  "jp_sector": "電気機器",
  "industry": "Electronic Components",
  "is_simple": false,
  "is_reit": false,
  "sel_dev": {
-  "dev": 54,
-  "rank": 13,
+  "dev": 55,
+  "rank": 10,
   "n": 29,
   "basis": "業種",
   "name": "電気機器"
@@ -16,7 +17,7 @@
  "price": 4540.0,
  "price_date": "2026-11-06",
  "mcap": 325906333696,
- "sel_score": 90.8,
+ "sel_score": 92.2,
  "tim_score": 73.7,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
@@ -35,7 +36,7 @@
   "業績": 82.9,
   "財務": 107.3,
   "キャッシュフロー": 103.3,
-  "配当の持続力": 77.1,
+  "配当の持続力": 81.9,
   "配当利回りセオリー": 40.1,
   "利回り水準とChowder": 99.9,
   "株価バリュエーション": 106.0,
@@ -43,7 +44,7 @@
  },
  "div_yield": 3.524229074889868,
  "streak_up": 2,
- "streak_flat": 10,
+ "streak_flat": 19,
  "payout_ni": 39.233123218162326,
  "payout_state": null,
  "payout_fy": "2025年12月期",
@@ -70,22 +71,7 @@
  "roa": 4.22,
  "leverage": 1.42,
  "insight_flags": [],
- "review": [
-  {
-   "k": "dps",
-   "where": "2014年度の年間配当（3回払い・100円）",
-   "why": "通常は年2回払いなのに3回払いです。払い方の変更とみなして計算に含めています。記念配当・特別配当だった場合は、連続増配が実際より長く出ます",
-   "how": "IR BANK（irbank.net/5214/dividend）の備考欄か決算短信で、2014年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
-   "keys": [
-    "streak_up",
-    "streak_flat",
-    "dgr5"
-   ],
-   "names": [
-    "配当の年別データの整理（注記）"
-   ]
-  }
- ],
+ "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-07T21:28:50"
+ "_generated_at": "2026-11-08T21:46:56"
 }

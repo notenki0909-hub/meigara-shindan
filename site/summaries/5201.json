@@ -1,7 +1,8 @@
 {
  "code": "5201",
  "name": "ＡＧＣ",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
+ "data_fetched_at": "2026-11-08T21:46:48",
  "jp_sector": "卸売業",
  "industry": "Conglomerates",
  "is_simple": false,
@@ -15,7 +16,7 @@
  },
  "price": 4699.0,
  "price_date": "2026-11-06",
- "mcap": 998038437888,
+ "mcap": 998167543808,
  "sel_score": 87.4,
  "tim_score": 103.9,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
@@ -61,7 +62,7 @@
  "next_earn": "2027-02-05",
  "earn_disc_date": "2023-11-01",
  "buyback_yen": 15000000.0,
- "total_yield": 4.470538913225058,
+ "total_yield": 4.470538718829335,
  "total_payout": 64.4877244729765,
  "interest_coverage": 9.139222338204593,
  "warnings": [
@@ -75,22 +76,7 @@
    "t": "バリュートラップ注意：PBR 0.68倍（1倍割れ）かつROE 4.7%（5%未満）"
   }
  ],
- "review": [
-  {
-   "k": "dps",
-   "where": "2019年度の年間配当（3回払い・175円）",
-   "why": "通常は年2回払いなのに3回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
-   "how": "IR BANK（irbank.net/5201/dividend）の備考欄か決算短信で、2019年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
-   "keys": [
-    "streak_up",
-    "streak_flat",
-    "dgr5"
-   ],
-   "names": [
-    "配当の年別データの整理（注記）"
-   ]
-  }
- ],
+ "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-07T21:28:46"
+ "_generated_at": "2026-11-08T21:46:51"
 }

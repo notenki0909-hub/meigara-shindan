@@ -1,21 +1,22 @@
 {
  "code": "4633",
  "name": "サカタインクス",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
+ "data_fetched_at": "2026-11-08T21:43:30",
  "jp_sector": "化学",
  "industry": "Specialty Chemicals",
  "is_simple": false,
  "is_reit": false,
  "sel_dev": {
   "dev": 60,
-  "rank": 11,
+  "rank": 10,
   "n": 59,
   "basis": "業種",
   "name": "化学"
  },
  "price": 2518.0,
  "price_date": "2026-11-06",
- "mcap": 122755358720,
+ "mcap": 122438836224,
  "sel_score": 100.1,
  "tim_score": 101.8,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
@@ -61,29 +62,14 @@
  "next_earn": null,
  "earn_disc_date": "2014-11-06",
  "buyback_yen": 1000000000.0,
- "total_yield": 4.786034265742323,
+ "total_yield": 4.788140200580106,
  "total_payout": 47.066930829528815,
  "interest_coverage": 17.110798122065727,
  "warnings": [],
  "roa": 5.14,
  "leverage": 1.9,
  "insight_flags": [],
- "review": [
-  {
-   "k": "dps",
-   "where": "2015年度の年間配当（3回払い・33円）",
-   "why": "通常は年2回払いなのに3回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
-   "how": "IR BANK（irbank.net/4633/dividend）の備考欄か決算短信で、2015年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
-   "keys": [
-    "streak_up",
-    "streak_flat",
-    "dgr5"
-   ],
-   "names": [
-    "配当の年別データの整理（注記）"
-   ]
-  }
- ],
+ "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-07T21:25:40"
+ "_generated_at": "2026-11-08T21:43:33"
 }

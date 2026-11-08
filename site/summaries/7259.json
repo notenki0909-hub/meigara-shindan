@@ -1,7 +1,8 @@
 {
  "code": "7259",
  "name": "アイシン",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
+ "data_fetched_at": "2026-11-08T21:58:11",
  "jp_sector": "輸送用機器",
  "industry": "Auto Parts",
  "is_simple": false,
@@ -72,14 +73,15 @@
   {
    "k": "eps",
    "where": "EPS（1株利益）の推移",
-   "why": "最新期の1株利益が前の年と同じ値（更新遅れの疑い）。EPSの成長率が正しく計算できないため、採点から外しています",
-   "how": "IR BANK（irbank.net/7259/results）の最新期のEPSと、Yahooの値を比べて確認",
+   "why": "【確認済み】Yahoo 137.81円に対し、IR BANKの最新期のEPSは232.64円（2026-11-07）。最新期の1株利益が前の年と同じ値（更新遅れの疑い）。EPSの成長率が正しく計算できないため、採点から外しています",
+   "how": "IR BANK・決算短信で確認済み。Yahooの値が直るまで「―」のままにします（直ったかは夜間更新で自動判定）",
    "keys": [
     "eps_cagr"
    ],
-   "names": []
+   "names": [],
+   "confirmed": "error"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-07T21:39:23"
+ "_generated_at": "2026-11-08T21:58:14"
 }

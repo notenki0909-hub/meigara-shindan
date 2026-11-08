@@ -1,13 +1,14 @@
 {
  "code": "3405",
  "name": "クラレ",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
+ "data_fetched_at": "2026-11-08T21:36:14",
  "jp_sector": "化学",
  "industry": "Chemicals",
  "is_simple": false,
  "is_reit": false,
  "sel_dev": {
-  "dev": 32,
+  "dev": 31,
   "rank": 56,
   "n": 59,
   "basis": "業種",
@@ -85,22 +86,7 @@
    "t": "バリュートラップ注意：PBR 0.73倍（1倍割れ）かつROE 1.0%（5%未満）"
   }
  ],
- "review": [
-  {
-   "k": "dps",
-   "where": "2014年度の年間配当（3回払い・45円）",
-   "why": "通常は年2回払いなのに3回払いです。払い方の変更とみなして計算に含めています。記念配当・特別配当だった場合は、連続増配が実際より長く出ます",
-   "how": "IR BANK（irbank.net/3405/dividend）の備考欄か決算短信で、2014年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
-   "keys": [
-    "streak_up",
-    "streak_flat",
-    "dgr5"
-   ],
-   "names": [
-    "配当の年別データの整理（注記）"
-   ]
-  }
- ],
+ "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-07T21:18:48"
+ "_generated_at": "2026-11-08T21:36:17"
 }

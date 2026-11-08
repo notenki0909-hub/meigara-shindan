@@ -1,7 +1,8 @@
 {
  "code": "7164",
  "name": "全国保証",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
+ "data_fetched_at": "2026-11-08T21:56:48",
  "jp_sector": "その他金融業",
  "industry": "Credit Services",
  "is_simple": false,
@@ -74,22 +75,7 @@
  "roa": 6.49,
  "leverage": 2.04,
  "insight_flags": [],
- "review": [
-  {
-   "k": "dps",
-   "where": "2025年度の年間配当（2回払い・120円）",
-   "why": "通常は年1回払いなのに2回払いです。払い方の変更とみなして計算に含めています。記念配当・特別配当だった場合は、連続増配が実際より長く出ます",
-   "how": "IR BANK（irbank.net/7164/dividend）の備考欄か決算短信で、2025年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
-   "keys": [
-    "streak_up",
-    "streak_flat",
-    "dgr5"
-   ],
-   "names": [
-    "配当の年別データの整理（注記）"
-   ]
-  }
- ],
+ "review": [],
  "kind": "fin",
- "_generated_at": "2026-11-07T21:38:06"
+ "_generated_at": "2026-11-08T21:56:51"
 }

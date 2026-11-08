@@ -1,7 +1,8 @@
 {
  "code": "1793",
  "name": "大本組",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
+ "data_fetched_at": "2026-11-08T21:25:07",
  "jp_sector": "建設業",
  "industry": "Engineering & Construction",
  "is_simple": false,
@@ -79,14 +80,15 @@
   {
    "k": "pbr",
    "where": "PBR（Yahoo表示 1.39倍）",
-   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは0.73倍で、Yahoo表示と0.52倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
-   "how": "IR BANK（irbank.net/1793/results）の1株純資産（BPS）で、株価÷BPSを計算して確認",
+   "why": "【確認済み】Yahoo 1.42倍に対し、IR BANKは0.75倍（2026-11-07）。株価÷（純資産÷発行済株式数）で求めたPBRは0.73倍で、Yahoo表示と0.52倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
+   "how": "IR BANK・決算短信で確認済み。Yahooの値が直るまで「―」のままにします（直ったかは夜間更新で自動判定）",
    "keys": [
     "pbr_vs_sector"
    ],
-   "names": []
+   "names": [],
+   "confirmed": "error"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-07T21:08:18"
+ "_generated_at": "2026-11-08T21:25:10"
 }

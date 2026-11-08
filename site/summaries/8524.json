@@ -1,14 +1,15 @@
 {
  "code": "8524",
  "name": "北洋銀行",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
+ "data_fetched_at": "2026-11-08T22:09:21",
  "jp_sector": "銀行業",
  "industry": "Banks - Regional",
  "is_simple": true,
  "is_reit": false,
  "sel_dev": {
-  "dev": 48,
-  "rank": 20,
+  "dev": 49,
+  "rank": 19,
   "n": 38,
   "basis": "業種",
   "name": "銀行業"
@@ -16,7 +17,7 @@
  "price": 1071.0,
  "price_date": "2026-11-06",
  "mcap": 400679403520,
- "sel_score": 75.7,
+ "sel_score": 76.8,
  "tim_score": 88.0,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
@@ -35,7 +36,7 @@
   "業績": null,
   "財務": null,
   "キャッシュフロー": null,
-  "配当の持続力": 75.5,
+  "配当の持続力": 79.0,
   "配当利回りセオリー": 81.1,
   "利回り水準とChowder": 105.2,
   "株価バリュエーション": 80.7,
@@ -43,15 +44,15 @@
   "金融品質": 75.8
  },
  "div_yield": 3.5480859010270773,
- "streak_up": 1,
- "streak_flat": 6,
+ "streak_up": 2,
+ "streak_flat": 7,
  "payout_ni": 41.146216017634096,
  "payout_state": null,
  "payout_fy": "2026年3月期",
  "roe": 7.0310004,
  "div_policy": null,
- "dgr5": 13.697448881013807,
- "chowder": 17.245534782040885,
+ "dgr5": 22.865967908314722,
+ "chowder": 26.4140538093418,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
@@ -71,22 +72,7 @@
  "roa": 0.19,
  "leverage": 34.25,
  "insight_flags": [],
- "review": [
-  {
-   "k": "dps",
-   "where": "2025年度の年間配当（4回払い・28円）",
-   "why": "通常は年2回払いなのに4回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
-   "how": "IR BANK（irbank.net/8524/dividend）の備考欄か決算短信で、2025年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
-   "keys": [
-    "streak_up",
-    "streak_flat",
-    "dgr5"
-   ],
-   "names": [
-    "配当の年別データの整理（注記）"
-   ]
-  }
- ],
+ "review": [],
  "kind": "fin",
- "_generated_at": "2026-11-07T21:49:51"
+ "_generated_at": "2026-11-08T22:09:24"
 }

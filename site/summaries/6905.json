@@ -1,7 +1,8 @@
 {
  "code": "6905",
  "name": "コーセル",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
+ "data_fetched_at": "2026-11-08T21:55:56",
  "jp_sector": "電気機器",
  "industry": "Electrical Equipment & Parts",
  "is_simple": false,
@@ -89,14 +90,15 @@
   {
    "k": "eps",
    "where": "EPS（1株利益）の推移",
-   "why": "最新期の1株利益×株式数が、最新期ではなく前の年の純利益と一致（年別データの並び違いの疑い）。EPSの成長率が正しく計算できないため、採点から外しています",
-   "how": "IR BANK（irbank.net/6905/results）の最新期のEPSと、Yahooの値を比べて確認",
+   "why": "【確認済み】Yahoo -2.81円に対し、IR BANKの最新期のEPSは-82.8円（2026-11-07）。最新期の1株利益×株式数が、最新期ではなく前の年の純利益と一致（年別データの並び違いの疑い）。EPSの成長率が正しく計算できないため、採点から外しています",
+   "how": "IR BANK・決算短信で確認済み。Yahooの値が直るまで「―」のままにします（直ったかは夜間更新で自動判定）",
    "keys": [
     "eps_cagr"
    ],
-   "names": []
+   "names": [],
+   "confirmed": "error"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-07T21:37:19"
+ "_generated_at": "2026-11-08T21:55:59"
 }

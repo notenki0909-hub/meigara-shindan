@@ -1,7 +1,8 @@
 {
  "code": "1882",
  "name": "東亜道路工業",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
+ "data_fetched_at": "2026-11-08T21:26:33",
  "jp_sector": "建設業",
  "industry": "Engineering & Construction",
  "is_simple": false,
@@ -15,7 +16,7 @@
  },
  "price": 1509.0,
  "price_date": "2026-11-06",
- "mcap": 69727248384,
+ "mcap": 69732835328,
  "sel_score": 86.3,
  "tim_score": 91.3,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
@@ -61,7 +62,7 @@
  "next_earn": null,
  "earn_disc_date": "2016-02-07",
  "buyback_yen": 520000000.0,
- "total_yield": 6.7099776839557315,
+ "total_yield": 6.709917933969322,
  "total_payout": 197.4314068884997,
  "interest_coverage": 102.92592592592592,
  "warnings": [
@@ -79,28 +80,15 @@
   {
    "k": "eps",
    "where": "EPS（1株利益）の推移",
-   "why": "最新期の1株利益が前の年と同じ値（更新遅れの疑い）。EPSの成長率が正しく計算できないため、採点から外しています",
-   "how": "IR BANK（irbank.net/1882/results）の最新期のEPSと、Yahooの値を比べて確認",
+   "why": "【確認済み】Yahoo 89.22円に対し、IR BANKの最新期のEPSは74.22円（2026-11-07）。最新期の1株利益が前の年と同じ値（更新遅れの疑い）。EPSの成長率が正しく計算できないため、採点から外しています",
+   "how": "IR BANK・決算短信で確認済み。Yahooの値が直るまで「―」のままにします（直ったかは夜間更新で自動判定）",
    "keys": [
     "eps_cagr"
    ],
-   "names": []
-  },
-  {
-   "k": "dps",
-   "where": "2025年度の年間配当（2回払い・90円）",
-   "why": "通常は年1回払いなのに2回払いです。払い方の変更とみなして計算に含めています。記念配当・特別配当だった場合は、連続増配が実際より長く出ます",
-   "how": "IR BANK（irbank.net/1882/dividend）の備考欄か決算短信で、2025年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
-   "keys": [
-    "streak_up",
-    "streak_flat",
-    "dgr5"
-   ],
-   "names": [
-    "配当の年別データの整理（注記）"
-   ]
+   "names": [],
+   "confirmed": "error"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-07T21:09:38"
+ "_generated_at": "2026-11-08T21:26:35"
 }

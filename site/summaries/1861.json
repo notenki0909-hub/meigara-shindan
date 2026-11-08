@@ -1,14 +1,15 @@
 {
  "code": "1861",
  "name": "熊谷組",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
+ "data_fetched_at": "2026-11-08T21:26:14",
  "jp_sector": "建設業",
  "industry": "Engineering & Construction",
  "is_simple": false,
  "is_reit": false,
  "sel_dev": {
-  "dev": 51,
-  "rank": 37,
+  "dev": 54,
+  "rank": 26,
   "n": 67,
   "basis": "業種",
   "name": "建設業"
@@ -16,8 +17,8 @@
  "price": 1204.0,
  "price_date": "2026-11-06",
  "mcap": 204606701568,
- "sel_score": 94.8,
- "tim_score": 93.3,
+ "sel_score": 97.5,
+ "tim_score": 103.0,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -35,22 +36,22 @@
   "業績": 98.5,
   "財務": 104.4,
   "キャッシュフロー": 102.8,
-  "配当の持続力": 78.6,
+  "配当の持続力": 87.7,
   "配当利回りセオリー": 100.1,
-  "利回り水準とChowder": 71.0,
+  "利回り水準とChowder": 104.1,
   "株価バリュエーション": 107.2,
   "金利スプレッド": null
  },
  "div_yield": 4.152823920265781,
- "streak_up": 0,
- "streak_flat": 12,
+ "streak_up": 1,
+ "streak_flat": 13,
  "payout_ni": 40.19155122284933,
  "payout_state": null,
  "payout_fy": "2026年3月期",
  "roe": 11.295,
  "div_policy": null,
- "dgr5": 1.6137364741595661,
- "chowder": 5.766560394425347,
+ "dgr5": 9.39445793745275,
+ "chowder": 13.54728185771853,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 44.567943736782574,
@@ -68,22 +69,7 @@
  "roa": 4.47,
  "leverage": 2.39,
  "insight_flags": [],
- "review": [
-  {
-   "k": "dps",
-   "where": "2025年度の年間配当（2回払い・47円）",
-   "why": "通常は年1回払いなのに2回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
-   "how": "IR BANK（irbank.net/1861/dividend）の備考欄か決算短信で、2025年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
-   "keys": [
-    "streak_up",
-    "streak_flat",
-    "dgr5"
-   ],
-   "names": [
-    "配当の年別データの整理（注記）"
-   ]
-  }
- ],
+ "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-07T21:09:21"
+ "_generated_at": "2026-11-08T21:26:17"
 }

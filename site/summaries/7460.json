@@ -1,7 +1,8 @@
 {
  "code": "7460",
  "name": "ヤギ",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
+ "data_fetched_at": "2026-11-08T21:59:35",
  "jp_sector": "繊維製品",
  "industry": "Textile Manufacturing",
  "is_simple": false,
@@ -16,7 +17,7 @@
  "price": 1575.0,
  "price_date": "2026-11-06",
  "mcap": 38383415296,
- "sel_score": 94.4,
+ "sel_score": 95.3,
  "tim_score": 109.2,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
@@ -35,22 +36,22 @@
   "業績": 93.0,
   "財務": 105.5,
   "キャッシュフロー": 103.3,
-  "配当の持続力": 81.4,
+  "配当の持続力": 84.1,
   "配当利回りセオリー": 109.1,
   "利回り水準とChowder": 110.0,
   "株価バリュエーション": 108.4,
   "金利スプレッド": null
  },
  "div_yield": 5.079365079365079,
- "streak_up": 4,
- "streak_flat": 4,
+ "streak_up": 5,
+ "streak_flat": 5,
  "payout_ni": 35.15413737155219,
  "payout_state": null,
  "payout_fy": "2026年3月期",
  "roe": 7.913,
  "div_policy": null,
- "dgr5": 13.396657763302722,
- "chowder": 18.476022842667803,
+ "dgr5": 34.83761515273225,
+ "chowder": 39.91698023209733,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 36.66768014594102,
@@ -68,36 +69,7 @@
  "roa": 4.44,
  "leverage": 1.77,
  "insight_flags": [],
- "review": [
-  {
-   "k": "dps",
-   "where": "2019年度の年間配当（2回払い・16円）",
-   "why": "通常は年1回払いなのに2回払いです。払い方の変更とみなして計算に含めています。記念配当・特別配当だった場合は、連続増配が実際より長く出ます",
-   "how": "IR BANK（irbank.net/7460/dividend）の備考欄か決算短信で、2019年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
-   "keys": [
-    "streak_up",
-    "streak_flat",
-    "dgr5"
-   ],
-   "names": [
-    "配当の年別データの整理（注記）"
-   ]
-  },
-  {
-   "k": "dps",
-   "where": "2025年度の年間配当（2回払い・52円）",
-   "why": "通常は年1回払いなのに2回払いで、前年から金額も急に増えています。記念配当・特別配当の可能性があるため、連続増配などの計算から除いています。普通配当だった場合は、連続増配が実際より短く出ます",
-   "how": "IR BANK（irbank.net/7460/dividend）の備考欄か決算短信で、2025年度の配当に記念・特別配当が含まれるかを確認し、dps_overrides.json に登録（含まれる→special／普通配当→regular）",
-   "keys": [
-    "streak_up",
-    "streak_flat",
-    "dgr5"
-   ],
-   "names": [
-    "配当の年別データの整理（注記）"
-   ]
-  }
- ],
+ "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-07T21:40:42"
+ "_generated_at": "2026-11-08T21:59:37"
 }
