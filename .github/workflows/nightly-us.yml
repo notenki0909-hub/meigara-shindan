@@ -5,16 +5,12 @@ name: nightly-refresh-us
 # とはアクセスが重ならないよう 22:00 UTC（= 翌 07:00 JST）に分けている。
 # --only-stale --hours 20 なので 1日1回の cron なら実質「毎晩フル更新」。
 on:
-  # 取得専用の工程（fetch-data-us）が終わったら動く。取得が失敗・一部失敗でも動く（取れなかった銘柄はここで従来どおり自分で取得する）。
-  # 手動実行（workflow_dispatch）のときは、直近に成功した取得結果（20〜30時間以内）があれば使う。
-  workflow_run:
-    workflows: ["fetch-data-us"]
-    types: [completed]
+  schedule:
+    - cron: "0 22 * * *"   # 22:00 UTC = 07:00 JST（NYSE 引け後・JP nightly と非重複）
   workflow_dispatch: {}
 
 permissions:
   contents: write
-  actions: read   # 取得結果（artifact）の取得
 
 concurrency:
   group: meigara-dividend-git-push
@@ -24,11 +20,6 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     timeout-minutes: 180
-    env:
-      # 取得専用の工程が保存した取得結果を読む（yf_cache.py）。無い・古い銘柄は、従来どおりここで取得する。
-      YF_CACHE_DIR: ${{ github.workspace }}/.yf_cache
-      YF_CACHE_READONLY: "1"
-      YF_CACHE_MAX_AGE_HOURS: "30"
     steps:
       - uses: actions/checkout@v4
 
@@ -38,12 +29,6 @@ jobs:
           cache: "pip"
 
       - run: pip install -r requirements.txt
-
-      - name: 取得結果を復元（fetch-data-us が保存したもの）
-        uses: ./.github/actions/get-yf-store
-        with:
-          market: us
-          token: ${{ github.token }}
 
       - name: バッチ診断（古い銘柄のみ再取得）
         run: python batch_us.py --codes universe_us.json --with-retired --only-stale --hours 20 --sleep 2.0

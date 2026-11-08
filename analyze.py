@@ -150,7 +150,15 @@ def fetch_yf(code, suffix=".T"):
     """suffix='.T' は東証。米国株版（analyze_us）は suffix='' で呼ぶ。
     環境変数 YF_CACHE_DIR を設定したときだけ、取得結果を共有キャッシュ（yf_cache.py）経由にする（未設定なら従来どおり毎回取得）。"""
     import yf_cache
-    return yf_cache.cached_fetch(_fetch_yf_uncached, code, suffix)
+    return yf_cache.cached_fetch(_fetch_yf_uncached, code, suffix, stub=_empty_yd)
+
+
+def _empty_yd(code, suffix=".T"):
+    """取得に失敗したときと同じ形の空のデータ（厳格モードで保存が無い銘柄に返す。generate は『データ取得できず』になる）。"""
+    return {"code": code, "ticker": f"{code}{suffix}", "info": {}, "price": None, "price_date": None, "ohlc": None,
+            "hist_m": None, "hist_d": None, "splits": None, "divs": [],
+            "is_rows": {}, "is_years": [], "bs_rows": {}, "bs_years": [], "cf_rows": {}, "cf_years": [],
+            "q_rows": {}, "q_dates": [], "price_targets": {}, "earn_est": {}, "rev_est": {}, "earn_dates": [], "next_earn": None}
 
 
 def _fetch_yf_uncached(code, suffix=".T"):
