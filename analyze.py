@@ -3684,6 +3684,47 @@ def _metric_details_html(it, jp, is_simple, rules, hl_keys=(), jp_div=False):
         f'</div></details>')
 
 
+# 銀行・保険・証券で「業績・財務・キャッシュフロー」を採点しない理由（見出しをクリックすると出る説明）。銘柄自身の値を差し込む。
+FIN_SIMPLE_SECTORS = ("銀行業", "保険業", "証券・商品先物取引業")
+
+
+def simple_why_html(gname, jp, M):
+    """見出し（業績／財務／キャッシュフロー）の説明。銀行業は決めた文言そのまま、保険・証券は預金の部分だけ言い換える。"""
+    def item(group, key):
+        for it in M.get(group, []):
+            if it.get("key") == key:
+                return it
+        return {}
+    bank = (jp == "銀行業")
+    kind = {"銀行業": "銀行", "保険業": "保険", "証券・商品先物取引業": "証券"}.get(jp, "金融")
+    if gname == "財務":
+        eq, de = item("財務", "equity_ratio"), item("財務", "de")
+        own = (f"この銘柄は、自己資本比率 {eq.get('disp', '―')}（{eq.get('ref', '').replace('業種平均 ', '業種平均は約') if eq.get('ref') not in (None, '―') else '業種平均は不明'}）、"
+               f"D/Eレシオ {de.get('disp', '―')}。")
+        if bank:
+            body = ("<li>自己資本比率は、数%が普通です。一般企業の目安（15%以上が良好）に当てはめると、金融は全部「弱い」になります。</li>"
+                    "<li>預金は「負債」にあたり、D/Eは2倍超になるのが普通です。借金の重さを示す指標として使えません。</li>")
+        else:
+            liab = "保険契約準備金など" if jp == "保険業" else "顧客からの預り金や信用取引などの"
+            body = ("<li>自己資本比率は、数%〜十数%と低めなのが普通です。一般企業の目安（15%以上が良好）に当てはめると、金融は「弱い」になりやすくなります。</li>"
+                    f"<li>{kind}は、{liab}負債が大きく、D/Eも一般企業とは別の水準になります。借金の重さを示す指標として使えません。</li>")
+        return f'<p class="dwown">{own}</p><ol>{body}</ol>'
+    if gname == "キャッシュフロー":
+        ocf = item("キャッシュフロー", "ocf_positive")
+        own = f"この銘柄の営業CF（直近→過去）：{ocf.get('disp', '―')}。"
+        if bank:
+            body = "<li>営業キャッシュフローが、預金や貸出の増減で大きく動きます。年ごとに符号が入れ替わることがあり、「継続してプラスが良い」という基準が成り立ちません。</li>"
+        else:
+            drv = "保険料の収入と保険金の支払い、運用資産の入れ替え" if jp == "保険業" else "顧客資金や信用取引の増減"
+            body = f"<li>営業キャッシュフローが、{drv}で大きく動きます。年ごとに符号が入れ替わることがあり、「継続してプラスが良い」という基準が成り立ちません。</li>"
+        return f'<p class="dwown">{own}</p><ol>{body}</ol>'
+    # 業績
+    opm = item("業績", "op_margin")
+    own = f"この銘柄の営業利益率：{opm.get('disp', '―')}。"
+    body = "<li>業績の項目の定義が違います。営業利益が取れず、営業利益率は「―」になります。</li>"
+    return f'<p class="dwown">{own}</p><ol>{body}</ol>'
+
+
 def render_html(meta, dom_scores, detail, groups, sel_score, tim_score, vd, M, ctx, sec_avg, warnings, rules, fq_score=None, fq_parts=None):
     jp = meta["jp_sector"]
     rowmap = {r["key"]: r for dom in detail for r in detail[dom] if r.get("key")}
@@ -3695,7 +3736,15 @@ def render_html(meta, dom_scores, detail, groups, sel_score, tim_score, vd, M, c
     def head_section(head):
         out = []
         for gname, gdef in sg[head].items():
-            out.append(f'<div class="domhead"><b>{gname}</b> {bar(groups.get(gname))}</div>')
+            if meta["is_simple"] and jp in FIN_SIMPLE_SECTORS and gname in ("業績", "財務", "キャッシュフロー"):
+                out.append(
+                    f'<details class="domhead dwhy"><summary><b>{gname}</b> {bar(groups.get(gname))}'
+                    f'<span class="whyhint">▶ なぜ評価しないのか（クリック）</span></summary>'
+                    f'<div class="dwbody">{simple_why_html(gname, jp, M)}'
+                    '<p class="dwsub">代わりに「金融品質」（ROE・増収率・EPS成長率・利益の安定度。銀行は経費率・貸出金の成長率も）を銘柄選定の点数に使い、'
+                    'この項目は参考表示のみです。貸倒・不良債権・自己資本比率（規制）・有価証券の含み損益はYahoo Financeにないため評価できません。</p></div></details>')
+            else:
+                out.append(f'<div class="domhead"><b>{gname}</b> {bar(groups.get(gname))}</div>')
             got = False
             for k in gdef["keys"]:
                 it = rowmap.get(k)
@@ -3813,6 +3862,16 @@ a{{color:var(--accent)}}
 .domhead{{background:var(--card);border:1px solid var(--line);border-radius:6px;
   padding:8px 10px;margin:16px 0 0;font-size:14px}}
 details.m{{border-bottom:1px solid var(--line)}}
+details.dwhy>summary{{list-style:none;cursor:pointer}}
+details.dwhy>summary::-webkit-details-marker{{display:none}}
+details.dwhy>summary:hover{{background:rgba(127,127,127,.08)}}
+.whyhint{{font-size:11.5px;color:var(--accent);margin-left:10px;white-space:nowrap}}
+details.dwhy[open] .whyhint{{display:none}}
+.dwbody{{font-size:13px;line-height:1.75;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}}
+.dwbody ol{{margin:4px 0 6px;padding-left:22px}}
+.dwbody li{{margin:4px 0}}
+.dwown{{margin:2px 0;color:var(--muted);font-size:12.5px}}
+.dwsub{{margin:6px 0 2px;font-size:12px;color:var(--muted)}}
 .rvnotice{{border:2px solid #d97706;background:rgba(245,158,11,.13);border-radius:8px;padding:10px 14px;margin:12px 0}}
 .rvnotice .rvt0{{font-weight:700;font-size:15px;color:#b45309;margin-bottom:6px}}
 .rvnotice ul{{margin:4px 0 6px;padding-left:20px}}
