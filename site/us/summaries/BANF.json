@@ -1,7 +1,8 @@
 {
  "code": "BANF",
  "name": "BancFirst Corporation",
- "asof": "2026-11-08",
+ "asof": "2026-11-09",
+ "data_fetched_at": "2026-11-09T01:25:56",
  "gics_sector": "Financials",
  "industry": "Banks - Regional",
  "is_simple": true,
@@ -9,15 +10,15 @@
  "price": 115.19999694824219,
  "price_date": "2026-11-06",
  "mcap": 3872929024,
- "sel_score": 90.4,
- "tim_score": 77.4,
+ "sel_score": 97.2,
+ "tim_score": 77.5,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア下位（やや割高水準）",
  "comment": "選定は上位水準だが、買い時は下位（やや割高水準）。",
  "cov_sel": [
-  5,
   6,
-  "中"
+  6,
+  "高"
  ],
  "cov_tim": [
   6,
@@ -28,19 +29,19 @@
   "業績": null,
   "財務": null,
   "キャッシュフロー": null,
-  "配当の持続力": 95.6,
+  "配当の持続力": 96.8,
   "配当利回りセオリー": 71.5,
   "利回り水準とChowder": 70.9,
-  "株価バリュエーション": 96.6,
+  "株価バリュエーション": 96.7,
   "金利スプレッド": null,
-  "金融品質": 88.2
+  "金融品質": 97.4
  },
  "div_yield": 1.8055556033864446,
  "total_yield": 1.8055556033864446,
  "streak_up": 30,
  "streak_flat": 30,
- "payout_ni": 26.450002,
- "roe": null,
+ "payout_ni": 26.43,
+ "roe": 13.568,
  "chowder": 9.361875447408053,
  "dgr5": 7.556319844021608,
  "ocf_positive": 1,
@@ -48,7 +49,7 @@
  "fcf_payout": 26.251334574012414,
  "interest_coverage": null,
  "per_vs_sector": 0.8843239306358381,
- "pbr_vs_sector": 0.79108652,
+ "pbr_vs_sector": 0.77573144,
  "per_band_pos": 0.4190684560829431,
  "yield_band_pos": 0.3146291697688001,
  "next_earn": "2027-01-21",
@@ -62,5 +63,5 @@
  "leverage": 8.0,
  "insight_flags": [],
  "kind": "fin",
- "_generated_at": "2026-11-08T01:04:09"
+ "_generated_at": "2026-11-09T01:25:59"
 }
