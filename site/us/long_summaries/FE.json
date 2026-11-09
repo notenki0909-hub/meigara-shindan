@@ -22,19 +22,19 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 67.6,
+ "bt_score": 72.0,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 100.95155864366423,
+  "ev_ebit_vs_sector": 101.09230753594717,
   "fcf_yield": 20.0,
-  "per_cheap": 81.9,
+  "per_cheap": 95.0,
   "pbr_cheap": 100.3
  },
  "ev_ebit": 18.841163973173316,
  "fcf_yield": -3.739115054352199,
- "per_band_pos": null,
+ "per_band_pos": 0.9203520049711345,
  "pbr_band_pos": 0.5715782452003952,
- "ev_ebit_vs_sector": 0.8166954474717518,
+ "ev_ebit_vs_sector": 0.811769236241849,
  "per_vs_sector": 1.0630309478672986,
  "pbr_vs_sector": 0.8631523333333334,
  "price_chg": {
@@ -65,13 +65,25 @@
  },
  "data_notice": [
   {
-   "tier": "check",
+   "tier": "confirmed",
    "k": "eps",
    "where": "EPS（1株利益）の推移・PERの自社過去レンジ内の位置",
    "why": "決算書の平均株式数が、時価総額÷株価から求めた株式数の4.0倍（通常は1倍前後）で、Yahooの年次の1株利益の桁がずれている疑いがあります。ただし、Yahoo側が正しい場合もあります",
-   "how": "SEC EDGAR で、この会社の最新の年次報告書（10-K）の希薄化後1株利益を、Yahooの値と比べる"
+   "how": "SEC EDGAR で、この会社の最新の年次報告書（10-K）の希薄化後1株利益を、Yahooの値と比べる",
+   "confirm": {
+    "status": "error",
+    "note": "Yahooの2025年のEPS 0.4425ドルは、SECの10-Kの基本EPS（継続事業）1.77ドルのちょうど4分の1。四半期ぶんの値が年次に入っている疑い。2024年も同様",
+    "date": "2026-11-08",
+    "replaced": "1株利益を、確認した値に置き換えて採点（最新期 1.77ドル、4年分）"
+   }
   }
  ],
+ "data_fix": {
+  "eps": "1株利益を、確認した値に置き換えて採点（最新期 1.77ドル、4年分）"
+ },
+ "data_asof": {
+  "fetched": "2026-11-09T01:35:43Z"
+ },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 103.99404011363089,
@@ -101,5 +113,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-08T01:53:54"
+ "_generated_at": "2026-11-09T02:14:59"
 }

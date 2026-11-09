@@ -22,10 +22,10 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 57.7,
+ "bt_score": 58.0,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 49.77411356912421,
+  "ev_ebit_vs_sector": 50.66302456009031,
   "fcf_yield": 20.0,
   "per_cheap": 103.4,
   "pbr_cheap": 107.0
@@ -34,7 +34,7 @@
  "fcf_yield": -13.346204610955509,
  "per_band_pos": 0.7627001098166741,
  "pbr_band_pos": 0.9867190735970653,
- "ev_ebit_vs_sector": 1.289476506270163,
+ "ev_ebit_vs_sector": 1.2816985350992096,
  "per_vs_sector": 0.8801466824644549,
  "pbr_vs_sector": 0.826754125,
  "price_chg": {
@@ -65,15 +65,9 @@
    "fcf_less_sbc_pct": -46.84027541073011
   }
  },
- "data_notice": [
-  {
-   "tier": "high",
-   "k": "eps",
-   "where": "EPS（1株利益）の推移",
-   "why": "最新期の1株利益が、前の年と同じ値です（更新遅れの疑い）。EPSの成長率が、実際より低く（または高く）計算されている可能性があります",
-   "how": "SEC EDGAR で、この会社の最新の年次報告書（10-K）の希薄化後1株利益を、Yahooの値と比べる"
-  }
- ],
+ "data_asof": {
+  "fetched": "2026-11-09T02:05:21Z"
+ },
  "etf_top": [
   {
    "etf": "XLU",
@@ -109,5 +103,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-08T02:17:19"
+ "_generated_at": "2026-11-09T02:28:28"
 }
