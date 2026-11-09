@@ -1,14 +1,4 @@
 {
- "BOH": {
-  "ticker": "BOH",
-  "name": "Bank of Hawaii",
-  "target_date": "2026-10-26",
-  "detected_at": "2026-10-26T04:52:32",
-  "status": "resolved",
-  "attempts": 1,
-  "next_retry_at": "2026-10-26T10:52:32",
-  "resolved_at": "2026-10-26T13:09:42"
- },
  "BRX": {
   "ticker": "BRX",
   "name": "Brixmor Property Group",
@@ -58,16 +48,6 @@
   "attempts": 3,
   "next_retry_at": "2026-10-27T05:00:26",
   "resolved_at": "2026-10-27T05:10:42"
- },
- "LKFN": {
-  "ticker": "LKFN",
-  "name": "Lakeland Financial",
-  "target_date": "2026-10-26",
-  "detected_at": "2026-10-26T04:52:32",
-  "status": "resolved",
-  "attempts": 1,
-  "next_retry_at": "2026-10-26T10:52:32",
-  "resolved_at": "2026-10-26T13:09:42"
  },
  "NWBI": {
   "ticker": "NWBI",
@@ -138,16 +118,6 @@
   "attempts": 3,
   "next_retry_at": "2026-10-27T05:00:26",
   "resolved_at": "2026-10-27T05:10:42"
- },
- "VZ": {
-  "ticker": "VZ",
-  "name": "Verizon",
-  "target_date": "2026-10-26",
-  "detected_at": "2026-10-26T04:52:32",
-  "status": "resolved",
-  "attempts": 1,
-  "next_retry_at": "2026-10-26T10:52:32",
-  "resolved_at": "2026-10-26T13:09:42"
  },
  "AAT": {
   "ticker": "AAT",
@@ -3222,8 +3192,8 @@
   "target_date": "2026-11-09",
   "detected_at": "2026-11-09T06:40:17",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-09T12:40:17"
+  "attempts": 2,
+  "next_retry_at": "2026-11-10T04:25:41"
  },
  "HRB": {
   "ticker": "HRB",
@@ -3231,8 +3201,8 @@
   "target_date": "2026-11-09",
   "detected_at": "2026-11-09T06:40:17",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-09T12:40:17"
+  "attempts": 2,
+  "next_retry_at": "2026-11-10T04:25:41"
  },
  "NHI": {
   "ticker": "NHI",
@@ -3240,17 +3210,18 @@
   "target_date": "2026-11-09",
   "detected_at": "2026-11-09T06:40:17",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-09T12:40:17"
+  "attempts": 2,
+  "next_retry_at": "2026-11-10T04:25:41"
  },
  "NRG": {
   "ticker": "NRG",
   "name": "NRG Energy",
   "target_date": "2026-11-09",
   "detected_at": "2026-11-09T06:40:17",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 1,
-  "next_retry_at": "2026-11-09T12:40:17"
+  "next_retry_at": "2026-11-09T12:40:17",
+  "resolved_at": "2026-11-09T22:25:41"
  },
  "OXY": {
   "ticker": "OXY",
@@ -3258,16 +3229,17 @@
   "target_date": "2026-11-09",
   "detected_at": "2026-11-09T06:40:17",
   "status": "pending",
-  "attempts": 1,
-  "next_retry_at": "2026-11-09T12:40:17"
+  "attempts": 2,
+  "next_retry_at": "2026-11-10T04:25:41"
  },
  "VRTS": {
   "ticker": "VRTS",
   "name": "Virtus Investment Partners, Inc.",
   "target_date": "2026-11-09",
   "detected_at": "2026-11-09T06:40:17",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 1,
-  "next_retry_at": "2026-11-09T12:40:17"
+  "next_retry_at": "2026-11-09T12:40:17",
+  "resolved_at": "2026-11-09T22:25:41"
  }
 }
