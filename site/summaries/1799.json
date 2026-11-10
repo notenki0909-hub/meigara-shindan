@@ -1,8 +1,8 @@
 {
  "code": "1799",
  "name": "第一建設工業",
- "asof": "2026-11-08",
- "data_fetched_at": "2026-11-08T21:25:12",
+ "asof": "2026-11-10",
+ "data_fetched_at": "2026-11-10T00:54:45",
  "jp_sector": "建設業",
  "industry": "Engineering & Construction",
  "is_simple": false,
@@ -14,11 +14,11 @@
   "basis": "業種",
   "name": "建設業"
  },
- "price": 3110.0,
- "price_date": "2026-11-06",
- "mcap": 55069167616,
+ "price": 3245.0,
+ "price_date": "2026-11-10",
+ "mcap": 57459630080,
  "sel_score": 97.5,
- "tim_score": 109.4,
+ "tim_score": 109.1,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -38,11 +38,11 @@
   "キャッシュフロー": 84.5,
   "配当の持続力": 85.5,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 110.0,
-  "株価バリュエーション": 107.5,
+  "利回り水準とChowder": 109.8,
+  "株価バリュエーション": 106.6,
   "金利スプレッド": null
  },
- "div_yield": 5.144694533762058,
+ "div_yield": 4.930662557781202,
  "streak_up": 5,
  "streak_flat": 13,
  "payout_ni": 54.5870151137798,
@@ -51,18 +51,18 @@
  "roe": 6.0149997,
  "div_policy": null,
  "dgr5": 36.31015546557932,
- "chowder": 41.45484999934138,
+ "chowder": 41.240818023360525,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 104.92564354517036,
- "per_vs_sector": 0.8232662015503875,
+ "per_vs_sector": 0.8590028682170543,
  "pbr_vs_sector": null,
- "per_band_pos": 1.0,
+ "per_band_pos": 0.9792083966147362,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 2850477000.0,
- "total_yield": 10.320870465594759,
+ "total_yield": 9.891496792236476,
  "total_payout": 101.41694956524803,
  "interest_coverage": null,
  "warnings": [
@@ -79,8 +79,8 @@
  "review": [
   {
    "k": "pbr",
-   "where": "PBR（Yahoo表示 1.92倍）",
-   "why": "【確認済み】Yahoo 2.03倍に対し、IR BANKは0.78倍（2026-11-07）。株価÷（純資産÷発行済株式数）で求めたPBRは0.76倍で、Yahoo表示と0.39倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
+   "where": "PBR（Yahoo表示 2.01倍）",
+   "why": "【確認済み】Yahoo 2.03倍に対し、IR BANKは0.78倍（2026-11-07）。株価÷（純資産÷発行済株式数）で求めたPBRは0.79倍で、Yahoo表示と0.39倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
    "how": "IR BANK・決算短信で確認済み。Yahooの値が直るまで「―」のままにします（直ったかは夜間更新で自動判定）",
    "keys": [
     "pbr_vs_sector"
@@ -90,5 +90,5 @@
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-08T21:25:15"
+ "_generated_at": "2026-11-10T00:54:48"
 }
