@@ -5,12 +5,12 @@
  "gics_sector": "Utilities",
  "is_simple": false,
  "is_reit": false,
- "price": 69.83999633789062,
- "price_date": "2026-11-06",
- "mcap": 26306963456,
- "q_score": 87.1,
+ "price": 69.48999786376953,
+ "price_date": "2026-11-09",
+ "mcap": 26175127552,
+ "q_score": 82.3,
  "groups": {
-  "業績": 104.13890416259719,
+  "業績": 92.04520535953979,
   "財務": 84.54812089593199,
   "キャッシュフロー": 60.0,
   "金融品質": null,
@@ -19,34 +19,38 @@
  "is_fin_simple": false,
  "is_reit_us": false,
  "current_pfo": null,
- "quarter_decel_factor": null,
- "quarter_decel_detail": null,
+ "quarter_decel_factor": 0.8838695403960185,
+ "quarter_decel_detail": {
+  "rev_yoy_q": -7.504812767807245,
+  "profit_yoy_q": -8.554331111133695,
+  "gap": -10.806522980199073
+ },
  "q_cov": "高",
- "bt_score": 74.5,
+ "bt_score": 74.6,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 101.10136310891485,
+  "ev_ebit_vs_sector": 101.15566617142991,
   "fcf_yield": 20.0,
   "per_cheap": 102.5,
-  "pbr_cheap": 107.0
+  "pbr_cheap": 107.3
  },
- "ev_ebit": 18.83380767847302,
- "fcf_yield": -0.17142609437013695,
- "per_band_pos": 0.674819293110425,
- "pbr_band_pos": 0.8267797290923622,
- "ev_ebit_vs_sector": 0.8114522911879801,
- "per_vs_sector": 0.8733383886255924,
- "pbr_vs_sector": 0.6706768750000001,
+ "ev_ebit": 18.78969458563891,
+ "fcf_yield": -0.17228951381577587,
+ "per_band_pos": 0.674435335770835,
+ "pbr_band_pos": 0.852512360197154,
+ "ev_ebit_vs_sector": 0.8095516839999529,
+ "per_vs_sector": 0.8735715639810425,
+ "pbr_vs_sector": 0.6646504166666667,
  "price_chg": {
-  "d": -2.892104955521013,
-  "w": 1.881828196504709,
-  "m": 6.317542612646521,
-  "3m": -1.8687675499126644,
-  "6m": 5.006757021055908,
-  "9m": 3.6817038376896205,
-  "y": -4.210680523959709
+  "d": -0.5011433168292001,
+  "w": -0.08627632689480746,
+  "m": 5.720362566266801,
+  "3m": -2.305636795971666,
+  "6m": 3.3462225929253853,
+  "9m": 2.7502597750845847,
+  "y": -2.865534002688097
  },
- "div_yield": 4.510309514851758,
+ "div_yield": 4.533026474076691,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -65,7 +69,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-09T01:34:16Z"
+  "fetched": "2026-11-10T04:07:45Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -96,5 +100,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-09T02:14:25"
+ "_generated_at": "2026-11-10T04:44:30"
 }

@@ -5,12 +5,12 @@
  "gics_sector": "Health Care",
  "is_simple": false,
  "is_reit": false,
- "price": 90.37999725341797,
- "price_date": "2026-11-06",
- "mcap": 15360703488,
- "q_score": 72.0,
+ "price": 90.43000030517578,
+ "price_date": "2026-11-09",
+ "mcap": 15369201664,
+ "q_score": 70.2,
  "groups": {
-  "業績": 79.31407160563607,
+  "業績": 74.86207999925782,
   "財務": 70.97088460801618,
   "キャッシュフロー": 60.0,
   "金融品質": null,
@@ -19,32 +19,36 @@
  "is_fin_simple": false,
  "is_reit_us": false,
  "current_pfo": null,
- "quarter_decel_factor": null,
- "quarter_decel_detail": null,
+ "quarter_decel_factor": 0.94386883038215,
+ "quarter_decel_detail": {
+  "rev_yoy_q": -7.013358778625955,
+  "profit_yoy_q": -60.46511627906976,
+  "gap": -7.8065584808925
+ },
  "q_cov": "高",
  "bt_score": 29.3,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 47.84412749408699,
+  "ev_ebit_vs_sector": 47.77912154285345,
   "fcf_yield": 20.0,
   "per_cheap": 20.0,
   "pbr_cheap": 109.6
  },
- "ev_ebit": 30.882442227848102,
- "fcf_yield": -0.06510118503239218,
+ "ev_ebit": 30.89588870886076,
+ "fcf_yield": -0.065065188281207,
  "per_band_pos": null,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 1.3063638844267387,
- "per_vs_sector": 4.302989830508475,
- "pbr_vs_sector": 0.6147696923076923,
+ "ev_ebit_vs_sector": 1.3069326865000321,
+ "per_vs_sector": 4.30537033898305,
+ "pbr_vs_sector": 0.6151098461538461,
  "price_chg": {
-  "d": 3.6705631303515895,
-  "w": 11.127499346628156,
-  "m": 4.594368039645658,
-  "3m": 6.067360901882002,
-  "6m": 23.167076364544513,
-  "9m": 15.69379682001144,
-  "y": 33.52045205147187
+  "d": 0.05532535215464485,
+  "w": 6.70206525684458,
+  "m": 3.5972039829476943,
+  "3m": 7.526756178244787,
+  "6m": 22.004852879401525,
+  "9m": 15.8319465334531,
+  "y": 36.43633369139767
  },
  "div_yield": 0.0,
  "implied_fcf_growth": null,
@@ -66,7 +70,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-09T02:24:31Z"
+  "fetched": "2026-11-10T04:54:32Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +101,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-09T02:24:32"
+ "_generated_at": "2026-11-10T04:54:34"
 }

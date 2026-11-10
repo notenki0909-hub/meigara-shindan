@@ -5,12 +5,12 @@
  "gics_sector": "Health Care",
  "is_simple": false,
  "is_reit": false,
- "price": 293.5899963378906,
- "price_date": "2026-11-06",
- "mcap": 77361717248,
- "q_score": 92.6,
+ "price": 295.6000061035156,
+ "price_date": "2026-11-09",
+ "mcap": 77891354624,
+ "q_score": 89.5,
  "groups": {
-  "業績": 85.54540676079613,
+  "業績": 77.73248044359364,
   "財務": 94.02580377552417,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
@@ -19,35 +19,39 @@
  "is_fin_simple": false,
  "is_reit_us": false,
  "current_pfo": null,
- "quarter_decel_factor": null,
- "quarter_decel_detail": null,
+ "quarter_decel_factor": 0.908669248145033,
+ "quarter_decel_detail": {
+  "rev_yoy_q": 5.582967704811903,
+  "profit_yoy_q": -10.063965884861403,
+  "gap": -9.566537592748347
+ },
  "q_cov": "高",
  "bt_score": 109.6,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 109.29321089216295,
+  "ev_ebit_vs_sector": 109.21470678085956,
   "fcf_yield": 110.0,
   "per_cheap": 109.5,
-  "pbr_cheap": 105.8
+  "pbr_cheap": 105.6
  },
- "ev_ebit": 12.404797307824381,
- "fcf_yield": 10.843864767255896,
- "per_band_pos": 0.95789223283061,
- "pbr_band_pos": 0.6671512337477372,
- "ev_ebit_vs_sector": 0.524737618774297,
- "per_vs_sector": 0.5485120762711864,
- "pbr_vs_sector": 0.3433155576923077,
+ "ev_ebit": 12.469751609516802,
+ "fcf_yield": 10.770129805157053,
+ "per_band_pos": 0.9580788351966318,
+ "pbr_band_pos": 0.6448149894994593,
+ "ev_ebit_vs_sector": 0.5274852626699155,
+ "per_vs_sector": 0.5483985593220339,
+ "pbr_vs_sector": 0.345666,
  "price_chg": {
-  "d": -2.6170937909363756,
-  "w": -1.555851013481746,
-  "m": 4.469272893694742,
-  "3m": 5.456179157480245,
-  "6m": 1.9197385357791807,
-  "9m": 0.5273099158674022,
-  "y": 13.101938333045094
+  "d": 0.6846315578517448,
+  "w": 0.1388948334016593,
+  "m": 4.663107236933239,
+  "3m": 7.934425593804084,
+  "6m": 2.258967936432388,
+  "9m": 0.4076128505128951,
+  "y": 15.297605302188067
  },
- "div_yield": 2.125413017417129,
- "implied_fcf_growth": -0.0301,
+ "div_yield": 2.110960714193905,
+ "implied_fcf_growth": -0.0291,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +68,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-09T01:29:08Z"
+  "fetched": "2026-11-10T04:03:05Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -95,5 +99,5 @@
   "fcf_positive": 1,
   "fcf_payout": 19.203719156037668
  },
- "_generated_at": "2026-11-09T02:11:16"
+ "_generated_at": "2026-11-10T04:41:24"
 }
