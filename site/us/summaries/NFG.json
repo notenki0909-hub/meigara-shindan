@@ -1,49 +1,49 @@
 {
  "code": "NFG",
  "name": "National Fuel Gas Company",
- "asof": "2026-11-09",
- "data_fetched_at": "2026-11-09T01:48:13",
+ "asof": "2026-11-10",
+ "data_fetched_at": "2026-11-10T04:20:25",
  "gics_sector": "Energy",
  "industry": "Oil & Gas Integrated",
  "is_simple": false,
  "is_reit": false,
- "price": 73.43000030517578,
- "price_date": "2026-11-06",
- "mcap": 6980283392,
- "sel_score": 95.5,
- "tim_score": 77.9,
+ "price": 74.13999938964844,
+ "price_date": "2026-11-09",
+ "mcap": 7047776256,
+ "sel_score": 98.3,
+ "tim_score": 76.7,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア下位（やや割高水準）",
  "comment": "選定は上位水準だが、買い時は下位（やや割高水準）。",
  "cov_sel": [
-  17,
+  15,
   17,
   "高"
  ],
  "cov_tim": [
+  5,
   6,
-  6,
-  "高"
+  "中"
  ],
  "groups": {
-  "業績": 97.4,
-  "財務": 90.1,
+  "業績": 102.4,
+  "財務": 95.4,
   "キャッシュフロー": 86.4,
-  "配当の持続力": 103.1,
-  "配当利回りセオリー": 64.5,
-  "利回り水準とChowder": 74.7,
-  "株価バリュエーション": 107.0,
+  "配当の持続力": 103.0,
+  "配当利回りセオリー": 62.8,
+  "利回り水準とChowder": 74.4,
+  "株価バリュエーション": 105.9,
   "金利スプレッド": null
  },
- "div_yield": 3.0232874721144753,
- "total_yield": 3.8697860550763057,
+ "div_yield": 2.9943350664634085,
+ "total_yield": 3.8327271756013293,
  "streak_up": 50,
  "streak_flat": 50,
  "royalty": {
   "kind": "王",
   "years": 50,
   "asof": "2026-11-05",
-  "age": 4,
+  "age": 5,
   "fresh": true,
   "floored": true,
   "raw_up": 39,
@@ -53,16 +53,16 @@
  },
  "payout_ni": 30.080000000000002,
  "roe": 18.791,
- "chowder": 6.928371450786672,
+ "chowder": 6.899419045135605,
  "dgr5": 3.905083978672197,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 100.65809856521693,
- "interest_coverage": 5.45379698910379,
- "per_vs_sector": 0.48426456018518516,
- "pbr_vs_sector": 0.9212283157894737,
- "per_band_pos": 0.9557005857529466,
- "yield_band_pos": 0.24531416653407784,
+ "interest_coverage": null,
+ "per_vs_sector": 0.48411953703703703,
+ "pbr_vs_sector": 0.9301356842105264,
+ "per_band_pos": null,
+ "yield_band_pos": 0.2282457516359856,
  "next_earn": "2027-01-27",
  "earn_disc_date": "2026-11-04",
  "quarter_decel_factor": null,
@@ -70,7 +70,7 @@
  "warnings": [
   "⚠ FCF配当性向が100%超（101%：フリーCFで配当を賄えていない）"
  ],
- "roa": 5.95,
+ "roa": null,
  "leverage": 2.82,
  "insight_flags": [
   {
@@ -79,5 +79,5 @@
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-09T01:48:16"
+ "_generated_at": "2026-11-10T04:20:27"
 }
