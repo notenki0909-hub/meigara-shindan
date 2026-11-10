@@ -2,7 +2,7 @@
  "code": "7500",
  "name": "西川計測",
  "asof": "2026-11-10",
- "data_fetched_at": "2026-11-10T01:32:48",
+ "data_fetched_at": "2026-11-10T23:08:39",
  "jp_sector": "精密機器",
  "industry": "Scientific & Technical Instruments",
  "is_simple": false,
@@ -14,11 +14,11 @@
   "basis": "業種",
   "name": "精密機器"
  },
- "price": 11000.0,
+ "price": 10410.0,
  "price_date": "2026-11-10",
- "mcap": 37309140992,
+ "mcap": 35308011520,
  "sel_score": 99.0,
- "tim_score": 98.4,
+ "tim_score": 102.9,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -37,12 +37,12 @@
   "財務": 109.9,
   "キャッシュフロー": 103.3,
   "配当の持続力": 79.7,
-  "配当利回りセオリー": 94.8,
-  "利回り水準とChowder": 100.8,
-  "株価バリュエーション": 102.6,
+  "配当利回りセオリー": 101.1,
+  "利回り水準とChowder": 103.2,
+  "株価バリュエーション": 106.0,
   "金利スプレッド": null
  },
- "div_yield": 3.1818181818181817,
+ "div_yield": 3.3621517771373677,
  "streak_up": 5,
  "streak_flat": 5,
  "payout_ni": 40.15030627477223,
@@ -51,14 +51,14 @@
  "roe": 5.721000200000001,
  "div_policy": null,
  "dgr5": 31.284338853824423,
- "chowder": 34.4661570356426,
+ "chowder": 34.64649063096179,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 26.441394184911843,
- "per_vs_sector": 0.45904554216867477,
+ "per_vs_sector": 0.44239514056224905,
  "pbr_vs_sector": null,
- "per_band_pos": 0.5514548997727726,
- "yield_band_pos": 0.5479130206968822,
+ "per_band_pos": 0.676781209387021,
+ "yield_band_pos": 0.6437769048271584,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": null,
@@ -72,8 +72,8 @@
  "review": [
   {
    "k": "pbr",
-   "where": "PBR（Yahoo表示 9.57倍）",
-   "why": "【確認済み】Yahoo 9.22倍に対し、IR BANKは1.43倍（2026-11-07）。株価÷（純資産÷発行済株式数）で求めたPBRは1.46倍で、Yahoo表示と0.15倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
+   "where": "PBR（Yahoo表示 9.05倍）",
+   "why": "【確認済み】Yahoo 9.22倍に対し、IR BANKは1.43倍（2026-11-07）。株価÷（純資産÷発行済株式数）で求めたPBRは1.38倍で、Yahoo表示と0.15倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
    "how": "IR BANK・決算短信で確認済み。Yahooの値が直るまで「―」のままにします（直ったかは夜間更新で自動判定）",
    "keys": [
     "pbr_vs_sector"
@@ -83,5 +83,5 @@
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-10T01:32:52"
+ "_generated_at": "2026-11-10T23:08:42"
 }

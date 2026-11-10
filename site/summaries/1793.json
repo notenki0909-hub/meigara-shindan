@@ -2,7 +2,7 @@
  "code": "1793",
  "name": "大本組",
  "asof": "2026-11-10",
- "data_fetched_at": "2026-11-10T00:54:39",
+ "data_fetched_at": "2026-11-10T22:36:35",
  "jp_sector": "建設業",
  "industry": "Engineering & Construction",
  "is_simple": false,
@@ -14,11 +14,11 @@
   "basis": "業種",
   "name": "建設業"
  },
- "price": 2015.0,
+ "price": 2031.0,
  "price_date": "2026-11-10",
- "mcap": 51249684480,
+ "mcap": 51656630272,
  "sel_score": 79.5,
- "tim_score": 86.8,
+ "tim_score": 86.7,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -38,11 +38,11 @@
   "キャッシュフロー": 20.0,
   "配当の持続力": 76.7,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 105.6,
+  "利回り水準とChowder": 105.5,
   "株価バリュエーション": 20.0,
   "金利スプレッド": null
  },
- "div_yield": 3.672456575682382,
+ "div_yield": 3.643525356967011,
  "streak_up": 3,
  "streak_flat": 22,
  "payout_ni": 70.09673349221927,
@@ -51,18 +51,18 @@
  "roe": 3.313,
  "div_policy": null,
  "dgr5": 14.869835499703509,
- "chowder": 18.54229207538589,
+ "chowder": 18.51336085667052,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 1.5273447286821704,
+ "per_vs_sector": 1.5782062015503875,
  "pbr_vs_sector": null,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 0.0,
- "total_yield": 3.672456575682382,
+ "total_yield": 3.643525356967011,
  "total_payout": 58.41147269718698,
  "interest_coverage": 53.07692307692308,
  "warnings": [
@@ -79,8 +79,8 @@
  "review": [
   {
    "k": "pbr",
-   "where": "PBR（Yahoo表示 1.43倍）",
-   "why": "【確認済み】Yahoo 1.42倍に対し、IR BANKは0.75倍（2026-11-07）。株価÷（純資産÷発行済株式数）で求めたPBRは0.75倍で、Yahoo表示と0.52倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
+   "where": "PBR（Yahoo表示 1.45倍）",
+   "why": "【確認済み】Yahoo 1.42倍に対し、IR BANKは0.75倍（2026-11-07）。株価÷（純資産÷発行済株式数）で求めたPBRは0.76倍で、Yahoo表示と0.52倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
    "how": "IR BANK・決算短信で確認済み。Yahooの値が直るまで「―」のままにします（直ったかは夜間更新で自動判定）",
    "keys": [
     "pbr_vs_sector"
@@ -90,5 +90,5 @@
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-10T00:54:43"
+ "_generated_at": "2026-11-10T22:36:38"
 }
