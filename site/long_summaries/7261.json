@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 1132.0,
+ "price": 1150.0,
  "price_date": "2026-11-10",
- "mcap": 714258317312,
+ "mcap": 725615771648,
  "q_score": 62.7,
  "groups": {
   "業績": 44.211791744038536,
@@ -22,37 +22,37 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 61.7,
+ "bt_score": 61.0,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 81.8387025991523,
+  "ev_ebit_vs_sector": 80.91330797065308,
   "fcf_yield": 20.0,
-  "per_cheap": 35.9,
-  "pbr_cheap": 109.1
+  "per_cheap": 34.2,
+  "pbr_cheap": 108.7
  },
- "ev_ebit": 9.69563809519378,
- "fcf_yield": -15.521415335731145,
+ "ev_ebit": 9.91583341375366,
+ "fcf_yield": -15.278471655627163,
  "per_band_pos": 0.0,
- "pbr_band_pos": 0.9264949689060977,
- "ev_ebit_vs_sector": 1.0089113522574173,
- "per_vs_sector": 1.3756562837837836,
- "pbr_vs_sector": 0.41362417777777777,
+ "pbr_band_pos": 0.8987413086507857,
+ "ev_ebit_vs_sector": 1.0170085552567856,
+ "per_vs_sector": 1.3975307432432431,
+ "pbr_vs_sector": 0.4212325555555555,
  "price_chg": {
-  "d": 2.6291931097008225,
-  "w": 4.766311892642294,
-  "m": 4.572748267898374,
-  "3m": -1.2647187091146983,
-  "6m": 13.723123592080121,
-  "9m": -0.3082342580361108,
-  "y": 0.7117437722419906
+  "d": 4.261106074342691,
+  "w": 6.432207311429883,
+  "m": 6.235565819861422,
+  "3m": 0.3052769297863023,
+  "6m": 15.531441811742175,
+  "9m": 1.276970497578156,
+  "y": 2.313167259786475
  },
- "div_yield": 4.858657243816254,
+ "div_yield": 4.782608695652174,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
    "value_trap": [
-    "PBR 0.37倍（1倍割れ）かつROE 1.8%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+    "PBR 0.38倍（1倍割れ）かつROE 1.8%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
    ]
   },
   "raw": {
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-10T02:14:19Z"
+  "fetched": "2026-11-10T23:44:52Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-10T02:14:22"
+ "_generated_at": "2026-11-10T23:44:55"
 }

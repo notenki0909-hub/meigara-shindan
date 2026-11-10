@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 3161.0,
+ "price": 3151.0,
  "price_date": "2026-11-10",
- "mcap": 10621621895168,
+ "mcap": 10588020277248,
  "q_score": 100.0,
  "groups": {
   "業績": 96.69666985851109,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 45.7,
+ "bt_score": 37.1,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 56.37448252378119,
-  "per_cheap": 55.2,
-  "pbr_cheap": 51.4
+  "fcf_yield": 56.48991878398822,
+  "per_cheap": 20.3,
+  "pbr_cheap": 51.5
  },
- "ev_ebit": 28.42205500167238,
- "fcf_yield": 2.728086189283589,
- "per_band_pos": 0.4568864354542831,
- "pbr_band_pos": 0.4274693627105709,
- "ev_ebit_vs_sector": 2.2976600648077916,
- "per_vs_sector": 1.4208268398268398,
- "pbr_vs_sector": 1.8349516666666668,
+ "ev_ebit": 28.32808391339415,
+ "fcf_yield": 2.7367439087991166,
+ "per_band_pos": null,
+ "pbr_band_pos": 0.4304427581985234,
+ "ev_ebit_vs_sector": 2.1525899630238716,
+ "per_vs_sector": 1.4479028571428572,
+ "pbr_vs_sector": 1.8291466666666665,
  "price_chg": {
-  "d": 3.199477636304282,
-  "w": -6.006541778174245,
-  "m": -14.103260869565215,
-  "3m": -20.974999999999998,
-  "6m": -30.174508504528387,
-  "9m": -30.18992932862191,
-  "y": -28.581111613194754
+  "d": 2.873000326477304,
+  "w": -6.303895331549214,
+  "m": -14.375000000000004,
+  "3m": -21.225000000000005,
+  "6m": -30.39540534570355,
+  "9m": -30.410777385159015,
+  "y": -28.807049254405783
  },
- "div_yield": 0.9490667510281556,
- "implied_fcf_growth": 0.1595,
+ "div_yield": 0.9520787051729609,
+ "implied_fcf_growth": 0.1591,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -63,8 +63,17 @@
    "shares_chg_pct": 0.09420094589858152
   }
  },
+ "data_notice": [
+  {
+   "tier": "high",
+   "k": "eps",
+   "where": "EPS（1株利益）の推移",
+   "why": "最新期の1株利益が、前の年と同じ値です（更新遅れの疑い）。EPSの成長率が、実際より低く（または高く）計算されている可能性があります",
+   "how": "IR BANK（irbank.net/7011/results）の最新期のEPSと、決算短信の1株当たり当期純利益を、Yahooの値と比べる"
+  }
+ ],
  "data_asof": {
-  "fetched": "2026-11-10T02:13:43Z"
+  "fetched": "2026-11-10T23:44:18Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -95,5 +104,5 @@
   "fcf_positive": 1,
   "fcf_payout": 26.6300165305228
  },
- "_generated_at": "2026-11-10T02:13:46"
+ "_generated_at": "2026-11-10T23:44:21"
 }

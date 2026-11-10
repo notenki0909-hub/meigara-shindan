@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 1212.0,
+ "price": 1207.5,
  "price_date": "2026-11-10",
- "mcap": 391227834368,
+ "mcap": 389775228928,
  "q_score": 100.3,
  "groups": {
   "業績": 96.93267181939206,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 91.8,
+ "bt_score": 92.5,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 93.1580775673115,
+  "ev_ebit_vs_sector": 93.6673380310036,
   "fcf_yield": 110.0,
-  "per_cheap": 103.2,
-  "pbr_cheap": 60.7
+  "per_cheap": 105.5,
+  "pbr_cheap": 60.9
  },
- "ev_ebit": 14.148429070997679,
- "fcf_yield": 9.129207296228447,
+ "ev_ebit": 14.106300142923434,
+ "fcf_yield": 9.163229817920913,
  "per_band_pos": null,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 0.9098668212860244,
- "per_vs_sector": 0.8701895499999999,
- "pbr_vs_sector": 1.1869087490451848,
+ "ev_ebit_vs_sector": 0.9054107922287185,
+ "per_vs_sector": 0.8118192499999999,
+ "pbr_vs_sector": 1.1825019096304132,
  "price_chg": {
-  "d": 11.294765840220379,
-  "w": 9.981851179673317,
-  "m": 15.869980879541101,
-  "3m": 3.9451114922812947,
-  "6m": 3.6340316374519066,
-  "9m": 22.641032127498107,
-  "y": 41.135371179039296
+  "d": 10.881542699724523,
+  "w": 9.573502722323045,
+  "m": 15.439770554493304,
+  "3m": 3.559176672384212,
+  "6m": 3.249251817015808,
+  "9m": 22.18568176068809,
+  "y": 40.611353711790386
  },
- "div_yield": 2.1245874587458746,
- "implied_fcf_growth": -0.0058,
+ "div_yield": 2.132505175983437,
+ "implied_fcf_growth": -0.0063,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,8 +66,8 @@
   {
    "tier": "confirmed",
    "k": "pbr",
-   "where": "PBR（Yahoo表示 0.35倍）",
-   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは1.42倍で、Yahoo表示と4.03倍ずれています。ただし、照合ではYahoo側のPBRが正しい場合が多くありました（株式数のデータのずれなど）",
+   "where": "PBR（Yahoo表示 2.40倍）",
+   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは1.42倍で、Yahoo表示と0.59倍ずれています。ただし、照合ではYahoo側のPBRが正しい場合が多くありました（株式数のデータのずれなど）",
    "how": "IR BANK（irbank.net/2264/results）の1株純資産（BPS）で、株価÷BPSを計算して確認する",
    "confirm": {
     "status": "error",
@@ -81,7 +81,7 @@
   "pbr": "PBRを、株価÷1株純資産850.95円＝1.42倍に置き換えて採点"
  },
  "data_asof": {
-  "fetched": "2026-11-10T01:58:55Z"
+  "fetched": "2026-11-10T23:30:49Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -112,5 +112,5 @@
   "fcf_positive": 1,
   "fcf_payout": 20.9177959457946
  },
- "_generated_at": "2026-11-10T01:58:58"
+ "_generated_at": "2026-11-10T23:30:52"
 }
