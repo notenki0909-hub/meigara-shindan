@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 2409.0,
- "price_date": "2026-11-06",
- "mcap": 412565078016,
+ "price": 2595.0,
+ "price_date": "2026-11-10",
+ "mcap": 444419407872,
  "q_score": 106.3,
  "groups": {
   "業績": 105.09921867955823,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 87.5,
+ "bt_score": 85.0,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 106.40572064444792,
+  "ev_ebit_vs_sector": 104.43608686197845,
   "fcf_yield": 110.0,
-  "per_cheap": 98.5,
-  "pbr_cheap": 35.1
+  "per_cheap": 95.4,
+  "pbr_cheap": 30.0
  },
- "ev_ebit": 6.013935861239939,
- "fcf_yield": 11.43165103231809,
- "per_band_pos": 0.5636462101389507,
+ "ev_ebit": 6.676422183973545,
+ "fcf_yield": 10.612272813608472,
+ "per_band_pos": 0.5267179711226853,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 0.6257997774443225,
- "per_vs_sector": 0.9324603378378379,
- "pbr_vs_sector": 1.6972207777777777,
+ "ev_ebit_vs_sector": 0.694736959830754,
+ "per_vs_sector": 0.9619148648648649,
+ "pbr_vs_sector": 1.828264,
  "price_chg": {
-  "d": -5.250737463126843,
-  "w": 1.0274690710840861,
-  "m": -0.8233841086866978,
-  "3m": -3.369434416365824,
-  "6m": 4.421326397919367,
-  "9m": -1.2097600984211643,
-  "y": 5.657894736842106
+  "d": 3.1604054859868835,
+  "w": 5.939987752602582,
+  "m": 4.954499494438824,
+  "3m": 3.8000000000000034,
+  "6m": 12.826086956521742,
+  "9m": 8.736643620364548,
+  "y": 12.77705345501956
  },
- "div_yield": 2.6151930261519305,
- "implied_fcf_growth": -0.0376,
+ "div_yield": 2.4277456647398843,
+ "implied_fcf_growth": -0.027,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -63,7 +63,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-08T22:02:51Z"
+  "fetched": "2026-11-10T01:36:01Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -94,5 +94,5 @@
   "fcf_positive": 1,
   "fcf_payout": 16.137650276699954
  },
- "_generated_at": "2026-11-08T22:39:45"
+ "_generated_at": "2026-11-10T02:16:22"
 }

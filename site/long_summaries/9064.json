@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 2220.0,
- "price_date": "2026-11-06",
- "mcap": 703021973504,
+ "price": 2315.5,
+ "price_date": "2026-11-10",
+ "mcap": 733264609280,
  "q_score": 81.0,
  "groups": {
   "業績": 41.781118929703524,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 63.0,
+ "bt_score": 58.9,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 68.45324014478285,
-  "fcf_yield": 85.65939862438363,
+  "ev_ebit_vs_sector": 62.557509386260215,
+  "fcf_yield": 82.95135400755939,
   "per_cheap": 30.0,
-  "pbr_cheap": 67.7
+  "pbr_cheap": 60.0
  },
- "ev_ebit": 23.32016722026354,
- "fcf_yield": 4.924454896828772,
+ "ev_ebit": 24.38854733034232,
+ "fcf_yield": 4.721351550566954,
  "per_band_pos": 0.0,
- "pbr_band_pos": 0.10363361239480895,
- "ev_ebit_vs_sector": 1.12603414873315,
- "per_vs_sector": 6.111527397260274,
- "pbr_vs_sector": 1.150544,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 1.177621792870223,
+ "per_vs_sector": 6.192732876712329,
+ "pbr_vs_sector": 1.2000380909090909,
  "price_chg": {
-  "d": -6.011854360711267,
-  "w": 13.034623217922615,
-  "m": 12.890922959572837,
-  "3m": 8.770210681038716,
-  "6m": 25.81467837914424,
-  "9m": 8.66372980910426,
-  "y": -3.8336582196231372
+  "d": 1.2904636920384904,
+  "w": 17.687420584498103,
+  "m": 14.40217391304348,
+  "3m": 23.164893617021278,
+  "6m": 27.050754458161876,
+  "9m": 14.970208540218465,
+  "y": -0.06473888649115578
  },
- "div_yield": 2.0720720720720722,
- "implied_fcf_growth": 0.0792,
+ "div_yield": 1.9866119628589938,
+ "implied_fcf_growth": 0.0849,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-08T22:13:18Z"
+  "fetched": "2026-11-10T01:47:30Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -95,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 42.76140958983247
  },
- "_generated_at": "2026-11-08T22:42:27"
+ "_generated_at": "2026-11-10T02:19:22"
 }

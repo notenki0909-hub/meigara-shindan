@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": true,
  "is_reit": false,
- "price": 1643.5,
- "price_date": "2026-11-06",
- "mcap": 1781016035328,
+ "price": 1756.0,
+ "price_date": "2026-11-10",
+ "mcap": 1902929248256,
  "q_score": 73.3,
  "groups": {
   "業績": null,
@@ -22,37 +22,37 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 94.8,
+ "bt_score": 82.6,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": 103.0,
-  "pbr_cheap": 86.5
+  "per_cheap": 90.2,
+  "pbr_cheap": 75.0
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": 0.5914146874201307,
- "pbr_band_pos": 0.2293294568340376,
+ "per_band_pos": 0.3555376398651331,
+ "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 0.7780312230215827,
- "pbr_vs_sector": 0.23869734374999999,
+ "per_vs_sector": 0.8312886330935252,
+ "pbr_vs_sector": 0.25503651875,
  "price_chg": {
-  "d": -8.414600167177488,
-  "w": -6.219686162624827,
-  "m": -4.8900462962962905,
-  "3m": -4.8900462962962905,
-  "6m": 7.73516879711571,
-  "9m": 4.8150510204081565,
-  "y": 19.846860809493492
+  "d": 3.446244477172322,
+  "w": 1.2103746397694515,
+  "m": 4.804535959415102,
+  "3m": 2.033701336432303,
+  "6m": 11.633820724729826,
+  "9m": 10.002085314681786,
+  "y": 31.371575071463642
  },
- "div_yield": 3.0422878004259206,
+ "div_yield": 2.847380410022779,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
    "value_trap": [
-    "PBR 0.38倍（1倍割れ）かつROE 4.1%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+    "PBR 0.41倍（1倍割れ）かつROE 4.1%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
    ]
   },
   "raw": {
@@ -63,7 +63,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-08T21:57:07Z"
+  "fetched": "2026-11-10T01:29:46Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -94,5 +94,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-08T22:37:38"
+ "_generated_at": "2026-11-10T02:14:08"
 }
