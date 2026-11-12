@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 6609.0,
- "price_date": "2026-11-10",
- "mcap": 321866498048,
+ "price": 6818.0,
+ "price_date": "2026-11-12",
+ "mcap": 332045058048,
  "q_score": 95.4,
  "groups": {
   "業績": 96.02323394662363,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 72.6,
+ "bt_score": 69.1,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 105.45578760750969,
-  "fcf_yield": 23.74896633848086,
-  "per_cheap": 81.6,
-  "pbr_cheap": 79.6
+  "ev_ebit_vs_sector": 104.76197376116527,
+  "fcf_yield": 23.634044950888057,
+  "per_cheap": 75.0,
+  "pbr_cheap": 73.2
  },
- "ev_ebit": 11.915577601967868,
- "fcf_yield": 0.2811724753860643,
- "per_band_pos": 0.1311122152417624,
- "pbr_band_pos": 0.19027154865832785,
- "ev_ebit_vs_sector": 0.6590474337371609,
- "per_vs_sector": 0.5815549799196787,
- "pbr_vs_sector": 0.9938337391304349,
+ "ev_ebit": 12.306789839649474,
+ "fcf_yield": 0.27255337131660434,
+ "per_band_pos": 0.0,
+ "pbr_band_pos": 0.08908693092659581,
+ "ev_ebit_vs_sector": 0.6833309183592156,
+ "per_vs_sector": 0.6138254618473896,
+ "pbr_vs_sector": 1.0252623043478262,
  "price_chg": {
-  "d": 5.6594724220623505,
-  "w": -3.6026837806301004,
-  "m": -17.80873025743067,
-  "3m": -24.243466299862447,
-  "6m": 1.5831540116815201,
-  "9m": 6.613969995160507,
-  "y": 27.4146905725853
+  "d": -0.10256410256410664,
+  "w": 6.133250311332494,
+  "m": -15.608367372199528,
+  "3m": -17.865317431634743,
+  "6m": 0.22049095987064504,
+  "9m": 13.19940229121701,
+  "y": 31.927244582043347
  },
- "div_yield": 1.997276441216523,
- "implied_fcf_growth": 0.4882,
+ "div_yield": 1.9360516280434146,
+ "implied_fcf_growth": 0.4931,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-10T23:43:31Z"
+  "fetched": "2026-11-12T00:50:24Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -95,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 652.817679558011
  },
- "_generated_at": "2026-11-10T23:43:34"
+ "_generated_at": "2026-11-12T00:50:27"
 }

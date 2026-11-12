@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 2762.0,
- "price_date": "2026-11-10",
- "mcap": 621244776448,
+ "price": 2647.0,
+ "price_date": "2026-11-12",
+ "mcap": 595378307072,
  "q_score": 105.5,
  "groups": {
   "業績": 104.98472893048336,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 81.2,
+ "bt_score": 84.0,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 85.54888996371,
-  "fcf_yield": 66.22332627758297,
-  "per_cheap": 95.8,
-  "pbr_cheap": 77.4
+  "ev_ebit_vs_sector": 92.1050560128223,
+  "fcf_yield": 68.23151878210325,
+  "per_cheap": 95.1,
+  "pbr_cheap": 80.7
  },
- "ev_ebit": 14.461183221827731,
- "fcf_yield": 3.466749470818723,
- "per_band_pos": 0.7454241954501529,
- "pbr_band_pos": 0.9947487189441804,
- "ev_ebit_vs_sector": 0.9764472128175375,
- "per_vs_sector": 1.02460234375,
- "pbr_vs_sector": 1.5512455384615385,
+ "ev_ebit": 13.832165436311463,
+ "fcf_yield": 3.6173639086577434,
+ "per_band_pos": 0.7310436735315196,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 0.9190807598878048,
+ "per_vs_sector": 1.0316116666666668,
+ "pbr_vs_sector": 1.486657153846154,
  "price_chg": {
-  "d": -0.6474820143884896,
-  "w": 1.5627872770729967,
-  "m": 2.0129270544783084,
-  "3m": 19.800477119930605,
-  "6m": 15.71009635525764,
-  "9m": 9.169960474308292,
-  "y": 12.322082147214308
+  "d": 0.6466337010269996,
+  "w": -7.2880168185003535,
+  "m": -5.364806866952787,
+  "3m": -7.563318777292571,
+  "6m": 12.908043524642633,
+  "9m": 3.886925795053009,
+  "y": 8.933717579250722
  },
- "div_yield": 1.8102824040550327,
- "implied_fcf_growth": 0.1269,
+ "div_yield": 1.8889308651303363,
+ "implied_fcf_growth": 0.1211,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-10T23:34:56Z"
+  "fetched": "2026-11-12T00:42:47Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -95,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 43.01434740214515
  },
- "_generated_at": "2026-11-10T23:34:59"
+ "_generated_at": "2026-11-12T00:42:49"
 }
