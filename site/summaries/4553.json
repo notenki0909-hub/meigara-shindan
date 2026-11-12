@@ -1,8 +1,8 @@
 {
  "code": "4553",
  "name": "東和薬品",
- "asof": "2026-11-11",
- "data_fetched_at": "2026-11-12T00:01:30",
+ "asof": "2026-11-12",
+ "data_fetched_at": "2026-11-12T15:07:22",
  "jp_sector": "医薬品",
  "industry": "Drug Manufacturers - Specialty & Generic",
  "is_simple": false,
@@ -16,9 +16,9 @@
  },
  "price": 3460.0,
  "price_date": "2026-11-11",
- "mcap": 170328424448,
+ "mcap": 166390185984,
  "sel_score": 84.2,
- "tim_score": 83.1,
+ "tim_score": 91.1,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -28,21 +28,21 @@
   "高"
  ],
  "cov_tim": [
-  6,
+  5,
   7,
-  "高"
+  "中"
  ],
  "groups": {
   "業績": 96.0,
   "財務": 76.4,
   "キャッシュフロー": 100.8,
   "配当の持続力": 71.8,
-  "配当利回りセオリー": 90.6,
-  "利回り水準とChowder": 87.9,
-  "株価バリュエーション": 90.6,
-  "金利スプレッド": 52.3
+  "配当利回りセオリー": 100.7,
+  "利回り水準とChowder": 90.0,
+  "株価バリュエーション": 105.5,
+  "金利スプレッド": 56.2
  },
- "div_yield": 2.312138728323699,
+ "div_yield": 2.4566473988439306,
  "streak_up": 2,
  "streak_flat": 6,
  "payout_ni": 75.00468779298707,
@@ -51,18 +51,18 @@
  "roe": 4.6550002,
  "div_policy": null,
  "dgr5": 12.700920209792542,
- "chowder": 15.013058938116242,
+ "chowder": 15.157567608636473,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 62.48214569116013,
- "per_vs_sector": 1.101743101604278,
- "pbr_vs_sector": 0.7778619166666667,
+ "per_vs_sector": null,
+ "pbr_vs_sector": 0.7785299166666667,
  "per_band_pos": null,
- "yield_band_pos": 0.5062499401282019,
- "next_earn": "2026-11-11",
+ "yield_band_pos": 0.6263952376180965,
+ "next_earn": "2027-02-12",
  "earn_disc_date": "2026-11-11",
  "buyback_yen": 0.0,
- "total_yield": 2.312138728323699,
+ "total_yield": 2.4566473988439306,
  "total_payout": 74.99047619047619,
  "interest_coverage": 6.822644847412649,
  "warnings": [
@@ -76,7 +76,22 @@
    "t": "バリュートラップ注意：PBR 0.93倍（1倍割れ）かつROE 2.9%（5%未満）"
   }
  ],
- "review": [],
+ "review": [
+  {
+   "k": "per",
+   "where": "PER（Yahoo表示 43.5倍）",
+   "why": "直近4四半期の純利益（82.7億円）から求めたPERは20.6倍で、Yahoo表示と2.1倍ずれています。Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
+   "how": "IR BANK（irbank.net/4553/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
+   "keys": [
+    "per_vs_sector",
+    "per_band_pos"
+   ],
+   "names": [
+    "益回り（1÷PER）"
+   ]
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-12T00:01:33"
+ "_generated_at": "2026-11-12T15:07:25",
+ "_earnings_reflected_via": "tdnet_retry"
 }
