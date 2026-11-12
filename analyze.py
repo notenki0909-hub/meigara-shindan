@@ -32,6 +32,7 @@ import os
 import re
 import json
 import math
+import time
 import html
 import argparse
 import datetime as dt
@@ -335,6 +336,58 @@ def fetch_irbank_dps(code):
     if len(pairs) < 6:
         return None
     return sorted(pairs.items())
+
+
+def parse_yahoojp_dividend(html):
+    """Yahoo!ファイナンス（日本）の配当ページ（/quote/<code>.T/dividend）のHTMLから、
+    会社予想の年間配当と、決算期ごとの年間配当（実績・株式分割調整後）を取り出す。
+    ページには {"settlementDate":"202703","valueType":"forecast","annualForecastValue":117,
+    "annualCorrectedActualValue":"$undefined"} 形式のデータが埋め込まれている。
+    戻り値: {"forecast": (決算年月YYYYMM, 年間配当) または None,
+             "actual": [(決算年月YYYYMM, 年間配当), ...]（古い順）} ／ 読めなければ None。"""
+    if not html:
+        return None
+    t = html.replace('\\"', '"')
+    seen, fc, act = set(), [], []
+    for m in re.finditer(r'"settlementDate":"(\d{6})","valueType":"(forecast|actual)",'
+                         r'"annualForecastValue":([^,}]+),"annualCorrectedActualValue":([^,}]+)\}', t):
+        settle, vt = m.group(1), m.group(2)
+        if (settle, vt) in seen:
+            continue
+        seen.add((settle, vt))
+        raw = (m.group(3) if vt == "forecast" else m.group(4)).strip().strip('"')
+        try:
+            v = float(raw)
+        except ValueError:
+            continue
+        if v != v or v < 0 or v > 1e6:
+            continue
+        (fc if vt == "forecast" else act).append((settle, v))
+    if not fc and not act:
+        return None
+    return {"forecast": max(fc) if fc else None, "actual": sorted(act)}
+
+
+def fetch_yahoojp_dividend(code):
+    """Yahoo!ファイナンス（日本）の配当ページを1回取得して parse_yahoojp_dividend の結果を返す。
+    取れなければ None（呼び出し側は従来の計算にフォールバックする）。失敗は黙って None。"""
+    if requests is None:
+        return None
+    url = f"https://finance.yahoo.co.jp/quote/{code}.T/dividend"
+    for attempt in (0, 1):
+        try:
+            r = requests.get(url, timeout=15, headers={
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+                "Accept-Language": "ja,en;q=0.8",
+            })
+            if r.status_code == 200 and r.text:
+                return parse_yahoojp_dividend(r.text)
+            if r.status_code in (404, 403):
+                return None
+        except Exception:
+            pass
+        time.sleep(1.0)
+    return None
 
 
 def fetch_jgb10():
@@ -1022,6 +1075,73 @@ def yearly_price_mean(hist_m):
     return res
 
 
+def fiscal_yield_history(actual, hist_d, splits=None, today=None, n_years=6, divs=None):
+    """配当利回りの決算期ごとの履歴（みんかぶ方式）。
+    各決算期の利回り ＝ その決算期の年間配当（actual。Yahoo!ファイナンス日本の『年間配当（調整後）』）
+                       ÷ その決算期（決算月の翌月1日〜決算月末の12か月）の日次終値の単純平均。
+    actual: [(決算年月 'YYYYMM', 年間配当), ...]。hist_d: 日足（Close列）。splits: [(日付, 分割比率)]（あれば）。
+    株価が分割後の基準に直っていない銘柄（分割の前後で終値が分割比率ぶん段差になる）は、分割前の終値を比率で割って直す。
+    直し方を判定できない分割があるときは None（呼び出し側は従来の暦年方式に戻す）。
+    divs: [(権利落ち日, 1株配当), ...]（yfinance）。あれば、その決算期に権利落ちした配当の合計と actual が3%以内で
+    一致する決算期だけ使う（分割・分離上場などの調整が両者でずれた期を除く。実測では約98%が一致）。
+    戻り値: [(決算期の西暦, 利回り%), ...]（古い順。直近 n_years 期まで。3期未満なら None）。"""
+    import pandas as pd
+    if not actual or hist_d is None or getattr(hist_d, "empty", True) or "Close" not in hist_d:
+        return None
+    today = today or TODAY
+    close = hist_d["Close"].dropna().astype(float)
+    if len(close) < 200:
+        return None
+    if getattr(close.index, "tz", None) is not None:
+        close.index = close.index.tz_localize(None)
+    close = close[close > 0]
+    if splits:
+        import div_yield_avg as _dya
+        empty = pd.Series(dtype=float, index=pd.DatetimeIndex([]))
+        for d0, r in sorted(splits):
+            try:
+                ratio = float(r)
+                if not (ratio > 0) or ratio == 1.0:
+                    continue
+                ts = pd.Timestamp(d0)
+                if ts.tzinfo is not None:
+                    ts = ts.tz_localize(None)
+                if ts <= close.index[0] or ts >= close.index[-1]:
+                    continue
+                pu, _du = _dya._diag_one(close, empty, ts, ratio)
+            except Exception:
+                return None
+            if pu is None:
+                return None            # 株価が分割に合わせて直っているか判定できない
+            if pu:
+                close = close.copy()
+                close[close.index < ts] = close[close.index < ts] / ratio
+    out = []
+    today_ts = pd.Timestamp(today)
+    for settle, dps in actual:
+        try:
+            y, m = int(settle[:4]), int(settle[4:6])
+            end = pd.Timestamp(year=y, month=m, day=1) + pd.offsets.MonthEnd(0)
+        except Exception:
+            continue
+        if end >= today_ts or not is_num(dps) or dps <= 0:
+            continue
+        start = end - pd.DateOffset(years=1) + pd.Timedelta(days=1)
+        w = close[start:end]
+        if len(w) < 200:
+            continue
+        if divs:
+            yfs = sum(v for d0, v in divs if start.date() <= d0 <= end.date())
+            if not (yfs > 0 and abs(yfs / dps - 1) <= 0.03):
+                continue
+        avg = float(w.mean())
+        if avg > 0:
+            out.append((y, dps / avg * 100))
+    out.sort()
+    out = out[-n_years:]
+    return out if len(out) >= 3 else None
+
+
 def calc_technicals(hist_d):
     out = {"rsi": None, "macd_state": None, "stoch_state": None, "rsi_score": None}
     if hist_d is None or getattr(hist_d, "empty", True) or len(hist_d) < 40:
@@ -1326,8 +1446,14 @@ def data_asof_html(d):
 
 
 def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb_10y, div_policies,
-                  drop_in_progress=False, payout_basis="yahoo", dps_clean="legacy", fin_guard=False):
-    """全指標を分野別 dict に。各指標は {v, disp, ref, key}（key は rules 参照名）。"""
+                  drop_in_progress=False, payout_basis="yahoo", dps_clean="legacy", fin_guard=False,
+                  yj_div=None):
+    """全指標を分野別 dict に。各指標は {v, disp, ref, key}（key は rules 参照名）。
+    yj_div（配当側 generate() だけが渡す。10年保有側は None のまま＝従来どおり）:
+      fetch_yahoojp_dividend() の結果。あれば、配当利回りを『みんかぶ方式』で出す。
+        現在の予想利回り ＝ 会社予想の年間配当 ÷ 現在株価
+        過去の利回り     ＝ 決算期ごとの年間配当 ÷ その決算期の日次終値の平均
+      取れない・読めないときは、従来の計算（Yahoo予想配当・暦年の平均株価）に戻る。"""
     info = yd["info"]
     isr, bsr, cfr = yd["is_rows"], yd["bs_rows"], yd["cf_rows"]
     price = yd["price"]
@@ -1639,6 +1765,13 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
         fwd_dps = last12_sum
     elif is_num(last12_sum) and last12_sum > 0 and fwd_dps < last12_sum * 0.7:
         fwd_dps = last12_sum
+    # みんかぶ方式：会社予想の年間配当（Yahoo!ファイナンス日本の配当ページ）があれば、それを使う。
+    # yfinanceのdividendRateは、中間配当の2倍など過大な値や、特別配当を含む直近12か月の実績に置き換わることがあるため。
+    fwd_dps_src = "yfinance"
+    fwd_dps_fy = None
+    _fc = (yj_div or {}).get("forecast")
+    if _fc and is_num(_fc[1]) and _fc[1] > 0:
+        fwd_dps, fwd_dps_src, fwd_dps_fy = float(_fc[1]), "company", _fc[0]
     yld_fwd = safe_div(fwd_dps, price)
     yld_fwd = yld_fwd * 100 if yld_fwd is not None else None
     if yld_fwd is None:
@@ -1770,18 +1903,40 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
     for d0, v in yd["divs"]:
         dps_by_cal[d0.year] = dps_by_cal.get(d0.year, 0) + v
     yy = []  # [(year, yield%)]
-    for y in sorted(pm):
-        if y == TODAY.year:
-            continue
-        if y in dps_by_cal and pm[y] > 0 and dps_by_cal[y] > 0:
-            yy.append((y, dps_by_cal[y] / pm[y] * 100))
+    yy_fiscal = None
+    if yj_div and yj_div.get("actual"):
+        try:
+            yy_fiscal = fiscal_yield_history(yj_div["actual"], yd.get("hist_d"), yd.get("splits"), TODAY,
+                                             divs=yd.get("divs"))
+        except Exception:
+            yy_fiscal = None
+    if yy_fiscal:
+        yy = list(yy_fiscal)      # みんかぶ方式：決算期ごとの年間配当 ÷ その決算期の平均株価
+    else:
+        for y in sorted(pm):
+            if y == TODAY.year:
+                continue
+            if y in dps_by_cal and pm[y] > 0 and dps_by_cal[y] > 0:
+                yy.append((y, dps_by_cal[y] / pm[y] * 100))
     rb_yield = ({"hist": yy, "current": yld_fwd, "kind": "pct", "low_is_cheap": False}
                 if len(yy) >= 3 and is_num(yld_fwd) else None)
 
     yb = sec_avg.get("yield")
     range_txt = f"業種の利回り目安 {yb[0]:.1f}〜{yb[1]:.1f}%" if yb else "―"
+    if yj_div is None:
+        # 10年保有側（と、会社予想を取得できなかった配当側）：従来の表記のまま
+        _yld_ref = range_txt + "／安全圏3.5〜4%以上。推移＝各暦年の平均株価に対する利回り"
+    else:
+        if fwd_dps_src == "company":
+            _fy_txt = f"{fwd_dps_fy[:4]}年{int(fwd_dps_fy[4:6])}月期" if fwd_dps_fy else "今期"
+            _now_txt = f"今回の利回り＝会社予想の年間配当 {_fmt_dps(fwd_dps)}円（{_fy_txt}）÷現在株価"
+        else:
+            _now_txt = "今回の利回り＝予想配当（取得元の推計）÷現在株価（会社予想が無いため）"
+        _hist_txt = ("推移＝各決算期の年間配当÷その決算期の平均株価（みんかぶと同じ方式）" if yy_fiscal
+                     else "推移＝各暦年の配当÷その年の平均株価（決算期ごとの配当を使えなかったため暦年で計算）")
+        _yld_ref = range_txt + "／安全圏3.5〜4%以上。" + _now_txt + "。" + _hist_txt
     M["配当"].append({"name": "予想配当利回り", "v": yld_fwd, "disp": fmt_pct(yld_fwd, 2),
-                      "ref": range_txt + "／安全圏3.5〜4%以上。推移＝各暦年の平均株価に対する利回り",
+                      "ref": _yld_ref,
                       "key": "div_yield", "series": yy, "series_kind": "pct", "series_current": yld_fwd})
 
     # 総還元利回り・総還元性向＝配当だけでなく自社株買いも含めた株主還元の全体像
@@ -2047,6 +2202,7 @@ def build_metrics(yd, irbank, sec_avg, is_simple, jp_sector, rate_sensitive, jgb
         "streak_up": streak_up, "chowder": chowder, "tec": tec,
         "rev_series": rev, "ni_series": ni, "eps_series": eps,
         "fwd_dps": fwd_dps, "payout_ni": payout_ni,
+        "fwd_dps_src": fwd_dps_src, "yield_basis": ("fiscal" if yy_fiscal else "calendar"),
         "per_band_pos": per_band_pos, "yield_spread": yield_spread, "jgb_10y": jgb_10y,
         "roic_vs": roic_vs, "earn_stab": earn_stab,
     }
@@ -4155,6 +4311,12 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
     jgb_10y = jgb if is_num(jgb) else rules.get("market", {}).get("jgb_10y")
     jgb_src = "指定値" if is_num(jgb) else "同梱設定"
 
+    # 配当利回りはみんかぶ方式（会社予想配当÷現在株価／決算期ごとの配当÷その期の平均株価）。取れなければ従来の計算に戻る
+    try:
+        yj_div = fetch_yahoojp_dividend(code)
+    except Exception:
+        yj_div = None
+
     log("[2/3] 採点")
     try:
         M, flags, ctx = build_metrics(yd, irbank, sec_avg, is_simple, jp_sector,
@@ -4162,7 +4324,8 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
                                       drop_in_progress=True,   # 配当側のみ。10年保有側は既定(False)のまま
                                       payout_basis=PAYOUT_BASIS,   # 同上（配当性向の求め方）
                                       dps_clean=DPS_CLEAN,         # 同上（年別配当の整理の方式）
-                                      fin_guard=FIN_GUARD)         # 同上（財務データの不備の自動チェック）
+                                      fin_guard=FIN_GUARD,         # 同上（財務データの不備の自動チェック）
+                                      yj_div=yj_div)               # 同上（配当利回りのみんかぶ方式）
         ctx["hist_m"] = yd["hist_m"]
         ctx["jgb_src"] = jgb_src
         ctx["earn"] = build_earnings(yd, yd["price"])
