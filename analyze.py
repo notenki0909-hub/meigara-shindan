@@ -4312,8 +4312,15 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
     jgb_src = "指定値" if is_num(jgb) else "同梱設定"
 
     # 配当利回りはみんかぶ方式（会社予想配当÷現在株価／決算期ごとの配当÷その期の平均株価）。取れなければ従来の計算に戻る
+    # YJ_DIV_CACHE_FILE を設定した夜間実行では、取得結果を保存して必要な銘柄だけ取り直す（yj_div_cache.py）。未設定なら毎回取得
     try:
-        yj_div = fetch_yahoojp_dividend(code)
+        import yj_div_cache
+        try:
+            _sp = max((d0.isoformat() for d0, _ in (yd.get("splits") or [])), default="")
+        except Exception:
+            _sp = ""
+        yj_div, _yj_src = yj_div_cache.get(code, fetch_yahoojp_dividend, split_sig=_sp)
+        log(f"      配当ページ {_yj_src}")
     except Exception:
         yj_div = None
 

@@ -18,6 +18,9 @@ jobs:
   retry:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    env:
+      # 配当ページ（Yahoo!ファイナンス日本）の取得結果の保存（nightly.yml と共通。yj_div_cache.py）
+      YJ_DIV_CACHE_FILE: ${{ github.workspace }}/yj_div_cache.json
     steps:
       - uses: actions/checkout@v4
 
@@ -39,6 +42,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add pending_earnings.json site/
+          if [ -e yj_div_cache.json ]; then git add yj_div_cache.json; fi
           if git diff --cached --quiet; then
             echo "変更なし"
             exit 0
