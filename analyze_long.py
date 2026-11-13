@@ -1583,6 +1583,10 @@ def render_long_html(meta, groups, detail, q_score, q_cov, bt_score, bt_cov, btd
     ref_html = "".join(
         _help_row(n, v, _help_for(n, _REF_HELP) or analyze.NAME_HELP.get(n))
         for n, v in ref_rows)
+    # 配当に関する数値（予想配当利回り・総還元）が出ているときは、その数値についての注意書きを添える（表示のみ）
+    if any(str(n).startswith(("予想配当利回り", "総還元")) for n, _v in ref_rows):
+        ref_html += ('<div class="legend" style="margin-top:8px"><b>配当の数値について</b>：'
+                     + analyze.html.escape(LC.div_note(market)) + '</div>')
     # 見方を深める指標（表示専用・採点しない）
     ins = extras.get("insight") or {}
     if ins.get("rows"):

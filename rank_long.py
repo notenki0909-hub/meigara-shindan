@@ -691,7 +691,9 @@ def render(out, m):
     c = out["counts"]
     unit = m["unit_price"]
     market = out["market"]
-    terms_json = json.dumps(TERMS, ensure_ascii=False)
+    _terms = dict(TERMS)
+    _terms["yield"] = (_terms["yield"][0], _terms["yield"][1] + "<br>" + html.escape(LC.div_note(market)))
+    terms_json = json.dumps(_terms, ensure_ascii=False)
     raw_rules = _RAW_RULES_BY_MARKET[market]
     backup_css, backup_box, backup_script = _backup_parts(market, "index")
     _sd = lambda n: _sec_label(n, market)   # 業種名の表示用（米国はGICSを日本語に）
@@ -1396,7 +1398,7 @@ section.grp[hidden]{{display:none}}
 <tbody>{gt}</tbody></table></details>
 {"".join(secs)}
 {exc}
-<div class="disc">{DISC}</div>
+<div class="disc">{DISC} {html.escape(LC.div_note(market))}</div>
 <div id="wlbar" hidden><div class="grp"><span>☆ <b id="wlcount">0</b>銘柄</span>
 <label class="wltgt">追加先 <select id="wltab" aria-label="ウォッチリストの追加先（全て／タブ）"></select></label>
 <button type="button" id="wlgo">ウォッチリストへ追加 →</button>
