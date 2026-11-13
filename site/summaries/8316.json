@@ -1,22 +1,22 @@
 {
  "code": "8316",
  "name": "三井住友フィナンシャルグループ",
- "asof": "2026-11-12",
- "data_fetched_at": "2026-11-12T23:51:08",
+ "asof": "2026-11-13",
+ "data_fetched_at": "2026-11-13T19:53:45",
  "jp_sector": "銀行業",
  "industry": "Banks - Diversified",
  "is_simple": true,
  "is_reit": false,
  "sel_dev": {
-  "dev": 61,
-  "rank": 6,
+  "dev": 60,
+  "rank": 7,
   "n": 38,
   "basis": "業種",
   "name": "銀行業"
  },
  "price": 3270.0,
  "price_date": "2026-11-12",
- "mcap": 24612228300800,
+ "mcap": 24649861693440,
  "sel_score": 90.3,
  "tim_score": 61.7,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
@@ -39,7 +39,7 @@
   "配当の持続力": 95.9,
   "配当利回りセオリー": 40.0,
   "利回り水準とChowder": 95.0,
-  "株価バリュエーション": 62.9,
+  "株価バリュエーション": 62.8,
   "金利スプレッド": null,
   "金融品質": 87.9
  },
@@ -56,14 +56,14 @@
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 0.877985748502994,
- "pbr_vs_sector": 1.5429368,
+ "per_vs_sector": 0.8793282035928144,
+ "pbr_vs_sector": 1.5452961,
  "per_band_pos": 0.0,
  "yield_band_pos": 0.0,
  "next_earn": "2026-11-13",
- "earn_disc_date": "2026-07-31",
+ "earn_disc_date": "2026-11-12",
  "buyback_yen": 250624000000.0,
- "total_yield": 3.7705841485751876,
+ "total_yield": 3.7690295058213517,
  "total_payout": 49.94999914717433,
  "interest_coverage": null,
  "warnings": [
@@ -74,5 +74,6 @@
  "insight_flags": [],
  "review": [],
  "kind": "fin",
- "_generated_at": "2026-11-12T23:51:12"
+ "_generated_at": "2026-11-13T19:53:50",
+ "_earnings_reflected_via": "tdnet_retry"
 }
