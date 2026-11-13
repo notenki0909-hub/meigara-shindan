@@ -13,7 +13,7 @@ Yahoo!ファイナンス（日本）の配当ページから読む。この値�
   1. 保存が無い（初回）。このとき次回の取り直し日を銘柄ごとにずらす（14日目に一斉に取りに行かないため）
   2. 期限（既定14日）が来た
   3. 株式分割：yfinance の最新の分割日が、保存したときと違う（過去の配当の調整後の値が変わるため）
-  4. 決算短信を検知した（tdnet_detections.json）のに、まだ反映を確認できていない
+  4. 決算短信（tdnet_detections.json）または配当修正（tdnet_div_detections.json）の開示を検知したのに、まだ反映を確認できていない
      Yahoo側への反映の遅れは測っていないので、前回の取得から11時間以上あけて、値が変わるまで最大3回取り直す。
      値が変わった時点で「反映済み」とし、その遅れ（検知から何時間後か）を lag_h に記録する（あとで遅れを測るため）。
      3回取り直しても変わらなければ「配当に変更なし」とみなして終える（次は14日の見直しで拾う）。
@@ -71,19 +71,23 @@ def _entries(p):
 
 
 def _detections():
-    """銘柄コード → 決算短信を最後に検知した時刻（tdnet_detections.json）。無い・壊れていれば空。"""
+    """銘柄コード → 決算短信または配当修正の開示を最後に検知した時刻。
+    tdnet_detections.json（決算短信）と tdnet_div_detections.json（配当修正）の両方を読む。無い・壊れていれば空。"""
     if _ST["det"] is None:
         out = {}
-        f = os.environ.get("YJ_DIV_DETECT_FILE", "").strip() or os.path.join(HERE, "tdnet_detections.json")
-        try:
-            with open(f, encoding="utf-8") as fh:
-                for r in json.load(fh):
-                    t = _utc(str(r.get("detected_at", "")))
-                    c = str(r.get("code", ""))
-                    if t and c and (c not in out or t > out[c]):
-                        out[c] = t
-        except Exception:
-            out = {}
+        env = os.environ.get("YJ_DIV_DETECT_FILE", "").strip()      # テスト用。複数は os.pathsep 区切り
+        files = [x for x in env.split(os.pathsep) if x] if env else [
+            os.path.join(HERE, "tdnet_detections.json"), os.path.join(HERE, "tdnet_div_detections.json")]
+        for f in files:
+            try:
+                with open(f, encoding="utf-8") as fh:
+                    for r in json.load(fh):
+                        t = _utc(str(r.get("detected_at", "")))
+                        c = str(r.get("code", ""))
+                        if t and c and (c not in out or t > out[c]):
+                            out[c] = t
+            except Exception:
+                continue
         _ST["det"] = out
     return _ST["det"]
 

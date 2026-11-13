@@ -1,7 +1,9 @@
 name: tdnet-watch
 
 # 平日 JST 11:00〜17:30 の間、30分おきにTDnetの当日開示を見て
-# ユニバース内の「決算短信」を検知する（実際の再取得は earnings-retry.yml）。
+# ユニバース内の「決算短信」と「配当修正」を検知する（決算短信の再取得は earnings-retry.yml、
+# 配当修正は tdnet_div_detections.json に記録し、夜間更新が配当ページを取り直す＝yj_div_cache.py）。
+# 直前の平日分も毎回取り直す（定時実行が遅れた・飛んだときの取りこぼしを翌日に拾う）。
 on:
   schedule:
     - cron: "*/30 2-8 * * 1-5"   # UTC 2:00-8:30 = JST 11:00-17:30（同一暦日に収まる）
@@ -35,7 +37,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add pending_earnings.json tdnet_detections.json
+          git add pending_earnings.json tdnet_detections.json tdnet_div_detections.json
           if git diff --cached --quiet; then
             echo "変更なし"
             exit 0
