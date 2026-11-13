@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 1945.5,
- "price_date": "2026-11-11",
- "mcap": 586173054976,
+ "price": 1894.0,
+ "price_date": "2026-11-12",
+ "mcap": 570656292864,
  "q_score": 82.7,
  "groups": {
   "業績": 66.46211641592465,
@@ -22,37 +22,37 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 56.3,
+ "bt_score": 62.6,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 98.22942959415445,
-  "fcf_yield": 22.12906408680129,
-  "per_cheap": 30.0,
-  "pbr_cheap": 74.8
+  "ev_ebit_vs_sector": 100.74583887916928,
+  "fcf_yield": 22.18695564318858,
+  "per_cheap": 52.4,
+  "pbr_cheap": 75.0
  },
- "ev_ebit": 13.025661990319787,
- "fcf_yield": 0.15967980651009678,
+ "ev_ebit": 12.762143451658373,
+ "fcf_yield": 0.16402167323914355,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 0.8654924910511486,
- "per_vs_sector": 3.6940622395833334,
- "pbr_vs_sector": 0.6185589230769231,
+ "ev_ebit_vs_sector": 0.823895639229075,
+ "per_vs_sector": 1.1704536458333334,
+ "pbr_vs_sector": 0.5828638692307692,
  "price_chg": {
-  "d": 1.3017443374121251,
-  "w": 4.568664337543682,
-  "m": 6.0217983651226215,
-  "3m": 3.182179793158313,
-  "6m": 18.159732766474335,
-  "9m": 16.811768237766444,
-  "y": 12.197231833910038
+  "d": -2.647134412747365,
+  "w": -3.367346938775506,
+  "m": 2.90681879923933,
+  "3m": -3.0954208237400915,
+  "6m": 13.685474189675872,
+  "9m": 13.243647234678635,
+  "y": 12.771658231616545
  },
- "div_yield": 2.7756360832690823,
- "implied_fcf_growth": 0.5789,
+ "div_yield": 2.851108764519535,
+ "implied_fcf_growth": 0.5745,
  "insight": {
   "flags": {
    "cutoff": [],
    "value_trap": [
-    "PBR 0.80倍（1倍割れ）かつROE 1.0%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+    "PBR 0.76倍（1倍割れ）かつROE 1.0%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
    ]
   },
   "raw": {
@@ -65,17 +65,8 @@
    "shares_chg_pct": -8.262330195567547
   }
  },
- "data_notice": [
-  {
-   "tier": "check",
-   "k": "per",
-   "where": "PER（Yahoo表示 70.9倍）",
-   "why": "直近4四半期の純利益（253.1億円）から求めたPERは23.2倍で、Yahoo表示と3.1倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
-   "how": "IR BANK（irbank.net/3405/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する"
-  }
- ],
  "data_asof": {
-  "fetched": "2026-11-11T23:55:26Z"
+  "fetched": "2026-11-12T23:07:31Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -106,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 1855.4487179487178
  },
- "_generated_at": "2026-11-12T00:40:58"
+ "_generated_at": "2026-11-13T00:15:37"
 }
