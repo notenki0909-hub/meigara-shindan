@@ -7,7 +7,7 @@
  "is_reit": false,
  "price": 64.43000030517578,
  "price_date": "2026-11-11",
- "mcap": 28802170880,
+ "mcap": 28498190336,
  "q_score": 101.4,
  "groups": {
   "業績": 93.67863993059667,
@@ -30,13 +30,13 @@
   "per_cheap": 110.0,
   "pbr_cheap": 110.0
  },
- "ev_ebit": 8.431972010820559,
- "fcf_yield": 9.009737532673093,
+ "ev_ebit": 8.34060424887286,
+ "fcf_yield": 9.105841351343273,
  "per_band_pos": 1.0,
  "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.3363371364507602,
- "per_vs_sector": 0.29993109693877545,
- "pbr_vs_sector": 0.14627511194029852,
+ "ev_ebit_vs_sector": 0.3281118901995617,
+ "per_vs_sector": 0.29676561224489795,
+ "pbr_vs_sector": 0.14473131343283582,
  "price_chg": {
   "d": -0.8769226074218706,
   "w": -2.0522932489715706,
@@ -47,7 +47,7 @@
   "y": -11.594398005888918
  },
  "div_yield": 2.0487350516029132,
- "implied_fcf_growth": -0.0039,
+ "implied_fcf_growth": -0.0054,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -60,11 +60,13 @@
    "ocf_ni": 1.2928251121076233,
    "accrual": -3.212159968517881,
    "capex_da": 0.5236363636363637,
-   "shares_chg_pct": -5.893909626719052
+   "shares_chg_pct": -5.893909626719052,
+   "sbc_rev_pct": 0.8574947887057041,
+   "fcf_less_sbc_pct": 11.43642220958878
   }
  },
  "data_asof": {
-  "fetched": "2026-11-12T02:48:25Z"
+  "fetched": "2026-11-13T02:26:43Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -95,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 23.50674373795761
  },
- "_generated_at": "2026-11-12T03:29:09"
+ "_generated_at": "2026-11-13T02:59:14"
 }
