@@ -159,6 +159,52 @@ td.x button{padding:2px 7px;font-size:12px;background:var(--card);color:var(--mu
   display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
 }
 
+/* 保有銘柄一覧のセクション（島） */
+.sectools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 4px}
+.sectools>button{padding:4px 10px;font-size:12px}
+.sectools .seclbl{font-size:12px;color:var(--muted)}
+.sectools .dimbtns{margin:0}
+.sectools .dimbtns button{padding:5px 11px;font-size:12px}
+.dg{cursor:grab;touch-action:none;user-select:none;color:var(--muted);width:22px;text-align:center;padding-left:6px;padding-right:2px;font-size:15px;line-height:1}
+td.dg:focus-visible{outline:2px solid var(--accent);border-radius:4px}
+tr.dragging td{opacity:.45}
+body.dragging-row,body.dragging-row *{cursor:grabbing!important}
+.island.has{border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:10px 12px 12px;background:var(--card);margin:0 0 18px;box-shadow:0 1px 4px rgba(0,0,0,.06);overflow-x:auto}
+.island.has.pool{border-style:dashed;border-left-style:dashed;border-left-color:var(--line);box-shadow:none;background:transparent}
+.island.has table{border:0;margin-top:2px;table-layout:fixed;min-width:1010px}
+.island.over{box-shadow:0 0 0 2px var(--accent)}
+.island th:nth-child(1),.island td:nth-child(1){width:24px}
+.island th:nth-child(2),.island td:nth-child(2){width:58px}
+.island th:nth-child(4),.island td:nth-child(4){width:72px}
+.island th:nth-child(5),.island td:nth-child(5){width:80px}
+.island th:nth-child(6),.island td:nth-child(6){width:76px}
+.island th:nth-child(7),.island td:nth-child(7){width:104px}
+.island th:nth-child(8),.island td:nth-child(8){width:118px}
+.island th:nth-child(9),.island td:nth-child(9){width:80px}
+.island th:nth-child(10),.island td:nth-child(10){width:56px}
+.island th:nth-child(11),.island td:nth-child(11){width:56px}
+.island th:nth-child(12),.island td:nth-child(12){width:100px}
+.island th:nth-child(13),.island td:nth-child(13){width:34px}
+#holdtable .island td.name,#holdtable .island td.realized{display:table-cell;max-width:none;min-width:0;overflow:visible;-webkit-line-clamp:unset}
+.island tr.detail td:first-child{width:auto}
+.island tr.hrow td.n:not(:nth-child(8)){white-space:nowrap}
+.ihead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:2px}
+.iname{font:inherit;font-weight:700;font-size:15px;padding:5px 9px;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--fg);width:260px;max-width:100%}
+.iname:hover,.iname:focus{border-color:var(--line);background:var(--field)}
+.ititle{font-weight:700;font-size:15px;color:var(--muted);padding:5px 0}
+.icnt,.skn{font-size:12px;color:var(--muted)}
+.ihead .idel{margin-left:auto;padding:4px 10px;font-size:12px}
+.isum{font-size:12.5px;color:var(--muted);margin:0 0 4px 2px}
+.isum b{color:var(--fg)}
+.isum b.pos{color:var(--gA)}.isum b.neg{color:var(--gC)}
+.ihandle{cursor:grab;touch-action:none;user-select:none;color:var(--muted);font-size:17px;line-height:1;padding:4px 4px 4px 0}
+.ihandle:hover{color:var(--accent)}
+.ihandle:focus-visible{outline:2px solid var(--accent);border-radius:4px}
+.island.sdragging{opacity:.5}
+.island.secbefore{box-shadow:0 -4px 0 0 var(--accent)}
+.island.secend{box-shadow:0 4px 0 0 var(--accent)}
+.idrop{border:2px dashed var(--line);border-radius:10px;padding:18px;text-align:center;color:var(--muted);font-size:12.5px}
+
 /* ロット内訳の売買記録フォーム */
 tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
 .lotyield{color:var(--muted);font-size:11px}
@@ -296,6 +342,13 @@ details.box[open]>summary{margin-bottom:8px}
 <div class="box" id="holdbox" hidden>
   <div class="holdhead"><h2>保有銘柄一覧</h2><button type="button" id="clearall" class="ghost" title="保有記録をすべて削除します">全て削除</button></div>
   <p class="note">行をクリックすると購入ロットの内訳が開きます。内訳の各行をクリックすると、その銘柄の売買を記録できます。</p>
+  <div class="sectools" id="sectools">
+    <button type="button" id="secadd" class="ghost" title="一覧の中に、名前をつけたまとまり（セクション）を作ります。銘柄は行頭の⠿をドラッグして入れます">＋ セクションを追加</button>
+    <span class="seclbl">自動でセクションに分ける：</span>
+    <span class="dimbtns" id="secauto"><button type="button" data-sdim="code">銘柄別</button><button type="button" data-sdim="sector">業種別</button><button type="button" data-sdim="group">グループ別</button></span>
+    <button type="button" id="secclear" class="ghost" hidden title="セクションをすべて解除して、1つの表に戻します">セクションをすべて解除</button>
+  </div>
+  <p class="note">セクションを作ると、保有銘柄を名前つきのまとまりに分けて表示できます（行頭の⠿をドラッグ、またはフォーカスして↑↓キーで移動）。自動の分け方は「その他」にまとめず、あてはまる分類ごとに個別のセクションを作ります（いまのセクションは置き換わります）。分け方はこのブラウザに保存され、CSVバックアップに含まれます。</p>
   <div id="holdtable"></div>
 </div>
 
@@ -308,7 +361,7 @@ details.box[open]>summary{margin-bottom:8px}
   </div>
   <p>この<b>保有記録の文字列をコピーして控えておく</b>と、別の端末でも下の貼り付け欄から復元できます。</p>
   <p><b>同じ端末・同じブラウザ</b>なら、一度追加すれば次回からこのページを開くだけで復元されます（貼り付け不要）。</p>
-  <p class="note">株価・利回り・スコアは各端末でその時点の最新が表示されます。保有株数・取得単価・購入日はこの文字列にしか残らないため、削除する前に控えを取っておいてください。</p>
+  <p class="note">株価・利回り・スコアは各端末でその時点の最新が表示されます。保有株数・取得単価・購入日はこの文字列にしか残らないため、削除する前に控えを取っておいてください。保有銘柄一覧のセクションの分け方は、この文字列には含まれません（CSVバックアップには含まれます）。</p>
 </div>
 
 <div class="box">
@@ -319,7 +372,7 @@ details.box[open]>summary{margin-bottom:8px}
 
 <details class="box" id="csvbk">
   <summary><h2>バックアップ（CSV）</h2></summary>
-  <p>「詳しい条件で絞り込む」の条件（URL）、ウォッチリスト（「あなたの銘柄リスト」の全てと、タブ・セクションを含む「全タブの控え」）、ポートフォリオの保有記録（「保有記録の保存・共有」の文字列）を、<b>1つのCSV</b>にまとめて書き出します。ファイル名は「配当株（日株）日付.csv」です。</p>
+  <p>「詳しい条件で絞り込む」の条件（URL）、ウォッチリスト（「あなたの銘柄リスト」の全てと、タブ・セクションを含む「全タブの控え」）、ポートフォリオの保有記録（「保有記録の保存・共有」の文字列）と、保有銘柄のセクション（分け方）を、<b>1つのCSV</b>にまとめて書き出します。ファイル名は「配当株（日株）日付.csv」です。</p>
   <div class="codewrap">
     <button type="button" id="bk-export">CSVで書き出す</button>
     <button type="button" id="bk-import" class="ghost">CSVを読み込んで復元</button>
@@ -515,6 +568,8 @@ details.box[open]>summary{margin-bottom:8px}
     if (!lots.length) return;
     if (!confirm('保有記録をすべて削除します。よろしいですか？（事前に「保有記録の保存・共有」欄の文字列を控えてください）')) return;
     lots = [];
+    secs = [];
+    saveSecs();
     persist();
     render();
   });
@@ -1543,6 +1598,9 @@ details.box[open]>summary{margin-bottom:8px}
   // 呼ぶたびにリスナーが積み重なり、行の開閉トグルが偶数回発火して
   // 「見た目上クリックが効かない」状態になるため）。
   $('holdtable').addEventListener('click', function(e){
+    var idel = e.target.closest('button.idel');
+    if (idel) { deleteSection(idel.dataset.sec); return; }
+    if (e.target.closest('td.dg, .ihead, .idrop')) return;   // セクションの操作（つまみ・見出し）では行を開閉しない
     var del = e.target.closest('button.del');
     if (del) {
       if (!confirm(del.dataset.code + ' の保有記録をすべて削除します。よろしいですか？')) return;
@@ -1653,6 +1711,444 @@ details.box[open]>summary{margin-bottom:8px}
       if (dh) renderDivHist(dh.dataset.code, dh.querySelector('.divhist-body'));
     }
   });
+
+  // ---- 保有銘柄一覧のセクション（ウォッチリストと同じ「島」方式。この端末のブラウザ内にだけ保存）----
+  // セクション＝名前をつけた保有銘柄のまとまり。どのセクションにも入っていない銘柄は「未分類」の島に出る。
+  // 銘柄の並びは常に評価額の大きい順（セクション間の移動だけを編集できる）。
+  var SECS_KEY = PF_KEY.replace('pf_lots', 'pf_secs');
+  var SEC_NAME_MAX = 40;
+  var secSeq = 0;
+  var secs = [];
+  function secName(n){ return String(n == null ? '' : n).replace(/\s+/g, ' ').trim().slice(0, SEC_NAME_MAX) || 'セクション'; }
+  function newSecId(){ secSeq++; return 's' + Date.now().toString(36) + secSeq + Math.random().toString(36).slice(2, 5); }
+  try {
+    var sraw = JSON.parse(localStorage.getItem(SECS_KEY) || '[]');
+    if (Array.isArray(sraw)) sraw.forEach(function(s){
+      if (!s || typeof s.id !== 'string') return;
+      secs.push({id: s.id, name: secName(s.name),
+                 codes: Array.isArray(s.codes) ? s.codes.map(function(c){ return String(c).toUpperCase(); }) : []});
+    });
+  } catch(e) {}
+  function saveSecs(){
+    try {
+      if (secs.length) localStorage.setItem(SECS_KEY, JSON.stringify(secs));
+      else localStorage.removeItem(SECS_KEY);
+    } catch(e) {}
+  }
+  function escH(s){ return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function secById(id){
+    for (var i = 0; i < secs.length; i++) if (secs[i].id === id) return secs[i];
+    return null;
+  }
+  function uniqueSecName(name, exceptId){
+    name = secName(name);
+    var base = name, n = 2;
+    while (secs.some(function(s){ return s.id !== exceptId && s.name === name; })) {
+      name = base.slice(0, SEC_NAME_MAX - 4) + '(' + n + ')';
+      n++;
+    }
+    return name;
+  }
+  // セクションの中身を、いま実際に保有している銘柄だけ・重複なしに整える
+  function cleanSecs(list){
+    var have = {}, used = {}, changed = false;
+    list.forEach(function(h){ have[h.code] = 1; });
+    secs.forEach(function(s){
+      var keep = s.codes.filter(function(c){
+        if (!have[c] || used[c]) return false;
+        used[c] = 1;
+        return true;
+      });
+      if (keep.length !== s.codes.length) changed = true;
+      s.codes = keep;
+    });
+    if (changed) saveSecs();
+  }
+  // 銘柄を別のセクションへ移す（toId が空文字なら「未分類」へ戻す）
+  function moveCode(code, toId){
+    secs.forEach(function(s){ s.codes = s.codes.filter(function(c){ return c !== code; }); });
+    var t = toId ? secById(toId) : null;
+    if (t) t.codes.push(code);
+    saveSecs();
+    renderHold();
+  }
+  function addSection(){
+    if (!lastHoldings.length) return;
+    var s = {id: newSecId(), name: uniqueSecName('セクション' + (secs.length + 1)), codes: []};
+    secs.push(s);
+    saveSecs();
+    renderHold();
+    var inp = $('holdtable').querySelector('.iname[data-sec="' + s.id + '"]');
+    if (inp) { inp.scrollIntoView({block: 'center'}); inp.focus(); inp.select(); }
+  }
+  function deleteSection(id){
+    var s = secById(id);
+    if (!s) return;
+    if (s.codes.length && !confirm('セクション「' + s.name + '」を削除します。中の ' + s.codes.length
+      + ' 銘柄は「未分類」に戻ります（保有記録は消えません）。よろしいですか？')) return;
+    secs = secs.filter(function(x){ return x.id !== id; });
+    saveSecs();
+    renderHold();
+  }
+  function clearSections(){
+    if (!secs.length) return;
+    if (!confirm('セクションをすべて解除します（保有記録は消えません）。よろしいですか？')) return;
+    secs = [];
+    saveSecs();
+    renderHold();
+  }
+  // 銘柄別・業種別・グループ別に、セクションを自動で作り直す。
+  // 「その他」にまとめず、あてはまる分類ごとに必ず個別のセクションにする（分類の情報がない銘柄も、その旨を書いた専用のセクションに入れる）
+  var AUTO_LABEL = {code: '銘柄別', sector: '業種別', group: 'グループ別'};
+  function autoSplit(dim){
+    var list = lastHoldings;
+    if (!list.length || !AUTO_LABEL[dim]) return;
+    if (secs.length && !confirm('いまのセクション（' + secs.length + '個）を、「' + AUTO_LABEL[dim] + '」のセクションに置き換えます。よろしいですか？\n（保有記録は消えません）')) return;
+    var groups = {}, order = [];
+    list.forEach(function(h){
+      var key, label;
+      if (dim === 'code') {
+        key = h.code;
+        label = h.code + ' ' + (h.name || '（ランキング外）');
+      } else {
+        key = h[dim] || '';
+        label = key || (dim === 'sector' ? '（業種の情報なし）' : '（グループの情報なし）');
+      }
+      if (label.length > SEC_NAME_MAX) label = label.slice(0, SEC_NAME_MAX - 1) + '…';   // 長い会社名は省略記号で切る
+      if (!(key in groups)) { groups[key] = {label: label, codes: [], value: 0, seq: order.length}; order.push(key); }
+      groups[key].codes.push(h.code);
+      groups[key].value += (h.value || 0);
+    });
+    order.sort(function(a, b){ return (groups[b].value - groups[a].value) || (groups[a].seq - groups[b].seq); });
+    secs = [];
+    order.forEach(function(k){
+      secs.push({id: newSecId(), name: uniqueSecName(groups[k].label), codes: groups[k].codes});
+    });
+    saveSecs();
+    renderHold();
+  }
+
+  // 保有銘柄一覧を描き直す（ranking.json は取り直さない）。セクションの編集・ドラッグのたびに呼ぶ
+  var lastHoldings = [];
+  function islandSum(list, totalValue){
+    var n = 0, value = 0, cost = 0, div = 0;
+    list.forEach(function(h){
+      if (h.value == null) return;
+      n++; value += h.value; cost += h.cost; div += (h.annualDiv || 0);
+    });
+    if (!n) return '';
+    var gain = value - cost;
+    var cls = gain >= 0 ? 'pos' : 'neg';
+    return '<div class="isum">評価額 <b>' + yen(value) + '</b>' + (totalValue > 0 ? '（構成比 ' + pct(value / totalValue * 100, 1) + '）' : '')
+      + '　評価損益 <b class="' + cls + '">' + (gain >= 0 ? '+' : '') + yen(gain) + (cost ? '（' + (gain >= 0 ? '+' : '') + pct(gain / cost * 100, 1) + '）' : '') + '</b>'
+      + '　予想年間配当 <b>' + yen(div) + '</b></div>';
+  }
+  function renderHold(){
+    var holdings = lastHoldings;
+    cleanSecs(holdings);
+    var withSecs = secs.length > 0;
+    $('secclear').hidden = !withSecs;
+    var totalValue = holdings.reduce(function(a, h){ return a + (h.value || 0); }, 0);
+    function rowHtml(h, idx){
+        holdingsByCode[h.code] = h;
+        var yv = (h.yieldPct != null) ? pct(h.yieldPct, 2) : '―';
+        var yoc = (h.yoc != null) ? pct(h.yoc, 2) : '―';
+        var gainCls = (h.gain != null) ? (h.gain >= 0 ? 'pos' : 'neg') : '';
+        var realizedCls = h.hasSell ? (h.realized >= 0 ? 'pos' : 'neg') : '';
+        var isOpen = !!openDetail[h.code];
+        var main = '<tr class="hrow' + (h.missing ? '' : '') + '" data-idx="' + idx + '" data-code="' + h.code + '">'
+          + (withSecs ? '<td class="dg" tabindex="0" title="ドラッグでセクションへ移動（↑↓キーでも動かせます）" aria-label="セクション移動のつまみ">⠿</td>' : '')
+          + '<td class="code">' + (h.missing ? h.code : ('<a href="reports/' + h.code + '.html" target="_blank" rel="noopener">' + h.code + '</a>')) + '</td>'
+          + '<td class="name">' + (h.name || h.code) + retNote(h.retired) + '</td>'
+          + '<td class="n">' + h.shares.toLocaleString('ja-JP') + '株</td>'
+          + '<td class="n">' + yen(h.avgPrice) + '</td>'
+          + '<td class="n">' + (h.price != null ? yen(h.price) : '―') + '</td>'
+          + '<td class="n">' + (h.value != null ? yen(h.value) : '―') + '</td>'
+          + '<td class="n ' + gainCls + '">' + (h.gain != null ? ((h.gain>=0?'+':'')+yen(h.gain)+'（'+pct(h.gainPct,1)+'）') : '―') + '</td>'
+          + '<td class="n realized ' + realizedCls + '">' + (h.hasSell ? ((h.realized>=0?'+':'')+yen(h.realized)) : '―') + '</td>'
+          + '<td class="n">' + yv + '</td>'
+          + '<td class="n">' + yoc + '</td>'
+          + '<td class="n">' + (h.annualDiv != null ? yen(h.annualDiv) : '―') + '</td>'
+          + '<td class="x"><button type="button" class="del" data-code="' + h.code + '" title="この銘柄の保有記録をすべて削除">✕</button></td>'
+          + '</tr>';
+        var LOT_VISIBLE = 5;
+        var lotHidCount = Math.max(0, h.lots.length - LOT_VISIBLE);
+        var lotRows = h.lots.slice().reverse().map(function(l, li){
+          var isSell = l.type === 's';
+          var amtPart = isSell
+            ? ('売却額' + yen(l.shares*l.price) + '、<span class="' + (l.realized >= 0 ? 'pos' : 'neg') + '">'
+                + (l.realized >= 0 ? '利確＋' : '損切－') + yen(Math.abs(l.realized)) + '</span>')
+            : ('購入額' + yen(l.shares*l.price));
+          return '<div class="lotrow ' + (isSell ? 'txsell' : 'txbuy') + (li >= LOT_VISIBLE ? ' lothid' : '') + '" data-code="' + h.code + '" data-gidx="' + lots.indexOf(l) + '">'
+            + '<span class="lottag">' + (isSell ? '売却' : '購入') + '</span>' + l.date + '　' + l.shares.toLocaleString('ja-JP') + '株　@' + yen(l.price)
+            + '　（' + amtPart + '）</div>';
+        }).join('');
+        var newtxbtn = '<button type="button" class="newtxbtn" data-code="' + h.code + '">＋ 新規買付・売却を記録</button>';
+        var txform = '<div class="addrow txform" data-code="' + h.code + '" data-type="b" hidden>'
+          + '<div class="txtypebtns">'
+          + '<button type="button" class="txtype active" data-type="b">新規買付を記録</button>'
+          + '<button type="button" class="txtype" data-type="s">売却を記録</button>'
+          + '</div>'
+          + '<div class="addrow-body">'
+          + '<label>株数<input class="tx-shares" type="number" min="1" step="1" placeholder="100"></label>'
+          + '<label>単価（円・空欄で自動取得）<input class="tx-price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
+          + '<label>空欄時に自動取得する価格<select class="pricesrc"><option value="close">終値</option><option value="open">始値</option></select></label>'
+          + '<label>日付<input class="tx-date" type="date"></label>'
+          + '<button type="button" class="tx-submit">記録する</button>'
+          + '</div></div>';
+        var editform = '<div class="addrow editform" data-code="' + h.code + '" data-gidx="" hidden>'
+          + '<div class="addrow-head"><span class="nm ed-typelabel"></span></div>'
+          + '<div class="txtypebtns edtypebtns">'
+          + '<button type="button" class="edtype" data-type="b">買い</button>'
+          + '<button type="button" class="edtype" data-type="s">売り</button>'
+          + '</div>'
+          + '<div class="addrow-body">'
+          + '<label>株数<input class="ed-shares" type="number" min="1" step="1"></label>'
+          + '<label>単価（円・空欄で自動取得）<input class="ed-price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
+          + '<label>空欄時に自動取得する価格<select class="pricesrc"><option value="close">終値</option><option value="open">始値</option></select></label>'
+          + '<label>日付<input class="ed-date" type="date"></label>'
+          + '<button type="button" class="ed-update">修正する</button>'
+          + '<button type="button" class="ed-delete ghost">削除する</button>'
+          + '</div></div>';
+        var lotToggle = lotHidCount
+          ? '<button type="button" class="moretoggle lottoggle" data-code="' + h.code + '"><span class="t-open">全部表示（過去' + lotHidCount + '件を表示）</span><span class="t-close">折り畳み</span></button>'
+          : '';
+        var detail = '<tr class="detail" data-idx="' + idx + '"' + (isOpen ? '' : ' hidden') + '><td colspan="' + (withSecs ? 13 : 12) + '"><div class="lots' + (lotsOpen[h.code] ? ' lotsopen' : '') + '">'
+          + '<b>購入ロット内訳</b><div class="lotnote">各記録をクリックすると修正・削除できます。新しい買付・売却は「＋新規買付・売却を記録」ボタンから追加できます。取得費・実現損益は移動平均法（総平均法に準ずる方法）で計算した参考値です。正確な損益は証券会社の取引履歴でご確認ください。</div>'
+          + newtxbtn + txform + lotRows + lotToggle + editform
+          + '<div class="pricechart" data-code="' + h.code + '"><b>株価チャート</b>'
+          + '<div class="dimbtns pchart-period" data-code="' + h.code + '">'
+          + '<button type="button" class="pbtn" data-range="1m">1M</button>'
+          + '<button type="button" class="pbtn" data-range="6m">6M</button>'
+          + '<button type="button" class="pbtn" data-range="1y">1Y</button>'
+          + '<button type="button" class="pbtn" data-range="5y">5Y</button>'
+          + '<button type="button" class="pbtn active" data-range="10y">10Y</button>'
+          + '</div>'
+          + '<div class="dimbtns pchart-interval" data-code="' + h.code + '">'
+          + '<button type="button" class="pbtn active" data-interval="d">日足</button>'
+          + '<button type="button" class="pbtn" data-interval="w">週足</button>'
+          + '<button type="button" class="pbtn" data-interval="m">月足</button>'
+          + '</div>'
+          + '<div class="pricechart-body">読み込み中…</div></div>'
+          + '<div class="divhist" data-code="' + h.code + '"><b>配当推移・受取実績</b>'
+          + '<div class="divhist-body">読み込み中…</div></div>'
+          + '<div class="dnote">個別銘柄の詳しいレポート（業績・財務・配当推移など）は'
+          + (h.missing ? 'コードをご確認ください。' : ('<a href="reports/' + h.code + '.html" target="_blank" rel="noopener">こちら</a>でご覧いただけます。'))
+          + '</div></div></td></tr>';
+        return main + detail;
+    }
+    function tableHtml(list){
+      var rows = list.map(function(h){ return rowHtml(h, holdings.indexOf(h)); }).join('');
+      return '<table><thead><tr>' + (withSecs ? '<th class="dg"></th>' : '')
+        + '<th>コード</th><th>銘柄</th><th class="n">保有株数</th><th class="n">平均取得単価</th><th class="n">現在値</th>'
+        + '<th class="n">評価額</th><th class="n">評価損益</th><th class="n">実現損益</th><th class="n">利回り</th><th class="n">YOC</th><th class="n">予想年間配当</th><th></th>'
+        + '</tr></thead><tbody>' + rows + '</tbody></table>';
+    }
+
+    if (!withSecs) {
+      $('holdtable').innerHTML = '<div class="island solo" data-sec="">' + tableHtml(holdings) + '</div>';
+    } else {
+      var used = {};
+      secs.forEach(function(s){ s.codes.forEach(function(c){ used[c] = 1; }); });
+      var pool = {id: '', name: '未分類', list: holdings.filter(function(h){ return !used[h.code]; })};
+      var groupsH = secs.map(function(s){
+        var set = {};
+        s.codes.forEach(function(c){ set[c] = 1; });
+        return {id: s.id, name: s.name, list: holdings.filter(function(h){ return set[h.code]; })};
+      }).concat([pool]);
+      $('holdtable').innerHTML = groupsH.map(function(g){
+        var head = g.id
+          ? '<div class="ihead"><span class="ihandle" data-sec="' + escH(g.id) + '" tabindex="0" title="ドラッグでセクションを移動（↑↓キーでも動かせます）" aria-label="セクションの並べ替えのつまみ">⠿</span>'
+            + '<input class="iname" data-sec="' + escH(g.id) + '" maxlength="' + SEC_NAME_MAX + '" value="' + escH(g.name) + '" aria-label="セクション名" title="クリックして名前を変えられます">'
+            + '<span class="icnt">' + g.list.length + '銘柄</span>'
+            + '<button type="button" class="idel ghost" data-sec="' + escH(g.id) + '" title="セクションだけを削除します（中の銘柄は「未分類」に戻り、保有記録は消えません）">セクションを削除</button></div>'
+          : '<div class="ihead"><span class="ititle">未分類</span><span class="icnt">' + g.list.length + '銘柄</span>'
+            + '<span class="skn">どのセクションにも入れていない銘柄</span></div>';
+        var body = g.list.length ? tableHtml(g.list)
+          : '<div class="idrop">' + (g.id ? 'ここに銘柄をドラッグして入れます' : '未分類の銘柄はありません（ここにドラッグすると、セクションから外せます）') + '</div>';
+        return '<section class="island has' + (g.id ? '' : ' pool') + '" data-sec="' + escH(g.id) + '">' + head + islandSum(g.list, totalValue) + body + '</section>';
+      }).join('');
+    }
+      // 展開状態を保ったまま再描画した行は、クリック時ハンドラを経由しないため
+      // ここで株価チャート・配当推移・受取実績の遅延読み込みを行う。
+      $('holdtable').querySelectorAll('tr.detail:not([hidden]) .pricechart').forEach(function(pc){
+        renderPriceChart(pc.dataset.code, pc.querySelector('.pricechart-body'), holdingsByCode[pc.dataset.code]);
+      });
+      $('holdtable').querySelectorAll('tr.detail:not([hidden]) .divhist').forEach(function(dh){
+        renderDivHist(dh.dataset.code, dh.querySelector('.divhist-body'));
+      });
+  }
+
+  $('secadd').addEventListener('click', addSection);
+  $('secclear').addEventListener('click', clearSections);
+  $('secauto').addEventListener('click', function(e){
+    var b = e.target.closest('button[data-sdim]');
+    if (b) autoSplit(b.dataset.sdim);
+  });
+  $('holdtable').addEventListener('change', function(e){
+    var el = e.target;
+    if (!el.classList.contains('iname')) return;
+    var s = secById(el.dataset.sec);
+    if (!s) return;
+    s.name = uniqueSecName(el.value, s.id);   // 空欄・重複名はここで整える
+    saveSecs();
+    renderHold();
+  });
+  // セクション名は入力しながら保存（再描画はしない。入力欄のフォーカスを保つため）
+  $('holdtable').addEventListener('input', function(e){
+    var el = e.target;
+    if (!el.classList.contains('iname')) return;
+    var s = secById(el.dataset.sec);
+    var v = el.value.replace(/\s+/g, ' ').trim().slice(0, SEC_NAME_MAX);
+    if (!s || !v) return;
+    s.name = v;
+    saveSecs();
+  });
+
+  // ---- ドラッグで銘柄をセクションへ移す（行頭の ⠿ をつかむ。マウス・タッチ両対応）----
+  var drag = null;
+  function islandEls(){ return Array.prototype.slice.call($('holdtable').querySelectorAll('.island')); }
+  // ポインタに一番近い島（島の間のすき間でも迷わないよう、縦方向の距離で決める）
+  function nearestIsland(y){
+    var best = null, bd = 1e9;
+    islandEls().forEach(function(isl){
+      var r = isl.getBoundingClientRect();
+      var d = (y < r.top) ? r.top - y : (y > r.bottom ? y - r.bottom : 0);
+      if (d < bd) { bd = d; best = isl; }
+    });
+    return best;
+  }
+  function clearMarks(){
+    Array.prototype.forEach.call($('holdtable').querySelectorAll('.over'), function(el){ el.classList.remove('over'); });
+  }
+  function endDrag(){
+    if (!drag) return;
+    clearMarks();
+    drag.tr.classList.remove('dragging');
+    document.body.classList.remove('dragging-row');
+    drag = null;
+  }
+  $('holdtable').addEventListener('pointerdown', function(e){
+    var h = e.target.closest('td.dg');
+    if (!h || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    var tr = h.closest('tr.hrow'), isl = tr.closest('.island');
+    e.preventDefault();
+    drag = {tr: tr, code: tr.dataset.code, from: isl.dataset.sec, to: isl.dataset.sec};
+    tr.classList.add('dragging');
+    document.body.classList.add('dragging-row');
+    try { h.setPointerCapture(e.pointerId); } catch(x) {}
+  });
+  $('holdtable').addEventListener('pointermove', function(e){
+    if (!drag) return;
+    var isl = nearestIsland(e.clientY);
+    if (!isl) return;
+    drag.to = isl.dataset.sec;
+    clearMarks();
+    isl.classList.add('over');
+    if (e.clientY < 60) window.scrollBy(0, -14);
+    else if (e.clientY > window.innerHeight - 60) window.scrollBy(0, 14);
+  });
+  $('holdtable').addEventListener('pointerup', function(e){
+    if (!drag) return;
+    var d = drag;
+    endDrag();
+    if (d.to !== d.from) moveCode(d.code, d.to);
+  });
+  $('holdtable').addEventListener('pointercancel', endDrag);
+  // キーボード：⠿ にフォーカスして ↑↓ で、1つ上／下のセクションへ移動
+  $('holdtable').addEventListener('keydown', function(e){
+    var h = e.target.closest ? e.target.closest('td.dg') : null;
+    if (!h || (e.key !== 'ArrowUp' && e.key !== 'ArrowDown')) return;
+    e.preventDefault();
+    var tr = h.closest('tr.hrow'), isl = tr.closest('.island');
+    var els = islandEls(), i = els.indexOf(isl), j = (e.key === 'ArrowUp') ? i - 1 : i + 1;
+    if (i < 0 || j < 0 || j >= els.length) return;
+    var code = tr.dataset.code;
+    moveCode(code, els[j].dataset.sec);
+    var again = $('holdtable').querySelector('tr.hrow[data-code="' + code + '"] td.dg');
+    if (again) again.focus();
+  });
+
+  // ---- セクション（島）そのものをドラッグで並べ替え（見出しの ⠿ をつかむ。「未分類」は常に最下段）----
+  var sdrag = null;
+  function secIslands(){ return islandEls().filter(function(el){ return el.dataset.sec !== ''; }); }
+  function secDropIndex(y){
+    var els = secIslands();
+    for (var i = 0; i < els.length; i++) {
+      var r = els[i].getBoundingClientRect();
+      if (y < r.top + Math.min(r.height / 2, 80)) return i;
+    }
+    return els.length;
+  }
+  function clearSecMarks(){
+    Array.prototype.forEach.call($('holdtable').querySelectorAll('.secbefore, .secend'), function(el){
+      el.classList.remove('secbefore', 'secend');
+    });
+  }
+  function markSecDrop(idx){
+    clearSecMarks();
+    var els = secIslands();
+    if (idx < els.length) els[idx].classList.add('secbefore');
+    else if (els.length) els[els.length - 1].classList.add('secend');
+  }
+  function endSecDrag(){
+    if (!sdrag) return;
+    clearSecMarks();
+    sdrag.el.classList.remove('sdragging');
+    document.body.classList.remove('dragging-row');
+    sdrag = null;
+  }
+  function moveSection(id, at){
+    var i = -1;
+    secs.forEach(function(s, k){ if (s.id === id) i = k; });
+    if (i < 0) return false;
+    var s = secs.splice(i, 1)[0];
+    at = Math.max(0, Math.min(at, secs.length));
+    secs.splice(at, 0, s);
+    saveSecs();
+    renderHold();
+    return at !== i;
+  }
+  $('holdtable').addEventListener('pointerdown', function(e){
+    var h = e.target.closest('.ihandle');
+    if (!h || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    var el = h.closest('.island'), els = secIslands();
+    e.preventDefault();
+    sdrag = {el: el, id: h.dataset.sec, from: els.indexOf(el), idx: els.indexOf(el)};
+    el.classList.add('sdragging');
+    document.body.classList.add('dragging-row');
+    try { h.setPointerCapture(e.pointerId); } catch(x) {}
+  });
+  $('holdtable').addEventListener('pointermove', function(e){
+    if (!sdrag) return;
+    sdrag.idx = secDropIndex(e.clientY);
+    markSecDrop(sdrag.idx);
+    if (e.clientY < 60) window.scrollBy(0, -14);
+    else if (e.clientY > window.innerHeight - 60) window.scrollBy(0, 14);
+  });
+  $('holdtable').addEventListener('pointerup', function(e){
+    if (!sdrag) return;
+    var d = sdrag;
+    endSecDrag();
+    var at = (d.idx > d.from) ? d.idx - 1 : d.idx;   // 自分を抜いた分だけ位置がずれる
+    if (at === d.from) return;
+    moveSection(d.id, at);
+  });
+  $('holdtable').addEventListener('pointercancel', endSecDrag);
+  // キーボード：見出しの ⠿ にフォーカスして ↑↓ で1つずつ移動
+  $('holdtable').addEventListener('keydown', function(e){
+    var h = e.target.closest ? e.target.closest('.ihandle') : null;
+    if (!h || (e.key !== 'ArrowUp' && e.key !== 'ArrowDown')) return;
+    e.preventDefault();
+    var i = -1;
+    secs.forEach(function(s, k){ if (s.id === h.dataset.sec) i = k; });
+    var j = (e.key === 'ArrowUp') ? i - 1 : i + 1;
+    if (i < 0 || j < 0 || j >= secs.length) return;
+    moveSection(h.dataset.sec, j);
+    var again = $('holdtable').querySelector('.ihandle[data-sec="' + h.dataset.sec + '"]');
+    if (again) again.focus();
+  });
+
 
   // ---- サマリーの各項目：クリックで説明（いまの数字を使った計算つき）----
   var statNow = null, openStat = null;
@@ -1817,107 +2313,8 @@ details.box[open]>summary{margin-bottom:8px}
       }
 
       $('holdbox').hidden = false;
-      var rows = holdings.map(function(h, idx){
-        holdingsByCode[h.code] = h;
-        var yv = (h.yieldPct != null) ? pct(h.yieldPct, 2) : '―';
-        var yoc = (h.yoc != null) ? pct(h.yoc, 2) : '―';
-        var gainCls = (h.gain != null) ? (h.gain >= 0 ? 'pos' : 'neg') : '';
-        var realizedCls = h.hasSell ? (h.realized >= 0 ? 'pos' : 'neg') : '';
-        var isOpen = !!openDetail[h.code];
-        var main = '<tr class="hrow' + (h.missing ? '' : '') + '" data-idx="' + idx + '" data-code="' + h.code + '">'
-          + '<td class="code">' + (h.missing ? h.code : ('<a href="reports/' + h.code + '.html" target="_blank" rel="noopener">' + h.code + '</a>')) + '</td>'
-          + '<td class="name">' + (h.name || h.code) + retNote(h.retired) + '</td>'
-          + '<td class="n">' + h.shares.toLocaleString('ja-JP') + '株</td>'
-          + '<td class="n">' + yen(h.avgPrice) + '</td>'
-          + '<td class="n">' + (h.price != null ? yen(h.price) : '―') + '</td>'
-          + '<td class="n">' + (h.value != null ? yen(h.value) : '―') + '</td>'
-          + '<td class="n ' + gainCls + '">' + (h.gain != null ? ((h.gain>=0?'+':'')+yen(h.gain)+'（'+pct(h.gainPct,1)+'）') : '―') + '</td>'
-          + '<td class="n realized ' + realizedCls + '">' + (h.hasSell ? ((h.realized>=0?'+':'')+yen(h.realized)) : '―') + '</td>'
-          + '<td class="n">' + yv + '</td>'
-          + '<td class="n">' + yoc + '</td>'
-          + '<td class="n">' + (h.annualDiv != null ? yen(h.annualDiv) : '―') + '</td>'
-          + '<td class="x"><button type="button" class="del" data-code="' + h.code + '" title="この銘柄の保有記録をすべて削除">✕</button></td>'
-          + '</tr>';
-        var LOT_VISIBLE = 5;
-        var lotHidCount = Math.max(0, h.lots.length - LOT_VISIBLE);
-        var lotRows = h.lots.slice().reverse().map(function(l, li){
-          var isSell = l.type === 's';
-          var amtPart = isSell
-            ? ('売却額' + yen(l.shares*l.price) + '、<span class="' + (l.realized >= 0 ? 'pos' : 'neg') + '">'
-                + (l.realized >= 0 ? '利確＋' : '損切－') + yen(Math.abs(l.realized)) + '</span>')
-            : ('購入額' + yen(l.shares*l.price));
-          return '<div class="lotrow ' + (isSell ? 'txsell' : 'txbuy') + (li >= LOT_VISIBLE ? ' lothid' : '') + '" data-code="' + h.code + '" data-gidx="' + lots.indexOf(l) + '">'
-            + '<span class="lottag">' + (isSell ? '売却' : '購入') + '</span>' + l.date + '　' + l.shares.toLocaleString('ja-JP') + '株　@' + yen(l.price)
-            + '　（' + amtPart + '）</div>';
-        }).join('');
-        var newtxbtn = '<button type="button" class="newtxbtn" data-code="' + h.code + '">＋ 新規買付・売却を記録</button>';
-        var txform = '<div class="addrow txform" data-code="' + h.code + '" data-type="b" hidden>'
-          + '<div class="txtypebtns">'
-          + '<button type="button" class="txtype active" data-type="b">新規買付を記録</button>'
-          + '<button type="button" class="txtype" data-type="s">売却を記録</button>'
-          + '</div>'
-          + '<div class="addrow-body">'
-          + '<label>株数<input class="tx-shares" type="number" min="1" step="1" placeholder="100"></label>'
-          + '<label>単価（円・空欄で自動取得）<input class="tx-price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
-          + '<label>空欄時に自動取得する価格<select class="pricesrc"><option value="close">終値</option><option value="open">始値</option></select></label>'
-          + '<label>日付<input class="tx-date" type="date"></label>'
-          + '<button type="button" class="tx-submit">記録する</button>'
-          + '</div></div>';
-        var editform = '<div class="addrow editform" data-code="' + h.code + '" data-gidx="" hidden>'
-          + '<div class="addrow-head"><span class="nm ed-typelabel"></span></div>'
-          + '<div class="txtypebtns edtypebtns">'
-          + '<button type="button" class="edtype" data-type="b">買い</button>'
-          + '<button type="button" class="edtype" data-type="s">売り</button>'
-          + '</div>'
-          + '<div class="addrow-body">'
-          + '<label>株数<input class="ed-shares" type="number" min="1" step="1"></label>'
-          + '<label>単価（円・空欄で自動取得）<input class="ed-price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
-          + '<label>空欄時に自動取得する価格<select class="pricesrc"><option value="close">終値</option><option value="open">始値</option></select></label>'
-          + '<label>日付<input class="ed-date" type="date"></label>'
-          + '<button type="button" class="ed-update">修正する</button>'
-          + '<button type="button" class="ed-delete ghost">削除する</button>'
-          + '</div></div>';
-        var lotToggle = lotHidCount
-          ? '<button type="button" class="moretoggle lottoggle" data-code="' + h.code + '"><span class="t-open">全部表示（過去' + lotHidCount + '件を表示）</span><span class="t-close">折り畳み</span></button>'
-          : '';
-        var detail = '<tr class="detail" data-idx="' + idx + '"' + (isOpen ? '' : ' hidden') + '><td colspan="12"><div class="lots' + (lotsOpen[h.code] ? ' lotsopen' : '') + '">'
-          + '<b>購入ロット内訳</b><div class="lotnote">各記録をクリックすると修正・削除できます。新しい買付・売却は「＋新規買付・売却を記録」ボタンから追加できます。取得費・実現損益は移動平均法（総平均法に準ずる方法）で計算した参考値です。正確な損益は証券会社の取引履歴でご確認ください。</div>'
-          + newtxbtn + txform + lotRows + lotToggle + editform
-          + '<div class="pricechart" data-code="' + h.code + '"><b>株価チャート</b>'
-          + '<div class="dimbtns pchart-period" data-code="' + h.code + '">'
-          + '<button type="button" class="pbtn" data-range="1m">1M</button>'
-          + '<button type="button" class="pbtn" data-range="6m">6M</button>'
-          + '<button type="button" class="pbtn" data-range="1y">1Y</button>'
-          + '<button type="button" class="pbtn" data-range="5y">5Y</button>'
-          + '<button type="button" class="pbtn active" data-range="10y">10Y</button>'
-          + '</div>'
-          + '<div class="dimbtns pchart-interval" data-code="' + h.code + '">'
-          + '<button type="button" class="pbtn active" data-interval="d">日足</button>'
-          + '<button type="button" class="pbtn" data-interval="w">週足</button>'
-          + '<button type="button" class="pbtn" data-interval="m">月足</button>'
-          + '</div>'
-          + '<div class="pricechart-body">読み込み中…</div></div>'
-          + '<div class="divhist" data-code="' + h.code + '"><b>配当推移・受取実績</b>'
-          + '<div class="divhist-body">読み込み中…</div></div>'
-          + '<div class="dnote">個別銘柄の詳しいレポート（業績・財務・配当推移など）は'
-          + (h.missing ? 'コードをご確認ください。' : ('<a href="reports/' + h.code + '.html" target="_blank" rel="noopener">こちら</a>でご覧いただけます。'))
-          + '</div></div></td></tr>';
-        return main + detail;
-      }).join('');
-
-      $('holdtable').innerHTML = '<table><thead><tr>'
-        + '<th>コード</th><th>銘柄</th><th class="n">保有株数</th><th class="n">平均取得単価</th><th class="n">現在値</th>'
-        + '<th class="n">評価額</th><th class="n">評価損益</th><th class="n">実現損益</th><th class="n">利回り</th><th class="n">YOC</th><th class="n">予想年間配当</th><th></th>'
-        + '</tr></thead><tbody>' + rows + '</tbody></table>';
-
-      // 展開状態を保ったまま再描画した行は、クリック時ハンドラを経由しないため
-      // ここで株価チャート・配当推移・受取実績の遅延読み込みを行う。
-      $('holdtable').querySelectorAll('tr.detail:not([hidden]) .pricechart').forEach(function(pc){
-        renderPriceChart(pc.dataset.code, pc.querySelector('.pricechart-body'), holdingsByCode[pc.dataset.code]);
-      });
-      $('holdtable').querySelectorAll('tr.detail:not([hidden]) .divhist').forEach(function(dh){
-        renderDivHist(dh.dataset.code, dh.querySelector('.divhist-body'));
-      });
+      lastHoldings = holdings;
+      renderHold();
 
       persist();
     }).catch(function(){
@@ -1935,10 +2332,10 @@ details.box[open]>summary{margin-bottom:8px}
   var SFX = '', MARKET = '配当株（日株）';
   var $ = function(id){ return document.getElementById(id); };
   var K = {filters: 'pp_filters' + SFX, wl: 'wl_codes' + SFX, tabs: 'wl_tabs' + SFX, secs: 'wl_secs' + SFX,
-           sel: 'wl_tabsel' + SFX, pf: 'pf_lots' + SFX};
+           sel: 'wl_tabsel' + SFX, pf: 'pf_lots' + SFX, pfsecs: 'pf_secs' + SFX};
   var L = {tool: 'ツール', date: 'バックアップ日', fmt: '形式',
            filters: '詳しい条件で絞り込むのURL', all: 'あなたの銘柄リスト（全て）', tabs: '全タブの控え',
-           pf: '保有記録の保存・共有'};
+           pf: '保有記録の保存・共有', pfsecs: '保有銘柄のセクション'};
   function lsGet(k){ try { return localStorage.getItem(k); } catch(e) { return null; } }
   function lsSet(k, v){
     try { if (v === '' || v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch(e) {}
@@ -1982,12 +2379,15 @@ details.box[open]>summary{margin-bottom:8px}
     var codes = [splitCodes(lsGet(K.wl) || '')];
     tabs.forEach(function(t){ codes.push(t.codes || []); });
     Object.keys(secs).forEach(function(k){ (secs[k] || []).forEach(function(s){ codes.push(s.codes || []); }); });
+    var pfs = jparse(lsGet(K.pfsecs), []); if (!Array.isArray(pfs)) pfs = [];
+    var pfsOut = pfs.map(function(s){ return {n: String((s && s.name) || ''), c: ((s && s.codes) || []).join(',')}; });
     var master = union.apply(null, codes);
     return {
       filters: base + (qs ? '?' + qs : ''),
       all: master.join(','),
       json: JSON.stringify({v: 2, all: master.join(','), as: secsOut('all'), tabs: tabsOut}),
-      pf: lsGet(K.pf) || ''
+      pf: lsGet(K.pf) || '',
+      pfs: pfsOut.length ? JSON.stringify(pfsOut) : ''
     };
   }
   function buildCsv(now){
@@ -2000,7 +2400,8 @@ details.box[open]>summary{margin-bottom:8px}
       ['絞り込み条件', L.filters, c.filters],
       ['ウォッチリスト', L.all, c.all],
       ['ウォッチリスト', L.tabs, c.json],
-      ['ポートフォリオ', L.pf, c.pf]
+      ['ポートフォリオ', L.pf, c.pf],
+      ['ポートフォリオ', L.pfsecs, c.pfs]
     ];
     return '﻿' + rows.map(function(r){ return r.map(cell).join(','); }).join('\r\n') + '\r\n';
   }
@@ -2087,6 +2488,14 @@ details.box[open]>summary{margin-bottom:8px}
     if (L.pf in v) {
       lsSet(K.pf, v[L.pf]);
       done.push('保有記録');
+    }
+    if (L.pfsecs in v) {   // 古いCSV（この行が無い）のときは、いまのセクションをそのまま残す
+      var pa = jparse(v[L.pfsecs], []);
+      var ps = (Array.isArray(pa) ? pa : []).map(function(x){
+        return {id: newId(), name: String((x && x.n) || '').replace(/\s+/g, ' ').trim().slice(0, 40) || 'セクション', codes: splitCodes(x && x.c)};
+      });
+      lsSet(K.pfsecs, ps.length ? JSON.stringify(ps) : '');
+      done.push('保有銘柄のセクション');
     }
     alert('復元しました：' + (done.join('、') || '（対象なし）') + '\nページを開き直します。');
     location.href = location.pathname;

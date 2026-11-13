@@ -1137,7 +1137,7 @@ body.wlon{{padding-bottom:60px}}
 </details>
 <details id="csvbk">
   <summary><h2>バックアップ（CSV）</h2></summary>
-  <p>「詳しい条件で絞り込む」の条件（URL）、ウォッチリスト（「あなたの銘柄リスト」の全てと、タブ・セクションを含む「全タブの控え」）、ポートフォリオの保有記録（「保有記録の保存・共有」の文字列）を、<b>1つのCSV</b>にまとめて書き出します。ファイル名は「配当株（米株）日付.csv」です。</p>
+  <p>「詳しい条件で絞り込む」の条件（URL）、ウォッチリスト（「あなたの銘柄リスト」の全てと、タブ・セクションを含む「全タブの控え」）、ポートフォリオの保有記録（「保有記録の保存・共有」の文字列）と、保有銘柄のセクション（分け方）を、<b>1つのCSV</b>にまとめて書き出します。ファイル名は「配当株（米株）日付.csv」です。</p>
   <div class="codewrap">
     <button type="button" id="bk-export">CSVで書き出す</button>
     <button type="button" id="bk-import" class="ghost">CSVを読み込んで復元</button>
@@ -1769,10 +1769,10 @@ body.wlon{{padding-bottom:60px}}
   var SFX = '_us', MARKET = '配当株（米株）';
   var $ = function(id){{ return document.getElementById(id); }};
   var K = {{filters: 'pp_filters' + SFX, wl: 'wl_codes' + SFX, tabs: 'wl_tabs' + SFX, secs: 'wl_secs' + SFX,
-           sel: 'wl_tabsel' + SFX, pf: 'pf_lots' + SFX}};
+           sel: 'wl_tabsel' + SFX, pf: 'pf_lots' + SFX, pfsecs: 'pf_secs' + SFX}};
   var L = {{tool: 'ツール', date: 'バックアップ日', fmt: '形式',
            filters: '詳しい条件で絞り込むのURL', all: 'あなたの銘柄リスト（全て）', tabs: '全タブの控え',
-           pf: '保有記録の保存・共有'}};
+           pf: '保有記録の保存・共有', pfsecs: '保有銘柄のセクション'}};
   function lsGet(k){{ try {{ return localStorage.getItem(k); }} catch(e) {{ return null; }} }}
   function lsSet(k, v){{
     try {{ if (v === '' || v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); }} catch(e) {{}}
@@ -1816,12 +1816,15 @@ body.wlon{{padding-bottom:60px}}
     var codes = [splitCodes(lsGet(K.wl) || '')];
     tabs.forEach(function(t){{ codes.push(t.codes || []); }});
     Object.keys(secs).forEach(function(k){{ (secs[k] || []).forEach(function(s){{ codes.push(s.codes || []); }}); }});
+    var pfs = jparse(lsGet(K.pfsecs), []); if (!Array.isArray(pfs)) pfs = [];
+    var pfsOut = pfs.map(function(s){{ return {{n: String((s && s.name) || ''), c: ((s && s.codes) || []).join(',')}}; }});
     var master = union.apply(null, codes);
     return {{
       filters: base + (qs ? '?' + qs : ''),
       all: master.join(','),
       json: JSON.stringify({{v: 2, all: master.join(','), as: secsOut('all'), tabs: tabsOut}}),
-      pf: lsGet(K.pf) || ''
+      pf: lsGet(K.pf) || '',
+      pfs: pfsOut.length ? JSON.stringify(pfsOut) : ''
     }};
   }}
   function buildCsv(now){{
@@ -1834,7 +1837,8 @@ body.wlon{{padding-bottom:60px}}
       ['絞り込み条件', L.filters, c.filters],
       ['ウォッチリスト', L.all, c.all],
       ['ウォッチリスト', L.tabs, c.json],
-      ['ポートフォリオ', L.pf, c.pf]
+      ['ポートフォリオ', L.pf, c.pf],
+      ['ポートフォリオ', L.pfsecs, c.pfs]
     ];
     return '﻿' + rows.map(function(r){{ return r.map(cell).join(','); }}).join('\\r\\n') + '\\r\\n';
   }}
@@ -1921,6 +1925,14 @@ body.wlon{{padding-bottom:60px}}
     if (L.pf in v) {{
       lsSet(K.pf, v[L.pf]);
       done.push('保有記録');
+    }}
+    if (L.pfsecs in v) {{   // 古いCSV（この行が無い）のときは、いまのセクションをそのまま残す
+      var pa = jparse(v[L.pfsecs], []);
+      var ps = (Array.isArray(pa) ? pa : []).map(function(x){{
+        return {{id: newId(), name: String((x && x.n) || '').replace(/\\s+/g, ' ').trim().slice(0, 40) || 'セクション', codes: splitCodes(x && x.c)}};
+      }});
+      lsSet(K.pfsecs, ps.length ? JSON.stringify(ps) : '');
+      done.push('保有銘柄のセクション');
     }}
     alert('復元しました：' + (done.join('、') || '（対象なし）') + '\\nページを開き直します。');
     location.href = location.pathname;
