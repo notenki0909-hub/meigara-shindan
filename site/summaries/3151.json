@@ -1,8 +1,8 @@
 {
  "code": "3151",
  "name": "バイタルケーエスケー・ホールディングス",
- "asof": "2026-11-11",
- "data_fetched_at": "2026-11-11T23:54:30",
+ "asof": "2026-11-12",
+ "data_fetched_at": "2026-11-12T23:05:52",
  "jp_sector": "医薬品",
  "industry": "Medical Distribution",
  "is_simple": false,
@@ -14,11 +14,11 @@
   "basis": "業種",
   "name": "医薬品"
  },
- "price": 1366.0,
- "price_date": "2026-11-11",
- "mcap": 64745533440,
+ "price": 1407.0,
+ "price_date": "2026-11-12",
+ "mcap": 66688843776,
  "sel_score": 79.6,
- "tim_score": 109.4,
+ "tim_score": 100.4,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -28,9 +28,9 @@
   "高"
  ],
  "cov_tim": [
-  5,
   7,
-  "中"
+  7,
+  "高"
  ],
  "groups": {
   "業績": 74.3,
@@ -38,11 +38,11 @@
   "キャッシュフロー": 60.0,
   "配当の持続力": 73.5,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 110.0,
-  "株価バリュエーション": 110.0,
-  "金利スプレッド": 106.8
+  "利回り水準とChowder": 109.9,
+  "株価バリュエーション": 66.1,
+  "金利スプレッド": 105.8
  },
- "div_yield": 5.124450951683748,
+ "div_yield": 4.975124378109453,
  "streak_up": 5,
  "streak_flat": 5,
  "payout_ni": 45.964935320769584,
@@ -51,39 +51,25 @@
  "roe": 2.605,
  "div_policy": null,
  "dgr5": 42.292942001772495,
- "chowder": 47.41739295345624,
+ "chowder": 47.26806637988195,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": null,
- "pbr_vs_sector": 0.47110341666666666,
- "per_band_pos": null,
+ "per_vs_sector": 1.2739695187165776,
+ "pbr_vs_sector": 0.48524344999999997,
+ "per_band_pos": 0.0,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": "2016-02-04",
  "buyback_yen": 0.0,
- "total_yield": 5.124450951683748,
+ "total_yield": 4.975124378109453,
  "total_payout": 38.15539255637055,
  "interest_coverage": 170.14705882352942,
  "warnings": [],
  "roa": 2.3,
  "leverage": 2.73,
  "insight_flags": [],
- "review": [
-  {
-   "k": "per",
-   "where": "PER（Yahoo表示 23.1倍）",
-   "why": "直近4四半期の純利益（70.3億円）から求めたPERは9.2倍で、Yahoo表示と2.5倍ずれています。Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
-   "how": "IR BANK（irbank.net/3151/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
-   "keys": [
-    "per_vs_sector",
-    "per_band_pos"
-   ],
-   "names": [
-    "益回り（1÷PER）"
-   ]
-  }
- ],
+ "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-11T23:54:32"
+ "_generated_at": "2026-11-12T23:05:56"
 }

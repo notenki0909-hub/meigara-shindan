@@ -1,8 +1,8 @@
 {
  "code": "3193",
  "name": "エターナルホスピタリティグループ",
- "asof": "2026-11-11",
- "data_fetched_at": "2026-11-12T00:35:12",
+ "asof": "2026-11-12",
+ "data_fetched_at": "2026-11-13T00:08:18",
  "jp_sector": "サービス業",
  "industry": "Restaurants",
  "is_simple": false,
@@ -14,11 +14,11 @@
   "basis": "業種",
   "name": "サービス業"
  },
- "price": 1349.0,
+ "price": 1357.0,
  "price_date": "2026-11-12",
- "mcap": 31124893696,
+ "mcap": 15654736896,
  "sel_score": 97.4,
- "tim_score": 86.8,
+ "tim_score": 88.4,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -28,9 +28,9 @@
   "高"
  ],
  "cov_tim": [
+  5,
   6,
-  6,
-  "高"
+  "中"
  ],
  "groups": {
   "業績": 105.4,
@@ -38,11 +38,11 @@
   "キャッシュフロー": 103.3,
   "配当の持続力": 77.9,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 81.1,
-  "株価バリュエーション": 49.6,
+  "利回り水準とChowder": 80.9,
+  "株価バリュエーション": 56.3,
   "金利スプレッド": null
  },
- "div_yield": 1.704966641957005,
+ "div_yield": 1.694915254237288,
  "streak_up": 0,
  "streak_flat": 4,
  "payout_ni": 40.25905828811482,
@@ -51,25 +51,36 @@
  "roe": 12.920000000000002,
  "div_policy": null,
  "dgr5": 41.88404747480776,
- "chowder": 43.589014116764766,
+ "chowder": 43.578962729045045,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 26.949415569720607,
- "per_vs_sector": 1.1736558000000001,
- "pbr_vs_sector": 1.62714,
- "per_band_pos": 0.07371587363393249,
+ "per_vs_sector": 1.17023115,
+ "pbr_vs_sector": null,
+ "per_band_pos": 0.07852929056695315,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 32000.0,
- "total_yield": 1.7050694535531266,
+ "total_yield": 1.695119665210226,
  "total_payout": 40.56813767737707,
  "interest_coverage": 66.43475755114872,
  "warnings": [],
  "roa": 5.73,
  "leverage": 2.16,
  "insight_flags": [],
- "review": [],
+ "review": [
+  {
+   "k": "pbr",
+   "where": "PBR（Yahoo表示 2.95倍）",
+   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは1.47倍で、Yahoo表示と0.50倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
+   "how": "IR BANK（irbank.net/3193/results）の1株純資産（BPS）で、株価÷BPSを計算して確認",
+   "keys": [
+    "pbr_vs_sector"
+   ],
+   "names": []
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-12T00:35:14"
+ "_generated_at": "2026-11-13T00:08:23"
 }

@@ -1,74 +1,74 @@
 {
  "code": "3405",
  "name": "クラレ",
- "asof": "2026-11-11",
- "data_fetched_at": "2026-11-11T23:55:26",
+ "asof": "2026-11-12",
+ "data_fetched_at": "2026-11-12T23:07:31",
  "jp_sector": "化学",
  "industry": "Chemicals",
  "is_simple": false,
  "is_reit": false,
  "sel_dev": {
-  "dev": 32,
-  "rank": 56,
+  "dev": 33,
+  "rank": 54,
   "n": 59,
   "basis": "業種",
   "name": "化学"
  },
- "price": 1945.5,
- "price_date": "2026-11-11",
- "mcap": 586173054976,
- "sel_score": 71.7,
- "tim_score": 67.2,
+ "price": 1894.0,
+ "price_date": "2026-11-12",
+ "mcap": 570656292864,
+ "sel_score": 73.6,
+ "tim_score": 58.4,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア中位（妥当水準）",
  "comment": "選定・買い時とも中位水準。",
  "cov_sel": [
-  16,
+  15,
   16,
   "高"
  ],
  "cov_tim": [
-  4,
   6,
-  "中"
+  6,
+  "高"
  ],
  "groups": {
   "業績": 66.5,
   "財務": 104.8,
   "キャッシュフロー": 73.3,
-  "配当の持続力": 46.0,
+  "配当の持続力": 52.5,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 75.1,
-  "株価バリュエーション": 109.5,
+  "利回り水準とChowder": 76.5,
+  "株価バリュエーション": 71.6,
   "金利スプレッド": null
  },
- "div_yield": 2.7756360832690823,
+ "div_yield": 2.851108764519535,
  "streak_up": 0,
  "streak_flat": 5,
  "payout_ni": 228.61981371718883,
  "payout_state": null,
  "payout_fy": "2025年12月期",
- "roe": 0.8160000000000001,
+ "roe": null,
  "div_policy": null,
  "dgr5": 6.185875879493463,
- "chowder": 8.961511962762545,
+ "chowder": 9.036984644012998,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 1855.4487179487178,
- "per_vs_sector": null,
- "pbr_vs_sector": 0.6185589230769231,
- "per_band_pos": null,
+ "per_vs_sector": 1.1704536458333334,
+ "pbr_vs_sector": 0.5828638692307692,
+ "per_band_pos": 0.0,
  "yield_band_pos": 0.0,
- "next_earn": "2026-11-11",
+ "next_earn": "2027-02-09",
  "earn_disc_date": "2026-11-10",
  "buyback_yen": 30004000000.0,
- "total_yield": 7.894260991953852,
+ "total_yield": 8.108914623352081,
  "total_payout": 634.3197643277987,
  "interest_coverage": 8.061275382971143,
  "warnings": [
   "⚠ FCF配当性向が100%超（1855%：フリーCFで配当を賄えていない）",
   "⚠ 配当性向が100%超（229%：純利益を上回る配当）",
-  "⚠ バリュートラップ注意：PBR 0.80倍（1倍割れ）かつROE 1.0%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.76倍（1倍割れ）かつROE 1.0%（5%未満）"
  ],
  "roa": 0.57,
  "leverage": 1.75,
@@ -83,24 +83,10 @@
   },
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.80倍（1倍割れ）かつROE 1.0%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.76倍（1倍割れ）かつROE 1.0%（5%未満）"
   }
  ],
- "review": [
-  {
-   "k": "per",
-   "where": "PER（Yahoo表示 70.9倍）",
-   "why": "直近4四半期の純利益（253.1億円）から求めたPERは23.2倍で、Yahoo表示と3.1倍ずれています。Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
-   "how": "IR BANK（irbank.net/3405/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
-   "keys": [
-    "per_vs_sector",
-    "per_band_pos"
-   ],
-   "names": [
-    "益回り（1÷PER）"
-   ]
-  }
- ],
+ "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-11T23:55:28"
+ "_generated_at": "2026-11-12T23:07:36"
 }
