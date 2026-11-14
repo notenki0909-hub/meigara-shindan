@@ -1,8 +1,8 @@
 {
  "code": "3193",
  "name": "エターナルホスピタリティグループ",
- "asof": "2026-11-13",
- "data_fetched_at": "2026-11-14T00:14:17",
+ "asof": "2026-11-14",
+ "data_fetched_at": "2026-11-14T22:53:37",
  "jp_sector": "サービス業",
  "industry": "Restaurants",
  "is_simple": false,
@@ -10,15 +10,15 @@
  "sel_dev": {
   "dev": 53,
   "rank": 20,
-  "n": 41,
+  "n": 42,
   "basis": "業種",
   "name": "サービス業"
  },
  "price": 1373.0,
  "price_date": "2026-11-13",
- "mcap": 15839318016,
+ "mcap": 31678636032,
  "sel_score": 97.4,
- "tim_score": 87.7,
+ "tim_score": 85.8,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -28,9 +28,9 @@
   "高"
  ],
  "cov_tim": [
-  5,
   6,
-  "中"
+  6,
+  "高"
  ],
  "groups": {
   "業績": 105.4,
@@ -39,7 +39,7 @@
   "配当の持続力": 77.9,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 80.7,
-  "株価バリュエーション": 53.7,
+  "株価バリュエーション": 45.9,
   "金利スプレッド": null
  },
  "div_yield": 1.6751638747268753,
@@ -55,32 +55,21 @@
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 26.949415569720607,
- "per_vs_sector": 1.1877163,
- "pbr_vs_sector": null,
- "per_band_pos": 0.05395354791108887,
+ "per_vs_sector": 1.2016453500000002,
+ "pbr_vs_sector": 1.6560884444444444,
+ "per_band_pos": 0.034375977902214395,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 32000.0,
- "total_yield": 1.675365903627158,
+ "total_yield": 1.6752648891770168,
  "total_payout": 40.56813767737707,
  "interest_coverage": 66.43475755114872,
  "warnings": [],
  "roa": 5.73,
  "leverage": 2.16,
  "insight_flags": [],
- "review": [
-  {
-   "k": "pbr",
-   "where": "PBR（Yahoo表示 2.98倍）",
-   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは1.49倍で、Yahoo表示と0.50倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
-   "how": "IR BANK（irbank.net/3193/results）の1株純資産（BPS）で、株価÷BPSを計算して確認",
-   "keys": [
-    "pbr_vs_sector"
-   ],
-   "names": []
-  }
- ],
+ "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-14T00:14:22"
+ "_generated_at": "2026-11-14T22:53:42"
 }

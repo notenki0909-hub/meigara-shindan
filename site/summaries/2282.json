@@ -1,8 +1,8 @@
 {
  "code": "2282",
  "name": "日本ハム",
- "asof": "2026-11-13",
- "data_fetched_at": "2026-11-13T23:03:21",
+ "asof": "2026-11-14",
+ "data_fetched_at": "2026-11-14T21:48:42",
  "jp_sector": "食料品",
  "industry": "Packaged Foods",
  "is_simple": false,
@@ -16,9 +16,9 @@
  },
  "price": 2015.5,
  "price_date": "2026-11-13",
- "mcap": 548146479104,
+ "mcap": 542790156288,
  "sel_score": 95.5,
- "tim_score": 97.5,
+ "tim_score": 97.8,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -28,7 +28,7 @@
   "高"
  ],
  "cov_tim": [
-  6,
+  7,
   7,
   "高"
  ],
@@ -39,7 +39,7 @@
   "配当の持続力": 83.5,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 96.7,
-  "株価バリュエーション": 99.7,
+  "株価バリュエーション": 100.7,
   "金利スプレッド": 70.1
  },
  "div_yield": 2.976928801786157,
@@ -56,31 +56,20 @@
  "fcf_positive": 1,
  "fcf_payout": 28.109203325395832,
  "per_vs_sector": 0.9916847000000001,
- "pbr_vs_sector": null,
+ "pbr_vs_sector": 0.8836103333333334,
  "per_band_pos": 0.840012326942971,
  "yield_band_pos": 1.0,
  "next_earn": "2027-02-01",
  "earn_disc_date": "2026-11-01",
  "buyback_yen": 30007000000.0,
- "total_yield": 8.451195470259414,
+ "total_yield": 8.505216235222687,
  "total_payout": 123.9491245080705,
  "interest_coverage": 13.588276021232403,
  "warnings": [],
  "roa": 3.52,
  "leverage": 1.86,
  "insight_flags": [],
- "review": [
-  {
-   "k": "pbr",
-   "where": "PBR（Yahoo表示 0.35倍）",
-   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは1.06倍で、Yahoo表示と3.00倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
-   "how": "IR BANK（irbank.net/2282/results）の1株純資産（BPS）で、株価÷BPSを計算して確認",
-   "keys": [
-    "pbr_vs_sector"
-   ],
-   "names": []
-  }
- ],
+ "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-13T23:03:25"
+ "_generated_at": "2026-11-14T21:48:44"
 }
