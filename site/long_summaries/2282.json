@@ -7,7 +7,7 @@
  "is_reit": false,
  "price": 2015.5,
  "price_date": "2026-11-13",
- "mcap": 548146479104,
+ "mcap": 542790156288,
  "q_score": 100.6,
  "groups": {
   "業績": 95.42971981441906,
@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 105.5,
+ "bt_score": 96.1,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 103.29359507964972,
-  "fcf_yield": 109.11265621204926,
+  "ev_ebit_vs_sector": 103.79534108414285,
+  "fcf_yield": 109.39994363407877,
   "per_cheap": 99.7,
-  "pbr_cheap": 110.0
+  "pbr_cheap": 71.5
  },
- "ev_ebit": 12.291935401111111,
- "fcf_yield": 8.73379686361478,
+ "ev_ebit": 12.198943685555555,
+ "fcf_yield": 8.819983090223628,
  "per_band_pos": 0.840012326942971,
- "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.73472417221226,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 0.7171630620550002,
  "per_vs_sector": 0.9916847000000001,
- "pbr_vs_sector": 0.29453677500000003,
+ "pbr_vs_sector": 0.8836103333333334,
  "price_chg": {
   "d": 1.8443658413340058,
   "w": 5.883898082479644,
@@ -47,7 +47,7 @@
   "y": 7.7999666891024555
  },
  "div_yield": 2.976928801786157,
- "implied_fcf_growth": 0.0004,
+ "implied_fcf_growth": -0.0009,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -63,17 +63,8 @@
    "shares_chg_pct": -8.166479024397432
   }
  },
- "data_notice": [
-  {
-   "tier": "check",
-   "k": "pbr",
-   "where": "PBR（Yahoo表示 0.35倍）",
-   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは1.02倍で、Yahoo表示と2.89倍ずれています。ただし、照合ではYahoo側のPBRが正しい場合が多くありました（株式数のデータのずれなど）",
-   "how": "IR BANK（irbank.net/2282/results）の1株純資産（BPS）で、株価÷BPSを計算して確認する"
-  }
- ],
  "data_asof": {
-  "fetched": "2026-11-13T23:03:21Z"
+  "fetched": "2026-11-14T21:48:42Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -104,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 28.109203325395832
  },
- "_generated_at": "2026-11-14T00:19:58"
+ "_generated_at": "2026-11-14T22:58:50"
 }

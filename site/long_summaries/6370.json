@@ -7,7 +7,7 @@
  "is_reit": false,
  "price": 5724.0,
  "price_date": "2026-11-13",
- "mcap": 603395522560,
+ "mcap": 602847117312,
  "q_score": 101.5,
  "groups": {
   "業績": 95.98845147002743,
@@ -22,19 +22,19 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 68.3,
+ "bt_score": 68.2,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 101.67452204356367,
-  "fcf_yield": 77.37309173225474,
+  "ev_ebit_vs_sector": 101.17778964513595,
+  "fcf_yield": 77.42528357940206,
   "per_cheap": 30.0,
   "pbr_cheap": 64.0
  },
- "ev_ebit": 10.984517191236769,
- "fcf_yield": 4.3029818799191055,
+ "ev_ebit": 10.975108808042684,
+ "fcf_yield": 4.306896268455155,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 0.7913917284752715,
+ "ev_ebit_vs_sector": 0.808777362420242,
  "per_vs_sector": 4.261258947415439,
  "pbr_vs_sector": 1.1190233333333333,
  "price_chg": {
@@ -47,7 +47,7 @@
   "y": 0.13995801259623075
  },
  "div_yield": 2.3410202655485675,
- "implied_fcf_growth": 0.0975,
+ "implied_fcf_growth": 0.0974,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -68,7 +68,7 @@
    "tier": "confirmed",
    "k": "per",
    "where": "PER（Yahoo表示 23.9倍）",
-   "why": "直近4四半期の純利益（61.9億円）から求めたPERは97.6倍で、Yahoo表示と0.2倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
+   "why": "直近4四半期の純利益（61.9億円）から求めたPERは97.5倍で、Yahoo表示と0.2倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
    "how": "IR BANK（irbank.net/6370/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する",
    "confirm": {
     "status": "error",
@@ -82,7 +82,7 @@
   "per": "PERを、株価÷直近12か月の1株利益58.15円＝98.4倍に置き換えて採点"
  },
  "data_asof": {
-  "fetched": "2026-11-14T00:28:36Z"
+  "fetched": "2026-11-14T23:07:13Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -113,5 +113,5 @@
   "fcf_positive": 1,
   "fcf_payout": 43.66045293483285
  },
- "_generated_at": "2026-11-14T00:28:38"
+ "_generated_at": "2026-11-14T23:07:15"
 }

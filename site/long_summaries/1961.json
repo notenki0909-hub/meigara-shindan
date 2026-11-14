@@ -7,7 +7,7 @@
  "is_reit": false,
  "price": 2532.0,
  "price_date": "2026-11-13",
- "mcap": 386710208512,
+ "mcap": 384882638848,
  "q_score": 104.3,
  "groups": {
   "業績": 107.38313898535314,
@@ -22,20 +22,20 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 42.6,
+ "bt_score": 43.6,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 62.63682284964535,
-  "fcf_yield": 57.75092134971052,
+  "ev_ebit_vs_sector": 66.53510388931818,
+  "fcf_yield": 57.93017713233891,
   "per_cheap": 20.0,
   "pbr_cheap": 30.0
  },
- "ev_ebit": 12.899128688719012,
- "fcf_yield": 2.831319101228289,
+ "ev_ebit": 12.833844354075874,
+ "fcf_yield": 2.8447632849254183,
  "per_band_pos": null,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.1769278000656032,
- "per_vs_sector": 2.726855581395349,
+ "ev_ebit_vs_sector": 1.142817840968466,
+ "per_vs_sector": 2.8851841860465117,
  "pbr_vs_sector": 2.329855785714286,
  "price_chg": {
   "d": 5.8086084412870775,
@@ -46,8 +46,8 @@
   "9m": 8.825211093315888,
   "y": 44.961835438079504
  },
- "div_yield": 2.764612954186414,
- "implied_fcf_growth": 0.1544,
+ "div_yield": 3.15955766192733,
+ "implied_fcf_growth": 0.1538,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -67,8 +67,8 @@
   {
    "tier": "confirmed",
    "k": "per",
-   "where": "PER（Yahoo表示 35.2倍）",
-   "why": "直近4四半期の純利益（262.6億円）から求めたPERは14.7倍で、Yahoo表示と2.4倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
+   "where": "PER（Yahoo表示 37.2倍）",
+   "why": "直近4四半期の純利益（262.6億円）から求めたPERは14.7倍で、Yahoo表示と2.5倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
    "how": "IR BANK（irbank.net/1961/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する",
    "confirm": {
     "status": "error",
@@ -78,7 +78,7 @@
   }
  ],
  "data_asof": {
-  "fetched": "2026-11-14T00:19:28Z"
+  "fetched": "2026-11-14T22:58:29Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -109,5 +109,5 @@
   "fcf_positive": 1,
   "fcf_payout": 90.99461138003471
  },
- "_generated_at": "2026-11-14T00:19:30"
+ "_generated_at": "2026-11-14T22:58:31"
 }
