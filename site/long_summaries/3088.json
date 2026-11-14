@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 2724.5,
- "price_date": "2026-11-12",
- "mcap": 1071599058944,
+ "price": 2799.0,
+ "price_date": "2026-11-13",
+ "mcap": 1100901384192,
  "q_score": 101.7,
  "groups": {
   "業績": 93.49280348406833,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 81.6,
+ "bt_score": 76.9,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 89.32228397016766,
-  "fcf_yield": 86.02220554677677,
-  "per_cheap": 100.5,
-  "pbr_cheap": 50.6
+  "ev_ebit_vs_sector": 87.12225290793363,
+  "fcf_yield": 84.26491450481677,
+  "per_cheap": 97.5,
+  "pbr_cheap": 38.9
  },
- "ev_ebit": 11.245685781911511,
- "fcf_yield": 4.951665416008258,
- "per_band_pos": 0.9832069809381954,
- "pbr_band_pos": 0.27508068107963357,
- "ev_ebit_vs_sector": 0.9434300152610329,
- "per_vs_sector": 1.0035486631016042,
- "pbr_vs_sector": 1.6631773333333333,
+ "ev_ebit": 11.590670656149191,
+ "fcf_yield": 4.819868587861258,
+ "per_band_pos": 0.9154873236558786,
+ "pbr_band_pos": 0.08763167321603604,
+ "ev_ebit_vs_sector": 0.9626802870555807,
+ "per_vs_sector": 1.0309901604278076,
+ "pbr_vs_sector": 1.7086559166666668,
  "price_chg": {
-  "d": 1.4900353883404716,
-  "w": -1.3577118030412727,
-  "m": 10.325976918404534,
-  "3m": 9.43964651536453,
-  "6m": 17.63816925734025,
-  "9m": 8.48098745769461,
-  "y": -3.4549964564138946
+  "d": 2.734446687465586,
+  "w": 4.323518449496833,
+  "m": 13.159490600363855,
+  "3m": 9.485624877762566,
+  "6m": 22.200392927308442,
+  "9m": 11.71422869686689,
+  "y": 1.413043478260878
  },
- "div_yield": 2.0554230133969535,
- "implied_fcf_growth": 0.0784,
+ "div_yield": 2.000714540907467,
+ "implied_fcf_growth": 0.0821,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-12T23:04:38Z"
+  "fetched": "2026-11-13T23:07:30Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -95,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 35.53955749877502
  },
- "_generated_at": "2026-11-13T00:14:44"
+ "_generated_at": "2026-11-14T00:21:09"
 }

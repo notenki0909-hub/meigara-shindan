@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 4816.0,
+ "price": 4880.0,
  "price_date": "2026-11-13",
- "mcap": 465455087616,
+ "mcap": 471640506368,
  "q_score": 102.4,
  "groups": {
   "業績": 99.12229570053024,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 102.7,
+ "bt_score": 102.0,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 102.88411425211353,
-  "fcf_yield": 108.76611232656569,
-  "per_cheap": 108.0,
-  "pbr_cheap": 91.3
+  "ev_ebit_vs_sector": 102.62973588226727,
+  "fcf_yield": 108.38885369800327,
+  "per_cheap": 107.3,
+  "pbr_cheap": 89.8
  },
- "ev_ebit": 11.962424338781144,
- "fcf_yield": 8.629833697969708,
+ "ev_ebit": 12.112188721047916,
+ "fcf_yield": 8.516656109400982,
  "per_band_pos": 1.0,
- "pbr_band_pos": 0.9497886060627472,
- "ev_ebit_vs_sector": 0.7490560011760266,
- "per_vs_sector": 0.80112408839779,
- "pbr_vs_sector": 1.26186075,
+ "pbr_band_pos": 0.8999413169133873,
+ "ev_ebit_vs_sector": 0.7579592441206455,
+ "per_vs_sector": 0.8338382320441988,
+ "pbr_vs_sector": 1.27862965,
  "price_chg": {
-  "d": -0.28985507246376274,
-  "w": 11.044500807009449,
-  "m": -0.28985507246376274,
-  "3m": 10.484055976141327,
-  "6m": 6.643046944198416,
-  "9m": -5.9742288168684095,
-  "y": -18.908907223438288
+  "d": 1.0351966873705987,
+  "w": 12.520175236338481,
+  "m": 1.0351966873705987,
+  "3m": 11.952282633631572,
+  "6m": 8.060230292294058,
+  "9m": -4.724716907458026,
+  "y": -17.831284728068695
  },
- "div_yield": 2.9069767441860463,
- "implied_fcf_growth": 0.0021,
+ "div_yield": 2.8688524590163933,
+ "implied_fcf_growth": 0.004,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-13T00:28:59Z"
+  "fetched": "2026-11-14T00:34:53Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -95,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 29.239693288189606
  },
- "_generated_at": "2026-11-13T00:29:02"
+ "_generated_at": "2026-11-14T00:34:55"
 }

@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 2158.0,
- "price_date": "2026-11-12",
- "mcap": 567222534144,
+ "price": 2001.5,
+ "price_date": "2026-11-13",
+ "mcap": 526087061504,
  "q_score": 75.0,
  "groups": {
   "業績": 54.95797467625477,
@@ -22,31 +22,31 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 55.5,
+ "bt_score": 42.9,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
   "fcf_yield": 20.0,
-  "per_cheap": 110.0,
-  "pbr_cheap": 72.1
+  "per_cheap": 58.7,
+  "pbr_cheap": 72.8
  },
- "ev_ebit": 21.5366384501648,
- "fcf_yield": -5.050927682771973,
+ "ev_ebit": 20.416116736237097,
+ "fcf_yield": -5.4458666818556924,
  "per_band_pos": null,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 2.1820302381119356,
- "per_vs_sector": 0.6060299324324324,
- "pbr_vs_sector": 0.8356035555555555,
+ "ev_ebit_vs_sector": 2.0560036995203523,
+ "per_vs_sector": 1.2078999999999998,
+ "pbr_vs_sector": 0.7750048222222221,
  "price_chg": {
-  "d": 2.2264329701563224,
-  "w": 0.8411214953271129,
-  "m": 6.964064436183404,
-  "3m": -13.246231155778897,
-  "6m": 5.603131881575729,
-  "9m": -12.68460449119968,
-  "y": 17.666303162486365
+  "d": -7.2520852641334566,
+  "w": -1.8872549019607887,
+  "m": -2.29436172809373,
+  "3m": -17.00186605846983,
+  "6m": 0.1501125844383333,
+  "9m": -20.936203831720324,
+  "y": 11.256253474152311
  },
- "div_yield": 3.8924930491195555,
+ "div_yield": 3.8970771921059204,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -63,8 +63,17 @@
    "shares_chg_pct": -0.0654093634854358
   }
  },
+ "data_notice": [
+  {
+   "tier": "check",
+   "k": "per",
+   "where": "PER（Yahoo表示 17.9倍）",
+   "why": "直近4四半期の純利益（764.8億円）から求めたPERは6.9倍で、Yahoo表示と2.6倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
+   "how": "IR BANK（irbank.net/5110/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する"
+  }
+ ],
  "data_asof": {
-  "fetched": "2026-11-13T00:19:28Z"
+  "fetched": "2026-11-14T00:25:53Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -95,5 +104,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-13T00:19:31"
+ "_generated_at": "2026-11-14T00:25:55"
 }

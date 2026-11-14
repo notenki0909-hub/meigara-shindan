@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 3204.0,
- "price_date": "2026-11-12",
- "mcap": 387801579520,
+ "price": 3228.0,
+ "price_date": "2026-11-13",
+ "mcap": 390706462720,
  "q_score": 102.1,
  "groups": {
   "業績": 97.76452661864465,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 73.3,
+ "bt_score": 72.5,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 97.67261343123793,
-  "fcf_yield": 56.52727085554015,
-  "per_cheap": 72.6,
-  "pbr_cheap": 66.5
+  "ev_ebit_vs_sector": 98.69815078124755,
+  "fcf_yield": 56.255692405797056,
+  "per_cheap": 70.8,
+  "pbr_cheap": 64.1
  },
- "ev_ebit": 14.300090911591656,
- "fcf_yield": 2.7395453141655115,
- "per_band_pos": 0.30722690092013333,
- "pbr_band_pos": 0.4929602374555797,
- "ev_ebit_vs_sector": 0.8703646324766681,
- "per_vs_sector": 1.1095719499999999,
- "pbr_vs_sector": 1.5632849166666667,
+ "ev_ebit": 14.411074452510125,
+ "fcf_yield": 2.719176930434779,
+ "per_band_pos": 0.2847847967069165,
+ "pbr_band_pos": 0.45628781651000927,
+ "ev_ebit_vs_sector": 0.8613911806640839,
+ "per_vs_sector": 1.1178833,
+ "pbr_vs_sector": 1.5749875833333336,
  "price_chg": {
-  "d": 1.3924050632911467,
-  "w": -2.465753424657535,
-  "m": 3.155183515775928,
-  "3m": 7.300736771600813,
-  "6m": 10.730948678071538,
-  "9m": 5.152609123728258,
-  "y": 9.388869921474896
+  "d": 0.7490636704119868,
+  "w": 1.3819095477386911,
+  "m": 4.499838135318868,
+  "3m": 6.852035749751728,
+  "6m": 13.482158551590784,
+  "9m": 7.564145284905033,
+  "y": 13.263157894736842
  },
- "div_yield": 2.153558052434457,
- "implied_fcf_growth": 0.1589,
+ "div_yield": 2.137546468401487,
+ "implied_fcf_growth": 0.1599,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-12T23:00:09Z"
+  "fetched": "2026-11-13T23:03:05Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -95,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 68.30760542168674
  },
- "_generated_at": "2026-11-13T00:13:24"
+ "_generated_at": "2026-11-14T00:19:45"
 }
