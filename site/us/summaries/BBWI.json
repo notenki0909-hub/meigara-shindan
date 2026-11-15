@@ -1,45 +1,45 @@
 {
  "code": "BBWI",
- "name": "Bath & Body Works, Inc.",
- "asof": "2026-11-14",
- "data_fetched_at": "2026-11-14T02:01:06",
- "gics_sector": "Consumer Discretionary",
- "industry": "Specialty Retail",
+ "name": "BBWI",
+ "asof": "2026-11-15",
+ "data_fetched_at": "2026-11-15T01:32:52",
+ "gics_sector": "Industrials",
+ "industry": "",
  "is_simple": false,
  "is_reit": false,
  "price": 21.389999389648438,
  "price_date": "2026-11-13",
- "mcap": 4313192960,
- "sel_score": 89.7,
- "tim_score": 109.3,
+ "mcap": null,
+ "sel_score": 87.4,
+ "tim_score": 109.0,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "選定・買い時とも上位水準。",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定・買い時とも上位水準。",
  "cov_sel": [
-  16,
+  15,
   17,
   "高"
  ],
  "cov_tim": [
-  5,
+  3,
   6,
-  "中"
+  "低"
  ],
  "groups": {
   "業績": 90.8,
   "財務": 91.7,
   "キャッシュフロー": 103.3,
-  "配当の持続力": 80.0,
+  "配当の持続力": 72.5,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 107.5,
-  "株価バリュエーション": 110.0,
+  "株価バリュエーション": null,
   "金利スプレッド": null
  },
  "div_yield": 3.740065557866053,
- "total_yield": 13.03712237212924,
+ "total_yield": null,
  "streak_up": 0,
  "streak_flat": 5,
- "payout_ni": 21.049999,
+ "payout_ni": 24.776577214964064,
  "roe": null,
  "chowder": 30.702619158975406,
  "dgr5": 26.962553601109352,
@@ -47,15 +47,16 @@
  "fcf_positive": 1,
  "fcf_payout": 19.30635838150289,
  "interest_coverage": 4.195652173913044,
- "per_vs_sector": 0.1901671385135135,
+ "per_vs_sector": null,
  "pbr_vs_sector": null,
- "per_band_pos": 1.0,
+ "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2026-11-19",
  "earn_disc_date": "2026-08-26",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
   "⚠ 債務超過（自己資本がマイナス）"
  ],
  "roa": 12.8,
@@ -67,5 +68,5 @@
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-14T02:01:10"
+ "_generated_at": "2026-11-15T01:32:54"
 }
