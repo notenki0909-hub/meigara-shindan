@@ -1,8 +1,8 @@
 {
  "code": "6178",
  "name": "日本郵政",
- "asof": "2026-11-14",
- "data_fetched_at": "2026-11-14T22:10:11",
+ "asof": "2026-11-15",
+ "data_fetched_at": "2026-11-15T06:28:31",
  "jp_sector": "銀行業",
  "industry": "Banks - Regional",
  "is_simple": true,
@@ -39,7 +39,7 @@
   "配当の持続力": 67.5,
   "配当利回りセオリー": 40.0,
   "利回り水準とChowder": 46.8,
-  "株価バリュエーション": 94.6,
+  "株価バリュエーション": 94.4,
   "金利スプレッド": null,
   "金融品質": 29.0
  },
@@ -57,7 +57,7 @@
  "fcf_positive": 0,
  "fcf_payout": null,
  "per_vs_sector": 0.923285748502994,
- "pbr_vs_sector": 0.65743744,
+ "pbr_vs_sector": 0.6901323,
  "per_band_pos": 0.3427156287716607,
  "yield_band_pos": 0.0,
  "next_earn": "2027-02-12",
@@ -68,17 +68,18 @@
  "interest_coverage": null,
  "warnings": [
   "銀行・保険・証券は自己資本比率・D/E・ROA・営業CFが構造的に別水準のため財務・CF・業績は参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。買い時は通常どおりの判定です。",
-  "⚠ バリュートラップ注意：PBR 0.66倍（1倍割れ）かつROE 3.9%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.69倍（1倍割れ）かつROE 3.9%（5%未満）"
  ],
  "roa": 0.13,
  "leverage": 29.84,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.66倍（1倍割れ）かつROE 3.9%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.69倍（1倍割れ）かつROE 3.9%（5%未満）"
   }
  ],
  "review": [],
  "kind": "fin",
- "_generated_at": "2026-11-14T22:10:14"
+ "_generated_at": "2026-11-15T06:28:33",
+ "_earnings_reflected_via": "tdnet_retry"
 }
