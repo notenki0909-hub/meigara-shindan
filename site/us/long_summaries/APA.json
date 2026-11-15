@@ -2,15 +2,15 @@
  "code": "APA",
  "name": "APA Corporation",
  "jp_sector": null,
- "gics_sector": "Energy",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
  "price": 48.439998626708984,
  "price_date": "2026-11-13",
- "mcap": 16264019968,
- "q_score": 90.0,
+ "mcap": null,
+ "q_score": 85.9,
  "groups": {
-  "業績": 72.0419214079149,
+  "業績": 61.90226396390963,
   "財務": 101.11921921829617,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 96.5,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 110.0,
-  "fcf_yield": 110.0,
-  "per_cheap": 75.0,
-  "pbr_cheap": 90.8
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 7.395643624727272,
- "fcf_yield": 10.938255139259798,
- "per_band_pos": 0.0,
- "pbr_band_pos": 0.6921450745517808,
- "ev_ebit_vs_sector": 0.45964223895135314,
- "per_vs_sector": 0.3646491851851852,
- "pbr_vs_sector": 1.2069084210526317,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
   "d": 1.6365899743896684,
   "w": 8.536852940646034,
@@ -47,7 +47,7 @@
   "y": 102.76266163362936
  },
  "div_yield": 2.0644096373871843,
- "implied_fcf_growth": -0.0313,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,14 +64,14 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-14T01:59:13Z"
+  "fetched": "2026-11-15T01:31:16Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 55.73714647384774,
   "eps_cagr": 20.0,
   "op_margin": 110.0,
-  "earnings_stability": 102.43053915781188,
+  "earnings_stability": 61.87190938179079,
   "equity_ratio": null,
   "de": 102.46676514032497,
   "net_de": 93.89135073034629,
@@ -95,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 20.236087689713322
  },
- "_generated_at": "2026-11-14T02:43:57"
+ "_generated_at": "2026-11-15T02:07:03"
 }

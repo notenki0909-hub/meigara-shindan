@@ -2,16 +2,16 @@
  "code": "AES",
  "name": "AES Corporation",
  "jp_sector": null,
- "gics_sector": "Utilities",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
  "price": 14.90999984741211,
  "price_date": "2026-11-13",
- "mcap": 10639249408,
- "q_score": 66.7,
+ "mcap": null,
+ "q_score": 64.5,
  "groups": {
-  "業績": 94.86487955336501,
-  "財務": 41.33094274166953,
+  "業績": 96.29345098193646,
+  "財務": 34.075331514225226,
   "キャッシュフロー": 60.0,
   "金融品質": null,
   "REIT品質": null
@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 76.7,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 100.02837187209497,
-  "fcf_yield": 20.0,
-  "per_cheap": 110.0,
-  "pbr_cheap": 107.8
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 19.875253506598984,
- "fcf_yield": -15.254835541120157,
+ "ev_ebit": null,
+ "fcf_yield": null,
  "per_band_pos": null,
- "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.849006984476676,
- "per_vs_sector": 0.28378918483412324,
- "pbr_vs_sector": 0.7760774166666666,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
   "d": 0.0,
   "w": 0.268997728048892,
@@ -46,7 +46,7 @@
   "9m": -8.415238215298182,
   "y": 5.970150467713897
  },
- "div_yield": 4.694835728797791,
+ "div_yield": 4.721663361533779,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -67,19 +67,19 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-14T01:57:31Z"
+  "fetched": "2026-11-15T01:29:50Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 82.11122637768489,
   "eps_cagr": null,
-  "op_margin": 101.57711576415083,
+  "op_margin": 105.86283004986512,
   "earnings_stability": 100.90629651825932,
   "equity_ratio": null,
   "de": 20.0,
   "net_de": 20.0,
-  "debt_to_ocf": 90.56897352531351,
-  "interest_coverage": 34.7547974413646,
+  "debt_to_ocf": 47.42529803375136,
+  "interest_coverage": 48.87602802314956,
   "ocf_positive": 100.0,
   "fcf_positive": 20.0,
   "fcf_payout": null
@@ -98,5 +98,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-14T02:43:09"
+ "_generated_at": "2026-11-15T02:06:07"
 }

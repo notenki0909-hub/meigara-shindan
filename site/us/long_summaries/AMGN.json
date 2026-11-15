@@ -2,12 +2,12 @@
  "code": "AMGN",
  "name": "Amgen",
  "jp_sector": null,
- "gics_sector": "Health Care",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
  "price": 465.6700134277344,
  "price_date": "2026-11-13",
- "mcap": 251886256128,
+ "mcap": null,
  "q_score": 79.4,
  "groups": {
   "業績": 102.67602143290165,
@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 62.4,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 39.48712471535826,
-  "fcf_yield": 62.8764957882887,
-  "per_cheap": 84.9,
-  "pbr_cheap": 20.0
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 32.7490370185022,
- "fcf_yield": 3.2157371841216524,
- "per_band_pos": 0.6350233514239594,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 1.379487658740615,
- "per_vs_sector": 1.143871313559322,
- "pbr_vs_sector": 3.374987692307692,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
   "d": -0.29760290714792026,
   "w": 1.1402632046584538,
@@ -46,8 +46,8 @@
   "9m": 26.132888309086955,
   "y": 38.47686901335965
  },
- "div_yield": 2.1646229538815427,
- "implied_fcf_growth": 0.1371,
+ "div_yield": 2.1345587461887434,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [
@@ -68,7 +68,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-14T01:58:47Z"
+  "fetched": "2026-11-15T01:30:54Z"
  },
  "etf_top": [
   {
@@ -105,5 +105,5 @@
   "fcf_positive": 1,
   "fcf_payout": 63.25925925925926
  },
- "_generated_at": "2026-11-14T02:43:41"
+ "_generated_at": "2026-11-15T02:06:44"
 }

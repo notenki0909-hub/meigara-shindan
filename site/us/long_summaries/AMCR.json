@@ -2,12 +2,12 @@
  "code": "AMCR",
  "name": "Amcor",
  "jp_sector": null,
- "gics_sector": "Consumer Discretionary",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
  "price": 43.79999923706055,
- "price_date": "2026-11-12",
- "mcap": 20228841472,
+ "price_date": "2026-11-13",
+ "mcap": null,
  "q_score": 75.9,
  "groups": {
   "業績": 76.91417268059276,
@@ -26,32 +26,32 @@
   "gap": -10.269339519815434
  },
  "q_cov": "高",
- "bt_score": 102.2,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 100.32295816519667,
-  "fcf_yield": 100.25161288814843,
-  "per_cheap": 106.0,
-  "pbr_cheap": 110.0
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 15.465562800182067,
- "fcf_yield": 6.075483866444529,
- "per_band_pos": 0.6782803937503084,
- "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.8386964642181164,
- "per_vs_sector": 0.6350771283783784,
- "pbr_vs_sector": 0.18742104347826088,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -1.329128544042013,
-  "w": -4.450263762514794,
-  "m": 3.5950816027647603,
-  "3m": -4.844665655822967,
-  "6m": 13.500904544887039,
-  "9m": -11.942103419706495,
-  "y": 3.5460993547389963
+  "d": 0.0,
+  "w": -2.384666191876983,
+  "m": 0.137168624351669,
+  "3m": -3.7996916068949727,
+  "6m": 19.378579657879147,
+  "9m": -12.557398475476688,
+  "y": 4.161712322833155
  },
- "div_yield": 6.027397365263453,
- "implied_fcf_growth": 0.0505,
+ "div_yield": 5.936073162759461,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -70,7 +70,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-14T01:58:42Z"
+  "fetched": "2026-11-15T01:30:50Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -101,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 97.23352318958503
  },
- "_generated_at": "2026-11-14T02:43:33"
+ "_generated_at": "2026-11-15T02:06:35"
 }

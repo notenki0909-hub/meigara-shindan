@@ -2,15 +2,15 @@
  "code": "ALB",
  "name": "Albemarle Corporation",
  "jp_sector": null,
- "gics_sector": "Materials",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
  "price": 93.52999877929688,
  "price_date": "2026-11-13",
- "mcap": 11037460480,
- "q_score": 77.2,
+ "mcap": null,
+ "q_score": 71.4,
  "groups": {
-  "業績": 55.20272784352452,
+  "業績": 40.858030057685575,
   "財務": 86.17464335287471,
   "キャッシュフロー": 102.04496522412494,
   "金融品質": null,
@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 74.4,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 100.91260035931744,
-  "per_cheap": 102.4,
-  "pbr_cheap": 108.6
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 188.98878620792152,
- "fcf_yield": 6.273780107795231,
+ "ev_ebit": null,
+ "fcf_yield": null,
  "per_band_pos": null,
- "pbr_band_pos": 0.8852648809148277,
- "ev_ebit_vs_sector": 7.910790548678172,
- "per_vs_sector": 0.8908042687747036,
- "pbr_vs_sector": 0.4581991724137931,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
   "d": -1.3916707602102618,
   "w": -5.763225411287786,
@@ -46,8 +46,8 @@
   "9m": -43.77517562512418,
   "y": -15.219362728402064
  },
- "div_yield": 1.7534481144064962,
- "implied_fcf_growth": 0.0461,
+ "div_yield": 1.7374104792137537,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,14 +66,14 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-14T01:58:18Z"
+  "fetched": "2026-11-15T01:30:29Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 37.324673264728546,
   "eps_cagr": null,
-  "op_margin": 33.08351026584503,
-  "earnings_stability": 95.19999999999999,
+  "op_margin": 30.46680821267602,
+  "earnings_stability": 54.78260869565217,
   "equity_ratio": null,
   "de": 106.54198596193474,
   "net_de": 103.34734115393672,
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 51.5953129828757
  },
- "_generated_at": "2026-11-14T02:43:21"
+ "_generated_at": "2026-11-15T02:06:21"
 }

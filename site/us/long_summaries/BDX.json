@@ -2,12 +2,12 @@
  "code": "BDX",
  "name": "Becton Dickinson",
  "jp_sector": null,
- "gics_sector": "Health Care",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
  "price": 218.02999877929688,
  "price_date": "2026-11-13",
- "mcap": 59388497920,
+ "mcap": null,
  "q_score": 92.5,
  "groups": {
   "業績": 97.95017122277214,
@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.5,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 71.50580605750574,
-  "fcf_yield": 79.96671843983444,
-  "per_cheap": 30.0,
-  "pbr_cheap": 75.0
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 26.09795643670462,
- "fcf_yield": 4.497503882987583,
- "per_band_pos": 0.0,
- "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.0993241969968248,
- "per_vs_sector": 1.8258022033898305,
- "pbr_vs_sector": 0.4636659038461538,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
   "d": 1.0755143448245796,
   "w": 2.902583422105276,
@@ -46,8 +46,8 @@
   "9m": 23.9581554016018,
   "y": 44.3546533589388
  },
- "div_yield": 1.9446865219184744,
- "implied_fcf_growth": 0.0915,
+ "div_yield": 1.8233600982698772,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-14T02:01:22Z"
+  "fetched": "2026-11-15T01:33:05Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 44.77723698989143
  },
- "_generated_at": "2026-11-14T02:44:46"
+ "_generated_at": "2026-11-15T02:08:01"
 }

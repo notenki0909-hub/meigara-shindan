@@ -2,16 +2,16 @@
  "code": "AEP",
  "name": "American Electric Power",
  "jp_sector": null,
- "gics_sector": "Utilities",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
  "price": 129.17999267578125,
  "price_date": "2026-11-13",
- "mcap": 70341910528,
- "q_score": 90.7,
+ "mcap": null,
+ "q_score": 78.1,
  "groups": {
   "業績": 105.71957942357673,
-  "財務": 92.22196565317532,
+  "財務": 59.48527912913861,
   "キャッシュフロー": 60.0,
   "金融品質": null,
   "REIT品質": null
@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 58.3,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 88.66824827865058,
-  "fcf_yield": 20.0,
-  "per_cheap": 66.1,
-  "pbr_cheap": 74.7
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 22.21966769322191,
- "fcf_yield": -7.238927634717997,
- "per_band_pos": 0.0016769251717978655,
- "pbr_band_pos": 0.06720790227771833,
- "ev_ebit_vs_sector": 0.9491528275618074,
- "per_vs_sector": 1.0003716113744074,
- "pbr_vs_sector": 0.8942217499999999,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
   "d": 0.20943992397948197,
   "w": 2.0943601691695957,
@@ -46,7 +46,7 @@
   "9m": -0.5848928361900763,
   "y": 5.298330905148552
  },
- "div_yield": 3.003561093038694,
+ "div_yield": 2.9571142720123222,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-14T01:57:25Z"
+  "fetched": "2026-11-15T01:29:46Z"
  },
  "etf_top": [
   {
@@ -79,10 +79,10 @@
   "op_margin": 110.0,
   "earnings_stability": 105.14185777617672,
   "equity_ratio": null,
-  "de": 100.08371336202282,
-  "net_de": 97.75077514174438,
-  "debt_to_ocf": 88.70391705069125,
-  "interest_coverage": 82.34945705824283,
+  "de": 76.40182413770955,
+  "net_de": 57.52585265591882,
+  "debt_to_ocf": 44.93855606758832,
+  "interest_coverage": 59.07488365533775,
   "ocf_positive": 100.0,
   "fcf_positive": 20.0,
   "fcf_payout": null
@@ -101,5 +101,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-14T02:43:08"
+ "_generated_at": "2026-11-15T02:06:07"
 }
