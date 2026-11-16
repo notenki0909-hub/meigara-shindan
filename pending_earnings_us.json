@@ -79,16 +79,6 @@
   "next_retry_at": "2026-11-03T07:13:56",
   "resolved_at": "2026-11-03T14:21:21"
  },
- "ETR": {
-  "ticker": "ETR",
-  "name": "Entergy",
-  "target_date": "2026-11-02",
-  "detected_at": "2026-11-02T06:13:03",
-  "status": "resolved",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03",
-  "resolved_at": "2026-11-02T16:02:13"
- },
  "IIPR": {
   "ticker": "IIPR",
   "name": "Innovative Industrial Properties, Inc.",
@@ -138,16 +128,6 @@
   "attempts": 3,
   "next_retry_at": "2026-11-03T07:13:56",
   "resolved_at": "2026-11-03T14:21:21"
- },
- "PEG": {
-  "ticker": "PEG",
-  "name": "Public Service Enterprise Group",
-  "target_date": "2026-11-02",
-  "detected_at": "2026-11-02T06:13:03",
-  "status": "resolved",
-  "attempts": 1,
-  "next_retry_at": "2026-11-02T12:13:03",
-  "resolved_at": "2026-11-02T16:02:13"
  },
  "SBAC": {
   "ticker": "SBAC",
@@ -1682,8 +1662,9 @@
   "name": "Tyson Foods",
   "target_date": "2026-11-16",
   "detected_at": "2026-11-16T06:36:17",
-  "status": "pending",
+  "status": "resolved",
   "attempts": 1,
-  "next_retry_at": "2026-11-16T12:36:17"
+  "next_retry_at": "2026-11-16T12:36:17",
+  "resolved_at": "2026-11-16T22:09:20"
  }
 }
