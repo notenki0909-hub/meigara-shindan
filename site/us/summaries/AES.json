@@ -1,65 +1,63 @@
 {
  "code": "AES",
- "name": "AES",
- "asof": "2026-11-15",
- "data_fetched_at": "2026-11-15T01:29:50",
- "gics_sector": "Industrials",
- "industry": "",
+ "name": "The AES Corporation",
+ "asof": "2026-11-16",
+ "data_fetched_at": "2026-11-16T01:32:35",
+ "gics_sector": "Utilities",
+ "industry": "Utilities - Diversified",
  "is_simple": false,
  "is_reit": false,
  "price": 14.90999984741211,
  "price_date": "2026-11-13",
- "mcap": null,
- "sel_score": 66.7,
- "tim_score": 95.4,
- "sel_label": "選定スコア下位（質に不安）",
- "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定スコアが基準未達の水準。",
+ "mcap": 10639249408,
+ "sel_score": 68.5,
+ "tim_score": 103.9,
+ "sel_label": "選定スコア中位（一部に弱点）",
+ "tim_label": "買い時スコア上位（割安水準）",
+ "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
  "cov_sel": [
-  13,
+  14,
   17,
   "中"
  ],
  "cov_tim": [
-  3,
   6,
-  "低"
+  7,
+  "高"
  ],
  "groups": {
-  "業績": 96.3,
-  "財務": 34.1,
+  "業績": 94.9,
+  "財務": 41.3,
   "キャッシュフロー": 60.0,
-  "配当の持続力": 71.9,
-  "配当利回りセオリー": 102.5,
-  "利回り水準とChowder": 84.2,
-  "株価バリュエーション": null,
-  "金利スプレッド": null
+  "配当の持続力": 72.5,
+  "配当利回りセオリー": 102.3,
+  "利回り水準とChowder": 103.7,
+  "株価バリュエーション": 107.8,
+  "金利スプレッド": 103.3
  },
- "div_yield": 4.721663361533779,
+ "div_yield": 4.694835728797791,
  "total_yield": null,
  "streak_up": 0,
  "streak_flat": 14,
- "payout_ni": 55.87301587301587,
- "roe": null,
- "chowder": 7.833172707369174,
+ "payout_ni": 28.27,
+ "roe": 8.676,
+ "chowder": 7.806345074633186,
  "dgr5": 3.111509345835395,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": 1.0533049040511726,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "per_vs_sector": 0.28378918483412324,
+ "pbr_vs_sector": 0.7760774166666666,
  "per_band_pos": null,
- "yield_band_pos": 0.6984286197282167,
+ "yield_band_pos": 0.6903096770070545,
  "next_earn": "2027-03-01",
  "earn_disc_date": "2026-11-03",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
   "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）",
-  "⚠ 自己資本比率が10%未満（7.8%）",
-  "⚠ バリュートラップ注意：買い時が高い（95）のに質が低め（選定67）。安さの理由を確認"
+  "⚠ 自己資本比率が10%未満（7.8%）"
  ],
  "roa": 1.76,
  "leverage": 12.74,
@@ -71,12 +69,8 @@
   {
    "k": "low_equity",
    "t": "自己資本比率が10%未満（7.8%）"
-  },
-  {
-   "k": "trap",
-   "t": "バリュートラップ注意：買い時が高い（95）のに質が低め（選定67）。安さの理由を確認"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-15T01:29:52"
+ "_generated_at": "2026-11-16T01:32:37"
 }

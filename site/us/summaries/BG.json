@@ -1,72 +1,71 @@
 {
  "code": "BG",
- "name": "BG",
- "asof": "2026-11-15",
- "data_fetched_at": "2026-11-15T01:33:23",
- "gics_sector": "Industrials",
- "industry": "",
+ "name": "Bunge Global SA",
+ "asof": "2026-11-16",
+ "data_fetched_at": "2026-11-16T01:36:04",
+ "gics_sector": "Consumer Staples",
+ "industry": "Farm Products",
  "is_simple": false,
  "is_reit": false,
  "price": 101.6500015258789,
  "price_date": "2026-11-13",
- "mcap": null,
- "sel_score": 66.2,
- "tim_score": 86.5,
+ "mcap": 19531415552,
+ "sel_score": 66.5,
+ "tim_score": 83.8,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定スコアが基準未達の水準。",
+ "comment": "選定スコアが基準未達の水準。",
  "cov_sel": [
-  14,
+  16,
   17,
-  "中"
+  "高"
  ],
  "cov_tim": [
-  3,
-  6,
-  "低"
+  7,
+  7,
+  "高"
  ],
  "groups": {
-  "業績": 46.2,
+  "業績": 45.2,
   "財務": 66.5,
   "キャッシュフロー": 60.0,
-  "配当の持続力": 87.6,
-  "配当利回りセオリー": 87.3,
-  "利回り水準とChowder": 85.3,
-  "株価バリュエーション": null,
-  "金利スプレッド": null
+  "配当の持続力": 89.7,
+  "配当利回りセオリー": 90.9,
+  "利回り水準とChowder": 86.0,
+  "株価バリュエーション": 86.2,
+  "金利スプレッド": 63.6
  },
- "div_yield": 2.7939005975095523,
- "total_yield": null,
+ "div_yield": 2.833251310150532,
+ "total_yield": 5.654347397799837,
  "streak_up": 6,
  "streak_flat": 24,
- "payout_ni": 67.31379558317212,
- "roe": null,
- "chowder": 9.60169823166162,
+ "payout_ni": 48.8,
+ "roe": 6.92,
+ "chowder": 9.6410489443026,
  "dgr5": 6.8077976341520685,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": 2.805732484076433,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
- "per_band_pos": null,
- "yield_band_pos": 0.4728400743643662,
+ "per_vs_sector": 0.7369466244725739,
+ "pbr_vs_sector": 0.18159595454545455,
+ "per_band_pos": 0.0,
+ "yield_band_pos": 0.5086275787355738,
  "next_earn": "2027-02-03",
  "earn_disc_date": "2026-10-29",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "⚠ バリュートラップ注意：買い時が高い（87）のに質が低め（選定66）。安さの理由を確認"
+  "⚠ バリュートラップ注意：買い時が高い（84）のに質が低め（選定66）。安さの理由を確認"
  ],
  "roa": 1.83,
  "leverage": 2.8,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：買い時が高い（87）のに質が低め（選定66）。安さの理由を確認"
+   "t": "バリュートラップ注意：買い時が高い（84）のに質が低め（選定66）。安さの理由を確認"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-15T01:33:25"
+ "_generated_at": "2026-11-16T01:36:07"
 }

@@ -1,73 +1,73 @@
 {
  "code": "BBT",
- "name": "BBT",
- "asof": "2026-11-15",
- "data_fetched_at": "2026-11-15T01:32:47",
- "gics_sector": "Industrials",
- "industry": "",
- "is_simple": false,
+ "name": "Beacon Financial Corporation",
+ "asof": "2026-11-16",
+ "data_fetched_at": "2026-11-16T01:35:30",
+ "gics_sector": "Financials",
+ "industry": "Banks - Regional",
+ "is_simple": true,
  "is_reit": false,
  "price": 30.760000228881836,
  "price_date": "2026-11-13",
- "mcap": null,
- "sel_score": 75.9,
- "tim_score": 109.6,
- "sel_label": "選定スコア中位（一部に弱点）",
+ "mcap": 2562411264,
+ "sel_score": 66.2,
+ "tim_score": 109.5,
+ "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（銘柄選定 と 買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
+ "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
  "cov_sel": [
-  11,
-  17,
-  "低"
+  5,
+  6,
+  "中"
  ],
  "cov_tim": [
-  3,
   6,
-  "低"
+  6,
+  "高"
  ],
  "groups": {
-  "業績": 65.0,
-  "財務": 97.1,
-  "キャッシュフロー": 103.3,
-  "配当の持続力": 53.2,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "配当の持続力": 73.9,
   "配当利回りセオリー": 109.9,
   "利回り水準とChowder": 109.0,
-  "株価バリュエーション": null,
-  "金利スプレッド": null
+  "株価バリュエーション": 109.3,
+  "金利スプレッド": null,
+  "金融品質": 62.9
  },
- "div_yield": 4.200260046769726,
+ "div_yield": 4.193758096232931,
  "total_yield": null,
  "streak_up": 0,
  "streak_flat": 6,
- "payout_ni": 125.4368932038835,
- "roe": null,
- "chowder": 26.10041432216495,
+ "payout_ni": 48.5,
+ "roe": 9.127,
+ "chowder": 26.093912371628154,
  "dgr5": 21.900154275395224,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 29.751220799788836,
  "interest_coverage": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
- "per_band_pos": null,
- "yield_band_pos": 0.9976708026602886,
+ "per_vs_sector": 0.5591303757225433,
+ "pbr_vs_sector": 0.40962812,
+ "per_band_pos": 0.9214033643251857,
+ "yield_band_pos": 0.9948386178236426,
  "next_earn": "2027-01-27",
  "earn_disc_date": "2026-10-21",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "銘柄選定スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "⚠ 配当性向が100%超（125%：純利益を上回る配当）"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。",
+  "⚠ バリュートラップ注意：買い時が高い（109）のに質が低め（選定66）。安さの理由を確認"
  ],
  "roa": 0.39,
  "leverage": 9.3,
  "insight_flags": [
   {
-   "k": "payout",
-   "t": "配当性向が100%超（125%：純利益を上回る配当）"
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（109）のに質が低め（選定66）。安さの理由を確認"
   }
  ],
- "kind": "gen",
- "_generated_at": "2026-11-15T01:32:50"
+ "kind": "fin",
+ "_generated_at": "2026-11-16T01:35:32"
 }
