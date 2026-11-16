@@ -149,15 +149,6 @@
   "next_retry_at": "2026-11-02T12:13:03",
   "resolved_at": "2026-11-02T16:02:13"
  },
- "SAFT": {
-  "ticker": "SAFT",
-  "name": "Safety Insurance Group, Inc.",
-  "target_date": "2026-11-02",
-  "detected_at": "2026-11-02T06:13:03",
-  "status": "giveup",
-  "attempts": 9,
-  "next_retry_at": "2026-11-05T12:53:04"
- },
  "SBAC": {
   "ticker": "SBAC",
   "name": "SBA Communications",
@@ -1685,5 +1676,14 @@
   "attempts": 1,
   "next_retry_at": "2026-11-12T13:16:05",
   "resolved_at": "2026-11-12T19:58:26"
+ },
+ "TSN": {
+  "ticker": "TSN",
+  "name": "Tyson Foods",
+  "target_date": "2026-11-16",
+  "detected_at": "2026-11-16T06:36:17",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-16T12:36:17"
  }
 }
