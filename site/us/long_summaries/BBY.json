@@ -2,12 +2,12 @@
  "code": "BBY",
  "name": "Best Buy",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Consumer Discretionary",
  "is_simple": false,
  "is_reit": false,
  "price": 104.06999969482422,
  "price_date": "2026-11-13",
- "mcap": null,
+ "mcap": 21826361344,
  "q_score": 87.5,
  "groups": {
   "業績": 72.04415320046549,
@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 91.8,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 103.46155433557941,
+  "fcf_yield": 96.84896748923416,
+  "per_cheap": 75.0,
+  "pbr_cheap": 73.2
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 13.840777910857144,
+ "fcf_yield": 5.763672561692562,
+ "per_band_pos": 0.0,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 0.7288455982547206,
+ "per_vs_sector": 0.5850047297297297,
+ "pbr_vs_sector": 0.747749597826087,
  "price_chg": {
   "d": 0.6382322883106806,
   "w": 4.456491582663302,
@@ -46,8 +46,8 @@
   "9m": 58.16108642573086,
   "y": 33.92098947485201
  },
- "div_yield": 3.6802152505343764,
- "implied_fcf_growth": null,
+ "div_yield": 3.6898241676375996,
+ "implied_fcf_growth": 0.0577,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-15T01:32:56Z"
+  "fetched": "2026-11-16T01:35:38Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 63.6724960254372
  },
- "_generated_at": "2026-11-15T02:08:01"
+ "_generated_at": "2026-11-16T02:12:31"
 }

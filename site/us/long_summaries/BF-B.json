@@ -2,12 +2,12 @@
  "code": "BF-B",
  "name": "Brown–Forman",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
  "price": 30.649999618530273,
  "price_date": "2026-11-13",
- "mcap": null,
+ "mcap": 14064189440,
  "q_score": 97.4,
  "groups": {
   "業績": 91.77064938501937,
@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 103.5,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 103.96167674731183,
+  "fcf_yield": 101.16486470383228,
+  "per_cheap": 105.4,
+  "pbr_cheap": 105.1
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 14.113011666666667,
+ "fcf_yield": 6.3494594111496845,
+ "per_band_pos": 0.8503160795346447,
+ "pbr_band_pos": 0.6051227224253579,
+ "ev_ebit_vs_sector": 0.711341313844086,
+ "per_vs_sector": 0.8343542194092827,
+ "pbr_vs_sector": 0.5366854545454546,
  "price_chg": {
   "d": 2.030621452769754,
   "w": 0.22890678547697885,
@@ -46,8 +46,8 @@
   "9m": 2.3372248339205592,
   "y": 12.065810570505064
  },
- "div_yield": 3.014681929853504,
- "implied_fcf_growth": null,
+ "div_yield": 3.0016313587285968,
+ "implied_fcf_growth": 0.0445,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-15T01:33:14Z"
+  "fetched": "2026-11-16T01:35:56Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 47.816349384098544
  },
- "_generated_at": "2026-11-15T02:08:05"
+ "_generated_at": "2026-11-16T02:12:35"
 }

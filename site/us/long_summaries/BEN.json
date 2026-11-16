@@ -2,12 +2,12 @@
  "code": "BEN",
  "name": "Franklin Resources",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Financials",
  "is_simple": false,
  "is_reit": false,
  "price": 36.02000045776367,
  "price_date": "2026-11-13",
- "mcap": null,
+ "mcap": 18460250112,
  "q_score": 86.7,
  "groups": {
   "業績": 98.26752219078053,
@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 83.7,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 87.49561298586151,
+  "fcf_yield": 78.95189177091613,
+  "per_cheap": 93.6,
+  "pbr_cheap": 74.7
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 23.793451982068053,
+ "fcf_yield": 4.42139188281871,
+ "per_band_pos": 0.7735517446016887,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 0.9594133863737118,
+ "per_vs_sector": 1.05689387283237,
+ "pbr_vs_sector": 0.62084712,
  "price_chg": {
   "d": 0.44617915417972664,
   "w": 6.789211226225578,
@@ -47,7 +47,7 @@
   "y": 56.268987635581055
  },
  "div_yield": 3.6646307141161913,
- "implied_fcf_growth": null,
+ "implied_fcf_growth": 0.0938,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-15T01:33:09Z"
+  "fetched": "2026-11-16T01:35:51Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 85.46924773339867
  },
- "_generated_at": "2026-11-15T02:08:05"
+ "_generated_at": "2026-11-16T02:12:35"
 }

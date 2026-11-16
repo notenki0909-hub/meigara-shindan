@@ -2,15 +2,15 @@
  "code": "BKR",
  "name": "Baker Hughes",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Energy",
  "is_simple": false,
  "is_reit": false,
  "price": 49.439998626708984,
  "price_date": "2026-11-13",
- "mcap": null,
- "q_score": 104.8,
+ "mcap": 49097797632,
+ "q_score": 105.6,
  "groups": {
-  "業績": 105.26860043180803,
+  "業績": 107.28953937840669,
   "財務": 105.20989147492146,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 80.8,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 105.02960656646704,
+  "fcf_yield": 88.89650513492643,
+  "per_cheap": 73.3,
+  "pbr_cheap": 55.8
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 14.470002145628339,
+ "fcf_yield": 5.167237885119482,
+ "per_band_pos": 0.0,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 0.6739637701736535,
+ "per_vs_sector": 0.7865596759259258,
+ "pbr_vs_sector": 1.283026105263158,
  "price_chg": {
   "d": 1.1870610092349132,
   "w": 3.279715332891908,
@@ -47,7 +47,7 @@
   "y": 4.01851440451555
  },
  "div_yield": 1.8608414756366685,
- "implied_fcf_growth": null,
+ "implied_fcf_growth": 0.0726,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-15T01:33:36Z"
+  "fetched": "2026-11-16T01:36:17Z"
  },
  "etf_top": [
   {
@@ -78,8 +78,8 @@
  "metric_scores": {
   "rev_cagr": 107.15882595021785,
   "eps_cagr": null,
-  "op_margin": 101.17982187285905,
-  "earnings_stability": 107.4671534723472,
+  "op_margin": 104.70979218500221,
+  "earnings_stability": 110.0,
   "equity_ratio": null,
   "de": 106.76807900605289,
   "net_de": 103.74057555484761,
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 35.869136775719355
  },
- "_generated_at": "2026-11-15T02:08:14"
+ "_generated_at": "2026-11-16T02:12:42"
 }

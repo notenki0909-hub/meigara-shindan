@@ -2,16 +2,16 @@
  "code": "ATO",
  "name": "Atmos Energy",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Utilities",
  "is_simple": false,
  "is_reit": false,
  "price": 176.3000030517578,
  "price_date": "2026-11-13",
- "mcap": null,
- "q_score": 91.5,
+ "mcap": 29792684032,
+ "q_score": 96.7,
  "groups": {
   "業績": 106.26006548621832,
-  "財務": 93.60962009649367,
+  "財務": 107.25182886739302,
   "キャッシュフロー": 60.0,
   "金融品質": null,
   "REIT品質": null
@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 55.8,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 75.6853187384975,
+  "fcf_yield": 20.0,
+  "per_cheap": 71.6,
+  "pbr_cheap": 86.1
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 24.932196195954926,
+ "fcf_yield": -5.07488012283834,
+ "per_band_pos": 0.10527581817453024,
+ "pbr_band_pos": 0.27479229088207713,
+ "ev_ebit_vs_sector": 1.0627534610381468,
+ "per_vs_sector": 0.9958820379146918,
+ "pbr_vs_sector": 0.8135641666666666,
  "price_chg": {
   "d": 0.21601005386979732,
   "w": 1.778086715938998,
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-15T01:31:51Z"
+  "fetched": "2026-11-16T01:34:34Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -75,10 +75,10 @@
   "op_margin": 110.0,
   "earnings_stability": 110.0,
   "equity_ratio": null,
-  "de": 103.13844569872607,
-  "net_de": 94.05905645668635,
-  "debt_to_ocf": 79.47333015850711,
-  "interest_coverage": 97.76764807205515,
+  "de": 107.61537141560507,
+  "net_de": 107.74069464924689,
+  "debt_to_ocf": 103.65124940472008,
+  "interest_coverage": 110.0,
   "ocf_positive": 100.0,
   "fcf_positive": 20.0,
   "fcf_payout": null
@@ -97,5 +97,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-15T02:07:27"
+ "_generated_at": "2026-11-16T02:12:05"
 }

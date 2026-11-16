@@ -2,16 +2,16 @@
  "code": "AWK",
  "name": "American Water Works",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Utilities",
  "is_simple": false,
  "is_reit": false,
  "price": 149.60000610351562,
  "price_date": "2026-11-13",
- "mcap": null,
- "q_score": 79.2,
+ "mcap": 29786058752,
+ "q_score": 92.4,
  "groups": {
   "業績": 107.54116698103908,
-  "財務": 60.45778348913035,
+  "財務": 94.80069127518462,
   "キャッシュフロー": 60.0,
   "金融品質": null,
   "REIT品質": null
@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 59.8,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 78.90414207138762,
+  "fcf_yield": 20.0,
+  "per_cheap": 80.6,
+  "pbr_cheap": 103.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 24.271452236295904,
+ "fcf_yield": -4.1697359504355545,
+ "per_band_pos": 0.8157284045327471,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 1.0345887568753582,
+ "per_vs_sector": 1.226651800947867,
+ "pbr_vs_sector": 1.0402238333333333,
  "price_chg": {
   "d": 1.3687520310328827,
   "w": -0.45910387480259107,
@@ -46,7 +46,7 @@
   "9m": 12.05992966555478,
   "y": 15.280882467584922
  },
- "div_yield": 2.3482619362790547,
+ "div_yield": 2.3930480307085156,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-15T01:32:17Z"
+  "fetched": "2026-11-16T01:35:00Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -73,10 +73,10 @@
   "op_margin": 110.0,
   "earnings_stability": 109.29189654299742,
   "equity_ratio": null,
-  "de": 81.24573221371227,
-  "net_de": 61.88059426040417,
-  "debt_to_ocf": 36.920835356969405,
-  "interest_coverage": 61.78397212543554,
+  "de": 101.09286087785672,
+  "net_de": 100.42740778645549,
+  "debt_to_ocf": 82.69062651772705,
+  "interest_coverage": 94.9918699186992,
   "ocf_positive": 100.0,
   "fcf_positive": 20.0,
   "fcf_payout": null
@@ -95,5 +95,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-15T02:07:31"
+ "_generated_at": "2026-11-16T02:12:09"
 }

@@ -2,15 +2,15 @@
  "code": "APD",
  "name": "Air Products",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Materials",
  "is_simple": false,
  "is_reit": false,
  "price": 316.5299987792969,
  "price_date": "2026-11-13",
- "mcap": null,
- "q_score": 70.0,
+ "mcap": 70486654976,
+ "q_score": 70.7,
  "groups": {
-  "業績": 67.72271289644657,
+  "業績": 69.6045582333201,
   "財務": 77.82226874713612,
   "キャッシュフロー": 60.0,
   "金融品質": null,
@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 33.3,
+ "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "fcf_yield": 20.0,
+  "per_cheap": 20.0,
+  "pbr_cheap": 34.9
  },
  "ev_ebit": null,
- "fcf_yield": null,
+ "fcf_yield": -5.342571585049989,
  "per_band_pos": null,
- "pbr_band_pos": null,
+ "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "per_vs_sector": 5.234756126482214,
+ "pbr_vs_sector": 1.7028610344827588,
  "price_chg": {
   "d": 0.10436007575154171,
   "w": 3.8347994298126187,
@@ -46,7 +46,7 @@
   "9m": 13.151501333112247,
   "y": 21.02084249755265
  },
- "div_yield": 2.2809844336536975,
+ "div_yield": 2.287302950090411,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -63,7 +63,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-15T01:31:20Z"
+  "fetched": "2026-11-16T01:34:04Z"
  },
  "etf_top": [
   {
@@ -76,7 +76,7 @@
   "rev_cagr": 78.81367469996032,
   "eps_cagr": 20.0,
   "op_margin": null,
-  "earnings_stability": 104.35446398937935,
+  "earnings_stability": 110.0,
   "equity_ratio": null,
   "de": 90.99814308248308,
   "net_de": 77.82361280274743,
@@ -100,5 +100,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-15T02:07:03"
+ "_generated_at": "2026-11-16T02:11:47"
 }
