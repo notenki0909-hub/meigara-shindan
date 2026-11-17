@@ -9,16 +9,6 @@
   "next_retry_at": "2026-11-06T01:59:48",
   "resolved_at": "2026-11-06T06:52:34"
  },
- "AKR": {
-  "ticker": "AKR",
-  "name": "Acadia Realty Trust",
-  "target_date": "2026-11-02",
-  "detected_at": "2026-11-02T06:13:03",
-  "status": "resolved",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13",
-  "resolved_at": "2026-11-03T01:13:56"
- },
  "AROC": {
   "ticker": "AROC",
   "name": "Archrock, Inc.",
@@ -38,16 +28,6 @@
   "attempts": 3,
   "next_retry_at": "2026-11-03T07:13:56",
   "resolved_at": "2026-11-03T14:21:21"
- },
- "CLX": {
-  "ticker": "CLX",
-  "name": "Clorox",
-  "target_date": "2026-11-02",
-  "detected_at": "2026-11-02T06:13:03",
-  "status": "resolved",
-  "attempts": 2,
-  "next_retry_at": "2026-11-02T22:02:13",
-  "resolved_at": "2026-11-03T01:13:56"
  },
  "CRC": {
   "ticker": "CRC",
@@ -1666,5 +1646,50 @@
   "attempts": 1,
   "next_retry_at": "2026-11-16T12:36:17",
   "resolved_at": "2026-11-16T22:09:20"
+ },
+ "DLB": {
+  "ticker": "DLB",
+  "name": "Dolby",
+  "target_date": "2026-11-17",
+  "detected_at": "2026-11-17T07:58:53",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-17T13:58:53"
+ },
+ "ENR": {
+  "ticker": "ENR",
+  "name": "Energizer",
+  "target_date": "2026-11-17",
+  "detected_at": "2026-11-17T07:58:53",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-17T13:58:53"
+ },
+ "HD": {
+  "ticker": "HD",
+  "name": "Home Depot (The)",
+  "target_date": "2026-11-17",
+  "detected_at": "2026-11-17T07:58:53",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-17T13:58:53"
+ },
+ "LZB": {
+  "ticker": "LZB",
+  "name": "La-Z-Boy, Inc.",
+  "target_date": "2026-11-17",
+  "detected_at": "2026-11-17T07:58:53",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-17T13:58:53"
+ },
+ "SR": {
+  "ticker": "SR",
+  "name": "Spire",
+  "target_date": "2026-11-17",
+  "detected_at": "2026-11-17T07:58:53",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-17T13:58:53"
  }
 }
