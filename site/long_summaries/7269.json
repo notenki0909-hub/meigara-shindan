@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 2168.5,
- "price_date": "2026-11-13",
- "mcap": 4183867785216,
+ "price": 2139.0,
+ "price_date": "2026-11-17",
+ "mcap": 4126950817792,
  "q_score": 105.5,
  "groups": {
   "業績": 105.43074013873844,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 100.9,
+ "bt_score": 101.6,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 105.90519306764139,
-  "fcf_yield": 103.3966921738214,
+  "ev_ebit_vs_sector": 106.169429171945,
+  "fcf_yield": 103.71936836384181,
   "per_cheap": 110.0,
-  "pbr_cheap": 84.2
+  "pbr_cheap": 86.4
  },
- "ev_ebit": 6.355984237209609,
- "fcf_yield": 7.019007652146421,
+ "ev_ebit": 6.2646113923414175,
+ "fcf_yield": 7.115810509152544,
  "per_band_pos": 1.0,
- "pbr_band_pos": 0.609033690692578,
- "ev_ebit_vs_sector": 0.6433182426325514,
- "per_vs_sector": 0.5652352027027028,
- "pbr_vs_sector": 1.3181965555555555,
+ "pbr_band_pos": 0.7119527243846231,
+ "ev_ebit_vs_sector": 0.6340699789819249,
+ "per_vs_sector": 0.5626027702702702,
+ "pbr_vs_sector": 1.3002638888888889,
  "price_chg": {
-  "d": -1.4766015447523873,
-  "w": -1.2747552925108097,
-  "m": 6.116956202593582,
-  "3m": 6.92800788954635,
-  "6m": 21.75743964065131,
-  "9m": 0.44001852709587563,
-  "y": -4.785949506037324
+  "d": -0.4653327128897211,
+  "w": -4.848754448398573,
+  "m": 0.9915014164305846,
+  "3m": 6.923269182704317,
+  "6m": 11.406249999999996,
+  "9m": -3.561767357980161,
+  "y": -7.32235701906413
  },
- "div_yield": 2.3979709476596724,
- "implied_fcf_growth": 0.0307,
+ "div_yield": 2.431042543244507,
+ "implied_fcf_growth": 0.0288,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-15T22:44:14Z"
+  "fetched": "2026-11-17T01:36:49Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -95,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 28.248758794004075
  },
- "_generated_at": "2026-11-15T23:32:26"
+ "_generated_at": "2026-11-17T02:18:30"
 }

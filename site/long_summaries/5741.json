@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 1853.0,
- "price_date": "2026-11-13",
- "mcap": 335584624640,
+ "price": 1767.0,
+ "price_date": "2026-11-17",
+ "mcap": 320009732096,
  "q_score": 85.8,
  "groups": {
   "業績": 96.76731935485738,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 86.8,
+ "bt_score": 88.4,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 107.13935805644304,
-  "fcf_yield": 45.58718736258568,
+  "ev_ebit_vs_sector": 107.5337426631676,
+  "fcf_yield": 46.832517281351755,
   "per_cheap": 110.0,
-  "pbr_cheap": 84.4
+  "pbr_cheap": 89.3
  },
- "ev_ebit": 9.061849267169851,
- "fcf_yield": 1.919039052193926,
+ "ev_ebit": 8.853417002515926,
+ "fcf_yield": 2.0124387961013817,
  "per_band_pos": null,
- "pbr_band_pos": 0.18769986260369476,
- "ev_ebit_vs_sector": 0.6001224680244934,
- "per_vs_sector": 0.5835246357615894,
- "pbr_vs_sector": 0.5859784266666667,
+ "pbr_band_pos": 0.2850626962457531,
+ "ev_ebit_vs_sector": 0.5863190067891342,
+ "per_vs_sector": 0.556442582781457,
+ "pbr_vs_sector": 0.5587824,
  "price_chg": {
-  "d": -1.540913921360254,
-  "w": 5.463858850313041,
-  "m": -11.635670004768716,
-  "3m": -20.43795620437956,
-  "6m": -33.512737710800145,
-  "9m": -27.104642014162074,
-  "y": -4.188210961737326
+  "d": -1.5050167224080258,
+  "w": -5.558524853019775,
+  "m": -13.29735034347399,
+  "3m": -26.680497925311208,
+  "6m": -39.795570698466776,
+  "9m": -31.11111111111111,
+  "y": -11.428571428571432
  },
- "div_yield": 3.7776578521316786,
- "implied_fcf_growth": 0.2077,
+ "div_yield": 3.9615166949632146,
+ "implied_fcf_growth": 0.2012,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -67,8 +67,8 @@
   {
    "tier": "check",
    "k": "per",
-   "where": "PER（Yahoo表示 8.8倍）",
-   "why": "直近4四半期の純利益（769.6億円）から求めたPERは4.4倍で、Yahoo表示と2.0倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
+   "where": "PER（Yahoo表示 8.4倍）",
+   "why": "直近4四半期の純利益（769.6億円）から求めたPERは4.2倍で、Yahoo表示と2.0倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
    "how": "IR BANK（irbank.net/5741/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する",
    "confirm": {
     "status": "unclear",
@@ -78,7 +78,7 @@
   }
  ],
  "data_asof": {
-  "fetched": "2026-11-15T23:26:37Z"
+  "fetched": "2026-11-17T02:11:13Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -109,5 +109,5 @@
   "fcf_positive": 1,
   "fcf_payout": 112.45341614906832
  },
- "_generated_at": "2026-11-15T23:26:39"
+ "_generated_at": "2026-11-17T02:11:16"
 }

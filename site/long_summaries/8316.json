@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": true,
  "is_reit": false,
- "price": 3275.0,
- "price_date": "2026-11-13",
- "mcap": 24831061917696,
+ "price": 3141.0,
+ "price_date": "2026-11-17",
+ "mcap": 23822654767104,
  "q_score": 101.2,
  "groups": {
   "業績": null,
@@ -22,31 +22,31 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 57.1,
+ "bt_score": 58.4,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": 71.4,
-  "pbr_cheap": 42.7
+  "per_cheap": 72.1,
+  "pbr_cheap": 44.8
  },
  "ev_ebit": null,
  "fcf_yield": null,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 0.8793282035928144,
- "pbr_vs_sector": 1.5452961,
+ "per_vs_sector": 0.8436559880239521,
+ "pbr_vs_sector": 1.5040401,
  "price_chg": {
-  "d": 0.1529051987767538,
-  "w": 8.876329787234049,
-  "m": -0.30441400304414,
-  "3m": -1.1917332931060454,
-  "6m": 13.14562100535499,
-  "9m": 18.103137396321678,
-  "y": 60.499877481009555
+  "d": -3.650306748466259,
+  "w": -2.695167286245348,
+  "m": -4.120879120879117,
+  "3m": -9.857942315970725,
+  "6m": 10.696035242290748,
+  "9m": 11.126835308685656,
+  "y": 50.90079269757386
  },
- "div_yield": 3.0534351145038165,
+ "div_yield": 3.183699458771092,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -60,26 +60,8 @@
    "shares_chg_pct": -5.379351866673055
   }
  },
- "data_notice": [
-  {
-   "tier": "confirmed",
-   "k": "eps",
-   "where": "EPS（1株利益）の推移",
-   "why": "自動チェックには引っかかりませんでしたが、手作業の確認でYahooの値の誤りが分かりました",
-   "how": "",
-   "confirm": {
-    "status": "error",
-    "note": "Yahooの2026/03期のEPS 411.97円は、決算短信の見出しの値（2026/9/29の2分割の前の基準）と同じ。決算短信の注記（分割を前期首に行ったと仮定した場合）は205.99円。過去の年もYahooは分割前のままなので、全年を2で割って、分割後の基準にそろえる（株価は分割調整済みのため、そのままだとPERの過去レンジが2分の1に低く出る）",
-    "date": "2026-11-08",
-    "replaced": "1株利益（全年）を分割比2で割って、分割後の基準にそろえて採点"
-   }
-  }
- ],
- "data_fix": {
-  "eps": "1株利益（全年）を分割比2で割って、分割後の基準にそろえて採点"
- },
  "data_asof": {
-  "fetched": "2026-11-15T22:55:57Z"
+  "fetched": "2026-11-17T02:21:31Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -98,7 +80,7 @@
  },
  "metric_raw": {
   "rev_cagr": 15.905888443221428,
-  "eps_cagr": 33.83917483032677,
+  "eps_cagr": 27.918135710946324,
   "op_margin": null,
   "earnings_stability": null,
   "equity_ratio": 4.805331338149883,
@@ -110,5 +92,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-15T23:34:52"
+ "_generated_at": "2026-11-17T02:21:34"
 }

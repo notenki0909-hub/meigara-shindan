@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 2850.0,
- "price_date": "2026-11-13",
- "mcap": 10504137342976,
+ "price": 3003.0,
+ "price_date": "2026-11-17",
+ "mcap": 11068043689984,
  "q_score": 95.2,
  "groups": {
   "業績": 100.10551598390474,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 93.9,
+ "bt_score": 87.3,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 94.88147822458919,
+  "ev_ebit_vs_sector": 91.09538642048622,
   "fcf_yield": 110.0,
-  "per_cheap": 103.2,
-  "pbr_cheap": 67.4
+  "per_cheap": 83.6,
+  "pbr_cheap": 64.5
  },
- "ev_ebit": 14.379228143144951,
- "fcf_yield": 10.565808155032762,
- "per_band_pos": 0.6683060701382553,
+ "ev_ebit": 14.91159997694938,
+ "fcf_yield": 10.027490233024228,
+ "per_band_pos": 0.24282781746054216,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 0.8947870655348446,
- "per_vs_sector": 0.8346155248618784,
- "pbr_vs_sector": 1.05275215,
+ "ev_ebit_vs_sector": 0.9279153688207455,
+ "per_vs_sector": 0.8794211602209944,
+ "pbr_vs_sector": 1.1092683,
  "price_chg": {
-  "d": 0.35211267605634866,
-  "w": 0.582318687136052,
-  "m": -0.17513134851138146,
-  "3m": 0.7067137809187329,
-  "6m": 12.670488238782362,
-  "9m": 4.991711180696257,
-  "y": 17.091207888249805
+  "d": 1.5041406117965117,
+  "w": 5.776681930257133,
+  "m": 3.1958762886598047,
+  "3m": 6.113074204947,
+  "6m": 13.513513513513509,
+  "9m": 7.827648114901264,
+  "y": 21.99878123095673
  },
- "div_yield": 2.9473684210526314,
- "implied_fcf_growth": -0.0264,
+ "div_yield": 2.797202797202797,
+ "implied_fcf_growth": -0.019,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-15T23:07:56Z"
+  "fetched": "2026-11-17T01:52:04Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -95,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 27.170141469950366
  },
- "_generated_at": "2026-11-15T23:37:02"
+ "_generated_at": "2026-11-17T02:24:20"
 }

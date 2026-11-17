@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 3481.0,
- "price_date": "2026-11-13",
- "mcap": 552836071424,
+ "price": 3405.0,
+ "price_date": "2026-11-17",
+ "mcap": 540766076928,
  "q_score": 91.0,
  "groups": {
   "業績": 85.63339415441192,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 108.5,
+ "bt_score": 108.8,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 109.03731534335955,
+  "ev_ebit_vs_sector": 109.22441330517891,
   "fcf_yield": 110.0,
   "per_cheap": 110.0,
-  "pbr_cheap": 105.1
+  "pbr_cheap": 106.0
  },
- "ev_ebit": 6.793924148766153,
- "fcf_yield": 20.635050044067654,
+ "ev_ebit": 6.710562651877534,
+ "fcf_yield": 21.095628011294217,
  "per_band_pos": 1.0,
- "pbr_band_pos": 0.834892008780453,
- "ev_ebit_vs_sector": 0.5336939629824158,
- "per_vs_sector": 0.2517341517857143,
- "pbr_vs_sector": 0.8294116666666667,
+ "pbr_band_pos": 0.8931842513404596,
+ "ev_ebit_vs_sector": 0.5271455343187379,
+ "per_vs_sector": 0.24623808928571428,
+ "pbr_vs_sector": 0.8113032555555556,
  "price_chg": {
-  "d": -0.826210826210827,
-  "w": -3.224909646927998,
-  "m": -15.958474167069047,
-  "3m": -13.537009438648784,
-  "6m": -12.295288485764678,
-  "9m": -24.424663482414243,
-  "y": 0.14384349827387677
+  "d": -2.5751072961373356,
+  "w": -10.770440251572321,
+  "m": -17.434529582929194,
+  "3m": -16.31850577537478,
+  "6m": -11.947245927075256,
+  "9m": -28.60138393793248,
+  "y": -3.212052302444568
  },
- "div_yield": 4.740017236426315,
- "implied_fcf_growth": -0.1261,
+ "div_yield": 4.845814977973569,
+ "implied_fcf_growth": -0.1296,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-15T22:31:05Z"
+  "fetched": "2026-11-17T01:26:58Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -95,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 23.955539192482338
  },
- "_generated_at": "2026-11-15T23:25:31"
+ "_generated_at": "2026-11-17T02:09:44"
 }
