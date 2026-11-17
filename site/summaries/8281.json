@@ -1,8 +1,8 @@
 {
  "code": "8281",
  "name": "ゼビオホールディングス",
- "asof": "2026-11-15",
- "data_fetched_at": "2026-11-15T22:55:20",
+ "asof": "2026-11-17",
+ "data_fetched_at": "2026-11-17T01:44:15",
  "jp_sector": "小売業",
  "industry": "Specialty Retail",
  "is_simple": false,
@@ -14,11 +14,11 @@
   "basis": "業種",
   "name": "小売業"
  },
- "price": 1088.0,
- "price_date": "2026-11-13",
- "mcap": 45023535104,
+ "price": 1144.0,
+ "price_date": "2026-11-17",
+ "mcap": 47340920832,
  "sel_score": 68.7,
- "tim_score": 78.0,
+ "tim_score": 78.1,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -28,46 +28,46 @@
   "中"
  ],
  "cov_tim": [
-  6,
+  5,
   7,
-  "高"
+  "中"
  ],
  "groups": {
   "業績": 48.0,
   "財務": 108.3,
   "キャッシュフロー": 60.0,
   "配当の持続力": 56.8,
-  "配当利回りセオリー": 91.9,
-  "利回り水準とChowder": 68.0,
-  "株価バリュエーション": 65.0,
-  "金利スプレッド": 76.5
+  "配当利回りセオリー": 72.2,
+  "利回り水準とChowder": 65.1,
+  "株価バリュエーション": 110.0,
+  "金利スプレッド": 72.3
  },
- "div_yield": 3.2169117647058822,
+ "div_yield": 3.0594405594405596,
  "streak_up": 2,
  "streak_flat": 5,
  "payout_ni": null,
  "payout_state": "赤字",
  "payout_fy": "2026年3月期",
- "roe": 0.096000003,
+ "roe": -0.122,
  "div_policy": null,
  "dgr5": 3.131030647754507,
- "chowder": 6.347942412460389,
+ "chowder": 6.190471207195067,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 5.605791189427313,
- "pbr_vs_sector": 0.1880321,
+ "per_vs_sector": null,
+ "pbr_vs_sector": 0.19739066,
  "per_band_pos": null,
- "yield_band_pos": 0.5192329406620694,
+ "yield_band_pos": 0.321923280198135,
  "next_earn": null,
  "earn_disc_date": "2016-01-28",
  "buyback_yen": 262000000.0,
- "total_yield": 3.798829642533124,
+ "total_yield": 3.612872971390818,
  "total_payout": null,
  "interest_coverage": -21.485436893203882,
  "warnings": [
   "⚠ 直近の決算期（2026年3月期）は純損失（赤字）のため、配当性向は算出していません（配当は利益で賄えていません）",
-  "⚠ バリュートラップ注意：PBR 0.38倍（1倍割れ）かつROE -1.8%（5%未満）"
+  "⚠ バリュートラップ注意：PBR 0.39倍（1倍割れ）かつROE -1.8%（5%未満）"
  ],
  "roa": -1.05,
  "leverage": 1.74,
@@ -78,10 +78,24 @@
   },
   {
    "k": "trap",
-   "t": "バリュートラップ注意：PBR 0.38倍（1倍割れ）かつROE -1.8%（5%未満）"
+   "t": "バリュートラップ注意：PBR 0.39倍（1倍割れ）かつROE -1.8%（5%未満）"
   }
  ],
- "review": [],
+ "review": [
+  {
+   "k": "per",
+   "where": "PER（Yahoo表示 133.8倍）",
+   "why": "直近4四半期の純利益（0.3億円）から求めたPERは1527.1倍で、Yahoo表示と0.1倍ずれています。Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
+   "how": "IR BANK（irbank.net/8281/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
+   "keys": [
+    "per_vs_sector",
+    "per_band_pos"
+   ],
+   "names": [
+    "益回り（1÷PER）"
+   ]
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-15T22:55:26"
+ "_generated_at": "2026-11-17T01:44:17"
 }

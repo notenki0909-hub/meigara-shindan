@@ -1,8 +1,8 @@
 {
  "code": "7239",
  "name": "タチエス",
- "asof": "2026-11-15",
- "data_fetched_at": "2026-11-15T22:43:50",
+ "asof": "2026-11-17",
+ "data_fetched_at": "2026-11-17T01:36:31",
  "jp_sector": "輸送用機器",
  "industry": "Auto Parts",
  "is_simple": false,
@@ -14,11 +14,11 @@
   "basis": "業種",
   "name": "輸送用機器"
  },
- "price": 2385.0,
- "price_date": "2026-11-13",
- "mcap": 81854455808,
- "sel_score": 98.2,
- "tim_score": 104.4,
+ "price": 2379.0,
+ "price_date": "2026-11-17",
+ "mcap": 81648533504,
+ "sel_score": 98.7,
+ "tim_score": 106.0,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -28,48 +28,62 @@
   "高"
  ],
  "cov_tim": [
+  4,
   6,
-  6,
-  "高"
+  "中"
  ],
  "groups": {
   "業績": 95.4,
   "財務": 109.1,
   "キャッシュフロー": 102.7,
-  "配当の持続力": 88.6,
+  "配当の持続力": 90.3,
   "配当利回りセオリー": 102.9,
   "利回り水準とChowder": 109.4,
-  "株価バリュエーション": 101.4,
+  "株価バリュエーション": 107.9,
   "金利スプレッド": null
  },
- "div_yield": 4.821802935010482,
+ "div_yield": 4.833963850357293,
  "streak_up": 5,
  "streak_flat": 5,
  "payout_ni": 38.74109877135373,
  "payout_state": null,
  "payout_fy": "2026年3月期",
- "roe": 10.621,
+ "roe": 28.722998,
  "div_policy": null,
  "dgr5": 74.44365938221489,
- "chowder": 79.26546231722537,
+ "chowder": 79.27762323257218,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 46.00409836065574,
- "per_vs_sector": 0.5969795270270271,
- "pbr_vs_sector": 0.8397681111111112,
- "per_band_pos": 0.5020354414377312,
- "yield_band_pos": 0.7143182811069528,
+ "per_vs_sector": null,
+ "pbr_vs_sector": 0.683222,
+ "per_band_pos": null,
+ "yield_band_pos": 0.7163908108439873,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 0.0,
- "total_yield": 4.821802935010482,
+ "total_yield": 4.833963850357293,
  "total_payout": 38.63611917822954,
  "interest_coverage": 35.76701570680628,
  "warnings": [],
  "roa": 5.46,
  "leverage": 1.62,
  "insight_flags": [],
- "review": [],
+ "review": [
+  {
+   "k": "per",
+   "where": "PER（Yahoo表示 8.6倍）",
+   "why": "直近4四半期の純利益（346.6億円）から求めたPERは2.4倍で、Yahoo表示と3.7倍ずれています。Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
+   "how": "IR BANK（irbank.net/7239/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
+   "keys": [
+    "per_vs_sector",
+    "per_band_pos"
+   ],
+   "names": [
+    "益回り（1÷PER）"
+   ]
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-15T22:43:53"
+ "_generated_at": "2026-11-17T01:36:32"
 }
