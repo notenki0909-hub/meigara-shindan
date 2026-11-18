@@ -1,31 +1,31 @@
 {
  "code": "2127",
  "name": "日本Ｍ＆Ａセンターホールディングス",
- "asof": "2026-11-17",
- "data_fetched_at": "2026-11-17T01:13:09",
+ "asof": "2026-11-18",
+ "data_fetched_at": "2026-11-18T00:09:29",
  "jp_sector": "証券・商品先物取引業",
  "industry": "Capital Markets",
  "is_simple": true,
  "is_reit": false,
  "sel_dev": {
-  "dev": 47,
+  "dev": 48,
   "rank": 8,
   "n": 11,
   "basis": "グループ",
   "name": "保険・証券"
  },
- "price": 640.7999877929688,
+ "price": 647.0,
  "price_date": "2026-11-17",
- "mcap": 203367366656,
- "sel_score": 77.5,
+ "mcap": 205335019520,
+ "sel_score": 78.1,
  "tim_score": 94.9,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
  "cov_sel": [
-  4,
   5,
-  "中"
+  5,
+  "高"
  ],
  "cov_tim": [
   6,
@@ -36,34 +36,34 @@
   "業績": null,
   "財務": null,
   "キャッシュフロー": null,
-  "配当の持続力": 77.0,
+  "配当の持続力": 75.3,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 108.4,
+  "利回り水準とChowder": 108.3,
   "株価バリュエーション": 50.0,
   "金利スプレッド": null,
-  "金融品質": 77.7
+  "金融品質": 79.3
  },
- "div_yield": 4.525593094950151,
+ "div_yield": 4.482225656877898,
  "streak_up": 0,
  "streak_flat": 7,
- "payout_ni": null,
+ "payout_ni": 73.6788617886179,
  "payout_state": null,
- "payout_fy": null,
+ "payout_fy": "2026年3月期",
  "roe": 25.298,
  "div_policy": null,
  "dgr5": 17.4061722440779,
- "chowder": 21.93176533902805,
+ "chowder": 21.8883979009558,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 60.395194643208825,
- "per_vs_sector": 1.4772191891891893,
- "pbr_vs_sector": 3.0619764615384613,
+ "per_vs_sector": 1.5007283783783785,
+ "pbr_vs_sector": 3.0916023076923076,
  "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": "2027-01-29",
  "earn_disc_date": "2026-01-29",
  "buyback_yen": 0.0,
- "total_yield": 4.525593094950151,
+ "total_yield": 4.482225656877898,
  "total_payout": 73.67662368863618,
  "interest_coverage": 362.6981132075472,
  "warnings": [
@@ -72,19 +72,7 @@
  "roa": 18.86,
  "leverage": 1.32,
  "insight_flags": [],
- "review": [
-  {
-   "k": "eps",
-   "where": "EPS（1株利益）の推移",
-   "why": "【確認済み】Yahoo 34.54円（前期の値）に対し、決算短信（2026年3月期）のEPSは39.36円（2026-11-12）。最新期の1株利益が前の年と同じ値（更新遅れの疑い）。EPSの成長率が正しく計算できないため、採点から外しています",
-   "how": "IR BANK・決算短信で確認済み。Yahooの値が直るまで「―」のままにします（直ったかは夜間更新で自動判定）",
-   "keys": [
-    "eps_cagr"
-   ],
-   "names": [],
-   "confirmed": "error"
-  }
- ],
+ "review": [],
  "kind": "fin",
- "_generated_at": "2026-11-17T01:13:11"
+ "_generated_at": "2026-11-18T00:09:32"
 }

@@ -1,8 +1,8 @@
 {
  "code": "9956",
  "name": "バローホールディングス",
- "asof": "2026-11-17",
- "data_fetched_at": "2026-11-17T01:56:57",
+ "asof": "2026-11-18",
+ "data_fetched_at": "2026-11-18T00:58:14",
  "jp_sector": "小売業",
  "industry": "Department Stores",
  "is_simple": false,
@@ -14,21 +14,21 @@
   "basis": "業種",
   "name": "小売業"
  },
- "price": 1670.0,
- "price_date": "2026-11-17",
- "mcap": 193989165056,
+ "price": 1620.0,
+ "price_date": "2026-11-18",
+ "mcap": 188181102592,
  "sel_score": 98.3,
- "tim_score": 79.5,
+ "tim_score": 70.0,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "選定・買い時とも上位水準。",
+ "tim_label": "買い時スコア中位（妥当水準）",
+ "comment": "選定は上位水準、買い時は中位（妥当水準）。",
  "cov_sel": [
   16,
   16,
   "高"
  ],
  "cov_tim": [
-  6,
+  7,
   7,
   "高"
  ],
@@ -37,12 +37,12 @@
   "財務": 97.3,
   "キャッシュフロー": 103.3,
   "配当の持続力": 102.2,
-  "配当利回りセオリー": 80.2,
-  "利回り水準とChowder": 71.8,
-  "株価バリュエーション": 109.8,
-  "金利スプレッド": 54.5
+  "配当利回りセオリー": 67.1,
+  "利回り水準とChowder": 73.1,
+  "株価バリュエーション": 83.7,
+  "金利スプレッド": 56.5
  },
- "div_yield": 2.3952095808383236,
+ "div_yield": 2.4691358024691357,
  "streak_up": 16,
  "streak_flat": 19,
  "payout_ni": 23.656532719542213,
@@ -51,36 +51,25 @@
  "roe": 8.847999600000001,
  "div_policy": null,
  "dgr5": 6.903314366952773,
- "chowder": 9.298523947791097,
+ "chowder": 9.372450169421908,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 40.74112626210055,
- "per_vs_sector": 0.46106973568281945,
- "pbr_vs_sector": null,
- "per_band_pos": 0.9827386404083137,
- "yield_band_pos": 0.4024386099887682,
+ "per_vs_sector": 0.9193048898678413,
+ "pbr_vs_sector": 0.448747,
+ "per_band_pos": 0.0,
+ "yield_band_pos": 0.27108977089796155,
  "next_earn": "2027-02-12",
  "earn_disc_date": null,
  "buyback_yen": 0.0,
- "total_yield": 2.3952095808383236,
+ "total_yield": 2.4691358024691357,
  "total_payout": 23.755765962612287,
  "interest_coverage": 19.0625,
  "warnings": [],
  "roa": 3.2,
  "leverage": 2.78,
  "insight_flags": [],
- "review": [
-  {
-   "k": "pbr",
-   "where": "PBR（Yahoo表示 0.03倍）",
-   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは0.93倍で、Yahoo表示と26.50倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
-   "how": "IR BANK（irbank.net/9956/results）の1株純資産（BPS）で、株価÷BPSを計算して確認",
-   "keys": [
-    "pbr_vs_sector"
-   ],
-   "names": []
-  }
- ],
+ "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-17T01:57:02"
+ "_generated_at": "2026-11-18T00:58:18"
 }
