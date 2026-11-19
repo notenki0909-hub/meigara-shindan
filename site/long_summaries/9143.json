@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 1601.5,
- "price_date": "2026-11-18",
- "mcap": 955679899648,
+ "price": 1615.0,
+ "price_date": "2026-11-19",
+ "mcap": 963735846912,
  "q_score": 88.0,
  "groups": {
   "業績": 63.35002794686189,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 80.2,
+ "bt_score": 78.6,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 105.4706046932966,
-  "fcf_yield": 77.10559224565446,
-  "per_cheap": 65.3,
-  "pbr_cheap": 72.9
+  "ev_ebit_vs_sector": 105.17752878008578,
+  "fcf_yield": 76.62824190003379,
+  "per_cheap": 60.6,
+  "pbr_cheap": 72.0
  },
- "ev_ebit": 13.888373145643117,
- "fcf_yield": 4.282919418424084,
- "per_band_pos": 0.17874258309316132,
- "pbr_band_pos": 0.7290254331243402,
- "ev_ebit_vs_sector": 0.6585288357346191,
- "per_vs_sector": 1.120790616438356,
- "pbr_vs_sector": 1.5737414545454544,
+ "ev_ebit": 13.977637697367255,
+ "fcf_yield": 4.247118142502534,
+ "per_band_pos": 0.12753574439296206,
+ "pbr_band_pos": 0.7056877125591811,
+ "ev_ebit_vs_sector": 0.6687864926969979,
+ "per_vs_sector": 1.147235479452055,
+ "pbr_vs_sector": 1.5870074545454544,
  "price_chg": {
-  "d": -0.8972772277227703,
-  "w": 0.9454774661203924,
-  "m": 7.26724715338245,
-  "3m": -2.5851581508515853,
-  "6m": 10.90720221606649,
-  "9m": 3.9935064935064934,
-  "y": 12.11060553027652
+  "d": 1.000625390869292,
+  "w": 0.6230529595015577,
+  "m": 8.280254777070063,
+  "3m": -1.011339258351207,
+  "6m": 12.191733240708569,
+  "9m": 9.380291229258386,
+  "y": 14.539007092198574
  },
- "div_yield": 3.3718389010302845,
- "implied_fcf_growth": 0.0982,
+ "div_yield": 3.343653250773994,
+ "implied_fcf_growth": 0.0993,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-18T00:52:15Z"
+  "fetched": "2026-11-19T00:26:35Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -95,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 78.38801886100998
  },
- "_generated_at": "2026-11-18T01:17:34"
+ "_generated_at": "2026-11-19T00:53:24"
 }

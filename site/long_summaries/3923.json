@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 1051.5,
- "price_date": "2026-11-18",
- "mcap": 372354646016,
+ "price": 1009.0,
+ "price_date": "2026-11-19",
+ "mcap": 357304664064,
  "q_score": 108.6,
  "groups": {
   "業績": 110.0,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 59.7,
+ "bt_score": 61.5,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 50.441797810752774,
-  "fcf_yield": 64.19442640523113,
-  "per_cheap": 104.1,
+  "ev_ebit_vs_sector": 55.899214823870174,
+  "fcf_yield": 66.05593392716649,
+  "per_cheap": 103.9,
   "pbr_cheap": 20.0
  },
- "ev_ebit": 20.666511733410204,
- "fcf_yield": 3.3145819803923344,
+ "ev_ebit": 19.798827562063995,
+ "fcf_yield": 3.4541950445374865,
  "per_band_pos": null,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 1.283634269155913,
- "per_vs_sector": 0.8487060220994475,
- "pbr_vs_sector": 4.166733,
+ "ev_ebit_vs_sector": 1.2358818702911358,
+ "per_vs_sector": 0.8529047513812154,
+ "pbr_vs_sector": 3.99822475,
  "price_chg": {
-  "d": -4.755434782608692,
-  "w": -8.085664335664333,
-  "m": -7.843996494303241,
-  "3m": -10.510638297872344,
-  "6m": 29.814814814814806,
-  "9m": 33.16869712663233,
-  "y": -14.927184466019416
+  "d": -1.029916625796956,
+  "w": -9.303370786516851,
+  "m": -9.668755595344669,
+  "3m": -8.272727272727277,
+  "6m": 21.215758097826654,
+  "9m": 25.983264982190903,
+  "y": -16.85208075813762
  },
- "div_yield": 0.7608178792201616,
- "implied_fcf_growth": 0.133,
+ "div_yield": 0.7928642220019821,
+ "implied_fcf_growth": 0.1274,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -67,13 +67,13 @@
   {
    "tier": "check",
    "k": "pbr",
-   "where": "PBR（Yahoo表示 8.33倍）",
-   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは14.30倍で、Yahoo表示と1.72倍ずれています。ただし、照合ではYahoo側のPBRが正しい場合が多くありました（株式数のデータのずれなど）",
+   "where": "PBR（Yahoo表示 8.00倍）",
+   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは13.72倍で、Yahoo表示と1.72倍ずれています。ただし、照合ではYahoo側のPBRが正しい場合が多くありました（株式数のデータのずれなど）",
    "how": "IR BANK（irbank.net/3923/results）の1株純資産（BPS）で、株価÷BPSを計算して確認する"
   }
  ],
  "data_asof": {
-  "fetched": "2026-11-18T01:05:11Z"
+  "fetched": "2026-11-19T00:38:37Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -104,5 +104,5 @@
   "fcf_positive": 1,
   "fcf_payout": 6.603467833414357
  },
- "_generated_at": "2026-11-18T01:05:12"
+ "_generated_at": "2026-11-19T00:38:39"
 }

@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 73510.0,
- "price_date": "2026-11-18",
- "mcap": 17828012883968,
+ "price": 14645.0,
+ "price_date": "2026-11-19",
+ "mcap": 3551778570240,
  "q_score": 106.8,
  "groups": {
   "業績": 105.56392261362618,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 51.8,
+ "bt_score": 101.9,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 50.08815415891769,
-  "per_cheap": 74.3,
-  "pbr_cheap": 62.7
+  "ev_ebit_vs_sector": 110.0,
+  "fcf_yield": 110.0,
+  "per_cheap": 77.7,
+  "pbr_cheap": 110.0
  },
- "ev_ebit": 28.92283101718648,
- "fcf_yield": 2.256611561918827,
+ "ev_ebit": 4.959727960870083,
+ "fcf_yield": 11.3269730092666,
  "per_band_pos": 1.0,
- "pbr_band_pos": 0.8154860507509802,
- "ev_ebit_vs_sector": 1.627621329048198,
- "per_vs_sector": 1.3334578313253012,
- "pbr_vs_sector": 2.0921452173913044,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 0.27296246344909647,
+ "per_vs_sector": 1.2916779116465864,
+ "pbr_vs_sector": 0.41680675652173915,
  "price_chg": {
-  "d": 1.3791201213625648,
-  "w": -2.9186476492340185,
-  "m": -9.70396757155141,
-  "3m": -16.141911932466346,
-  "6m": -4.755117906193318,
-  "9m": 38.02102891475778,
-  "y": 30.060155697098367
+  "d": -0.5230267626681107,
+  "w": -80.48114087698254,
+  "m": -81.89964157706093,
+  "3m": -83.11815561959655,
+  "6m": -80.93843550696343,
+  "9m": -73.52675343456254,
+  "y": -73.95055140519389
  },
- "div_yield": 0.8162154808869542,
- "implied_fcf_growth": 0.1854,
+ "div_yield": 4.096961420279959,
+ "implied_fcf_growth": -0.0363,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -63,8 +63,17 @@
    "shares_chg_pct": -0.0003467669774659399
   }
  },
+ "data_notice": [
+  {
+   "tier": "check",
+   "k": "per",
+   "where": "PER（Yahoo表示 32.2倍）",
+   "why": "直近4四半期の純利益（5,439.0億円）から求めたPERは6.5倍で、Yahoo表示と4.9倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
+   "how": "IR BANK（irbank.net/6861/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する"
+  }
+ ],
  "data_asof": {
-  "fetched": "2026-11-18T01:12:32Z"
+  "fetched": "2026-11-19T00:47:23Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -95,5 +104,5 @@
   "fcf_positive": 1,
   "fcf_payout": 27.127407042845174
  },
- "_generated_at": "2026-11-18T01:12:34"
+ "_generated_at": "2026-11-19T00:47:25"
 }
