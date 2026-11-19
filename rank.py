@@ -1197,7 +1197,7 @@ body.wlon{{padding-bottom:60px}}
 </details>
 <details id="csvbk">
   <summary><h2>バックアップ（CSV）</h2></summary>
-  <p>「詳しい条件で絞り込む」の条件（URL）、ウォッチリスト（「あなたの銘柄リスト」の全てと、タブ・セクションを含む「全タブの控え」）、ポートフォリオの保有記録（「保有記録の保存・共有」の文字列）と、保有銘柄のセクション（分け方）を、<b>1つのCSV</b>にまとめて書き出します。ファイル名は「配当株（日株）日付.csv」です。</p>
+  <p>「詳しい条件で絞り込む」の条件（URL）、ウォッチリスト（「あなたの銘柄リスト」の全てと、タブ・セクションを含む「全タブの控え」）、ポートフォリオの保有記録（「保有記録の保存・共有」の文字列）と、保有銘柄のセクション（分け方・目標）、リバランスの設定を、<b>1つのCSV</b>にまとめて書き出します。ファイル名は「配当株（日株）日付.csv」です。</p>
   <div class="codewrap">
     <button type="button" id="bk-export">CSVで書き出す</button>
     <button type="button" id="bk-import" class="ghost">CSVを読み込んで復元</button>
@@ -1831,10 +1831,10 @@ body.wlon{{padding-bottom:60px}}
   var SFX = '', MARKET = '配当株（日株）';
   var $ = function(id){{ return document.getElementById(id); }};
   var K = {{filters: 'pp_filters' + SFX, wl: 'wl_codes' + SFX, tabs: 'wl_tabs' + SFX, secs: 'wl_secs' + SFX,
-           sel: 'wl_tabsel' + SFX, pf: 'pf_lots' + SFX, pfsecs: 'pf_secs' + SFX}};
+           sel: 'wl_tabsel' + SFX, pf: 'pf_lots' + SFX, pfsecs: 'pf_secs' + SFX, pfrb: 'pf_rb' + SFX}};
   var L = {{tool: 'ツール', date: 'バックアップ日', fmt: '形式',
            filters: '詳しい条件で絞り込むのURL', all: 'あなたの銘柄リスト（全て）', tabs: '全タブの控え',
-           pf: '保有記録の保存・共有', pfsecs: '保有銘柄のセクション'}};
+           pf: '保有記録の保存・共有', pfsecs: '保有銘柄のセクション', pfrb: 'リバランス設定'}};
   function lsGet(k){{ try {{ return localStorage.getItem(k); }} catch(e) {{ return null; }} }}
   function lsSet(k, v){{
     try {{ if (v === '' || v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); }} catch(e) {{}}
@@ -1879,14 +1879,15 @@ body.wlon{{padding-bottom:60px}}
     tabs.forEach(function(t){{ codes.push(t.codes || []); }});
     Object.keys(secs).forEach(function(k){{ (secs[k] || []).forEach(function(s){{ codes.push(s.codes || []); }}); }});
     var pfs = jparse(lsGet(K.pfsecs), []); if (!Array.isArray(pfs)) pfs = [];
-    var pfsOut = pfs.map(function(s){{ return {{n: String((s && s.name) || ''), c: ((s && s.codes) || []).join(',')}}; }});
+    var pfsOut = pfs.map(function(s){{ return {{n: String((s && s.name) || ''), c: ((s && s.codes) || []).join(','), t: s && s.t, m: s && s.m, w: s && s.w, a: ((s && s.a) || []).join(',') || undefined}}; }});
     var master = union.apply(null, codes);
     return {{
       filters: base + (qs ? '?' + qs : ''),
       all: master.join(','),
       json: JSON.stringify({{v: 2, all: master.join(','), as: secsOut('all'), tabs: tabsOut}}),
       pf: lsGet(K.pf) || '',
-      pfs: pfsOut.length ? JSON.stringify(pfsOut) : ''
+      pfs: pfsOut.length ? JSON.stringify(pfsOut) : '',
+      rb: lsGet(K.pfrb) || ''
     }};
   }}
   function buildCsv(now){{
@@ -1900,7 +1901,8 @@ body.wlon{{padding-bottom:60px}}
       ['ウォッチリスト', L.all, c.all],
       ['ウォッチリスト', L.tabs, c.json],
       ['ポートフォリオ', L.pf, c.pf],
-      ['ポートフォリオ', L.pfsecs, c.pfs]
+      ['ポートフォリオ', L.pfsecs, c.pfs],
+      ['ポートフォリオ', L.pfrb, c.rb]
     ];
     return '﻿' + rows.map(function(r){{ return r.map(cell).join(','); }}).join('\\r\\n') + '\\r\\n';
   }}
@@ -1991,11 +1993,17 @@ body.wlon{{padding-bottom:60px}}
     if (L.pfsecs in v) {{   // 古いCSV（この行が無い）のときは、いまのセクションをそのまま残す
       var pa = jparse(v[L.pfsecs], []);
       var ps = (Array.isArray(pa) ? pa : []).map(function(x){{
-        return {{id: newId(), name: String((x && x.n) || '').replace(/\\s+/g, ' ').trim().slice(0, 40) || 'セクション', codes: splitCodes(x && x.c)}};
+        var o = {{id: newId(), name: String((x && x.n) || '').replace(/\\s+/g, ' ').trim().slice(0, 40) || 'セクション', codes: splitCodes(x && x.c)}};
+        if (x && typeof x.t === 'number' && x.t >= 0) o.t = x.t;
+        if (x && (x.m === 'cur' || x.m === 'set')) o.m = x.m;
+        if (x && x.w && typeof x.w === 'object') {{ o.w = {{}}; Object.keys(x.w).forEach(function(k){{ if (typeof x.w[k] === 'number' && x.w[k] >= 0) o.w[k.toUpperCase()] = x.w[k]; }}); }}
+        var aa = splitCodes(x && x.a); if (aa.length) o.a = aa;
+        return o;
       }});
       lsSet(K.pfsecs, ps.length ? JSON.stringify(ps) : '');
       done.push('保有銘柄のセクション');
     }}
+    if (L.pfrb in v) {{ lsSet(K.pfrb, v[L.pfrb]); done.push('リバランス設定'); }}
     alert('復元しました：' + (done.join('、') || '（対象なし）') + '\\nページを開き直します。');
     location.href = location.pathname;
   }}
