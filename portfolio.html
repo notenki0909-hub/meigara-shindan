@@ -2353,7 +2353,7 @@ details.box[open]>summary{margin-bottom:8px}
   //     sell ＝売却のみ（許容幅を超えて多い銘柄を、目標金額まで売る。代金は現金として残る）
   //     both ＝売却＋買い増し（売却の代金と新規資金を、不足している銘柄に配分）
   //   unit : 売買単位（日本株：単元＝100、単元未満＝1）。売れる株数は単位の倍数まで（端数は残る）
-  // 売る口座の選び方（nisaPolicy）：auto＝税が最小になる順（含み損の口座→NISA→含み益の小さい口座）、keep＝NISAは売らない、first＝NISAを先に売る。
+  // 売る口座の選び方（nisaPolicy）：plain＝税を考えず、特定口座→一般口座→NISA口座の順、auto＝税が最小になる順（含み損の口座→NISA→含み益の小さい口座）、keep＝NISAは売らない、first＝NISAを先に売る。
   // 税：特定口座・一般口座の譲渡損益を通算（netting）し、今年の確定済み譲渡損益と繰越損失を加味した、税額の増減を概算する。NISAは非課税で、損益通算の対象外。
   var RB_TAX = 0.20315;   // 課税口座の譲渡益にかかる税率（概算）
   function rbPlan(items, opt){
@@ -2406,6 +2406,7 @@ details.box[open]>summary{margin-bottom:8px}
         var keys = Object.keys(r.accts).filter(function(k){ return r.accts[k].sellable > 0; });
         var tax1 = function(k){ var g = r.price - r.accts[k].avg; return k === 'n' ? 0 : (netting ? g : Math.max(0, g)); };
         keys.sort(function(a, b){
+          if (policy === 'plain') { var po = {t: 0, i: 1, n: 2}; return po[a] - po[b]; }   // 税を考えない順：特定口座→一般口座→NISA口座
           if (policy === 'first') { var an = a === 'n' ? 0 : 1, bn = b === 'n' ? 0 : 1; if (an !== bn) return an - bn; }
           var d = tax1(a) - tax1(b);
           if (Math.abs(d) > 1e-12) return d;
@@ -2679,20 +2680,11 @@ details.box[open]>summary{margin-bottom:8px}
     el.innerHTML = top + '<div class="rbscroll">' + head + rows + '</tbody></table></div>' + notes;
   }
 
-  function autoYearReal(){
-    // 今年（暦年）に、特定口座・一般口座で売却して確定した譲渡損益の合計（記録した売却から計算。NISAは対象外）
-    var y = String(new Date().getFullYear());
-    return lots.reduce(function(a, l){
-      return a + ((l.type === 's' && acctOf(l) !== 'n' && String(l.date).slice(0, 4) === y && typeof l.realized === 'number') ? l.realized : 0);
-    }, 0);
-  }
   function rbOpt(){
-    // 手数料は0円、売る口座は「税が最小になる順」、損益通算あり、今年の確定済み譲渡損益は記録から自動、繰越損失は0円で計算する
+    // 手数料・税金は考慮しない（計算に入れない）。売る口座は、税を考えず 特定口座→一般口座→NISA口座 の順にする
     return {mode: rb.mode, cash: rb.cash, unit: rb.unit, bandType: rb.bandType, bandVal: rb.bandVal, minTrade: rb.minTrade,
-            fee: {rate: 0, min: 0, max: 0}, oddRate: 0, nisaPolicy: 'auto', netting: true,
-            yearReal: autoYearReal(), carry: 0, buyAcct: 't', nisaFrame: 0};
+            fee: {rate: 0, min: 0, max: 0}, oddRate: 0, nisaPolicy: 'plain', netting: true, yearReal: 0, carry: 0, buyAcct: 't', nisaFrame: 0};
   }
-  function signedYen(v){ return (v >= 0 ? '+' : '−') + yen(Math.abs(v)); }
   function acctTag(k){ return '<span class="lottag acct ' + k + '">' + ACCT_NAME[k] + '</span>'; }
 
   function drawRbResult(M){
@@ -2723,43 +2715,38 @@ details.box[open]>summary{margin-bottom:8px}
       return (b.sell * b.price + b.buy * b.price) - (a.sell * a.price + a.buy * a.price);
     });
     var fr = rb.unit === 100 ? '単元（100株）' : '単元未満（1株）';
-    var td = plan.taxDetail;
-    lastRbCtx = {plan: plan, trades: trades, byCode: byCode, td: td, fr: fr};
+    lastRbCtx = {plan: plan, trades: trades, byCode: byCode, fr: fr};
     var card = function(key, label, val){
       var on = (openRbHelp === key);
       return '<div class="rbcard' + (on ? ' on' : '') + '" data-rbhelp="' + key + '" tabindex="0" role="button" aria-expanded="' + (on ? 'true' : 'false') + '"><span>' + label + '</span><b>' + val + '</b></div>';
     };
+    if (openRbHelp === 'cash' && rb.mode === 'sell') openRbHelp = null;
+    if (openRbHelp && !RB_HELP[openRbHelp]) openRbHelp = null;
     var html = '<div class="rbsumm">'
       + card('sell', '売却の合計', yen(plan.sellTotal))
       + card('buy', '買い付けの合計', yen(plan.buyTotal))
       + (rb.mode === 'sell' ? '' : card('cash', '新規資金', yen(plan.cash)))
-      + card('fee', '手数料の合計', yen(plan.fee))
       + card('left', '余りの現金', yen(plan.leftover))
-      + card('tax', '売却益の税の増減（概算）', signedYen(td.delta))
       + card('dev', '最大のずれ（銘柄・全体比）', f1(plan.devBefore * 100) + 'pt → ' + f1(plan.devAfter * 100) + 'pt')
-      + '</div><div class="stathelp" id="rbhelp"' + (openRbHelp && !(openRbHelp === 'cash' && rb.mode === 'sell') ? '' : ' hidden') + '></div>';
+      + '</div><div class="stathelp" id="rbhelp"' + (openRbHelp ? '' : ' hidden') + '></div>';
     if (!trades.length) {
-      var why = msgs.length ? msgs.join(' ') : (rb.mode === 'buy' ? '買い付けできる銘柄がありません（資金が1単位に満たない、または最小売買額・手数料のため買えない）。'
-        : '許容幅を超えて多い銘柄がない（または売る株数が1単位に満たない・売れる口座がない）ため、売却はありません。');
+      var why = msgs.length ? msgs.join(' ') : (rb.mode === 'buy' ? '買い付けできる銘柄がありません（資金が1単位に満たない、または最小売買額に届かない）。'
+        : '許容幅を超えて多い銘柄がない（または売る株数が1単位に満たない）ため、売却はありません。');
       html += '<div class="empty">売買案はありません。' + escH(why) + '</div>';
     } else {
       html += '<div class="rbscroll"><table><thead><tr><th>売買</th><th>口座</th><th>銘柄</th><th class="n">株数</th><th class="n">現在値</th><th class="n">概算金額</th>'
-        + '<th class="n">手数料</th><th class="n">売却益・損（概算）</th><th class="n">売買後の株数</th><th class="n">売買後の比率（目標）</th></tr></thead><tbody>';
+        + '<th class="n">売買後の株数</th><th class="n">売買後の比率（目標）</th></tr></thead><tbody>';
       trades.forEach(function(r){
         var a = byCode[r.code];
         var sells = r.sellFrags.length > 0;
         var frags = sells ? r.sellFrags : r.buyFrags;
         frags.forEach(function(f, fi){
-          var gainTxt = '';
-          if (sells) gainTxt = (f.acct === 'n') ? '<span class="skn">非課税</span>' : '<b class="' + (f.gain >= 0 ? 'pos' : 'neg') + '">' + signedYen(f.gain) + '</b>';
           html += '<tr class="' + (sells ? 'txsellr' : 'txbuyr') + '"><td><span class="lottag ' + (sells ? 'sl' : 'by') + '">' + (sells ? '売り' : '買い') + '</span></td>'
             + '<td>' + acctTag(f.acct) + '</td>'
             + '<td>' + (fi === 0 ? '<span class="code">' + escH(r.code) + '</span> ' + escH(a.x.name) + (a.x.held ? '' : ' <span class="chip cand">新規</span>') : '〃') + '</td>'
             + '<td class="n"><b>' + f.shares.toLocaleString('ja-JP') + '株</b></td>'
             + '<td class="n">' + yen(r.price) + '</td>'
             + '<td class="n">' + yen(f.amount) + '</td>'
-            + '<td class="n">' + (f.fee > 0 ? yen(f.fee) : '―') + '</td>'
-            + '<td class="n">' + gainTxt + '</td>'
             + (fi === 0 ? '<td class="n" rowspan="' + frags.length + '">' + r.shares.toLocaleString('ja-JP') + ' → ' + r.after.toLocaleString('ja-JP') + '株</td>'
               + '<td class="n" rowspan="' + frags.length + '">' + f1(r.wAfter * 100) + '%（' + f1(r.t * 100) + '%）</td>' : '')
             + '</tr>';
@@ -2786,9 +2773,7 @@ details.box[open]>summary{margin-bottom:8px}
     if (short.length) notes.push('売りたい株数に対して、売れる株数が足りない銘柄があります：' + short.map(function(r){ return r.code; }).join('、') + '（売却できない端数、または口座の制限のため）。');
     if (odd.length) notes.push('端数（単元未満）の株は、単元モードでは売却対象外です：' + odd.map(function(r){
       return r.code + '（' + Object.keys(r.accts).filter(function(k){ return r.accts[k].shares % rb.unit !== 0; }).map(function(k){ return ACCT_NAME[k] + '口座の端数' + (r.accts[k].shares % rb.unit) + '株'; }).join('・') + '）'; }).join('、'));
-    if (td.nisaSold > 0) notes.push('NISA口座の株を売ると、その分の非課税枠は、売却した年は戻らず、翌年以降に再利用できます（制度の最新の内容は、証券会社・金融庁でご確認ください）。');
-    notes.push('売買単位：' + fr + '。計算はランキングの現在値で行い、実際の約定価格・手数料・スプレッド（単元未満株は証券会社により大きく異なります）は考慮しません（手数料は0円として計算します）。');
-    notes.push('売却益の税は、各口座の平均取得単価との差に20.315%をかけた概算です（上のカードをクリックすると内訳が出ます）。配当との損益通算・住民税の扱い・年をまたぐ繰越控除の手続きは考慮しません。税務は、証券会社の取引報告書・税理士・税務署でご確認ください。');
+    notes.push('売買単位：' + fr + '。計算はランキングの現在値で行います。実際の約定価格・手数料・スプレッド・税金は考慮しません（計算に入れていません）。');
     notes.push('これは、入力した目標比率に近づけるための参考計算です。投資の助言ではありません。');
     html += '<p class="note">' + notes.map(escH).join('<br>') + '</p>';
     el.innerHTML = html;
@@ -2797,14 +2782,14 @@ details.box[open]>summary{margin-bottom:8px}
 
   // ---- 売買案のカード：クリックで説明（いまの数字を使った計算つき。上の「サマリー」と同じ操作）----
   var lastRbCtx = null, openRbHelp = null;
+  // 銘柄ごとの売り・買いの内訳（口座は分けず、銘柄ごとに合計）
   function rbLines(ctx, side){
     var out = [];
     ctx.plan.rows.forEach(function(r){
-      var frs = side === 'sell' ? r.sellFrags : r.buyFrags;
+      var sh = side === 'sell' ? r.sell : r.buy;
+      if (!(sh > 0)) return;
       var a = ctx.byCode[r.code];
-      frs.forEach(function(f){
-        out.push(escH(r.code + ' ' + ((a && a.x.name) || '')) + '：' + f.shares.toLocaleString('ja-JP') + '株 × ' + yen(r.price) + ' = ' + yen(f.amount) + '（' + ACCT_LONG[f.acct] + '）');
-      });
+      out.push(escH(r.code + ' ' + ((a && a.x.name) || '')) + '：' + sh.toLocaleString('ja-JP') + '株 × ' + yen(r.price) + ' = ' + yen(sh * r.price));
     });
     return out;
   }
@@ -2819,14 +2804,14 @@ details.box[open]>summary{margin-bottom:8px}
   var RB_HELP = {
     sell: {
       t: '売却の合計',
-      body: function(){ return '<p>この案で<strong>売る株の代金の合計</strong>です（手数料・税を引く前）。許容幅を超えて目標より多くなっている銘柄を、目標の金額まで売ります。</p>'
-        + '<p>売る口座は、<strong>税が最小になる順</strong>に選びます（含み損のある口座→NISA→含み益の小さい口座）。「買い増しのみ」の方式では、売らないので0円です。</p>'; },
+      body: function(){ return '<p>この案で<strong>売る株の代金の合計</strong>です。許容幅を超えて目標より多くなっている銘柄を、目標の金額まで売ります。</p>'
+        + '<p>「買い増しのみ」の方式では、売らないので0円です。手数料・税金は考慮しません。</p>'; },
       calc: function(c){ var l = rbLines(c, 'sell'); return l.length ? (l.join('<br>') + '<br>合計：' + yen(c.plan.sellTotal)) : '売却はありません。'; }
     },
     buy: {
       t: '買い付けの合計',
-      body: function(){ return '<p>この案で<strong>買う株の代金の合計</strong>です（手数料を除く）。売却の代金と新規資金を、目標より不足している銘柄から順に配分します。</p>'
-        + '<p>売買は単位（100株または1株）に丸めるため、使える資金にちょうどは合いません。端数は「余りの現金」になります。</p>'; },
+      body: function(){ return '<p>この案で<strong>買う株の代金の合計</strong>です。売却の代金と新規資金を、目標より不足している銘柄から順に配分します。</p>'
+        + '<p>売買は単位（100株または1株）に丸めるため、使える資金にちょうどは合いません。端数は「余りの現金」になります。手数料・税金は考慮しません。</p>'; },
       calc: function(c){ var l = rbLines(c, 'buy'); return l.length ? (l.join('<br>') + '<br>合計：' + yen(c.plan.buyTotal)) : '買い付けはありません。'; }
     },
     cash: {
@@ -2835,31 +2820,11 @@ details.box[open]>summary{margin-bottom:8px}
         + '<p>「売却のみ」では使いません（売却代金は現金として残ります）。</p>'; },
       calc: function(c){ return '新規資金：' + yen(c.plan.cash); }
     },
-    fee: {
-      t: '手数料の合計',
-      body: function(){ return '<p>売買にかかる手数料の概算です。この画面では、<strong>手数料を0円として計算</strong>しています。</p>'
-        + '<p>実際の売買では、証券会社の手数料や、単元未満株のスプレッド（買値と売値の差）がかかります。その分、余りの現金は減り、買える株数も少なくなります。</p>'; },
-      calc: function(c){ return '手数料の合計：' + yen(c.plan.fee); }
-    },
     left: {
       t: '余りの現金',
-      body: function(){ return '<p><strong>新規資金 ＋ 売却代金 − 買い付け − 手数料</strong>です。売買を単位（100株・1株）に丸めるため、端数の現金が残ります。</p>'
-        + '<p>「売却のみ」では、売却代金がそのまま現金として残ります。</p>'; },
-      calc: function(c){ var p = c.plan; return '新規資金 ' + yen(p.cash) + ' ＋ 売却代金 ' + yen(p.sellTotal) + ' − 買い付け ' + yen(p.buyTotal) + ' − 手数料 ' + yen(p.fee) + ' = ' + yen(p.leftover); }
-    },
-    tax: {
-      t: '売却益の税の増減（概算）',
-      body: function(){ return '<p>この売却で、<strong>増える（＋）または減る（−）税金の概算</strong>です。特定口座・一般口座の売却益と売却損を相殺（損益通算）し、今年すでに確定した譲渡損益（記録した売却から自動計算）を加えて、税率20.315%をかけます。繰越損失は0円として計算します。</p>'
-        + '<p><strong>NISA口座の売却は非課税</strong>で、損益通算の対象外です。含み損の口座から売ると、売却損が今年の売却益と相殺されて、税が減ることがあります。</p>'
-        + '<p>配当との損益通算・住民税・手続きは考慮しない参考値です。税務は、証券会社の取引報告書・税理士・税務署でご確認ください。</p>'; },
-      calc: function(c){
-        var td = c.td, o = [];
-        o.push('特定・一般口座の売却：売却益 ' + yen(td.gain) + '、売却損 ' + yen(td.loss) + '（損益通算後：' + signedYen(td.planned) + '）');
-        o.push('今年の確定済み譲渡損益 ' + signedYen(td.yearReal) + '（記録した売却から自動計算）、繰越損失 ' + yen(td.carry));
-        o.push('税（概算）：売却前 ' + yen(td.before) + ' → 売却後 ' + yen(td.after) + '　＝　増減 ' + signedYen(td.delta));
-        if (td.nisaSold > 0) o.push('NISA口座の売却 ' + yen(td.nisaSold) + '（非課税。損益通算の対象外）');
-        return o.join('<br>');
-      }
+      body: function(){ return '<p><strong>新規資金 ＋ 売却代金 − 買い付け</strong>です。売買を単位（100株・1株）に丸めるため、端数の現金が残ります。</p>'
+        + '<p>「売却のみ」では、売却代金がそのまま現金として残ります。手数料・税金は考慮しません。</p>'; },
+      calc: function(c){ var p = c.plan; return '新規資金 ' + yen(p.cash) + ' ＋ 売却代金 ' + yen(p.sellTotal) + ' − 買い付け ' + yen(p.buyTotal) + ' = ' + yen(p.leftover); }
     },
     dev: {
       t: '最大のずれ（銘柄・全体比）',
