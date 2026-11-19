@@ -216,6 +216,7 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 #rbtable td.nm{white-space:normal;min-width:13em}
 #rbtable td.n,#rbtable td.sub .code{white-space:nowrap}
 #rbtable td.n{min-width:3.5em}
+.eff{font-size:10.5px;color:var(--muted);font-weight:400}
 #rbtable tr.secrow td{background:var(--field);font-weight:600;border-top:2px solid var(--line)}
 #rbtable td.sub{padding-left:22px;font-weight:400}
 #rbtable .code,#rbresult .code{color:var(--accent);font-variant-numeric:tabular-nums}
@@ -2456,7 +2457,8 @@ details.box[open]>summary{margin-bottom:8px}
         + '<span class="skn"> ' + i.m.filter(function(x){ return x.held; }).length + '銘柄'
         + (i.m.some(function(x){ return !x.held; }) ? '＋候補' + i.m.filter(function(x){ return !x.held; }).length : '') + '</span></td>'
         + '<td class="n"></td><td class="n">' + yen(i.value) + '</td><td class="n">' + f1(i.cur * 100) + '%</td>'
-        + '<td class="n"><input class="rbin" type="number" min="0" step="any" data-k="t:' + id + '" value="' + (typeof s.t === 'number' ? s.t : '') + '" placeholder="目標" aria-label="セクションの目標（%）">%</td>'
+        + '<td class="n"><input class="rbin" type="number" min="0" step="any" data-k="t:' + id + '" value="' + (typeof s.t === 'number' ? s.t : '') + '" placeholder="目標" aria-label="セクションの目標（%）">%'
+        + ((M.ready && i.m.length && Math.abs(M.sumT - 100) > 0.05) ? '<div class="eff">計算上 ' + f1(i.tn * 100) + '%</div>' : '') + '</td>'
         + '<td>' + sel + '</td>'
         + '<td class="n">' + (M.ready && i.m.length ? diffTxt(i.cur, i.tn) : '') + '</td>'
         + '<td class="n">' + (M.ready && i.m.length ? gapTxt(i.value, i.tn) : '') + '</td>'
@@ -2493,7 +2495,7 @@ details.box[open]>summary{margin-bottom:8px}
     var notes = '';
     if (!M.act.length) notes += '<p class="note">対象になる銘柄（現在値のある保有銘柄、または候補銘柄）が、セクションにありません。</p>';
     else if (M.unset) notes += '<p class="note warn">目標が未入力のセクションがあります。すべてのセクションに目標（%）を入力すると、差と売買案が出ます。</p>';
-    else if (Math.abs(M.sumT - 100) > 0.05) notes += '<p class="note warn">セクションの目標の合計が ' + f1(M.sumT) + '% です（100%ではないため、比率に直して計算しています）。</p>';
+    else if (Math.abs(M.sumT - 100) > 0.05) notes += '<p class="note warn">セクションの目標の合計が ' + f1(M.sumT) + '% です。100%ではないため、合計が100%になるよう、各セクションの目標を ' + (100 / M.sumT).toFixed(2) + '倍にして計算しています（セクション行の「計算上」の値と、銘柄行の目標は、この計算後の値です）。 <button type="button" id="rb-norm" class="ghost">合計を100%に合わせる</button></p>';
     else notes += '<p class="note">セクションの目標の合計：' + f1(M.sumT) + '%</p>';
     if (pool.length) notes += '<p class="note">「未分類」の ' + pool.length + ' 銘柄は、リバランスの対象外です（売買案に含めません）。</p>';
     el.innerHTML = '<div class="rbscroll">' + head + rows + '</tbody></table></div>' + notes;
@@ -2663,6 +2665,16 @@ details.box[open]>summary{margin-bottom:8px}
       var s = secById(del.dataset.sec);
       if (s) { s.a = (s.a || []).filter(function(c){ return c !== del.dataset.code; }); if (!s.a.length) delete s.a; saveSecs(); renderRb(); }
       return;
+    }
+    if (e.target.id === 'rb-norm') {
+      var Mn = rbModel(), actn = Mn.infos.filter(function(i){ return i.m.length && typeof i.s.t === 'number'; });
+      if (!actn.length || !(Mn.sumT > 0)) return;
+      var vn = actn.map(function(i){ return Math.round(i.s.t / Mn.sumT * 1000) / 10; });
+      var dn = Math.round((100 - vn.reduce(function(a, b){ return a + b; }, 0)) * 10) / 10;
+      var mi = 0; vn.forEach(function(v, k){ if (v > vn[mi]) mi = k; });
+      vn[mi] = Math.round((vn[mi] + dn) * 10) / 10;
+      actn.forEach(function(i, k){ i.s.t = vn[k]; });
+      saveSecs(); renderRb(); return;
     }
     if (e.target.id === 'rb-eq') {
       var act = secs.filter(function(s){ return rbModel().infos.some(function(i){ return i.s === s && i.m.length; }); });
