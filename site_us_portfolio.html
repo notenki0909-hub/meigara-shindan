@@ -172,6 +172,8 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 .island.has{border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:10px 12px 12px;background:var(--card);margin:0 0 18px;box-shadow:0 1px 4px rgba(0,0,0,.06);overflow-x:auto}
 .island.has.pool{border-style:dashed;border-left-style:dashed;border-left-color:var(--line);box-shadow:none;background:transparent}
 .island.has table{border:0;margin-top:2px;table-layout:fixed;min-width:1010px}
+.island.has{scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--fg) 45%,var(--card)) var(--field)}
+:root[data-mode="dark"] .island.has{color-scheme:dark}
 .island.over{box-shadow:0 0 0 2px var(--accent)}
 .island th:nth-child(1),.island td:nth-child(1){width:24px}
 .island th:nth-child(2),.island td:nth-child(2){width:58px}

@@ -172,6 +172,8 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 .island.has{border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:10px 12px 12px;background:var(--card);margin:0 0 18px;box-shadow:0 1px 4px rgba(0,0,0,.06);overflow-x:auto}
 .island.has.pool{border-style:dashed;border-left-style:dashed;border-left-color:var(--line);box-shadow:none;background:transparent}
 .island.has table{border:0;margin-top:2px;table-layout:fixed;min-width:1010px}
+.island.has,.rbscroll{scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--fg) 45%,var(--card)) var(--field)}
+:root[data-mode="dark"] .island.has,:root[data-mode="dark"] .rbscroll{color-scheme:dark}
 .island.over{box-shadow:0 0 0 2px var(--accent)}
 .island th:nth-child(1),.island td:nth-child(1){width:24px}
 .island th:nth-child(2),.island td:nth-child(2){width:58px}
@@ -228,17 +230,17 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 .skn{font-size:12px;color:var(--muted);font-weight:400}
 .candmsg{color:var(--gC);font-size:12px}
 .chip{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;white-space:nowrap;font-weight:400}
-.chip.over{background:color-mix(in srgb,var(--gC) 16%,transparent);color:var(--gC)}
-.chip.under{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
+.chip.over{background:color-mix(in srgb,var(--gC) 14%,transparent);color:color-mix(in srgb,var(--gC) 70%,var(--fg))}
+.chip.under{background:color-mix(in srgb,var(--accent) 14%,transparent);color:color-mix(in srgb,var(--accent) 70%,var(--fg))}
 .chip.ok{border:1px solid var(--line);color:var(--muted)}
-.chip.cand{border:1px dashed var(--accent);color:var(--accent)}
+.chip.cand{border:1px dashed var(--accent);color:color-mix(in srgb,var(--accent) 70%,var(--fg))}
 .canddel{padding:0 6px;font-size:11px;margin-left:4px}
 .rbform{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;margin:6px 0 10px}
 .rbform label{font-size:11.5px;color:var(--muted);display:flex;flex-direction:column;gap:3px}
-.rbform input[type=number],.rbform select{padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);font-size:13px}
-.rbform input[type=number]{width:8em}
+.rbform input.rbf,.rbform select{padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);font-size:13px}
+.rbform input.rbf{width:8em}
 .rbform .inl{display:flex;gap:6px;align-items:center}
-.rbform .inl input[type=number]{width:5.5em}
+.rbform .inl input.rbf{width:5.5em}
 .rbmodes{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 .rbmodes label{flex-direction:row;align-items:center;gap:4px;color:var(--fg);font-size:13px}
 .rbsumm{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
@@ -248,6 +250,33 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 .lottag.sl{background:var(--gC);color:var(--onacc,#fff)}
 .lottag.by{background:var(--accent);color:var(--onacc,#fff)}
 .note.warn{color:var(--wfg)}
+
+/* リバランス：見やすさの調整（ライト・ダーク共通。色は変数と color-mix だけで作る） */
+.rbh{font-size:15px;font-weight:800;margin:20px 0 8px;padding-bottom:6px;border-bottom:2px solid color-mix(in srgb,var(--accent) 40%,var(--line))}
+#rbbox .rbcall{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;margin:12px 0;border-radius:10px;background:var(--wbg);border:1px solid var(--wbd);border-left:7px solid var(--wfg);color:var(--wfg)}
+#rbbox .rbcall .ic{font-size:22px;line-height:1.2;flex:0 0 auto}
+#rbbox .rbcall .lead{font-size:15.5px;font-weight:800;line-height:1.5;margin-bottom:4px}
+#rbbox .rbcall p{margin:4px 0;font-size:13.5px;line-height:1.75;color:var(--wfg)}
+#rbbox .rbcall b.kw{font-weight:800;background:color-mix(in srgb,var(--wfg) 16%,transparent);padding:1px 6px;border-radius:4px}
+#rbbox .rbcall .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+#rbbox .rbcall .acts button{padding:7px 14px;font-size:13px;font-weight:700}
+#rbbox .rbcall .acts button.ghost{background:var(--card);color:var(--fg);border-color:var(--wfg)}
+#rbbox p.rbok{margin:10px 0;font-size:13px;font-weight:700;color:var(--gA)}
+#rbtable th,#rbresult th{font-size:12px;font-weight:700;color:color-mix(in srgb,var(--fg) 72%,var(--card))}
+#rbtable td,#rbresult td{font-variant-numeric:tabular-nums}
+#rbtable tr.secrow td{background:color-mix(in srgb,var(--accent) 9%,var(--card));font-weight:700;border-top:2px solid color-mix(in srgb,var(--accent) 35%,var(--line))}
+#rbtable tr.secrow td.nm b{font-size:14.5px}
+#rbtable tr.warnrow td{font-size:12.5px;font-weight:600;border-left:4px solid var(--wfg)}
+.eff{font-size:11.5px;color:var(--wfg);font-weight:700}
+.chip{font-size:11.5px;font-weight:600}
+.chip.ok{font-weight:500}
+.rbin,.rbsel,.rbform input.rbf,.rbform select{border-color:color-mix(in srgb,var(--fg) 30%,var(--line))}
+.rbin:focus,.rbsel:focus,.rbform input:focus,.rbform select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.rbsumm div{background:color-mix(in srgb,var(--accent) 7%,var(--card))}
+.rbsumm span{font-size:12px}
+.rbsumm b{font-size:16px;font-weight:800}
+.txsellr td{background:color-mix(in srgb,var(--gC) 7%,transparent)}
+.txbuyr td{background:color-mix(in srgb,var(--accent) 7%,transparent)}
 
 /* ロット内訳の売買記録フォーム */
 tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
@@ -410,10 +439,10 @@ details.box[open]>summary{margin-bottom:8px}
         <label><input type="radio" name="rbmode" value="sell"> 売却のみ</label>
         <label><input type="radio" name="rbmode" value="both"> 売却＋買い増し</label>
       </div>
-      <label>新規資金（円）<input id="rb-cash" type="number" min="0" step="1000" placeholder="0"></label>
+      <label>新規資金（円）<input id="rb-cash" class="rbf" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></label>
       <label>売買単位<select id="rb-unit"><option value="100">単元（100株単位）</option><option value="1">単元未満（1株単位）</option></select></label>
-      <label>許容幅（売る・買う判定）<span class="inl"><select id="rb-bandtype"><option value="rel">目標の相対 ±（%）</option><option value="abs">絶対 ±（pt）</option></select> <input id="rb-bandval" type="number" min="0" step="any"></span></label>
-      <label>最小売買額（円）<input id="rb-min" type="number" min="0" step="1000" placeholder="0"></label>
+      <label>許容幅（売る・買う判定）<span class="inl"><select id="rb-bandtype"><option value="rel">目標の相対 ±（%）</option><option value="abs">絶対 ±（pt）</option></select> <input id="rb-bandval" class="rbf" type="text" inputmode="decimal" autocomplete="off"></span></label>
+      <label>最小売買額（円）<input id="rb-min" class="rbf" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></label>
     </div>
     <div id="rbresult"></div>
   </div>
@@ -2368,7 +2397,10 @@ details.box[open]>summary{margin-bottom:8px}
 
   function rbNum(s){
     if (s == null || String(s).trim() === '') return undefined;
-    var n = Number(s);
+    var z = String(s).replace(/[０-９]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+                     .replace(/[．。]/g, '.').replace(/[，,\s]/g, '').replace(/[％%円]/g, '');
+    if (z === '') return undefined;
+    var n = Number(z);
     return (isFinite(n) && n >= 0) ? n : undefined;
   }
   function f1(x){ return (Math.round(x * 10) / 10).toFixed(1); }
@@ -2457,7 +2489,7 @@ details.box[open]>summary{margin-bottom:8px}
         + '<span class="skn"> ' + i.m.filter(function(x){ return x.held; }).length + '銘柄'
         + (i.m.some(function(x){ return !x.held; }) ? '＋候補' + i.m.filter(function(x){ return !x.held; }).length : '') + '</span></td>'
         + '<td class="n"></td><td class="n">' + yen(i.value) + '</td><td class="n">' + f1(i.cur * 100) + '%</td>'
-        + '<td class="n"><input class="rbin" type="number" min="0" step="any" data-k="t:' + id + '" value="' + (typeof s.t === 'number' ? s.t : '') + '" placeholder="目標" aria-label="セクションの目標（%）">%'
+        + '<td class="n"><input class="rbin" type="text" inputmode="decimal" autocomplete="off" data-k="t:' + id + '" value="' + (typeof s.t === 'number' ? Math.round(s.t * 1000) / 1000 : '') + '" placeholder="目標" aria-label="セクションの目標（%）">%'
         + ((M.ready && i.m.length && Math.abs(M.sumT - 100) > 0.05) ? '<div class="eff">計算上 ' + f1(i.tn * 100) + '%</div>' : '') + '</td>'
         + '<td>' + sel + '</td>'
         + '<td class="n">' + (M.ready && i.m.length ? diffTxt(i.cur, i.tn) : '') + '</td>'
@@ -2467,8 +2499,8 @@ details.box[open]>summary{margin-bottom:8px}
       i.m.forEach(function(x){
         var inSec;
         if ((s.m || 'eq') === 'set') {
-          inSec = '<input class="rbin" type="number" min="0" step="any" data-k="w:' + id + ':' + escH(x.code) + '" value="'
-            + ((s.w && typeof s.w[x.code] === 'number') ? s.w[x.code] : '') + '" aria-label="セクション内の割合（%）">%';
+          inSec = '<input class="rbin" type="text" inputmode="decimal" autocomplete="off" data-k="w:' + id + ':' + escH(x.code) + '" value="'
+            + ((s.w && typeof s.w[x.code] === 'number') ? Math.round(s.w[x.code] * 1000) / 1000 : '') + '" aria-label="セクション内の割合（%）">%';
         } else inSec = f1(x.inSec * 100) + '%';
         var jd = M.ready ? chip(bandJudge(x.cur, x.t)) : '';
         if (!x.held) jd = '<span class="chip cand">候補（未保有）</span> ' + (M.ready ? jd : '');
@@ -2492,13 +2524,25 @@ details.box[open]>summary{margin-bottom:8px}
     });
     var head = '<table><thead><tr><th>セクション／銘柄</th><th class="n">保有株数</th><th class="n">評価額</th><th class="n">現状</th>'
       + '<th class="n">目標（全体）</th><th class="n">セクション内</th><th class="n">差</th><th class="n">超過(＋)／不足(−)額</th><th>判定</th></tr></thead><tbody>';
-    var notes = '';
+    var top = '', notes = '';
+    var eqKw = '<b class="kw">「セクションの目標を均等にする」</b>';
+    var eqBtn = '<button type="button" data-rbact="eq">セクションの目標を均等にする</button>';
     if (!M.act.length) notes += '<p class="note">対象になる銘柄（現在値のある保有銘柄、または候補銘柄）が、セクションにありません。</p>';
-    else if (M.unset) notes += '<p class="note warn">目標が未入力のセクションがあります。すべてのセクションに目標（%）を入力すると、差と売買案が出ます。</p>';
-    else if (Math.abs(M.sumT - 100) > 0.05) notes += '<p class="note warn">セクションの目標の合計が ' + f1(M.sumT) + '% です。100%ではないため、合計が100%になるよう、各セクションの目標を ' + (100 / M.sumT).toFixed(2) + '倍にして計算しています（セクション行の「計算上」の値と、銘柄行の目標は、この計算後の値です）。 <button type="button" id="rb-norm" class="ghost">合計を100%に合わせる</button></p>';
-    else notes += '<p class="note">セクションの目標の合計：' + f1(M.sumT) + '%</p>';
+    else if (M.unset) {
+      top = '<div class="rbcall" role="alert"><span class="ic" aria-hidden="true">⚠</span><div>'
+        + '<div class="lead">目標が未入力のセクションがあります</div>'
+        + '<p>すべてのセクションに目標（%）を入力すると、現状との差と売買案が出ます。</p>'
+        + '<p>均等割りにして合計を100%にするには、' + eqKw + 'ボタンを押してください。</p>'
+        + '<div class="acts">' + eqBtn + '</div></div></div>';
+    } else if (Math.abs(M.sumT - 100) > 0.05) {
+      top = '<div class="rbcall" role="alert"><span class="ic" aria-hidden="true">⚠</span><div>'
+        + '<div class="lead">セクションの目標の合計が ' + f1(M.sumT) + '% です（100%ではありません）</div>'
+        + '<p>このままでも、合計が100%になるよう、各セクションの目標を ' + (100 / M.sumT).toFixed(2) + '倍にして計算します（セクション行の「計算上」の値と、銘柄行の目標は、その計算後の値です）。</p>'
+        + '<p>均等割りにして合計を100%にするには、' + eqKw + 'ボタンを押してください。</p>'
+        + '<div class="acts">' + eqBtn + '<button type="button" class="ghost" data-rbact="norm">合計を100%に合わせる（いまの比率のまま）</button></div></div></div>';
+    } else top = '<p class="rbok">✓ セクションの目標の合計：' + f1(M.sumT) + '%</p>';
     if (pool.length) notes += '<p class="note">「未分類」の ' + pool.length + ' 銘柄は、リバランスの対象外です（売買案に含めません）。</p>';
-    el.innerHTML = '<div class="rbscroll">' + head + rows + '</tbody></table></div>' + notes;
+    el.innerHTML = top + '<div class="rbscroll">' + head + rows + '</tbody></table></div>' + notes;
   }
 
   function drawRbResult(M){
@@ -2666,7 +2710,9 @@ details.box[open]>summary{margin-bottom:8px}
       if (s) { s.a = (s.a || []).filter(function(c){ return c !== del.dataset.code; }); if (!s.a.length) delete s.a; saveSecs(); renderRb(); }
       return;
     }
-    if (e.target.id === 'rb-norm') {
+    var ra = e.target.closest ? e.target.closest('[data-rbact]') : null;
+    var act0 = ra ? ra.dataset.rbact : '';
+    if (e.target.id === 'rb-norm' || act0 === 'norm') {
       var Mn = rbModel(), actn = Mn.infos.filter(function(i){ return i.m.length && typeof i.s.t === 'number'; });
       if (!actn.length || !(Mn.sumT > 0)) return;
       var vn = actn.map(function(i){ return Math.round(i.s.t / Mn.sumT * 1000) / 10; });
@@ -2676,7 +2722,7 @@ details.box[open]>summary{margin-bottom:8px}
       actn.forEach(function(i, k){ i.s.t = vn[k]; });
       saveSecs(); renderRb(); return;
     }
-    if (e.target.id === 'rb-eq') {
+    if (e.target.id === 'rb-eq' || act0 === 'eq') {
       var act = secs.filter(function(s){ return rbModel().infos.some(function(i){ return i.s === s && i.m.length; }); });
       var n = act.length; if (!n) return;
       var base = Math.floor(1000 / n) / 10, used = 0;
