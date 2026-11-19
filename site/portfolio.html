@@ -101,7 +101,6 @@ tr:last-child td{border-bottom:none}
 .addrow-body{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
 .addrow.collapsed .addrow-body{display:none}
 .addrow.collapsed .addrow-head{margin:0}
-.addrow.added .addrow-head .nm{color:var(--muted)}
 .addrow .nm{font-weight:700}
 .retnote{font-size:11px;font-weight:400;color:var(--muted);white-space:normal;line-height:1.5}
 .addrow .fold{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:12px;cursor:pointer}
@@ -2705,7 +2704,6 @@ details.box[open]>summary{margin-bottom:8px}
     Array.prototype.forEach.call(document.querySelectorAll('#rbresult .rbcard'), function(c){ c.classList.remove('on'); c.setAttribute('aria-expanded', 'false'); });
   }
 
-  var rbTimer = null;
   function renderRb(){
     var box = $('rbbox');
     if (!lastHoldings.length) { box.hidden = true; return; }

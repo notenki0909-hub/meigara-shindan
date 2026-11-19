@@ -24,7 +24,6 @@ import statistics
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROA_GOOD, ROA_WARN = 5.0, 3.0
-ROE_RULE = {"jp": (10.0, 6.0), "us": (12.0, 7.0)}
 MIN_PEERS = 5
 
 

@@ -374,7 +374,7 @@ def fetch_yahoojp_dividend(code):
     if requests is None:
         return None
     url = f"https://finance.yahoo.co.jp/quote/{code}.T/dividend"
-    for attempt in (0, 1):
+    for _ in (0, 1):
         try:
             r = requests.get(url, timeout=15, headers={
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
@@ -2491,7 +2491,6 @@ def verdicts(sel_score, tim_score, groups, dom_scores, ctx, sec_avg, is_simple, 
         grow_label = "縮小傾向（増配を配当性向の引き上げで支えていないか確認）"
 
     tec = ctx.get("tec") or {}
-    st = tec.get("stoch_state")
     macd = tec.get("macd_state")
     rsi = tec.get("rsi")
     short_bits = []
@@ -3617,9 +3616,6 @@ def _fmt_thr(key, val):
     return f"{val:.2f}{u}" if u == "倍" else f"{val:.1f}{u}"
 
 
-SCALE_NOTE = "点は good/warn の間を直線で補間（warn=60・good=100・別格=最大110・下限20）。◎△▲ は閾値どおり。"
-
-
 def rule_block_html(key, rule, jp_sector):
     if key == "div_policy":
         return ("手管理リスト（dividend_policy.json・2026-09時点）で会社の配当方針を判定<br>"
@@ -3812,7 +3808,7 @@ def _metric_details_html(it, jp, is_simple, rules, hl_keys=(), jp_div=False):
     if sp and len([1 for _, v in sp if is_num(v)]) >= 2:
         # 推移の単位と判定ルールの単位が一致する指標だけ ◎/△/▲ ゾーンを描く
         trend_rule = rule if it.get("key") in ("op_margin", "equity_ratio", "payout_ni", "div_yield") else None
-        trend_p = (f'<p class="rule"><b>推移：</b>古い→新しい'
+        trend_p = ('<p class="rule"><b>推移：</b>古い→新しい'
                    + ("　（帯＝◎良好／△注意／▲弱いの区切り）" if trend_rule else "")
                    + f'</p><div class="trendwrap wide">'
                    f'{svg_trend(sp, it.get("series_kind", "yen"), it.get("series_current"), trend_rule)}</div>')
@@ -4482,8 +4478,8 @@ def generate(code, name=None, cost=None, jgb=None, use_irbank=False, cfg=None, l
         it = next((r for r in M.get("参考", []) if r.get("name") == name), None)
         return it.get("v") if it else None
 
-    sc_cov, lab_cov = cov_label(coverage["選定"])
-    tc_cov, tlab_cov = cov_label(coverage["買い時"])
+    _, lab_cov = cov_label(coverage["選定"])
+    _, tlab_cov = cov_label(coverage["買い時"])
     ea = ctx.get("earn") or {}
     res["summary"] = {
         "code": code, "name": name, "asof": TODAY.isoformat(), "data_fetched_at": yd.get("fetched_at"),

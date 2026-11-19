@@ -26,9 +26,9 @@ import os
 
 import analyze
 from analyze import (  # 国に依存しない再利用部品
-    is_num, safe_div, cagr, fmt_num, fmt_pct, stmt_to_rows, row,
-    clean_dps_series, _one_streak, find_last_cut, dividend_streaks,
-    yearly_price_mean, calc_technicals, nice_ticks,
+    is_num, safe_div, cagr, fmt_num, fmt_pct,
+    clean_dps_series, find_last_cut,
+    yearly_price_mean, calc_technicals,
 )
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -563,7 +563,6 @@ def build_metrics_us(yd, sec_avg, is_simple, gics_sector, rate_sensitive, ust_10
 
     is_years = yd.get("is_years", []) or []
     cf_years = yd.get("cf_years", []) or []
-    bs_years = yd.get("bs_years", []) or []
 
     def sdisp(s):
         if not s:
