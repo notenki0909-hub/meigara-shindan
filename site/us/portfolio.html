@@ -121,6 +121,8 @@ tr:last-child td{border-bottom:none}
 .chartwrap{display:flex;gap:22px;flex-wrap:wrap;align-items:center}
 #pie{width:220px;height:220px;flex:0 0 auto}
 .legend{flex:1;min-width:220px;font-size:12.5px}
+.legend.many{columns:2 240px;column-gap:22px}
+.legend.many .lgitem{break-inside:avoid}
 .lgitem{display:flex;align-items:center;gap:8px;padding:3px 0}
 .lgitem .sw{width:12px;height:12px;border-radius:3px;flex:0 0 auto}
 .lgitem b{margin-left:auto}
@@ -1347,6 +1349,12 @@ details.box[open]>summary{margin-bottom:8px}
   $('disc').innerHTML = DISC;
 
   var PALETTE = ['#2563eb','#e8635e','#23a79d','#efa63c','#7cb342','#9b59b6','#e91e8c','#607d8b','#c9a227','#3f51b5','#00897b','#d84315'];
+  // 項目が12を超えても色が重ならないよう、13番目以降は色相を黄金角ずつずらして作る（「その他」にまとめないため）
+  function colorAt(i){
+    if (i < PALETTE.length) return PALETTE[i];
+    var k = i - PALETTE.length;
+    return 'hsl(' + ((k * 137.508 + 25) % 360).toFixed(1) + ',58%,' + (k % 2 ? 46 : 58) + '%)';
+  }
 
   function dollar(v){
     if (typeof v !== 'number' || !isFinite(v)) return '―';
@@ -1425,12 +1433,8 @@ details.box[open]>summary{margin-bottom:8px}
       m[key] += h.value;
     });
     var data = order.map(function(k){ return {label:k, value:m[k]}; }).sort(function(a,b){ return b.value - a.value; });
-    if (data.length > 9) {
-      var head = data.slice(0, 8);
-      var restV = data.slice(8).reduce(function(a,d){ return a + d.value; }, 0);
-      head.push({label:'その他', value:restV});
-      data = head;
-    }
+    // 「その他」にまとめず、すべての項目を個別に表示する（項目が多いときは凡例を2列にする）
+    legend.className = 'legend' + (data.length > 12 ? ' many' : '');
     var total = data.reduce(function(a,d){ return a + d.value; }, 0);
     if (!total) {
       svg.innerHTML = '';
@@ -1447,13 +1451,13 @@ details.box[open]>summary{margin-bottom:8px}
       var xi0 = cx + r0*Math.cos(a1), yi0 = cy + r0*Math.sin(a1);
       var xi1 = cx + r0*Math.cos(a0), yi1 = cy + r0*Math.sin(a0);
       var dAttr = 'M'+x0+','+y0+' A'+r+','+r+' 0 '+big+' 1 '+x1+','+y1+' L'+xi0+','+yi0+' A'+r0+','+r0+' 0 '+big+' 0 '+xi1+','+yi1+' Z';
-      var col = PALETTE[i % PALETTE.length];
+      var col = colorAt(i);
       paths.push('<path d="'+dAttr+'" fill="'+col+'" stroke="var(--card)" stroke-width="2"><title>'+d.label.replace(/&/g,'&amp;').replace(/</g,'&lt;')+' '+(frac*100).toFixed(1)+'%</title></path>');
       a0 = a1;
     });
     svg.innerHTML = paths.join('');
     legend.innerHTML = data.map(function(d, i){
-      var col = PALETTE[i % PALETTE.length];
+      var col = colorAt(i);
       var safe = String(d.label).replace(/&/g,'&amp;').replace(/</g,'&lt;');
       return '<div class="lgitem"><span class="sw" style="background:'+col+'"></span>'+safe
         + '<b>'+(d.value/total*100).toFixed(1)+'%</b><span class="lv">('+dollar(d.value)+')</span></div>';
@@ -1506,23 +1510,14 @@ details.box[open]>summary{margin-bottom:8px}
       $('monthnote2').textContent = '配当履歴を取得できた保有銘柄がないため、まだ表示できません。';
       return;
     }
-    // 銘柄別の内訳を年間合計の多い順に並べ、上位8銘柄＋その他にまとめる（円グラフと同じ方式）
+    // 銘柄別の内訳を年間合計の多い順に並べる。「その他」にまとめず、すべての銘柄を個別に積み上げる
     var order = Object.keys(monthBase.byCode).map(function(c){
       return {code: c, name: monthBase.byCode[c].name, total: monthBase.byCode[c].total};
     }).filter(function(o){ return o.total > 0; }).sort(function(a, b){ return b.total - a.total; });
-    var grouped = order, otherCodes = [];
-    if (order.length > 9) { otherCodes = order.slice(8).map(function(o){ return o.code; }); grouped = order.slice(0, 8); }
-    var series = grouped.map(function(o, i){
-      return {code: o.code, name: o.name, color: PALETTE[i % PALETTE.length], arr: shiftArr(monthBase.byCode[o.code].arr), total: o.total};
+    var series = order.map(function(o, i){
+      return {code: o.code, name: o.name, color: colorAt(i), arr: shiftArr(monthBase.byCode[o.code].arr), total: o.total};
     });
-    if (otherCodes.length) {
-      var otherArr = new Array(12).fill(0), otherTotal = 0;
-      otherCodes.forEach(function(c){
-        shiftArr(monthBase.byCode[c].arr).forEach(function(v, m){ otherArr[m] += v; });
-        otherTotal += monthBase.byCode[c].total;
-      });
-      series.push({code: 'other', name: 'その他', color: PALETTE[8 % PALETTE.length], arr: otherArr, total: otherTotal});
-    }
+    if (legend) legend.className = 'legend' + (series.length > 12 ? ' many' : '');
 
     var big = Math.max.apply(null, total);
     var useK = big >= 1000;

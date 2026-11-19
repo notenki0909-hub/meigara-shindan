@@ -121,6 +121,8 @@ tr:last-child td{border-bottom:none}
 .chartwrap{display:flex;gap:22px;flex-wrap:wrap;align-items:center}
 #pie{width:220px;height:220px;flex:0 0 auto}
 .legend{flex:1;min-width:220px;font-size:12.5px}
+.legend.many{columns:2 240px;column-gap:22px}
+.legend.many .lgitem{break-inside:avoid}
 .lgitem{display:flex;align-items:center;gap:8px;padding:3px 0}
 .lgitem .sw{width:12px;height:12px;border-radius:3px;flex:0 0 auto}
 .lgitem b{margin-left:auto}
@@ -213,7 +215,10 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 .rbtools button{padding:4px 10px;font-size:12px}
 .rbscroll{overflow-x:auto}
 #rbtable table{min-width:940px}
-#rbresult table{min-width:820px}
+#rbresult table{min-width:1040px}
+#rbresult table.rbsec{min-width:0}
+#rbresult td.n{white-space:nowrap}
+#rbresult td[rowspan]{vertical-align:middle}
 #rbresult td:nth-child(2){min-width:11em}
 #rbtable td.nm{white-space:normal;min-width:13em}
 #rbtable td.n,#rbtable td.sub .code{white-space:nowrap}
@@ -277,6 +282,20 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 .rbsumm b{font-size:16px;font-weight:800}
 .txsellr td{background:color-mix(in srgb,var(--gC) 7%,transparent)}
 .txbuyr td{background:color-mix(in srgb,var(--accent) 7%,transparent)}
+
+/* 口座（特定・NISA・一般）と、手数料・損益通算の設定 */
+.lottag.acct{min-width:0;background:color-mix(in srgb,var(--accent) 16%,transparent);color:color-mix(in srgb,var(--accent) 70%,var(--fg));font-weight:700}
+.lottag.acct.n{background:color-mix(in srgb,var(--gA) 18%,transparent);color:color-mix(in srgb,var(--gA) 70%,var(--fg))}
+.lottag.acct.i{background:color-mix(in srgb,var(--muted) 20%,transparent);color:var(--fg)}
+.acctsum{font-size:12px;margin:2px 0 6px;color:var(--fg)}
+.rbmore{margin:10px 0;border:1px solid var(--line);border-radius:10px;padding:8px 14px;background:var(--card)}
+.rbmore>summary{cursor:pointer;font-weight:700;font-size:13.5px;padding:4px 0}
+.rbmore[open]>summary{margin-bottom:6px}
+.rbform label.chk{flex-direction:row;align-items:center;gap:6px;color:var(--fg);font-size:13px}
+.rbform input.rbf.wide{width:12em}
+.rbform input.rbf:disabled{opacity:.5}
+.rbtax{margin:10px 0;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--accent) 7%,var(--card));font-size:13px;line-height:1.9}
+.rbtax b.pos{color:var(--gA)}.rbtax b.neg{color:var(--gC)}
 
 /* ロット内訳の売買記録フォーム */
 tr.detail .lotnote{color:var(--muted);font-size:11px;margin:-2px 0 4px}
@@ -362,10 +381,11 @@ details.box[open]>summary{margin-bottom:8px}
       <label>取得単価（円・空欄で自動取得）<input class="price" id="in-price" type="number" min="0" step="0.01" placeholder="空欄可"></label>
       <label>空欄時に自動取得する価格<select class="pricesrc" id="in-pricesrc"><option value="close">終値</option><option value="open">始値</option></select></label>
       <label>購入日<input class="date" id="in-date" type="date"></label>
+      <label>口座<select class="acct" id="in-acct"><option value="t">特定口座</option><option value="n">NISA口座</option><option value="i">一般口座</option></select></label>
       <button type="button" id="in-add" style="align-self:flex-end">追加</button>
     </div>
   </div>
-  <p class="note">1回の購入ごとに1行として追加してください（同じ銘柄を複数回に分けて買った場合は、そのつど追加すると加重平均取得単価を自動計算します）。<b>取得単価を空欄にすると、購入日の終値（「空欄時に自動取得する価格」で始値も選べます）を自動で調べて入力します</b>（直近10年分のみ対応。それより前の購入日は手入力してください）。</p>
+  <p class="note">1回の購入ごとに1行として追加してください（同じ銘柄を複数回に分けて買った場合は、そのつど追加すると加重平均取得単価を自動計算します）。<b>取得単価を空欄にすると、購入日の終値（「空欄時に自動取得する価格」で始値も選べます）を自動で調べて入力します</b>（直近10年分のみ対応。それより前の購入日は手入力してください）。<b>口座（特定口座・NISA口座・一般口座）を選べます</b>。取得費・損益は、口座ごとに別々に計算します。</p>
   <h2 id="registered-h2" style="cursor:pointer">登録銘柄の追加入力<button type="button" class="fold" id="registered-toggle" style="margin-left:8px">▲ 閉じる</button><button type="button" class="ghost" id="addcodes-clearall" style="margin-left:6px" title="入力欄だけをすべて削除します（保有銘柄一覧の記録は消えません）">全て削除</button></h2>
   <div id="addcodes"></div>
 </div>
@@ -444,6 +464,26 @@ details.box[open]>summary{margin-bottom:8px}
       <label>許容幅（売る・買う判定）<span class="inl"><select id="rb-bandtype"><option value="rel">目標の相対 ±（%）</option><option value="abs">絶対 ±（pt）</option></select> <input id="rb-bandval" class="rbf" type="text" inputmode="decimal" autocomplete="off"></span></label>
       <label>最小売買額（円）<input id="rb-min" class="rbf" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></label>
     </div>
+    <details class="rbmore" id="rbmore">
+      <summary>手数料・口座（NISA）・損益通算の設定</summary>
+      <div class="rbform">
+        <label>手数料率（%）<input id="rb-feerate" class="rbf" type="text" inputmode="decimal" autocomplete="off" placeholder="0"></label>
+        <label>1回の最低手数料（円）<input id="rb-feemin" class="rbf" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></label>
+        <label>1回の上限（円・空欄＝なし）<input id="rb-feemax" class="rbf" type="text" inputmode="numeric" autocomplete="off" placeholder="なし"></label>
+        <label>単元未満の追加コスト（%）<input id="rb-odd" class="rbf" type="text" inputmode="decimal" autocomplete="off" placeholder="0"></label>
+      </div>
+      <div class="rbform">
+        <label>売却する口座の選び方<select id="rb-nisapol"><option value="auto">税が最小になる順（NISAも対象）</option><option value="keep">NISAは売らない</option><option value="first">NISAを先に売る</option></select></label>
+        <label>買い付ける口座<select id="rb-buyacct"><option value="t">特定口座</option><option value="n">NISA口座（残り枠まで）</option></select></label>
+        <label>NISAの残り投資枠（円）<input id="rb-frame" class="rbf" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></label>
+      </div>
+      <div class="rbform">
+        <label>今年の確定済み譲渡損益（円。空欄＝記録から自動）<input id="rb-yearreal" class="rbf wide" type="text" inputmode="text" autocomplete="off"></label>
+        <label>繰越損失（円）<input id="rb-carry" class="rbf" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></label>
+        <label class="chk"><input id="rb-netting" type="checkbox"> 損益通算する（売却益と売却損を相殺）</label>
+      </div>
+      <p class="note">口座は、売買の記録ごとに選びます（「保有銘柄を追加する」「売買を記録」）。特定口座・一般口座の売却損益は通算し、NISAは非課税で通算の対象外です。手数料は、売買の1回（銘柄・口座ごと）に、「手数料率」を適用し、最低額・上限で調整します。「単元未満の追加コスト」は、単元未満株のスプレッドなどを想定した、1株単位のときだけの上乗せです。「今年の確定済み譲渡損益」は、記録した今年の売却（特定・一般）から自動で計算します。</p>
+    </details>
     <div id="rbresult"></div>
   </div>
 </div>
@@ -457,7 +497,7 @@ details.box[open]>summary{margin-bottom:8px}
   </div>
   <p>この<b>保有記録の文字列をコピーして控えておく</b>と、別の端末でも下の貼り付け欄から復元できます。</p>
   <p><b>同じ端末・同じブラウザ</b>なら、一度追加すれば次回からこのページを開くだけで復元されます（貼り付け不要）。</p>
-  <p class="note">株価・利回り・スコアは各端末でその時点の最新が表示されます。保有株数・取得単価・購入日はこの文字列にしか残らないため、削除する前に控えを取っておいてください。保有銘柄一覧のセクションの分け方は、この文字列には含まれません（CSVバックアップには含まれます）。</p>
+  <p class="note">株価・利回り・スコアは各端末でその時点の最新が表示されます。保有株数・取得単価・購入日はこの文字列にしか残らないため、削除する前に控えを取っておいてください。保有銘柄一覧のセクションの分け方は、この文字列には含まれません（CSVバックアップには含まれます）。NISA口座・一般口座の記録には、末尾に「:n」「:i」が付きます（特定口座は付きません）。</p>
 </div>
 
 <div class="box">
@@ -571,6 +611,13 @@ details.box[open]>summary{margin-bottom:8px}
   function isCode(t){ return /^[0-9]{3,4}[A-Z0-9]?$/.test(t); }
   function isDate(t){ return /^\d{4}-\d{2}-\d{2}$/.test(t); }
 
+  var ACCT_NAME = {t:'特定', n:'NISA', i:'一般'};
+  var ACCT_LONG = {t:'特定口座', n:'NISA口座', i:'一般口座'};
+  function acctOf(l){ return (l && (l.acct === 'n' || l.acct === 'i')) ? l.acct : 't'; }
+  function acctOpts(sel){
+    return ['t', 'n', 'i'].map(function(k){ return '<option value="' + k + '"' + (k === sel ? ' selected' : '') + '>' + ACCT_LONG[k] + '</option>'; }).join('');
+  }
+  // 保有記録の形式：コード:株数:単価:日付:b|s[:n|i]　末尾の口座は、特定口座(t)のときは省略（n=NISA, i=一般口座）
   function parseLots(str){
     var out = [];
     (str || '').split(';').forEach(function(chunk){
@@ -583,13 +630,17 @@ details.box[open]>summary{margin-bottom:8px}
       var price = parseFloat(p[2]);
       var date = p[3].trim();
       var type = (p[4] || 'b').trim().toLowerCase() === 's' ? 's' : 'b';
+      var ac = (p[5] || 't').trim().toLowerCase();
+      ac = (ac === 'n' || ac === 'i') ? ac : 't';
       if (!isCode(code) || !(shares > 0) || !(price >= 0) || !isDate(date)) return;
-      out.push({code:code, shares:shares, price:price, date:date, type:type});
+      out.push({code:code, shares:shares, price:price, date:date, type:type, acct:ac});
     });
     return out;
   }
   function lotsToStr(list){
-    return list.map(function(l){ return l.code+':'+l.shares+':'+l.price+':'+l.date+':'+(l.type === 's' ? 's' : 'b'); }).join(';');
+    return list.map(function(l){
+      return l.code+':'+l.shares+':'+l.price+':'+l.date+':'+(l.type === 's' ? 's' : 'b') + (acctOf(l) !== 't' ? ':' + acctOf(l) : '');
+    }).join(';');
   }
   function loadLots(){
     try { return parseLots(localStorage.getItem(PF_KEY) || ''); } catch(e) { return []; }
@@ -671,7 +722,7 @@ details.box[open]>summary{margin-bottom:8px}
   });
 
   $('in-add').addEventListener('click', function(){
-    addOneLot($('in-code').value, $('in-shares').value, $('in-price').value, $('in-date').value, true, null, $('in-pricesrc').value);
+    addOneLot($('in-code').value, $('in-shares').value, $('in-price').value, $('in-date').value, true, null, $('in-pricesrc').value, $('in-acct').value);
   });
 
   // 見出し「保有銘柄を追加する」をクリックすると、証券コードを直接入力する欄を
@@ -1150,16 +1201,17 @@ details.box[open]>summary{margin-bottom:8px}
     });
   }
 
-  function addOneLot(code, shares, price, date, clearInputs, onDone, src){
+  function addOneLot(code, shares, price, date, clearInputs, onDone, src, acct){
     code = (code || '').trim().toUpperCase();
     shares = parseFloat(shares);
     date = (date || '').trim();
+    acct = (acct === 'n' || acct === 'i') ? acct : 't';
     if (!isCode(code)) { alert('証券コードを確認してください。'); return; }
     if (!(shares > 0)) { alert('株数は1以上の数値で入力してください。'); return; }
     if (!isDate(date)) { alert('購入日を入力してください。'); return; }
 
     var finish = function(p){
-      lots.push({code:code, shares:shares, price:p, date:date, type:'b'});
+      lots.push({code:code, shares:shares, price:p, date:date, type:'b', acct:acct});
       undismiss(code);
       persist();
       if (clearInputs) { $('in-code').value=''; $('in-shares').value=''; $('in-price').value=''; $('in-date').value=''; }
@@ -1185,15 +1237,15 @@ details.box[open]>summary{margin-bottom:8px}
 
   // 保有銘柄の「売却」「買い足し」を記録する（ロット内訳クリックで開くフォームから呼ばれる）。
   // 売却時は移動平均法（総平均法に準ずる方法）に基づく取得費の減算・実現損益の計算をaggregate()側で行うため、
-  // ここでは取引記録（1件の売買）をlotsに追加するだけでよい。
-  // ある日付「時点」で保有している株数を、その日付以前の取引だけを日付順に
+  // ここでは取引記録（1件の売買）をlotsに追加するだけでよい。取得費は口座（特定・NISA・一般）ごとに別々に計算する。
+  // ある日付「時点」で、ある口座が保有している株数を、その日付以前の取引だけを日付順に
   // リプレイして求める（aggregate()と同じ並び替え・同日は買い優先のルール）。
   // excludeGidx を指定すると、その取引自身を除外して計算する（修正・削除時に
-  // 「自分を差し引いた上で」保有可否を判定するため）。
-  function sharesHeldAt(code, date, excludeGidx){
+  // 「自分を差し引いた上で」保有可否を判定するため）。acct を省略すると全口座の合計。
+  function sharesHeldAt(code, date, excludeGidx, acct){
     var list = [];
     lots.forEach(function(l, i){
-      if (l.code === code && i !== excludeGidx && l.date <= date) list.push(l);
+      if (l.code === code && i !== excludeGidx && l.date <= date && (acct == null || acctOf(l) === acct)) list.push(l);
     });
     list.sort(function(a, b){
       if (a.date !== b.date) return a.date < b.date ? -1 : 1;
@@ -1207,24 +1259,25 @@ details.box[open]>summary{margin-bottom:8px}
     });
     return shares;
   }
-  function addTransaction(code, type, shares, price, date, onDone, src){
+  function addTransaction(code, type, shares, price, date, onDone, src, acct){
     code = (code || '').trim().toUpperCase();
     type = (type === 's') ? 's' : 'b';
     shares = parseFloat(shares);
     date = (date || '').trim();
+    acct = (acct === 'n' || acct === 'i') ? acct : 't';
     if (!isCode(code)) { alert('証券コードを確認してください。'); return; }
     if (!(shares > 0)) { alert('株数は1以上の数値で入力してください。'); return; }
     if (!isDate(date)) { alert('日付を入力してください。'); return; }
     if (type === 's') {
-      var held = sharesHeldAt(code, date);
+      var held = sharesHeldAt(code, date, undefined, acct);
       if (shares > held) {
-        alert('売却できる保有株がありません（' + date + '時点の保有株数：' + held.toLocaleString('ja-JP') + '株）。日付をご確認ください。');
+        alert('売却できる保有株がありません（' + ACCT_LONG[acct] + '・' + date + '時点の保有株数：' + held.toLocaleString('ja-JP') + '株）。口座・日付をご確認ください。');
         return;
       }
     }
 
     var finish = function(p){
-      lots.push({code:code, shares:shares, price:p, date:date, type:type});
+      lots.push({code:code, shares:shares, price:p, date:date, type:type, acct:acct});
       persist();
       if (onDone) onDone();
       render();
@@ -1246,56 +1299,61 @@ details.box[open]>summary{margin-bottom:8px}
     });
   }
   // 既存の取引記録（lots配列中のインデックス=gidx）を修正・削除する。
-  // 株数・単価・日付に加えて、種別（買い/売り）も変更できる（買い・売りの入力ミスの修正用）。
-  // 種別を変えると、同じ銘柄の後ろの売却が保有株数を超えてしまうことがあるため、
-  // 種別を変えたときだけ、その銘柄の全取引を日付順に通して確認する。
+  // 株数・単価・日付に加えて、種別（買い/売り）・口座も変更できる（入力ミスの修正用）。
+  // 種別や口座を変えると、同じ銘柄の後ろの売却が保有株数を超えてしまうことがあるため、
+  // 変えたときだけ、その銘柄の全取引を口座ごとに日付順に通して確認する。
   function setEditType(ef, type){
     type = (type === 's') ? 's' : 'b';
     ef.dataset.type = type;
     ef.querySelector('.ed-typelabel').textContent = (type === 's' ? '売却記録の修正' : '購入記録の修正');
     ef.querySelectorAll('.edtype').forEach(function(b){ b.classList.toggle('active', b.dataset.type === type); });
   }
-  function sellsStayValid(code, gidx, type, shares, date){
-    var list = [];
+  function sellsStayValid(code, gidx, type, shares, date, acct){
+    var byA = {};
     lots.forEach(function(x, i){
       if (x.code !== code) return;
-      list.push(i === gidx ? {shares:shares, date:date, type:type} : x);
+      var it = (i === gidx) ? {shares:shares, date:date, type:type, acct:acct} : x;
+      var k = acctOf(it);
+      (byA[k] = byA[k] || []).push(it);
     });
-    list.sort(function(a, b){
-      if (a.date !== b.date) return a.date < b.date ? -1 : 1;
-      return ((a.type === 's') ? 1 : 0) - ((b.type === 's') ? 1 : 0);
+    return Object.keys(byA).every(function(k){
+      var list = byA[k].sort(function(a, b){
+        if (a.date !== b.date) return a.date < b.date ? -1 : 1;
+        return ((a.type === 's') ? 1 : 0) - ((b.type === 's') ? 1 : 0);
+      });
+      var held = 0;
+      for (var i = 0; i < list.length; i++) {
+        if (list[i].type === 's') {
+          if (list[i].shares > held) return false;
+          held -= list[i].shares;
+        } else held += list[i].shares;
+      }
+      return true;
     });
-    var held = 0;
-    for (var i = 0; i < list.length; i++) {
-      if (list[i].type === 's') {
-        if (list[i].shares > held) return false;
-        held -= list[i].shares;
-      } else held += list[i].shares;
-    }
-    return true;
   }
-  function updateLot(gidx, shares, price, date, onDone, src, newType){
+  function updateLot(gidx, shares, price, date, onDone, src, newType, newAcct){
     var l = lots[gidx];
     if (!l) return;
     var type = (newType === 's' || newType === 'b') ? newType : l.type;
+    var acct = (newAcct === 't' || newAcct === 'n' || newAcct === 'i') ? newAcct : acctOf(l);
     shares = parseFloat(shares);
     date = (date || '').trim();
     if (!(shares > 0)) { alert('株数は1以上の数値で入力してください。'); return; }
     if (!isDate(date)) { alert('日付を入力してください。'); return; }
     if (type === 's') {
-      var held = sharesHeldAt(l.code, date, gidx);
+      var held = sharesHeldAt(l.code, date, gidx, acct);
       if (shares > held) {
-        alert('売却できる保有株がありません（' + date + '時点の保有株数：' + held.toLocaleString('ja-JP') + '株）。日付をご確認ください。');
+        alert('売却できる保有株がありません（' + ACCT_LONG[acct] + '・' + date + '時点の保有株数：' + held.toLocaleString('ja-JP') + '株）。口座・日付をご確認ください。');
         return;
       }
     }
-    if (type !== l.type && !sellsStayValid(l.code, gidx, type, shares, date)) {
-      alert('「' + (type === 's' ? '売り' : '買い') + '」に変更すると、保有株数を超える売却が出てしまいます。ほかの記録の株数・日付・種別もあわせてご確認ください。');
+    if ((type !== l.type || acct !== acctOf(l)) && !sellsStayValid(l.code, gidx, type, shares, date, acct)) {
+      alert('この変更（種別・口座）にすると、保有株数を超える売却が出てしまいます。ほかの記録の株数・日付・種別・口座もあわせてご確認ください。');
       return;
     }
 
     var finish = function(p){
-      lots[gidx] = {code:l.code, shares:shares, price:p, date:date, type:type};
+      lots[gidx] = {code:l.code, shares:shares, price:p, date:date, type:type, acct:acct};
       persist();
       if (onDone) onDone();
       render();
@@ -1383,6 +1441,7 @@ details.box[open]>summary{margin-bottom:8px}
           + '<label>取得単価（円・空欄で自動取得）<input class="price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
           + '<label>空欄時に自動取得する価格<select class="pricesrc"><option value="close">終値</option><option value="open">始値</option></select></label>'
           + '<label>購入日<input class="date" type="date"></label>'
+          + '<label>口座<select class="acct">' + acctOpts('t') + '</select></label>'
           + '<button type="button" class="add1">追加</button>'
           + '</div>'
           + '</div>';
@@ -1413,7 +1472,7 @@ details.box[open]>summary{margin-bottom:8px}
         addOneLot(code, sh, pr, dt, false, function(){
           // 追加後も行は消さず、次の入力に備えて折りたたむだけにする
           addRowState[code].collapsed = true;
-        }, row.querySelector('.pricesrc').value);
+        }, row.querySelector('.pricesrc').value, row.querySelector('.acct').value);
       });
     });
     var foldAllBtn = $('addcodes-foldall');
@@ -1440,6 +1499,12 @@ details.box[open]>summary{margin-bottom:8px}
   $('disc').innerHTML = DISC;
 
   var PALETTE = ['#2563eb','#e8635e','#23a79d','#efa63c','#7cb342','#9b59b6','#e91e8c','#607d8b','#c9a227','#3f51b5','#00897b','#d84315'];
+  // 項目が12を超えても色が重ならないよう、13番目以降は色相を黄金角ずつずらして作る（「その他」にまとめないため）
+  function colorAt(i){
+    if (i < PALETTE.length) return PALETTE[i];
+    var k = i - PALETTE.length;
+    return 'hsl(' + ((k * 137.508 + 25) % 360).toFixed(1) + ',58%,' + (k % 2 ? 46 : 58) + '%)';
+  }
 
   function yen(v){ return (typeof v === 'number' && isFinite(v)) ? Math.round(v).toLocaleString('ja-JP') + '円' : '―'; }
   function pct(v, d){ return (typeof v === 'number' && isFinite(v)) ? v.toFixed(d == null ? 1 : d) + '%' : '―'; }
@@ -1466,21 +1531,28 @@ details.box[open]>summary{margin-bottom:8px}
         var at = (a.type === 's') ? 1 : 0, bt = (b.type === 's') ? 1 : 0; // 同日は買いを先に処理
         return at - bt;
       });
-      var h = {code:c, shares:0, cost:0, realized:0, hasSell:false, lots:list};
+      var h = {code:c, shares:0, cost:0, realized:0, hasSell:false, lots:list, accts:{}};
       list.forEach(function(l){
+        var k = acctOf(l);
+        var a = h.accts[k] || (h.accts[k] = {shares:0, cost:0, realized:0});
         if (l.type === 's') {
           h.hasSell = true;
-          var avg = h.shares ? (h.cost / h.shares) : 0;
-          var sellShares = Math.min(l.shares, h.shares); // 保有超過分は防御的に無視
+          var avg = a.shares ? (a.cost / a.shares) : 0;
+          var sellShares = Math.min(l.shares, a.shares); // 保有超過分は防御的に無視
           var gain = (l.price - avg) * sellShares;
           l.realized = gain; // このロット（売却）単体の実現損益（表示用）
-          h.realized += gain;
-          h.cost -= avg * sellShares;
-          h.shares -= sellShares;
+          a.realized += gain;
+          a.cost -= avg * sellShares;
+          a.shares -= sellShares;
         } else {
-          h.shares += l.shares;
-          h.cost += l.shares * l.price;
+          a.shares += l.shares;
+          a.cost += l.shares * l.price;
         }
+      });
+      Object.keys(h.accts).forEach(function(k){
+        var a = h.accts[k];
+        a.avg = a.shares ? (a.cost / a.shares) : 0;
+        h.shares += a.shares; h.cost += a.cost; h.realized += a.realized;
       });
       h.avgPrice = h.shares ? (h.cost / h.shares) : 0;
       var s = byCode[c];
@@ -1514,12 +1586,8 @@ details.box[open]>summary{margin-bottom:8px}
       m[key] += h.value;
     });
     var data = order.map(function(k){ return {label:k, value:m[k]}; }).sort(function(a,b){ return b.value - a.value; });
-    if (data.length > 9) {
-      var head = data.slice(0, 8);
-      var restV = data.slice(8).reduce(function(a,d){ return a + d.value; }, 0);
-      head.push({label:'その他', value:restV});
-      data = head;
-    }
+    // 「その他」にまとめず、すべての項目を個別に表示する（項目が多いときは凡例を2列にする）
+    legend.className = 'legend' + (data.length > 12 ? ' many' : '');
     var total = data.reduce(function(a,d){ return a + d.value; }, 0);
     if (!total) {
       svg.innerHTML = '';
@@ -1536,13 +1604,13 @@ details.box[open]>summary{margin-bottom:8px}
       var xi0 = cx + r0*Math.cos(a1), yi0 = cy + r0*Math.sin(a1);
       var xi1 = cx + r0*Math.cos(a0), yi1 = cy + r0*Math.sin(a0);
       var dAttr = 'M'+x0+','+y0+' A'+r+','+r+' 0 '+big+' 1 '+x1+','+y1+' L'+xi0+','+yi0+' A'+r0+','+r0+' 0 '+big+' 0 '+xi1+','+yi1+' Z';
-      var col = PALETTE[i % PALETTE.length];
+      var col = colorAt(i);
       paths.push('<path d="'+dAttr+'" fill="'+col+'" stroke="var(--card)" stroke-width="2"><title>'+d.label.replace(/&/g,'&amp;').replace(/</g,'&lt;')+' '+(frac*100).toFixed(1)+'%</title></path>');
       a0 = a1;
     });
     svg.innerHTML = paths.join('');
     legend.innerHTML = data.map(function(d, i){
-      var col = PALETTE[i % PALETTE.length];
+      var col = colorAt(i);
       var safe = String(d.label).replace(/&/g,'&amp;').replace(/</g,'&lt;');
       return '<div class="lgitem"><span class="sw" style="background:'+col+'"></span>'+safe
         + '<b>'+(d.value/total*100).toFixed(1)+'%</b><span class="lv">('+yen(d.value)+')</span></div>';
@@ -1596,23 +1664,14 @@ details.box[open]>summary{margin-bottom:8px}
       $('monthnote2').textContent = '配当履歴を取得できた保有銘柄がないため、まだ表示できません。';
       return;
     }
-    // 銘柄別の内訳を年間合計の多い順に並べ、上位8銘柄＋その他にまとめる（円グラフと同じ方式）
+    // 銘柄別の内訳を年間合計の多い順に並べる。「その他」にまとめず、すべての銘柄を個別に積み上げる
     var order = Object.keys(monthBase.byCode).map(function(c){
       return {code: c, name: monthBase.byCode[c].name, total: monthBase.byCode[c].total};
     }).filter(function(o){ return o.total > 0; }).sort(function(a, b){ return b.total - a.total; });
-    var grouped = order, otherCodes = [];
-    if (order.length > 9) { otherCodes = order.slice(8).map(function(o){ return o.code; }); grouped = order.slice(0, 8); }
-    var series = grouped.map(function(o, i){
-      return {code: o.code, name: o.name, color: PALETTE[i % PALETTE.length], arr: shiftArr(monthBase.byCode[o.code].arr), total: o.total};
+    var series = order.map(function(o, i){
+      return {code: o.code, name: o.name, color: colorAt(i), arr: shiftArr(monthBase.byCode[o.code].arr), total: o.total};
     });
-    if (otherCodes.length) {
-      var otherArr = new Array(12).fill(0), otherTotal = 0;
-      otherCodes.forEach(function(c){
-        shiftArr(monthBase.byCode[c].arr).forEach(function(v, m){ otherArr[m] += v; });
-        otherTotal += monthBase.byCode[c].total;
-      });
-      series.push({code: 'other', name: 'その他', color: PALETTE[8 % PALETTE.length], arr: otherArr, total: otherTotal});
-    }
+    if (legend) legend.className = 'legend' + (series.length > 12 ? ' many' : '');
 
     var big = Math.max.apply(null, total);
     var useMan = big >= 10000;
@@ -1719,7 +1778,7 @@ details.box[open]>summary{margin-bottom:8px}
       var form = txsubmit.closest('.txform');
       addTransaction(form.dataset.code, form.dataset.type,
         form.querySelector('.tx-shares').value, form.querySelector('.tx-price').value, form.querySelector('.tx-date').value,
-        null, form.querySelector('.pricesrc').value);
+        null, form.querySelector('.pricesrc').value, form.querySelector('.tx-acct').value);
       return;
     }
     var txtype = e.target.closest('button.txtype');
@@ -1739,7 +1798,7 @@ details.box[open]>summary{margin-bottom:8px}
       var ef3 = edupdate.closest('.editform');
       updateLot(parseInt(ef3.dataset.gidx, 10),
         ef3.querySelector('.ed-shares').value, ef3.querySelector('.ed-price').value, ef3.querySelector('.ed-date').value,
-        null, ef3.querySelector('.pricesrc').value, ef3.dataset.type);
+        null, ef3.querySelector('.pricesrc').value, ef3.dataset.type, ef3.querySelector('.ed-acct').value);
       return;
     }
     var eddelete = e.target.closest('button.ed-delete');
@@ -1788,6 +1847,7 @@ details.box[open]>summary{margin-bottom:8px}
       ef.querySelector('.ed-shares').value = l.shares;
       ef.querySelector('.ed-price').value = l.price;
       ef.querySelector('.ed-date').value = l.date;
+      ef.querySelector('.ed-acct').value = acctOf(l);
       ef.hidden = false;
       var tf = lotsDiv.querySelector('.txform[data-code="' + lotrow.dataset.code + '"]');
       if (tf) tf.hidden = true; // 新規記録フォームが開いていたら閉じる
@@ -1998,6 +2058,7 @@ details.box[open]>summary{margin-bottom:8px}
           + '</tr>';
         var LOT_VISIBLE = 5;
         var lotHidCount = Math.max(0, h.lots.length - LOT_VISIBLE);
+        var showAcct0 = h.lots.some(function(l){ return acctOf(l) !== 't'; });
         var lotRows = h.lots.slice().reverse().map(function(l, li){
           var isSell = l.type === 's';
           var amtPart = isSell
@@ -2005,9 +2066,14 @@ details.box[open]>summary{margin-bottom:8px}
                 + (l.realized >= 0 ? '利確＋' : '損切－') + yen(Math.abs(l.realized)) + '</span>')
             : ('購入額' + yen(l.shares*l.price));
           return '<div class="lotrow ' + (isSell ? 'txsell' : 'txbuy') + (li >= LOT_VISIBLE ? ' lothid' : '') + '" data-code="' + h.code + '" data-gidx="' + lots.indexOf(l) + '">'
-            + '<span class="lottag">' + (isSell ? '売却' : '購入') + '</span>' + l.date + '　' + l.shares.toLocaleString('ja-JP') + '株　@' + yen(l.price)
+            + '<span class="lottag">' + (isSell ? '売却' : '購入') + '</span>' + (showAcct0 ? acctTag(acctOf(l)) : '') + l.date + '　' + l.shares.toLocaleString('ja-JP') + '株　@' + yen(l.price)
             + '　（' + amtPart + '）</div>';
         }).join('');
+        var showAcct = h.lots.some(function(l){ return acctOf(l) !== 't'; });   // 特定口座以外の記録があるときは、口座を表示する
+        var accKeys = Object.keys(h.accts).filter(function(k){ return h.accts[k].shares > 0; });
+        var defAcct = accKeys.length ? accKeys.sort(function(a, b){ return h.accts[b].shares - h.accts[a].shares; })[0] : 't';
+        var acctSum = showAcct ? '<div class="acctsum">口座別の保有：' + accKeys.map(function(k){
+          return acctTag(k) + h.accts[k].shares.toLocaleString('ja-JP') + '株（平均' + yen(h.accts[k].avg) + '）'; }).join('　') + '</div>' : '';
         var newtxbtn = '<button type="button" class="newtxbtn" data-code="' + h.code + '">＋ 新規買付・売却を記録</button>';
         var txform = '<div class="addrow txform" data-code="' + h.code + '" data-type="b" hidden>'
           + '<div class="txtypebtns">'
@@ -2019,6 +2085,7 @@ details.box[open]>summary{margin-bottom:8px}
           + '<label>単価（円・空欄で自動取得）<input class="tx-price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
           + '<label>空欄時に自動取得する価格<select class="pricesrc"><option value="close">終値</option><option value="open">始値</option></select></label>'
           + '<label>日付<input class="tx-date" type="date"></label>'
+          + '<label>口座<select class="tx-acct">' + acctOpts(defAcct) + '</select></label>'
           + '<button type="button" class="tx-submit">記録する</button>'
           + '</div></div>';
         var editform = '<div class="addrow editform" data-code="' + h.code + '" data-gidx="" hidden>'
@@ -2032,6 +2099,7 @@ details.box[open]>summary{margin-bottom:8px}
           + '<label>単価（円・空欄で自動取得）<input class="ed-price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
           + '<label>空欄時に自動取得する価格<select class="pricesrc"><option value="close">終値</option><option value="open">始値</option></select></label>'
           + '<label>日付<input class="ed-date" type="date"></label>'
+          + '<label>口座<select class="ed-acct">' + acctOpts('t') + '</select></label>'
           + '<button type="button" class="ed-update">修正する</button>'
           + '<button type="button" class="ed-delete ghost">削除する</button>'
           + '</div></div>';
@@ -2040,7 +2108,7 @@ details.box[open]>summary{margin-bottom:8px}
           : '';
         var detail = '<tr class="detail" data-idx="' + idx + '"' + (isOpen ? '' : ' hidden') + '><td colspan="' + (withSecs ? 13 : 12) + '"><div class="lots' + (lotsOpen[h.code] ? ' lotsopen' : '') + '">'
           + '<b>購入ロット内訳</b><div class="lotnote">各記録をクリックすると修正・削除できます。新しい買付・売却は「＋新規買付・売却を記録」ボタンから追加できます。取得費・実現損益は移動平均法（総平均法に準ずる方法）で計算した参考値です。正確な損益は証券会社の取引履歴でご確認ください。</div>'
-          + newtxbtn + txform + lotRows + lotToggle + editform
+          + acctSum + newtxbtn + txform + lotRows + lotToggle + editform
           + '<div class="pricechart" data-code="' + h.code + '"><b>株価チャート</b>'
           + '<div class="dimbtns pchart-period" data-code="' + h.code + '">'
           + '<button type="button" class="pbtn" data-range="1m">1M</button>'
@@ -2280,7 +2348,8 @@ details.box[open]>summary{margin-bottom:8px}
   // 目標％はセクション単位で設定する（セクション合計＝100%）。セクションの中の銘柄は「均等／現状のまま／指定」で割り振る。
   // 未分類の銘柄はリバランスの対象外（売買しない）。セクションには、まだ持っていない「候補銘柄」も入れられる。
   var RB_KEY = PF_KEY.replace('pf_lots', 'pf_rb');
-  var rb = {mode: 'buy', cash: 0, unit: 100, bandType: 'rel', bandVal: 20, minTrade: 0};
+  var rb = {mode: 'buy', cash: 0, unit: 100, bandType: 'rel', bandVal: 20, minTrade: 0,
+            feeRate: 0, feeMin: 0, feeMax: 0, oddRate: 0, nisaPolicy: 'auto', buyAcct: 't', nisaFrame: 0, yearReal: null, carry: 0, netting: true};
   try {
     var rbs = JSON.parse(localStorage.getItem(RB_KEY) || 'null');
     if (rbs && typeof rbs === 'object') {
@@ -2290,6 +2359,11 @@ details.box[open]>summary{margin-bottom:8px}
       if (rbs.bandType === 'abs' || rbs.bandType === 'rel') rb.bandType = rbs.bandType;
       if (isFinite(+rbs.bandVal) && +rbs.bandVal >= 0) rb.bandVal = +rbs.bandVal;
       if (isFinite(+rbs.minTrade) && +rbs.minTrade >= 0) rb.minTrade = +rbs.minTrade;
+      ['feeRate', 'feeMin', 'feeMax', 'oddRate', 'nisaFrame', 'carry'].forEach(function(k){ if (isFinite(+rbs[k]) && +rbs[k] >= 0) rb[k] = +rbs[k]; });
+      if (['auto', 'keep', 'first'].indexOf(rbs.nisaPolicy) >= 0) rb.nisaPolicy = rbs.nisaPolicy;
+      if (rbs.buyAcct === 'n' || rbs.buyAcct === 't') rb.buyAcct = rbs.buyAcct;
+      if (rbs.yearReal !== null && rbs.yearReal !== undefined && isFinite(+rbs.yearReal)) rb.yearReal = +rbs.yearReal;
+      if (rbs.netting === false) rb.netting = false;
     }
   } catch(e) {}
   function saveRb(){ try { localStorage.setItem(RB_KEY, JSON.stringify(rb)); } catch(e) {} }
@@ -2297,27 +2371,54 @@ details.box[open]>summary{margin-bottom:8px}
 
   /*RB-ENGINE-START*/
   // リバランス案の計算（画面には依存しない純粋な関数。単体試験できる）。
-  //   items: [{code, price, shares, avg, t}]  t＝リバランス対象の全体に対する目標割合（0〜1。合計は1）
-  //   opt  : {mode:'buy'|'sell'|'both', cash, unit, bandType:'rel'|'abs', bandVal, minTrade}
+  //   items: [{code, price, shares, t, accts}]
+  //     t     ＝リバランス対象の全体に対する目標割合（0〜1。合計は1）
+  //     accts ＝口座別の保有 {t:{shares, avg}, n:{...}, i:{...}}（t=特定口座, n=NISA, i=一般口座。avg＝その口座の平均取得単価）
+  //   opt   : {mode:'buy'|'sell'|'both', cash, unit, bandType:'rel'|'abs', bandVal, minTrade,
+  //            fee:{rate(%), min(円), max(円。0なら上限なし)}, oddRate(%。単元未満＝unit 1 のときだけ上乗せする追加コスト),
+  //            taxRate, nisaPolicy:'auto'|'keep'|'first', netting(損益通算), yearReal(今年の確定済み譲渡損益), carry(繰越損失),
+  //            buyAcct:'t'|'n', nisaFrame(NISAで買える残り枠・円)}
   //     buy  ＝買い増しのみ（新規資金を、目標より不足している銘柄から順に配分。売らない）
-  //     sell ＝売却のみ（許容幅を超えて多い銘柄を、目標金額まで売る。代金は現金として残す）
+  //     sell ＝売却のみ（許容幅を超えて多い銘柄を、目標金額まで売る。代金は現金として残る）
   //     both ＝売却＋買い増し（売却の代金と新規資金を、不足している銘柄に配分）
-  //   unit : 売買単位（日本株：単元＝100、単元未満＝1）。売却できる株数は単位の倍数まで（端数は残る）
+  //   unit : 売買単位（日本株：単元＝100、単元未満＝1）。売れる株数は単位の倍数まで（端数は残る）
+  // 売る口座の選び方（nisaPolicy）：auto＝税が最小になる順（含み損の口座→NISA→含み益の小さい口座）、keep＝NISAは売らない、first＝NISAを先に売る。
+  // 税：特定口座・一般口座の譲渡損益を通算（netting）し、今年の確定済み譲渡損益と繰越損失を加味した、税額の増減を概算する。NISAは非課税で、損益通算の対象外。
   var RB_TAX = 0.20315;   // 課税口座の譲渡益にかかる税率（概算）
   function rbPlan(items, opt){
     var u = opt.unit > 0 ? opt.unit : 1;
     var cash = (opt.mode === 'sell') ? 0 : Math.max(0, +opt.cash || 0);
     var minTrade = Math.max(0, +opt.minTrade || 0);
     var bv = Math.max(0, +opt.bandVal || 0);
+    var taxRate = (opt.taxRate >= 0) ? opt.taxRate : RB_TAX;
+    var fc = opt.fee || {};
+    var feeRate = Math.max(0, +fc.rate || 0) / 100, feeMin = Math.max(0, +fc.min || 0), feeMax = Math.max(0, +fc.max || 0);
+    var odd = (u === 1) ? Math.max(0, +opt.oddRate || 0) / 100 : 0;
+    var policy = opt.nisaPolicy || 'auto';
+    var netting = opt.netting !== false;
+    function fee(amount){
+      if (!(amount > 0)) return 0;
+      var f = amount * feeRate;
+      if (feeMin > 0 && f < feeMin) f = feeMin;
+      if (feeMax > 0 && f > feeMax) f = feeMax;
+      return f + amount * odd;
+    }
     var rows = items.filter(function(it){ return it.price > 0; }).map(function(it){
-      return {code: it.code, price: it.price, shares: it.shares, avg: it.avg || 0, t: it.t,
-              v: it.price * it.shares, unitCost: it.price * u,
-              sellable: Math.floor(it.shares / u) * u, sell: 0, buy: 0, units: 0};
+      var ac = {};
+      ['t', 'n', 'i'].forEach(function(k){
+        var a = it.accts && it.accts[k];
+        if (a && a.shares > 0) ac[k] = {shares: a.shares, avg: a.avg || 0, sellable: (k === 'n' && policy === 'keep') ? 0 : Math.floor(a.shares / u) * u};
+      });
+      var shares = Object.keys(ac).reduce(function(s, k){ return s + ac[k].shares; }, 0);
+      var sellable = Object.keys(ac).reduce(function(s, k){ return s + ac[k].sellable; }, 0);
+      return {code: it.code, price: it.price, shares: shares, t: it.t, accts: ac,
+              v: it.price * shares, unitCost: it.price * u, sellable: sellable,
+              sell: 0, buy: 0, units: 0, sellFrags: [], buyFrags: [], sellFee: 0, buyFee: 0, sellShort: false};
     });
     var V = rows.reduce(function(a, r){ return a + r.v; }, 0);
     var T = V + cash;
-    var proceeds = 0, buyTotal = 0;
-    // 1) 売却：許容幅を超えて多い銘柄を、目標金額（目標％×売買後の評価額）まで
+    var proceeds = 0, sellFeeTotal = 0;
+    // 1) 売却：許容幅を超えて多い銘柄を、目標金額（目標％×売買後の評価額）まで。売る口座は税が小さい順などで選ぶ
     if (opt.mode === 'sell' || opt.mode === 'both') {
       rows.forEach(function(r){
         var w = V > 0 ? r.v / V : 0;
@@ -2326,63 +2427,118 @@ details.box[open]>summary{margin-bottom:8px}
         if (!over) return;
         var excess = r.v - r.t * T;
         if (excess <= 0) return;
-        var units = Math.min(Math.round(excess / r.unitCost), r.sellable / u);
-        var sh = units * u;
+        var want = Math.round(excess / r.unitCost) * u;
+        var sh = Math.min(want, r.sellable);
+        if (want > r.sellable) r.sellShort = true;      // 売りたいが、売れる株数（口座の制限・端数）が足りない
         if (sh <= 0 || sh * r.price < minTrade) return;
-        r.sell = sh;
-        proceeds += sh * r.price;
+        // 口座の順序
+        var keys = Object.keys(r.accts).filter(function(k){ return r.accts[k].sellable > 0; });
+        var tax1 = function(k){ var g = r.price - r.accts[k].avg; return k === 'n' ? 0 : (netting ? g : Math.max(0, g)); };
+        keys.sort(function(a, b){
+          if (policy === 'first') { var an = a === 'n' ? 0 : 1, bn = b === 'n' ? 0 : 1; if (an !== bn) return an - bn; }
+          var d = tax1(a) - tax1(b);
+          if (Math.abs(d) > 1e-12) return d;
+          return (a === 'n' ? 1 : 0) - (b === 'n' ? 1 : 0);     // 同じ税なら、NISAは最後
+        });
+        var left = sh;
+        keys.forEach(function(k){
+          if (left <= 0) return;
+          var take = Math.min(left, r.accts[k].sellable);
+          if (take <= 0) return;
+          r.sellFrags.push({acct: k, shares: take, avg: r.accts[k].avg});
+          left -= take;
+        });
+        r.sell = sh - left;
+        if (r.sell <= 0) { r.sellFrags = []; return; }
+        r.sellFrags.forEach(function(f){ f.amount = f.shares * r.price; f.fee = fee(f.amount); r.sellFee += f.fee; });
+        proceeds += r.sell * r.price - r.sellFee;
+        sellFeeTotal += r.sellFee;
       });
     }
     // 2) 買い：予算を、目標より不足している銘柄から順に（最も不足している銘柄の「目標に対する割合」を最大にする方式）
-    var budget = 0;
+    var budget = 0, buySpend = 0, buyFeeTotal = 0;
     if (opt.mode === 'buy' || opt.mode === 'both') {
       budget = cash + (opt.mode === 'both' ? proceeds : 0);
       var cand = rows.filter(function(r){ return r.t > 0 && r.sell === 0; });
       if (budget > 0 && cand.length) {
-        var v1 = function(r){ return r.v - r.sell * r.price; };
+        var v1 = function(r){ return r.v; };
+        var spendOf = function(){ return cand.reduce(function(a, r){ var amt = r.units * r.unitCost; return a + amt + fee(amt); }, 0); };
+        // 手数料を見込んだ予算で「水位」を求め（二分法）、単位に切り捨てる
+        var bEff = budget / (1 + feeRate + odd);
         var lo = Math.min.apply(null, cand.map(function(r){ return v1(r) / r.t; }));
         var minT = Math.min.apply(null, cand.map(function(r){ return r.t; }));
-        var hi = lo + budget / minT + 1;
+        var hi = lo + bEff / minT + 1;
         var need = function(L){ return cand.reduce(function(a, r){ return a + Math.max(0, r.t * L - v1(r)); }, 0); };
         for (var k = 0; k < 200; k++) {
           var mid = (lo + hi) / 2;
-          if (need(mid) > budget) hi = mid; else lo = mid;
+          if (need(mid) > bEff) hi = mid; else lo = mid;
         }
-        var spent = 0;
-        cand.forEach(function(r){
-          r.units = Math.floor(Math.max(0, r.t * lo - v1(r)) / r.unitCost + 1e-9);
-          spent += r.units * r.unitCost;
-        });
-        // 単位に丸めたあとの余りで、いちばん不足している銘柄から1単位ずつ（買える範囲で）
-        var rem = budget - spent, guard = 0;
-        while (guard++ < 200000) {
-          var best = null, bf = Infinity;
+        cand.forEach(function(r){ r.units = Math.floor(Math.max(0, r.t * lo - v1(r)) / r.unitCost + 1e-9); });
+        var f = function(r){ return (v1(r) + r.units * r.unitCost) / r.t; };
+        // 手数料（最低額など）で予算を超えたら、最も多めに買った銘柄から1単位ずつ減らす
+        var guard = 0;
+        while (spendOf() > budget + 1e-9 && guard++ < 200000) {
+          var worst = null, wf = -Infinity;
+          cand.forEach(function(r){ if (r.units > 0 && f(r) > wf) { wf = f(r); worst = r; } });
+          if (!worst) break;
+          worst.units--;
+        }
+        // 余りで、いちばん不足している銘柄から1単位ずつ（手数料の増分も含めて買える範囲で）
+        guard = 0;
+        while (guard++ < 300000) {
+          var rem = budget - spendOf(), best = null, bf = Infinity, bm = Infinity;
           cand.forEach(function(r){
-            if (r.unitCost > rem + 1e-9) return;
-            var f = (v1(r) + r.units * r.unitCost) / r.t;
-            if (f < bf - 1e-12 || (Math.abs(f - bf) <= 1e-12 && best && r.unitCost < best.unitCost)) { bf = f; best = r; }
+            var cur = r.units * r.unitCost, marg = r.unitCost + fee(cur + r.unitCost) - fee(cur);
+            if (marg > rem + 1e-9) return;
+            var ff = f(r);
+            if (ff < bf - 1e-12 || (Math.abs(ff - bf) <= 1e-12 && marg < bm)) { bf = ff; bm = marg; best = r; }
           });
           if (!best) break;
           best.units++;
-          rem -= best.unitCost;
         }
+        // 最小売買額に届かない買いは出さない
         cand.forEach(function(r){
           var sh = r.units * u;
-          if (sh > 0 && sh * r.price >= minTrade) { r.buy = sh; buyTotal += sh * r.price; }
+          if (sh > 0 && sh * r.price >= minTrade) {
+            r.buy = sh; r.buyFee = fee(sh * r.price);
+            buySpend += sh * r.price + r.buyFee; buyFeeTotal += r.buyFee;
+          }
+        });
+        // 買い付けの口座：NISAで買う設定なら、残り枠の範囲でNISA、超える分は特定口座
+        var frame = (opt.buyAcct === 'n') ? Math.max(0, +opt.nisaFrame || 0) : 0;
+        var buyers = cand.filter(function(r){ return r.buy > 0; }).sort(function(a, b){ return b.buy * b.price - a.buy * a.price; });
+        buyers.forEach(function(r){
+          var nUnits = 0;
+          if (frame > 0) nUnits = Math.min(r.buy / u, Math.floor(frame / r.unitCost));
+          var amtAll = r.buy * r.price;
+          if (nUnits > 0) {
+            var sh = nUnits * u;
+            r.buyFrags.push({acct: 'n', shares: sh, amount: sh * r.price, fee: r.buyFee * (sh * r.price / amtAll)});
+            frame -= sh * r.price;
+          }
+          var rest = r.buy - nUnits * u;
+          if (rest > 0) r.buyFrags.push({acct: 't', shares: rest, amount: rest * r.price, fee: r.buyFee * (rest * r.price / amtAll)});
         });
       }
     }
-    // 3) 結果
-    var vAfterTotal = 0, tax = 0, sellTotal = 0;
+    // 3) 結果（売却益の税は、特定・一般口座の譲渡損益を通算し、今年の確定済み分と繰越損失を加味して概算）
+    var vAfterTotal = 0, sellTotal = 0, gainPos = 0, gainNeg = 0, planned = 0, nisaSold = 0;
     rows.forEach(function(r){
       r.after = r.shares - r.sell + r.buy;
       r.vAfter = r.after * r.price;
       vAfterTotal += r.vAfter;
-      if (r.sell > 0) {
-        sellTotal += r.sell * r.price;
-        tax += Math.max(0, r.price - r.avg) * r.sell * RB_TAX;
-      }
+      if (r.sell > 0) sellTotal += r.sell * r.price;
+      r.sellFrags.forEach(function(fr){
+        if (fr.acct === 'n') { fr.gain = (r.price - fr.avg) * fr.shares - fr.fee; nisaSold += fr.amount; fr.taxable = false; return; }
+        fr.taxable = true;
+        fr.gain = (r.price - fr.avg) * fr.shares - fr.fee;
+        if (fr.gain >= 0) gainPos += fr.gain; else gainNeg += -fr.gain;
+        planned += netting ? fr.gain : Math.max(0, fr.gain);
+      });
     });
+    var yearReal = +opt.yearReal || 0, carry = Math.max(0, +opt.carry || 0);
+    var taxBefore = Math.max(0, yearReal - carry) * taxRate;
+    var taxAfter = Math.max(0, yearReal + planned - carry) * taxRate;
     var devBefore = 0, devAfter = 0;
     rows.forEach(function(r){
       r.wBefore = V > 0 ? r.v / V : 0;
@@ -2390,8 +2546,13 @@ details.box[open]>summary{margin-bottom:8px}
       devBefore = Math.max(devBefore, Math.abs(r.wBefore - r.t));
       devAfter = Math.max(devAfter, Math.abs(r.wAfter - r.t));
     });
+    var buyTotal = rows.reduce(function(a, r){ return a + r.buy * r.price; }, 0);
     return {rows: rows, V: V, T: T, cash: cash, proceeds: proceeds, sellTotal: sellTotal, buyTotal: buyTotal,
-            leftover: cash + proceeds - buyTotal, tax: tax, vAfter: vAfterTotal, devBefore: devBefore, devAfter: devAfter};
+            sellFee: sellFeeTotal, buyFee: buyFeeTotal, fee: sellFeeTotal + buyFeeTotal,
+            leftover: cash + proceeds - buySpend, vAfter: vAfterTotal, devBefore: devBefore, devAfter: devAfter,
+            tax: taxAfter - taxBefore,
+            taxDetail: {gain: gainPos, loss: gainNeg, planned: planned, yearReal: yearReal, carry: carry,
+                        before: taxBefore, after: taxAfter, delta: taxAfter - taxBefore, nisaSold: nisaSold}};
   }
   /*RB-ENGINE-END*/
 
@@ -2402,6 +2563,15 @@ details.box[open]>summary{margin-bottom:8px}
     if (z === '') return undefined;
     var n = Number(z);
     return (isFinite(n) && n >= 0) ? n : undefined;
+  }
+  // マイナスも受け付ける数値（今年の確定済み譲渡損益：−・△・▲もマイナスとして読む）
+  function rbSigned(s){
+    if (s == null) return undefined;
+    var z = String(s).replace(/[０-９]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+                     .replace(/[－−ー△▲]/g, '-').replace(/[．。]/g, '.').replace(/[，,\s円]/g, '').replace(/^\+/, '');
+    if (z === '' || z === '-') return undefined;
+    var n = Number(z);
+    return isFinite(n) ? n : undefined;
   }
   function f1(x){ return (Math.round(x * 10) / 10).toFixed(1); }
 
@@ -2414,12 +2584,14 @@ details.box[open]>summary{margin-bottom:8px}
       s.codes.forEach(function(c){
         var h = hmap[c];
         if (!h || h.missing || h.price == null) return;      // 現在値のない銘柄は対象外
-        m.push({code: c, name: h.name || c, price: h.price, shares: h.shares, avg: h.avgPrice || 0, value: h.shares * h.price, held: true});
+        var ac = {};
+        Object.keys(h.accts || {}).forEach(function(k){ if (h.accts[k].shares > 0) ac[k] = {shares: h.accts[k].shares, avg: h.accts[k].avg}; });
+        m.push({code: c, name: h.name || c, price: h.price, shares: h.shares, avg: h.avgPrice || 0, value: h.shares * h.price, held: true, accts: ac});
       });
       (s.a || []).forEach(function(c){
         var i = lastByCode[c];
         if (!i || typeof i.price !== 'number') return;
-        m.push({code: c, name: i.name || c, price: i.price, shares: 0, avg: 0, value: 0, held: false});
+        m.push({code: c, name: i.name || c, price: i.price, shares: 0, avg: 0, value: 0, held: false, accts: {}});
       });
       return {s: s, m: m, value: m.reduce(function(a, x){ return a + x.value; }, 0), warn: ''};
     });
@@ -2545,14 +2717,31 @@ details.box[open]>summary{margin-bottom:8px}
     el.innerHTML = top + '<div class="rbscroll">' + head + rows + '</tbody></table></div>' + notes;
   }
 
+  function autoYearReal(){
+    // 今年（暦年）に、特定口座・一般口座で売却して確定した譲渡損益の合計（記録した売却から計算。NISAは対象外）
+    var y = String(new Date().getFullYear());
+    return lots.reduce(function(a, l){
+      return a + ((l.type === 's' && acctOf(l) !== 'n' && String(l.date).slice(0, 4) === y && typeof l.realized === 'number') ? l.realized : 0);
+    }, 0);
+  }
+  function rbOpt(){
+    return {mode: rb.mode, cash: rb.cash, unit: rb.unit, bandType: rb.bandType, bandVal: rb.bandVal, minTrade: rb.minTrade,
+            fee: {rate: rb.feeRate, min: rb.feeMin, max: rb.feeMax}, oddRate: rb.oddRate,
+            nisaPolicy: rb.nisaPolicy, netting: rb.netting,
+            yearReal: (rb.yearReal == null ? autoYearReal() : rb.yearReal), carry: rb.carry,
+            buyAcct: rb.buyAcct, nisaFrame: rb.nisaFrame};
+  }
+  function signedYen(v){ return (v >= 0 ? '+' : '−') + yen(Math.abs(v)); }
+  function acctTag(k){ return '<span class="lottag acct ' + k + '">' + ACCT_NAME[k] + '</span>'; }
+
   function drawRbResult(M){
     var el = $('rbresult');
     if (!secs.length) { el.innerHTML = ''; return; }
     if (!M.ready) { el.innerHTML = '<div class="empty">目標（%）を入力すると、売買案が出ます。</div>'; return; }
     var all = [];
     M.infos.forEach(function(i){ i.m.forEach(function(x){ all.push({x: x, sec: i}); }); });
-    var items = all.map(function(a){ return {code: a.x.code, price: a.x.price, shares: a.x.shares, avg: a.x.avg, t: a.x.t, _a: a}; });
-    var optBase = {mode: rb.mode, cash: rb.cash, unit: rb.unit, bandType: rb.bandType, bandVal: rb.bandVal, minTrade: rb.minTrade};
+    var items = all.map(function(a){ return {code: a.x.code, price: a.x.price, shares: a.x.shares, t: a.x.t, accts: a.x.accts, _a: a}; });
+    var opt = rbOpt();
     var excludedNote = '';
     if (rb.mode === 'sell') {
       // 売却のみ：買えない（未保有の）候補銘柄は計算から外し、残りの目標を比率に直す
@@ -2561,7 +2750,7 @@ details.box[open]>summary{margin-bottom:8px}
       if (items.length !== held.length) excludedNote = '売却のみでは、未保有の候補銘柄を計算から外しています。';
       items = held.map(function(it){ it.t = st > 0 ? it.t / st : 0; return it; });
     }
-    var plan = rbPlan(items, optBase);
+    var plan = rbPlan(items, opt);
     var byCode = {};
     items.forEach(function(it){ byCode[it.code] = it._a; });
     var msgs = [];
@@ -2573,36 +2762,55 @@ details.box[open]>summary{margin-bottom:8px}
       return (b.sell * b.price + b.buy * b.price) - (a.sell * a.price + a.buy * a.price);
     });
     var fr = rb.unit === 100 ? '単元（100株）' : '単元未満（1株）';
+    var td = plan.taxDetail;
     var html = '<div class="rbsumm">'
       + '<div><span>売却の合計</span><b>' + yen(plan.sellTotal) + '</b></div>'
       + '<div><span>買い付けの合計</span><b>' + yen(plan.buyTotal) + '</b></div>'
       + (rb.mode === 'sell' ? '' : '<div><span>新規資金</span><b>' + yen(plan.cash) + '</b></div>')
+      + '<div><span>手数料の合計</span><b>' + yen(plan.fee) + '</b></div>'
       + '<div><span>余りの現金</span><b>' + yen(plan.leftover) + '</b></div>'
-      + '<div><span>売却益の税（概算）</span><b>' + yen(plan.tax) + '</b></div>'
+      + '<div><span>売却益の税の増減（概算）</span><b>' + signedYen(td.delta) + '</b></div>'
       + '<div><span>最大のずれ（銘柄・全体比）</span><b>' + f1(plan.devBefore * 100) + 'pt → ' + f1(plan.devAfter * 100) + 'pt</b></div>'
       + '</div>';
     if (!trades.length) {
-      var why = msgs.length ? msgs.join(' ') : (rb.mode === 'buy' ? '買い付けできる銘柄がありません（資金が1単位に満たない、または最小売買額に届かない）。'
-        : '許容幅を超えて多い銘柄がない（または売る株数が1単位に満たない）ため、売却はありません。');
+      var why = msgs.length ? msgs.join(' ') : (rb.mode === 'buy' ? '買い付けできる銘柄がありません（資金が1単位に満たない、または最小売買額・手数料のため買えない）。'
+        : '許容幅を超えて多い銘柄がない（または売る株数が1単位に満たない・売れる口座がない）ため、売却はありません。');
       html += '<div class="empty">売買案はありません。' + escH(why) + '</div>';
     } else {
-      html += '<div class="rbscroll"><table><thead><tr><th>売買</th><th>銘柄</th><th class="n">株数</th><th class="n">現在値</th><th class="n">概算金額</th>'
-        + '<th class="n">売買後の株数</th><th class="n">売買後の比率（目標）</th><th class="n">売却益の税（概算）</th></tr></thead><tbody>';
+      html += '<div class="rbscroll"><table><thead><tr><th>売買</th><th>口座</th><th>銘柄</th><th class="n">株数</th><th class="n">現在値</th><th class="n">概算金額</th>'
+        + '<th class="n">手数料</th><th class="n">売却益・損（概算）</th><th class="n">売買後の株数</th><th class="n">売買後の比率（目標）</th></tr></thead><tbody>';
       trades.forEach(function(r){
         var a = byCode[r.code];
-        var isSell = r.sell > 0;
-        var sh = isSell ? r.sell : r.buy;
-        var tx = isSell ? Math.max(0, r.price - r.avg) * r.sell * RB_TAX : 0;
-        html += '<tr class="' + (isSell ? 'txsellr' : 'txbuyr') + '"><td><span class="lottag ' + (isSell ? 'sl' : 'by') + '">' + (isSell ? '売り' : '買い') + '</span></td>'
-          + '<td><span class="code">' + escH(r.code) + '</span> ' + escH(a.x.name) + (a.x.held ? '' : ' <span class="chip cand">新規</span>') + '</td>'
-          + '<td class="n"><b>' + sh.toLocaleString('ja-JP') + '株</b></td>'
-          + '<td class="n">' + yen(r.price) + '</td>'
-          + '<td class="n">' + yen(sh * r.price) + '</td>'
-          + '<td class="n">' + r.shares.toLocaleString('ja-JP') + ' → ' + r.after.toLocaleString('ja-JP') + '株</td>'
-          + '<td class="n">' + f1(r.wAfter * 100) + '%（' + f1(r.t * 100) + '%）</td>'
-          + '<td class="n">' + (isSell ? yen(tx) : '') + '</td></tr>';
+        var sells = r.sellFrags.length > 0;
+        var frags = sells ? r.sellFrags : r.buyFrags;
+        frags.forEach(function(f, fi){
+          var gainTxt = '';
+          if (sells) gainTxt = (f.acct === 'n') ? '<span class="skn">非課税</span>' : '<b class="' + (f.gain >= 0 ? 'pos' : 'neg') + '">' + signedYen(f.gain) + '</b>';
+          html += '<tr class="' + (sells ? 'txsellr' : 'txbuyr') + '"><td><span class="lottag ' + (sells ? 'sl' : 'by') + '">' + (sells ? '売り' : '買い') + '</span></td>'
+            + '<td>' + acctTag(f.acct) + '</td>'
+            + '<td>' + (fi === 0 ? '<span class="code">' + escH(r.code) + '</span> ' + escH(a.x.name) + (a.x.held ? '' : ' <span class="chip cand">新規</span>') : '〃') + '</td>'
+            + '<td class="n"><b>' + f.shares.toLocaleString('ja-JP') + '株</b></td>'
+            + '<td class="n">' + yen(r.price) + '</td>'
+            + '<td class="n">' + yen(f.amount) + '</td>'
+            + '<td class="n">' + (f.fee > 0 ? yen(f.fee) : '―') + '</td>'
+            + '<td class="n">' + gainTxt + '</td>'
+            + (fi === 0 ? '<td class="n" rowspan="' + frags.length + '">' + r.shares.toLocaleString('ja-JP') + ' → ' + r.after.toLocaleString('ja-JP') + '株</td>'
+              + '<td class="n" rowspan="' + frags.length + '">' + f1(r.wAfter * 100) + '%（' + f1(r.t * 100) + '%）</td>' : '')
+            + '</tr>';
+        });
       });
       html += '</tbody></table></div>';
+    }
+    // 売却益の税（損益通算）の内訳
+    if (td.nisaSold > 0 || td.gain > 0 || td.loss > 0 || td.yearReal !== 0 || td.carry > 0) {
+      html += '<div class="rbtax"><b>売却益の税（概算）の内訳</b><br>'
+        + '特定・一般口座の売却：売却益 <b class="pos">' + yen(td.gain) + '</b>、売却損 <b class="neg">' + yen(td.loss) + '</b>'
+        + (rb.netting ? '（損益通算後：<b>' + signedYen(td.planned) + '</b>）' : '（損益通算しない設定：益だけを課税対象にします）') + '<br>'
+        + '今年の確定済み譲渡損益 <b>' + signedYen(td.yearReal) + '</b>' + (rb.yearReal == null ? '（記録した売却から自動計算）' : '（入力値）')
+        + '、繰越損失 <b>' + yen(td.carry) + '</b><br>'
+        + '税（概算）：売却前 ' + yen(td.before) + ' → 売却後 ' + yen(td.after) + '　＝　増減 <b>' + signedYen(td.delta) + '</b>'
+        + (td.nisaSold > 0 ? '<br>NISA口座の売却 ' + yen(td.nisaSold) + '（非課税。損益通算の対象外）' : '')
+        + '</div>';
     }
     // セクション別：売買前→売買後
     var secRows = M.infos.filter(function(i){ return i.m.length; }).map(function(i){
@@ -2616,12 +2824,16 @@ details.box[open]>summary{margin-bottom:8px}
       return '<tr><td>' + escH(i.s.name) + '</td><td class="n">' + f1(i.cur * 100) + '%</td><td class="n">' + f1(after / tot * 100) + '%</td><td class="n">' + f1(i.tn * 100) + '%</td></tr>';
     }).join('');
     html += '<div class="rbscroll"><table class="rbsec"><thead><tr><th>セクション</th><th class="n">現状</th><th class="n">売買後</th><th class="n">目標</th></tr></thead><tbody>' + secRows + '</tbody></table></div>';
-    var odd = plan.rows.filter(function(r){ return rb.unit > 1 && r.shares % rb.unit !== 0 && r.shares > 0; });
+    var odd = plan.rows.filter(function(r){ return rb.unit > 1 && r.shares > 0 && Object.keys(r.accts).some(function(k){ return r.accts[k].shares % rb.unit !== 0; }); });
+    var short = plan.rows.filter(function(r){ return r.sellShort; });
     var notes = [];
     if (excludedNote) notes.push(excludedNote);
-    if (odd.length) notes.push('端数（単元未満）の株は、単元モードでは売却対象外です：' + odd.map(function(r){ return r.code + '（端数' + (r.shares % rb.unit) + '株）'; }).join('、'));
-    notes.push('売買単位：' + fr + '。計算はランキングの現在値で行い、実際の約定価格・手数料・スプレッド（単元未満株は証券会社により大きく異なります）は考慮しません。');
-    notes.push('売却益の税は、平均取得単価との差に20.315%をかけた概算です（課税口座の場合。NISA口座・損益通算・手数料は考慮しません）。');
+    if (short.length) notes.push('売りたい株数に対して、売れる株数が足りない銘柄があります：' + short.map(function(r){ return r.code; }).join('、') + '（NISAを売らない設定、または売却できない端数・口座の制限のため）。');
+    if (odd.length) notes.push('端数（単元未満）の株は、単元モードでは売却対象外です：' + odd.map(function(r){
+      return r.code + '（' + Object.keys(r.accts).filter(function(k){ return r.accts[k].shares % rb.unit !== 0; }).map(function(k){ return ACCT_NAME[k] + '口座の端数' + (r.accts[k].shares % rb.unit) + '株'; }).join('・') + '）'; }).join('、'));
+    if (td.nisaSold > 0) notes.push('NISA口座の株を売ると、その分の非課税枠は、売却した年は戻らず、翌年以降に再利用できます（制度の最新の内容は、証券会社・金融庁でご確認ください）。');
+    notes.push('売買単位：' + fr + '。計算はランキングの現在値で行い、実際の約定価格・手数料・スプレッド（単元未満株は証券会社により大きく異なります）は、入力した手数料の設定で概算します。');
+    notes.push('売却益の税は、各口座の平均取得単価との差に20.315%をかけた概算です（特定口座・一般口座の損益を通算。NISA口座は非課税）。配当との損益通算・住民税の扱い・年をまたぐ繰越控除の手続きは考慮しません。税務は、証券会社の取引報告書・税理士・税務署でご確認ください。');
     notes.push('これは、入力した目標比率に近づけるための参考計算です。投資の助言ではありません。');
     html += '<p class="note">' + notes.map(escH).join('<br>') + '</p>';
     el.innerHTML = html;
@@ -2636,6 +2848,7 @@ details.box[open]>summary{margin-bottom:8px}
     drawRbTable(M);
     drawRbResult(M);
     $('rbctl').hidden = !secs.length;
+    var yr = $('rb-yearreal'); if (yr) yr.placeholder = '自動：' + Math.round(autoYearReal()).toLocaleString('ja-JP');
   }
   function renderRbResult(){ drawRbResult(rbModel()); }
   function syncRbControls(){
@@ -2647,6 +2860,10 @@ details.box[open]>summary{margin-bottom:8px}
     $('rb-bandtype').value = rb.bandType;
     $('rb-bandval').value = rb.bandVal;
     $('rb-min').value = rb.minTrade || '';
+    $('rb-feerate').value = rb.feeRate || ''; $('rb-feemin').value = rb.feeMin || ''; $('rb-feemax').value = rb.feeMax || ''; $('rb-odd').value = rb.oddRate || '';
+    $('rb-nisapol').value = rb.nisaPolicy; $('rb-buyacct').value = rb.buyAcct; $('rb-frame').value = rb.nisaFrame || '';
+    $('rb-frame').disabled = (rb.buyAcct !== 'n');
+    $('rb-yearreal').value = (rb.yearReal == null) ? '' : rb.yearReal; $('rb-carry').value = rb.carry || ''; $('rb-netting').checked = !!rb.netting;
   }
   // 表の入力は、確定（change）のたびに作り直す。タブで次の入力欄へ移ったときもフォーカスを保つ
   function rerenderKeepFocus(){
@@ -2667,6 +2884,12 @@ details.box[open]>summary{margin-bottom:8px}
     if (el.id === 'rb-bandtype') { rb.bandType = el.value === 'abs' ? 'abs' : 'rel'; saveRb(); renderRb(); return; }
     if (el.id === 'rb-bandval') { rb.bandVal = rbNum(el.value) || 0; saveRb(); renderRb(); return; }
     if (el.id === 'rb-min') { rb.minTrade = rbNum(el.value) || 0; saveRb(); renderRbResult(); return; }
+    var NUMSET = {'rb-feerate': 'feeRate', 'rb-feemin': 'feeMin', 'rb-feemax': 'feeMax', 'rb-odd': 'oddRate', 'rb-frame': 'nisaFrame', 'rb-carry': 'carry'};
+    if (NUMSET[el.id]) { rb[NUMSET[el.id]] = rbNum(el.value) || 0; saveRb(); renderRbResult(); return; }
+    if (el.id === 'rb-nisapol') { rb.nisaPolicy = el.value; saveRb(); renderRbResult(); return; }
+    if (el.id === 'rb-buyacct') { rb.buyAcct = (el.value === 'n') ? 'n' : 't'; saveRb(); syncRbControls(); renderRbResult(); return; }
+    if (el.id === 'rb-netting') { rb.netting = !!el.checked; saveRb(); renderRbResult(); return; }
+    if (el.id === 'rb-yearreal') { var yv = rbSigned(el.value); rb.yearReal = (yv === undefined) ? null : yv; saveRb(); renderRbResult(); return; }
     if (!k) return;
     var p = k.split(':'), s = secById(p[1]);
     if (!s) return;
