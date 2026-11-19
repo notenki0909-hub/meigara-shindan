@@ -2,7 +2,7 @@
  "code": "3591",
  "name": "ワコールホールディングス",
  "asof": "2026-11-18",
- "data_fetched_at": "2026-11-18T00:16:33",
+ "data_fetched_at": "2026-11-18T23:50:16",
  "jp_sector": "繊維製品",
  "industry": "Apparel Manufacturing",
  "is_simple": false,
@@ -14,11 +14,11 @@
   "basis": "業種",
   "name": "繊維製品"
  },
- "price": 4056.0,
+ "price": 4003.0,
  "price_date": "2026-11-18",
- "mcap": 200737062912,
+ "mcap": 198114033664,
  "sel_score": 77.6,
- "tim_score": 85.8,
+ "tim_score": 76.7,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -28,7 +28,7 @@
   "高"
  ],
  "cov_tim": [
-  4,
+  5,
   6,
   "中"
  ],
@@ -37,12 +37,12 @@
   "財務": 106.3,
   "キャッシュフロー": 79.4,
   "配当の持続力": 62.4,
-  "配当利回りセオリー": 73.0,
-  "利回り水準とChowder": 91.2,
-  "株価バリュエーション": 103.7,
+  "配当利回りセオリー": 74.9,
+  "利回り水準とChowder": 91.6,
+  "株価バリュエーション": 62.0,
   "金利スプレッド": null
  },
- "div_yield": 2.465483234714004,
+ "div_yield": 2.498126405196103,
  "streak_up": 0,
  "streak_flat": 5,
  "payout_ni": 38.2189948404357,
@@ -51,18 +51,18 @@
  "roe": 2.197,
  "div_policy": null,
  "dgr5": 20.11244339814313,
- "chowder": 22.577926632857135,
+ "chowder": 22.610569803339235,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 116.40660853602569,
- "per_vs_sector": null,
- "pbr_vs_sector": 0.8503158181818181,
+ "per_vs_sector": 1.9970843842364532,
+ "pbr_vs_sector": 0.8392046363636363,
  "per_band_pos": null,
- "yield_band_pos": 0.32963378781217506,
+ "yield_band_pos": 0.3491699247056194,
  "next_earn": "2027-02-12",
  "earn_disc_date": "2018-01-30",
  "buyback_yen": 12469000000.0,
- "total_yield": 8.67709150431702,
+ "total_yield": 8.791976350802347,
  "total_payout": 133.66351722035967,
  "interest_coverage": 26.035668789808916,
  "warnings": [
@@ -76,21 +76,7 @@
    "t": "FCF配当性向が100%超（116%：フリーCFで配当を賄えていない）"
   }
  ],
- "review": [
-  {
-   "k": "per",
-   "where": "PER（Yahoo表示 41.1倍）",
-   "why": "直近4四半期の純利益（9.7億円）から求めたPERは207.4倍で、Yahoo表示と0.2倍ずれています。Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
-   "how": "IR BANK（irbank.net/3591/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
-   "keys": [
-    "per_vs_sector",
-    "per_band_pos"
-   ],
-   "names": [
-    "益回り（1÷PER）"
-   ]
-  }
- ],
+ "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-18T00:16:36"
+ "_generated_at": "2026-11-18T23:50:19"
 }

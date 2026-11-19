@@ -2,7 +2,7 @@
  "code": "1815",
  "name": "鉄建建設",
  "asof": "2026-11-18",
- "data_fetched_at": "2026-11-18T00:05:59",
+ "data_fetched_at": "2026-11-18T23:39:44",
  "jp_sector": "建設業",
  "industry": "Engineering & Construction",
  "is_simple": false,
@@ -14,11 +14,11 @@
   "basis": "業種",
   "name": "建設業"
  },
- "price": 2155.0,
- "price_date": "2026-11-17",
- "mcap": 60042186752,
+ "price": 2135.0,
+ "price_date": "2026-11-18",
+ "mcap": 59484950528,
  "sel_score": 78.6,
- "tim_score": 105.9,
+ "tim_score": 106.2,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -39,10 +39,10 @@
   "配当の持続力": 86.3,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 110.0,
-  "株価バリュエーション": 93.0,
+  "株価バリュエーション": 94.4,
   "金利スプレッド": null
  },
- "div_yield": 5.336426914153132,
+ "div_yield": 5.386416861826698,
  "streak_up": 3,
  "streak_flat": 13,
  "payout_ni": 47.08749965376839,
@@ -51,18 +51,18 @@
  "roe": 6.974999599999999,
  "div_policy": null,
  "dgr5": 16.271101521949817,
- "chowder": 21.60752843610295,
+ "chowder": 21.657518383776512,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 0.8771094573643411,
+ "per_vs_sector": 0.8689235658914728,
  "pbr_vs_sector": null,
- "per_band_pos": 0.4310513455650653,
+ "per_band_pos": 0.45524191277983816,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": "2016-02-09",
  "buyback_yen": 0.0,
- "total_yield": 5.336426914153132,
+ "total_yield": 5.386416861826698,
  "total_payout": 33.90336050904752,
  "interest_coverage": 7.214285714285714,
  "warnings": [
@@ -80,7 +80,7 @@
   {
    "k": "pbr",
    "where": "PBR（Yahoo表示 0.00倍）",
-   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは0.78倍で、Yahoo表示と21107.70倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
+   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは0.77倍で、Yahoo表示と21107.70倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
    "how": "IR BANK（irbank.net/1815/results）の1株純資産（BPS）で、株価÷BPSを計算して確認",
    "keys": [
     "pbr_vs_sector"
@@ -89,5 +89,5 @@
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-18T00:06:02"
+ "_generated_at": "2026-11-18T23:39:47"
 }
