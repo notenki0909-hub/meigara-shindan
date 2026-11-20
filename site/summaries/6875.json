@@ -1,8 +1,8 @@
 {
  "code": "6875",
  "name": "メガチップス",
- "asof": "2026-11-18",
- "data_fetched_at": "2026-11-19T00:08:44",
+ "asof": "2026-11-19",
+ "data_fetched_at": "2026-11-20T00:26:38",
  "jp_sector": "電気機器",
  "industry": "Semiconductors",
  "is_simple": false,
@@ -14,11 +14,11 @@
   "basis": "業種",
   "name": "電気機器"
  },
- "price": 8660.0,
- "price_date": "2026-11-18",
- "mcap": 115010732032,
+ "price": 8430.0,
+ "price_date": "2026-11-20",
+ "mcap": 111956172800,
  "sel_score": 83.1,
- "tim_score": 106.3,
+ "tim_score": 107.3,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
@@ -28,62 +28,48 @@
   "中"
  ],
  "cov_tim": [
-  4,
   6,
-  "中"
+  6,
+  "高"
  ],
  "groups": {
   "業績": 42.1,
   "財務": 110.0,
   "キャッシュフロー": 98.2,
   "配当の持続力": 89.6,
-  "配当利回りセオリー": 105.4,
-  "利回り水準とChowder": 104.5,
+  "配当利回りセオリー": 107.2,
+  "利回り水準とChowder": 105.2,
   "株価バリュエーション": 110.0,
   "金利スプレッド": null
  },
- "div_yield": 3.4642032332563506,
+ "div_yield": 3.558718861209965,
  "streak_up": 3,
  "streak_flat": 7,
  "payout_ni": 43.22940983209698,
  "payout_state": null,
  "payout_fy": "2026年3月期",
- "roe": 18.243000000000002,
+ "roe": 18.242,
  "div_policy": null,
  "dgr5": 25.594321575479007,
- "chowder": 29.058524808735356,
+ "chowder": 29.153040436688972,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 74.0566640806827,
- "per_vs_sector": null,
- "pbr_vs_sector": 0.15244096153846154,
- "per_band_pos": null,
- "yield_band_pos": 0.8159158689332197,
+ "per_vs_sector": 0.10113776870748299,
+ "pbr_vs_sector": 0.14839292307692306,
+ "per_band_pos": 1.0,
+ "yield_band_pos": 0.8870407991086654,
  "next_earn": "2027-02-05",
  "earn_disc_date": "2011-05-09",
  "buyback_yen": 14700955000.0,
- "total_yield": 16.24644949868285,
+ "total_yield": 16.689709884154258,
  "total_payout": 184.04753039260365,
  "interest_coverage": 579.8480661805467,
  "warnings": [],
  "roa": 3.64,
  "leverage": 1.38,
  "insight_flags": [],
- "review": [
-  {
-   "k": "per",
-   "where": "PER（Yahoo表示 2.9倍）",
-   "why": "直近4四半期の純利益（92.8億円）から求めたPERは12.4倍で、Yahoo表示と0.2倍ずれています。Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
-   "how": "IR BANK（irbank.net/6875/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
-   "keys": [
-    "per_vs_sector",
-    "per_band_pos"
-   ],
-   "names": [
-    "益回り（1÷PER）"
-   ]
-  }
- ],
+ "review": [],
  "kind": "gen",
- "_generated_at": "2026-11-19T00:08:46"
+ "_generated_at": "2026-11-20T00:26:41"
 }
