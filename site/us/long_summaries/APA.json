@@ -2,15 +2,15 @@
  "code": "APA",
  "name": "APA Corporation",
  "jp_sector": null,
- "gics_sector": "Energy",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 45.52000045776367,
- "price_date": "2026-11-18",
- "mcap": 15283613696,
- "q_score": 90.0,
+ "price": 44.619998931884766,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 85.9,
  "groups": {
-  "業績": 72.0419214079149,
+  "業績": 61.90226396390963,
   "財務": 101.11921921829617,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 97.5,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 110.0,
-  "fcf_yield": 110.0,
-  "per_cheap": 75.0,
-  "pbr_cheap": 94.9
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 7.0391322530909095,
- "fcf_yield": 11.63991733490095,
- "per_band_pos": 0.0,
- "pbr_band_pos": 0.7298154567621105,
- "ev_ebit_vs_sector": 0.4391224112969999,
- "per_vs_sector": 0.3426678703703704,
- "pbr_vs_sector": 1.1341551578947369,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -2.901025126632406,
-  "w": -2.610186514531476,
-  "m": -8.77755698232534,
-  "3m": 2.545620823727135,
-  "6m": 15.768059031179416,
-  "9m": 56.53370212238449,
-  "y": 86.71042668047552
+  "d": -1.9771562320478941,
+  "w": -6.378516418926116,
+  "m": -10.09470487287405,
+  "3m": 2.834753536617396,
+  "6m": 16.379756792653488,
+  "9m": 53.54439006159766,
+  "y": 79.05296466805054
  },
- "div_yield": 2.1968365332681907,
- "implied_fcf_growth": -0.0402,
+ "div_yield": 2.2411475211520355,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,14 +64,14 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T02:57:19Z"
+  "fetched": "2026-11-20T02:49:54Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 55.73714647384774,
   "eps_cagr": 20.0,
   "op_margin": 110.0,
-  "earnings_stability": 102.43053915781188,
+  "earnings_stability": 61.87190938179079,
   "equity_ratio": null,
   "de": 102.46676514032497,
   "net_de": 93.89135073034629,
@@ -95,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 20.236087689713322
  },
- "_generated_at": "2026-11-19T03:38:30"
+ "_generated_at": "2026-11-20T03:28:34"
 }

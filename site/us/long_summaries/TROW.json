@@ -2,12 +2,12 @@
  "code": "TROW",
  "name": "T. Rowe Price",
  "jp_sector": null,
- "gics_sector": "Financials",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 109.76000213623047,
- "price_date": "2026-11-18",
- "mcap": 23414654976,
+ "price": 104.91000366210938,
+ "price_date": "2026-11-19",
+ "mcap": null,
  "q_score": 103.2,
  "groups": {
   "業績": 101.23551742822187,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 106.8,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 110.0,
-  "fcf_yield": 101.058036822326,
-  "per_cheap": 110.0,
-  "pbr_cheap": 106.3
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 8.26820657786389,
- "fcf_yield": 6.317411046697799,
- "per_band_pos": 1.0,
- "pbr_band_pos": 0.9277396866499922,
- "ev_ebit_vs_sector": 0.3518385777814421,
- "per_vs_sector": 0.6281691907514451,
- "pbr_vs_sector": 0.82366848,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": 2.254523831659183,
-  "w": -0.8401845556630816,
-  "m": 7.470875441110558,
-  "3m": -2.1659686712681037,
-  "6m": 7.787489111835999,
-  "9m": 16.3204762889642,
-  "y": 12.66680784153289
+  "d": -4.418730302229257,
+  "w": -3.0585820747158987,
+  "m": 1.5684022966626854,
+  "3m": -5.918750199697742,
+  "6m": 2.9033906841310797,
+  "9m": 9.991619504214121,
+  "y": 7.622076373930797
  },
- "div_yield": 4.7376092372392025,
- "implied_fcf_growth": 0.0452,
+ "div_yield": 4.928033380545256,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:30:26Z"
+  "fetched": "2026-11-20T03:21:21Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 77.27149810708491
  },
- "_generated_at": "2026-11-19T03:55:44"
+ "_generated_at": "2026-11-20T03:44:47"
 }

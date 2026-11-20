@@ -2,15 +2,15 @@
  "code": "CTVA",
  "name": "Corteva",
  "jp_sector": null,
- "gics_sector": "Materials",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
  "price": 8.359999656677246,
  "price_date": "2026-11-18",
- "mcap": 5578820096,
- "q_score": 101.9,
+ "mcap": null,
+ "q_score": 101.0,
  "groups": {
-  "業績": 97.47126616204491,
+  "業績": 95.1885615581712,
   "財務": 105.68751613794477,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 108.4,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 110.0,
-  "fcf_yield": 110.0,
-  "per_cheap": 105.2,
-  "pbr_cheap": 108.3
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 1.3890111095838107,
- "fcf_yield": 50.4586982831432,
- "per_band_pos": 0.6145549890225874,
- "pbr_band_pos": 0.8602449142515243,
- "ev_ebit_vs_sector": 0.060000479895628976,
- "per_vs_sector": 0.2541805928853755,
- "pbr_vs_sector": 0.07854072413793103,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
   "d": -5.215420114094915,
   "w": -31.13674283151553,
@@ -46,14 +46,12 @@
   "9m": -27.65593748009033,
   "y": -12.774896397680068
  },
- "div_yield": 8.612440545077368,
- "implied_fcf_growth": -0.2886,
+ "div_yield": 1.292201010005025,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
-   "value_trap": [
-    "PBR 0.23倍（1倍割れ）かつROE 4.5%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
-   ]
+   "value_trap": []
   },
   "raw": {
    "roe": 4.531146454605699,
@@ -66,14 +64,14 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:03:27Z"
+  "fetched": "2026-11-20T02:55:36Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 86.20787182315934,
   "eps_cagr": 85.25909424831013,
-  "op_margin": 108.41809857671015,
-  "earnings_stability": 110.0,
+  "op_margin": 104.3583702086087,
+  "earnings_stability": 104.92890995260663,
   "equity_ratio": null,
   "de": 108.93141153081511,
   "net_de": 105.80392644135189,
@@ -97,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 16.873889875666073
  },
- "_generated_at": "2026-11-19T03:42:10"
+ "_generated_at": "2026-11-20T03:31:59"
 }

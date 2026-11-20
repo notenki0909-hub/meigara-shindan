@@ -2,16 +2,16 @@
  "code": "DTE",
  "name": "DTE Energy",
  "jp_sector": null,
- "gics_sector": "Utilities",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 136.86000061035156,
- "price_date": "2026-11-18",
- "mcap": 28489199616,
- "q_score": 79.9,
+ "price": 136.1300048828125,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 67.7,
  "groups": {
-  "業績": 91.51072936116356,
-  "財務": 78.93640122274259,
+  "業績": 92.58215793259212,
+  "財務": 46.19317567588467,
   "キャッシュフロー": 60.0,
   "金融品質": null,
   "REIT品質": null
@@ -22,31 +22,31 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 63.2,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 90.89598272985968,
-  "fcf_yield": 20.0,
-  "per_cheap": 78.7,
-  "pbr_cheap": 96.4
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 21.58670870886076,
- "fcf_yield": -3.580304163501846,
- "per_band_pos": 0.2365307147963757,
- "pbr_band_pos": 0.5126212525355531,
- "ev_ebit_vs_sector": 0.9296601511137278,
- "per_vs_sector": 0.9887584834123222,
- "pbr_vs_sector": 0.9371866666666667,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": 0.329885592083734,
-  "w": -2.0259158004108047,
-  "m": 5.830492467595727,
-  "3m": -0.9337628252806152,
-  "6m": -4.139527551481182,
-  "9m": -5.633316029587931,
-  "y": -0.5377946659445354
+  "d": -0.533388663074319,
+  "w": -2.2054541183439746,
+  "m": 4.998080440714814,
+  "3m": 0.672980072396312,
+  "6m": -5.300866168478258,
+  "9m": -6.117238011853443,
+  "y": -0.6930237347188117
  },
- "div_yield": 3.404939338899532,
+ "div_yield": 3.4231982904955895,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -65,19 +65,19 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:04:52Z"
+  "fetched": "2026-11-20T02:57:00Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 58.63114045257399,
   "eps_cagr": 102.60000561869943,
-  "op_margin": 101.40833619396918,
+  "op_margin": 105.69405047968347,
   "earnings_stability": 103.4034351794116,
   "equity_ratio": null,
-  "de": 82.10409385244792,
-  "net_de": 78.28615341417098,
-  "debt_to_ocf": 82.880610149604,
-  "interest_coverage": 72.47474747474747,
+  "de": 54.52491262293749,
+  "net_de": 36.114768755588074,
+  "debt_to_ocf": 37.174146866138656,
+  "interest_coverage": 56.958874458874455,
   "ocf_positive": 100.0,
   "fcf_positive": 20.0,
   "fcf_payout": null
@@ -96,5 +96,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-19T03:43:14"
+ "_generated_at": "2026-11-20T03:33:02"
 }

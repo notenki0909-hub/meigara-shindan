@@ -2,66 +2,72 @@
  "code": "JPM",
  "name": "JPMorgan Chase",
  "jp_sector": null,
- "gics_sector": "Financials",
- "is_simple": true,
+ "gics_sector": "Industrials",
+ "is_simple": false,
  "is_reit": false,
- "price": 324.1099853515625,
- "price_date": "2026-11-18",
- "mcap": 860709584896,
- "q_score": 106.7,
+ "price": 320.2200012207031,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 86.3,
  "groups": {
-  "業績": null,
-  "財務": null,
-  "キャッシュフロー": null,
-  "金融品質": 106.7,
+  "業績": 110.0,
+  "財務": 98.49939391932782,
+  "キャッシュフロー": 20.0,
+  "金融品質": null,
   "REIT品質": null
  },
- "is_fin_simple": true,
+ "is_fin_simple": false,
  "is_reit_us": false,
  "current_pfo": null,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 73.7,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": 77.1,
-  "pbr_cheap": 70.3
+  "per_cheap": null,
+  "pbr_cheap": null
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": 0.08257597332671394,
- "pbr_band_pos": 0.0,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 0.7999436705202312,
- "pbr_vs_sector": 0.9799466000000001,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -1.7729440704971289,
-  "w": -5.614615589976857,
-  "m": -3.3257841941415234,
-  "3m": -7.805434047565929,
-  "6m": 7.3282911319041855,
-  "9m": 5.213438790780667,
-  "y": 7.903582455069458
+  "d": -1.2002049633367262,
+  "w": -6.592382480798998,
+  "m": -4.466124022693663,
+  "3m": -8.919729947460075,
+  "6m": 5.6831687197040015,
+  "9m": 3.0342007196213494,
+  "y": 6.950334759715737
  },
- "div_yield": 2.036345777141353,
+ "div_yield": 1.9205546113783432,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
-   "cutoff": [],
+   "lev_roe": true,
+   "cutoff": [
+    "営業CFが2期連続マイナス",
+    "自己資本比率が10%未満（8.2%）"
+   ],
    "value_trap": []
   },
   "raw": {
    "roe": 15.74007140531622,
    "roa": 1.289249474564397,
    "leverage": 12.208708799849905,
+   "ocf_ni": -2.5904852054410323,
+   "accrual": 4.860867371626517,
    "shares_chg_pct": -8.110576545758663
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:13:36Z"
+  "fetched": "2026-11-20T03:05:26Z"
  },
  "etf_top": [
   {
@@ -76,17 +82,17 @@
   }
  ],
  "metric_scores": {
-  "rev_cagr": null,
-  "eps_cagr": null,
+  "rev_cagr": 110.0,
+  "eps_cagr": 110.0,
   "op_margin": null,
   "earnings_stability": null,
   "equity_ratio": null,
-  "de": null,
-  "net_de": null,
-  "debt_to_ocf": null,
+  "de": 84.82013475408209,
+  "net_de": 100.67804700390136,
+  "debt_to_ocf": 110.0,
   "interest_coverage": null,
-  "ocf_positive": null,
-  "fcf_positive": null,
+  "ocf_positive": 20.0,
+  "fcf_positive": 20.0,
   "fcf_payout": null
  },
  "metric_raw": {
@@ -103,5 +109,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-19T03:48:21"
+ "_generated_at": "2026-11-20T03:37:52"
 }

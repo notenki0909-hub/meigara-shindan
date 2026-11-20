@@ -2,52 +2,56 @@
  "code": "MTB",
  "name": "M&T Bank",
  "jp_sector": null,
- "gics_sector": "Financials",
- "is_simple": true,
+ "gics_sector": "Industrials",
+ "is_simple": false,
  "is_reit": false,
- "price": 214.1699981689453,
- "price_date": "2026-11-18",
- "mcap": 30719352832,
- "q_score": 100.4,
+ "price": 210.77000427246094,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 100.8,
  "groups": {
-  "業績": null,
-  "財務": null,
-  "キャッシュフロー": null,
-  "金融品質": 100.4,
+  "業績": 101.78704448208487,
+  "財務": 98.24841335980246,
+  "キャッシュフロー": 103.33333333333333,
+  "金融品質": null,
   "REIT品質": null
  },
- "is_fin_simple": true,
+ "is_fin_simple": false,
  "is_reit_us": false,
  "current_pfo": null,
- "quarter_decel_factor": null,
- "quarter_decel_detail": null,
+ "quarter_decel_factor": 0.9671083691882166,
+ "quarter_decel_detail": {
+  "rev_yoy_q": -0.3183446080382013,
+  "profit_yoy_q": -2.146464646464652,
+  "gap": -6.644581540589167
+ },
  "q_cov": "高",
- "bt_score": 88.3,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": 101.6,
-  "pbr_cheap": 75.0
+  "per_cheap": null,
+  "pbr_cheap": null
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": 0.5312990692567265,
- "pbr_band_pos": 0.0,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 0.6519098843930635,
- "pbr_vs_sector": 0.48965736,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -0.7737204398071684,
-  "w": -2.734004362465503,
-  "m": -1.914361262984643,
-  "3m": -10.10703119876377,
-  "6m": 1.782150001250904,
-  "9m": -6.520886212564236,
-  "y": 18.28675635524444
+  "d": -1.5875210933150141,
+  "w": -4.099551622931696,
+  "m": -3.981591022318043,
+  "3m": -12.303400397767195,
+  "6m": -0.7347042552352079,
+  "9m": -9.354033889709513,
+  "y": 15.744095116969792
  },
- "div_yield": 3.3618154090473356,
- "implied_fcf_growth": -0.0085,
+ "div_yield": 2.8467048813282942,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -57,26 +61,29 @@
    "roe": 9.771395277101828,
    "roa": 1.3353004543112734,
    "leverage": 7.3177502827569665,
+   "ocf_ni": 1.0533146264468607,
+   "accrual": -0.0721036965003617,
+   "capex_da": 0.28714859437751006,
    "shares_chg_pct": -10.309882558028882
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:18:18Z"
+  "fetched": "2026-11-20T03:09:58Z"
  },
  "etf_top": [],
  "metric_scores": {
-  "rev_cagr": null,
-  "eps_cagr": null,
+  "rev_cagr": 103.69581881394552,
+  "eps_cagr": 106.80188283974636,
   "op_margin": null,
   "earnings_stability": null,
   "equity_ratio": null,
-  "de": null,
-  "net_de": null,
-  "debt_to_ocf": null,
+  "de": 105.54066559276143,
+  "net_de": 106.97347225554375,
+  "debt_to_ocf": 82.23110223110223,
   "interest_coverage": null,
-  "ocf_positive": null,
-  "fcf_positive": null,
-  "fcf_payout": null
+  "ocf_positive": 100.0,
+  "fcf_positive": 100.0,
+  "fcf_payout": 110.0
  },
  "metric_raw": {
   "rev_cagr": 6.326236932550966,
@@ -92,5 +99,5 @@
   "fcf_positive": 1,
   "fcf_payout": 36.53846153846153
  },
- "_generated_at": "2026-11-19T03:50:49"
+ "_generated_at": "2026-11-20T03:40:10"
 }

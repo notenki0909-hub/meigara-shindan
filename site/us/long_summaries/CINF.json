@@ -2,52 +2,56 @@
  "code": "CINF",
  "name": "Cincinnati Financial",
  "jp_sector": null,
- "gics_sector": "Financials",
- "is_simple": true,
+ "gics_sector": "Industrials",
+ "is_simple": false,
  "is_reit": false,
- "price": 188.8300018310547,
- "price_date": "2026-11-18",
- "mcap": 28987353088,
- "q_score": 95.0,
+ "price": 188.0399932861328,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 86.0,
  "groups": {
-  "業績": null,
-  "財務": null,
-  "キャッシュフロー": null,
-  "金融品質": 95.0,
+  "業績": 54.95652173913044,
+  "財務": 108.45916707341183,
+  "キャッシュフロー": 103.33333333333333,
+  "金融品質": null,
   "REIT品質": null
  },
- "is_fin_simple": true,
+ "is_fin_simple": false,
  "is_reit_us": false,
  "current_pfo": null,
- "quarter_decel_factor": null,
- "quarter_decel_detail": null,
- "q_cov": "中",
- "bt_score": 74.2,
- "bt_cov": "高",
+ "quarter_decel_factor": 0.6,
+ "quarter_decel_detail": {
+  "rev_yoy_q": -18.223295759527648,
+  "profit_yoy_q": -60.378681626928476,
+  "gap": -42.61128391676993
+ },
+ "q_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": 75.0,
-  "pbr_cheap": 73.5
+  "per_cheap": null,
+  "pbr_cheap": null
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": 0.0,
- "pbr_band_pos": 0.0,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 0.6405533526011561,
- "pbr_vs_sector": 0.71648644,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -0.04763727438221732,
-  "w": -0.5005780136751792,
-  "m": 9.74021839567678,
-  "3m": 12.271834883193478,
-  "6m": 12.045335073159436,
-  "9m": 16.27463603934438,
-  "y": 16.966054865856115
+  "d": -0.41837024692119584,
+  "w": -1.1927929701969764,
+  "m": 8.299250128482116,
+  "3m": 11.735694805347286,
+  "6m": 11.682603040556462,
+  "9m": 15.361959071247133,
+  "y": 15.80957008123236
  },
- "div_yield": 1.9912090046813928,
- "implied_fcf_growth": -0.0277,
+ "div_yield": 1.9623485065674708,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -57,26 +61,29 @@
    "roe": 15.039909496574696,
    "roa": 5.836300668260084,
    "leverage": 2.5769593363082146,
+   "ocf_ni": 1.3004596740493104,
+   "accrual": -1.855412048565862,
+   "capex_da": 0.11904761904761904,
    "shares_chg_pct": -1.0703290897517537
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:01:53Z"
+  "fetched": "2026-11-20T02:54:07Z"
  },
  "etf_top": [],
  "metric_scores": {
-  "rev_cagr": null,
+  "rev_cagr": 110.0,
   "eps_cagr": null,
-  "op_margin": null,
-  "earnings_stability": null,
+  "op_margin": 110.0,
+  "earnings_stability": 54.78260869565217,
   "equity_ratio": null,
-  "de": null,
-  "net_de": null,
-  "debt_to_ocf": null,
-  "interest_coverage": null,
-  "ocf_positive": null,
-  "fcf_positive": null,
-  "fcf_payout": null
+  "de": 109.4431525359814,
+  "net_de": 105.34253032493244,
+  "debt_to_ocf": 109.05098543273351,
+  "interest_coverage": 110.0,
+  "ocf_positive": 100.0,
+  "fcf_positive": 100.0,
+  "fcf_payout": 110.0
  },
  "metric_raw": {
   "rev_cagr": 24.38798815724228,
@@ -92,5 +99,5 @@
   "fcf_positive": 1,
   "fcf_payout": 16.979301423027167
  },
- "_generated_at": "2026-11-19T03:40:54"
+ "_generated_at": "2026-11-20T03:30:50"
 }

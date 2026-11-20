@@ -2,52 +2,56 @@
  "code": "ERIE",
  "name": "Erie Indemnity",
  "jp_sector": null,
- "gics_sector": "Financials",
- "is_simple": true,
+ "gics_sector": "Industrials",
+ "is_simple": false,
  "is_reit": false,
- "price": 276.17999267578125,
- "price_date": "2026-11-18",
- "mcap": 14441415680,
- "q_score": 105.2,
+ "price": 268.94000244140625,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 92.9,
  "groups": {
-  "業績": null,
+  "業績": 87.54681376698917,
   "財務": null,
-  "キャッシュフロー": null,
-  "金融品質": 105.2,
+  "キャッシュフロー": 102.82952739854652,
+  "金融品質": null,
   "REIT品質": null
  },
- "is_fin_simple": true,
+ "is_fin_simple": false,
  "is_reit_us": false,
  "current_pfo": null,
- "quarter_decel_factor": null,
- "quarter_decel_detail": null,
- "q_cov": "高",
- "bt_score": 65.0,
- "bt_cov": "高",
+ "quarter_decel_factor": 0.8081733938567918,
+ "quarter_decel_detail": {
+  "rev_yoy_q": -1.2756148601654638,
+  "profit_yoy_q": -0.4725107053206723,
+  "gap": -14.59133030716041
+ },
+ "q_cov": "中",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": 65.0,
-  "pbr_cheap": 65.0
+  "per_cheap": null,
+  "pbr_cheap": null
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": 1.0,
- "pbr_band_pos": 1.0,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 1.449969190751445,
- "pbr_vs_sector": 2.2629356,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": 1.1981931661693368,
-  "w": 1.4696157350422068,
-  "m": 12.2956777808358,
-  "3m": 5.295658880761556,
-  "6m": 24.36618344077539,
-  "9m": 0.5643912775044946,
-  "y": -3.8638283732530976
+  "d": -2.6214752793024765,
+  "w": -0.39259168836806024,
+  "m": 10.167134122833389,
+  "3m": 1.5442689234041573,
+  "6m": 19.672499245479912,
+  "9m": -1.5016136738953634,
+  "y": -7.3164041782061595
  },
- "div_yield": 2.1181838493520235,
- "implied_fcf_growth": 0.109,
+ "div_yield": 2.175950006275088,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -57,26 +61,29 @@
    "roe": 24.495987078770277,
    "roa": 16.669294208490527,
    "leverage": 1.469527550020277,
+   "ocf_ni": 1.2276310261292427,
+   "accrual": -4.078157042774013,
+   "capex_da": 1.506739773126864,
    "shares_chg_pct": 0.0
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:06:20Z"
+  "fetched": "2026-11-20T02:58:24Z"
  },
  "etf_top": [],
  "metric_scores": {
-  "rev_cagr": null,
-  "eps_cagr": null,
+  "rev_cagr": 110.0,
+  "eps_cagr": 110.0,
   "op_margin": null,
-  "earnings_stability": null,
+  "earnings_stability": 104.98031152397397,
   "equity_ratio": null,
   "de": null,
   "net_de": null,
   "debt_to_ocf": null,
   "interest_coverage": null,
-  "ocf_positive": null,
-  "fcf_positive": null,
-  "fcf_payout": null
+  "ocf_positive": 100.0,
+  "fcf_positive": 100.0,
+  "fcf_payout": 108.48858219563954
  },
  "metric_raw": {
   "rev_cagr": 13.315715446994947,
@@ -92,5 +99,5 @@
   "fcf_positive": 1,
   "fcf_payout": 44.534253413081366
  },
- "_generated_at": "2026-11-19T03:44:02"
+ "_generated_at": "2026-11-20T03:33:48"
 }

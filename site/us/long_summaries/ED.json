@@ -2,16 +2,16 @@
  "code": "ED",
  "name": "Consolidated Edison",
  "jp_sector": null,
- "gics_sector": "Utilities",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 119.2699966430664,
- "price_date": "2026-11-18",
- "mcap": 44271116288,
- "q_score": 94.4,
+ "price": 119.08999633789062,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 84.6,
  "groups": {
-  "業績": 100.90460241245898,
-  "財務": 99.26276251190467,
+  "業績": 101.97603098388755,
+  "財務": 72.8654043973412,
   "キャッシュフロー": 73.33333333333333,
   "金融品質": null,
   "REIT品質": null
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 59.3,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 80.62898767400844,
-  "fcf_yield": 21.084228364329967,
-  "per_cheap": 76.1,
-  "pbr_cheap": 73.7
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 23.672705429333334,
- "fcf_yield": 0.08131712732474752,
- "per_band_pos": 0.10533024096868501,
- "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.019496357852426,
- "per_vs_sector": 0.907320521327014,
- "pbr_vs_sector": 0.701165875,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": 0.0335429715732527,
-  "w": 0.06711485864721034,
-  "m": 6.51008489694016,
-  "3m": 10.11910195874901,
-  "6m": 12.201310648122421,
-  "9m": 6.567189594683631,
-  "y": 14.848337405404877
+  "d": -0.15091834513457636,
+  "w": -0.2178484621320309,
+  "m": 6.501517316139749,
+  "3m": 11.979311750408383,
+  "6m": 10.884538776468201,
+  "9m": 8.450959826627024,
+  "y": 15.722468273255519
  },
- "div_yield": 2.9764400938350946,
- "implied_fcf_growth": 0.6931,
+ "div_yield": 3.6963642080484513,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:05:11Z"
+  "fetched": "2026-11-20T02:57:18Z"
  },
  "etf_top": [
   {
@@ -76,13 +76,13 @@
  "metric_scores": {
   "rev_cagr": 98.1655065343246,
   "eps_cagr": 101.18665977020328,
-  "op_margin": 103.90370357860604,
+  "op_margin": 108.18941786432033,
   "earnings_stability": 100.36253976670201,
   "equity_ratio": null,
-  "de": 103.55794405401682,
-  "net_de": 103.77240783193656,
-  "debt_to_ocf": 100.22083333333333,
-  "interest_coverage": 89.49986482833198,
+  "de": 93.07813145928068,
+  "net_de": 76.59859446052087,
+  "debt_to_ocf": 61.17777777777777,
+  "interest_coverage": 60.607113891785424,
   "ocf_positive": 100.0,
   "fcf_positive": 100.0,
   "fcf_payout": 20.0
@@ -101,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 3238.8888888888887
  },
- "_generated_at": "2026-11-19T03:43:39"
+ "_generated_at": "2026-11-20T03:33:26"
 }

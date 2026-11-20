@@ -2,16 +2,16 @@
  "code": "XEL",
  "name": "Xcel Energy",
  "jp_sector": null,
- "gics_sector": "Utilities",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 80.6500015258789,
- "price_date": "2026-11-18",
- "mcap": 51767173120,
- "q_score": 84.3,
+ "price": 79.45999908447266,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 73.2,
  "groups": {
-  "業績": 95.39769164260994,
-  "財務": 86.27615429864467,
+  "業績": 96.24539768937522,
+  "財務": 56.66608917280611,
   "キャッシュフロー": 60.0,
   "金融品質": null,
   "REIT品質": null
@@ -22,31 +22,31 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 57.4,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 49.650718737232935,
-  "fcf_yield": 20.0,
-  "per_cheap": 102.6,
-  "pbr_cheap": 106.5
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 29.966715220562694,
- "fcf_yield": -13.18403070644627,
- "per_band_pos": 0.7140694865169247,
- "pbr_band_pos": 0.9536198854658569,
- "ev_ebit_vs_sector": 1.2905562110492117,
- "per_vs_sector": 0.8909731753554503,
- "pbr_vs_sector": 0.8369238333333334,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -0.08671914490291366,
-  "w": -0.5548667776927085,
-  "m": 5.177362030390031,
-  "3m": 2.4647471273938404,
-  "6m": 0.9892322933753528,
-  "9m": -0.21034170946204744,
-  "y": -0.8117034221274411
+  "d": -1.4755144685575816,
+  "w": -2.503068608009007,
+  "m": 3.490492768669351,
+  "3m": 4.141541161631768,
+  "6m": -0.9226906383139832,
+  "9m": -2.5628496493846575,
+  "y": -1.9012356981819023
  },
- "div_yield": 2.938623626980982,
+ "div_yield": 2.9562044136230297,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:34:47Z"
+  "fetched": "2026-11-20T03:25:19Z"
  },
  "etf_top": [
   {
@@ -78,13 +78,13 @@
  "metric_scores": {
   "rev_cagr": 80.37535495157329,
   "eps_cagr": 92.78243364209453,
-  "op_margin": 106.60917581293884,
+  "op_margin": 110.0,
   "earnings_stability": 101.82380216383308,
   "equity_ratio": null,
-  "de": 101.05658858909737,
-  "net_de": 100.69484287579083,
-  "debt_to_ocf": 74.81508694587313,
-  "interest_coverage": 68.53809878381733,
+  "de": 81.07162522766743,
+  "net_de": 63.05730865347961,
+  "debt_to_ocf": 26.42011592783085,
+  "interest_coverage": 56.11530688224657,
   "ocf_positive": 100.0,
   "fcf_positive": 20.0,
   "fcf_payout": null
@@ -103,5 +103,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-19T03:58:18"
+ "_generated_at": "2026-11-20T03:47:14"
 }

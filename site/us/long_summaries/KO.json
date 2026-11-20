@@ -2,12 +2,12 @@
  "code": "KO",
  "name": "Coca-Cola Company (The)",
  "jp_sector": null,
- "gics_sector": "Consumer Staples",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 98.08999633789062,
- "price_date": "2026-11-18",
- "mcap": 421973590016,
+ "price": 96.08999633789062,
+ "price_date": "2026-11-19",
+ "mcap": null,
  "q_score": 88.8,
  "groups": {
   "業績": 105.93574006940781,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 36.9,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 25.537250973095656,
-  "fcf_yield": 36.734064643869274,
-  "per_cheap": 48.3,
-  "pbr_cheap": 34.5
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 30.661631682382133,
- "fcf_yield": 1.2550548482901955,
- "per_band_pos": 0.0,
- "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.5015490539854128,
- "per_vs_sector": 1.2208902953586498,
- "pbr_vs_sector": 1.7108460606060607,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -0.7085783694194658,
-  "w": 0.5329472631883103,
-  "m": 4.920310813167483,
-  "3m": 8.386736284962026,
-  "6m": 20.282026569190048,
-  "9m": 24.306161178130825,
-  "y": 38.78041300844144
+  "d": -2.0389439032198586,
+  "w": -1.385474209452553,
+  "m": 3.6793224228381938,
+  "3m": 5.477495002579014,
+  "6m": 18.381173469896073,
+  "9m": 20.35320734638868,
+  "y": 34.919958847119446
  },
- "div_yield": 2.1612805374130466,
- "implied_fcf_growth": 0.2668,
+ "div_yield": 2.185451222846929,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:14:46Z"
+  "fetched": "2026-11-20T03:06:32Z"
  },
  "etf_top": [
   {
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 165.7666163141994
  },
- "_generated_at": "2026-11-19T03:48:35"
+ "_generated_at": "2026-11-20T03:38:05"
 }

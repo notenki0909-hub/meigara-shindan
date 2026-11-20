@@ -2,12 +2,12 @@
  "code": "ARES",
  "name": "Ares Management",
  "jp_sector": null,
- "gics_sector": "Financials",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
  "price": 127.9800033569336,
  "price_date": "2026-11-18",
- "mcap": 42483757056,
+ "mcap": null,
  "q_score": 64.9,
  "groups": {
   "業績": 64.25835523797396,
@@ -26,21 +26,21 @@
   "gap": -35.916250421832345
  },
  "q_cov": "高",
- "bt_score": 43.8,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 105.0666860418269,
-  "per_cheap": 20.0,
-  "pbr_cheap": 30.0
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 61.89878870323821,
- "fcf_yield": 7.520005812548068,
+ "ev_ebit": null,
+ "fcf_yield": null,
  "per_band_pos": null,
- "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 2.6339910086484344,
- "per_vs_sector": 6.063678612716763,
- "pbr_vs_sector": 4.9152188,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
   "d": 0.18788593798162445,
   "w": -7.186885253883613,
@@ -50,8 +50,8 @@
   "9m": -1.4401252666028208,
   "y": -9.911301171079323
  },
- "div_yield": 4.2194091720247195,
- "implied_fcf_growth": 0.0212,
+ "div_yield": 4.039693596179222,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "lev_roe": true,
@@ -71,7 +71,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T02:57:38Z"
+  "fetched": "2026-11-20T02:50:12Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -102,5 +102,5 @@
   "fcf_positive": 1,
   "fcf_payout": 54.986179021347624
  },
- "_generated_at": "2026-11-19T03:38:52"
+ "_generated_at": "2026-11-20T03:28:53"
 }

@@ -2,52 +2,52 @@
  "code": "AIG",
  "name": "American International Group",
  "jp_sector": null,
- "gics_sector": "Financials",
- "is_simple": true,
+ "gics_sector": "Industrials",
+ "is_simple": false,
  "is_reit": false,
- "price": 80.62000274658203,
- "price_date": "2026-11-18",
- "mcap": 41796542464,
- "q_score": 40.3,
+ "price": 79.5,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 89.7,
  "groups": {
-  "業績": null,
-  "財務": null,
-  "キャッシュフロー": null,
-  "金融品質": 40.3,
+  "業績": 69.3375178753538,
+  "財務": 103.18329013391597,
+  "キャッシュフロー": 103.33333333333333,
+  "金融品質": null,
   "REIT品質": null
  },
- "is_fin_simple": true,
+ "is_fin_simple": false,
  "is_reit_us": false,
  "current_pfo": null,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 89.9,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": 104.8,
-  "pbr_cheap": 75.0
+  "per_cheap": null,
+  "pbr_cheap": null
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": 0.6820320293723865,
- "pbr_band_pos": 0.0,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 0.7602146242774567,
- "pbr_vs_sector": 0.4302028,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -0.7875946010627688,
-  "w": -2.691606238515043,
-  "m": -1.538830665731783,
-  "3m": 6.429046530141291,
-  "6m": 3.319241327442324,
-  "9m": 1.3578096789333305,
-  "y": 5.440758189799899
+  "d": -1.3892368003293298,
+  "w": -3.718057049982837,
+  "m": -2.752293577981646,
+  "3m": 4.440353562086208,
+  "6m": 1.119304531512788,
+  "9m": -1.1685758489266118,
+  "y": 3.1529782208354895
  },
- "div_yield": 2.480773916972847,
- "implied_fcf_growth": 0.0139,
+ "div_yield": 2.389937106918239,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -57,26 +57,28 @@
    "roe": 7.525705534893897,
    "roa": 1.9199523732744614,
    "leverage": 3.9197355307615647,
+   "ocf_ni": 1.0704134366925064,
+   "accrual": -0.1351619463320272,
    "shares_chg_pct": -26.6909684759412
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T02:56:13Z"
+  "fetched": "2026-11-20T02:48:53Z"
  },
  "etf_top": [],
  "metric_scores": {
-  "rev_cagr": null,
-  "eps_cagr": null,
-  "op_margin": null,
-  "earnings_stability": null,
+  "rev_cagr": 70.24692823690576,
+  "eps_cagr": 20.0,
+  "op_margin": 105.66711841978892,
+  "earnings_stability": 81.43602484472049,
   "equity_ratio": null,
-  "de": null,
-  "net_de": null,
-  "debt_to_ocf": null,
-  "interest_coverage": null,
-  "ocf_positive": null,
-  "fcf_positive": null,
-  "fcf_payout": null
+  "de": 107.76586693891441,
+  "net_de": 103.07554874936191,
+  "debt_to_ocf": 100.75538121102394,
+  "interest_coverage": 101.13636363636364,
+  "ocf_positive": 100.0,
+  "fcf_positive": 100.0,
+  "fcf_payout": 110.0
  },
  "metric_raw": {
   "rev_cagr": -3.6944411466962035,
@@ -92,5 +94,5 @@
   "fcf_positive": 1,
   "fcf_payout": 29.450814725407366
  },
- "_generated_at": "2026-11-19T03:37:39"
+ "_generated_at": "2026-11-20T03:27:45"
 }

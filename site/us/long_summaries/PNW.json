@@ -2,16 +2,16 @@
  "code": "PNW",
  "name": "Pinnacle West Capital",
  "jp_sector": null,
- "gics_sector": "Utilities",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 104.5199966430664,
- "price_date": "2026-11-18",
- "mcap": 12667950080,
- "q_score": 88.3,
+ "price": 102.0199966430664,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 75.6,
  "groups": {
-  "業績": 105.15256136031239,
-  "財務": 86.62086131970442,
+  "業績": 105.86924009283831,
+  "財務": 52.96250013549579,
   "キャッシュフロー": 60.0,
   "金融品質": null,
   "REIT品質": null
@@ -22,31 +22,31 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 54.4,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 72.85044796446816,
-  "fcf_yield": 20.0,
-  "per_cheap": 70.4,
-  "pbr_cheap": 73.7
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 25.25311023481918,
- "fcf_yield": -6.469262941711876,
- "per_band_pos": 0.0,
- "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.0875585803109036,
- "per_vs_sector": 0.9311192417061611,
- "pbr_vs_sector": 0.7057202916666667,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": 1.6039601948384385,
-  "w": -3.1415132091532905,
-  "m": 1.57433925477648,
-  "3m": 5.172066343030268,
-  "6m": 2.5409558816209543,
-  "9m": 6.20871126266358,
-  "y": 17.227447678408538
+  "d": -2.3918867970666446,
+  "w": -4.6809326295158,
+  "m": -1.7999834031843909,
+  "3m": 4.786355796529618,
+  "6m": 0.1767481457663811,
+  "9m": 3.7421196280417846,
+  "y": 14.141865941000663
  },
- "div_yield": 3.5399924596586265,
+ "div_yield": 3.5826309745800264,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -66,19 +66,19 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:23:55Z"
+  "fetched": "2026-11-20T03:15:12Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 104.76064697397324,
   "eps_cagr": 101.11176188488392,
-  "op_margin": 107.13328506989633,
+  "op_margin": 110.0,
   "earnings_stability": 107.60455151249607,
   "equity_ratio": null,
-  "de": 85.68879475806615,
-  "net_de": 100.01755878949783,
-  "debt_to_ocf": 80.7818314271548,
-  "interest_coverage": 79.99526030409889,
+  "de": 58.82655370967939,
+  "net_de": 60.07725867379044,
+  "debt_to_ocf": 34.37577523620641,
+  "interest_coverage": 58.57041292230691,
   "ocf_positive": 100.0,
   "fcf_positive": 20.0,
   "fcf_payout": null
@@ -97,5 +97,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-19T03:52:35"
+ "_generated_at": "2026-11-20T03:41:50"
 }

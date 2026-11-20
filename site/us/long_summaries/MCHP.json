@@ -2,15 +2,15 @@
  "code": "MCHP",
  "name": "Microchip Technology",
  "jp_sector": null,
- "gics_sector": "Information Technology",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 59.66999816894531,
- "price_date": "2026-11-18",
- "mcap": 32473821184,
- "q_score": 58.3,
+ "price": 58.470001220703125,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 61.4,
  "groups": {
-  "業績": 31.24100910228936,
+  "業績": 38.915727288984804,
   "財務": 76.95667885361976,
   "キャッシュフロー": 75.36420461793595,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 48.2,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 55.7621398095746,
-  "per_cheap": 68.9,
-  "pbr_cheap": 108.2
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 71.28863945639864,
- "fcf_yield": 2.682160485718095,
+ "ev_ebit": null,
+ "fcf_yield": null,
  "per_band_pos": null,
- "pbr_band_pos": 0.8558359321299874,
- "ev_ebit_vs_sector": 2.915690775312828,
- "per_vs_sector": 1.144506632653061,
- "pbr_vs_sector": 0.3649389552238806,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": 0.40383284963341204,
-  "w": -3.9594444823410457,
-  "m": -21.33157630938669,
-  "3m": -21.29006715397107,
-  "6m": -36.5347795156024,
-  "9m": -22.66719111335761,
-  "y": 15.415855490120345
+  "d": -2.0110557819100316,
+  "w": -5.815078131240825,
+  "m": -24.212572826599143,
+  "3m": -23.14668794232787,
+  "6m": -35.82482622213923,
+  "9m": -24.778079640353525,
+  "y": 14.940048060537237
  },
- "div_yield": 3.050109026058596,
- "implied_fcf_growth": 0.1618,
+ "div_yield": 3.1127073063162043,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,13 +66,13 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:16:58Z"
+  "fetched": "2026-11-20T03:08:46Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 20.0,
   "eps_cagr": 20.0,
-  "op_margin": 64.96403640915744,
+  "op_margin": 95.66290915593922,
   "earnings_stability": 20.0,
   "equity_ratio": null,
   "de": 101.39481375536347,
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 125.4305396096441
  },
- "_generated_at": "2026-11-19T03:49:48"
+ "_generated_at": "2026-11-20T03:39:12"
 }

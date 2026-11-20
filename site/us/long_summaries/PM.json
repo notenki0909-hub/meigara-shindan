@@ -2,12 +2,12 @@
  "code": "PM",
  "name": "Philip Morris International",
  "jp_sector": null,
- "gics_sector": "Consumer Staples",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 192.72999572753906,
- "price_date": "2026-11-18",
- "mcap": 300399689728,
+ "price": 186.42999267578125,
+ "price_date": "2026-11-19",
+ "mcap": null,
  "q_score": 101.8,
  "groups": {
   "業績": 105.84808583125124,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 62.1,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 68.07882307008335,
-  "fcf_yield": 67.33249451602664,
-  "per_cheap": 51.0,
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
   "pbr_cheap": null
  },
- "ev_ebit": 23.060516287952858,
- "fcf_yield": 3.5499370887019985,
- "per_band_pos": 0.0,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 1.1293102981367706,
- "per_vs_sector": 1.187163164556962,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": -0.8488574512940272,
-  "w": -1.8436517766483251,
-  "m": -3.586792590227994,
-  "3m": 0.6317833271122675,
-  "6m": 2.1735623912397806,
-  "9m": 5.029970423727015,
-  "y": 26.16522823906915
+  "d": -3.2688233235183994,
+  "w": -5.2018767394639065,
+  "m": -5.58594837590033,
+  "3m": -0.9562785382853156,
+  "6m": -1.0771590606849735,
+  "9m": 1.6521258888411383,
+  "y": 19.621421478773883
  },
- "div_yield": 3.3207077994479035,
- "implied_fcf_growth": 0.1237,
+ "div_yield": 3.2237302130092003,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [
@@ -67,7 +67,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:23:36Z"
+  "fetched": "2026-11-20T03:14:54Z"
  },
  "etf_top": [
   {
@@ -104,5 +104,5 @@
   "fcf_positive": 1,
   "fcf_payout": 80.8702175543886
  },
- "_generated_at": "2026-11-19T03:52:35"
+ "_generated_at": "2026-11-20T03:41:49"
 }

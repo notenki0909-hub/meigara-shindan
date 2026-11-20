@@ -2,15 +2,15 @@
  "code": "CL",
  "name": "Colgate-Palmolive",
  "jp_sector": null,
- "gics_sector": "Consumer Staples",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 98.8499984741211,
- "price_date": "2026-11-18",
- "mcap": 78577893376,
- "q_score": 87.2,
+ "price": 96.87999725341797,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 87.4,
  "groups": {
-  "業績": 103.68763673221555,
+  "業績": 104.38503517201538,
   "財務": 61.679443777018335,
   "キャッシュフロー": 102.20387696447135,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 65.1,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 83.64246886921343,
-  "fcf_yield": 81.66280521352384,
-  "per_cheap": 30.0,
-  "pbr_cheap": 20.0
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 20.27968187479329,
- "fcf_yield": 4.624710391014288,
- "per_band_pos": 0.0,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 0.9931283973943824,
- "per_vs_sector": 1.6229129113924052,
- "pbr_vs_sector": 41.37368181818182,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -0.7629777447782593,
-  "w": 0.8673453817562127,
-  "m": 4.558914234033895,
-  "3m": 10.200670944457846,
-  "6m": 9.407858487606568,
-  "9m": 5.181948226466204,
-  "y": 25.428247095970246
+  "d": -1.9929198291478656,
+  "w": -1.041883816714051,
+  "m": 3.7259054290002647,
+  "3m": 6.368022953185437,
+  "6m": 7.120737105446251,
+  "9m": 1.8824282095529776,
+  "y": 22.122771986995126
  },
- "div_yield": 2.1446636648709867,
- "implied_fcf_growth": 0.0877,
+ "div_yield": 2.17795216744348,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [
@@ -68,7 +68,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:01:58Z"
+  "fetched": "2026-11-20T02:54:12Z"
  },
  "etf_top": [
   {
@@ -80,7 +80,7 @@
  "metric_scores": {
   "rev_cagr": 101.43717799083336,
   "eps_cagr": 101.85956476570892,
-  "op_margin": 107.21040624080071,
+  "op_margin": 110.0,
   "earnings_stability": 104.24339793151923,
   "equity_ratio": null,
   "de": 20.0,
@@ -105,5 +105,5 @@
   "fcf_positive": 1,
   "fcf_payout": 50.16510731975784
  },
- "_generated_at": "2026-11-19T03:40:54"
+ "_generated_at": "2026-11-20T03:30:50"
 }

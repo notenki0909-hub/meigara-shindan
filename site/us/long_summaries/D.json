@@ -2,16 +2,16 @@
  "code": "D",
  "name": "Dominion Energy",
  "jp_sector": null,
- "gics_sector": "Utilities",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 67.38999938964844,
- "price_date": "2026-11-18",
- "mcap": 59273957376,
- "q_score": 88.7,
+ "price": 66.6500015258789,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 75.6,
  "groups": {
   "業績": 107.44983696307548,
-  "財務": 85.27887493758729,
+  "財務": 51.27386829228208,
   "キャッシュフロー": 60.0,
   "金融品質": null,
   "REIT品質": null
@@ -22,31 +22,31 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 68.2,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 89.37790343856076,
-  "fcf_yield": 20.0,
-  "per_cheap": 95.3,
-  "pbr_cheap": 93.8
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 21.895144468870413,
- "fcf_yield": -12.281953698181233,
- "per_band_pos": 0.8886354641121209,
- "pbr_band_pos": 0.4417634338089723,
- "ev_ebit_vs_sector": 0.9429433449125932,
- "per_vs_sector": 1.0540722748815166,
- "pbr_vs_sector": 0.8650922916666667,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": 0.16349674843545436,
-  "w": -0.9844228518646414,
-  "m": 7.240609844067869,
-  "3m": -0.11857392857158588,
-  "6m": -0.5019990409469655,
-  "9m": 2.9483659214312175,
-  "y": 9.577234779916166
+  "d": -1.0980826093956009,
+  "w": -1.2738862140992735,
+  "m": 6.9308512239957265,
+  "3m": 0.07507965901416558,
+  "6m": -2.4015219910116348,
+  "9m": 1.0460922543716,
+  "y": 8.462165497767703
  },
- "div_yield": 3.9620122038614083,
+ "div_yield": 4.009002158780918,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -65,7 +65,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:04:05Z"
+  "fetched": "2026-11-20T02:56:12Z"
  },
  "etf_top": [
   {
@@ -80,10 +80,10 @@
   "op_margin": 110.0,
   "earnings_stability": 106.68964630826216,
   "equity_ratio": null,
-  "de": 97.23985375190547,
-  "net_de": 94.21030092556414,
-  "debt_to_ocf": 68.70919604551389,
-  "interest_coverage": 80.95614902736564,
+  "de": 72.68782450228656,
+  "net_de": 53.63133101812055,
+  "debt_to_ocf": 20.0,
+  "interest_coverage": 58.77631764872121,
   "ocf_positive": 100.0,
   "fcf_positive": 20.0,
   "fcf_payout": null
@@ -102,5 +102,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-19T03:42:14"
+ "_generated_at": "2026-11-20T03:32:04"
 }

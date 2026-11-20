@@ -2,12 +2,12 @@
  "code": "AMCR",
  "name": "Amcor",
  "jp_sector": null,
- "gics_sector": "Consumer Discretionary",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
  "price": 43.70000076293945,
  "price_date": "2026-11-18",
- "mcap": 20182657024,
+ "mcap": null,
  "q_score": 75.9,
  "groups": {
   "業績": 76.91417268059276,
@@ -26,21 +26,21 @@
   "gap": -10.269339519815434
  },
  "q_cov": "高",
- "bt_score": 101.8,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 99.1367259239517,
-  "fcf_yield": 100.29795512947159,
-  "per_cheap": 106.0,
-  "pbr_cheap": 110.0
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 15.444541203459263,
- "fcf_yield": 6.089386538841477,
- "per_band_pos": 0.6814050716827043,
- "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.8575536481654227,
- "per_vs_sector": 0.633627195945946,
- "pbr_vs_sector": 0.18699315217391305,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
   "d": 0.5753739829924998,
   "w": -1.5544010727557955,
@@ -50,8 +50,8 @@
   "9m": -11.770640339273164,
   "y": 3.431954468495757
  },
- "div_yield": 6.041189825879587,
- "implied_fcf_growth": 0.0502,
+ "div_yield": 5.949656646699593,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -70,7 +70,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T02:56:51Z"
+  "fetched": "2026-11-20T02:49:27Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -101,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 97.23352318958503
  },
- "_generated_at": "2026-11-19T03:38:05"
+ "_generated_at": "2026-11-20T03:28:09"
 }

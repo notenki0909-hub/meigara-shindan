@@ -2,15 +2,15 @@
  "code": "OXY",
  "name": "Occidental Petroleum",
  "jp_sector": null,
- "gics_sector": "Energy",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 53.7599983215332,
- "price_date": "2026-11-18",
- "mcap": 53754339328,
- "q_score": 78.7,
+ "price": 53.810001373291016,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 74.5,
  "groups": {
-  "業績": 52.41291620929381,
+  "業績": 41.870381274354784,
   "財務": 92.32409322617637,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 91.3,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 53.217316962644084,
-  "fcf_yield": 105.45530929110657,
-  "per_cheap": 104.1,
-  "pbr_cheap": 102.4
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 20.187356079527135,
- "fcf_yield": 7.63659278733197,
- "per_band_pos": 0.5811722190828774,
- "pbr_band_pos": 0.6058758286652894,
- "ev_ebit_vs_sector": 1.259348476576864,
- "per_vs_sector": 0.5543182407407407,
- "pbr_vs_sector": 0.8110395263157896,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -4.883230916271786,
-  "w": -6.0796702566183525,
-  "m": -14.558169284774557,
-  "3m": -12.613787513798979,
-  "6m": -8.680143881544932,
-  "9m": 4.3275753833944774,
-  "y": 28.951787220955882
+  "d": 0.09301163191774986,
+  "w": -7.859589097020681,
+  "m": -14.178627243180376,
+  "3m": -12.218593730815662,
+  "6m": -8.53306187577536,
+  "9m": 3.8001566645535334,
+  "y": 26.55221259167677
  },
- "div_yield": 2.0833333983780866,
- "implied_fcf_growth": 0.0191,
+ "div_yield": 1.9327262097343332,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:21:55Z"
+  "fetched": "2026-11-20T03:13:19Z"
  },
  "etf_top": [
   {
@@ -76,8 +76,8 @@
  "metric_scores": {
   "rev_cagr": 20.0,
   "eps_cagr": 20.0,
-  "op_margin": 110.0,
-  "earnings_stability": 59.65166483717526,
+  "op_margin": 107.48152509741914,
+  "earnings_stability": 20.0,
   "equity_ratio": null,
   "de": 103.5197313648221,
   "net_de": 98.43259144141643,
@@ -101,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 38.830694275274055
  },
- "_generated_at": "2026-11-19T03:52:07"
+ "_generated_at": "2026-11-20T03:41:25"
 }

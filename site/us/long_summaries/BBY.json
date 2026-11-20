@@ -2,12 +2,12 @@
  "code": "BBY",
  "name": "Best Buy",
  "jp_sector": null,
- "gics_sector": "Consumer Discretionary",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 100.30999755859375,
- "price_date": "2026-11-18",
- "mcap": 21037785088,
+ "price": 99.2699966430664,
+ "price_date": "2026-11-19",
+ "mcap": null,
  "q_score": 87.5,
  "groups": {
   "業績": 72.04415320046549,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 94.4,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 103.04328879602035,
-  "fcf_yield": 99.72955928188884,
-  "per_cheap": 80.5,
-  "pbr_cheap": 73.5
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 13.390162907428572,
- "fcf_yield": 5.9797169461416635,
- "per_band_pos": 0.11085592485824443,
- "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 0.7434848921392876,
- "per_vs_sector": 0.5638687837837837,
- "pbr_vs_sector": 0.7207337717391306,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": 1.9410528486755396,
-  "w": -4.612025422801647,
-  "m": 6.837786996144257,
-  "3m": 17.00687464219137,
-  "6m": 64.4965534791722,
-  "9m": 51.29712359181291,
-  "y": 34.373738122187845
+  "d": -1.0367869014450415,
+  "w": -4.003487933885374,
+  "m": 5.471731562047144,
+  "3m": 15.578061879728612,
+  "6m": 62.33850231558045,
+  "9m": 53.954701418904015,
+  "y": 33.42741210635172
  },
- "div_yield": 3.82813288152754,
- "implied_fcf_growth": 0.0527,
+ "div_yield": 3.8581647320600667,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T02:59:09Z"
+  "fetched": "2026-11-20T02:51:34Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 63.6724960254372
  },
- "_generated_at": "2026-11-19T03:39:23"
+ "_generated_at": "2026-11-20T03:29:23"
 }

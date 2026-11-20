@@ -2,30 +2,33 @@
  "code": "AMT",
  "name": "American Tower",
  "jp_sector": null,
- "gics_sector": "Real Estate",
- "is_simple": true,
- "is_reit": true,
- "price": 184.82000732421875,
- "price_date": "2026-11-18",
- "mcap": 85712781312,
- "q_score": 71.3,
+ "gics_sector": "Industrials",
+ "is_simple": false,
+ "is_reit": false,
+ "price": 181.14999389648438,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 75.3,
  "groups": {
-  "業績": null,
-  "財務": null,
-  "キャッシュフロー": null,
+  "業績": 106.0541113656206,
+  "財務": 32.911564711757144,
+  "キャッシュフロー": 94.02473834443386,
   "金融品質": null,
-  "REIT品質": 71.3
+  "REIT品質": null
  },
  "is_fin_simple": false,
- "is_reit_us": true,
- "current_pfo": 15.93026323055478,
+ "is_reit_us": false,
+ "current_pfo": null,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 101.7,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ffo_cheap": 101.7
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
  "ev_ebit": null,
  "fcf_yield": null,
@@ -35,30 +38,37 @@
  "per_vs_sector": null,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": 0.8953022786392539,
-  "w": -2.8490317559100697,
-  "m": 0.6864293867855364,
-  "3m": 5.17869681328198,
-  "6m": 0.43473700314304864,
-  "9m": 0.016242242099906434,
-  "y": 2.4103762808733276
+  "d": -1.9857230182316221,
+  "w": -4.552399860525059,
+  "m": 1.975903241891408,
+  "3m": 3.0432256836488536,
+  "6m": -1.4310615411260774,
+  "9m": -3.288667846030169,
+  "y": -0.22033001847948652
  },
- "div_yield": 3.8740394525791992,
- "implied_fcf_growth": 0.0941,
+ "div_yield": 3.9028430793323974,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
-   "cutoff": [],
+   "cutoff": [
+    "自己資本比率が10%未満（5.8%）"
+   ],
    "value_trap": []
   },
   "raw": {
    "roe": 69.2539356605065,
    "roa": 4.002981465539069,
    "leverage": 17.300588637919233,
-   "shares_chg_pct": 0.15016769372608874
+   "ocf_ni": 2.1601106938130066,
+   "accrual": -4.72286465198547,
+   "capex_da": 0.8230799373040752,
+   "shares_chg_pct": 0.15016769372608874,
+   "sbc_rev_pct": 1.63651053116134,
+   "fcf_less_sbc_pct": 33.908272739229275
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T02:57:09Z"
+  "fetched": "2026-11-20T02:49:45Z"
  },
  "etf_top": [
   {
@@ -68,18 +78,18 @@
   }
  ],
  "metric_scores": {
-  "rev_cagr": null,
-  "eps_cagr": null,
-  "op_margin": null,
-  "earnings_stability": null,
+  "rev_cagr": 100.37810666493749,
+  "eps_cagr": 105.53978114610773,
+  "op_margin": 110.0,
+  "earnings_stability": 108.29855765143715,
   "equity_ratio": null,
-  "de": null,
-  "net_de": null,
-  "debt_to_ocf": null,
-  "interest_coverage": null,
-  "ocf_positive": null,
-  "fcf_positive": null,
-  "fcf_payout": null
+  "de": 20.0,
+  "net_de": 20.0,
+  "debt_to_ocf": 30.278428501708156,
+  "interest_coverage": 61.367830345320414,
+  "ocf_positive": 100.0,
+  "fcf_positive": 100.0,
+  "fcf_payout": 82.0742150333016
  },
  "metric_raw": {
   "rev_cagr": 3.340295998443743,
@@ -95,5 +105,5 @@
   "fcf_positive": 1,
   "fcf_payout": 83.4443387250238
  },
- "_generated_at": "2026-11-19T03:38:18"
+ "_generated_at": "2026-11-20T03:28:21"
 }

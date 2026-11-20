@@ -2,12 +2,12 @@
  "code": "NTRS",
  "name": "Northern Trust",
  "jp_sector": null,
- "gics_sector": "Financials",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 171.55999755859375,
- "price_date": "2026-11-18",
- "mcap": 31072571392,
+ "price": 166.7100067138672,
+ "price_date": "2026-11-19",
+ "mcap": null,
  "q_score": 103.6,
  "groups": {
   "業績": 104.64847720859511,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 83.4,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
   "ev_ebit_vs_sector": null,
-  "fcf_yield": 110.0,
-  "per_cheap": 93.5,
-  "pbr_cheap": 70.0
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
  "ev_ebit": null,
- "fcf_yield": 15.316724000593457,
- "per_band_pos": 0.4019882846759422,
- "pbr_band_pos": 0.0,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 0.7777853179190751,
- "pbr_vs_sector": 0.9960809599999999,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -0.45837453840725795,
-  "w": -4.000900277912988,
-  "m": 3.6992232996097885,
-  "3m": -5.9996697593632575,
-  "6m": 3.37430140888193,
-  "9m": 18.30091884169991,
-  "y": 39.797910570466335
+  "d": -2.8269940042812802,
+  "w": -6.168735052643126,
+  "m": -0.11982322440484694,
+  "3m": -9.347464792355176,
+  "6m": -0.23935964037067325,
+  "9m": 15.163037468887651,
+  "y": 33.60314821667334
  },
- "div_yield": 2.0517603462880656,
- "implied_fcf_growth": -0.0803,
+ "div_yield": 1.967488373766087,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "lev_roe": true,
@@ -67,7 +67,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:20:02Z"
+  "fetched": "2026-11-20T03:11:32Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -98,5 +98,5 @@
   "fcf_positive": 1,
   "fcf_payout": 13.308679847876789
  },
- "_generated_at": "2026-11-19T03:51:29"
+ "_generated_at": "2026-11-20T03:40:47"
 }

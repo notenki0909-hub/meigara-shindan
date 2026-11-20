@@ -2,15 +2,15 @@
  "code": "CDW",
  "name": "CDW Corporation",
  "jp_sector": null,
- "gics_sector": "Information Technology",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
  "price": 169.00999450683594,
  "price_date": "2026-11-18",
- "mcap": 21094023168,
- "q_score": 78.2,
+ "mcap": null,
+ "q_score": 80.6,
  "groups": {
-  "業績": 78.71860626628538,
+  "業績": 84.73994682653719,
   "財務": 63.666516654567516,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
@@ -22,21 +22,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 101.5,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 105.74865932367608,
-  "fcf_yield": 88.77777598162919,
-  "per_cheap": 110.0,
-  "pbr_cheap": 109.9
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 15.863084783764194,
- "fcf_yield": 5.15833319862219,
- "per_band_pos": 1.0,
- "pbr_band_pos": 0.9906441378008827,
- "ev_ebit_vs_sector": 0.6487969236713372,
- "per_vs_sector": 0.5030897959183673,
- "pbr_vs_sector": 0.5981261940298508,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
   "d": 3.6425994455296706,
   "w": -2.3515179576849787,
@@ -46,8 +46,8 @@
   "9m": 36.1117798172804,
   "y": 20.514823079548616
  },
- "div_yield": 1.6093722788033016,
- "implied_fcf_growth": 0.0729,
+ "div_yield": 1.4910360818324704,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,13 +66,13 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:01:11Z"
+  "fetched": "2026-11-20T02:53:28Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 78.24503135514803,
   "eps_cagr": 83.24006540923432,
-  "op_margin": 49.53251189568366,
+  "op_margin": 73.61787413669094,
   "earnings_stability": 103.85681640507548,
   "equity_ratio": null,
   "de": 51.168412570507655,
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 30.1994301994302
  },
- "_generated_at": "2026-11-19T03:40:37"
+ "_generated_at": "2026-11-20T03:30:33"
 }

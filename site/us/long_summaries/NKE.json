@@ -2,12 +2,12 @@
  "code": "NKE",
  "name": "Nike, Inc.",
  "jp_sector": null,
- "gics_sector": "Consumer Discretionary",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 36.310001373291016,
- "price_date": "2026-11-18",
- "mcap": 53931565056,
+ "price": 34.33000183105469,
+ "price_date": "2026-11-19",
+ "mcap": null,
  "q_score": 79.8,
  "groups": {
   "業績": 60.45463682674139,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 94.8,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 100.30283180776347,
-  "fcf_yield": 73.99435371431028,
-  "per_cheap": 110.0,
-  "pbr_cheap": 110.0
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 15.117609969976296,
- "fcf_yield": 4.049576528573271,
- "per_band_pos": 1.0,
- "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.8394008867282785,
- "per_vs_sector": 0.5897544594594594,
- "pbr_vs_sector": 0.38456002173913045,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": 1.2831322698716008,
-  "w": -5.2452983756278275,
-  "m": -4.144666448137291,
-  "3m": -9.6990743595606,
-  "6m": -17.832083046626757,
-  "9m": -44.657824972551154,
-  "y": -42.2734491375934
+  "d": -5.453041771826483,
+  "w": -9.083677550172208,
+  "m": -8.526504269452417,
+  "3m": -15.775261911827887,
+  "6m": -22.66275669501293,
+  "9m": -47.50764368488548,
+  "y": -45.063208659051234
  },
- "div_yield": 4.516661905736953,
- "implied_fcf_growth": 0.1058,
+ "div_yield": 4.777162576543958,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:19:25Z"
+  "fetched": "2026-11-20T03:10:56Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 110.21062271062272
  },
- "_generated_at": "2026-11-19T03:51:20"
+ "_generated_at": "2026-11-20T03:40:39"
 }

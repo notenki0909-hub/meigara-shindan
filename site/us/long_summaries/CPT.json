@@ -2,30 +2,37 @@
  "code": "CPT",
  "name": "Camden Property Trust",
  "jp_sector": null,
- "gics_sector": "Real Estate",
- "is_simple": true,
- "is_reit": true,
- "price": 97.69999694824219,
- "price_date": "2026-11-18",
- "mcap": 9776807936,
- "q_score": 51.5,
+ "gics_sector": "Industrials",
+ "is_simple": false,
+ "is_reit": false,
+ "price": 96.27999877929688,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 81.4,
  "groups": {
-  "業績": null,
-  "財務": null,
-  "キャッシュフロー": null,
+  "業績": 82.65935954665657,
+  "財務": 81.91621407958458,
+  "キャッシュフロー": 78.06694014420718,
   "金融品質": null,
-  "REIT品質": 51.5
+  "REIT品質": null
  },
  "is_fin_simple": false,
- "is_reit_us": true,
- "current_pfo": 13.309439222845256,
- "quarter_decel_factor": null,
- "quarter_decel_detail": null,
+ "is_reit_us": false,
+ "current_pfo": null,
+ "quarter_decel_factor": 0.9578298291581296,
+ "quarter_decel_detail": {
+  "rev_yoy_q": -3.693678666383604,
+  "profit_yoy_q": -12.818003913894326,
+  "gap": -7.108508542093517
+ },
  "q_cov": "高",
- "bt_score": 101.3,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ffo_cheap": 101.3
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
  "ev_ebit": null,
  "fcf_yield": null,
@@ -35,47 +42,50 @@
  "per_vs_sector": null,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": -0.3162995421195691,
-  "w": -1.402764598868922,
-  "m": -2.074771739473713,
-  "3m": -9.469979053098243,
-  "6m": -8.081667036687634,
-  "9m": -10.028547524546294,
-  "y": -4.356343133787766
+  "d": -1.4534270351078682,
+  "w": -2.154474302548137,
+  "m": -3.9025886483993744,
+  "3m": -10.512127468686083,
+  "6m": -9.315248714529279,
+  "9m": -10.186565746095733,
+  "y": -5.6355974407467535
  },
- "div_yield": 4.3398158980969,
- "implied_fcf_growth": 0.1091,
+ "div_yield": 4.393435867917335,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
-   "value_trap": [
-    "買い時スコアは高い（割安圏）が、品質スコアは低め。安い理由がある可能性（バリュートラップ）"
-   ]
+   "value_trap": []
   },
   "raw": {
    "roe": 8.81283605840015,
    "roa": 4.251492509832755,
    "leverage": 2.0728805326642403,
-   "shares_chg_pct": -0.1272150234741809
+   "ocf_ni": 2.1500720487330347,
+   "accrual": -4.941667659022149,
+   "capex_da": 0.7207593797307802,
+   "shares_chg_pct": -0.1272150234741809,
+   "sbc_rev_pct": 1.0777582323722756,
+   "fcf_less_sbc_pct": 23.466773093094314
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:03:04Z"
+  "fetched": "2026-11-20T02:55:15Z"
  },
  "etf_top": [],
  "metric_scores": {
-  "rev_cagr": null,
-  "eps_cagr": null,
-  "op_margin": null,
-  "earnings_stability": null,
+  "rev_cagr": 100.46092208412213,
+  "eps_cagr": 33.99510829381589,
+  "op_margin": 109.08601584339918,
+  "earnings_stability": 101.65229636583739,
   "equity_ratio": null,
-  "de": null,
-  "net_de": null,
-  "debt_to_ocf": null,
-  "interest_coverage": null,
-  "ocf_positive": null,
-  "fcf_positive": null,
-  "fcf_payout": null
+  "de": 101.05840817343542,
+  "net_de": 84.46471915448927,
+  "debt_to_ocf": 77.08055646622415,
+  "interest_coverage": 65.06117252418947,
+  "ocf_positive": 100.0,
+  "fcf_positive": 100.0,
+  "fcf_payout": 34.20082043262156
  },
  "metric_raw": {
   "rev_cagr": 3.4148298757099127,
@@ -91,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 119.34938467553383
  },
- "_generated_at": "2026-11-19T03:41:40"
+ "_generated_at": "2026-11-20T03:31:31"
 }

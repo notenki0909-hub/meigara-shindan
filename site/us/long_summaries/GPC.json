@@ -2,12 +2,12 @@
  "code": "GPC",
  "name": "Genuine Parts Company",
  "jp_sector": null,
- "gics_sector": "Consumer Discretionary",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 123.63999938964844,
- "price_date": "2026-11-18",
- "mcap": 17045590016,
+ "price": 121.54000091552734,
+ "price_date": "2026-11-19",
+ "mcap": null,
  "q_score": 67.3,
  "groups": {
   "業績": 67.7019167415273,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 53.1,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 76.43902019097028,
-  "fcf_yield": 52.925348988987444,
-  "per_cheap": 30.0,
-  "pbr_cheap": 110.0
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 19.02141590565547,
- "fcf_yield": 2.4694011741740582,
- "per_band_pos": 0.0,
- "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 1.05615857332901,
- "per_vs_sector": 16.065489189189186,
- "pbr_vs_sector": 0.3985388913043479,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": 2.5207304759458093,
-  "w": -0.08888938210227515,
-  "m": 0.09715248530066667,
-  "3m": -6.981642271392241,
-  "6m": 30.18847825674804,
-  "9m": 3.5771102830008727,
-  "y": -2.322643702699778
+  "d": -1.6984782307406854,
+  "w": -1.0582835079117392,
+  "m": -2.596568276539446,
+  "3m": -9.27142816950468,
+  "6m": 24.50317301367093,
+  "9m": 2.9476566397576454,
+  "y": -3.700180811997056
  },
- "div_yield": 3.437398917001147,
- "implied_fcf_growth": 0.1731,
+ "div_yield": 3.471285147457162,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:09:47Z"
+  "fetched": "2026-11-20T03:01:43Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 133.9533977630166
  },
- "_generated_at": "2026-11-19T03:46:11"
+ "_generated_at": "2026-11-20T03:35:50"
 }

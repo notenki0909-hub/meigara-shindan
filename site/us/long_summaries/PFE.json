@@ -2,12 +2,12 @@
  "code": "PFE",
  "name": "Pfizer",
  "jp_sector": null,
- "gics_sector": "Health Care",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 28.059999465942383,
- "price_date": "2026-11-18",
- "mcap": 159937888256,
+ "price": 27.540000915527344,
+ "price_date": "2026-11-19",
+ "mcap": null,
  "q_score": 66.3,
  "groups": {
   "業績": 42.724883158597855,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 78.1,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 108.68060263683485,
-  "fcf_yield": 95.65436890496193,
-  "per_cheap": 30.0,
-  "pbr_cheap": 108.5
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 12.796971807663583,
- "fcf_yield": 5.674077667872144,
- "per_band_pos": 0.0,
- "pbr_band_pos": 0.8822208660735709,
- "ev_ebit_vs_sector": 0.5461789077107804,
- "per_vs_sector": 1.6985471186440677,
- "pbr_vs_sector": 0.3455971346153846,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -1.4401118977891536,
-  "w": -4.719868458361054,
-  "m": -6.808372975271237,
-  "3m": 0.9715672598779257,
-  "6m": 8.801855253321623,
-  "9m": 4.467605466577518,
-  "y": 11.881975882382601
+  "d": -1.8531666440200212,
+  "w": -4.4745022948057045,
+  "m": -7.7386915793019035,
+  "3m": -1.8881324726006343,
+  "6m": 6.1271680379241245,
+  "9m": 3.3395921566101494,
+  "y": 8.21218109993682
  },
- "div_yield": 6.129722140898959,
- "implied_fcf_growth": 0.0599,
+ "div_yield": 6.245460939800644,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:22:53Z"
+  "fetched": "2026-11-20T03:14:13Z"
  },
  "etf_top": [
   {
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 107.6694214876033
  },
- "_generated_at": "2026-11-19T03:52:21"
+ "_generated_at": "2026-11-20T03:41:37"
 }

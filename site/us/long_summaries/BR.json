@@ -2,15 +2,15 @@
  "code": "BR",
  "name": "Broadridge Financial Solutions",
  "jp_sector": null,
- "gics_sector": "Information Technology",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 184.89999389648438,
- "price_date": "2026-11-18",
- "mcap": 20913342464,
- "q_score": 99.8,
+ "price": 181.94000244140625,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 101.7,
  "groups": {
-  "業績": 103.3164938413606,
+  "業績": 107.84818807265893,
   "財務": 94.30345964187649,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 103.8,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 102.69695254789032,
-  "fcf_yield": 98.6101027528222,
-  "per_cheap": 110.0,
-  "pbr_cheap": 110.0
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 18.474582857142856,
- "fcf_yield": 5.895757706461666,
- "per_band_pos": 1.0,
- "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.7556066608238388,
- "per_vs_sector": 0.5223517857142856,
- "pbr_vs_sector": 0.5959705970149254,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -1.9514306389004976,
-  "w": -4.122381102111006,
-  "m": 2.727922803195204,
-  "3m": 3.5854307543329744,
-  "6m": 23.927612385023433,
-  "9m": 4.931608224002937,
-  "y": -17.738136592125997
+  "d": -1.600860764081613,
+  "w": -4.977280366918613,
+  "m": 2.0415027074294656,
+  "3m": -0.13173248656459524,
+  "6m": 21.27716121842882,
+  "9m": 2.77934586498636,
+  "y": -19.116208559302784
  },
- "div_yield": 2.3580314461453855,
- "implied_fcf_growth": 0.0546,
+ "div_yield": 2.206771433507609,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,13 +66,13 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:00:25Z"
+  "fetched": "2026-11-20T02:52:44Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 104.72100965188547,
   "eps_cagr": 110.0,
-  "op_margin": 89.580569227477,
+  "op_margin": 107.70734615267035,
   "earnings_stability": 108.96439648607989,
   "equity_ratio": null,
   "de": 90.46680278814335,
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 35.969180859691804
  },
- "_generated_at": "2026-11-19T03:39:37"
+ "_generated_at": "2026-11-20T03:29:35"
 }

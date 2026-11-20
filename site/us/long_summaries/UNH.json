@@ -2,12 +2,12 @@
  "code": "UNH",
  "name": "UnitedHealth Group",
  "jp_sector": null,
- "gics_sector": "Health Care",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 349.9100036621094,
- "price_date": "2026-11-18",
- "mcap": 313527271424,
+ "price": 330.4800109863281,
+ "price_date": "2026-11-19",
+ "mcap": null,
  "q_score": 81.3,
  "groups": {
   "業績": 62.769458097827,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 97.6,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 100.65114730594325,
-  "fcf_yield": 88.36194260226847,
-  "per_cheap": 103.7,
-  "pbr_cheap": 109.8
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 19.38152665176123,
- "fcf_yield": 5.127145695170135,
- "per_band_pos": 0.8821307150812318,
- "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.827209844291986,
- "per_vs_sector": 0.9425744491525423,
- "pbr_vs_sector": 0.6146250769230769,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -10.205807267801148,
-  "w": -13.160767969918364,
-  "m": -16.541049584548674,
-  "3m": -9.078862384637254,
-  "6m": -8.711188414880478,
-  "9m": 20.687756527970436,
-  "y": 9.169479488277354
+  "d": -5.552854297513543,
+  "w": -18.426182459153463,
+  "m": -20.74819880423786,
+  "3m": -15.285426316759498,
+  "6m": -13.595481726196345,
+  "9m": 13.95862447804419,
+  "y": 5.389382338712423
  },
- "div_yield": 2.652110514954363,
- "implied_fcf_growth": 0.0737,
+ "div_yield": 2.741466866017143,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:31:27Z"
+  "fetched": "2026-11-20T03:22:13Z"
  },
  "etf_top": [
   {
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 49.244167962674965
  },
- "_generated_at": "2026-11-19T03:56:35"
+ "_generated_at": "2026-11-20T03:45:35"
 }

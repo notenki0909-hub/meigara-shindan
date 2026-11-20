@@ -2,66 +2,71 @@
  "code": "WFC",
  "name": "Wells Fargo",
  "jp_sector": null,
- "gics_sector": "Financials",
- "is_simple": true,
+ "gics_sector": "Industrials",
+ "is_simple": false,
  "is_reit": false,
- "price": 80.91999816894531,
- "price_date": "2026-11-18",
- "mcap": 242909724672,
- "q_score": 100.7,
+ "price": 80.61000061035156,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 86.5,
  "groups": {
-  "業績": null,
-  "財務": null,
-  "キャッシュフロー": null,
-  "金融品質": 100.7,
+  "業績": 105.56594009409353,
+  "財務": 103.77616862764584,
+  "キャッシュフロー": 20.0,
+  "金融品質": null,
   "REIT品質": null
  },
- "is_fin_simple": true,
+ "is_fin_simple": false,
  "is_reit_us": false,
  "current_pfo": null,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 88.2,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": 101.6,
-  "pbr_cheap": 74.8
+  "per_cheap": null,
+  "pbr_cheap": null
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": 0.5318582164490738,
- "pbr_band_pos": 0.0,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 0.6597258959537572,
- "pbr_vs_sector": 0.6123576,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -2.140529955498738,
-  "w": -5.687651176269415,
-  "m": -1.5571761883432123,
-  "3m": -3.3213845647042883,
-  "6m": 6.740536571580846,
-  "9m": -7.5939266290438905,
-  "y": -2.9968833072099854
+  "d": -0.38309140584326107,
+  "w": -6.005132226673792,
+  "m": -2.19606600194725,
+  "3m": -3.852571408187544,
+  "6m": 6.177558686144269,
+  "9m": -9.1206275267532,
+  "y": -3.8755067688359013
  },
- "div_yield": 2.4715769219672827,
+ "div_yield": 2.3570276462149176,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
-   "cutoff": [],
+   "lev_roe": true,
+   "cutoff": [
+    "自己資本比率が10%未満（8.4%）"
+   ],
    "value_trap": []
   },
   "raw": {
    "roe": 11.781334717337412,
    "roa": 0.9930974653162875,
    "leverage": 11.863221011832131,
+   "ocf_ni": -0.8904770831380635,
+   "accrual": 1.9781408545741106,
    "shares_chg_pct": -19.332900550348675
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:33:32Z"
+  "fetched": "2026-11-20T03:24:12Z"
  },
  "etf_top": [
   {
@@ -71,17 +76,17 @@
   }
  ],
  "metric_scores": {
-  "rev_cagr": null,
-  "eps_cagr": null,
+  "rev_cagr": 101.13188018818707,
+  "eps_cagr": 110.0,
   "op_margin": null,
   "earnings_stability": null,
   "equity_ratio": null,
-  "de": null,
-  "net_de": null,
-  "debt_to_ocf": null,
+  "de": 97.36788926495028,
+  "net_de": 103.96061661798727,
+  "debt_to_ocf": 110.0,
   "interest_coverage": null,
-  "ocf_positive": null,
-  "fcf_positive": null,
+  "ocf_positive": 20.0,
+  "fcf_positive": 20.0,
   "fcf_payout": null
  },
  "metric_raw": {
@@ -98,5 +103,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-19T03:57:52"
+ "_generated_at": "2026-11-20T03:46:48"
 }

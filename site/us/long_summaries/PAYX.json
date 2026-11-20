@@ -2,12 +2,12 @@
  "code": "PAYX",
  "name": "Paychex",
  "jp_sector": null,
- "gics_sector": "Information Technology",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 113.66999816894531,
- "price_date": "2026-11-18",
- "mcap": 40464302080,
+ "price": 111.4000015258789,
+ "price_date": "2026-11-19",
+ "mcap": null,
  "q_score": 99.7,
  "groups": {
   "業績": 105.13487237382884,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 103.4,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 103.81223944795575,
-  "fcf_yield": 96.50529415317507,
-  "per_cheap": 110.0,
-  "pbr_cheap": 107.3
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 17.52017609241187,
- "fcf_yield": 5.7378970614881295,
- "per_band_pos": 1.0,
- "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.7165716193215489,
- "per_vs_sector": 0.5776384438775509,
- "pbr_vs_sector": 0.8149520149253731,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -0.3768626739055647,
-  "w": -1.4735239119053278,
-  "m": 0.9323347511595914,
-  "3m": -7.5177001202975,
-  "6m": 19.753476992938236,
-  "9m": 23.099418103726066,
-  "y": 2.8873956508723486
+  "d": -1.9970059643113158,
+  "w": -3.2818186918575742,
+  "m": -0.9777764214409679,
+  "3m": -10.507713269856788,
+  "6m": 18.196288091118195,
+  "9m": 22.095576648533346,
+  "y": 1.3095693464857394
  },
- "div_yield": 4.187560549552673,
- "implied_fcf_growth": 0.0584,
+ "div_yield": 4.174147160060655,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:22:14Z"
+  "fetched": "2026-11-20T03:13:36Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 68.46412266345077
  },
- "_generated_at": "2026-11-19T03:52:16"
+ "_generated_at": "2026-11-20T03:41:32"
 }

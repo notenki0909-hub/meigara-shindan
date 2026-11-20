@@ -2,16 +2,16 @@
  "code": "VZ",
  "name": "Verizon",
  "jp_sector": null,
- "gics_sector": "Communication Services",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 46.130001068115234,
- "price_date": "2026-11-18",
- "mcap": 191190319104,
- "q_score": 90.1,
+ "price": 45.7400016784668,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 85.1,
  "groups": {
   "業績": 90.92317492689139,
-  "財務": 82.93724108565586,
+  "財務": 69.97238478765769,
   "キャッシュフロー": 101.2944139504416,
   "金融品質": null,
   "REIT品質": null
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 102.4,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 103.53667246341418,
-  "fcf_yield": 110.0,
-  "per_cheap": 93.6,
-  "pbr_cheap": 105.6
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 12.091504121945384,
- "fcf_yield": 10.29131605209416,
- "per_band_pos": 0.37180536913404505,
- "pbr_band_pos": 0.6501701127546142,
- "ev_ebit_vs_sector": 0.7262164637805036,
- "per_vs_sector": 0.5684955555555556,
- "pbr_vs_sector": 0.3057502033898305,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": 0.43544690095922434,
-  "w": -1.008578157501161,
-  "m": 3.5698251457233265,
-  "3m": -6.220771791061297,
-  "6m": -3.5340833071814126,
-  "9m": -5.160358456064007,
-  "y": 12.48476702300585
+  "d": -0.845435466330402,
+  "w": -1.740059230653812,
+  "m": 5.004591911038037,
+  "3m": -7.502525838691454,
+  "6m": -5.241348156834236,
+  "9m": -7.126900145245085,
+  "y": 10.270014906564295
  },
- "div_yield": 6.134836190056102,
- "implied_fcf_growth": -0.0226,
+ "div_yield": 6.152164181762062,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:32:54Z"
+  "fetched": "2026-11-20T03:23:37Z"
  },
  "etf_top": [
   {
@@ -79,8 +79,8 @@
   "op_margin": 110.0,
   "earnings_stability": 102.72146199523077,
   "equity_ratio": null,
-  "de": 90.44495500670112,
-  "net_de": 98.59425191992682,
+  "de": 70.44495500670112,
+  "net_de": 66.73482672793413,
   "debt_to_ocf": 74.78453653588963,
   "interest_coverage": 67.92522088010585,
   "ocf_positive": 100.0,
@@ -101,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 58.350274446025615
  },
- "_generated_at": "2026-11-19T03:57:26"
+ "_generated_at": "2026-11-20T03:46:24"
 }

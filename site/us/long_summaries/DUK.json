@@ -2,16 +2,16 @@
  "code": "DUK",
  "name": "Duke Energy",
  "jp_sector": null,
- "gics_sector": "Utilities",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 130.0500030517578,
- "price_date": "2026-11-18",
- "mcap": 101401067520,
- "q_score": 89.4,
+ "price": 128.86000061035156,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 77.0,
  "groups": {
   "業績": 107.42043867161446,
-  "財務": 87.04025039125932,
+  "財務": 55.01287426261179,
   "キャッシュフロー": 60.0,
   "金融品質": null,
   "REIT品質": null
@@ -22,31 +22,31 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 70.8,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 86.95030342249974,
-  "fcf_yield": 20.0,
-  "per_cheap": 105.3,
-  "pbr_cheap": 72.8
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 22.388372102133612,
- "fcf_yield": -1.670593852146459,
- "per_band_pos": 0.9529232562994229,
- "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 0.9641848450531272,
- "per_vs_sector": 0.9037399999999999,
- "pbr_vs_sector": 0.7768928333333334,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": 0.1617426985446535,
-  "w": 0.9940193654017104,
-  "m": 7.1870115297989035,
-  "3m": 5.99885929081021,
-  "6m": 5.039985151611814,
-  "9m": 2.9120837423383783,
-  "y": 3.89040001175065
+  "d": -0.9150345355491085,
+  "w": 0.20997299957257187,
+  "m": 6.787107454779062,
+  "3m": 7.517732374586528,
+  "6m": 3.3691615793837615,
+  "9m": 1.6406387845733006,
+  "y": 4.087235406996137
  },
- "div_yield": 3.337177930147952,
+ "div_yield": 3.336954818898684,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:05:01Z"
+  "fetched": "2026-11-20T02:57:09Z"
  },
  "etf_top": [
   {
@@ -79,10 +79,10 @@
   "op_margin": 110.0,
   "earnings_stability": 108.71734200926747,
   "equity_ratio": null,
-  "de": 94.90644651055129,
-  "net_de": 91.70346261893657,
-  "debt_to_ocf": 86.30251419302513,
-  "interest_coverage": 75.24857824252432,
+  "de": 69.88773581266155,
+  "net_de": 50.87380888083022,
+  "debt_to_ocf": 41.73668559070019,
+  "interest_coverage": 57.553266766255206,
   "ocf_positive": 100.0,
   "fcf_positive": 20.0,
   "fcf_payout": null
@@ -101,5 +101,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-19T03:43:14"
+ "_generated_at": "2026-11-20T03:33:02"
 }

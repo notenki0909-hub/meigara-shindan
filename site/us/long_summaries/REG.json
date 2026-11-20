@@ -2,30 +2,33 @@
  "code": "REG",
  "name": "Regency Centers",
  "jp_sector": null,
- "gics_sector": "Real Estate",
- "is_simple": true,
- "is_reit": true,
- "price": 75.18000030517578,
- "price_date": "2026-11-18",
- "mcap": 14055898112,
- "q_score": 91.7,
+ "gics_sector": "Industrials",
+ "is_simple": false,
+ "is_reit": false,
+ "price": 74.04000091552734,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 92.2,
  "groups": {
-  "業績": null,
-  "財務": null,
-  "キャッシュフロー": null,
+  "業績": 101.1428360257502,
+  "財務": 78.24559221916057,
+  "キャッシュフロー": 100.72719481804022,
   "金融品質": null,
-  "REIT品質": 91.7
+  "REIT品質": null
  },
  "is_fin_simple": false,
- "is_reit_us": true,
- "current_pfo": 15.928139401693228,
+ "is_reit_us": false,
+ "current_pfo": null,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 96.4,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ffo_cheap": 96.4
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
  "ev_ebit": null,
  "fcf_yield": null,
@@ -35,16 +38,16 @@
  "per_vs_sector": null,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": -0.3182151545958911,
-  "w": -1.3126804883092924,
-  "m": 2.7049227315318003,
-  "3m": -1.7383372028751731,
-  "6m": -3.29302499220524,
-  "9m": -0.8310213345291806,
-  "y": 8.75163213095409
+  "d": -1.516359916228882,
+  "w": -2.2445167628600937,
+  "m": 2.5200770756875546,
+  "3m": -2.6557937258810393,
+  "6m": -5.488888975456218,
+  "9m": -3.656470545721613,
+  "y": 6.547709298650117
  },
- "div_yield": 4.256451166547409,
- "implied_fcf_growth": 0.0548,
+ "div_yield": 4.078876232653664,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -54,26 +57,29 @@
    "roe": 7.6367221716286195,
    "roa": 4.056984222249451,
    "leverage": 1.8823642768308169,
-   "shares_chg_pct": 7.173980411413905
+   "ocf_ni": 1.5692033519129414,
+   "accrual": -2.3646604585062074,
+   "shares_chg_pct": 7.173980411413905,
+   "sbc_rev_pct": 1.2525715727597384
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:25:11Z"
+  "fetched": "2026-11-20T03:16:22Z"
  },
  "etf_top": [],
  "metric_scores": {
-  "rev_cagr": null,
-  "eps_cagr": null,
-  "op_margin": null,
-  "earnings_stability": null,
+  "rev_cagr": 105.85595563106685,
+  "eps_cagr": 83.88121761673742,
+  "op_margin": 110.0,
+  "earnings_stability": 104.83417085519652,
   "equity_ratio": null,
-  "de": null,
-  "net_de": null,
-  "debt_to_ocf": null,
-  "interest_coverage": null,
-  "ocf_positive": null,
-  "fcf_positive": null,
-  "fcf_payout": null
+  "de": 102.2713073467219,
+  "net_de": 93.15930035080912,
+  "debt_to_ocf": 54.00789987902102,
+  "interest_coverage": 63.54386130009023,
+  "ocf_positive": 100.0,
+  "fcf_positive": 100.0,
+  "fcf_payout": 102.18158445412061
  },
  "metric_raw": {
   "rev_cagr": 8.270360067960159,
@@ -89,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 63.455246637638155
  },
- "_generated_at": "2026-11-19T03:53:13"
+ "_generated_at": "2026-11-20T03:42:26"
 }

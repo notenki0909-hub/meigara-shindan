@@ -2,16 +2,16 @@
  "code": "LNT",
  "name": "Alliant Energy",
  "jp_sector": null,
- "gics_sector": "Utilities",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 72.08000183105469,
- "price_date": "2026-11-18",
- "mcap": 18694787072,
- "q_score": 93.5,
+ "price": 71.4000015258789,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 82.5,
  "groups": {
   "業績": 101.09199012310881,
-  "財務": 80.363004463809,
+  "財務": 51.803312092679725,
   "キャッシュフロー": 102.82577701739378,
   "金融品質": null,
   "REIT品質": null
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 82.0,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 51.86481882073302,
-  "fcf_yield": 100.8436001525948,
-  "per_cheap": 93.4,
-  "pbr_cheap": 72.2
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 29.51686543609756,
- "fcf_yield": 6.253080045778443,
- "per_band_pos": 0.47111792705065514,
- "pbr_band_pos": 0.042797552890262436,
- "ev_ebit_vs_sector": 1.271182835318586,
- "per_vs_sector": 0.9515637440758293,
- "pbr_vs_sector": 0.9976195416666667,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": 1.079798483835659,
-  "w": -2.0918240397632126,
-  "m": 5.580790062006291,
-  "3m": 3.771959085970833,
-  "6m": -0.5793078192349088,
-  "9m": 2.9567199423823354,
-  "y": 5.8443516095614045
+  "d": -0.9433966258347248,
+  "w": -2.2587288938370587,
+  "m": 4.401231412623852,
+  "3m": 5.2166237602234045,
+  "6m": -2.565498478077355,
+  "9m": 0.5492175438894353,
+  "y": 4.861220981071401
  },
- "div_yield": 2.9689233430041484,
- "implied_fcf_growth": 0.0466,
+ "div_yield": 2.9971988154991256,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -63,7 +63,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:15:56Z"
+  "fetched": "2026-11-20T03:07:39Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -72,10 +72,10 @@
   "op_margin": 110.0,
   "earnings_stability": 102.58933099727973,
   "equity_ratio": null,
-  "de": 98.26561221707118,
-  "net_de": 97.22835114163175,
-  "debt_to_ocf": 56.355859709153115,
-  "interest_coverage": 69.60219478737997,
+  "de": 73.91873466048541,
+  "net_de": 56.95118625579493,
+  "debt_to_ocf": 20.0,
+  "interest_coverage": 56.343327454438565,
   "ocf_positive": 100.0,
   "fcf_positive": 100.0,
   "fcf_payout": 108.47733105218136
@@ -94,5 +94,5 @@
   "fcf_positive": 1,
   "fcf_payout": 44.56800684345594
  },
- "_generated_at": "2026-11-19T03:49:09"
+ "_generated_at": "2026-11-20T03:38:39"
 }

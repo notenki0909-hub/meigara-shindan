@@ -2,12 +2,12 @@
  "code": "CI",
  "name": "Cigna",
  "jp_sector": null,
- "gics_sector": "Health Care",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 285.3699951171875,
- "price_date": "2026-11-18",
- "mcap": 75195727872,
+ "price": 273.0400085449219,
+ "price_date": "2026-11-19",
+ "mcap": null,
  "q_score": 89.5,
  "groups": {
   "業績": 77.73248044359364,
@@ -26,32 +26,32 @@
   "gap": -9.566537592748347
  },
  "q_cov": "高",
- "bt_score": 109.8,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 109.48276066908284,
-  "fcf_yield": 110.0,
-  "per_cheap": 109.8,
-  "pbr_cheap": 107.0
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 12.139162113318617,
- "fcf_yield": 11.156218893551985,
- "per_band_pos": 0.9831371159686405,
- "pbr_band_pos": 0.7584962259348242,
- "ev_ebit_vs_sector": 0.5181033765821006,
- "per_vs_sector": 0.5331547033898305,
- "pbr_vs_sector": 0.3337033269230769,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -2.9551800699021302,
-  "w": -5.334223399798788,
-  "m": -6.924334821820044,
-  "3m": 3.9940203741892555,
-  "6m": 0.8018329087714049,
-  "9m": -0.19236789476644311,
-  "y": 5.174514148727338
+  "d": -4.320701819825978,
+  "w": -7.840814571224763,
+  "m": -10.293388663426917,
+  "3m": -1.6107531488605886,
+  "6m": -3.1841645339241054,
+  "9m": -2.593553236413626,
+  "y": 0.15774300886477466
  },
- "div_yield": 2.186634932462867,
- "implied_fcf_growth": -0.0341,
+ "div_yield": 2.2670670254471488,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -68,7 +68,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:01:48Z"
+  "fetched": "2026-11-20T02:54:03Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -99,5 +99,5 @@
   "fcf_positive": 1,
   "fcf_payout": 19.203719156037668
  },
- "_generated_at": "2026-11-19T03:40:49"
+ "_generated_at": "2026-11-20T03:30:46"
 }

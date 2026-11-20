@@ -2,12 +2,12 @@
  "code": "TXN",
  "name": "Texas Instruments",
  "jp_sector": null,
- "gics_sector": "Information Technology",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 292.42999267578125,
- "price_date": "2026-11-18",
- "mcap": 267213848576,
+ "price": 285.75,
+ "price_date": "2026-11-19",
+ "mcap": null,
  "q_score": 82.4,
  "groups": {
   "業績": 70.27662279743505,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 40.2,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 32.988348789413706,
-  "per_cheap": 67.7,
-  "pbr_cheap": 68.0
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 45.282874360912054,
- "fcf_yield": 0.9741261592060279,
- "per_band_pos": 0.0,
- "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.8520603010597978,
- "per_vs_sector": 0.9789959183673469,
- "pbr_vs_sector": 1.0396919402985074,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -1.1593296983725243,
-  "w": -5.609891552813895,
-  "m": 5.27395563426587,
-  "3m": 10.101651338746143,
-  "6m": -4.083577803607252,
-  "9m": 34.11143709379729,
-  "y": 88.67667740593703
+  "d": -2.284304908213497,
+  "w": -8.554150680536699,
+  "m": 0.38644163959322686,
+  "3m": 8.091245208684562,
+  "6m": -4.236071593524981,
+  "9m": 30.045968031749503,
+  "y": 81.63614715012157
  },
- "div_yield": 2.0791301002906803,
- "implied_fcf_growth": 0.3028,
+ "div_yield": 2.022747156605424,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:30:50Z"
+  "fetched": "2026-11-20T03:21:42Z"
  },
  "etf_top": [
   {
@@ -108,5 +108,5 @@
   "fcf_positive": 1,
   "fcf_payout": 192.047637341529
  },
- "_generated_at": "2026-11-19T03:56:06"
+ "_generated_at": "2026-11-20T03:45:07"
 }

@@ -2,15 +2,15 @@
  "code": "OKE",
  "name": "Oneok",
  "jp_sector": null,
- "gics_sector": "Energy",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 87.72000122070312,
- "price_date": "2026-11-18",
- "mcap": 55303110656,
- "q_score": 87.5,
+ "price": 86.5199966430664,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 87.2,
  "groups": {
-  "業績": 108.87402777280029,
+  "業績": 108.27132729744525,
   "財務": 67.04895576679556,
   "キャッシュフロー": 84.19652181809926,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 91.6,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 89.32970688302174,
-  "fcf_yield": 78.9960786647485,
-  "per_cheap": 105.5,
-  "pbr_cheap": 92.4
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 15.122141988320164,
- "fcf_yield": 4.4247058998561375,
- "per_band_pos": 0.6392498476270617,
- "pbr_band_pos": 0.9818569088914847,
- "ev_ebit_vs_sector": 0.9433650647735597,
- "per_vs_sector": 0.630607361111111,
- "pbr_vs_sector": 1.2483687368421053,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -0.9373255815356085,
-  "w": -0.5103742288617652,
-  "m": -5.525037520434406,
-  "3m": -7.272724486671178,
-  "6m": -4.807379524493749,
-  "9m": 0.9668554256913264,
-  "y": 27.388905668287755
+  "d": -1.3679942555147817,
+  "w": -2.633360287207298,
+  "m": -7.087635211391651,
+  "3m": -7.296694583072771,
+  "6m": -6.586056923584726,
+  "9m": -0.9275222386406101,
+  "y": 24.614714479004007
  },
- "div_yield": 4.87916089881433,
- "implied_fcf_growth": 0.0937,
+ "div_yield": 4.946833294107615,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:21:12Z"
+  "fetched": "2026-11-20T03:12:38Z"
  },
  "etf_top": [
   {
@@ -76,7 +76,7 @@
  "metric_scores": {
   "rev_cagr": 110.0,
   "eps_cagr": 105.49611109120116,
-  "op_margin": 110.0,
+  "op_margin": 107.58919809857989,
   "earnings_stability": 110.0,
   "equity_ratio": null,
   "de": 81.62152546141871,
@@ -101,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 105.55782590927667
  },
- "_generated_at": "2026-11-19T03:51:54"
+ "_generated_at": "2026-11-20T03:41:12"
 }

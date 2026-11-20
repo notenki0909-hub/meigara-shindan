@@ -5,9 +5,9 @@
  "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 318.30999755859375,
- "price_date": "2026-11-18",
- "mcap": 74547994624,
+ "price": 314.6400146484375,
+ "price_date": "2026-11-19",
+ "mcap": null,
  "q_score": 92.4,
  "groups": {
   "業績": 92.4792576439136,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 89.3,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 104.47833419886848,
-  "fcf_yield": 102.87564329442496,
-  "per_cheap": 75.0,
-  "pbr_cheap": 75.0
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 15.730030895968595,
- "fcf_yield": 6.862692988327487,
- "per_band_pos": 0.0,
- "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 0.6932583030396031,
- "per_vs_sector": 0.5107014583333334,
- "pbr_vs_sector": 0.3216018656716418,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -0.5094720480009474,
-  "w": -1.3389973836400837,
-  "m": 6.543709718146529,
-  "3m": -2.3708780467851964,
-  "6m": 2.115265212903994,
-  "9m": 3.101399923393422,
-  "y": 49.2172070179876
+  "d": -1.1529587315210477,
+  "w": -1.4594341755981288,
+  "m": 5.502465566036441,
+  "3m": -3.2115086609637578,
+  "6m": 0.40067274458346347,
+  "9m": 0.5118046331387571,
+  "y": 48.42187409801686
  },
- "div_yield": 1.5330966785300864,
- "implied_fcf_growth": 0.0338,
+ "div_yield": 1.518187699468988,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:07:40Z"
+  "fetched": "2026-11-20T02:59:40Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 26.856919468334638
  },
- "_generated_at": "2026-11-19T03:44:33"
+ "_generated_at": "2026-11-20T03:34:17"
 }

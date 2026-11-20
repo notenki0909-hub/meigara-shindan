@@ -2,12 +2,12 @@
  "code": "DRI",
  "name": "Darden Restaurants",
  "jp_sector": null,
- "gics_sector": "Consumer Discretionary",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 239.22000122070312,
- "price_date": "2026-11-18",
- "mcap": 27066122240,
+ "price": 231.39999389648438,
+ "price_date": "2026-11-19",
+ "mcap": null,
  "q_score": 91.2,
  "groups": {
   "業績": 104.21470926825924,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 71.0,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 66.12337659150927,
-  "fcf_yield": 73.5922109739697,
-  "per_cheap": 73.3,
-  "pbr_cheap": 48.8
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 20.647032391385533,
- "fcf_yield": 4.019415823047727,
- "per_band_pos": 0.0,
- "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.1464204548242938,
- "per_vs_sector": 0.7846365878378377,
- "pbr_vs_sector": 1.4243083695652177,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": 3.1787771935175124,
-  "w": 4.490258875544417,
-  "m": 9.73897664689256,
-  "3m": 9.759121160947771,
-  "6m": 21.265268940889072,
-  "9m": 12.320408498238656,
-  "y": 39.25141775997343
+  "d": -3.268960490057038,
+  "w": 1.5357613399453518,
+  "m": 7.8687251947768155,
+  "3m": 4.422377041086767,
+  "6m": 17.420198557046817,
+  "9m": 6.503424009834391,
+  "y": 35.289992387555415
  },
- "div_yield": 2.708803597915538,
- "implied_fcf_growth": 0.1068,
+ "div_yield": 2.6966292846107134,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:04:47Z"
+  "fetched": "2026-11-20T02:56:56Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 63.70070778564207
  },
- "_generated_at": "2026-11-19T03:43:14"
+ "_generated_at": "2026-11-20T03:33:02"
 }

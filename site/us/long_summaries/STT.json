@@ -2,12 +2,12 @@
  "code": "STT",
  "name": "State Street Corporation",
  "jp_sector": null,
- "gics_sector": "Financials",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 165.14999389648438,
- "price_date": "2026-11-18",
- "mcap": 44933689344,
+ "price": 161.22999572753906,
+ "price_date": "2026-11-19",
+ "mcap": null,
  "q_score": 103.1,
  "groups": {
   "業績": 102.73110465822744,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 79.2,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
   "ev_ebit_vs_sector": null,
-  "fcf_yield": 110.0,
-  "per_cheap": 73.4,
-  "pbr_cheap": 73.4
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
  "ev_ebit": null,
- "fcf_yield": 24.13111444508588,
- "per_band_pos": 0.0,
- "pbr_band_pos": 0.0,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 0.7799217919075144,
- "pbr_vs_sector": 0.73101096,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -1.279215419650459,
-  "w": -5.178850759194198,
-  "m": -0.8584511459068356,
-  "3m": -9.788612394600415,
-  "6m": 7.191527257443009,
-  "9m": 29.154602603540525,
-  "y": 46.357673924372975
+  "d": -2.3735987367958122,
+  "w": -7.179045158198161,
+  "m": -4.569400035602333,
+  "3m": -13.840650071854032,
+  "6m": 4.905975122882444,
+  "9m": 26.02000363520307,
+  "y": 42.42932868740037
  },
- "div_yield": 2.2282774059965242,
- "implied_fcf_growth": -0.1514,
+ "div_yield": 2.1335980221777224,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "lev_roe": true,
@@ -67,7 +67,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:28:57Z"
+  "fetched": "2026-11-20T03:19:52Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -98,5 +98,5 @@
   "fcf_positive": 1,
   "fcf_payout": 10.329244673983215
  },
- "_generated_at": "2026-11-19T03:54:35"
+ "_generated_at": "2026-11-20T03:43:44"
 }

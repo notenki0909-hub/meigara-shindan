@@ -2,15 +2,15 @@
  "code": "TSN",
  "name": "Tyson Foods",
  "jp_sector": null,
- "gics_sector": "Consumer Staples",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 64.25,
- "price_date": "2026-11-18",
- "mcap": 22136064000,
- "q_score": 84.6,
+ "price": 63.86000061035156,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 85.2,
  "groups": {
-  "業績": 69.07367541705544,
+  "業績": 70.5591594527442,
   "財務": 90.54593819663432,
   "キャッシュフロー": 103.07409634529297,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 58.1,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 49.27629393133801,
-  "fcf_yield": 105.04209119260467,
-  "per_cheap": 20.0,
-  "pbr_cheap": 75.0
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 26.42005818181818,
- "fcf_yield": 7.512627357781401,
+ "ev_ebit": null,
+ "fcf_yield": null,
  "per_band_pos": null,
- "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.2938324281007922,
- "per_vs_sector": 2.117945654008439,
- "pbr_vs_sector": 0.19177810606060605,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": 0.942652725431814,
-  "w": 7.315852925099331,
-  "m": 16.016610257870912,
-  "3m": 10.017120413136936,
-  "6m": -3.4125026422457183,
-  "9m": -0.12436161787278133,
-  "y": 20.975332821738224
+  "d": -0.6070029410870648,
+  "w": 7.762407052156228,
+  "m": 14.239711748107142,
+  "3m": 9.199728300663889,
+  "6m": -3.9265842672177254,
+  "9m": 0.0,
+  "y": 19.008573969333263
  },
- "div_yield": 3.1750972762645913,
- "implied_fcf_growth": 0.0214,
+ "div_yield": 3.194487911842144,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,13 +66,13 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:30:40Z"
+  "fetched": "2026-11-20T03:21:34Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 96.36532578768252,
   "eps_cagr": null,
-  "op_margin": 31.141130267665655,
+  "op_margin": 35.597582374731914,
   "earnings_stability": 79.71457019581813,
   "equity_ratio": null,
   "de": 105.60009083683434,
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 42.3331328923632
  },
- "_generated_at": "2026-11-19T03:55:53"
+ "_generated_at": "2026-11-20T03:44:55"
 }

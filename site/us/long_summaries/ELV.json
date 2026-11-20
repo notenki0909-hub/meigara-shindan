@@ -2,12 +2,12 @@
  "code": "ELV",
  "name": "Elevance Health",
  "jp_sector": null,
- "gics_sector": "Health Care",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 400.8399963378906,
- "price_date": "2026-11-18",
- "mcap": 86603841536,
+ "price": 390.1600036621094,
+ "price_date": "2026-11-19",
+ "mcap": null,
  "q_score": 87.2,
  "groups": {
   "業績": 86.25547355874471,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 91.3,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 107.87639206586118,
-  "fcf_yield": 68.86619259540372,
-  "per_cheap": 97.1,
-  "pbr_cheap": 108.3
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 13.456464686390532,
- "fcf_yield": 3.664964444655279,
- "per_band_pos": 0.44963519853674416,
- "pbr_band_pos": 0.8654495067477035,
- "ev_ebit_vs_sector": 0.5743262776948584,
- "per_vs_sector": 0.7212206355932204,
- "pbr_vs_sector": 0.37284517307692305,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -7.625653192084014,
-  "w": -6.668532624525147,
-  "m": -8.937252258729277,
-  "3m": 1.150700911638336,
-  "6m": 1.1685734793837055,
-  "9m": 15.124362332658613,
-  "y": 21.1326318037778
+  "d": -2.6644029471496355,
+  "w": -9.244008094576529,
+  "m": -10.12830274944304,
+  "3m": -2.591502636782994,
+  "6m": 0.08721880137050331,
+  "9m": 13.772493510353613,
+  "y": 20.223093436562543
  },
- "div_yield": 1.716395584985601,
- "implied_fcf_growth": 0.1193,
+ "div_yield": 1.7608160589288984,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:05:43Z"
+  "fetched": "2026-11-20T02:57:49Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 48.172652804032765
  },
- "_generated_at": "2026-11-19T03:43:44"
+ "_generated_at": "2026-11-20T03:33:31"
 }

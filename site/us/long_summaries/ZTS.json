@@ -2,12 +2,12 @@
  "code": "ZTS",
  "name": "Zoetis",
  "jp_sector": null,
- "gics_sector": "Health Care",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
  "price": 85.56999969482422,
  "price_date": "2026-11-18",
- "mcap": 34768474112,
+ "mcap": null,
  "q_score": 89.6,
  "groups": {
   "業績": 102.38500359286506,
@@ -26,21 +26,21 @@
   "gap": -6.702521620403101
  },
  "q_cov": "高",
- "bt_score": 107.3,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 110.0,
-  "fcf_yield": 101.88764446632268,
-  "per_cheap": 110.0,
-  "pbr_cheap": 65.0
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 11.592013931609674,
- "fcf_yield": 6.566293339896803,
- "per_band_pos": 1.0,
- "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.4947509147080527,
- "per_vs_sector": 0.616640720338983,
- "pbr_vs_sector": 2.030072692307692,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
   "d": 2.503589187645905,
   "w": 3.6332808660383797,
@@ -51,7 +51,7 @@
   "y": -27.971382578547765
  },
  "div_yield": 2.4775038068958066,
- "implied_fcf_growth": 0.0399,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -70,7 +70,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:35:16Z"
+  "fetched": "2026-11-20T03:25:46Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -101,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 38.93999123959702
  },
- "_generated_at": "2026-11-19T03:58:31"
+ "_generated_at": "2026-11-20T03:47:27"
 }

@@ -2,16 +2,16 @@
  "code": "SO",
  "name": "Southern Company",
  "jp_sector": null,
- "gics_sector": "Utilities",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 94.41000366210938,
- "price_date": "2026-11-18",
- "mcap": 109917888512,
- "q_score": 85.2,
+ "price": 93.29000091552734,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 72.5,
  "groups": {
   "業績": 102.00517331168352,
-  "財務": 81.65397853990243,
+  "財務": 48.890544697509576,
   "キャッシュフロー": 60.0,
   "金融品質": null,
   "REIT品質": null
@@ -22,31 +22,31 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 53.5,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 73.94158163857074,
-  "fcf_yield": 20.0,
-  "per_cheap": 66.7,
-  "pbr_cheap": 98.6
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 25.03141915058339,
- "fcf_yield": -2.670175018581783,
- "per_band_pos": 0.0482045886307642,
- "pbr_band_pos": 0.8430895489377479,
- "ev_ebit_vs_sector": 1.078011160662506,
- "per_vs_sector": 1.0215542180094788,
- "pbr_vs_sector": 1.0890177916666668,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": 0.8653901722148305,
-  "w": 0.6074247085073647,
-  "m": 4.078937950590356,
-  "3m": 3.259327733771089,
-  "6m": 0.8438377401737363,
-  "9m": -0.6733291626513038,
-  "y": 4.228308405422876
+  "d": -1.1863178721933876,
+  "w": 0.8867737471605297,
+  "m": 3.2083212141397865,
+  "3m": 4.8909358609326326,
+  "6m": -1.0080613006968386,
+  "9m": -1.0710520716273098,
+  "y": 2.8669074915957937
  },
- "div_yield": 3.219997756678488,
+ "div_yield": 3.2372172476818424,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -67,7 +67,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:28:06Z"
+  "fetched": "2026-11-20T03:19:04Z"
  },
  "etf_top": [
   {
@@ -82,10 +82,10 @@
   "op_margin": 110.0,
   "earnings_stability": 106.55225019069412,
   "equity_ratio": null,
-  "de": 84.77584036724419,
-  "net_de": 82.90860627599855,
-  "debt_to_ocf": 84.42868802285247,
-  "interest_coverage": 74.50277949351451,
+  "de": 57.73100844069303,
+  "net_de": 41.1994669035984,
+  "debt_to_ocf": 39.238250697136635,
+  "interest_coverage": 57.393452748610244,
   "ocf_positive": 100.0,
   "fcf_positive": 20.0,
   "fcf_payout": null
@@ -104,5 +104,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-19T03:54:18"
+ "_generated_at": "2026-11-20T03:43:28"
 }

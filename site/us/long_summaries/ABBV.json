@@ -2,12 +2,12 @@
  "code": "ABBV",
  "name": "AbbVie",
  "jp_sector": null,
- "gics_sector": "Health Care",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
  "price": 286.010009765625,
  "price_date": "2026-11-18",
- "mcap": 505555943424,
+ "mcap": null,
  "q_score": 87.3,
  "groups": {
   "業績": 74.13176726035898,
@@ -22,20 +22,20 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.1,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 59.28515306595765,
-  "fcf_yield": 66.9872166980818,
-  "per_cheap": 54.1,
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
   "pbr_cheap": null
  },
- "ev_ebit": 28.26255255706535,
- "fcf_yield": 3.5240412523561346,
- "per_band_pos": 0.48237501920798653,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 1.2062549106728704,
- "per_vs_sector": 2.08231406779661,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
  "pbr_vs_sector": null,
  "price_chg": {
   "d": -2.325659923590373,
@@ -47,7 +47,7 @@
   "y": 22.226499899839737
  },
  "div_yield": 2.419495739212307,
- "implied_fcf_growth": 0.1247,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [
@@ -69,7 +69,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T02:54:53Z"
+  "fetched": "2026-11-20T02:47:38Z"
  },
  "etf_top": [
   {
@@ -106,5 +106,5 @@
   "fcf_positive": 1,
   "fcf_payout": 65.42995060619667
  },
- "_generated_at": "2026-11-19T03:37:17"
+ "_generated_at": "2026-11-20T03:27:24"
 }

@@ -2,30 +2,33 @@
  "code": "ESS",
  "name": "Essex Property Trust",
  "jp_sector": null,
- "gics_sector": "Real Estate",
- "is_simple": true,
- "is_reit": true,
- "price": 273.8599853515625,
- "price_date": "2026-11-18",
- "mcap": 18896875520,
- "q_score": 72.9,
+ "gics_sector": "Industrials",
+ "is_simple": false,
+ "is_reit": false,
+ "price": 269.3900146484375,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 91.4,
  "groups": {
-  "業績": null,
-  "財務": null,
-  "キャッシュフロー": null,
+  "業績": 107.06535239632073,
+  "財務": 70.27197392789886,
+  "キャッシュフロー": 99.98974624331261,
   "金融品質": null,
-  "REIT品質": 72.9
+  "REIT品質": null
  },
  "is_fin_simple": false,
- "is_reit_us": true,
- "current_pfo": 20.16395850873009,
+ "is_reit_us": false,
+ "current_pfo": null,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 45.6,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ffo_cheap": 45.6
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
  "ev_ebit": null,
  "fcf_yield": null,
@@ -35,16 +38,16 @@
  "per_vs_sector": null,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": 1.055345148178044,
-  "w": -0.051100236656020925,
-  "m": 0.6542189308819557,
-  "3m": -4.813877346931871,
-  "6m": -0.4254130214621732,
-  "9m": 7.636675405851534,
-  "y": 8.54968196894208
+  "d": -1.6322102323151566,
+  "w": -0.8866715425929095,
+  "m": -1.7219258528912595,
+  "3m": -6.785462059364189,
+  "6m": -1.6106549821564675,
+  "9m": 5.842373929892908,
+  "y": 6.234723835957734
  },
- "div_yield": 3.7829549967661573,
- "implied_fcf_growth": 0.0787,
+ "div_yield": 3.8383011387760706,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -54,26 +57,31 @@
    "roe": 12.08484108267772,
    "roa": 5.089030640529237,
    "leverage": 2.3746842839643323,
-   "shares_chg_pct": -0.2512406120659838
+   "ocf_ni": 1.6044162313750436,
+   "accrual": -3.1032070083501084,
+   "capex_da": 0.23100954337313306,
+   "shares_chg_pct": -0.2512406120659838,
+   "sbc_rev_pct": 0.5107704208822447,
+   "fcf_less_sbc_pct": 48.980710998784005
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:06:34Z"
+  "fetched": "2026-11-20T02:58:38Z"
  },
  "etf_top": [],
  "metric_scores": {
-  "rev_cagr": null,
-  "eps_cagr": null,
-  "op_margin": null,
-  "earnings_stability": null,
+  "rev_cagr": 102.7893224822987,
+  "eps_cagr": 110.0,
+  "op_margin": 110.0,
+  "earnings_stability": 105.47208710298423,
   "equity_ratio": null,
-  "de": null,
-  "net_de": null,
-  "debt_to_ocf": null,
-  "interest_coverage": null,
-  "ocf_positive": null,
-  "fcf_positive": null,
-  "fcf_payout": null
+  "de": 90.5410862147497,
+  "net_de": 71.463081706119,
+  "debt_to_ocf": 54.971341206706605,
+  "interest_coverage": 64.11238658402014,
+  "ocf_positive": 100.0,
+  "fcf_positive": 100.0,
+  "fcf_payout": 99.96923872993781
  },
  "metric_raw": {
   "rev_cagr": 5.510390234068829,
@@ -89,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 70.02307095254665
  },
- "_generated_at": "2026-11-19T03:44:02"
+ "_generated_at": "2026-11-20T03:33:48"
 }

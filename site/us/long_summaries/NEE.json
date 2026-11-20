@@ -2,16 +2,16 @@
  "code": "NEE",
  "name": "NextEra Energy",
  "jp_sector": null,
- "gics_sector": "Utilities",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 84.77999877929688,
- "price_date": "2026-11-18",
- "mcap": 177809604608,
- "q_score": 87.5,
+ "price": 83.79000091552734,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 76.2,
  "groups": {
   "業績": 99.69275108261152,
-  "財務": 82.7198348077256,
+  "財務": 53.524069666844674,
   "キャッシュフロー": 73.33333333333333,
   "金融品質": null,
   "REIT品質": null
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 61.6,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 31.065737521583003,
-  "fcf_yield": 44.07818937999431,
-  "per_cheap": 109.6,
-  "pbr_cheap": 94.3
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 33.74271877905237,
- "fcf_yield": 1.8058642034995736,
- "per_band_pos": 1.0,
- "pbr_band_pos": 0.9615467455409294,
- "ev_ebit_vs_sector": 1.4531747966861486,
- "per_vs_sector": 0.7213661137440758,
- "pbr_vs_sector": 1.2047267916666669,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": 0.42643996465281386,
-  "w": -1.4071393354255113,
-  "m": 7.50697200497894,
-  "3m": -0.29401388167592524,
-  "6m": -3.9537759108362547,
-  "9m": -7.485814770887544,
-  "y": -1.1311967588374605
+  "d": -1.1677257348714276,
+  "w": -1.7587055738053303,
+  "m": 7.038837790181129,
+  "3m": 0.16736328403428313,
+  "6m": -6.578215369916318,
+  "9m": -9.101756738850163,
+  "y": -1.004251512583365
  },
- "div_yield": 2.9370134888561163,
- "implied_fcf_growth": 0.2161,
+ "div_yield": 2.907268138659942,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:19:01Z"
+  "fetched": "2026-11-20T03:10:38Z"
  },
  "etf_top": [
   {
@@ -79,10 +79,10 @@
   "op_margin": 110.0,
   "earnings_stability": 73.02225209608376,
   "equity_ratio": null,
-  "de": 94.96642738548687,
-  "net_de": 92.7449857496737,
-  "debt_to_ocf": 83.41289547456948,
-  "interest_coverage": 59.75503062117236,
+  "de": 69.95971286258424,
+  "net_de": 52.01948432464108,
+  "debt_to_ocf": 37.88386063275931,
+  "interest_coverage": 54.23322084739408,
   "ocf_positive": 100.0,
   "fcf_positive": 100.0,
   "fcf_payout": 20.0
@@ -101,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 145.748987854251
  },
- "_generated_at": "2026-11-19T03:51:11"
+ "_generated_at": "2026-11-20T03:40:31"
 }

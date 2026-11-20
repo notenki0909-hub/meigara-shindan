@@ -2,81 +2,90 @@
  "code": "PRU",
  "name": "Prudential Financial",
  "jp_sector": null,
- "gics_sector": "Financials",
- "is_simple": true,
+ "gics_sector": "Industrials",
+ "is_simple": false,
  "is_reit": false,
- "price": 121.54000091552734,
- "price_date": "2026-11-18",
- "mcap": 41688219648,
- "q_score": 84.7,
+ "price": 120.30000305175781,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 86.4,
  "groups": {
-  "業績": null,
-  "財務": null,
-  "キャッシュフロー": null,
-  "金融品質": 84.7,
+  "業績": 64.85216945316355,
+  "財務": 99.36958842834049,
+  "キャッシュフロー": 103.33333333333333,
+  "金融品質": null,
   "REIT品質": null
  },
- "is_fin_simple": true,
+ "is_fin_simple": false,
  "is_reit_us": false,
  "current_pfo": null,
- "quarter_decel_factor": null,
- "quarter_decel_detail": null,
- "q_cov": "中",
- "bt_score": 95.3,
- "bt_cov": "高",
+ "quarter_decel_factor": 0.6700703324131618,
+ "quarter_decel_detail": {
+  "rev_yoy_q": -19.220055710306404,
+  "profit_yoy_q": -3.0048916841369677,
+  "gap": -21.49648337934191
+ },
+ "q_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": 109.3,
-  "pbr_cheap": 81.3
+  "per_cheap": null,
+  "pbr_cheap": null
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": 0.9469977802000847,
- "pbr_band_pos": 0.12675609150061717,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 0.639839190751445,
- "pbr_vs_sector": 0.5659538399999999,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -0.6539115958069663,
-  "w": -1.2191157256491114,
-  "m": 5.439407005342423,
-  "3m": 0.7877971693230901,
-  "6m": 17.748497847478937,
-  "9m": 18.333173010320223,
-  "y": 17.41860535909121
+  "d": -1.0202384848025048,
+  "w": -1.7237158297746968,
+  "m": 4.772690621406284,
+  "3m": -0.7016083065748302,
+  "6m": 15.406758938135233,
+  "9m": 16.299304149670668,
+  "y": 17.20577140210937
  },
- "div_yield": 4.607536578753285,
- "implied_fcf_growth": -0.0777,
+ "div_yield": 3.4912717318826614,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
-   "cutoff": [],
+   "lev_roe": true,
+   "cutoff": [
+    "自己資本比率が10%未満（4.2%）"
+   ],
    "value_trap": []
   },
   "raw": {
    "roe": 11.024107528207658,
    "roa": 0.46217075503399074,
    "leverage": 23.85288858745915,
+   "ocf_ni": 1.753635346756152,
+   "accrual": -0.35711280590620853,
    "shares_chg_pct": -4.923736346256524
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:24:33Z"
+  "fetched": "2026-11-20T03:15:48Z"
  },
  "etf_top": [],
  "metric_scores": {
-  "rev_cagr": null,
+  "rev_cagr": 96.78412297349115,
   "eps_cagr": null,
   "op_margin": null,
   "earnings_stability": null,
   "equity_ratio": null,
-  "de": null,
-  "net_de": null,
-  "debt_to_ocf": null,
+  "de": 102.92249830445773,
+  "net_de": 103.9993217830939,
+  "debt_to_ocf": 91.18694519746984,
   "interest_coverage": null,
-  "ocf_positive": null,
-  "fcf_positive": null,
-  "fcf_payout": null
+  "ocf_positive": 100.0,
+  "fcf_positive": 100.0,
+  "fcf_payout": 110.0
  },
  "metric_raw": {
   "rev_cagr": 2.276427669035508,
@@ -92,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 30.71280497528305
  },
- "_generated_at": "2026-11-19T03:52:44"
+ "_generated_at": "2026-11-20T03:41:58"
 }

@@ -2,54 +2,55 @@
  "code": "RF",
  "name": "Regions Financial Corporation",
  "jp_sector": null,
- "gics_sector": "Financials",
- "is_simple": true,
+ "gics_sector": "Industrials",
+ "is_simple": false,
  "is_reit": false,
- "price": 27.950000762939453,
- "price_date": "2026-11-18",
- "mcap": 23725285376,
- "q_score": 81.4,
+ "price": 27.299999237060547,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 98.8,
  "groups": {
-  "業績": null,
-  "財務": null,
-  "キャッシュフロー": null,
-  "金融品質": 81.4,
+  "業績": 89.75875824992573,
+  "財務": 106.04455140091784,
+  "キャッシュフロー": 102.59672503745027,
+  "金融品質": null,
   "REIT品質": null
  },
- "is_fin_simple": true,
+ "is_fin_simple": false,
  "is_reit_us": false,
  "current_pfo": null,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 76.7,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": 78.3,
-  "pbr_cheap": 75.0
+  "per_cheap": null,
+  "pbr_cheap": null
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": 0.06683745385923458,
- "pbr_band_pos": 0.0,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 0.6385798265895953,
- "pbr_vs_sector": 0.5765264,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -0.7104755179434097,
-  "w": -2.409213133427568,
-  "m": 0.3590677921005092,
-  "3m": -7.511577107852241,
-  "6m": 1.5256086662492674,
-  "9m": -5.955580724457487,
-  "y": 15.020582882620825
+  "d": -2.325586791184564,
+  "w": -4.244128313248863,
+  "m": -2.6737968641691645,
+  "3m": -10.226901104756902,
+  "6m": -1.4796097472332792,
+  "9m": -9.18163765108806,
+  "y": 12.90322122625005
  },
- "div_yield": 4.293380920372462,
- "implied_fcf_growth": -0.0048,
+ "div_yield": 4.010989123082119,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
+   "lev_roe": true,
    "cutoff": [],
    "value_trap": []
   },
@@ -57,26 +58,29 @@
    "roe": 11.321745523289398,
    "roa": 1.3575629352575969,
    "leverage": 8.339757391167359,
+   "ocf_ni": 1.011595547309833,
+   "accrual": -0.015816978577484212,
+   "capex_da": 0.35714285714285715,
    "shares_chg_pct": -7.22086210283015
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:25:25Z"
+  "fetched": "2026-11-20T03:16:35Z"
  },
  "etf_top": [],
  "metric_scores": {
-  "rev_cagr": null,
-  "eps_cagr": null,
+  "rev_cagr": 94.0089706838395,
+  "eps_cagr": 85.50854581601196,
   "op_margin": null,
   "earnings_stability": null,
   "equity_ratio": null,
-  "de": null,
-  "net_de": null,
-  "debt_to_ocf": null,
+  "de": 107.43527805492832,
+  "net_de": 108.16284198918238,
+  "debt_to_ocf": 102.53553415864282,
   "interest_coverage": null,
-  "ocf_positive": null,
-  "fcf_positive": null,
-  "fcf_payout": null
+  "ocf_positive": 100.0,
+  "fcf_positive": 100.0,
+  "fcf_payout": 107.79017511235084
  },
  "metric_raw": {
   "rev_cagr": 1.6520184038638863,
@@ -92,5 +96,5 @@
   "fcf_positive": 1,
   "fcf_payout": 46.629474662947466
  },
- "_generated_at": "2026-11-19T03:53:18"
+ "_generated_at": "2026-11-20T03:42:30"
 }

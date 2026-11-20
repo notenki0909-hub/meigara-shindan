@@ -5,9 +5,9 @@
  "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 578.1900024414062,
- "price_date": "2026-11-18",
- "mcap": 133564571648,
+ "price": 571.8499755859375,
+ "price_date": "2026-11-19",
+ "mcap": null,
  "q_score": 79.9,
  "groups": {
   "業績": 91.4805478289561,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 84.5,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 98.67115193055793,
-  "fcf_yield": 88.96040284500539,
-  "per_cheap": 89.5,
-  "pbr_cheap": 61.0
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 19.550326173586857,
- "fcf_yield": 5.172030213375405,
- "per_band_pos": 0.28987816447800363,
- "pbr_band_pos": 0.6803521502510973,
- "ev_ebit_vs_sector": 0.8616274206076181,
- "per_vs_sector": 0.6110808333333334,
- "pbr_vs_sector": 1.9724131343283582,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -2.0581400313953613,
-  "w": -5.222520447353041,
-  "m": 5.372597417260061,
-  "3m": 1.1741482120077862,
-  "6m": 10.639310497464693,
-  "9m": -13.25111491653007,
-  "y": 22.815328590980254
+  "d": -1.0965300037527492,
+  "w": -5.336961352822467,
+  "m": 3.6880501641223917,
+  "3m": 1.4691995943913572,
+  "6m": 9.384265119946079,
+  "9m": -13.12703686958805,
+  "y": 20.46047651572984
  },
- "div_yield": 2.4905307838592896,
- "implied_fcf_growth": 0.0725,
+ "div_yield": 2.4132203530934904,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:15:47Z"
+  "fetched": "2026-11-20T03:07:29Z"
  },
  "etf_top": [
   {
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 45.32426172553561
  },
- "_generated_at": "2026-11-19T03:49:09"
+ "_generated_at": "2026-11-20T03:38:39"
 }

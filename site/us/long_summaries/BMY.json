@@ -2,12 +2,12 @@
  "code": "BMY",
  "name": "Bristol Myers Squibb",
  "jp_sector": null,
- "gics_sector": "Health Care",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 59.560001373291016,
- "price_date": "2026-11-18",
- "mcap": 121745760256,
+ "price": 58.34000015258789,
+ "price_date": "2026-11-19",
+ "mcap": null,
  "q_score": 84.2,
  "groups": {
   "業績": 93.81141679156194,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 110.0,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 110.0,
-  "fcf_yield": 110.0,
-  "per_cheap": 110.0,
-  "pbr_cheap": 96.9
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 11.561917826872632,
- "fcf_yield": 10.55067541817495,
- "per_band_pos": 1.0,
- "pbr_band_pos": 0.5377900252440567,
- "ev_ebit_vs_sector": 0.4934664031955882,
- "per_vs_sector": 0.5595850847457627,
- "pbr_vs_sector": 1.0003359615384615,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -2.9176807585172826,
-  "w": -5.325065144248131,
-  "m": -3.4370929335207356,
-  "3m": -9.027034881959395,
-  "6m": 1.742399114812998,
-  "9m": -1.227193819456518,
-  "y": 27.237768908237904
+  "d": -2.0483566027085787,
+  "w": -6.386392108032812,
+  "m": -4.5484274016350135,
+  "3m": -12.938369955602413,
+  "6m": -2.031904449999755,
+  "9m": -3.824595615990911,
+  "y": 23.969397471583708
  },
- "div_yield": 4.23102743770262,
- "implied_fcf_growth": -0.0262,
+ "div_yield": 4.319506330834686,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:00:06Z"
+  "fetched": "2026-11-20T02:52:26Z"
  },
  "etf_top": [
   {
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 39.275982872713115
  },
- "_generated_at": "2026-11-19T03:39:36"
+ "_generated_at": "2026-11-20T03:29:35"
 }

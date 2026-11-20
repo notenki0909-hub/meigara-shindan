@@ -2,15 +2,15 @@
  "code": "PEP",
  "name": "PepsiCo",
  "jp_sector": null,
- "gics_sector": "Consumer Staples",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 141.8699951171875,
- "price_date": "2026-11-18",
- "mcap": 193332068352,
- "q_score": 82.4,
+ "price": 139.0,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 83.1,
  "groups": {
-  "業績": 94.67264437691895,
+  "業績": 96.3122979759151,
   "財務": 67.22033361725147,
   "キャッシュフロー": 86.86363109720774,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 93.9,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 100.00925310975109,
-  "fcf_yield": 72.91069102260246,
-  "per_cheap": 108.9,
-  "pbr_cheap": 89.2
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 17.3503868024609,
- "fcf_yield": 3.968301826695185,
- "per_band_pos": 1.0,
- "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 0.8496761411587119,
- "per_vs_sector": 0.7539138396624472,
- "pbr_vs_sector": 1.315269696969697,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -0.10562537020182283,
-  "w": -1.4381042719944337,
-  "m": 5.857327708158877,
-  "3m": -0.1478087775624526,
-  "6m": -4.970191240295629,
-  "9m": -13.803998861547273,
-  "y": -4.031662477200326
+  "d": -2.02297541126778,
+  "w": -2.2915750265119605,
+  "m": 3.1922814767472163,
+  "3m": -3.1223835105531617,
+  "6m": -6.617403896285756,
+  "9m": -15.726932252605764,
+  "y": -6.567186927391577
  },
- "div_yield": 4.1728344285273,
- "implied_fcf_growth": 0.1085,
+ "div_yield": 4.176978417266187,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:22:43Z"
+  "fetched": "2026-11-20T03:14:03Z"
  },
  "etf_top": [
   {
@@ -78,7 +78,7 @@
  "metric_scores": {
   "rev_cagr": 99.22626336075078,
   "eps_cagr": 77.40541389402941,
-  "op_margin": 96.8179398456215,
+  "op_margin": 103.37655424160614,
   "earnings_stability": 105.2409604072741,
   "equity_ratio": null,
   "de": 42.183671469175735,
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 99.55683003128259
  },
- "_generated_at": "2026-11-19T03:52:21"
+ "_generated_at": "2026-11-20T03:41:37"
 }

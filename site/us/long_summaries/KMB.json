@@ -2,15 +2,15 @@
  "code": "KMB",
  "name": "Kimberly-Clark",
  "jp_sector": null,
- "gics_sector": "Consumer Staples",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 107.23999786376953,
- "price_date": "2026-11-18",
- "mcap": 65810542592,
- "q_score": 75.0,
+ "price": 105.25,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 75.6,
  "groups": {
-  "業績": 84.486547182858,
+  "業績": 86.1879755805684,
   "財務": 58.90433696435002,
   "キャッシュフロー": 86.09721374822045,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 59.9,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 24.744405660624956,
-  "fcf_yield": 53.206432393082636,
-  "per_cheap": 101.8,
-  "pbr_cheap": 20.0
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 30.803293318587833,
- "fcf_yield": 2.490482429481198,
- "per_band_pos": 0.6038730031754828,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 1.5084864504695314,
- "per_vs_sector": 0.863529493670886,
- "pbr_vs_sector": 1.843276893939394,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -0.8414273224874869,
-  "w": -1.4881524320219275,
-  "m": -1.0061884509012242,
-  "3m": -1.3340735532860082,
-  "6m": 9.933361874802227,
-  "9m": -1.324993041371636,
-  "y": 3.453592586519205
+  "d": -1.8556489214942795,
+  "w": -1.8098725601454535,
+  "m": -1.303450297828268,
+  "3m": -3.714205149823979,
+  "6m": 6.603865513399199,
+  "9m": -3.458078113329477,
+  "y": 1.937046004842613
  },
- "div_yield": 4.7743380287121076,
- "implied_fcf_growth": 0.1719,
+ "div_yield": 4.845605700712588,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [
@@ -68,13 +68,13 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:14:22Z"
+  "fetched": "2026-11-20T03:06:10Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 57.40742314499036,
   "eps_cagr": 90.92877515286223,
-  "op_margin": 96.47200097282179,
+  "op_margin": 103.27771456366337,
   "earnings_stability": 93.13798946075765,
   "equity_ratio": null,
   "de": 20.0,
@@ -99,5 +99,5 @@
   "fcf_positive": 1,
   "fcf_payout": 101.28126906650397
  },
- "_generated_at": "2026-11-19T03:48:35"
+ "_generated_at": "2026-11-20T03:38:05"
 }

@@ -2,15 +2,15 @@
  "code": "KMI",
  "name": "Kinder Morgan",
  "jp_sector": null,
- "gics_sector": "Energy",
+ "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 31.360000610351562,
- "price_date": "2026-11-18",
- "mcap": 69861154816,
- "q_score": 90.3,
+ "price": 31.09000015258789,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "q_score": 89.9,
  "groups": {
-  "業績": 97.49198214449356,
+  "業績": 96.60484918036339,
   "財務": 82.29060395913662,
   "キャッシュフロー": 91.0788270110304,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 65.4,
- "bt_cov": "高",
+ "bt_score": 60.0,
+ "bt_cov": "低",
  "bt_components": {
-  "ev_ebit_vs_sector": 43.83747357700923,
-  "fcf_yield": 75.17610862315505,
-  "per_cheap": 80.8,
-  "pbr_cheap": 61.8
+  "ev_ebit_vs_sector": null,
+  "fcf_yield": null,
+  "per_cheap": null,
+  "pbr_cheap": null
  },
- "ev_ebit": 21.50299636240474,
- "fcf_yield": 4.138208146736628,
- "per_band_pos": 0.19526274922440953,
- "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.341422106201169,
- "per_vs_sector": 0.8962048611111111,
- "pbr_vs_sector": 1.1637357894736842,
+ "ev_ebit": null,
+ "fcf_yield": null,
+ "per_band_pos": null,
+ "pbr_band_pos": null,
+ "ev_ebit_vs_sector": null,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "price_chg": {
-  "d": -1.0725556605834075,
-  "w": -0.7280770532616998,
-  "m": -6.5832561947070545,
-  "3m": -0.7908889439189992,
-  "6m": -6.638879226276284,
-  "9m": -3.6263069206390552,
-  "y": 15.549010005920238
+  "d": -0.8609708307038333,
+  "w": -2.874096273620941,
+  "m": -8.478071723942149,
+  "3m": 0.3550697610617881,
+  "6m": -7.194029395260026,
+  "9m": -5.010691758587116,
+  "y": 14.7655960777759
  },
- "div_yield": 3.794642783288707,
- "implied_fcf_growth": 0.1028,
+ "div_yield": 3.8179478744749877,
+ "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T03:14:27Z"
+  "fetched": "2026-11-20T03:06:14Z"
  },
  "etf_top": [
   {
@@ -77,7 +77,7 @@
   "rev_cagr": 68.47043217198399,
   "eps_cagr": 101.49749640599028,
   "op_margin": 110.0,
-  "earnings_stability": 110.0,
+  "earnings_stability": 106.45146814347929,
   "equity_ratio": null,
   "de": 99.20415891149477,
   "net_de": 79.28502663500417,
@@ -101,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 90.07263922518159
  },
- "_generated_at": "2026-11-19T03:48:35"
+ "_generated_at": "2026-11-20T03:38:05"
 }
