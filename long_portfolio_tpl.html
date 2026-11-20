@@ -2,7 +2,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <script>try{if(!localStorage.getItem("pp_theme_long_init")){var a=localStorage.getItem("pp_theme");if(a!==null&&localStorage.getItem("pp_theme_long")===null)localStorage.setItem("pp_theme_long",a);var b=localStorage.getItem("pp_custom");if(b!==null&&localStorage.getItem("pp_custom_long")===null)localStorage.setItem("pp_custom_long",b);localStorage.setItem("pp_theme_long_init","1");}}catch(e){}</script>
 <script>try{var t=JSON.parse(localStorage.getItem("pp_theme_long")||"{}");if(t.pal&&t.pal!=="genko"&&t.pal!=="custom"){document.documentElement.setAttribute("data-pal",t.pal);document.documentElement.setAttribute("data-hl","on");}if(t.pal==="custom")document.documentElement.setAttribute("data-hl","on");if(t.mode==="dark"||t.mode==="light")document.documentElement.setAttribute("data-mode",t.mode);}catch(e){}</script>
+@@IF:JP@@
+<title>ポートフォリオ｜10年保有できる優良企業ランキング（日本株）</title>
+@@ELSE@@
 <title>ポートフォリオ｜10年保有できる優良企業ランキング（米国株）</title>
+@@ENDIF@@
 <style>
 :root{
   --bg:#fafafa;--card:#ffffff;--line:#e6e6e6;--muted:#666666;--fg:#1a1a1a;
@@ -108,7 +112,6 @@ tr:last-child td{border-bottom:none}
 .addrow-body{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
 .addrow.collapsed .addrow-body{display:none}
 .addrow.collapsed .addrow-head{margin:0}
-.addrow.added .addrow-head .nm{color:var(--muted)}
 .addrow .nm{font-weight:700}
 .addrow .fold,.addrow .rm{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:12px;cursor:pointer}
 .addrow-btns{display:flex;gap:6px}
@@ -307,19 +310,7 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
    のピンチ検出に必要）までジェスチャーが届かずピンチズームが機能しない。 */
 .pricechart-wrap canvas{touch-action:none}
 .pricechart .pnote{font-size:11px;color:var(--muted);margin-top:4px}
-#csvbk{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:14px 0}
-#csvbk>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px}
-#csvbk>summary::-webkit-details-marker{display:none}
-#csvbk>summary::before{content:'▶';font-size:10px;color:var(--muted)}
-#csvbk[open]>summary::before{content:'▼'}
-#csvbk summary h2{font-size:14px;margin:0}
-#csvbk[open]>summary{margin-bottom:8px}
-#csvbk p{font-size:12.5px;margin:6px 0}
-#csvbk p.note{color:var(--muted)}
-#csvbk .codewrap{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0}
-#csvbk button{padding:8px 14px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);color:var(--onacc,#fff);font-size:13px;cursor:pointer;margin:0}
-#csvbk button.ghost{background:var(--card);color:var(--muted);border-color:var(--line)}
-#csvbk .sk{font-size:11px;color:var(--muted)}
+@@BACKUP_CSS@@
 </style></head><body><div class="wrap">
 <div class="topbar"><h1>ポートフォリオ</h1><div class="nav"><a href="terms.html">利用規約・免責事項</a><a href="guide.html">使い方・見方</a><a href="index.html">ランキング</a><a href="watchlist.html">ウォッチリスト</a></div></div>
 <div id="theme-bar">
@@ -354,12 +345,24 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 <div class="box" id="addbox">
   <h2 id="manualadd-h2" style="cursor:pointer">保有銘柄を追加する<button type="button" class="fold" id="manualadd-toggle" style="margin-left:8px">▼ 開く</button></h2>
   <div class="addrow collapsed" id="manualaddrow" hidden>
+@@IF:JP@@
+    <div class="addrow-head"><span class="nm">証券コードで追加</span>
+@@ELSE@@
     <div class="addrow-head"><span class="nm">ティッカーで追加</span>
+@@ENDIF@@
       <button type="button" class="fold" id="manualaddrow-fold">▼ 開く</button></div>
     <div class="addrow-body">
+@@IF:JP@@
+      <label>証券コード<input class="code" id="in-code" placeholder="9433"></label>
+@@ELSE@@
       <label>ティッカー<input class="code" id="in-code" placeholder="AAPL"></label>
+@@ENDIF@@
       <label>株数<input class="shares" id="in-shares" type="number" min="1" step="1" placeholder="100"></label>
+@@IF:JP@@
+      <label>取得単価（円・空欄で自動取得）<input class="price" id="in-price" type="number" min="0" step="0.01" placeholder="空欄可"></label>
+@@ELSE@@
       <label>取得単価（$・空欄で自動取得）<input class="price" id="in-price" type="number" min="0" step="0.01" placeholder="空欄可"></label>
+@@ENDIF@@
       <label>空欄時に自動取得する価格<select class="pricesrc" id="in-pricesrc"><option value="close">終値</option><option value="open">始値</option></select></label>
       <label>購入日<input class="date" id="in-date" type="date"></label>
       <button type="button" id="in-add" style="align-self:flex-end">追加</button>
@@ -423,10 +426,19 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
         <label><input type="radio" name="rbmode" value="sell"> 売却のみ</label>
         <label><input type="radio" name="rbmode" value="both"> 売却＋買い増し</label>
       </div>
+@@IF:JP@@
+      <label>新規資金（円）<input id="rb-cash" class="rbf" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></label>
+      <label>売買単位<select id="rb-unit"><option value="100">単元（100株単位）</option><option value="1">単元未満（1株単位）</option></select></label>
+@@ELSE@@
       <label>新規資金（ドル）<input id="rb-cash" class="rbf" type="text" inputmode="decimal" autocomplete="off" placeholder="0"></label>
       <label>売買単位<select id="rb-unit"><option value="1">1株単位</option><option value="0.01">小数点以下（0.01株単位）</option></select></label>
+@@ENDIF@@
       <label>許容幅（売る・買う判定）<span class="inl"><select id="rb-bandtype"><option value="rel">目標の相対 ±（%）</option><option value="abs">絶対 ±（pt）</option></select> <input id="rb-bandval" class="rbf" type="text" inputmode="decimal" autocomplete="off"></span></label>
+@@IF:JP@@
+      <label>最小売買額（円）<input id="rb-min" class="rbf" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></label>
+@@ELSE@@
       <label>最小売買額（ドル）<input id="rb-min" class="rbf" type="text" inputmode="decimal" autocomplete="off" placeholder="0"></label>
+@@ENDIF@@
     </div>
     <div id="rbresult"></div>
   </div>
@@ -446,21 +458,15 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 
 <div class="box">
   <h2>保有記録を貼り付けて復元</h2>
+@@IF:JP@@
+  <textarea id="paste" placeholder="例）9433:100:4200:2024-03-15;7203:50:2800:2023-11-02"></textarea>
+@@ELSE@@
   <textarea id="paste" placeholder="例）AAPL:100:150.25:2024-03-15;KO:50:58.10:2023-11-02"></textarea>
+@@ENDIF@@
   <div style="margin-top:8px"><button type="button" id="load">この記録を読み込む</button><button type="button" id="pasteclear" class="ghost" style="margin-left:8px">クリア</button></div>
 </div>
 
-<details id="csvbk">
-  <summary><h2>バックアップ（CSV）</h2></summary>
-  <p>「詳しい条件で絞り込む」の条件（URL）、ウォッチリスト（「あなたの銘柄リスト」の全てと、タブ・セクションを含む「全タブの控え」）、ポートフォリオの保有記録（「保有記録の保存・共有」の文字列）と、保有銘柄のセクション（分け方）・リバランスの設定を、<b>1つのCSV</b>にまとめて書き出します。ファイル名は「10年保有（米株）日付.csv」です。</p>
-  <div class="codewrap">
-    <button type="button" id="bk-export">CSVで書き出す</button>
-    <button type="button" id="bk-import" class="ghost">CSVを読み込んで復元</button>
-    <input type="file" id="bk-file" accept=".csv,text/csv" hidden>
-    <span id="bk-stat" class="sk"></span>
-  </div>
-  <p class="note">読み込むと、いまの絞り込み条件・ウォッチリスト・保有記録が、CSVの内容に置き換わります。このCSVは日株用・米株用で別々です（ほかの種類のCSV、配当株ツールのCSVは読み込めません）。別の端末へ移すときも、この書き出し・読み込みが使えます。</p>
-</details>
+@@BACKUP_BOX@@
 
 <div class="disc" id="disc"></div>
 </div>
@@ -548,12 +554,22 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   apply();
 })();
 (function(){
+@@IF:JP@@
+  var PF_KEY = 'pf_lots_long';
+  var PF_PENDING_KEY = 'pf_pending_add_long';
+  var PF_DISMISS_KEY = 'pf_dismissed_add_long';
+@@ELSE@@
   var PF_KEY = 'pf_lots_long_us';
   var PF_PENDING_KEY = 'pf_pending_add_long_us';
   var PF_DISMISS_KEY = 'pf_dismissed_add_long_us';
+@@ENDIF@@
   var $ = function(id){ return document.getElementById(id); };
 
+@@IF:JP@@
+  function isCode(t){ return /^[0-9]{3,4}[A-Z0-9]?$/.test(t); }
+@@ELSE@@
   function isCode(t){ return /^[A-Z0-9.\-]{1,7}$/.test(t) && /[A-Z]/.test(t); }
+@@ENDIF@@
   function isDate(t){ return /^\d{4}-\d{2}-\d{2}$/.test(t); }
 
   function parseLots(str){
@@ -577,9 +593,14 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     return list.map(function(l){ return l.code+':'+l.shares+':'+l.price+':'+l.date+':'+(l.type==='s'?'s':'b'); }).join(';');
   }
   // 保有中の買い・売りロットを日付順（同日は買いが先）にリプレイし、現在の保有株数・
+@@IF:JP@@
+  // 残存取得原価・実現損益を計算する（取得費は国税庁の定める「総平均法に準ずる方法
+  // （移動平均法）」）。売却ロットには単体の実現損益 _realized を書き込む。
+@@ELSE@@
   // 残存取得原価・実現損益を計算する（既定は移動平均法。米国株は証券会社によりFIFO
   // など別方式の場合があるため、実際の損益は各証券会社の取引履歴でご確認ください）。
   // 売却ロットには単体の実現損益 _realized を書き込む。
+@@ENDIF@@
   function computeReplay(codeLots){
     var sorted = codeLots.slice().sort(function(a, b){
       if (a.date !== b.date) return a.date < b.date ? -1 : 1;
@@ -700,7 +721,11 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     addOneLot($('in-code').value, $('in-shares').value, $('in-price').value, $('in-date').value, 'b', true, null, $('in-pricesrc').value);
   });
 
+@@IF:JP@@
+  // 見出し「保有銘柄を追加する」をクリックすると、証券コードを直接入力する欄を
+@@ELSE@@
   // 見出し「保有銘柄を追加する」をクリックすると、ティッカーを直接入力する欄を
+@@ENDIF@@
   // 折りたたまれた状態で表示する（もう一度押すと隠れる）。表示された行自体も
   // クリックで開閉できる（ランキングから来た銘柄行と同じ見た目・操作）。
   (function(){
@@ -773,7 +798,11 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   }
   function priceNotFoundMsg(r, what, date){
     if (r.noOpen) return 'この銘柄の始値データはまだ保存されていません（夜間更新後に利用できます）。終値を選ぶか、単価を入力してください。';
+@@IF:JP@@
+    return what + '（' + date + '）の' + r.label + 'が見つかりませんでした（データの対象期間外、または銘柄コードをご確認ください）。単価を入力してください。';
+@@ELSE@@
     return what + '（' + date + '）の' + r.label + 'が見つかりませんでした（データの対象期間外、またはティッカーをご確認ください）。単価を入力してください。';
+@@ENDIF@@
   }
   function findPriceOnOrBefore(prices, dateStr){
     // prices は日付昇順の [[日付, 終値], ...] を想定（yfinanceの返却順）
@@ -866,7 +895,7 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
             borderDash: [6, 4],
             label: {
               display: true,
-              content: '平均取得単価 ' + dollar(h.avgPrice),
+              content: '平均取得単価 ' + @@M@@(h.avgPrice),
               position: 'start',
               color: accent,
               backgroundColor: cardBg,
@@ -955,9 +984,9 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
                   label: function(item){
                     var lot = item.raw && item.raw._lot;
                     if (lot) {
-                      return (lot.type === 's' ? '売却 ' : '購入 ') + lot.shares.toLocaleString('ja-JP') + '株 @' + dollar(lot.price);
+                      return (lot.type === 's' ? '売却 ' : '購入 ') + lot.shares.toLocaleString('ja-JP') + '株 @' + @@M@@(lot.price);
                     }
-                    return '終値 ' + dollar(item.parsed.y);
+                    return '終値 ' + @@M@@(item.parsed.y);
                   }
                 }
               }
@@ -1083,7 +1112,11 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     shares = parseFloat(shares);
     date = (date || '').trim();
     type = (type === 's') ? 's' : 'b';
+@@IF:JP@@
+    if (!isCode(code)) { alert('証券コードを確認してください。'); return; }
+@@ELSE@@
     if (!isCode(code)) { alert('ティッカーを確認してください。'); return; }
+@@ENDIF@@
     if (!(shares > 0)) { alert('株数は1以上の数値で入力してください。'); return; }
     if (!isDate(date)) { alert((type==='s'?'売却日':'購入日') + 'を入力してください。'); return; }
     if (type === 's') {
@@ -1206,7 +1239,11 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
           + '<button type="button" class="rm" title="この銘柄の入力欄を外す（保有記録は消えません）" aria-label="この銘柄の入力欄を外す">✖</button></span></div>'
           + '<div class="addrow-body">'
           + '<label>株数<input class="shares" type="number" min="1" step="1" placeholder="100"></label>'
+@@IF:JP@@
+          + '<label>取得単価（円・空欄で自動取得）<input class="price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
+@@ELSE@@
           + '<label>取得単価（$・空欄で自動取得）<input class="price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
+@@ENDIF@@
           + '<label>空欄時に自動取得する価格<select class="pricesrc"><option value="close">終値</option><option value="open">始値</option></select></label>'
           + '<label>購入日<input class="date" type="date"></label>'
           + '<button type="button" class="add1">追加</button>'
@@ -1266,11 +1303,15 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     return 'hsl(' + ((k * 137.508 + 25) % 360).toFixed(1) + ',58%,' + (k % 2 ? 46 : 58) + '%)';
   }
 
-  function dollar(v){
+@@IF:JP@@
+  function @@M@@(v){ return (typeof v === 'number' && isFinite(v)) ? Math.round(v).toLocaleString('ja-JP') + '円' : '―'; }
+@@ELSE@@
+  function @@M@@(v){
     if (typeof v !== 'number' || !isFinite(v)) return '―';
     var frac = Math.abs(v) < 100 ? 2 : 0;
     return '$' + v.toLocaleString('en-US', {minimumFractionDigits: frac, maximumFractionDigits: frac});
   }
+@@ENDIF@@
   function num0(v){ return (typeof v === 'number' && isFinite(v)) ? v.toFixed(0) : '―'; }
 
   function fmtLotLine(l, hid){
@@ -1281,15 +1322,15 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
       var g = l._realized;
       var gTxt = '';
       if (typeof g === 'number') {
-        gTxt = (g >= 0) ? ('、<span class="pos">利確+' + dollar(g) + '</span>') : ('、<span class="neg">損切' + dollar(g) + '</span>');
+        gTxt = (g >= 0) ? ('、<span class="pos">利確+' + @@M@@(g) + '</span>') : ('、<span class="neg">損切' + @@M@@(g) + '</span>');
       }
-      amtTxt = '（売却額' + dollar(amt) + gTxt + '）';
+      amtTxt = '（売却額' + @@M@@(amt) + gTxt + '）';
     } else {
-      amtTxt = '（購入額' + dollar(amt) + '）';
+      amtTxt = '（購入額' + @@M@@(amt) + '）';
     }
     return '<div class="lotrow' + (hid ? ' lothid' : '') + '" data-code="' + l.code + '" data-gidx="' + lots.indexOf(l) + '">'
       + '<span class="txbadge ' + (isSell ? 'sell' : 'buy') + '">' + (isSell ? '売却' : '購入') + '</span> '
-      + l.date + '　' + l.shares.toLocaleString('ja-JP') + '株　@' + dollar(l.price) + '　' + amtTxt
+      + l.date + '　' + l.shares.toLocaleString('ja-JP') + '株　@' + @@M@@(l.price) + '　' + amtTxt
       + '</div>';
   }
 
@@ -1337,26 +1378,26 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
       body: function(s){ return '<p>いま持っている株を、<strong>いくらで買ったか</strong>の合計です。購入ごとに「株数×取得単価」を足して求めます。</p>'
         + '<p>売却を記録した分は、売った株数ぶんの取得費を移動平均法（総平均法に準ずる方法）で差し引いてあるので、<strong>残っている株に対応する金額</strong>です。取得単価を空欄で追加した場合は、購入日の終値（または始値）を自動で入れた金額で計算します。</p>'
         + '<p>現在値を取得できなかった銘柄（ランキングに見つからない銘柄）の取得金額も含みます。</p>'; },
-      calc: function(s){ return '合計：' + dollar(s.cost); }
+      calc: function(s){ return '合計：' + @@M@@(s.cost); }
     },
     value: {
       t: '評価額合計',
       body: function(s){ return '<p>いま持っている株を<strong>今日の値段で売ったらいくらか</strong>の合計です。「保有株数×現在値（ランキングの最新の終値）」を、銘柄ごとに足して求めます。</p>'
         + '<p>株価の動きで変わります。現在値を取得できなかった銘柄は含みません。</p>'; },
-      calc: function(s){ return '合計：' + dollar(s.value); }
+      calc: function(s){ return '合計：' + @@M@@(s.value); }
     },
     gain: {
       t: '評価損益',
       body: function(s){ return '<p><strong>評価額合計 − 取得金額</strong>です。プラスなら含み益、マイナスなら含み損です。</p>'
         + '<p>まだ売っていないので、<strong>確定した損益ではありません</strong>（株価しだいで日々変わります）。現在値を取得できた銘柄だけで計算し、税金・手数料・受け取った配当は含みません。</p>'; },
-      calc: function(s){ return '評価額 ' + dollar(s.value) + ' − 取得金額 ' + dollar(s.costFound) + ' = ' + (s.gain >= 0 ? '+' : '') + dollar(s.gain)
+      calc: function(s){ return '評価額 ' + @@M@@(s.value) + ' − 取得金額 ' + @@M@@(s.costFound) + ' = ' + (s.gain >= 0 ? '+' : '') + @@M@@(s.gain)
         + (s.costFound > 0 ? '（' + (s.gain >= 0 ? '+' : '') + (s.gain / s.costFound * 100).toFixed(1) + '%）' : ''); }
     },
     realized: {
       t: '実現損益（累計）',
       body: function(s){ return '<p>株を<strong>売って確定した損益</strong>の累計です。売却の記録ごとに「（売却単価 − そのときの平均取得単価）×売却株数」を足して求めます。平均取得単価は移動平均法（総平均法に準ずる方法）で計算します。</p>'
         + '<p>売却を1件も記録していないと「―」と表示します。評価損益（まだ売っていない分の含み損益）とは別の数字で、配当・税金・手数料は含みません。実際の取得費の計算方法は証券会社により異なる場合があるため、正確な損益は各証券会社の取引履歴でご確認ください。</p>'; },
-      calc: function(s){ return s.hasSell ? ('累計：' + (s.realized >= 0 ? '+' : '') + dollar(s.realized)) : '売却の記録がまだありません。'; }
+      calc: function(s){ return s.hasSell ? ('累計：' + (s.realized >= 0 ? '+' : '') + @@M@@(s.realized)) : '売却の記録がまだありません。'; }
     }
   };
   function showStatHelp(k){
@@ -1394,16 +1435,22 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     if (e.target.id === 'stathelp-close') toggleStat(openStat);
   });
 
+@@IF:US@@
   // 業種名（GICS11）の日本語表示。内部の値は英語のまま、表示だけ置き換える
   var SECJA = {"Information Technology":"情報技術","Health Care":"ヘルスケア","Financials":"金融",
     "Consumer Discretionary":"一般消費財","Consumer Staples":"生活必需品","Communication Services":"コミュニケーション",
     "Industrials":"資本財","Energy":"エネルギー","Utilities":"公益事業","Materials":"素材","Real Estate":"不動産"};
+@@ENDIF@@
   function drawPie(dim, holdings){
     var svg = $('pie'), legend = $('legend');
     var m = {}, order = [];
     holdings.forEach(function(h){
       if (h.value == null) return;
+@@IF:JP@@
+      var key = (dim === 'code') ? (h.code + ' ' + (h.name || '')) : (h[dim] || '（不明）');
+@@ELSE@@
       var key = (dim === 'code') ? (h.code + ' ' + (h.name || '')) : (SECJA[h[dim]] || h[dim] || '（不明）');
+@@ENDIF@@
       if (!(key in m)) { m[key] = 0; order.push(key); }
       m[key] += h.value;
     });
@@ -1434,7 +1481,7 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
       var col = colorAt(i);
       var safe = String(d.label).replace(/&/g,'&amp;').replace(/</g,'&lt;');
       return '<div class="lgitem"><span class="sw" style="background:'+col+'"></span>'+safe
-        + '<b>'+(d.value/total*100).toFixed(1)+'%</b><span class="lv">('+dollar(d.value)+')</span></div>';
+        + '<b>'+(d.value/total*100).toFixed(1)+'%</b><span class="lv">('+@@M@@(d.value)+')</span></div>';
     }).join('');
   }
 
@@ -1625,7 +1672,11 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     } catch(e) {}
   }
   function escH(s){ return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+@@IF:JP@@
+  function secLabel(v){ return v; }
+@@ELSE@@
   function secLabel(v){ return (SECJA[v] || v); }
+@@ENDIF@@
   function secById(id){
     for (var i = 0; i < secs.length; i++) if (secs[i].id === id) return secs[i];
     return null;
@@ -1743,8 +1794,8 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     if (!n) return '';
     var gain = value - cost;
     var cls = gain >= 0 ? 'pos' : 'neg';
-    return '<div class="isum">評価額 <b>' + dollar(value) + '</b>' + (totalValue > 0 ? '（構成比 ' + (value / totalValue * 100).toFixed(1) + '%）' : '')
-      + '　評価損益 <b class="' + cls + '">' + (gain >= 0 ? '+' : '') + dollar(gain) + (cost ? '（' + (gain >= 0 ? '+' : '') + (gain / cost * 100).toFixed(1) + '%）' : '') + '</b></div>';
+    return '<div class="isum">評価額 <b>' + @@M@@(value) + '</b>' + (totalValue > 0 ? '（構成比 ' + (value / totalValue * 100).toFixed(1) + '%）' : '')
+      + '　評価損益 <b class="' + cls + '">' + (gain >= 0 ? '+' : '') + @@M@@(gain) + (cost ? '（' + (gain >= 0 ? '+' : '') + (gain / cost * 100).toFixed(1) + '%）' : '') + '</b></div>';
   }
   function renderHold(){
     var holdings = lastHoldings;
@@ -1761,11 +1812,11 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
           + '<td class="code">' + (h.missing ? h.code : ('<a href="reports/' + h.code + '.html" target="_blank" rel="noopener">' + h.code + '</a>')) + '</td>'
           + '<td>' + (h.name || h.code) + '</td>'
           + '<td class="n">' + h.shares.toLocaleString('ja-JP') + '株</td>'
-          + '<td class="n">' + dollar(h.avgPrice) + '</td>'
-          + '<td class="n">' + (h.price != null ? dollar(h.price) : '―') + '</td>'
-          + '<td class="n">' + (h.value != null ? dollar(h.value) : '―') + '</td>'
-          + '<td class="n ' + gainCls + '">' + (h.gain != null ? ((h.gain>=0?'+':'')+dollar(h.gain)+'（'+(h.gainPct!=null?h.gainPct.toFixed(1):'―')+'%）') : '―') + '</td>'
-          + '<td class="n ' + realizedCls + '">' + (h.hasSells ? ((h.realized>=0?'+':'')+dollar(h.realized)) : '―') + '</td>'
+          + '<td class="n">' + @@M@@(h.avgPrice) + '</td>'
+          + '<td class="n">' + (h.price != null ? @@M@@(h.price) : '―') + '</td>'
+          + '<td class="n">' + (h.value != null ? @@M@@(h.value) : '―') + '</td>'
+          + '<td class="n ' + gainCls + '">' + (h.gain != null ? ((h.gain>=0?'+':'')+@@M@@(h.gain)+'（'+(h.gainPct!=null?h.gainPct.toFixed(1):'―')+'%）') : '―') + '</td>'
+          + '<td class="n ' + realizedCls + '">' + (h.hasSells ? ((h.realized>=0?'+':'')+@@M@@(h.realized)) : '―') + '</td>'
           + '<td class="n q">' + num0(h.q) + '</td>'
           + '<td class="n">' + num0(h.bt) + '</td>'
           + '<td class="x"><button type="button" class="del" data-code="' + h.code + '" title="この銘柄の保有記録をすべて削除">✕</button></td>'
@@ -1779,7 +1830,11 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
         var detHidden = openDetail[h.code] ? '' : ' hidden';
         var detail = '<tr class="detail" data-idx="' + idx + '" data-code="' + h.code + '"' + detHidden + '><td colspan="' + (withSecs ? 12 : 11) + '"><div class="lots' + (lotsOpen[h.code] ? ' lotsopen' : '') + '">'
           + '<b>購入ロット内訳</b>'
+@@IF:JP@@
+          + '<p class="note" style="margin:4px 0 8px">各記録をクリックすると修正・削除できます（買い／売りの入力ミスは、修正の画面で切り替えられます）。新しい買付・売却は「＋新規買付・売却を記録」ボタンから追加できます。取得費・実現損益は「総平均法に準ずる方法（移動平均法）」で計算した参考値です（国税庁の定める上場株式の取得費計算方法）。正確な損益は証券会社の取引履歴でご確認ください。</p>'
+@@ELSE@@
           + '<p class="note" style="margin:4px 0 8px">各記録をクリックすると修正・削除できます（買い／売りの入力ミスは、修正の画面で切り替えられます）。新しい買付・売却は「＋新規買付・売却を記録」ボタンから追加できます。取得費・実現損益は移動平均法で計算した参考値です。米国株の実際の取得費計算方法は証券会社により異なる場合があります（例：FIFO＝先入先出法を採用する証券会社が多い）。正確な損益は各証券会社の取引履歴でご確認ください。</p>'
+@@ENDIF@@
           + '<button type="button" class="newtx-btn" data-code="' + h.code + '">＋ 新規買付・売却を記録</button>'
           + '<div class="txform" data-code="' + h.code + '" hidden>'
           + '<div class="txmodebtns">'
@@ -1788,7 +1843,11 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
           + '</div>'
           + '<div class="addrow-body">'
           + '<label>株数<input class="shares" type="number" min="1" step="1" placeholder="100"></label>'
+@@IF:JP@@
+          + '<label>単価（円・空欄で自動取得）<input class="price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
+@@ELSE@@
           + '<label>単価（$・空欄で自動取得）<input class="price" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
+@@ENDIF@@
           + '<label>空欄時に自動取得する価格<select class="pricesrc"><option value="close">終値</option><option value="open">始値</option></select></label>'
           + '<label>日付<input class="date" type="date"></label>'
           + '<button type="button" class="txsubmit">記録する</button>'
@@ -1803,7 +1862,11 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
           + '</div>'
           + '<div class="addrow-body">'
           + '<label>株数<input class="efshares" type="number" min="1" step="1"></label>'
+@@IF:JP@@
+          + '<label>単価（円・空欄で自動取得）<input class="efprice" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
+@@ELSE@@
           + '<label>単価（$・空欄で自動取得）<input class="efprice" type="number" min="0" step="0.01" placeholder="空欄可"></label>'
+@@ENDIF@@
           + '<label>空欄時に自動取得する価格<select class="pricesrc"><option value="close">終値</option><option value="open">始値</option></select></label>'
           + '<label>日付<input class="efdate" type="date"></label>'
           + '<button type="button" class="editsubmit">修正する</button>'
@@ -2042,13 +2105,21 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   // 目標％はセクション単位で設定する（セクション合計＝100%）。セクションの中の銘柄は「均等／現状のまま／指定」で割り振る。
   // 未分類の銘柄はリバランスの対象外（売買しない）。セクションには、まだ持っていない「候補銘柄」も入れられる。
   var RB_KEY = PF_KEY.replace('pf_lots', 'pf_rb');
+@@IF:JP@@
+  var rb = {mode: 'buy', cash: 0, unit: 100, bandType: 'rel', bandVal: 20, minTrade: 0};
+@@ELSE@@
   var rb = {mode: 'buy', cash: 0, unit: 1, bandType: 'rel', bandVal: 20, minTrade: 0};
+@@ENDIF@@
   try {
     var rbs = JSON.parse(localStorage.getItem(RB_KEY) || 'null');
     if (rbs && typeof rbs === 'object') {
       if (['buy', 'sell', 'both'].indexOf(rbs.mode) >= 0) rb.mode = rbs.mode;
       if (isFinite(+rbs.cash) && +rbs.cash >= 0) rb.cash = +rbs.cash;
+@@IF:JP@@
+      if (rbs.unit === 1 || rbs.unit === 100) rb.unit = rbs.unit;
+@@ELSE@@
       if (rbs.unit === 1 || rbs.unit === 0.01) rb.unit = rbs.unit;
+@@ENDIF@@
       if (rbs.bandType === 'abs' || rbs.bandType === 'rel') rb.bandType = rbs.bandType;
       if (isFinite(+rbs.bandVal) && +rbs.bandVal >= 0) rb.bandVal = +rbs.bandVal;
       if (isFinite(+rbs.minTrade) && +rbs.minTrade >= 0) rb.minTrade = +rbs.minTrade;
@@ -2056,33 +2127,52 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   } catch(e) {}
   function saveRb(){ try { localStorage.setItem(RB_KEY, JSON.stringify(rb)); } catch(e) {} }
   var lastByCode = {};
+@@IF:US@@
   // 米国株：金額はドル（セント単位まで）、株数は小数株も表示する（最大4桁）
-  function usd(v){
+  function @@R@@(v){
     if (typeof v !== 'number' || !isFinite(v)) return '―';
     return '$' + v.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
   }
   function fmtSh(n){ return (Math.round(n * 1e4) / 1e4).toLocaleString('en-US', {maximumFractionDigits: 4}); }
+@@ENDIF@@
 
   /*RB-ENGINE-START*/
+@@IF:JP@@
+  // リバランス案の計算（画面には依存しない純粋な関数。単体試験できる）。
+  //   items: [{code, price, shares, t}]  t＝リバランス対象の全体に対する目標割合（0〜1。合計は1）
+@@ELSE@@
   // リバランス案の計算（画面には依存しない純粋な関数。単体試験できる）。米国株版：金額はドル、売買単位は「1株」または「小数点以下（0.01株）」。
   //   items: [{code, price, shares, t}]  t＝リバランス対象の全体に対する目標割合（0〜1。合計は1）。shares は小数株もありうる
+@@ENDIF@@
   //   opt  : {mode:'buy'|'sell'|'both', cash, unit, bandType:'rel'|'abs', bandVal, minTrade}
   //     buy  ＝買い増しのみ（新規資金を、目標より不足している銘柄から順に配分。売らない）
   //     sell ＝売却のみ（許容幅を超えて多い銘柄を、目標金額まで売る。代金は現金として残す）
   //     both ＝売却＋買い増し（売却の代金と新規資金を、不足している銘柄に配分）
+@@IF:JP@@
+  //   unit : 売買単位（日本株：単元＝100、単元未満＝1）。売却できる株数は単位の倍数まで（端数は残る）
+@@ELSE@@
   //   unit : 売買単位（米国株：1株＝1、小数点以下＝0.01）。売却できる株数は単位の倍数まで（端数は残る）
   //   株数は「単位の個数」の整数で数え、最後に株数へ直す（小数の足し算の誤差を避けるため、6桁で丸める）
+@@ENDIF@@
   function rbPlan(items, opt){
     var u = opt.unit > 0 ? opt.unit : 1;
+@@IF:US@@
     var rnd = function(x){ return Math.round(x * 1e6) / 1e6; };
+@@ENDIF@@
     var cash = (opt.mode === 'sell') ? 0 : Math.max(0, +opt.cash || 0);
     var minTrade = Math.max(0, +opt.minTrade || 0);
     var bv = Math.max(0, +opt.bandVal || 0);
     var rows = items.filter(function(it){ return it.price > 0; }).map(function(it){
+@@IF:US@@
       var cap = Math.floor(it.shares / u + 1e-9);
+@@ENDIF@@
       return {code: it.code, price: it.price, shares: it.shares, t: it.t,
               v: it.price * it.shares, unitCost: it.price * u,
+@@IF:JP@@
+              sellable: Math.floor(it.shares / u) * u, sell: 0, buy: 0, units: 0};
+@@ELSE@@
               sellCap: cap, sellable: rnd(cap * u), sell: 0, buy: 0, units: 0};
+@@ENDIF@@
     });
     var V = rows.reduce(function(a, r){ return a + r.v; }, 0);
     var T = V + cash;
@@ -2096,8 +2186,13 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
         if (!over) return;
         var excess = r.v - r.t * T;
         if (excess <= 0) return;
+@@IF:JP@@
+        var units = Math.min(Math.round(excess / r.unitCost), r.sellable / u);
+        var sh = units * u;
+@@ELSE@@
         var units = Math.min(Math.round(excess / r.unitCost), r.sellCap);
         var sh = rnd(units * u);
+@@ENDIF@@
         if (sh <= 0 || sh * r.price < minTrade) return;
         r.sell = sh;
         proceeds += sh * r.price;
@@ -2137,7 +2232,11 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
           rem -= best.unitCost;
         }
         cand.forEach(function(r){
+@@IF:JP@@
+          var sh = r.units * u;
+@@ELSE@@
           var sh = rnd(r.units * u);
+@@ENDIF@@
           if (sh > 0 && sh * r.price >= minTrade) { r.buy = sh; buyTotal += sh * r.price; }
         });
       }
@@ -2145,7 +2244,11 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     // 3) 結果
     var vAfterTotal = 0, sellTotal = 0;
     rows.forEach(function(r){
+@@IF:JP@@
+      r.after = r.shares - r.sell + r.buy;
+@@ELSE@@
       r.after = rnd(r.shares - r.sell + r.buy);
+@@ENDIF@@
       r.vAfter = r.after * r.price;
       vAfterTotal += r.vAfter;
       if (r.sell > 0) sellTotal += r.sell * r.price;
@@ -2165,7 +2268,11 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   function rbNum(s){
     if (s == null || String(s).trim() === '') return undefined;
     var z = String(s).replace(/[０-９]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+@@IF:JP@@
+                     .replace(/[．。]/g, '.').replace(/[，,\s]/g, '').replace(/[％%円]/g, '');
+@@ELSE@@
                      .replace(/[．。]/g, '.').replace(/[，,\s]/g, '').replace(/[％%$＄ドル]/g, '');
+@@ENDIF@@
     if (z === '') return undefined;
     var n = Number(z);
     return (isFinite(n) && n >= 0) ? n : undefined;
@@ -2181,12 +2288,20 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
       s.codes.forEach(function(c){
         var h = hmap[c];
         if (!h || h.missing || h.price == null) return;      // 現在値のない銘柄は対象外
+@@IF:JP@@
+        m.push({code: c, name: h.name || c, price: h.price, shares: h.shares, avg: h.avgPrice || 0, value: h.shares * h.price, held: true});
+@@ELSE@@
         m.push({code: c, name: (h.name && h.name !== c) ? h.name : '', price: h.price, shares: Math.round(h.shares * 1e6) / 1e6, avg: h.avgPrice || 0, value: h.shares * h.price, held: true});
+@@ENDIF@@
       });
       (s.a || []).forEach(function(c){
         var i = lastByCode[c];
         if (!i || typeof i.price !== 'number') return;
+@@IF:JP@@
+        m.push({code: c, name: i.name || c, price: i.price, shares: 0, avg: 0, value: 0, held: false});
+@@ELSE@@
         m.push({code: c, name: (i.name && i.name !== c) ? i.name : '', price: i.price, shares: 0, avg: 0, value: 0, held: false});
+@@ENDIF@@
       });
       return {s: s, m: m, value: m.reduce(function(a, x){ return a + x.value; }, 0), warn: ''};
     });
@@ -2243,7 +2358,7 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     };
     var gapTxt = function(value, t){
       var g = value - t * M.V;
-      return (g >= 0 ? '+' : '−') + usd(Math.abs(g));
+      return (g >= 0 ? '+' : '−') + @@R@@(Math.abs(g));
     };
     M.infos.forEach(function(i){
       var s = i.s, id = escH(s.id);
@@ -2255,7 +2370,7 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
       rows += '<tr class="secrow"><td class="nm"><b>' + escH(s.name) + '</b>'
         + '<span class="skn"> ' + i.m.filter(function(x){ return x.held; }).length + '銘柄'
         + (i.m.some(function(x){ return !x.held; }) ? '＋候補' + i.m.filter(function(x){ return !x.held; }).length : '') + '</span></td>'
-        + '<td class="n"></td><td class="n">' + usd(i.value) + '</td><td class="n">' + f1(i.cur * 100) + '%</td>'
+        + '<td class="n"></td><td class="n">' + @@R@@(i.value) + '</td><td class="n">' + f1(i.cur * 100) + '%</td>'
         + '<td class="n"><input class="rbin" type="text" inputmode="decimal" autocomplete="off" data-k="t:' + id + '" value="' + (typeof s.t === 'number' ? Math.round(s.t * 1000) / 1000 : '') + '" placeholder="目標" aria-label="セクションの目標（%）">%'
         + ((M.ready && i.m.length && Math.abs(M.sumT - 100) > 0.05) ? '<div class="eff">計算上 ' + f1(i.tn * 100) + '%</div>' : '') + '</td>'
         + '<td>' + sel + '</td>'
@@ -2273,8 +2388,12 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
         if (!x.held) jd = '<span class="chip cand">候補（未保有）</span> ' + (M.ready ? jd : '');
         rows += '<tr class="strow"><td class="nm sub"><span class="code">' + escH(x.code) + '</span> ' + escH(x.name)
           + (x.held ? '' : ' <button type="button" class="canddel ghost" data-sec="' + id + '" data-code="' + escH(x.code) + '" title="候補から外す">✕</button>') + '</td>'
+@@IF:JP@@
+          + '<td class="n">' + (x.held ? x.shares.toLocaleString('ja-JP') + '株' : '―') + '</td>'
+@@ELSE@@
           + '<td class="n">' + (x.held ? fmtSh(x.shares) + '株' : '―') + '</td>'
-          + '<td class="n">' + usd(x.value) + '</td><td class="n">' + f1(x.cur * 100) + '%</td>'
+@@ENDIF@@
+          + '<td class="n">' + @@R@@(x.value) + '</td><td class="n">' + f1(x.cur * 100) + '%</td>'
           + '<td class="n">' + (M.ready ? f1(x.t * 100) + '%' : '―') + '</td>'
           + '<td class="n">' + inSec + '</td>'
           + '<td class="n">' + (M.ready ? diffTxt(x.cur, x.t) : '') + '</td>'
@@ -2282,7 +2401,11 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
           + '<td>' + jd + '</td></tr>';
       });
       rows += '<tr class="addrowc"><td colspan="9"><span class="skn">＋ 候補銘柄（まだ持っていない銘柄）を、このセクションに追加：</span> '
+@@IF:JP@@
+        + '<input class="rbin cin" data-cand="' + id + '" placeholder="証券コード" maxlength="5" aria-label="候補銘柄の証券コード">'
+@@ELSE@@
         + '<input class="rbin cin" data-cand="' + id + '" placeholder="ティッカー" maxlength="7" aria-label="候補銘柄のティッカー">'
+@@ENDIF@@
         + '<button type="button" class="canadd ghost" data-sec="' + id + '">追加</button>'
         + '<span class="candmsg" data-msg="' + id + '"></span></td></tr>';
     });
@@ -2340,7 +2463,11 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
       if (as !== bs) return as - bs;
       return (b.sell * b.price + b.buy * b.price) - (a.sell * a.price + a.buy * a.price);
     });
+@@IF:JP@@
+    var fr = rb.unit === 100 ? '単元（100株）' : '単元未満（1株）';
+@@ELSE@@
     var fr = rb.unit === 1 ? '1株単位' : '小数点以下（0.01株単位）';
+@@ENDIF@@
     lastRbCtx = {plan: plan, trades: trades, byCode: byCode, fr: fr};
     var card = function(key, label, val){
       var on = (openRbHelp === key);
@@ -2349,10 +2476,10 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     if (openRbHelp === 'cash' && rb.mode === 'sell') openRbHelp = null;
     if (openRbHelp && !RB_HELP[openRbHelp]) openRbHelp = null;
     var html = '<div class="rbsumm">'
-      + card('sell', '売却の合計', usd(plan.sellTotal))
-      + card('buy', '買い付けの合計', usd(plan.buyTotal))
-      + (rb.mode === 'sell' ? '' : card('cash', '新規資金', usd(plan.cash)))
-      + card('left', '余りの現金', usd(plan.leftover))
+      + card('sell', '売却の合計', @@R@@(plan.sellTotal))
+      + card('buy', '買い付けの合計', @@R@@(plan.buyTotal))
+      + (rb.mode === 'sell' ? '' : card('cash', '新規資金', @@R@@(plan.cash)))
+      + card('left', '余りの現金', @@R@@(plan.leftover))
       + card('dev', '最大のずれ（銘柄・全体比）', f1(plan.devBefore * 100) + 'pt → ' + f1(plan.devAfter * 100) + 'pt')
       + '</div><div class="stathelp" id="rbhelp"' + (openRbHelp ? '' : ' hidden') + '></div>';
     if (!trades.length) {
@@ -2368,10 +2495,18 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
         var sh = isSell ? r.sell : r.buy;
         html += '<tr class="' + (isSell ? 'txsellr' : 'txbuyr') + '"><td><span class="rbtag ' + (isSell ? 'sl' : 'by') + '">' + (isSell ? '売り' : '買い') + '</span></td>'
           + '<td><span class="code">' + escH(r.code) + '</span> ' + escH(a.x.name) + (a.x.held ? '' : ' <span class="chip cand">新規</span>') + '</td>'
+@@IF:JP@@
+          + '<td class="n"><b>' + sh.toLocaleString('ja-JP') + '株</b></td>'
+@@ELSE@@
           + '<td class="n"><b>' + fmtSh(sh) + '株</b></td>'
-          + '<td class="n">' + usd(r.price) + '</td>'
-          + '<td class="n">' + usd(sh * r.price) + '</td>'
+@@ENDIF@@
+          + '<td class="n">' + @@R@@(r.price) + '</td>'
+          + '<td class="n">' + @@R@@(sh * r.price) + '</td>'
+@@IF:JP@@
+          + '<td class="n">' + r.shares.toLocaleString('ja-JP') + ' → ' + r.after.toLocaleString('ja-JP') + '株</td>'
+@@ELSE@@
           + '<td class="n">' + fmtSh(r.shares) + ' → ' + fmtSh(r.after) + '株</td>'
+@@ENDIF@@
           + '<td class="n">' + f1(r.wAfter * 100) + '%（' + f1(r.t * 100) + '%）</td></tr>';
       });
       html += '</tbody></table></div>';
@@ -2388,11 +2523,20 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
       return '<tr><td>' + escH(i.s.name) + '</td><td class="n">' + f1(i.cur * 100) + '%</td><td class="n">' + f1(after / tot * 100) + '%</td><td class="n">' + f1(i.tn * 100) + '%</td></tr>';
     }).join('');
     html += '<div class="rbscroll"><table class="rbsec"><thead><tr><th>セクション</th><th class="n">現状</th><th class="n">売買後</th><th class="n">目標</th></tr></thead><tbody>' + secRows + '</tbody></table></div>';
+@@IF:JP@@
+    var odd = plan.rows.filter(function(r){ return rb.unit > 1 && r.shares > 0 && r.shares % rb.unit !== 0; });
+@@ELSE@@
     var odd = plan.rows.filter(function(r){ return r.shares > 0 && Math.abs(r.shares / rb.unit - Math.round(r.shares / rb.unit)) > 1e-6; });
+@@ENDIF@@
     var notes = [];
     if (excludedNote) notes.push(excludedNote);
+@@IF:JP@@
+    if (odd.length) notes.push('端数（単元未満）の株は、単元モードでは売却対象外です：' + odd.map(function(r){ return r.code + '（端数' + (r.shares % rb.unit) + '株）'; }).join('、'));
+    notes.push('売買単位：' + fr + '。計算はランキングの現在値で行います。実際の約定価格・手数料・スプレッド・税金は考慮しません（計算に入れていません）。');
+@@ELSE@@
     if (odd.length) notes.push('端数（売買単位に満たない分）の株は、売却対象外です：' + odd.map(function(r){ return r.code + '（端数' + fmtSh(Math.round((r.shares - r.sellable) * 1e6) / 1e6) + '株）'; }).join('、'));
     notes.push('売買単位：' + fr + '（小数点以下の取引ができるかは証券会社により異なります）。金額はすべてドル建てで、為替は考慮しません。計算はランキングの現在値で行います。実際の約定価格・手数料・スプレッド・税金は考慮しません（計算に入れていません）。');
+@@ENDIF@@
     notes.push('これは、入力した目標比率に近づけるための参考計算です。投資の助言ではありません。');
     html += '<p class="note">' + notes.map(escH).join('<br>') + '</p>';
     el.innerHTML = html;
@@ -2408,7 +2552,11 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
       var sh = side === 'sell' ? r.sell : r.buy;
       if (!(sh > 0)) return;
       var a = ctx.byCode[r.code];
-      out.push(escH(r.code + ' ' + ((a && a.x.name) || '')) + '：' + fmtSh(sh) + '株 × ' + usd(r.price) + ' = ' + usd(sh * r.price));
+@@IF:JP@@
+      out.push(escH(r.code + ' ' + ((a && a.x.name) || '')) + '：' + sh.toLocaleString('ja-JP') + '株 × ' + @@R@@(r.price) + ' = ' + @@R@@(sh * r.price));
+@@ELSE@@
+      out.push(escH(r.code + ' ' + ((a && a.x.name) || '')) + '：' + fmtSh(sh) + '株 × ' + @@R@@(r.price) + ' = ' + @@R@@(sh * r.price));
+@@ENDIF@@
     });
     return out;
   }
@@ -2424,26 +2572,38 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     sell: {
       t: '売却の合計',
       body: function(){ return '<p>この案で<strong>売る株の代金の合計</strong>です。許容幅を超えて目標より多くなっている銘柄を、目標の金額まで売ります。</p>'
+@@IF:JP@@
+        + '<p>「買い増しのみ」の方式では、売らないので0円です。</p>'; },
+@@ELSE@@
         + '<p>「買い増しのみ」の方式では、売らないので$0.00です。</p>'; },
-      calc: function(c){ var l = rbLines(c, 'sell'); return l.length ? (l.join('<br>') + '<br>合計：' + usd(c.plan.sellTotal)) : '売却はありません。'; }
+@@ENDIF@@
+      calc: function(c){ var l = rbLines(c, 'sell'); return l.length ? (l.join('<br>') + '<br>合計：' + @@R@@(c.plan.sellTotal)) : '売却はありません。'; }
     },
     buy: {
       t: '買い付けの合計',
       body: function(){ return '<p>この案で<strong>買う株の代金の合計</strong>です。売却の代金と新規資金を、目標より不足している銘柄から順に配分します。</p>'
+@@IF:JP@@
+        + '<p>売買は単位（100株または1株）に丸めるため、使える資金にちょうどは合いません。端数は「余りの現金」になります。</p>'; },
+@@ELSE@@
         + '<p>売買は単位（1株または0.01株）に丸めるため、使える資金にちょうどは合いません。端数は「余りの現金」になります。</p>'; },
-      calc: function(c){ var l = rbLines(c, 'buy'); return l.length ? (l.join('<br>') + '<br>合計：' + usd(c.plan.buyTotal)) : '買い付けはありません。'; }
+@@ENDIF@@
+      calc: function(c){ var l = rbLines(c, 'buy'); return l.length ? (l.join('<br>') + '<br>合計：' + @@R@@(c.plan.buyTotal)) : '買い付けはありません。'; }
     },
     cash: {
       t: '新規資金',
       body: function(){ return '<p>いま新たに投じる資金（入力した値）です。「買い増しのみ」「売却＋買い増し」で、不足している銘柄の買い付けに使います。</p>'
         + '<p>「売却のみ」では使いません（売却代金は現金として残ります）。</p>'; },
-      calc: function(c){ return '新規資金：' + usd(c.plan.cash); }
+      calc: function(c){ return '新規資金：' + @@R@@(c.plan.cash); }
     },
     left: {
       t: '余りの現金',
+@@IF:JP@@
+      body: function(){ return '<p><strong>新規資金 ＋ 売却代金 − 買い付け</strong>です。売買を単位（100株・1株）に丸めるため、端数の現金が残ります。</p>'
+@@ELSE@@
       body: function(){ return '<p><strong>新規資金 ＋ 売却代金 − 買い付け</strong>です。売買を単位（1株・0.01株）に丸めるため、端数の現金が残ります。</p>'
+@@ENDIF@@
         + '<p>「売却のみ」では、売却代金がそのまま現金として残ります。</p>'; },
-      calc: function(c){ var p = c.plan; return '新規資金 ' + usd(p.cash) + ' ＋ 売却代金 ' + usd(p.sellTotal) + ' − 買い付け ' + usd(p.buyTotal) + ' = ' + usd(p.leftover); }
+      calc: function(c){ var p = c.plan; return '新規資金 ' + @@R@@(p.cash) + ' ＋ 売却代金 ' + @@R@@(p.sellTotal) + ' − 買い付け ' + @@R@@(p.buyTotal) + ' = ' + @@R@@(p.leftover); }
     },
     dev: {
       t: '最大のずれ（銘柄・全体比）',
@@ -2509,7 +2669,11 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     var el = e.target, k = el.dataset ? el.dataset.k : null;
     if (el.name === 'rbmode') { rb.mode = el.value; saveRb(); syncRbControls(); renderRbResult(); return; }
     if (el.id === 'rb-cash') { rb.cash = rbNum(el.value) || 0; saveRb(); renderRbResult(); return; }
+@@IF:JP@@
+    if (el.id === 'rb-unit') { rb.unit = (+el.value === 1) ? 1 : 100; saveRb(); renderRbResult(); return; }
+@@ELSE@@
     if (el.id === 'rb-unit') { rb.unit = (+el.value === 0.01) ? 0.01 : 1; saveRb(); renderRbResult(); return; }
+@@ENDIF@@
     if (el.id === 'rb-bandtype') { rb.bandType = el.value === 'abs' ? 'abs' : 'rel'; saveRb(); renderRb(); return; }
     if (el.id === 'rb-bandval') { rb.bandVal = rbNum(el.value) || 0; saveRb(); renderRb(); return; }
     if (el.id === 'rb-min') { rb.minTrade = rbNum(el.value) || 0; saveRb(); renderRbResult(); return; }
@@ -2529,7 +2693,11 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     var code = String(raw || '').trim().toUpperCase();
     var s = secById(secId);
     if (!s) return 'セクションが見つかりません';
+@@IF:JP@@
+    if (!isCode(code)) return '証券コードを確認してください';
+@@ELSE@@
     if (!isCode(code)) return 'ティッカーを確認してください';
+@@ENDIF@@
     var info = lastByCode[code];
     if (!info || typeof info.price !== 'number') return 'ランキングに載っていない（現在値がない）ため、候補にできません';
     if (lastHoldings.some(function(h){ return h.code === code; })) return code + ' はすでに保有銘柄です（保有銘柄一覧で、セクションへ移してください）';
@@ -2640,17 +2808,17 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
       var gainTotal = valueTotal - found.reduce(function(a,h){ return a + h.cost; }, 0);
 
       $('summarybox').hidden = false;
-      $('st-cost').textContent = dollar(costTotal);
-      $('st-value').textContent = dollar(valueTotal);
+      $('st-cost').textContent = @@M@@(costTotal);
+      $('st-value').textContent = @@M@@(valueTotal);
       var gainEl = $('st-gain');
-      gainEl.textContent = (gainTotal >= 0 ? '+' : '') + dollar(gainTotal);
+      gainEl.textContent = (gainTotal >= 0 ? '+' : '') + @@M@@(gainTotal);
       gainEl.className = 'val ' + (gainTotal >= 0 ? 'pos' : 'neg');
 
       // 実現損益（累計）＝売却を記録した銘柄の実現損益の合計
       var realizedTotal = holdings.reduce(function(a,h){ return a + (h.realized || 0); }, 0);
       var hasAnySell = holdings.some(function(h){ return h.hasSells; });
       var realizedEl = $('st-realized');
-      realizedEl.textContent = hasAnySell ? ((realizedTotal >= 0 ? '+' : '') + dollar(realizedTotal)) : '―';
+      realizedEl.textContent = hasAnySell ? ((realizedTotal >= 0 ? '+' : '') + @@M@@(realizedTotal)) : '―';
       realizedEl.className = 'val ' + (hasAnySell ? (realizedTotal >= 0 ? 'pos' : 'neg') : '');
       statNow = {cost: costTotal, value: valueTotal, gain: gainTotal, realized: realizedTotal, hasSell: hasAnySell,
                  costFound: found.reduce(function(a,h){ return a + h.cost; }, 0)};
@@ -2679,198 +2847,5 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   render();
 })();
 </script>
-<script>
-/* バックアップ（CSV）: 絞り込み条件のURL・ウォッチリスト・保有記録を1つのCSVに書き出し／読み込んで復元する */
-(function(){
-  var SFX = '_us', MARKET = '10年保有（米株）';
-  var $ = function(id){ return document.getElementById(id); };
-  var K = {filters: 'pp_filters_long' + SFX, wl: 'pp_wl_long_us', tabs: 'wl_tabs_long' + SFX, secs: 'wl_secs_long' + SFX,
-           sel: 'wl_tabsel_long' + SFX, pf: 'pf_lots_long' + SFX, pfsecs: 'pf_secs_long' + SFX, pfrb: 'pf_rb_long' + SFX};
-  var L = {tool: 'ツール', date: 'バックアップ日', fmt: '形式',
-           filters: '詳しい条件で絞り込むのURL', all: 'あなたの銘柄リスト（全て）', tabs: '全タブの控え',
-           pf: '保有記録の保存・共有', pfsecs: '保有銘柄のセクション', pfrb: 'リバランス設定'};
-  function lsGet(k){ try { return localStorage.getItem(k); } catch(e) { return null; } }
-  function lsSet(k, v){
-    try { if (v === '' || v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch(e) {}
-  }
-  function pad(n){ return (n < 10 ? '0' : '') + n; }
-  function newId(){ return 't' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5); }
-  function splitCodes(s){
-    var seen = {}, out = [];
-    String(s || '').split(/[\s,;、，]+/).forEach(function(t){
-      t = t.trim().toUpperCase();
-      if (t && !seen[t]) { seen[t] = 1; out.push(t); }
-    });
-    return out;
-  }
-  function union(){
-    var all = [];
-    Array.prototype.forEach.call(arguments, function(a){ all = all.concat(a); });
-    return splitCodes(all.join(','));
-  }
-  function jparse(s, d){ try { var v = JSON.parse(s); return (v == null) ? d : v; } catch(e) { return d; } }
-
-  // ---- 書き出し --------------------------------------------------------------
-  function cell(v){
-    var s = String(v == null ? '' : v);
-    if (/[",\r\n]/.test(s)) s = '"' + s.replace(/"/g, '""') + '"';
-    return s;
-  }
-  function collect(){
-    var qs = lsGet(K.filters) || '';
-    var base = new URL('index.html', location.href).href.split(/[?#]/)[0];
-    var tabs = jparse(lsGet(K.tabs), []); if (!Array.isArray(tabs)) tabs = [];
-    var secs = jparse(lsGet(K.secs), {}); if (!secs || typeof secs !== 'object' || Array.isArray(secs)) secs = {};
-    function secsOut(id){
-      return (Array.isArray(secs[id]) ? secs[id] : []).map(function(s){
-        return {n: String(s.name || ''), c: (s.codes || []).join(',')};
-      });
-    }
-    var tabsOut = tabs.map(function(t){
-      return {n: String(t.name || ''), c: (t.codes || []).join(','), s: secsOut(t.id)};
-    });
-    var codes = [splitCodes(lsGet(K.wl) || '')];
-    tabs.forEach(function(t){ codes.push(t.codes || []); });
-    Object.keys(secs).forEach(function(k){ (secs[k] || []).forEach(function(s){ codes.push(s.codes || []); }); });
-    var pfs = jparse(lsGet(K.pfsecs), []); if (!Array.isArray(pfs)) pfs = [];
-    var pfsOut = pfs.map(function(s){ return {n: String((s && s.name) || ''), c: ((s && s.codes) || []).join(','), t: s && s.t, m: s && s.m, w: s && s.w, a: ((s && s.a) || []).join(',') || undefined}; });
-    var master = union.apply(null, codes);
-    return {
-      filters: base + (qs ? '?' + qs : ''),
-      all: master.join(','),
-      json: JSON.stringify({v: 2, all: master.join(','), as: secsOut('all'), tabs: tabsOut}),
-      pf: lsGet(K.pf) || '',
-      pfs: pfsOut.length ? JSON.stringify(pfsOut) : '',
-      rb: lsGet(K.pfrb) || ''
-    };
-  }
-  function buildCsv(now){
-    var c = collect();
-    var rows = [
-      ['区分', '項目', '値'],
-      ['バックアップ', L.tool, MARKET],
-      ['バックアップ', L.date, now.getFullYear() + '-' + pad(now.getMonth() + 1) + '-' + pad(now.getDate())],
-      ['バックアップ', L.fmt, '1'],
-      ['絞り込み条件', L.filters, c.filters],
-      ['ウォッチリスト', L.all, c.all],
-      ['ウォッチリスト', L.tabs, c.json],
-      ['ポートフォリオ', L.pf, c.pf],
-      ['ポートフォリオ', L.pfsecs, c.pfs],
-      ['ポートフォリオ', L.pfrb, c.rb]
-    ];
-    return '﻿' + rows.map(function(r){ return r.map(cell).join(','); }).join('\r\n') + '\r\n';
-  }
-  $('bk-export').addEventListener('click', function(){
-    var now = new Date();
-    var name = MARKET + now.getFullYear() + '.' + (now.getMonth() + 1) + '.' + now.getDate() + '.csv';
-    var blob = new Blob([buildCsv(now)], {type: 'text/csv;charset=utf-8'});
-    var a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = name;
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
-    $('bk-stat').textContent = '書き出しました：' + name;
-  });
-
-  // ---- 読み込み（復元）-------------------------------------------------------
-  function parseCsv(t){
-    var rows = [], row = [], f = '', q = false;
-    for (var i = 0; i < t.length; i++) {
-      var ch = t.charAt(i);
-      if (q) {
-        if (ch === '"') { if (t.charAt(i + 1) === '"') { f += '"'; i++; } else q = false; }
-        else f += ch;
-      } else if (ch === '"') q = true;
-      else if (ch === ',') { row.push(f); f = ''; }
-      else if (ch === '\n' || ch === '\r') {
-        if (ch === '\r' && t.charAt(i + 1) === '\n') i++;
-        row.push(f); f = ''; rows.push(row); row = [];
-      } else f += ch;
-    }
-    if (f !== '' || row.length) { row.push(f); rows.push(row); }
-    return rows.filter(function(r){ return !(r.length === 1 && r[0] === ''); });
-  }
-  function mkSecs(a){
-    return (Array.isArray(a) ? a : []).map(function(x){
-      return {id: newId(), name: String((x && x.n) || '').replace(/\s+/g, ' ').trim().slice(0, 20) || 'セクション',
-              codes: splitCodes(x && x.c)};
-    });
-  }
-  function restore(text){
-    var rows = parseCsv(text.replace(/^﻿/, '')), v = {};
-    rows.forEach(function(r){ if (r.length >= 3) v[r[1]] = r[2]; });
-    if (!(L.tool in v)) { alert('このファイルはバックアップCSVとして読み取れませんでした。'); return; }
-    if (v[L.tool] !== MARKET) {
-      alert('このCSVは「' + v[L.tool] + '」用です。このページ（' + MARKET + '）では読み込めません。');
-      return;
-    }
-    var info = jparse(v[L.tabs], null);
-    if (v[L.tabs] && (!info || !Array.isArray(info.tabs))) { alert('「全タブの控え」の部分が壊れているため、読み込みを中止しました。'); return; }
-    if (!confirm('このバックアップ（' + (v[L.date] || '日付なし') + '）の内容で、いまの絞り込み条件・ウォッチリスト・保有記録を置き換えます。よろしいですか？\n'
-      + '（元の内容を残したい場合は、先に「CSVで書き出す」で保存してください）')) return;
-    var done = [];
-    if (L.filters in v) {
-      var u = v[L.filters], i = u.indexOf('?');
-      lsSet(K.filters, i >= 0 ? u.slice(i + 1).replace(/#.*$/, '') : '');
-      done.push('絞り込み条件');
-    }
-    if (L.all in v || info) {
-      var tabs = [], secs = {}, codes = [splitCodes(v[L.all] || '')];
-      if (info) {
-        codes.push(splitCodes(info.all));
-        var sa = mkSecs(info.as);
-        if (sa.length) secs.all = sa;
-        info.tabs.forEach(function(x){
-          if (!x) return;
-          var t = {id: newId(), name: String(x.n || '').replace(/\s+/g, ' ').trim().slice(0, 20) || 'タブ', codes: splitCodes(x.c)};
-          tabs.push(t);
-          var ss = mkSecs(x.s);
-          if (ss.length) secs[t.id] = ss;
-        });
-        tabs.forEach(function(t){ codes.push(t.codes); });
-        Object.keys(secs).forEach(function(k){ secs[k].forEach(function(s){ codes.push(s.codes); }); });
-      }
-      var master = union.apply(null, codes);
-      lsSet(K.wl, master.join(','));
-      if (info) {
-        lsSet(K.tabs, tabs.length ? JSON.stringify(tabs) : '');
-        lsSet(K.secs, Object.keys(secs).length ? JSON.stringify(secs) : '');
-        lsSet(K.sel, 'all');
-      }
-      done.push('ウォッチリスト（全て ' + master.length + '銘柄・タブ ' + tabs.length + '個）');
-    }
-    if (L.pf in v) {
-      lsSet(K.pf, v[L.pf]);
-      done.push('保有記録');
-    }
-    if (L.pfsecs in v) {   // 古いCSV（この行が無い）のときは、いまのセクションをそのまま残す
-      var pa = jparse(v[L.pfsecs], []);
-      var ps = (Array.isArray(pa) ? pa : []).map(function(x){
-        var o = {id: newId(), name: String((x && x.n) || '').replace(/\s+/g, ' ').trim().slice(0, 40) || 'セクション', codes: splitCodes(x && x.c)};
-        if (x && typeof x.t === 'number' && x.t >= 0) o.t = x.t;
-        if (x && (x.m === 'cur' || x.m === 'set')) o.m = x.m;
-        if (x && x.w && typeof x.w === 'object') { o.w = {}; Object.keys(x.w).forEach(function(k){ if (typeof x.w[k] === 'number' && x.w[k] >= 0) o.w[k.toUpperCase()] = x.w[k]; }); }
-        var aa = splitCodes(x && x.a); if (aa.length) o.a = aa;
-        return o;
-      });
-      lsSet(K.pfsecs, ps.length ? JSON.stringify(ps) : '');
-      done.push('保有銘柄のセクション');
-    }
-    if (L.pfrb in v) { lsSet(K.pfrb, v[L.pfrb]); done.push('リバランス設定'); }
-    alert('復元しました：' + (done.join('、') || '（対象なし）') + '\nページを開き直します。');
-    location.href = location.pathname;
-  }
-  $('bk-import').addEventListener('click', function(){ $('bk-file').click(); });
-  $('bk-file').addEventListener('change', function(){
-    var f = this.files && this.files[0];
-    if (!f) return;
-    var rd = new FileReader();
-    rd.onload = function(){ restore(String(rd.result || '')); };
-    rd.onerror = function(){ alert('ファイルを読み込めませんでした。'); };
-    rd.readAsText(f, 'utf-8');
-    this.value = '';
-  });
-})();
-</script>
+@@BACKUP_SCRIPT@@
 </body></html>

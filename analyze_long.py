@@ -943,7 +943,8 @@ def _buytiming(raw, rowmap, seckey, market, pbr_pairs, is_fin_simple=False,
         ffo_cheap_sc, _ = LC.composite(["ffo_band_pos", "ffo_vs_sector"],
                                        {"ffo_band_pos": ffo_band, "ffo_vs_sector": ffo_vs}, r_rules)
         comp = {"ffo_cheap": ffo_cheap_sc}
-        total, scored, poss, cov = LC.buytiming_score(comp, weights={"ffo_cheap": 1.0})
+        total, scored, poss, cov = LC.buytiming_score(
+            comp, weights=LC.load_reit_cfg().get("buytiming_weights") or {"ffo_cheap": 1.0})
         d = {
             "is_reit": True, "is_fin_simple": False, "pbr_unreliable": False,
             "current_pfo": current_pfo, "sec_pfo": sec_pfo, "ffo_vs": ffo_vs,
@@ -1871,16 +1872,16 @@ def generate_long(code, cfg=None, market="jp", name=None):
 
     try:
         if market == "jp":
-            jp_sector, industry, sector, sector_src, is_reit = analyze.classify_sector(info, smap)
+            jp_sector, industry, _sector, _sector_src, is_reit = analyze.classify_sector(info, smap)
             seckey = jp_sector
             is_simple = bool(rules["overrides"].get(jp_sector, {}).get("_simple")) or is_reit
             rate_sensitive = set(smap["_meta"].get("rate_sensitive", []))
-            M, flags, ctx = analyze.build_metrics(
+            M, _flags, ctx = analyze.build_metrics(
                 yd, None, sec_avg_all.get(jp_sector, {}), is_simple, jp_sector,
                 rate_sensitive, rules.get("market", {}).get("jgb_10y"), cfg["div_policies"])
         else:
             import analyze_us
-            gics_sector, industry, ysector, is_simple, is_reit, src = \
+            gics_sector, industry, _ysector, is_simple, is_reit, _src = \
                 analyze_us.classify_sector_us(info, smap)
             # analyze_us.classify_sector_us は GICS Real Estate セクター全体を
             # is_reit=True にする（CBRE・CoStar等の不動産サービス/データ会社もREIT構造
@@ -1898,10 +1899,10 @@ def generate_long(code, cfg=None, market="jp", name=None):
             jp_sector = None
             rate_sensitive = set(smap.get("rate_sensitive", []))
             ust_10y = rules.get("market", {}).get("ust_10y", 4.2)
-            M, flags, ctx = analyze_us.build_metrics_us(
+            M, _flags, ctx = analyze_us.build_metrics_us(
                 yd, sec_avg_all.get(gics_sector, {}), is_simple, gics_sector,
                 rate_sensitive, ust_10y)
-        dom_scores, detail, groups, sel_score, tim_score, coverage = analyze.score_all(
+        _dom_scores, detail, groups, _sel_score, _tim_score, _coverage = analyze.score_all(
             M, seckey, rules, is_simple)
     except Exception as e:
         import traceback

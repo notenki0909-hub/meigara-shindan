@@ -19,7 +19,6 @@ sel_score を出す）ため品質スコアが None になる。これらは軍�
 """
 import argparse
 import datetime as dt
-import glob
 import html
 import json
 import os
@@ -64,7 +63,6 @@ MK = {
                        "品質スコア（配当は不使用）＋買い時スコア（EV/EBIT・FCF利回り・PER/PBR割安度）。",
         "terms_src": "long_terms.html",
         "guide_src": "long_guide.html",
-        "portfolio_src": "long_portfolio.html",
         "unit_price": "円",
         "watch": None,
     },
@@ -83,7 +81,6 @@ MK = {
                        "品質スコア（配当は不使用）＋買い時スコア。",
         "terms_src": "long_us_terms.html",
         "guide_src": "long_us_guide.html",
-        "portfolio_src": "long_us_portfolio.html",
         "unit_price": "$",
         "watch": "universe_long_watch_us.json",
     },
@@ -188,12 +185,6 @@ def quality_score(groups):
             num += w * v
             den += w
     return round(num / den, 1) if den > 0 else None
-
-
-def quality_cov(groups):
-    got = sum(1 for g in QUALITY_W if isinstance(groups.get(g), (int, float)))
-    lab = "高" if got >= 3 else "中" if got == 2 else "低"
-    return got, len(QUALITY_W), lab
 
 
 def _num(v, d=1):
@@ -1999,6 +1990,36 @@ def render_watchlist(out, m):
     return tpl
 
 
+def render_portfolio(market):
+    """ポートフォリオページ（保有銘柄・円グラフ・セクション・リバランス）。日本株と米国株は、ほぼ同じ作りなので、1つのひな形
+    （long_portfolio_tpl.html）から作る。日米で違う箇所は「@@IF:JP@@ … @@ELSE@@ … @@ENDIF@@」（片方だけのときは @@IF:JP@@ または
+    @@IF:US@@ … @@ENDIF@@）で囲んである。金額の関数名は @@M@@（日本株 yen／米国株 dollar）と、リバランス本体の
+    @@R@@（日本株 yen／米国株 usd）。バックアップ（CSV）の欄は、ランキング・ウォッチリストと同じひな形（long_backup_tpl.html）から入る。"""
+    jp = (market == "jp")
+    tpl = open(os.path.join(HERE, "long_portfolio_tpl.html"), encoding="utf-8").read().replace("\r\n", "\n")
+    out, mode, cond = [], None, None
+    for line in tpl.split("\n"):
+        if line.startswith("@@IF:") and line.endswith("@@"):
+            cond, mode = (line[5:-2] == "JP"), "if"
+            continue
+        if line == "@@ELSE@@":
+            mode = "else"
+            continue
+        if line == "@@ENDIF@@":
+            mode = None
+            continue
+        if (mode == "if" and cond != jp) or (mode == "else" and cond == jp):
+            continue
+        out.append(line)
+    t = "\n".join(out)
+    bk_css, bk_box, bk_script = _backup_parts(market, "sub")
+    rep = {"@@BACKUP_CSS@@": bk_css, "@@BACKUP_BOX@@": bk_box, "@@BACKUP_SCRIPT@@": bk_script,
+           "@@M@@": "yen" if jp else "dollar", "@@R@@": "yen" if jp else "usd"}
+    for k, v in rep.items():
+        t = t.replace(k, v)
+    return t
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("market", choices=["jp", "us"])
@@ -2015,9 +2036,7 @@ def main():
     guide_src = os.path.join(HERE, m["guide_src"])
     if os.path.isfile(guide_src):
         shutil.copyfile(guide_src, os.path.join(m["out_dir"], "guide.html"))
-    portfolio_src = os.path.join(HERE, m["portfolio_src"])
-    if os.path.isfile(portfolio_src):
-        shutil.copyfile(portfolio_src, os.path.join(m["out_dir"], "portfolio.html"))
+    open(os.path.join(m["out_dir"], "portfolio.html"), "w", encoding="utf-8", newline="").write(render_portfolio(out["market"]))
 
     idx = os.path.join(m["out_dir"], "index.html")
     rjson = os.path.join(m["out_dir"], "ranking.json")
