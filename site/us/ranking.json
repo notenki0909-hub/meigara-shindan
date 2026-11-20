@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-20T07:22:06",
+ "generated_at": "2026-11-20T21:17:11",
  "screen": {
   "universe": "S&P500+400+600 (S&P Composite 1500)",
   "min_dividend_yield_pct": 1.5,
@@ -7,9 +7,9 @@
  },
  "counts": {
   "total": 521,
-  "1軍": 117,
+  "1軍": 116,
   "2軍": 247,
-  "3軍": 154
+  "3軍": 155
  },
  "groups": [
   {
@@ -77,9 +77,9 @@
   {
    "name": "Consumer Discretionary",
    "name_jp": "一般消費財",
-   "grade": "B",
-   "median": 85.5,
-   "count": 2,
+   "grade": "A",
+   "median": 89.7,
+   "count": 3,
    "tiered": false,
    "stocks": [
     {
@@ -135,6 +135,63 @@
       "6m": 9.584295612009239,
       "9m": -20.618987871183602,
       "y": -9.790874524714823
+     },
+     "tier": "2軍",
+     "dir": "→"
+    },
+    {
+     "code": "BKE",
+     "name": "The Buckle, Inc.",
+     "sector": "Consumer Discretionary",
+     "sector_jp": "一般消費財",
+     "group": "Consumer Discretionary",
+     "sel": 89.7,
+     "tim": 98.8,
+     "sel_label": "選定スコア上位（質・持続力とも高水準）",
+     "tim_label": "買い時スコア上位（割安水準）",
+     "cov_sel": "高",
+     "cov_tim": "高",
+     "yield": 9.966024570624086,
+     "total_yield": null,
+     "streak_up": 0,
+     "streak_flat": 14,
+     "next_earn": "2026-11-20",
+     "is_simple": false,
+     "price": 44.150001525878906,
+     "price_date": "2026-11-20",
+     "asof": "2026-11-20T21:17:10",
+     "fetched": "2026-11-20T21:17:07",
+     "payout_ni": 32.259998,
+     "roe": 45.763999999999996,
+     "mcap": 2274274048,
+     "roa": 21.16,
+     "flags": [
+      {
+       "k": "fcf_payout",
+       "t": "FCF配当性向が100%超（109%：フリーCFで配当を賄えていない）"
+      }
+     ],
+     "kind": "gen",
+     "dgr5": 11.09534595426207,
+     "chowder": 21.061370524886158,
+     "g_gyoseki": 86.3,
+     "g_zaimu": 102.6,
+     "per_vs_sector": 0.34367606418918917,
+     "pbr_vs_sector": 0.4968333260869565,
+     "per_band_pos": 0.41435317854066755,
+     "yield_band_pos": 0.50867133804793,
+     "quarter_decel_factor": null,
+     "ocf_positive": 1,
+     "fcf_positive": 1,
+     "fcf_payout": 109.38433950986253,
+     "chg": {
+      "d": 5.67257060794638,
+      "w": 1.2614678899082503,
+      "m": -4.063450673620174,
+      "3m": 0.7760785208856341,
+      "6m": -10.500709507399149,
+      "9m": -17.553688141923434,
+      "y": -19.756452199200297
      },
      "tier": "2軍",
      "dir": "→"
@@ -269,7 +326,7 @@
    "name_jp": "資本財",
    "grade": "B",
    "median": 85.0,
-   "count": 515,
+   "count": 514,
    "tiered": true,
    "stocks": [
     {
@@ -7223,7 +7280,7 @@
       "9m": 18.32425068119889,
       "y": 21.46853146853146
      },
-     "tier": "1軍",
+     "tier": "2軍",
      "dir": "→"
     },
     {
@@ -19756,7 +19813,7 @@
       "9m": 9.88056460369165,
       "y": 6.3472047078604525
      },
-     "tier": "2軍",
+     "tier": "3軍",
      "dir": "→"
     },
     {
@@ -19808,7 +19865,7 @@
       "9m": 3.890020366598771,
       "y": 8.278497134366374
      },
-     "tier": "2軍",
+     "tier": "3軍",
      "dir": "→"
     },
     {
@@ -21491,67 +21548,6 @@
       "6m": -1.2071463061323031,
       "9m": 2.1467798302546166,
       "y": 9.940891993551862
-     },
-     "tier": "3軍",
-     "dir": "→"
-    },
-    {
-     "code": "BKE",
-     "name": "BKE",
-     "sector": "Industrials",
-     "sector_jp": "資本財",
-     "group": "Industrials",
-     "sel": 75.0,
-     "tim": 83.4,
-     "sel_label": "選定スコア中位（一部に弱点）",
-     "tim_label": "買い時スコア中位（妥当水準）",
-     "cov_sel": "中",
-     "cov_tim": "低",
-     "yield": 10.531355022873576,
-     "total_yield": null,
-     "streak_up": 0,
-     "streak_flat": 14,
-     "next_earn": "2026-11-20",
-     "is_simple": false,
-     "price": 41.779998779296875,
-     "price_date": "2026-11-19",
-     "asof": "2026-11-20T02:52:07",
-     "fetched": "2026-11-20T02:52:05",
-     "payout_ni": 105.51558752997603,
-     "roe": null,
-     "mcap": null,
-     "roa": 21.16,
-     "flags": [
-      {
-       "k": "fcf_payout",
-       "t": "FCF配当性向が100%超（109%：フリーCFで配当を賄えていない）"
-      },
-      {
-       "k": "payout",
-       "t": "配当性向が100%超（106%：純利益を上回る配当）"
-      }
-     ],
-     "kind": "gen",
-     "dgr5": -8.84193452719183,
-     "chowder": 1.6894204956817465,
-     "g_gyoseki": 86.3,
-     "g_zaimu": 102.6,
-     "per_vs_sector": null,
-     "pbr_vs_sector": null,
-     "per_band_pos": null,
-     "yield_band_pos": 0.5499080519639487,
-     "quarter_decel_factor": null,
-     "ocf_positive": 1,
-     "fcf_positive": 1,
-     "fcf_payout": 109.38433950986253,
-     "chg": {
-      "d": -2.246139447824054,
-      "w": -4.915794264906683,
-      "m": -10.28559158256388,
-      "3m": -2.016885553470918,
-      "6m": -14.769481844145249,
-      "9m": -21.55463762673676,
-      "y": -24.73428211133129
      },
      "tier": "3軍",
      "dir": "→"
@@ -32000,12 +31996,12 @@
  ],
  "data_asof": {
   "fetched_min": "2026-11-19T07:30:45",
-  "fetched_max": "2026-11-20T07:21:59",
+  "fetched_max": "2026-11-20T21:17:07",
   "n_known": 521,
   "n_unknown": 0,
   "n_stale": 0,
   "stale_oldest": null,
   "price_date_mode": "2026-11-19",
-  "price_date_max": "2026-11-19"
+  "price_date_max": "2026-11-20"
  }
 }
