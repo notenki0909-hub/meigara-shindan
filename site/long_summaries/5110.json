@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 2008.5,
- "price_date": "2026-11-19",
- "mcap": 527926984704,
+ "price": 1932.5,
+ "price_date": "2026-11-20",
+ "mcap": 507950661632,
  "q_score": 75.0,
  "groups": {
   "業績": 54.95797467625477,
@@ -22,31 +22,31 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 44.9,
+ "bt_score": 48.0,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
   "fcf_yield": 20.0,
-  "per_cheap": 67.0,
-  "pbr_cheap": 72.5
+  "per_cheap": 78.9,
+  "pbr_cheap": 72.9
  },
- "ev_ebit": 20.46623586129498,
- "fcf_yield": -5.426886829068529,
+ "ev_ebit": 19.922084978126446,
+ "fcf_yield": -5.640311582221414,
  "per_band_pos": null,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 2.120853457129013,
- "per_vs_sector": 1.1563518918918918,
- "pbr_vs_sector": 0.7966255555555556,
+ "ev_ebit_vs_sector": 2.0773811238922257,
+ "per_vs_sector": 1.0817192567567566,
+ "pbr_vs_sector": 0.7664818888888889,
  "price_chg": {
-  "d": 1.4393939393939403,
-  "w": -6.927710843373491,
-  "m": 0.8030112923463006,
-  "3m": -14.91209489514933,
-  "6m": 4.745762711864399,
-  "9m": -25.817174515235454,
-  "y": 9.784094014758127
+  "d": -2.4482584553255915,
+  "w": -3.4474144391706263,
+  "m": -2.767295597484276,
+  "3m": -16.37819125919515,
+  "6m": -0.12919896640827266,
+  "9m": -30.032585083272988,
+  "y": 4.714169601733942
  },
- "div_yield": 3.8834951456310676,
+ "div_yield": 4.0362225097024576,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -67,13 +67,13 @@
   {
    "tier": "check",
    "k": "per",
-   "where": "PER（Yahoo表示 17.1倍）",
-   "why": "直近4四半期の純利益（764.8億円）から求めたPERは6.9倍で、Yahoo表示と2.5倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
+   "where": "PER（Yahoo表示 16.0倍）",
+   "why": "直近4四半期の純利益（764.8億円）から求めたPERは6.6倍で、Yahoo表示と2.4倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
    "how": "IR BANK（irbank.net/5110/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する"
   }
  ],
  "data_asof": {
-  "fetched": "2026-11-19T00:41:58Z"
+  "fetched": "2026-11-20T00:59:28Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -104,5 +104,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-19T00:42:00"
+ "_generated_at": "2026-11-20T00:59:30"
 }

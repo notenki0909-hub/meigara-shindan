@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 2907.5,
- "price_date": "2026-11-19",
- "mcap": 506006798336,
+ "price": 2892.0,
+ "price_date": "2026-11-20",
+ "mcap": 503309238272,
  "q_score": 100.7,
  "groups": {
   "業績": 107.47684249112672,
@@ -23,31 +23,31 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 50.6,
+ "bt_score": 51.0,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 71.25776074065227,
+  "ev_ebit_vs_sector": 71.48885559071246,
   "fcf_yield": 20.0,
-  "per_cheap": 81.3,
+  "per_cheap": 82.5,
   "pbr_cheap": 30.0
  },
- "ev_ebit": 23.27458076106265,
- "fcf_yield": -9.082881919993794,
+ "ev_ebit": 23.22085948683634,
+ "fcf_yield": -9.13156296470802,
  "per_band_pos": 1.0,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.1014945935192926,
- "per_vs_sector": 1.2465593525179857,
- "pbr_vs_sector": 2.1863976,
+ "ev_ebit_vs_sector": 1.099472513581266,
+ "per_vs_sector": 1.2308184892086331,
+ "pbr_vs_sector": 2.174742,
  "price_chg": {
-  "d": 0.0,
-  "w": 0.2586206896551646,
-  "m": 3.9878397711015756,
-  "3m": -1.2565800645270797,
-  "6m": 5.286981712837235,
-  "9m": -8.540421516200059,
-  "y": -1.7238465438566886
+  "d": -0.5673027333677139,
+  "w": -0.584393262289451,
+  "m": 4.028776978417259,
+  "3m": -1.682814890362061,
+  "6m": 0.9247949746989947,
+  "9m": -8.683296495105775,
+  "y": -2.1650879566982417
  },
- "div_yield": 4.608770421324162,
+ "div_yield": 4.633471645919779,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -62,7 +62,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-19T00:19:25Z"
+  "fetched": "2026-11-20T00:37:15Z"
  },
  "lease_quality": {
   "score": 77.3,
@@ -114,5 +114,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-19T00:51:21"
+ "_generated_at": "2026-11-20T01:08:52"
 }
