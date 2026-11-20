@@ -1,64 +1,83 @@
 {
  "code": "GS",
- "name": "The Goldman Sachs Group, Inc.",
- "asof": "2026-11-19",
- "data_fetched_at": "2026-11-19T03:09:57",
- "gics_sector": "Financials",
- "industry": "Capital Markets",
+ "name": "GS",
+ "asof": "2026-11-20",
+ "data_fetched_at": "2026-11-20T03:01:52",
+ "gics_sector": "Industrials",
+ "industry": "",
  "is_simple": false,
  "is_reit": false,
- "price": 873.1799926757812,
- "price_date": "2026-11-18",
- "mcap": 251855306752,
- "sel_score": 79.2,
- "tim_score": 89.3,
+ "price": 847.530029296875,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "sel_score": 77.6,
+ "tim_score": 76.4,
  "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "選定・買い時とも中位水準。",
+ "tim_label": "買い時スコア下位（やや割高水準）",
+ "comment": "※データ不足（銘柄選定 と 買い時のカバレッジ低）。点数は目安、参考程度に。　選定は中位、買い時は下位（やや割高水準）。",
  "cov_sel": [
-  13,
+  11,
   17,
-  "中"
+  "低"
  ],
  "cov_tim": [
+  3,
   6,
-  6,
-  "高"
+  "低"
  ],
  "groups": {
   "業績": 107.3,
   "財務": 59.9,
   "キャッシュフロー": 20.0,
-  "配当の持続力": 99.8,
-  "配当利回りセオリー": 78.4,
-  "利回り水準とChowder": 95.5,
-  "株価バリュエーション": 102.4,
+  "配当の持続力": 94.7,
+  "配当利回りセオリー": 65.7,
+  "利回り水準とChowder": 93.3,
+  "株価バリュエーション": null,
   "金利スプレッド": null
  },
- "div_yield": 2.2904785001671657,
- "total_yield": 7.19805823688115,
+ "div_yield": 2.1238185524745474,
+ "total_yield": null,
  "streak_up": 6,
  "streak_flat": 27,
- "payout_ni": 25.88,
- "roe": 17.712,
- "chowder": 25.156446408481887,
+ "payout_ni": 34.64870067372473,
+ "roe": null,
+ "chowder": 24.98978646078927,
  "dgr5": 22.865967908314722,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": null,
- "per_vs_sector": 0.7257056936416185,
- "pbr_vs_sector": 0.95188416,
- "per_band_pos": 0.5711733092480129,
- "yield_band_pos": 0.3844920469315021,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
+ "per_band_pos": null,
+ "yield_band_pos": 0.25681365263951456,
  "next_earn": "2027-01-19",
  "earn_disc_date": "2026-10-13",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
+ "warnings": [
+  "銘柄選定スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
+  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）",
+  "⚠ 営業キャッシュフローが2期連続マイナス",
+  "⚠ 自己資本比率が10%未満（6.9%）"
+ ],
  "roa": 0.95,
  "leverage": 14.48,
- "insight_flags": [],
- "kind": "fin",
- "_generated_at": "2026-11-19T03:10:00"
+ "insight_flags": [
+  {
+   "k": "lev_roe",
+   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+  },
+  {
+   "k": "ocf_neg",
+   "t": "営業キャッシュフローが2期連続マイナス"
+  },
+  {
+   "k": "low_equity",
+   "t": "自己資本比率が10%未満（6.9%）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-11-20T03:01:54"
 }

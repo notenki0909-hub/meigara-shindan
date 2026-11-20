@@ -1,67 +1,77 @@
 {
  "code": "PFS",
- "name": "Provident Financial Services, Inc.",
- "asof": "2026-11-19",
- "data_fetched_at": "2026-11-19T03:23:03",
- "gics_sector": "Financials",
- "industry": "Banks - Regional",
- "is_simple": true,
+ "name": "PFS",
+ "asof": "2026-11-20",
+ "data_fetched_at": "2026-11-20T03:14:22",
+ "gics_sector": "Industrials",
+ "industry": "",
+ "is_simple": false,
  "is_reit": false,
- "price": 22.020000457763672,
- "price_date": "2026-11-18",
- "mcap": 2871831296,
- "sel_score": 80.4,
- "tim_score": 73.4,
+ "price": 21.670000076293945,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "sel_score": 82.8,
+ "tim_score": 64.9,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "選定は中位、買い時は下位（やや割高水準）。",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は中位、買い時は下位（やや割高水準）。",
  "cov_sel": [
-  6,
-  6,
-  "高"
+  12,
+  17,
+  "中"
  ],
  "cov_tim": [
+  3,
   6,
-  6,
-  "高"
+  "低"
  ],
  "groups": {
-  "業績": null,
-  "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 80.2,
-  "配当利回りセオリー": 57.1,
-  "利回り水準とChowder": 69.5,
-  "株価バリュエーション": 108.9,
-  "金利スプレッド": null,
-  "金融品質": 80.5
+  "業績": 80.8,
+  "財務": 85.7,
+  "キャッシュフロー": 103.3,
+  "配当の持続力": 71.8,
+  "配当利回りセオリー": 61.7,
+  "利回り水準とChowder": 70.1,
+  "株価バリュエーション": null,
+  "金利スプレッド": null
  },
- "div_yield": 4.359672933891921,
- "total_yield": 4.359672933891921,
+ "div_yield": 4.430087663221557,
+ "total_yield": null,
  "streak_up": 0,
  "streak_flat": 23,
- "payout_ni": 40.339999999999996,
- "roe": 11.015,
- "chowder": 4.996667133594699,
+ "payout_ni": 43.049327354260086,
+ "roe": null,
+ "chowder": 5.0670818629243355,
  "dgr5": 0.6369941997027784,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 29.231412153926517,
  "interest_coverage": null,
- "per_vs_sector": 0.5348035260115607,
- "pbr_vs_sector": 0.40101984,
- "per_band_pos": 0.8678032803870886,
- "yield_band_pos": 0.171017306427033,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
+ "per_band_pos": null,
+ "yield_band_pos": 0.21682109291446122,
  "next_earn": "2027-01-27",
  "earn_disc_date": "2026-10-28",
- "quarter_decel_factor": null,
- "quarter_decel_detail": null,
+ "quarter_decel_factor": 0.8539618485241055,
+ "quarter_decel_detail": {
+  "rev_yoy_q": 7.568398789633424,
+  "profit_yoy_q": -3.5708310094813123,
+  "gap": -12.301907573794725
+ },
  "warnings": [
-  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
+  "直近四半期の増収率が年次トレンドから大きく下振れ（年率+19.9%に対し直近四半期は+7.6%）、かつ営業利益/純利益も前年同期比マイナス（-3.6%）だったため、業績スコアを15%減点しています。年次決算にはまだ反映されていない直近の変化のため、最新の決算内容もあわせてご確認ください。",
+  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
  ],
  "roa": 1.17,
  "leverage": 8.82,
- "insight_flags": [],
- "kind": "fin",
- "_generated_at": "2026-11-19T03:23:05"
+ "insight_flags": [
+  {
+   "k": "lev_roe",
+   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-11-20T03:14:25"
 }

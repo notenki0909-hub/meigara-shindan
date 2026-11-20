@@ -1,55 +1,54 @@
 {
  "code": "IRT",
- "name": "Independence Realty Trust, Inc.",
- "asof": "2026-11-19",
- "data_fetched_at": "2026-11-19T03:13:03",
- "gics_sector": "Real Estate",
- "industry": "REIT - Residential",
- "is_simple": true,
- "is_reit": true,
+ "name": "IRT",
+ "asof": "2026-11-20",
+ "data_fetched_at": "2026-11-20T03:04:50",
+ "gics_sector": "Industrials",
+ "industry": "",
+ "is_simple": false,
+ "is_reit": false,
  "price": 14.789999961853027,
  "price_date": "2026-11-18",
- "mcap": 3576390144,
- "sel_score": 67.4,
- "tim_score": 93.4,
+ "mcap": null,
+ "sel_score": 65.8,
+ "tim_score": 92.6,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "選定スコアが基準未達の水準。",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定スコアが基準未達の水準。",
  "cov_sel": [
-  6,
-  6,
+  15,
+  17,
   "高"
  ],
  "cov_tim": [
+  3,
   6,
-  7,
-  "高"
+  "低"
  ],
  "groups": {
-  "業績": null,
-  "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 49.4,
+  "業績": 80.5,
+  "財務": 70.6,
+  "キャッシュフロー": 77.6,
+  "配当の持続力": 41.8,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 74.6,
-  "株価バリュエーション": 74.4,
-  "金利スプレッド": 104.5,
-  "REIT品質": 75.1
+  "利回り水準とChowder": 65.0,
+  "株価バリュエーション": null,
+  "金利スプレッド": null
  },
- "div_yield": 4.868154170771152,
- "total_yield": 5.804601220771747,
+ "div_yield": 4.732927666027509,
+ "total_yield": null,
  "streak_up": 2,
  "streak_flat": 6,
- "payout_ni": 269.23,
- "roe": 1.7770000000000001,
- "chowder": 3.438995014478516,
+ "payout_ni": 291.66666666666663,
+ "roe": null,
+ "chowder": 3.3037685097348723,
  "dgr5": -1.4291591562926365,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 120.35000194878592,
  "interest_coverage": 1.730486847768298,
- "per_vs_sector": 1.3321924355971895,
- "pbr_vs_sector": 0.34615926666666663,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2027-02-10",
@@ -57,22 +56,27 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
-  "⚠ 配当性向が100%超（269%：純利益を上回る配当）",
-  "⚠ バリュートラップ注意：買い時が高い（93）のに質が低め（選定67）。安さの理由を確認"
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
+  "⚠ FCF配当性向が100%超（120%：フリーCFで配当を賄えていない）",
+  "⚠ 配当性向が100%超（292%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（93）のに質が低め（選定66）。安さの理由を確認"
  ],
  "roa": 0.94,
  "leverage": 1.74,
  "insight_flags": [
   {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（120%：フリーCFで配当を賄えていない）"
+  },
+  {
    "k": "payout",
-   "t": "配当性向が100%超（269%：純利益を上回る配当）"
+   "t": "配当性向が100%超（292%：純利益を上回る配当）"
   },
   {
    "k": "trap",
-   "t": "バリュートラップ注意：買い時が高い（93）のに質が低め（選定67）。安さの理由を確認"
+   "t": "バリュートラップ注意：買い時が高い（93）のに質が低め（選定66）。安さの理由を確認"
   }
  ],
- "kind": "fin",
- "_generated_at": "2026-11-19T03:13:05"
+ "kind": "gen",
+ "_generated_at": "2026-11-20T03:04:52"
 }

@@ -1,71 +1,72 @@
 {
  "code": "BG",
- "name": "Bunge Global SA",
- "asof": "2026-11-19",
- "data_fetched_at": "2026-11-19T02:59:38",
- "gics_sector": "Consumer Staples",
- "industry": "Farm Products",
+ "name": "BG",
+ "asof": "2026-11-20",
+ "data_fetched_at": "2026-11-20T02:52:00",
+ "gics_sector": "Industrials",
+ "industry": "",
  "is_simple": false,
  "is_reit": false,
- "price": 93.19000244140625,
- "price_date": "2026-11-18",
- "mcap": 17905879040,
- "sel_score": 66.6,
- "tim_score": 90.9,
+ "price": 91.75,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "sel_score": 66.2,
+ "tim_score": 98.8,
  "sel_label": "選定スコア下位（質に不安）",
- "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "選定スコアが基準未達の水準。",
+ "tim_label": "買い時スコア上位（割安水準）",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
  "cov_sel": [
-  16,
+  14,
   17,
-  "高"
+  "中"
  ],
  "cov_tim": [
-  7,
-  7,
-  "高"
+  3,
+  6,
+  "低"
  ],
  "groups": {
-  "業績": 45.2,
+  "業績": 46.2,
   "財務": 66.5,
   "キャッシュフロー": 60.0,
-  "配当の持続力": 89.9,
-  "配当利回りセオリー": 103.6,
-  "利回り水準とChowder": 89.8,
-  "株価バリュエーション": 86.7,
-  "金利スプレッド": 70.4
+  "配当の持続力": 87.7,
+  "配当利回りセオリー": 104.2,
+  "利回り水準とChowder": 90.4,
+  "株価バリュエーション": null,
+  "金利スプレッド": null
  },
- "div_yield": 3.0904602688585787,
- "total_yield": 6.1676618894498905,
+ "div_yield": 3.11716621253406,
+ "total_yield": null,
  "streak_up": 6,
- "streak_flat": 24,
- "payout_ni": 48.8,
- "roe": 6.92,
- "chowder": 9.898257903010647,
- "dgr5": 6.8077976341520685,
+ "streak_flat": 25,
+ "payout_ni": 67.78783639713812,
+ "roe": null,
+ "chowder": 10.003562374165863,
+ "dgr5": 6.886396161631803,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": 2.805732484076433,
- "per_vs_sector": 0.6756129957805908,
- "pbr_vs_sector": 0.1664823181818182,
- "per_band_pos": 0.0,
- "yield_band_pos": 0.742546258126708,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
+ "per_band_pos": null,
+ "yield_band_pos": 0.7668339777607408,
  "next_earn": "2027-02-03",
  "earn_disc_date": "2026-10-29",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "⚠ バリュートラップ注意：買い時が高い（91）のに質が低め（選定67）。安さの理由を確認"
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
+  "⚠ バリュートラップ注意：買い時が高い（99）のに質が低め（選定66）。安さの理由を確認"
  ],
  "roa": 1.83,
  "leverage": 2.8,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：買い時が高い（91）のに質が低め（選定67）。安さの理由を確認"
+   "t": "バリュートラップ注意：買い時が高い（99）のに質が低め（選定66）。安さの理由を確認"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-19T02:59:40"
+ "_generated_at": "2026-11-20T02:52:03"
 }

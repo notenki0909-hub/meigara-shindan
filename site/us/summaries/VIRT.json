@@ -1,64 +1,77 @@
 {
  "code": "VIRT",
- "name": "Virtu Financial, Inc.",
- "asof": "2026-11-19",
- "data_fetched_at": "2026-11-19T03:32:22",
- "gics_sector": "Financials",
- "industry": "Capital Markets",
+ "name": "VIRT",
+ "asof": "2026-11-20",
+ "data_fetched_at": "2026-11-20T03:23:06",
+ "gics_sector": "Industrials",
+ "industry": "",
  "is_simple": false,
  "is_reit": false,
  "price": 56.93000030517578,
  "price_date": "2026-11-18",
- "mcap": 12339353600,
- "sel_score": 75.5,
- "tim_score": 56.7,
+ "mcap": null,
+ "sel_score": 72.1,
+ "tim_score": 41.0,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "選定は中位、買い時は最下位（割高水準）。",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は中位、買い時は最下位（割高水準）。",
  "cov_sel": [
-  17,
+  15,
   17,
   "高"
  ],
  "cov_tim": [
+  3,
   6,
-  6,
-  "高"
+  "低"
  ],
  "groups": {
   "業績": 109.0,
   "財務": 29.1,
   "キャッシュフロー": 97.0,
-  "配当の持続力": 75.1,
+  "配当の持続力": 64.0,
   "配当利回りセオリー": 40.0,
   "利回り水準とChowder": 42.5,
-  "株価バリュエーション": 105.3,
+  "株価バリュエーション": null,
   "金利スプレッド": null
  },
  "div_yield": 1.68628138916894,
- "total_yield": 3.2289878077612397,
+ "total_yield": null,
  "streak_up": 0,
  "streak_flat": 11,
- "payout_ni": 14.099999999999998,
- "roe": 57.025999999999996,
+ "payout_ni": 18.67704280155642,
+ "roe": null,
  "chowder": 1.68628138916894,
  "dgr5": 0.0,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 76.798633506783,
  "interest_coverage": 2.402433913831351,
- "per_vs_sector": 0.48322341040462424,
- "pbr_vs_sector": 1.00211228,
- "per_band_pos": 0.8498255943471943,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
+ "per_band_pos": null,
  "yield_band_pos": 0.0,
  "next_earn": "2027-02-04",
  "earn_disc_date": "2026-11-05",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "warnings": [],
+ "warnings": [
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
+  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）",
+  "⚠ 自己資本比率が10%未満（7.9%）"
+ ],
  "roa": 2.32,
  "leverage": 12.74,
- "insight_flags": [],
- "kind": "fin",
- "_generated_at": "2026-11-19T03:32:25"
+ "insight_flags": [
+  {
+   "k": "lev_roe",
+   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+  },
+  {
+   "k": "low_equity",
+   "t": "自己資本比率が10%未満（7.9%）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-11-20T03:23:08"
 }

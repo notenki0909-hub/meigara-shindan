@@ -1,78 +1,77 @@
 {
  "code": "WY",
- "name": "Weyerhaeuser Company",
- "asof": "2026-11-19",
- "data_fetched_at": "2026-11-19T03:34:42",
- "gics_sector": "Real Estate",
- "industry": "REIT - Specialty",
- "is_simple": true,
- "is_reit": true,
- "price": 20.049999237060547,
- "price_date": "2026-11-18",
- "mcap": 14442896384,
- "sel_score": 38.3,
- "tim_score": 91.7,
+ "name": "WY",
+ "asof": "2026-11-20",
+ "data_fetched_at": "2026-11-20T03:25:15",
+ "gics_sector": "Industrials",
+ "industry": "",
+ "is_simple": false,
+ "is_reit": false,
+ "price": 19.540000915527344,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "sel_score": 46.7,
+ "tim_score": 86.2,
  "sel_label": "選定スコア基準未達",
  "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "選定スコアが基準を大きく下回る水準。",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定スコアが基準を大きく下回る水準。",
  "cov_sel": [
-  6,
-  6,
-  "高"
+  14,
+  17,
+  "中"
  ],
  "cov_tim": [
-  7,
-  7,
-  "高"
+  3,
+  6,
+  "低"
  ],
  "groups": {
-  "業績": null,
-  "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 58.3,
-  "配当利回りセオリー": 97.9,
-  "利回り水準とChowder": 64.0,
-  "株価バリュエーション": 106.1,
-  "金利スプレッド": 99.7,
-  "REIT品質": 29.7
+  "業績": 35.3,
+  "財務": 69.1,
+  "キャッシュフロー": 60.0,
+  "配当の持続力": 30.7,
+  "配当利回りセオリー": 100.1,
+  "利回り水準とChowder": 64.3,
+  "株価バリュエーション": null,
+  "金利スプレッド": null
  },
- "div_yield": 4.189526343957852,
- "total_yield": 5.297337379542444,
+ "div_yield": 4.29887390298175,
+ "total_yield": null,
  "streak_up": 0,
  "streak_flat": 6,
- "payout_ni": 133.32999999999998,
- "roe": 4.814,
- "chowder": -3.30412903760545,
+ "payout_ni": 186.66666666666666,
+ "roe": null,
+ "chowder": -3.194781478581552,
  "dgr5": -7.493655381563302,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": 1.9523809523809523,
- "per_vs_sector": 0.7453254332552693,
- "pbr_vs_sector": 0.5131551666666666,
- "per_band_pos": 0.5996476823434411,
- "yield_band_pos": 0.5788957232250137,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
+ "per_band_pos": null,
+ "yield_band_pos": 0.6026172245025518,
  "next_earn": "2027-01-28",
  "earn_disc_date": "2026-10-29",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
-  "⚠ 配当性向が100%超（133%：純利益を上回る配当）",
-  "⚠ バリュートラップ注意：買い時が高い（92）のに質が低め（選定38）。安さの理由を確認"
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
+  "⚠ 配当性向が100%超（187%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（86）のに質が低め（選定47）。安さの理由を確認"
  ],
  "roa": 1.95,
  "leverage": 1.76,
  "insight_flags": [
   {
    "k": "payout",
-   "t": "配当性向が100%超（133%：純利益を上回る配当）"
+   "t": "配当性向が100%超（187%：純利益を上回る配当）"
   },
   {
    "k": "trap",
-   "t": "バリュートラップ注意：買い時が高い（92）のに質が低め（選定38）。安さの理由を確認"
+   "t": "バリュートラップ注意：買い時が高い（86）のに質が低め（選定47）。安さの理由を確認"
   }
  ],
- "kind": "fin",
- "_generated_at": "2026-11-19T03:34:45"
+ "kind": "gen",
+ "_generated_at": "2026-11-20T03:25:17"
 }

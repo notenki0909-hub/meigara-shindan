@@ -1,67 +1,77 @@
 {
  "code": "USB",
- "name": "U.S. Bancorp",
- "asof": "2026-11-19",
- "data_fetched_at": "2026-11-19T03:31:50",
- "gics_sector": "Financials",
- "industry": "Banks - Regional",
- "is_simple": true,
+ "name": "USB",
+ "asof": "2026-11-20",
+ "data_fetched_at": "2026-11-20T03:22:35",
+ "gics_sector": "Industrials",
+ "industry": "",
+ "is_simple": false,
  "is_reit": false,
- "price": 58.279998779296875,
- "price_date": "2026-11-18",
- "mcap": 90812407808,
- "sel_score": 91.1,
- "tim_score": 80.6,
+ "price": 57.2599983215332,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "sel_score": 89.0,
+ "tim_score": 71.7,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "選定は上位水準だが、買い時は下位（やや割高水準）。",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は上位水準だが、買い時は下位（やや割高水準）。",
  "cov_sel": [
-  6,
-  6,
-  "高"
+  12,
+  17,
+  "中"
  ],
  "cov_tim": [
+  3,
   6,
-  6,
-  "高"
+  "低"
  ],
  "groups": {
-  "業績": null,
-  "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 88.4,
-  "配当利回りセオリー": 68.2,
-  "利回り水準とChowder": 80.7,
-  "株価バリュエーション": 103.9,
-  "金利スプレッド": null,
-  "金融品質": 92.3
+  "業績": 102.6,
+  "財務": 75.1,
+  "キャッシュフロー": 102.9,
+  "配当の持続力": 81.9,
+  "配当利回りセオリー": 66.2,
+  "利回り水準とChowder": 80.4,
+  "株価バリュエーション": null,
+  "金利スプレッド": null
  },
- "div_yield": 3.7062457879928936,
- "total_yield": 4.24471846127986,
+ "div_yield": 3.6674817700968627,
+ "total_yield": null,
  "streak_up": 3,
  "streak_flat": 17,
- "payout_ni": 40.86,
- "roe": 12.843001000000001,
- "chowder": 7.6657446087481524,
+ "payout_ni": 45.45454545454545,
+ "roe": null,
+ "chowder": 7.626980590852121,
  "dgr5": 3.9594988207552584,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 43.939774153074026,
  "interest_coverage": null,
- "per_vs_sector": 0.6657679768786127,
- "pbr_vs_sector": 0.6092888000000001,
- "per_band_pos": 0.5192705896266598,
- "yield_band_pos": 0.28233087159295034,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
+ "per_band_pos": null,
+ "yield_band_pos": 0.26249349450654325,
  "next_earn": "2027-01-19",
  "earn_disc_date": "2026-10-15",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
+  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）",
+  "⚠ 自己資本比率が10%未満（9.4%）"
  ],
  "roa": 1.09,
  "leverage": 10.62,
- "insight_flags": [],
- "kind": "fin",
- "_generated_at": "2026-11-19T03:31:53"
+ "insight_flags": [
+  {
+   "k": "lev_roe",
+   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+  },
+  {
+   "k": "low_equity",
+   "t": "自己資本比率が10%未満（9.4%）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-11-20T03:22:37"
 }

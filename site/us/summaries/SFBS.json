@@ -1,67 +1,72 @@
 {
  "code": "SFBS",
- "name": "ServisFirst Bancshares, Inc.",
- "asof": "2026-11-19",
- "data_fetched_at": "2026-11-19T03:26:59",
- "gics_sector": "Financials",
- "industry": "Banks - Regional",
- "is_simple": true,
+ "name": "SFBS",
+ "asof": "2026-11-20",
+ "data_fetched_at": "2026-11-20T03:18:03",
+ "gics_sector": "Industrials",
+ "industry": "",
+ "is_simple": false,
  "is_reit": false,
  "price": 40.16999816894531,
  "price_date": "2026-11-18",
- "mcap": 4392165376,
- "sel_score": 89.7,
- "tim_score": 100.8,
+ "mcap": null,
+ "sel_score": 100.7,
+ "tim_score": 98.7,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "選定・買い時とも上位水準。",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定・買い時とも上位水準。",
  "cov_sel": [
-  5,
-  6,
+  12,
+  17,
   "中"
  ],
  "cov_tim": [
+  3,
   6,
-  6,
-  "高"
+  "低"
  ],
  "groups": {
-  "業績": null,
-  "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 97.3,
+  "業績": 97.6,
+  "財務": 109.8,
+  "キャッシュフロー": 103.3,
+  "配当の持続力": 94.2,
   "配当利回りセオリー": 105.0,
   "利回り水準とChowder": 88.7,
-  "株価バリュエーション": 107.3,
-  "金利スプレッド": null,
-  "金融品質": 86.4
+  "株価バリュエーション": null,
+  "金利スプレッド": null
  },
  "div_yield": 1.8919592597530712,
  "total_yield": null,
  "streak_up": 12,
  "streak_flat": 12,
- "payout_ni": 24.280001000000002,
- "roe": 17.934,
+ "payout_ni": 30.03952569169961,
+ "roe": null,
  "chowder": 14.755351437327311,
  "dgr5": 12.86339217757424,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 20.966028660186392,
  "interest_coverage": null,
- "per_vs_sector": 0.7418419075144508,
- "pbr_vs_sector": 0.8625724,
- "per_band_pos": 1.0,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
+ "per_band_pos": null,
  "yield_band_pos": 0.7994761519436421,
  "next_earn": "2027-01-19",
  "earn_disc_date": "2026-10-19",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
+  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
  ],
  "roa": 1.56,
  "leverage": 9.58,
- "insight_flags": [],
- "kind": "fin",
- "_generated_at": "2026-11-19T03:27:02"
+ "insight_flags": [
+  {
+   "k": "lev_roe",
+   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-11-20T03:18:05"
 }

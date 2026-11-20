@@ -1,71 +1,72 @@
 {
  "code": "VAC",
- "name": "Marriott Vacations Worldwide Corporation",
- "asof": "2026-11-19",
- "data_fetched_at": "2026-11-19T03:32:09",
- "gics_sector": "Consumer Discretionary",
- "industry": "Resorts & Casinos",
+ "name": "VAC",
+ "asof": "2026-11-20",
+ "data_fetched_at": "2026-11-20T03:22:53",
+ "gics_sector": "Industrials",
+ "industry": "",
  "is_simple": false,
  "is_reit": false,
- "price": 116.33000183105469,
- "price_date": "2026-11-18",
- "mcap": 4003957760,
- "sel_score": 62.5,
- "tim_score": 100.7,
+ "price": 109.4800033569336,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "sel_score": 64.0,
+ "tim_score": 101.1,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
  "cov_sel": [
-  15,
+  12,
   17,
-  "高"
+  "中"
  ],
  "cov_tim": [
-  4,
+  3,
   6,
-  "中"
+  "低"
  ],
  "groups": {
   "業績": 89.2,
   "財務": 26.1,
   "キャッシュフロー": 60.0,
-  "配当の持続力": 71.5,
-  "配当利回りセオリー": 95.3,
-  "利回り水準とChowder": 101.7,
-  "株価バリュエーション": 110.0,
+  "配当の持続力": 76.7,
+  "配当利回りセオリー": 99.3,
+  "利回り水準とChowder": 104.0,
+  "株価バリュエーション": null,
   "金利スプレッド": null
  },
- "div_yield": 2.750795108425546,
- "total_yield": 4.274287703911868,
+ "div_yield": 2.9229082041285284,
+ "total_yield": null,
  "streak_up": 5,
  "streak_flat": 5,
- "payout_ni": 69.15,
- "roe": -10.908,
- "chowder": 45.22396940695204,
+ "payout_ni": null,
+ "roe": null,
+ "chowder": 45.39608250265501,
  "dgr5": 42.47317429852649,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": -0.7692307692307693,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.20538561956521742,
+ "pbr_vs_sector": null,
  "per_band_pos": null,
- "yield_band_pos": 0.55293175814652,
+ "yield_band_pos": 0.5933034334518444,
  "next_earn": "2027-02-24",
  "earn_disc_date": "2026-11-04",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "⚠ バリュートラップ注意：買い時が高い（101）のに質が低め（選定62）。安さの理由を確認"
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
+  "⚠ バリュートラップ注意：買い時が高い（101）のに質が低め（選定64）。安さの理由を確認"
  ],
  "roa": -3.16,
  "leverage": 4.9,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：買い時が高い（101）のに質が低め（選定62）。安さの理由を確認"
+   "t": "バリュートラップ注意：買い時が高い（101）のに質が低め（選定64）。安さの理由を確認"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-19T03:32:11"
+ "_generated_at": "2026-11-20T03:22:55"
 }

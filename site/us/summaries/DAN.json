@@ -1,63 +1,64 @@
 {
  "code": "DAN",
- "name": "Dana Incorporated",
- "asof": "2026-11-19",
- "data_fetched_at": "2026-11-19T03:04:10",
- "gics_sector": "Consumer Discretionary",
- "industry": "Auto Parts",
+ "name": "DAN",
+ "asof": "2026-11-20",
+ "data_fetched_at": "2026-11-20T02:56:17",
+ "gics_sector": "Industrials",
+ "industry": "",
  "is_simple": false,
  "is_reit": false,
- "price": 23.90999984741211,
- "price_date": "2026-11-18",
- "mcap": 2387116544,
- "sel_score": 56.0,
- "tim_score": 85.6,
+ "price": 23.809999465942383,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "sel_score": 55.1,
+ "tim_score": 77.9,
  "sel_label": "選定スコア下位（質に不安）",
- "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "選定スコアが基準未達の水準。",
+ "tim_label": "買い時スコア下位（やや割高水準）",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定・買い時とも下位水準。",
  "cov_sel": [
-  16,
+  14,
   17,
-  "高"
+  "中"
  ],
  "cov_tim": [
-  4,
+  3,
   6,
-  "中"
+  "低"
  ],
  "groups": {
   "業績": 35.6,
   "財務": 34.0,
   "キャッシュフロー": 103.3,
-  "配当の持続力": 71.1,
-  "配当利回りセオリー": 91.8,
-  "利回り水準とChowder": 55.4,
-  "株価バリュエーション": 110.0,
+  "配当の持続力": 68.1,
+  "配当利回りセオリー": 92.1,
+  "利回り水準とChowder": 55.5,
+  "株価バリュエーション": null,
   "金利スプレッド": null
  },
- "div_yield": 2.0075282436773105,
- "total_yield": 29.237032460124986,
+ "div_yield": 2.0159597260243025,
+ "total_yield": null,
  "streak_up": 1,
  "streak_flat": 15,
- "payout_ni": 59.699999999999996,
- "roe": -3.276,
- "chowder": 5.721257177342128,
+ "payout_ni": 75.0,
+ "roe": null,
+ "chowder": 5.72968865968912,
  "dgr5": 3.713728933664817,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 18.120805369127517,
  "interest_coverage": 0.8232044198895028,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.1530573043478261,
+ "pbr_vs_sector": null,
  "per_band_pos": null,
- "yield_band_pos": 0.5177218049905192,
+ "yield_band_pos": 0.520641190632933,
  "next_earn": "2027-02-17",
  "earn_disc_date": "2026-10-28",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
   "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）",
-  "⚠ バリュートラップ注意：買い時が高い（86）のに質が低め（選定56）。安さの理由を確認"
+  "⚠ バリュートラップ注意：買い時が高い（78）のに質が低め（選定55）。安さの理由を確認"
  ],
  "roa": 1.09,
  "leverage": 9.3,
@@ -68,9 +69,9 @@
   },
   {
    "k": "trap",
-   "t": "バリュートラップ注意：買い時が高い（86）のに質が低め（選定56）。安さの理由を確認"
+   "t": "バリュートラップ注意：買い時が高い（78）のに質が低め（選定55）。安さの理由を確認"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-19T03:04:12"
+ "_generated_at": "2026-11-20T02:56:19"
 }

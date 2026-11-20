@@ -1,62 +1,64 @@
 {
  "code": "UPBD",
- "name": "Upbound Group, Inc.",
- "asof": "2026-11-19",
- "data_fetched_at": "2026-11-19T03:31:41",
- "gics_sector": "Information Technology",
- "industry": "Software - Application",
+ "name": "UPBD",
+ "asof": "2026-11-20",
+ "data_fetched_at": "2026-11-20T03:22:26",
+ "gics_sector": "Industrials",
+ "industry": "",
  "is_simple": false,
  "is_reit": false,
- "price": 26.3799991607666,
- "price_date": "2026-11-18",
- "mcap": 1538016768,
- "sel_score": 74.3,
- "tim_score": 107.5,
+ "price": 24.8700008392334,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "sel_score": 68.4,
+ "tim_score": 107.9,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
  "cov_sel": [
-  17,
+  15,
   17,
   "高"
  ],
  "cov_tim": [
-  5,
+  3,
   6,
-  "中"
+  "低"
  ],
  "groups": {
-  "業績": 82.4,
+  "業績": 87.2,
   "財務": 45.7,
   "キャッシュフロー": 103.3,
-  "配当の持続力": 78.1,
-  "配当利回りセオリー": 104.6,
+  "配当の持続力": 53.8,
+  "配当利回りセオリー": 106.6,
   "利回り水準とChowder": 110.0,
-  "株価バリュエーション": 110.0,
+  "株価バリュエーション": null,
   "金利スプレッド": null
  },
- "div_yield": 5.9135710751655175,
- "total_yield": 5.9135710751655175,
+ "div_yield": 6.272617399911942,
+ "total_yield": null,
  "streak_up": 0,
  "streak_flat": 7,
- "payout_ni": 82.11,
- "roe": 15.498000000000001,
- "chowder": 50.13736569400733,
+ "payout_ni": 120.0,
+ "roe": null,
+ "chowder": 50.49641201875375,
  "dgr5": 44.22379461884181,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 36.80856946562327,
  "interest_coverage": 1.9567268543104974,
- "per_vs_sector": 0.35418905612244894,
- "pbr_vs_sector": 0.15301232835820894,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "per_band_pos": null,
- "yield_band_pos": 0.7852830888876131,
+ "yield_band_pos": 0.8640366928149938,
  "next_earn": "2027-02-18",
  "earn_disc_date": "2026-10-29",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
+  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）",
+  "⚠ 配当性向が100%超（120%：純利益を上回る配当）"
  ],
  "roa": 2.24,
  "leverage": 4.71,
@@ -64,8 +66,12 @@
   {
    "k": "lev_roe",
    "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+  },
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（120%：純利益を上回る配当）"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-19T03:31:44"
+ "_generated_at": "2026-11-20T03:22:29"
 }

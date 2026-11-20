@@ -1,71 +1,66 @@
 {
  "code": "WKC",
- "name": "World Kinect Corporation",
- "asof": "2026-11-19",
- "data_fetched_at": "2026-11-19T03:33:50",
- "gics_sector": "Energy",
- "industry": "Oil & Gas Refining & Marketing",
+ "name": "WKC",
+ "asof": "2026-11-20",
+ "data_fetched_at": "2026-11-20T03:24:30",
+ "gics_sector": "Industrials",
+ "industry": "",
  "is_simple": false,
  "is_reit": false,
- "price": 36.65999984741211,
- "price_date": "2026-11-18",
- "mcap": 1875218432,
- "sel_score": 73.0,
- "tim_score": 102.8,
+ "price": 36.279998779296875,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "sel_score": 77.4,
+ "tim_score": 99.9,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
  "cov_sel": [
-  16,
+  13,
   17,
-  "高"
- ],
- "cov_tim": [
-  4,
-  6,
   "中"
  ],
+ "cov_tim": [
+  3,
+  6,
+  "低"
+ ],
  "groups": {
-  "業績": 52.8,
+  "業績": 48.6,
   "財務": 82.0,
   "キャッシュフロー": 103.3,
-  "配当の持続力": 68.7,
-  "配当利回りセオリー": 104.1,
-  "利回り水準とChowder": 98.5,
-  "株価バリュエーション": 105.7,
+  "配当の持続力": 87.3,
+  "配当利回りセオリー": 101.9,
+  "利回り水準とChowder": 96.6,
+  "株価バリュエーション": null,
   "金利スプレッド": null
  },
- "div_yield": 2.5095472008436035,
- "total_yield": 7.0423524756586495,
+ "div_yield": 2.370452119449237,
+ "total_yield": null,
  "streak_up": 3,
  "streak_flat": 32,
- "payout_ni": 219.34999999999997,
- "roe": -11.41,
- "chowder": 16.504637456709077,
+ "payout_ni": null,
+ "roe": null,
+ "chowder": 16.36554237531471,
  "dgr5": 13.995090255865472,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 18.169819621645402,
  "interest_coverage": -5.604464285714286,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.7723455789473684,
+ "pbr_vs_sector": null,
  "per_band_pos": null,
- "yield_band_pos": 0.7638667293423922,
+ "yield_band_pos": 0.677192101821977,
  "next_earn": "2027-02-18",
  "earn_disc_date": "2026-10-29",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "⚠ 配当性向が100%超（219%：純利益を上回る配当）"
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。"
  ],
  "roa": -10.48,
  "leverage": 4.51,
- "insight_flags": [
-  {
-   "k": "payout",
-   "t": "配当性向が100%超（219%：純利益を上回る配当）"
-  }
- ],
+ "insight_flags": [],
  "kind": "gen",
- "_generated_at": "2026-11-19T03:33:53"
+ "_generated_at": "2026-11-20T03:24:32"
 }

@@ -1,67 +1,77 @@
 {
  "code": "GLPI",
- "name": "Gaming and Leisure Properties, Inc.",
- "asof": "2026-11-19",
- "data_fetched_at": "2026-11-19T03:09:38",
- "gics_sector": "Real Estate",
- "industry": "REIT - Specialty",
- "is_simple": true,
- "is_reit": true,
+ "name": "GLPI",
+ "asof": "2026-11-20",
+ "data_fetched_at": "2026-11-20T03:01:34",
+ "gics_sector": "Industrials",
+ "industry": "",
+ "is_simple": false,
+ "is_reit": false,
  "price": 38.43000030517578,
  "price_date": "2026-11-18",
- "mcap": 11505804288,
- "sel_score": 83.8,
- "tim_score": 109.7,
+ "mcap": null,
+ "sel_score": 75.4,
+ "tim_score": 105.8,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
  "cov_sel": [
-  6,
-  6,
+  15,
+  17,
   "高"
  ],
  "cov_tim": [
-  7,
-  7,
-  "高"
+  3,
+  6,
+  "低"
  ],
  "groups": {
-  "業績": null,
-  "財務": null,
-  "キャッシュフロー": null,
-  "配当の持続力": 87.8,
+  "業績": 103.8,
+  "財務": 61.9,
+  "キャッシュフロー": 84.1,
+  "配当の持続力": 56.7,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 110.0,
-  "株価バリュエーション": 108.7,
-  "金利スプレッド": 110.0,
-  "REIT品質": 82.1
+  "利回り水準とChowder": 99.1,
+  "株価バリュエーション": null,
+  "金利スプレッド": null
  },
- "div_yield": 8.534998631156,
- "total_yield": 8.534998631156,
+ "div_yield": 8.326827932835123,
+ "total_yield": null,
  "streak_up": 6,
  "streak_flat": 6,
- "payout_ni": 97.56,
- "roe": 18.691999,
- "chowder": 11.034611758741022,
+ "payout_ni": 108.47457627118644,
+ "roe": null,
+ "chowder": 10.826441060420144,
  "dgr5": 2.499613127585021,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 105.68478521747353,
  "interest_coverage": 3.280364607990243,
- "per_vs_sector": 0.2743902576112412,
- "pbr_vs_sector": 0.7521136666666667,
- "per_band_pos": 1.0,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
+ "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2027-02-18",
  "earn_disc_date": "2026-10-29",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。"
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
+  "⚠ FCF配当性向が100%超（106%：フリーCFで配当を賄えていない）",
+  "⚠ 配当性向が100%超（108%：純利益を上回る配当）"
  ],
  "roa": 6.39,
  "leverage": 2.79,
- "insight_flags": [],
- "kind": "fin",
- "_generated_at": "2026-11-19T03:09:41"
+ "insight_flags": [
+  {
+   "k": "fcf_payout",
+   "t": "FCF配当性向が100%超（106%：フリーCFで配当を賄えていない）"
+  },
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（108%：純利益を上回る配当）"
+  }
+ ],
+ "kind": "gen",
+ "_generated_at": "2026-11-20T03:01:37"
 }

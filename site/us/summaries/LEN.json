@@ -1,55 +1,55 @@
 {
  "code": "LEN",
- "name": "Lennar Corporation",
- "asof": "2026-11-19",
- "data_fetched_at": "2026-11-19T03:15:28",
- "gics_sector": "Consumer Discretionary",
- "industry": "Residential Construction",
+ "name": "LEN",
+ "asof": "2026-11-20",
+ "data_fetched_at": "2026-11-20T03:07:11",
+ "gics_sector": "Industrials",
+ "industry": "",
  "is_simple": false,
  "is_reit": false,
- "price": 82.91000366210938,
- "price_date": "2026-11-18",
- "mcap": 19724310528,
- "sel_score": 71.1,
- "tim_score": 100.6,
+ "price": 79.93000030517578,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "sel_score": 71.2,
+ "tim_score": 105.5,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
  "cov_sel": [
-  16,
+  14,
   17,
-  "高"
+  "中"
  ],
  "cov_tim": [
+  3,
   6,
-  6,
-  "高"
+  "低"
  ],
  "groups": {
   "業績": 53.6,
   "財務": 77.1,
   "キャッシュフロー": 73.3,
-  "配当の持続力": 81.1,
+  "配当の持続力": 81.2,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 97.2,
-  "株価バリュエーション": 86.7,
+  "利回り水準とChowder": 98.4,
+  "株価バリュエーション": null,
   "金利スプレッド": null
  },
- "div_yield": 2.41225414504959,
- "total_yield": 11.580478288716854,
+ "div_yield": 2.502189406185317,
+ "total_yield": null,
  "streak_up": 0,
  "streak_flat": 18,
- "payout_ni": 37.88,
- "roe": 5.962,
- "chowder": 18.029323064547093,
+ "payout_ni": 25.062656641604008,
+ "roe": null,
+ "chowder": 18.119258325682818,
  "dgr5": 15.617068919497502,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 1848.4866763651848,
  "interest_coverage": null,
- "per_vs_sector": 0.5304949999999999,
- "pbr_vs_sector": 0.09944557608695653,
- "per_band_pos": 0.0,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
+ "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2026-12-15",
  "earn_disc_date": "2026-09-16",
@@ -60,6 +60,7 @@
   "gap": -9.181658028907902
  },
  "warnings": [
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
   "直近四半期の増収率が年次トレンドから大きく下振れ（年率+0.5%に対し直近四半期は-8.7%）、かつ営業利益/純利益も前年同期比マイナス（-33.4%）だったため、業績スコアを8%減点しています。年次決算にはまだ反映されていない直近の変化のため、最新の決算内容もあわせてご確認ください。",
   "⚠ FCF配当性向が100%超（1848%：フリーCFで配当を賄えていない）"
  ],
@@ -72,5 +73,5 @@
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-19T03:15:31"
+ "_generated_at": "2026-11-20T03:07:14"
 }

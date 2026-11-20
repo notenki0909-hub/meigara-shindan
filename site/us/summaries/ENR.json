@@ -1,54 +1,54 @@
 {
  "code": "ENR",
- "name": "Energizer Holdings, Inc.",
- "asof": "2026-11-19",
- "data_fetched_at": "2026-11-19T03:05:53",
+ "name": "ENR",
+ "asof": "2026-11-20",
+ "data_fetched_at": "2026-11-20T02:57:58",
  "gics_sector": "Industrials",
- "industry": "Electrical Equipment & Parts",
+ "industry": "",
  "is_simple": false,
  "is_reit": false,
  "price": 28.290000915527344,
  "price_date": "2026-11-18",
- "mcap": 1937115008,
- "sel_score": 59.7,
- "tim_score": 91.5,
+ "mcap": null,
+ "sel_score": 63.6,
+ "tim_score": 88.5,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "選定スコアが基準未達の水準。",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定スコアが基準未達の水準。",
  "cov_sel": [
   15,
   17,
   "高"
  ],
  "cov_tim": [
-  5,
+  3,
   6,
-  "中"
+  "低"
  ],
  "groups": {
-  "業績": 82.6,
-  "財務": 20.0,
-  "キャッシュフロー": 73.3,
-  "配当の持続力": 67.1,
+  "業績": 82.7,
+  "財務": 28.5,
+  "キャッシュフロー": 103.3,
+  "配当の持続力": 57.6,
   "配当利回りセオリー": 103.1,
   "利回り水準とChowder": 65.3,
-  "株価バリュエーション": 100.8,
+  "株価バリュエーション": null,
   "金利スプレッド": null
  },
  "div_yield": 4.241781410976781,
- "total_yield": 8.872378955756115,
+ "total_yield": null,
  "streak_up": 0,
  "streak_flat": 11,
- "payout_ni": 100.84,
- "roe": 52.918,
+ "payout_ni": 71.00591715976331,
+ "roe": null,
  "chowder": 4.241781410976781,
  "dgr5": 0.0,
  "ocf_positive": 1,
  "fcf_positive": 1,
- "fcf_payout": 137.81645569620252,
- "interest_coverage": null,
- "per_vs_sector": 0.5041702380952381,
- "pbr_vs_sector": 1.0832191641791045,
+ "fcf_payout": 37.362637362637365,
+ "interest_coverage": 1.9373020899303357,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
  "per_band_pos": null,
  "yield_band_pos": 0.7232212197230294,
  "next_earn": "2027-02-02",
@@ -56,31 +56,27 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "⚠ 自己資本比率が10%未満（3.7%）",
-  "⚠ FCF配当性向が100%超（138%：フリーCFで配当を賄えていない）",
-  "⚠ 配当性向が100%超（101%：純利益を上回る配当）",
-  "⚠ バリュートラップ注意：買い時が高い（91）のに質が低め（選定60）。安さの理由を確認"
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
+  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）",
+  "⚠ 自己資本比率が10%未満（6.1%）",
+  "⚠ バリュートラップ注意：買い時が高い（88）のに質が低め（選定64）。安さの理由を確認"
  ],
- "roa": null,
- "leverage": 26.82,
+ "roa": 2.62,
+ "leverage": 16.52,
  "insight_flags": [
   {
+   "k": "lev_roe",
+   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+  },
+  {
    "k": "low_equity",
-   "t": "自己資本比率が10%未満（3.7%）"
-  },
-  {
-   "k": "fcf_payout",
-   "t": "FCF配当性向が100%超（138%：フリーCFで配当を賄えていない）"
-  },
-  {
-   "k": "payout",
-   "t": "配当性向が100%超（101%：純利益を上回る配当）"
+   "t": "自己資本比率が10%未満（6.1%）"
   },
   {
    "k": "trap",
-   "t": "バリュートラップ注意：買い時が高い（91）のに質が低め（選定60）。安さの理由を確認"
+   "t": "バリュートラップ注意：買い時が高い（88）のに質が低め（選定64）。安さの理由を確認"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-19T03:05:55"
+ "_generated_at": "2026-11-20T02:58:01"
 }

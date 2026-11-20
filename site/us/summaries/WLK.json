@@ -1,54 +1,54 @@
 {
  "code": "WLK",
- "name": "Westlake Corporation",
- "asof": "2026-11-19",
- "data_fetched_at": "2026-11-19T03:33:55",
- "gics_sector": "Materials",
- "industry": "Specialty Chemicals",
+ "name": "WLK",
+ "asof": "2026-11-20",
+ "data_fetched_at": "2026-11-20T03:24:34",
+ "gics_sector": "Industrials",
+ "industry": "",
  "is_simple": false,
  "is_reit": false,
- "price": 59.689998626708984,
- "price_date": "2026-11-18",
- "mcap": 7633571328,
- "sel_score": 58.2,
- "tim_score": 109.1,
+ "price": 59.22999954223633,
+ "price_date": "2026-11-19",
+ "mcap": null,
+ "sel_score": 64.6,
+ "tim_score": 108.8,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
  "cov_sel": [
-  15,
+  12,
   17,
-  "高"
+  "中"
  ],
  "cov_tim": [
-  4,
+  3,
   6,
-  "中"
+  "低"
  ],
  "groups": {
   "業績": 26.1,
   "財務": 61.1,
   "キャッシュフロー": 60.0,
-  "配当の持続力": 84.8,
+  "配当の持続力": 106.1,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 106.9,
-  "株価バリュエーション": 110.0,
+  "株価バリュエーション": null,
   "金利スプレッド": null
  },
- "div_yield": 3.568437006207111,
- "total_yield": 4.393738785584157,
+ "div_yield": 3.584332291757169,
+ "total_yield": null,
  "streak_up": 22,
  "streak_flat": 22,
- "payout_ni": 69.629997,
- "roe": -4.198,
- "chowder": 18.200220686960908,
+ "payout_ni": null,
+ "roe": null,
+ "chowder": 18.216115972510963,
  "dgr5": 14.631783680753795,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": -8.339181286549708,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.3040513896551724,
+ "pbr_vs_sector": null,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2027-02-23",
@@ -56,16 +56,17 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "⚠ バリュートラップ注意：買い時が高い（109）のに質が低め（選定58）。安さの理由を確認"
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
+  "⚠ バリュートラップ注意：買い時が高い（109）のに質が低め（選定65）。安さの理由を確認"
  ],
  "roa": -7.55,
  "leverage": 2.27,
  "insight_flags": [
   {
    "k": "trap",
-   "t": "バリュートラップ注意：買い時が高い（109）のに質が低め（選定58）。安さの理由を確認"
+   "t": "バリュートラップ注意：買い時が高い（109）のに質が低め（選定65）。安さの理由を確認"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-19T03:33:58"
+ "_generated_at": "2026-11-20T03:24:37"
 }

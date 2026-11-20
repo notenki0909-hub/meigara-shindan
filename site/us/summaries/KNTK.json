@@ -1,64 +1,65 @@
 {
  "code": "KNTK",
- "name": "Kinetik Holdings Inc.",
- "asof": "2026-11-19",
- "data_fetched_at": "2026-11-19T03:14:41",
- "gics_sector": "Energy",
- "industry": "Oil & Gas Midstream",
+ "name": "KNTK",
+ "asof": "2026-11-20",
+ "data_fetched_at": "2026-11-20T03:06:28",
+ "gics_sector": "Industrials",
+ "industry": "",
  "is_simple": false,
  "is_reit": false,
  "price": 53.22999954223633,
  "price_date": "2026-11-18",
- "mcap": 9114177536,
- "sel_score": 83.7,
- "tim_score": 68.9,
+ "mcap": null,
+ "sel_score": 75.7,
+ "tim_score": 56.7,
  "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "選定は中位、買い時は下位（やや割高水準）。",
+ "tim_label": "買い時スコア最下位（割高水準）",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は中位、買い時は最下位（割高水準）。",
  "cov_sel": [
-  17,
+  15,
   17,
   "高"
  ],
  "cov_tim": [
-  5,
+  3,
   6,
-  "中"
+  "低"
  ],
  "groups": {
-  "業績": 106.4,
+  "業績": 101.4,
   "財務": 84.5,
   "キャッシュフロー": 73.3,
-  "配当の持続力": 67.0,
+  "配当の持続力": 45.1,
   "配当利回りセオリー": 40.0,
   "利回り水準とChowder": 83.2,
-  "株価バリュエーション": 106.6,
+  "株価バリュエーション": null,
   "金利スプレッド": null
  },
  "div_yield": 6.086793214095676,
- "total_yield": 8.017905476335462,
+ "total_yield": null,
  "streak_up": 1,
  "streak_flat": 5,
- "payout_ni": 103.88,
- "roe": 21.384001,
+ "payout_ni": 121.80451127819549,
+ "roe": null,
  "chowder": 7.637921053843833,
  "dgr5": 1.5511278397481565,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 260.21571814262114,
  "interest_coverage": 3.5572101356085533,
- "per_vs_sector": 0.7975249074074074,
+ "per_vs_sector": null,
  "pbr_vs_sector": null,
- "per_band_pos": 0.8856162870423984,
+ "per_band_pos": null,
  "yield_band_pos": 0.0,
  "next_earn": "2027-02-24",
  "earn_disc_date": "2026-11-04",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
   "⚠ 債務超過（自己資本がマイナス）",
   "⚠ FCF配当性向が100%超（260%：フリーCFで配当を賄えていない）",
-  "⚠ 配当性向が100%超（104%：純利益を上回る配当）"
+  "⚠ 配当性向が100%超（122%：純利益を上回る配当）"
  ],
  "roa": 7.41,
  "leverage": null,
@@ -73,9 +74,9 @@
   },
   {
    "k": "payout",
-   "t": "配当性向が100%超（104%：純利益を上回る配当）"
+   "t": "配当性向が100%超（122%：純利益を上回る配当）"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-19T03:14:44"
+ "_generated_at": "2026-11-20T03:06:30"
 }
