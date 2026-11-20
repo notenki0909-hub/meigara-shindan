@@ -8,7 +8,7 @@ name: earnings-watch-us
 # の2本）と違って1本のワークフローで検知〜再取得〜期限管理を完結できる。
 on:
   schedule:
-    - cron: "20 */6 * * *"   # 6時間おき（毎時ちょうどの混雑を避けて20分ずらし）
+    - cron: "20 9,13,16 * * *"   # 日中3回。夜間更新・tdnet-watch の時間帯を避ける（earnings-retry.yml のコメント参照）。毎時ちょうどの混雑も避けて20分ずらし
   workflow_dispatch: {}
 
 permissions:

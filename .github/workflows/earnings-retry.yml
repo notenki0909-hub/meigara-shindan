@@ -1,10 +1,14 @@
 name: earnings-retry
 
-# 6時間おきに pending_earnings.json の期限到来分を再取得し、yfinance側に
+# 日中（UTC 9:15・13:15・16:15）に pending_earnings.json の期限到来分を再取得し、yfinance側に
 # 決算実績が反映されたか確認する（tdnet-watch.yml が検知した銘柄が対象）。
+# 起動時刻は、毎晩の更新（nightly 18:00 UTC＝batch_logの実績では20:30〜翌1時頃に動く日が多い／nightly-us 22:00 UTC＝同じく翌1:30〜4:40頃に終わる）と
+# tdnet-watch（平日 UTC 2:00〜8:30）の時間帯を避けている。共有の待ち行列（meigara-dividend-git-push）は
+# 「実行中1＋待機1」しか保持されず、待機中に新しい実行が来ると古い待機がキャンセルされるため。
+# （夜間は nightly が全銘柄を更新するので、夜間の再取得は不要。再取得は最大9回・各回の間隔は次の起動時刻まで空く）
 on:
   schedule:
-    - cron: "15 */6 * * *"   # 毎時ちょうどの混雑を避けて15分ずらし
+    - cron: "15 9,13,16 * * *"   # 夜間更新・tdnet-watch の時間帯を避ける（毎時ちょうどの混雑も避けて15分ずらし）
   workflow_dispatch: {}
 
 permissions:
