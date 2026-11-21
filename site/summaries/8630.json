@@ -1,15 +1,15 @@
 {
  "code": "8630",
  "name": "ＳＯＭＰＯホールディングス",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-21T00:06:48",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T23:09:32",
  "jp_sector": "保険業",
  "industry": "Insurance - Property & Casualty",
  "is_simple": true,
  "is_reit": false,
  "sel_dev": {
-  "dev": 49,
-  "rank": 7,
+  "dev": 50,
+  "rank": 6,
   "n": 11,
   "basis": "グループ",
   "name": "保険・証券"
@@ -18,17 +18,17 @@
  "price_date": "2026-11-20",
  "mcap": 6156453412864,
  "sel_score": 79.5,
- "tim_score": 62.2,
+ "tim_score": 72.9,
  "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "選定・買い時とも中位水準。",
+ "tim_label": "買い時スコア上位（割安水準）",
+ "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
  "cov_sel": [
   4,
   5,
   "中"
  ],
  "cov_tim": [
-  5,
+  4,
   6,
   "中"
  ],
@@ -39,9 +39,9 @@
   "配当の持続力": 100.4,
   "配当利回りセオリー": 40.0,
   "利回り水準とChowder": 96.5,
-  "株価バリュエーション": 63.3,
+  "株価バリュエーション": 107.0,
   "金利スプレッド": null,
-  "金融品質": 70.5
+  "金融品質": 70.6
  },
  "div_yield": 2.8595939376608523,
  "streak_up": 12,
@@ -56,8 +56,8 @@
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 21.65926989278416,
- "per_vs_sector": 1.5404753237410072,
- "pbr_vs_sector": 0.733303125,
+ "per_vs_sector": null,
+ "pbr_vs_sector": 0.721157875,
  "per_band_pos": null,
  "yield_band_pos": 0.0,
  "next_earn": "2027-02-11",
@@ -72,7 +72,21 @@
  "roa": 1.31,
  "leverage": 3.6,
  "insight_flags": [],
- "review": [],
+ "review": [
+  {
+   "k": "per",
+   "where": "PER（Yahoo表示 68.8倍）",
+   "why": "直近4四半期の純利益（3,057.1億円）から求めたPERは20.1倍で、Yahoo表示と3.4倍ずれています。Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
+   "how": "IR BANK（irbank.net/8630/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
+   "keys": [
+    "per_vs_sector",
+    "per_band_pos"
+   ],
+   "names": [
+    "益回り（1÷PER）"
+   ]
+  }
+ ],
  "kind": "fin",
- "_generated_at": "2026-11-21T00:06:51"
+ "_generated_at": "2026-11-21T23:09:35"
 }
