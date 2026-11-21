@@ -34,8 +34,8 @@
  "fcf_yield": 0.1366586719116216,
  "per_band_pos": null,
  "pbr_band_pos": 0.1865536479344686,
- "ev_ebit_vs_sector": 12.067363215390422,
- "per_vs_sector": 3.980374025974026,
+ "ev_ebit_vs_sector": 11.9401150971262,
+ "per_vs_sector": 3.576593766233766,
  "pbr_vs_sector": 2.346100277777778,
  "price_chg": {
   "d": -10.14002897151135,
@@ -67,13 +67,13 @@
   {
    "tier": "check",
    "k": "per",
-   "where": "PER（Yahoo表示 91.9倍）",
+   "where": "PER（Yahoo表示 82.6倍）",
    "why": "直近4四半期の純利益（16.1億円）から求めたPERは219.0倍で、Yahoo表示と0.4倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
    "how": "IR BANK（irbank.net/6324/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する"
   }
  ],
  "data_asof": {
-  "fetched": "2026-11-21T00:27:16Z"
+  "fetched": "2026-11-21T23:30:11Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -104,5 +104,5 @@
   "fcf_positive": 1,
   "fcf_payout": 393.6376454366682
  },
- "_generated_at": "2026-11-21T00:27:19"
+ "_generated_at": "2026-11-21T23:30:14"
 }
