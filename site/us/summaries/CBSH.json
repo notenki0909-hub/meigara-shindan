@@ -1,49 +1,50 @@
 {
  "code": "CBSH",
- "name": "CBSH",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T02:53:06",
- "gics_sector": "Industrials",
- "industry": "",
- "is_simple": false,
+ "name": "Commerce Bancshares, Inc.",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:02:28",
+ "gics_sector": "Financials",
+ "industry": "Banks - Regional",
+ "is_simple": true,
  "is_reit": false,
- "price": 53.4900016784668,
- "price_date": "2026-11-19",
- "mcap": null,
- "sel_score": 104.7,
- "tim_score": 89.8,
+ "price": 52.869998931884766,
+ "price_date": "2026-11-20",
+ "mcap": 7484101120,
+ "sel_score": 97.6,
+ "tim_score": 94.6,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は上位水準、買い時は中位（妥当水準）。",
+ "comment": "選定は上位水準、買い時は中位（妥当水準）。",
  "cov_sel": [
-  12,
-  17,
-  "中"
+  6,
+  6,
+  "高"
  ],
  "cov_tim": [
-  3,
   6,
-  "低"
+  6,
+  "高"
  ],
  "groups": {
-  "業績": 102.0,
-  "財務": 110.0,
-  "キャッシュフロー": 103.3,
-  "配当の持続力": 103.2,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "配当の持続力": 103.9,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 57.8,
-  "株価バリュエーション": null,
-  "金利スプレッド": null
+  "利回り水準とChowder": 58.7,
+  "株価バリュエーション": 108.5,
+  "金利スプレッド": null,
+  "金融品質": 94.9
  },
- "div_yield": 2.032155479325005,
- "total_yield": null,
+ "div_yield": 2.080575037304594,
+ "total_yield": 4.854014314405115,
  "streak_up": 50,
  "streak_flat": 50,
  "royalty": {
   "kind": "王",
   "years": 50,
   "asof": "2026-11-05",
-  "age": 15,
+  "age": 16,
   "fresh": true,
   "floored": true,
   "raw_up": 9,
@@ -51,34 +52,28 @@
   "warn": null,
   "hist_years": 40
  },
- "payout_ni": 26.90594059405941,
- "roe": null,
- "chowder": 6.137133599164058,
+ "payout_ni": 26.51,
+ "roe": 15.116,
+ "chowder": 6.185553157143648,
  "dgr5": 4.104978119839053,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 25.361249721466333,
  "interest_coverage": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
- "per_band_pos": null,
+ "per_vs_sector": 0.7364022254335261,
+ "pbr_vs_sector": 0.7183668,
+ "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": "2027-01-21",
  "earn_disc_date": "2026-10-20",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
  "roa": 1.72,
  "leverage": 8.68,
- "insight_flags": [
-  {
-   "k": "lev_roe",
-   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
-  }
- ],
- "kind": "gen",
- "_generated_at": "2026-11-20T02:53:08"
+ "insight_flags": [],
+ "kind": "fin",
+ "_generated_at": "2026-11-21T03:02:30"
 }

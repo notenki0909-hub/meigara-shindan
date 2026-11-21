@@ -1,54 +1,55 @@
 {
  "code": "MAC",
- "name": "MAC",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T03:08:24",
- "gics_sector": "Industrials",
- "industry": "",
- "is_simple": false,
- "is_reit": false,
- "price": 23.610000610351562,
- "price_date": "2026-11-19",
- "mcap": null,
- "sel_score": 65.6,
- "tim_score": 47.1,
- "sel_label": "選定スコア下位（質に不安）",
+ "name": "The Macerich Company",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:16:02",
+ "gics_sector": "Real Estate",
+ "industry": "REIT - Retail",
+ "is_simple": true,
+ "is_reit": true,
+ "price": 23.3700008392334,
+ "price_date": "2026-11-20",
+ "mcap": 6895492096,
+ "sel_score": 34.4,
+ "tim_score": 62.1,
+ "sel_label": "選定スコア基準未達",
  "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は下位、買い時は最下位水準。",
+ "comment": "選定・買い時とも最下位水準。",
  "cov_sel": [
-  13,
-  17,
-  "中"
+  6,
+  6,
+  "高"
  ],
  "cov_tim": [
-  3,
-  6,
-  "低"
+  5,
+  7,
+  "中"
  ],
  "groups": {
-  "業績": 104.1,
-  "財務": 40.6,
-  "キャッシュフロー": 101.3,
-  "配当の持続力": 34.2,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "配当の持続力": 44.5,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 58.4,
-  "株価バリュエーション": null,
-  "金利スプレッド": null
+  "利回り水準とChowder": 58.8,
+  "株価バリュエーション": 104.7,
+  "金利スプレッド": 65.6,
+  "REIT品質": 30.0
  },
- "div_yield": 2.880135461334385,
- "total_yield": null,
+ "div_yield": 2.9097132031695123,
+ "total_yield": 2.9097132031695123,
  "streak_up": 0,
  "streak_flat": 6,
- "payout_ni": null,
- "roe": null,
- "chowder": -7.095054327755026,
+ "payout_ni": 188.89000000000001,
+ "roe": -3.6510002,
+ "chowder": -7.065476585919899,
  "dgr5": -9.975189789089411,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 58.521660178355994,
  "interest_coverage": 0.28316792573939664,
  "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "pbr_vs_sector": 0.8125587333333333,
  "per_band_pos": null,
  "yield_band_pos": 0.0,
  "next_earn": "2027-02-18",
@@ -56,8 +57,9 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "⚠ 純損失が3期連続"
+  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
+  "⚠ 純損失が3期連続",
+  "⚠ 配当性向が100%超（189%：純利益を上回る配当）"
  ],
  "roa": -2.36,
  "leverage": 3.42,
@@ -65,8 +67,12 @@
   {
    "k": "loss3",
    "t": "純損失が3期連続"
+  },
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（189%：純利益を上回る配当）"
   }
  ],
- "kind": "gen",
- "_generated_at": "2026-11-20T03:08:26"
+ "kind": "fin",
+ "_generated_at": "2026-11-21T03:16:04"
 }

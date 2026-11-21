@@ -1,82 +1,73 @@
 {
  "code": "LNC",
- "name": "LNC",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T03:07:34",
- "gics_sector": "Industrials",
- "industry": "",
- "is_simple": false,
+ "name": "Lincoln National Corporation",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:15:18",
+ "gics_sector": "Financials",
+ "industry": "Insurance - Life",
+ "is_simple": true,
  "is_reit": false,
- "price": 41.04999923706055,
- "price_date": "2026-11-19",
- "mcap": null,
- "sel_score": 70.0,
- "tim_score": 77.6,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は中位、買い時は下位（やや割高水準）。",
+ "price": 39.68000030517578,
+ "price_date": "2026-11-20",
+ "mcap": 7555987456,
+ "sel_score": 62.4,
+ "tim_score": 87.2,
+ "sel_label": "選定スコア下位（質に不安）",
+ "tim_label": "買い時スコア中位（妥当水準）",
+ "comment": "選定スコアが基準未達の水準。",
  "cov_sel": [
-  13,
-  17,
-  "中"
+  6,
+  6,
+  "高"
  ],
  "cov_tim": [
-  3,
   6,
-  "低"
+  6,
+  "高"
  ],
  "groups": {
-  "業績": 68.3,
-  "財務": 98.8,
-  "キャッシュフロー": 20.0,
-  "配当の持続力": 70.8,
-  "配当利回りセオリー": 80.3,
-  "利回り水準とChowder": 73.5,
-  "株価バリュエーション": null,
-  "金利スプレッド": null
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "配当の持続力": 82.6,
+  "配当利回りセオリー": 83.7,
+  "利回り水準とChowder": 74.6,
+  "株価バリュエーション": 108.8,
+  "金利スプレッド": null,
+  "金融品質": 53.8
  },
- "div_yield": 4.3848965492182845,
- "total_yield": null,
+ "div_yield": 4.536290287692391,
+ "total_yield": 4.536290287692391,
  "streak_up": 0,
  "streak_flat": 17,
- "payout_ni": 30.303030303030305,
- "roe": null,
- "chowder": 5.774317950684735,
+ "payout_ni": 10.99,
+ "roe": 33.337002999999996,
+ "chowder": 5.925711689158842,
  "dgr5": 1.3894214014664508,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": 6.894273127753304,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
- "per_band_pos": null,
- "yield_band_pos": 0.4026335031438503,
+ "per_vs_sector": 0.14002696531791908,
+ "pbr_vs_sector": 0.340776372,
+ "per_band_pos": 0.851209362091696,
+ "yield_band_pos": 0.4373270745697502,
  "next_earn": "2027-02-18",
  "earn_disc_date": "2026-11-05",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）",
-  "⚠ 営業キャッシュフローが2期連続マイナス",
-  "⚠ 自己資本比率が10%未満（2.6%）"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。",
+  "⚠ バリュートラップ注意：買い時が高い（87）のに質が低め（選定62）。安さの理由を確認"
  ],
  "roa": 0.28,
  "leverage": 38.25,
  "insight_flags": [
   {
-   "k": "lev_roe",
-   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
-  },
-  {
-   "k": "ocf_neg",
-   "t": "営業キャッシュフローが2期連続マイナス"
-  },
-  {
-   "k": "low_equity",
-   "t": "自己資本比率が10%未満（2.6%）"
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（87）のに質が低め（選定62）。安さの理由を確認"
   }
  ],
- "kind": "gen",
- "_generated_at": "2026-11-20T03:07:37"
+ "kind": "fin",
+ "_generated_at": "2026-11-21T03:15:21"
 }

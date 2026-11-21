@@ -1,54 +1,54 @@
 {
  "code": "KHC",
- "name": "KHC",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T03:06:01",
- "gics_sector": "Industrials",
- "industry": "",
+ "name": "The Kraft Heinz Company",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:13:54",
+ "gics_sector": "Consumer Staples",
+ "industry": "Packaged Foods",
  "is_simple": false,
  "is_reit": false,
- "price": 25.440000534057617,
- "price_date": "2026-11-18",
- "mcap": null,
- "sel_score": 76.8,
- "tim_score": 97.0,
+ "price": 25.389999389648438,
+ "price_date": "2026-11-20",
+ "mcap": 30057416704,
+ "sel_score": 79.1,
+ "tim_score": 102.0,
  "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定・買い時とも中位水準。",
+ "tim_label": "買い時スコア上位（割安水準）",
+ "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
  "cov_sel": [
-  13,
+  16,
   17,
-  "中"
+  "高"
  ],
  "cov_tim": [
-  3,
-  6,
-  "低"
+  5,
+  7,
+  "中"
  ],
  "groups": {
-  "業績": 95.0,
+  "業績": 93.3,
   "財務": 75.5,
   "キャッシュフロー": 102.0,
-  "配当の持続力": 48.4,
+  "配当の持続力": 57.7,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 76.4,
-  "株価バリュエーション": null,
-  "金利スプレッド": null
+  "利回り水準とChowder": 76.5,
+  "株価バリュエーション": 110.0,
+  "金利スプレッド": 110.0
  },
- "div_yield": 6.289308044070249,
- "total_yield": null,
+ "div_yield": 6.3016937316364166,
+ "total_yield": 7.752250857997771,
  "streak_up": 0,
  "streak_flat": 7,
- "payout_ni": null,
- "roe": null,
- "chowder": 6.289308044070249,
+ "payout_ni": 73.06,
+ "roe": -8.953,
+ "chowder": 6.3016937316364166,
  "dgr5": 0.0,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 51.84375853591915,
  "interest_coverage": -4.74973600844773,
  "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "pbr_vs_sector": 0.1266116893939394,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2027-02-10",
@@ -56,11 +56,16 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。"
+  "⚠ バリュートラップ注意：PBR 0.84倍（1倍割れ）かつROE -14.0%（5%未満）"
  ],
  "roa": -7.15,
  "leverage": 1.96,
- "insight_flags": [],
+ "insight_flags": [
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：PBR 0.84倍（1倍割れ）かつROE -14.0%（5%未満）"
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-20T03:06:03"
+ "_generated_at": "2026-11-21T03:13:56"
 }

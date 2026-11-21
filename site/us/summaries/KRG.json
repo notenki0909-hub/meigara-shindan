@@ -1,71 +1,73 @@
 {
  "code": "KRG",
- "name": "KRG",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T03:06:46",
- "gics_sector": "Industrials",
- "industry": "",
- "is_simple": false,
- "is_reit": false,
- "price": 24.729999542236328,
- "price_date": "2026-11-19",
- "mcap": null,
- "sel_score": 81.0,
- "tim_score": 110.0,
- "sel_label": "選定スコア中位（一部に弱点）",
+ "name": "Kite Realty Group Trust",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:14:35",
+ "gics_sector": "Real Estate",
+ "industry": "REIT - Retail",
+ "is_simple": true,
+ "is_reit": true,
+ "price": 24.610000610351562,
+ "price_date": "2026-11-20",
+ "mcap": 5002584576,
+ "sel_score": 67.7,
+ "tim_score": 108.5,
+ "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
+ "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
  "cov_sel": [
-  14,
-  17,
-  "中"
+  6,
+  6,
+  "高"
  ],
  "cov_tim": [
-  3,
   6,
-  "低"
+  7,
+  "高"
  ],
  "groups": {
-  "業績": 96.6,
-  "財務": 72.3,
-  "キャッシュフロー": 93.3,
-  "配当の持続力": 68.1,
-  "配当利回りセオリー": 110.0,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "配当の持続力": 90.2,
+  "配当利回りセオリー": 109.1,
   "利回り水準とChowder": 110.0,
-  "株価バリュエーション": null,
-  "金利スプレッド": null
+  "株価バリュエーション": 110.0,
+  "金利スプレッド": 103.4,
+  "REIT品質": 58.1
  },
- "div_yield": 5.276991605969068,
- "total_yield": null,
+ "div_yield": 4.713530968024746,
+ "total_yield": 9.69699493974911,
  "streak_up": 6,
  "streak_flat": 6,
- "payout_ni": 95.25547445255474,
- "roe": null,
- "chowder": 19.20232804470315,
+ "payout_ni": 70.809996,
+ "roe": 11.343,
+ "chowder": 18.638867406758827,
  "dgr5": 13.925336438734082,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 85.16967160566749,
  "interest_coverage": 3.308054941656547,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "per_vs_sector": 0.3579792505854801,
+ "pbr_vs_sector": 0.5921274333333334,
  "per_band_pos": null,
- "yield_band_pos": 1.0,
+ "yield_band_pos": 0.9633539235602413,
  "next_earn": "2027-02-16",
  "earn_disc_date": "2026-10-30",
- "quarter_decel_factor": 0.9220776865336707,
- "quarter_decel_detail": {
-  "rev_yoy_q": -7.165265587111691,
-  "profit_yoy_q": -6.216891977793793,
-  "gap": -8.896115673316462
- },
+ "quarter_decel_factor": null,
+ "quarter_decel_detail": null,
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "直近四半期の増収率が年次トレンドから大きく下振れ（年率+1.7%に対し直近四半期は-7.2%）、かつ営業利益/純利益も前年同期比マイナス（-6.2%）だったため、業績スコアを8%減点しています。年次決算にはまだ反映されていない直近の変化のため、最新の決算内容もあわせてご確認ください。"
+  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
+  "⚠ バリュートラップ注意：買い時が高い（108）のに質が低め（選定68）。安さの理由を確認"
  ],
  "roa": 4.48,
  "leverage": 2.17,
- "insight_flags": [],
- "kind": "gen",
- "_generated_at": "2026-11-20T03:06:48"
+ "insight_flags": [
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（108）のに質が低め（選定68）。安さの理由を確認"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-11-21T03:14:37"
 }

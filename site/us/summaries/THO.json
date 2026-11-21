@@ -1,66 +1,71 @@
 {
  "code": "THO",
- "name": "THO",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T03:20:46",
- "gics_sector": "Industrials",
- "industry": "",
+ "name": "THOR Industries, Inc.",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:27:24",
+ "gics_sector": "Consumer Discretionary",
+ "industry": "Recreational Vehicles",
  "is_simple": false,
  "is_reit": false,
- "price": 76.01000213623047,
- "price_date": "2026-11-19",
- "mcap": null,
- "sel_score": 81.2,
- "tim_score": 95.9,
+ "price": 74.91999816894531,
+ "price_date": "2026-11-20",
+ "mcap": 3879222528,
+ "sel_score": 79.9,
+ "tim_score": 94.5,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定・買い時とも中位水準。",
+ "comment": "選定・買い時とも中位水準。",
  "cov_sel": [
-  14,
   17,
-  "中"
+  17,
+  "高"
  ],
  "cov_tim": [
-  3,
   6,
-  "低"
+  6,
+  "高"
  ],
  "groups": {
   "業績": 45.9,
   "財務": 99.7,
   "キャッシュフロー": 100.6,
-  "配当の持続力": 87.7,
+  "配当の持続力": 83.5,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 73.5,
-  "株価バリュエーション": null,
+  "利回り水準とChowder": 77.2,
+  "株価バリュエーション": 86.0,
   "金利スプレッド": null
  },
- "div_yield": 2.7627942915147305,
- "total_yield": null,
+ "div_yield": 2.883075350761728,
+ "total_yield": 5.850834977053525,
  "streak_up": 12,
  "streak_flat": 12,
- "payout_ni": null,
- "roe": null,
- "chowder": 7.326749550642047,
- "dgr5": 4.563955259127317,
+ "payout_ni": 61.53999999999999,
+ "roe": 4.086,
+ "chowder": 7.751295566463474,
+ "dgr5": 4.868220215701746,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 64.42050273638323,
  "interest_coverage": 7.480643935280703,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
- "per_band_pos": null,
+ "per_vs_sector": 0.7488405405405405,
+ "pbr_vs_sector": 0.09863350000000001,
+ "per_band_pos": 0.0,
  "yield_band_pos": 1.0,
  "next_earn": "2026-12-08",
  "earn_disc_date": "2026-09-22",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。"
+  "⚠ バリュートラップ注意：PBR 0.91倍（1倍割れ）かつROE 4.2%（5%未満）"
  ],
  "roa": 2.55,
  "leverage": 1.63,
- "insight_flags": [],
+ "insight_flags": [
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：PBR 0.91倍（1倍割れ）かつROE 4.2%（5%未満）"
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-20T03:20:48"
+ "_generated_at": "2026-11-21T03:27:26"
 }

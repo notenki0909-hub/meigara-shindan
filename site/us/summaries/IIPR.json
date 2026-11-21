@@ -1,77 +1,78 @@
 {
  "code": "IIPR",
- "name": "IIPR",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T03:04:14",
- "gics_sector": "Industrials",
- "industry": "",
- "is_simple": false,
- "is_reit": false,
- "price": 50.599998474121094,
- "price_date": "2026-11-18",
- "mcap": null,
- "sel_score": 78.1,
+ "name": "Innovative Industrial Properties, Inc.",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:12:23",
+ "gics_sector": "Real Estate",
+ "industry": "REIT - Industrial",
+ "is_simple": true,
+ "is_reit": true,
+ "price": 47.77000045776367,
+ "price_date": "2026-11-20",
+ "mcap": 1317059968,
+ "sel_score": 67.1,
  "tim_score": 110.0,
- "sel_label": "選定スコア中位（一部に弱点）",
+ "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
+ "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
  "cov_sel": [
-  15,
-  17,
+  6,
+  6,
   "高"
  ],
  "cov_tim": [
-  3,
-  6,
-  "低"
+  7,
+  7,
+  "高"
  ],
  "groups": {
-  "業績": 79.9,
-  "財務": 99.8,
-  "キャッシュフロー": 81.9,
-  "配当の持続力": 55.2,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "配当の持続力": 75.3,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 110.0,
-  "株価バリュエーション": null,
-  "金利スプレッド": null
+  "株価バリュエーション": 110.0,
+  "金利スプレッド": 110.0,
+  "REIT品質": 63.6
  },
- "div_yield": 15.019763298781422,
- "total_yield": null,
+ "div_yield": 15.909566521188578,
+ "total_yield": 17.436300344139305,
  "streak_up": 0,
  "streak_flat": 9,
- "payout_ni": 190.95477386934672,
- "roe": null,
- "chowder": 26.21884833837839,
+ "payout_ni": 171.17,
+ "roe": 7.602,
+ "chowder": 27.108651560785546,
  "dgr5": 11.199085039596968,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 110.76043574567711,
  "interest_coverage": 7.313914993592482,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
- "per_band_pos": null,
+ "per_vs_sector": 0.2519674238875878,
+ "pbr_vs_sector": 0.2580223466666667,
+ "per_band_pos": 1.0,
  "yield_band_pos": 1.0,
  "next_earn": "2027-02-22",
  "earn_disc_date": "2026-11-02",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "⚠ FCF配当性向が100%超（111%：フリーCFで配当を賄えていない）",
-  "⚠ 配当性向が100%超（191%：純利益を上回る配当）"
+  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
+  "⚠ 配当性向が100%超（171%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（110）のに質が低め（選定67）。安さの理由を確認"
  ],
  "roa": 4.99,
  "leverage": 1.28,
  "insight_flags": [
   {
-   "k": "fcf_payout",
-   "t": "FCF配当性向が100%超（111%：フリーCFで配当を賄えていない）"
+   "k": "payout",
+   "t": "配当性向が100%超（171%：純利益を上回る配当）"
   },
   {
-   "k": "payout",
-   "t": "配当性向が100%超（191%：純利益を上回る配当）"
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（110）のに質が低め（選定67）。安さの理由を確認"
   }
  ],
- "kind": "gen",
- "_generated_at": "2026-11-20T03:04:17"
+ "kind": "fin",
+ "_generated_at": "2026-11-21T03:12:25"
 }

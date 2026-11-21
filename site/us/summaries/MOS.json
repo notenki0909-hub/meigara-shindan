@@ -1,54 +1,54 @@
 {
  "code": "MOS",
- "name": "MOS",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T03:09:30",
- "gics_sector": "Industrials",
- "industry": "",
+ "name": "The Mosaic Company",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:17:03",
+ "gics_sector": "Materials",
+ "industry": "Agricultural Inputs",
  "is_simple": false,
  "is_reit": false,
- "price": 19.850000381469727,
- "price_date": "2026-11-19",
- "mcap": null,
- "sel_score": 64.4,
- "tim_score": 109.9,
+ "price": 18.65999984741211,
+ "price_date": "2026-11-20",
+ "mcap": 5932082176,
+ "sel_score": 61.2,
+ "tim_score": 110.0,
  "sel_label": "選定スコア下位（質に不安）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
+ "comment": "買い時は上位（割安水準）だが、選定は下位（質に不安）。低評価には理由があることが多い（バリュートラップの可能性）。",
  "cov_sel": [
-  14,
+  16,
   17,
-  "中"
+  "高"
  ],
  "cov_tim": [
-  3,
+  4,
   6,
-  "低"
+  "中"
  ],
  "groups": {
-  "業績": 36.5,
+  "業績": 43.8,
   "財務": 84.7,
   "キャッシュフロー": 60.0,
-  "配当の持続力": 74.5,
+  "配当の持続力": 56.9,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 109.8,
-  "株価バリュエーション": null,
+  "利回り水準とChowder": 110.0,
+  "株価バリュエーション": 110.0,
   "金利スプレッド": null
  },
- "div_yield": 4.433249285080585,
- "total_yield": null,
+ "div_yield": 4.715970027845655,
+ "total_yield": 4.715970027845655,
  "streak_up": 0,
  "streak_flat": 8,
- "payout_ni": 51.76470588235295,
- "roe": null,
- "chowder": 42.56353963270786,
+ "payout_ni": 628.57,
+ "roe": -9.042,
+ "chowder": 42.84626037547293,
  "dgr5": 38.13029034762727,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": 6.022360248447205,
  "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "pbr_vs_sector": 0.18104393103448277,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2027-02-23",
@@ -56,17 +56,21 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "⚠ バリュートラップ注意：買い時が高い（110）のに質が低め（選定64）。安さの理由を確認"
+  "⚠ 配当性向が100%超（629%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（110）のに質が低め（選定61）。安さの理由を確認"
  ],
  "roa": 2.21,
  "leverage": 2.03,
  "insight_flags": [
   {
+   "k": "payout",
+   "t": "配当性向が100%超（629%：純利益を上回る配当）"
+  },
+  {
    "k": "trap",
-   "t": "バリュートラップ注意：買い時が高い（110）のに質が低め（選定64）。安さの理由を確認"
+   "t": "バリュートラップ注意：買い時が高い（110）のに質が低め（選定61）。安さの理由を確認"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-20T03:09:32"
+ "_generated_at": "2026-11-21T03:17:05"
 }

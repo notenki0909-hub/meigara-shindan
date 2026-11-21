@@ -1,64 +1,62 @@
 {
  "code": "KR",
- "name": "KR",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T03:06:36",
- "gics_sector": "Industrials",
- "industry": "",
+ "name": "The Kroger Co.",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:14:26",
+ "gics_sector": "Consumer Staples",
+ "industry": "Grocery Stores",
  "is_simple": false,
  "is_reit": false,
- "price": 67.94000244140625,
- "price_date": "2026-11-19",
- "mcap": null,
- "sel_score": 67.8,
- "tim_score": 93.6,
- "sel_label": "選定スコア下位（質に不安）",
- "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定スコアが基準未達の水準。",
+ "price": 68.44000244140625,
+ "price_date": "2026-11-20",
+ "mcap": 40419889152,
+ "sel_score": 71.0,
+ "tim_score": 81.5,
+ "sel_label": "選定スコア中位（一部に弱点）",
+ "tim_label": "買い時スコア下位（やや割高水準）",
+ "comment": "選定は中位、買い時は下位（やや割高水準）。",
  "cov_sel": [
-  15,
+  17,
   17,
   "高"
  ],
  "cov_tim": [
-  3,
-  6,
-  "低"
+  7,
+  7,
+  "高"
  ],
  "groups": {
-  "業績": 42.4,
+  "業績": 41.7,
   "財務": 52.4,
   "キャッシュフロー": 103.3,
-  "配当の持続力": 87.6,
-  "配当利回りセオリー": 93.4,
-  "利回り水準とChowder": 93.9,
-  "株価バリュエーション": null,
-  "金利スプレッド": null
+  "配当の持続力": 98.9,
+  "配当利回りセオリー": 104.0,
+  "利回り水準とChowder": 95.3,
+  "株価バリュエーション": 51.4,
+  "金利スプレッド": 48.8
  },
- "div_yield": 2.1783926211607096,
- "total_yield": null,
+ "div_yield": 2.279368708871055,
+ "total_yield": 8.95677445298466,
  "streak_up": 20,
  "streak_flat": 20,
- "payout_ni": 95.48387096774194,
- "roe": null,
- "chowder": 15.845137352710116,
+ "payout_ni": 77.779996,
+ "roe": 14.442,
+ "chowder": 15.946113440420461,
  "dgr5": 13.666744731549407,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 25.60763888888889,
  "interest_coverage": 2.8779342723004695,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
- "per_band_pos": null,
- "yield_band_pos": 0.5337131221062413,
+ "per_vs_sector": 1.6043132489451477,
+ "pbr_vs_sector": 1.0582403636363638,
+ "per_band_pos": 0.0,
+ "yield_band_pos": 0.7605191444734031,
  "next_earn": "2026-12-03",
  "earn_disc_date": "2026-09-11",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）",
-  "⚠ バリュートラップ注意：買い時が高い（94）のに質が低め（選定68）。安さの理由を確認"
+  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
  ],
  "roa": 2.03,
  "leverage": 8.43,
@@ -66,12 +64,8 @@
   {
    "k": "lev_roe",
    "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
-  },
-  {
-   "k": "trap",
-   "t": "バリュートラップ注意：買い時が高い（94）のに質が低め（選定68）。安さの理由を確認"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-20T03:06:39"
+ "_generated_at": "2026-11-21T03:14:29"
 }

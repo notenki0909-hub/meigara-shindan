@@ -1,66 +1,76 @@
 {
  "code": "GPK",
- "name": "GPK",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T03:01:48",
- "gics_sector": "Industrials",
- "industry": "",
+ "name": "Graphic Packaging Holding Company",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:10:14",
+ "gics_sector": "Consumer Discretionary",
+ "industry": "Packaging & Containers",
  "is_simple": false,
  "is_reit": false,
- "price": 10.300000190734863,
- "price_date": "2026-11-19",
- "mcap": null,
- "sel_score": 69.7,
- "tim_score": 107.9,
- "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
+ "price": 10.15999984741211,
+ "price_date": "2026-11-20",
+ "mcap": 3008274944,
+ "sel_score": 64.8,
+ "tim_score": 96.5,
+ "sel_label": "選定スコア下位（質に不安）",
+ "tim_label": "買い時スコア中位（妥当水準）",
+ "comment": "選定スコアが基準未達の水準。",
  "cov_sel": [
-  14,
+  16,
   17,
-  "中"
+  "高"
  ],
  "cov_tim": [
-  3,
   6,
-  "低"
+  6,
+  "高"
  ],
  "groups": {
   "業績": 77.5,
   "財務": 60.8,
   "キャッシュフロー": 60.0,
-  "配当の持続力": 75.5,
+  "配当の持続力": 59.0,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 104.5,
-  "株価バリュエーション": null,
+  "利回り水準とChowder": 104.8,
+  "株価バリュエーション": 60.8,
   "金利スプレッド": null
  },
- "div_yield": 4.271844581088379,
- "total_yield": null,
+ "div_yield": 4.330708726458042,
+ "total_yield": 10.447170932380665,
  "streak_up": 0,
  "streak_flat": 11,
- "payout_ni": 29.72972972972973,
- "roe": null,
- "chowder": 12.232691885748668,
+ "payout_ni": 176.0,
+ "roe": 2.279,
+ "chowder": 12.291556031118333,
  "dgr5": 7.96084730466029,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": 3.6454545454545455,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
- "per_band_pos": null,
+ "per_vs_sector": 1.372972972972973,
+ "pbr_vs_sector": 0.10199000652173913,
+ "per_band_pos": 0.0,
  "yield_band_pos": 1.0,
  "next_earn": "2027-02-09",
  "earn_disc_date": "2026-11-03",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。"
+  "⚠ 配当性向が100%超（176%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（96）のに質が低め（選定65）。安さの理由を確認"
  ],
  "roa": 3.77,
  "leverage": 3.53,
- "insight_flags": [],
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（176%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（96）のに質が低め（選定65）。安さの理由を確認"
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-20T03:01:50"
+ "_generated_at": "2026-11-21T03:10:16"
 }

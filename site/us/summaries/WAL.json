@@ -1,83 +1,67 @@
 {
  "code": "WAL",
- "name": "WAL",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T03:23:51",
- "gics_sector": "Industrials",
- "industry": "",
- "is_simple": false,
+ "name": "Western Alliance Bancorporation",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:30:17",
+ "gics_sector": "Financials",
+ "industry": "Banks - Regional",
+ "is_simple": true,
  "is_reit": false,
- "price": 69.6500015258789,
- "price_date": "2026-11-19",
- "mcap": null,
- "sel_score": 82.0,
- "tim_score": 95.4,
+ "price": 67.9000015258789,
+ "price_date": "2026-11-20",
+ "mcap": 7302650368,
+ "sel_score": 83.1,
+ "tim_score": 101.9,
  "sel_label": "選定スコア中位（一部に弱点）",
- "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "※データ不足（銘柄選定 と 買い時のカバレッジ低）。点数は目安、参考程度に。　選定・買い時とも中位水準。",
+ "tim_label": "買い時スコア上位（割安水準）",
+ "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
  "cov_sel": [
-  11,
-  17,
-  "低"
+  6,
+  6,
+  "高"
  ],
  "cov_tim": [
-  3,
   6,
-  "低"
+  6,
+  "高"
  ],
  "groups": {
-  "業績": 92.0,
-  "財務": 104.3,
-  "キャッシュフロー": 20.0,
-  "配当の持続力": 83.6,
-  "配当利回りセオリー": 103.5,
-  "利回り水準とChowder": 82.6,
-  "株価バリュエーション": null,
-  "金利スプレッド": null
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "配当の持続力": 88.2,
+  "配当利回りセオリー": 107.1,
+  "利回り水準とChowder": 87.0,
+  "株価バリュエーション": 110.0,
+  "金利スプレッド": null,
+  "金融品質": 80.9
  },
- "div_yield": 2.4694902545851676,
- "total_yield": null,
+ "div_yield": 2.7098673912381517,
+ "total_yield": 3.6424055324370266,
  "streak_up": 6,
  "streak_flat": 7,
- "payout_ni": 19.570800956648057,
- "roe": null,
- "chowder": 9.935083423811848,
+ "payout_ni": 18.63,
+ "roe": 13.153,
+ "chowder": 10.175460560464833,
  "dgr5": 7.465593169226681,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
- "per_band_pos": null,
- "yield_band_pos": 0.7416266464833817,
+ "per_vs_sector": 0.4351280924855491,
+ "pbr_vs_sector": 0.39344644,
+ "per_band_pos": 1.0,
+ "yield_band_pos": 0.8837793308765788,
  "next_earn": "2027-01-26",
  "earn_disc_date": "2026-10-19",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "銘柄選定スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）",
-  "⚠ 営業キャッシュフローが2期連続マイナス",
-  "⚠ 自己資本比率が10%未満（8.2%）"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
  "roa": 1.04,
  "leverage": 12.12,
- "insight_flags": [
-  {
-   "k": "lev_roe",
-   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
-  },
-  {
-   "k": "ocf_neg",
-   "t": "営業キャッシュフローが2期連続マイナス"
-  },
-  {
-   "k": "low_equity",
-   "t": "自己資本比率が10%未満（8.2%）"
-  }
- ],
- "kind": "gen",
- "_generated_at": "2026-11-20T03:23:53"
+ "insight_flags": [],
+ "kind": "fin",
+ "_generated_at": "2026-11-21T03:30:19"
 }

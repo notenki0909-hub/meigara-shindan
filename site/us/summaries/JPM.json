@@ -1,83 +1,67 @@
 {
  "code": "JPM",
- "name": "JPM",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T03:05:26",
- "gics_sector": "Industrials",
- "industry": "",
- "is_simple": false,
+ "name": "JPMorgan Chase & Co.",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:13:23",
+ "gics_sector": "Financials",
+ "industry": "Banks - Diversified",
+ "is_simple": true,
  "is_reit": false,
- "price": 320.2200012207031,
- "price_date": "2026-11-19",
- "mcap": null,
- "sel_score": 86.9,
- "tim_score": 58.0,
+ "price": 310.5299987792969,
+ "price_date": "2026-11-20",
+ "mcap": 824646434816,
+ "sel_score": 102.8,
+ "tim_score": 74.0,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "※データ不足（銘柄選定 と 買い時のカバレッジ低）。点数は目安、参考程度に。　選定は上位水準だが、買い時は最下位（割高水準）。",
+ "tim_label": "買い時スコア下位（やや割高水準）",
+ "comment": "選定は上位水準だが、買い時は下位（やや割高水準）。",
  "cov_sel": [
-  11,
-  17,
-  "低"
+  6,
+  6,
+  "高"
  ],
  "cov_tim": [
-  3,
   6,
-  "低"
+  6,
+  "高"
  ],
  "groups": {
-  "業績": 110.0,
-  "財務": 98.5,
-  "キャッシュフロー": 20.0,
-  "配当の持続力": 88.5,
-  "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 86.4,
-  "株価バリュエーション": null,
-  "金利スプレッド": null
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "配当の持続力": 95.7,
+  "配当利回りセオリー": 55.4,
+  "利回り水準とChowder": 89.4,
+  "株価バリュエーション": 91.0,
+  "金利スプレッド": null,
+  "金融品質": 105.9
  },
- "div_yield": 1.9205546113783432,
- "total_yield": null,
+ "div_yield": 2.125398520576049,
+ "total_yield": 6.320044679171053,
  "streak_up": 4,
  "streak_flat": 17,
- "payout_ni": 30.673316708229425,
- "roe": null,
- "chowder": 12.617255657416603,
+ "payout_ni": 25.8,
+ "roe": 18.013,
+ "chowder": 12.822099566614309,
  "dgr5": 10.69670104603826,
  "ocf_positive": 0,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
- "per_band_pos": null,
- "yield_band_pos": 0.0,
+ "per_vs_sector": 0.7529241040462428,
+ "pbr_vs_sector": 0.93888752,
+ "per_band_pos": 0.23558819722895363,
+ "yield_band_pos": 0.15383064789324974,
  "next_earn": "2027-01-14",
  "earn_disc_date": "2026-10-13",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "銘柄選定スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）",
-  "⚠ 営業キャッシュフローが2期連続マイナス",
-  "⚠ 自己資本比率が10%未満（8.2%）"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
  "roa": 1.29,
  "leverage": 12.21,
- "insight_flags": [
-  {
-   "k": "lev_roe",
-   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
-  },
-  {
-   "k": "ocf_neg",
-   "t": "営業キャッシュフローが2期連続マイナス"
-  },
-  {
-   "k": "low_equity",
-   "t": "自己資本比率が10%未満（8.2%）"
-  }
- ],
- "kind": "gen",
- "_generated_at": "2026-11-20T03:05:28"
+ "insight_flags": [],
+ "kind": "fin",
+ "_generated_at": "2026-11-21T03:13:25"
 }

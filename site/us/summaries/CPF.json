@@ -1,77 +1,67 @@
 {
  "code": "CPF",
- "name": "CPF",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T02:55:06",
- "gics_sector": "Industrials",
- "industry": "",
- "is_simple": false,
+ "name": "Central Pacific Financial Corp.",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:04:18",
+ "gics_sector": "Financials",
+ "industry": "Banks - Regional",
+ "is_simple": true,
  "is_reit": false,
- "price": 37.20000076293945,
- "price_date": "2026-11-19",
- "mcap": null,
- "sel_score": 94.4,
- "tim_score": 52.9,
- "sel_label": "選定スコア上位（質・持続力とも高水準）",
+ "price": 36.7400016784668,
+ "price_date": "2026-11-20",
+ "mcap": 934801088,
+ "sel_score": 83.5,
+ "tim_score": 64.0,
+ "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は上位水準だが、買い時は最下位（割高水準）。",
+ "comment": "選定は中位、買い時は最下位（割高水準）。",
  "cov_sel": [
-  12,
-  17,
-  "中"
+  6,
+  6,
+  "高"
  ],
  "cov_tim": [
-  3,
   6,
-  "低"
+  6,
+  "高"
  ],
  "groups": {
-  "業績": 96.0,
-  "財務": 108.2,
-  "キャッシュフロー": 103.3,
-  "配当の持続力": 76.2,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "配当の持続力": 86.7,
   "配当利回りセオリー": 40.0,
-  "利回り水準とChowder": 73.2,
-  "株価バリュエーション": null,
-  "金利スプレッド": null
+  "利回り水準とChowder": 75.4,
+  "株価バリュエーション": 95.9,
+  "金利スプレッド": null,
+  "金融品質": 82.2
  },
- "div_yield": 3.1182795059392885,
- "total_yield": null,
+ "div_yield": 3.3750678915367613,
+ "total_yield": 5.871427844425477,
  "streak_up": 2,
  "streak_flat": 13,
- "payout_ni": 40.27777777777778,
- "roe": null,
- "chowder": 6.567621859058001,
+ "payout_ni": 35.05,
+ "roe": 14.912,
+ "chowder": 6.824410244655473,
  "dgr5": 3.4493423531187117,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 31.803950034126732,
  "interest_coverage": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
- "per_band_pos": null,
+ "per_vs_sector": 0.6416010982658958,
+ "pbr_vs_sector": 0.6448442400000001,
+ "per_band_pos": 0.2893910664619487,
  "yield_band_pos": 0.0,
  "next_earn": "2027-01-27",
  "earn_disc_date": "2026-10-28",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）",
-  "⚠ 自己資本比率が10%未満（8.0%）"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
  "roa": 1.05,
  "leverage": 12.5,
- "insight_flags": [
-  {
-   "k": "lev_roe",
-   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
-  },
-  {
-   "k": "low_equity",
-   "t": "自己資本比率が10%未満（8.0%）"
-  }
- ],
- "kind": "gen",
- "_generated_at": "2026-11-20T02:55:08"
+ "insight_flags": [],
+ "kind": "fin",
+ "_generated_at": "2026-11-21T03:04:20"
 }

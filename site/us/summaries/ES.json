@@ -1,49 +1,49 @@
 {
  "code": "ES",
- "name": "ES",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T02:58:29",
- "gics_sector": "Industrials",
- "industry": "",
+ "name": "Eversource Energy",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:07:21",
+ "gics_sector": "Utilities",
+ "industry": "Utilities - Regulated Electric",
  "is_simple": false,
  "is_reit": false,
- "price": 70.6500015258789,
- "price_date": "2026-11-19",
- "mcap": null,
- "sel_score": 78.6,
- "tim_score": 102.7,
- "sel_label": "選定スコア中位（一部に弱点）",
+ "price": 71.04000091552734,
+ "price_date": "2026-11-20",
+ "mcap": 26758975488,
+ "sel_score": 86.5,
+ "tim_score": 105.9,
+ "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
+ "comment": "選定・買い時とも上位水準。",
  "cov_sel": [
-  14,
+  16,
   17,
-  "中"
+  "高"
  ],
  "cov_tim": [
-  3,
-  6,
-  "低"
+  7,
+  7,
+  "高"
  ],
  "groups": {
   "業績": 92.0,
-  "財務": 52.8,
+  "財務": 84.5,
   "キャッシュフロー": 60.0,
-  "配当の持続力": 98.7,
-  "配当利回りセオリー": 107.0,
-  "利回り水準とChowder": 95.8,
-  "株価バリュエーション": null,
-  "金利スプレッド": null
+  "配当の持続力": 96.4,
+  "配当利回りセオリー": 107.3,
+  "利回り水準とChowder": 108.5,
+  "株価バリュエーション": 103.9,
+  "金利スプレッド": 101.6
  },
- "div_yield": 4.411889501316219,
- "total_yield": null,
+ "div_yield": 4.4341215644769205,
+ "total_yield": 4.4341215644769205,
  "streak_up": 26,
  "streak_flat": 27,
  "royalty": {
   "kind": "貴族",
   "years": 25,
   "asof": "2026-11-05",
-  "age": 15,
+  "age": 16,
   "fresh": true,
   "floored": false,
   "raw_up": 26,
@@ -51,18 +51,18 @@
   "warn": null,
   "hist_years": 53
  },
- "payout_ni": 68.35526315789474,
- "roe": null,
- "chowder": 10.212781227640118,
+ "payout_ni": 82.19,
+ "roe": 8.7629996,
+ "chowder": 10.235013290800818,
  "dgr5": 5.800891726323898,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": 2.480115277020364,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
- "per_band_pos": null,
- "yield_band_pos": 0.8808181324929192,
+ "per_vs_sector": 0.8883442654028436,
+ "pbr_vs_sector": 0.6794757083333334,
+ "per_band_pos": 0.6501099214253946,
+ "yield_band_pos": 0.8917849587750285,
  "next_earn": "2027-02-11",
  "earn_disc_date": "2026-11-04",
  "quarter_decel_factor": 0.8838695403960185,
@@ -72,7 +72,6 @@
   "gap": -10.806522980199073
  },
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
   "直近四半期の増収率が年次トレンドから大きく下振れ（年率+3.3%に対し直近四半期は-7.5%）、かつ営業利益/純利益も前年同期比マイナス（-8.6%）だったため、業績スコアを12%減点しています。年次決算にはまだ反映されていない直近の変化のため、最新の決算内容もあわせてご確認ください。",
   "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
  ],
@@ -85,5 +84,5 @@
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-20T02:58:31"
+ "_generated_at": "2026-11-21T03:07:23"
 }

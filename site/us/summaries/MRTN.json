@@ -1,72 +1,71 @@
 {
  "code": "MRTN",
- "name": "MRTN",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T03:26:13",
+ "name": "Marten Transport, Ltd.",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:32:31",
  "gics_sector": "Industrials",
- "industry": "",
+ "industry": "Trucking",
  "is_simple": false,
  "is_reit": false,
- "price": 12.020000457763672,
- "price_date": "2026-11-19",
- "mcap": null,
- "sel_score": 54.2,
- "tim_score": 60.4,
+ "price": 11.75,
+ "price_date": "2026-11-20",
+ "mcap": 959524672,
+ "sel_score": 53.7,
+ "tim_score": 62.5,
  "sel_label": "選定スコア基準未達",
  "tim_label": "買い時スコア最下位（割高水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定・買い時とも最下位水準。",
+ "comment": "選定・買い時とも最下位水準。",
  "cov_sel": [
-  13,
+  14,
   17,
   "中"
  ],
  "cov_tim": [
-  3,
+  5,
   6,
-  "低"
+  "中"
  ],
  "groups": {
   "業績": 26.6,
   "財務": 108.5,
   "キャッシュフロー": 60.0,
-  "配当の持続力": 28.0,
-  "配当利回りセオリー": 69.1,
-  "利回り水準とChowder": 46.6,
-  "株価バリュエーション": null,
+  "配当の持続力": 26.4,
+  "配当利回りセオリー": 70.7,
+  "利回り水準とChowder": 47.2,
+  "株価バリュエーション": 65.0,
   "金利スプレッド": null
  },
- "div_yield": 1.9966721369381057,
+ "div_yield": 2.0425531914893615,
  "total_yield": null,
  "streak_up": 0,
  "streak_flat": 4,
- "payout_ni": 114.28571428571428,
- "roe": null,
- "chowder": -15.642566870242156,
+ "payout_ni": 150.0,
+ "roe": 1.7389999999999999,
+ "chowder": -15.5966858156909,
  "dgr5": -17.63923900718026,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
  "interest_coverage": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "per_vs_sector": 2.185639880952381,
+ "pbr_vs_sector": 0.18740450746268655,
  "per_band_pos": null,
- "yield_band_pos": 0.2914497190891646,
+ "yield_band_pos": 0.3073917534020303,
  "next_earn": "2027-01-26",
  "earn_disc_date": "2026-10-22",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "⚠ 配当性向が100%超（114%：純利益を上回る配当）"
+  "⚠ 配当性向が100%超（150%：純利益を上回る配当）"
  ],
  "roa": 1.84,
  "leverage": 1.24,
  "insight_flags": [
   {
    "k": "payout",
-   "t": "配当性向が100%超（114%：純利益を上回る配当）"
+   "t": "配当性向が100%超（150%：純利益を上回る配当）"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-20T03:26:15"
+ "_generated_at": "2026-11-21T03:32:33"
 }

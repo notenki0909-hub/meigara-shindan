@@ -1,54 +1,55 @@
 {
  "code": "REXR",
- "name": "REXR",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T03:16:26",
- "gics_sector": "Industrials",
- "industry": "",
- "is_simple": false,
- "is_reit": false,
- "price": 36.13999938964844,
- "price_date": "2026-11-18",
- "mcap": null,
- "sel_score": 83.1,
- "tim_score": 110.0,
+ "name": "Rexford Industrial Realty, Inc.",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:23:27",
+ "gics_sector": "Real Estate",
+ "industry": "REIT - Industrial",
+ "is_simple": true,
+ "is_reit": true,
+ "price": 35.630001068115234,
+ "price_date": "2026-11-20",
+ "mcap": 7758831616,
+ "sel_score": 79.7,
+ "tim_score": 109.0,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
+ "comment": "買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
  "cov_sel": [
-  15,
-  17,
+  6,
+  6,
   "高"
  ],
  "cov_tim": [
-  3,
-  6,
-  "低"
+  5,
+  7,
+  "中"
  ],
  "groups": {
-  "業績": 101.1,
-  "財務": 82.0,
-  "キャッシュフロー": 73.3,
-  "配当の持続力": 72.2,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "配当の持続力": 77.8,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 110.0,
-  "株価バリュエーション": null,
-  "金利スプレッド": null
+  "株価バリュエーション": 110.0,
+  "金利スプレッド": 104.6,
+  "REIT品質": 80.5
  },
- "div_yield": 4.800774845881583,
- "total_yield": null,
+ "div_yield": 4.883524972883317,
+ "total_yield": 8.13086957925968,
  "streak_up": 10,
  "streak_flat": 12,
- "payout_ni": 201.74418604651163,
- "roe": null,
- "chowder": 19.670610345585093,
+ "payout_ni": 185.48,
+ "roe": -5.785,
+ "chowder": 19.753360472586827,
  "dgr5": 14.869835499703509,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 202.49303894834205,
  "interest_coverage": 3.0949162559698005,
  "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "pbr_vs_sector": 0.36402460000000003,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2027-02-03",
@@ -56,22 +57,17 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "⚠ FCF配当性向が100%超（202%：フリーCFで配当を賄えていない）",
-  "⚠ 配当性向が100%超（202%：純利益を上回る配当）"
+  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
+  "⚠ 配当性向が100%超（185%：純利益を上回る配当）"
  ],
  "roa": 1.68,
  "leverage": 1.49,
  "insight_flags": [
   {
-   "k": "fcf_payout",
-   "t": "FCF配当性向が100%超（202%：フリーCFで配当を賄えていない）"
-  },
-  {
    "k": "payout",
-   "t": "配当性向が100%超（202%：純利益を上回る配当）"
+   "t": "配当性向が100%超（185%：純利益を上回る配当）"
   }
  ],
- "kind": "gen",
- "_generated_at": "2026-11-20T03:16:28"
+ "kind": "fin",
+ "_generated_at": "2026-11-21T03:23:29"
 }

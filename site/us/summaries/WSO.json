@@ -1,72 +1,71 @@
 {
  "code": "WSO",
- "name": "WSO",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T03:24:57",
+ "name": "Watsco, Inc.",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:31:22",
  "gics_sector": "Industrials",
- "industry": "",
+ "industry": "Industrial Distribution",
  "is_simple": false,
  "is_reit": false,
- "price": 294.1199951171875,
- "price_date": "2026-11-19",
- "mcap": null,
- "sel_score": 89.2,
- "tim_score": 109.6,
+ "price": 292.0,
+ "price_date": "2026-11-20",
+ "mcap": 12074225664,
+ "sel_score": 92.2,
+ "tim_score": 109.0,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定・買い時とも上位水準。",
+ "comment": "選定・買い時とも上位水準。",
  "cov_sel": [
-  13,
+  15,
   17,
-  "中"
+  "高"
  ],
  "cov_tim": [
-  3,
   6,
-  "低"
+  6,
+  "高"
  ],
  "groups": {
   "業績": 84.3,
   "財務": 107.7,
   "キャッシュフロー": 91.8,
-  "配当の持続力": 75.8,
+  "配当の持続力": 85.8,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 109.0,
-  "株価バリュエーション": null,
+  "利回り水準とChowder": 109.5,
+  "株価バリュエーション": 106.3,
   "金利スプレッド": null
  },
- "div_yield": 4.38596498509399,
- "total_yield": null,
+ "div_yield": 4.520547945205479,
+ "total_yield": 4.550835601753953,
  "streak_up": 13,
  "streak_flat": 13,
- "payout_ni": 112.76258275265701,
- "roe": null,
- "chowder": 15.474687476246059,
+ "payout_ni": 109.66,
+ "roe": 16.209999,
+ "chowder": 15.609270436357548,
  "dgr5": 11.088722491152069,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 88.5437789568705,
  "interest_coverage": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
- "per_band_pos": null,
+ "per_vs_sector": 0.7563512797619047,
+ "pbr_vs_sector": 0.5566182089552238,
+ "per_band_pos": 0.6494123114734294,
  "yield_band_pos": 1.0,
  "next_earn": "2027-02-16",
  "earn_disc_date": "2026-10-27",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "⚠ 配当性向が100%超（113%：純利益を上回る配当）"
+  "⚠ 配当性向が100%超（110%：純利益を上回る配当）"
  ],
  "roa": 11.26,
  "leverage": 1.59,
  "insight_flags": [
   {
    "k": "payout",
-   "t": "配当性向が100%超（113%：純利益を上回る配当）"
+   "t": "配当性向が100%超（110%：純利益を上回る配当）"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-20T03:24:59"
+ "_generated_at": "2026-11-21T03:31:24"
 }

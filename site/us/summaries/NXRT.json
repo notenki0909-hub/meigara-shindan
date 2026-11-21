@@ -1,54 +1,55 @@
 {
  "code": "NXRT",
- "name": "NXRT",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T03:12:02",
- "gics_sector": "Industrials",
- "industry": "",
- "is_simple": false,
- "is_reit": false,
- "price": 14.819999694824219,
- "price_date": "2026-11-18",
- "mcap": null,
- "sel_score": 70.7,
+ "name": "NexPoint Residential Trust, Inc.",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:19:25",
+ "gics_sector": "Real Estate",
+ "industry": "REIT - Residential",
+ "is_simple": true,
+ "is_reit": true,
+ "price": 14.289999961853027,
+ "price_date": "2026-11-20",
+ "mcap": 737418304,
+ "sel_score": 37.2,
  "tim_score": 110.0,
- "sel_label": "選定スコア中位（一部に弱点）",
+ "sel_label": "選定スコア基準未達",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　買い時は上位（割安水準）だが、選定は中位（一部に弱点）。",
+ "comment": "買い時は上位（割安水準）だが、選定は最下位水準。低評価には理由があることが多い（バリュートラップの可能性）。",
  "cov_sel": [
-  13,
-  17,
-  "中"
+  6,
+  6,
+  "高"
  ],
  "cov_tim": [
-  3,
-  6,
-  "低"
+  5,
+  7,
+  "中"
  ],
  "groups": {
-  "業績": 78.0,
-  "財務": 26.6,
-  "キャッシュフロー": 100.7,
-  "配当の持続力": 88.7,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "配当の持続力": 69.3,
   "配当利回りセオリー": 110.0,
   "利回り水準とChowder": 110.0,
-  "株価バリュエーション": null,
-  "金利スプレッド": null
+  "株価バリュエーション": 110.0,
+  "金利スプレッド": 110.0,
+  "REIT品質": 23.4
  },
- "div_yield": 14.304993546932362,
- "total_yield": null,
+ "div_yield": 14.835549374802751,
+ "total_yield": 15.873901685623611,
  "streak_up": 10,
  "streak_flat": 11,
- "payout_ni": null,
- "roe": null,
- "chowder": 24.289484768981303,
+ "payout_ni": 4743.15,
+ "roe": -13.397998999999999,
+ "chowder": 24.82004059685169,
  "dgr5": 9.984491222048941,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 64.03354508368326,
  "interest_coverage": 0.611027775089519,
  "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "pbr_vs_sector": 0.5429537666666667,
  "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": "2027-02-23",
@@ -56,11 +57,22 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。"
+  "REITは業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「REIT品質」スコア（FFO成長率・増収率・FFOの安定度・利払い余裕度）を銘柄選定に使用しています。NAV倍率・LTV・分配金の内訳等は本ツールでは評価できないため、あくまで参考程度にご利用ください。",
+  "⚠ 配当性向が100%超（4743%：純利益を上回る配当）",
+  "⚠ バリュートラップ注意：買い時が高い（110）のに質が低め（選定37）。安さの理由を確認"
  ],
  "roa": -1.7,
  "leverage": 6.38,
- "insight_flags": [],
- "kind": "gen",
- "_generated_at": "2026-11-20T03:12:04"
+ "insight_flags": [
+  {
+   "k": "payout",
+   "t": "配当性向が100%超（4743%：純利益を上回る配当）"
+  },
+  {
+   "k": "trap",
+   "t": "バリュートラップ注意：買い時が高い（110）のに質が低め（選定37）。安さの理由を確認"
+  }
+ ],
+ "kind": "fin",
+ "_generated_at": "2026-11-21T03:19:27"
 }

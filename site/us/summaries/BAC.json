@@ -1,77 +1,67 @@
 {
  "code": "BAC",
- "name": "BAC",
- "asof": "2026-11-20",
- "data_fetched_at": "2026-11-20T02:51:07",
- "gics_sector": "Industrials",
- "industry": "",
- "is_simple": false,
+ "name": "Bank of America Corporation",
+ "asof": "2026-11-21",
+ "data_fetched_at": "2026-11-21T03:00:38",
+ "gics_sector": "Financials",
+ "industry": "Banks - Diversified",
+ "is_simple": true,
  "is_reit": false,
- "price": 48.56999969482422,
- "price_date": "2026-11-19",
- "mcap": null,
- "sel_score": 89.6,
- "tim_score": 83.2,
+ "price": 47.040000915527344,
+ "price_date": "2026-11-20",
+ "mcap": 324585848832,
+ "sel_score": 89.9,
+ "tim_score": 99.4,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
- "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は上位水準、買い時は中位（妥当水準）。",
+ "tim_label": "買い時スコア上位（割安水準）",
+ "comment": "選定・買い時とも上位水準。",
  "cov_sel": [
-  12,
-  17,
-  "中"
+  6,
+  6,
+  "高"
  ],
  "cov_tim": [
-  3,
   6,
-  "低"
+  6,
+  "高"
  ],
  "groups": {
-  "業績": 102.2,
-  "財務": 70.9,
-  "キャッシュフロー": 97.4,
-  "配当の持続力": 90.7,
-  "配当利回りセオリー": 81.5,
-  "利回り水準とChowder": 86.0,
-  "株価バリュエーション": null,
-  "金利スプレッド": null
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "配当の持続力": 93.8,
+  "配当利回りセオリー": 102.8,
+  "利回り水準とChowder": 92.1,
+  "株価バリュエーション": 101.8,
+  "金利スプレッド": null,
+  "金融品質": 88.3
  },
- "div_yield": 2.388305553404427,
- "total_yield": null,
+ "div_yield": 2.721088382414311,
+ "total_yield": 10.146550732892436,
  "streak_up": 6,
  "streak_flat": 17,
- "payout_ni": 30.051813471502598,
- "roe": null,
- "chowder": 10.835482673174281,
+ "payout_ni": 27.62,
+ "roe": 10.73,
+ "chowder": 11.168265502184166,
  "dgr5": 8.447177119769854,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 75.8185998572901,
  "interest_coverage": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
- "per_band_pos": null,
- "yield_band_pos": 0.41461540100418137,
+ "per_vs_sector": 0.6489439306358381,
+ "pbr_vs_sector": 0.47932748,
+ "per_band_pos": 0.4550916121772447,
+ "yield_band_pos": 0.7117494921250134,
  "next_earn": "2027-01-15",
  "earn_disc_date": "2026-10-14",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
-  "⚠ ROEは高いがROAが低い（借入に頼って高く見えている可能性）",
-  "⚠ 自己資本比率が10%未満（8.9%）"
+  "銀行・保険・証券は業績・財務・CFの指標が構造的に別基準のため参考表示のみです。代わりに「金融品質」スコア（ROE・増収率・EPS成長率・利益の安定度）を銘柄選定に使用しています。"
  ],
  "roa": 0.89,
  "leverage": 11.25,
- "insight_flags": [
-  {
-   "k": "lev_roe",
-   "t": "ROEは高いがROAが低い（借入に頼って高く見えている可能性）"
-  },
-  {
-   "k": "low_equity",
-   "t": "自己資本比率が10%未満（8.9%）"
-  }
- ],
- "kind": "gen",
- "_generated_at": "2026-11-20T02:51:10"
+ "insight_flags": [],
+ "kind": "fin",
+ "_generated_at": "2026-11-21T03:00:40"
 }
