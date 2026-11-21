@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 3945.0,
+ "price": 3873.0,
  "price_date": "2026-11-20",
- "mcap": 694491807744,
+ "mcap": 681816686592,
  "q_score": 84.3,
  "groups": {
   "業績": 60.64755448697324,
@@ -22,37 +22,37 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 69.3,
+ "bt_score": 70.0,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 55.682568355322886,
+  "ev_ebit_vs_sector": 56.1004079024352,
   "fcf_yield": 110.0,
-  "per_cheap": 36.7,
+  "per_cheap": 38.7,
   "pbr_cheap": 75.0
  },
- "ev_ebit": 21.59921784424663,
- "fcf_yield": 32.291957586729005,
+ "ev_ebit": 21.473712896854238,
+ "fcf_yield": 32.892272132700164,
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 1.2377775268909246,
- "per_vs_sector": 1.3665651,
- "pbr_vs_sector": 0.59172645,
+ "ev_ebit_vs_sector": 1.2341214308536919,
+ "per_vs_sector": 1.341624,
+ "pbr_vs_sector": 0.580926875,
  "price_chg": {
-  "d": 0.0,
-  "w": -4.3172447247150085,
-  "m": -0.8793969849246186,
-  "3m": 0.025354969574031827,
-  "6m": -8.722813512262839,
-  "9m": 13.459879206212255,
-  "y": 38.202837624802946
+  "d": -1.8250950570342206,
+  "w": -6.063545961678384,
+  "m": -2.6884422110552753,
+  "3m": -1.8002028397565928,
+  "6m": -10.388708931050438,
+  "9m": 11.38912855910268,
+  "y": 35.680504466631625
  },
- "div_yield": 2.788339670468948,
- "implied_fcf_growth": -0.2015,
+ "div_yield": 2.8401755744900594,
+ "implied_fcf_growth": -0.2048,
  "insight": {
   "flags": {
    "cutoff": [],
    "value_trap": [
-    "PBR 0.47倍（1倍割れ）かつROE 4.2%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+    "PBR 0.46倍（1倍割れ）かつROE 4.2%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
    ]
   },
   "raw": {
@@ -65,7 +65,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T00:46:03Z"
+  "fetched": "2026-11-21T00:11:52Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -96,5 +96,5 @@
   "fcf_positive": 1,
   "fcf_payout": 8.078389405390944
  },
- "_generated_at": "2026-11-20T01:12:07"
+ "_generated_at": "2026-11-21T00:37:26"
 }

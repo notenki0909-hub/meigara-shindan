@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": true,
  "is_reit": false,
- "price": 2314.0,
+ "price": 2268.5,
  "price_date": "2026-11-20",
- "mcap": 6327596744704,
+ "mcap": 6203177435136,
  "q_score": 48.3,
  "groups": {
   "業績": null,
@@ -22,37 +22,37 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 82.8,
+ "bt_score": 82.4,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": 91.2,
-  "pbr_cheap": 74.5
+  "per_cheap": 90.1,
+  "pbr_cheap": 74.7
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": 0.4007150093313384,
+ "per_band_pos": 0.38276207601067574,
  "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 0.8921697005988024,
- "pbr_vs_sector": 0.6395247,
+ "per_vs_sector": 0.90180125748503,
+ "pbr_vs_sector": 0.6269498,
  "price_chg": {
-  "d": -0.835654596100277,
-  "w": -3.1393888656341518,
-  "m": -3.863730785209807,
-  "3m": -3.703703703703709,
-  "6m": 10.559006211180133,
-  "9m": 11.357074109720887,
-  "y": 61.310561171139774
+  "d": -2.785515320334264,
+  "w": -5.043951444118877,
+  "m": -5.754050685500623,
+  "3m": -5.597170203911772,
+  "6m": 8.385093167701863,
+  "9m": 9.167468719923,
+  "y": 58.13872429417917
  },
- "div_yield": 2.592912705272256,
+ "div_yield": 2.6449195503636767,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
    "value_trap": [
-    "PBR 0.64倍（1倍割れ）かつROE 3.9%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+    "PBR 0.63倍（1倍割れ）かつROE 3.9%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
    ]
   },
   "raw": {
@@ -63,7 +63,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T00:21:56Z"
+  "fetched": "2026-11-20T23:49:13Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -94,5 +94,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-20T01:01:35"
+ "_generated_at": "2026-11-21T00:26:53"
 }

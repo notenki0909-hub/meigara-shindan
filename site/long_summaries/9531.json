@@ -5,13 +5,13 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 6675.0,
+ "price": 6560.0,
  "price_date": "2026-11-20",
- "mcap": 2172231221248,
- "q_score": 92.2,
+ "mcap": 2134807019520,
+ "q_score": 92.5,
  "groups": {
   "業績": 69.835482519131,
-  "財務": 109.23618291835373,
+  "財務": 110.0,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
   "REIT品質": null
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 75.5,
+ "bt_score": 80.9,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 91.2945764357805,
-  "fcf_yield": 103.96767564339751,
-  "per_cheap": 64.0,
-  "pbr_cheap": 42.6
+  "ev_ebit_vs_sector": 108.10678602144533,
+  "fcf_yield": 104.38784061382724,
+  "per_cheap": 67.2,
+  "pbr_cheap": 44.0
  },
- "ev_ebit": 16.161709360461764,
- "fcf_yield": 7.190302693019255,
+ "ev_ebit": 9.852967312939796,
+ "fcf_yield": 7.316352184148172,
  "per_band_pos": null,
  "pbr_band_pos": 0.0,
- "ev_ebit_vs_sector": 0.9261724561869206,
- "per_vs_sector": 1.1750934000000002,
- "pbr_vs_sector": 1.5475295,
+ "ev_ebit_vs_sector": 0.5662624892494136,
+ "per_vs_sector": 1.1548482999999998,
+ "pbr_vs_sector": 1.5208679999999999,
  "price_chg": {
-  "d": -0.4177234074295044,
-  "w": -1.577705691536424,
-  "m": 8.342801493264073,
-  "3m": 10.312345066931083,
-  "6m": -0.35826242722794,
-  "9m": -13.54746794456677,
-  "y": 16.228452028556497
+  "d": -2.1333731165149916,
+  "w": -3.273370687112942,
+  "m": 6.476221392631065,
+  "3m": 8.41183275491655,
+  "6m": -2.074936557695184,
+  "9m": -15.036912317057372,
+  "y": 14.226014278251785
  },
- "div_yield": 1.7977528089887642,
- "implied_fcf_growth": 0.0274,
+ "div_yield": 1.8292682926829267,
+ "implied_fcf_growth": 0.025,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T01:12:07Z"
+  "fetched": "2026-11-21T00:37:26Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -73,9 +73,9 @@
   "op_margin": 91.78680863808401,
   "earnings_stability": 36.556129577858236,
   "equity_ratio": 110.0,
-  "de": 108.6377924453305,
+  "de": null,
   "net_de": 110.0,
-  "debt_to_ocf": 108.30693922808446,
+  "debt_to_ocf": null,
   "interest_coverage": null,
   "ocf_positive": 100.0,
   "fcf_positive": 100.0,
@@ -87,13 +87,13 @@
   "op_margin": 6.9733510797605005,
   "earnings_stability": 0.5151977450726849,
   "equity_ratio": 44.125224676204205,
-  "de": 0.7043311332004248,
+  "de": null,
   "net_de": 0.5953907836634309,
-  "debt_to_ocf": 2.677224308766214,
+  "debt_to_ocf": null,
   "interest_coverage": null,
   "ocf_positive": 1,
   "fcf_positive": 1,
   "fcf_payout": 21.696011268327037
  },
- "_generated_at": "2026-11-20T01:12:09"
+ "_generated_at": "2026-11-21T00:37:28"
 }

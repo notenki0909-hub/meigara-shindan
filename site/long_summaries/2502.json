@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 1823.5,
- "price_date": "2026-11-19",
- "mcap": 2667164729344,
+ "price": 1784.0,
+ "price_date": "2026-11-20",
+ "mcap": 2609389502464,
  "q_score": 75.8,
  "groups": {
   "業績": 77.41848543337407,
@@ -22,37 +22,37 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 71.0,
+ "bt_score": 71.2,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 47.391540619999745,
+  "ev_ebit_vs_sector": 48.07580035095741,
   "fcf_yield": 20.0,
   "per_cheap": 108.0,
-  "pbr_cheap": 108.5
+  "pbr_cheap": 108.7
  },
- "ev_ebit": 22.354127773949536,
- "fcf_yield": -1.8705631283700612,
- "per_band_pos": 0.9175507777770785,
+ "ev_ebit": 22.043291023102167,
+ "fcf_yield": -1.911979792702041,
+ "per_band_pos": 0.9140911393547532,
  "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 1.310324019575002,
- "per_vs_sector": 0.74715235,
- "pbr_vs_sector": 0.7176637166666667,
+ "ev_ebit_vs_sector": 1.3043367469291225,
+ "per_vs_sector": 0.7485733,
+ "pbr_vs_sector": 0.7021179166666668,
  "price_chg": {
-  "d": 0.19230769230769162,
-  "w": 4.289390906491275,
-  "m": 8.833184124142047,
-  "3m": 9.783263094521377,
-  "6m": 18.140589569161,
-  "9m": 7.549395458566788,
-  "y": 7.708210277613703
+  "d": -2.1661639703866142,
+  "w": -1.1634349030470892,
+  "m": 6.7943729422328625,
+  "3m": 8.186779866585802,
+  "6m": 12.875672255615322,
+  "9m": 5.969705969705963,
+  "y": 4.756312389900175
  },
- "div_yield": 3.400054839594187,
+ "div_yield": 3.4753363228699556,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
    "value_trap": [
-    "PBR 0.86倍（1倍割れ）かつROE 4.0%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+    "PBR 0.84倍（1倍割れ）かつROE 4.0%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
    ]
   },
   "raw": {
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T00:03:39Z"
+  "fetched": "2026-11-20T23:32:31Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-20T00:53:47"
+ "_generated_at": "2026-11-21T00:19:02"
 }

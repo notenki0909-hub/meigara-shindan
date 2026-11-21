@@ -108,7 +108,6 @@ tr:last-child td{border-bottom:none}
 .addrow-body{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
 .addrow.collapsed .addrow-body{display:none}
 .addrow.collapsed .addrow-head{margin:0}
-.addrow.added .addrow-head .nm{color:var(--muted)}
 .addrow .nm{font-weight:700}
 .addrow .fold,.addrow .rm{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:12px;cursor:pointer}
 .addrow-btns{display:flex;gap:6px}
@@ -125,6 +124,8 @@ tr:last-child td{border-bottom:none}
 .chartwrap{display:flex;gap:22px;flex-wrap:wrap;align-items:center}
 #pie{width:220px;height:220px;flex:0 0 auto}
 .legend{flex:1;min-width:220px;font-size:12.5px}
+.legend.many{columns:2 240px;column-gap:22px}
+.legend.many .lgitem{break-inside:avoid}
 .lgitem{display:flex;align-items:center;gap:8px;padding:3px 0}
 .lgitem .sw{width:12px;height:12px;border-radius:3px;flex:0 0 auto}
 .lgitem b{margin-left:auto}
@@ -194,6 +195,86 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 .island.secbefore{box-shadow:0 -4px 0 0 var(--accent)}
 .island.secend{box-shadow:0 4px 0 0 var(--accent)}
 .idrop{border:2px dashed var(--line);border-radius:10px;padding:18px;text-align:center;color:var(--muted);font-size:12.5px}
+.island.has,.rbscroll{scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--fg) 45%,var(--card)) var(--field)}
+
+/* リバランス */
+.rbh{font-size:13px;margin:14px 0 6px}
+.rbtools{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
+.rbtools button{padding:4px 10px;font-size:12px}
+.rbscroll{overflow-x:auto}
+#rbtable table{min-width:940px}
+#rbresult table{min-width:860px}
+#rbresult table.rbsec{min-width:0}
+#rbresult td.n{white-space:nowrap}
+#rbresult td:nth-child(2){min-width:11em}
+#rbtable td.nm{white-space:normal;min-width:13em}
+#rbtable td.n,#rbtable td.sub .code{white-space:nowrap}
+#rbtable td.n{min-width:3.5em}
+.eff{font-size:10.5px;color:var(--muted);font-weight:400}
+#rbtable tr.secrow td{background:var(--field);font-weight:600;border-top:2px solid var(--line)}
+#rbtable td.sub{padding-left:22px;font-weight:400}
+#rbtable .code,#rbresult .code{color:var(--accent);font-variant-numeric:tabular-nums}
+.rbin{width:5.2em;padding:5px 6px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);font-size:13px;text-align:right}
+.rbin.cin{width:7em;text-align:left}
+.rbsel{padding:5px 6px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);font-size:12px}
+#rbtable tr.warnrow td{font-size:11.5px;color:var(--wfg);background:var(--wbg)}
+#rbtable tr.addrowc td{font-size:12px;padding:4px 8px 8px 22px;color:var(--muted)}
+.skn{font-size:12px;color:var(--muted);font-weight:400}
+.candmsg{color:var(--gC);font-size:12px}
+.chip{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;white-space:nowrap;font-weight:400}
+.chip.over{background:color-mix(in srgb,var(--gC) 14%,transparent);color:color-mix(in srgb,var(--gC) 70%,var(--fg))}
+.chip.under{background:color-mix(in srgb,var(--accent) 14%,transparent);color:color-mix(in srgb,var(--accent) 70%,var(--fg))}
+.chip.ok{border:1px solid var(--line);color:var(--muted)}
+.chip.cand{border:1px dashed var(--accent);color:color-mix(in srgb,var(--accent) 70%,var(--fg))}
+.canddel{padding:0 6px;font-size:11px;margin-left:4px}
+.rbform{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;margin:6px 0 10px}
+.rbform label{font-size:11.5px;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+.rbform input.rbf,.rbform select{padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);font-size:13px}
+.rbform input.rbf{width:8em}
+.rbform .inl{display:flex;gap:6px;align-items:center}
+.rbform .inl input.rbf{width:5.5em}
+.rbmodes{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.rbmodes label{flex-direction:row;align-items:center;gap:4px;color:var(--fg);font-size:13px}
+.rbsumm{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.rbsumm div{background:var(--field);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.rbsumm span{display:block;font-size:11px;color:var(--muted)}
+.rbsumm b{font-size:15px}
+.rbtag{display:inline-block;min-width:3.2em;text-align:center;font-size:10.5px;font-weight:700;border-radius:4px;padding:2px 6px}
+.rbtag.sl{background:var(--gC);color:var(--onacc,#fff)}
+.rbtag.by{background:var(--accent);color:var(--onacc,#fff)}
+.note.warn{color:var(--wfg)}
+
+/* リバランス：見やすさの調整（ライト・ダーク共通。色は変数と color-mix だけで作る） */
+.rbh{font-size:15px;font-weight:800;margin:20px 0 8px;padding-bottom:6px;border-bottom:2px solid color-mix(in srgb,var(--accent) 40%,var(--line))}
+#rbbox .rbcall{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;margin:12px 0;border-radius:10px;background:var(--wbg);border:1px solid var(--wbd);border-left:7px solid var(--wfg);color:var(--wfg)}
+#rbbox .rbcall .ic{font-size:22px;line-height:1.2;flex:0 0 auto}
+#rbbox .rbcall .lead{font-size:15.5px;font-weight:800;line-height:1.5;margin-bottom:4px}
+#rbbox .rbcall p{margin:4px 0;font-size:13.5px;line-height:1.75;color:var(--wfg)}
+#rbbox .rbcall b.kw{font-weight:800;background:color-mix(in srgb,var(--wfg) 16%,transparent);padding:1px 6px;border-radius:4px}
+#rbbox .rbcall .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+#rbbox .rbcall .acts button{padding:7px 14px;font-size:13px;font-weight:700}
+#rbbox .rbcall .acts button.ghost{background:var(--card);color:var(--fg);border-color:var(--wfg)}
+#rbbox p.rbok{margin:10px 0;font-size:13px;font-weight:700;color:var(--gA)}
+#rbtable th,#rbresult th{font-size:12px;font-weight:700;color:color-mix(in srgb,var(--fg) 72%,var(--card))}
+#rbtable td,#rbresult td{font-variant-numeric:tabular-nums}
+#rbtable tr.secrow td{background:color-mix(in srgb,var(--accent) 9%,var(--card));font-weight:700;border-top:2px solid color-mix(in srgb,var(--accent) 35%,var(--line))}
+#rbtable tr.secrow td.nm b{font-size:14.5px}
+#rbtable tr.warnrow td{font-size:12.5px;font-weight:600;border-left:4px solid var(--wfg)}
+.eff{font-size:11.5px;color:var(--wfg);font-weight:700}
+.chip{font-size:11.5px;font-weight:600}
+.chip.ok{font-weight:500}
+.rbin,.rbsel,.rbform input.rbf,.rbform select{border-color:color-mix(in srgb,var(--fg) 30%,var(--line))}
+.rbin:focus,.rbsel:focus,.rbform input:focus,.rbform select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.rbsumm div{background:color-mix(in srgb,var(--accent) 7%,var(--card))}
+.rbsumm span{font-size:12px}
+.rbsumm b{font-size:16px;font-weight:800}
+.rbsumm div[data-rbhelp]{cursor:pointer}
+.rbsumm div[data-rbhelp] span::after{content:' ⓘ';color:var(--accent)}
+.rbsumm div[data-rbhelp]:focus-visible{outline:2px solid var(--accent)}
+.rbsumm div[data-rbhelp].on{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 25%,transparent)}
+#rbhelp{margin:0 0 10px}
+.txsellr td{background:color-mix(in srgb,var(--gC) 7%,transparent)}
+.txbuyr td{background:color-mix(in srgb,var(--accent) 7%,transparent)}
 
 /* 売買（ロット）記録バッジ・取引フォーム */
 .txbadge{display:inline-block;padding:1px 7px;border-radius:10px;font-size:11px;font-weight:700;margin-right:2px}
@@ -327,6 +408,29 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   <div id="holdtable"></div>
 </div>
 
+<div class="box" id="rbbox" hidden>
+  <h2>リバランス</h2>
+  <p class="note">理想の配分（目標）をセクションごとに設定すると、現状との差と、買い増し・売却の案が出ます。目標％はセクション単位で入力し（合計100%）、セクションの中の銘柄は「均等／現状のまま／指定」で割り振ります。「未分類」の銘柄は対象外です。まだ持っていない候補銘柄も、セクションに追加できます（候補にできるのは、このツールのランキングに載っている銘柄です）。</p>
+  <h3 class="rbh">① 目標と現状の差</h3>
+  <div class="rbtools"><button type="button" id="rb-eq" class="ghost">セクションの目標を均等にする</button><button type="button" id="rb-cur" class="ghost">現状の比率を目標にコピー</button></div>
+  <div id="rbtable"></div>
+  <div id="rbctl">
+    <h3 class="rbh">② リバランス案</h3>
+    <div class="rbform">
+      <div class="rbmodes">
+        <label><input type="radio" name="rbmode" value="buy"> 買い増しのみ</label>
+        <label><input type="radio" name="rbmode" value="sell"> 売却のみ</label>
+        <label><input type="radio" name="rbmode" value="both"> 売却＋買い増し</label>
+      </div>
+      <label>新規資金（円）<input id="rb-cash" class="rbf" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></label>
+      <label>売買単位<select id="rb-unit"><option value="100">単元（100株単位）</option><option value="1">単元未満（1株単位）</option></select></label>
+      <label>許容幅（売る・買う判定）<span class="inl"><select id="rb-bandtype"><option value="rel">目標の相対 ±（%）</option><option value="abs">絶対 ±（pt）</option></select> <input id="rb-bandval" class="rbf" type="text" inputmode="decimal" autocomplete="off"></span></label>
+      <label>最小売買額（円）<input id="rb-min" class="rbf" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></label>
+    </div>
+    <div id="rbresult"></div>
+  </div>
+</div>
+
 <div class="box">
   <h2>保有記録の保存・共有</h2>
   <div class="codewrap">
@@ -347,7 +451,7 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 
 <details id="csvbk">
   <summary><h2>バックアップ（CSV）</h2></summary>
-  <p>「詳しい条件で絞り込む」の条件（URL）、ウォッチリスト（「あなたの銘柄リスト」の全てと、タブ・セクションを含む「全タブの控え」）、ポートフォリオの保有記録（「保有記録の保存・共有」の文字列）と、保有銘柄のセクション（分け方）を、<b>1つのCSV</b>にまとめて書き出します。ファイル名は「10年保有（日株）日付.csv」です。</p>
+  <p>「詳しい条件で絞り込む」の条件（URL）、ウォッチリスト（「あなたの銘柄リスト」の全てと、タブ・セクションを含む「全タブの控え」）、ポートフォリオの保有記録（「保有記録の保存・共有」の文字列）と、保有銘柄のセクション（分け方）・リバランスの設定を、<b>1つのCSV</b>にまとめて書き出します。ファイル名は「10年保有（日株）日付.csv」です。</p>
   <div class="codewrap">
     <button type="button" id="bk-export">CSVで書き出す</button>
     <button type="button" id="bk-import" class="ghost">CSVを読み込んで復元</button>
@@ -1153,6 +1257,12 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   $('disc').innerHTML = DISC;
 
   var PALETTE = ['#2563eb','#e8635e','#23a79d','#efa63c','#7cb342','#9b59b6','#e91e8c','#607d8b','#c9a227','#3f51b5','#00897b','#d84315'];
+  // 項目が12を超えても色が重ならないよう、13番目以降は色相を黄金角ずつずらして作る（「その他」にまとめないため）
+  function colorAt(i){
+    if (i < PALETTE.length) return PALETTE[i];
+    var k = i - PALETTE.length;
+    return 'hsl(' + ((k * 137.508 + 25) % 360).toFixed(1) + ',58%,' + (k % 2 ? 46 : 58) + '%)';
+  }
 
   function yen(v){ return (typeof v === 'number' && isFinite(v)) ? Math.round(v).toLocaleString('ja-JP') + '円' : '―'; }
   function num0(v){ return (typeof v === 'number' && isFinite(v)) ? v.toFixed(0) : '―'; }
@@ -1288,13 +1398,8 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
       m[key] += h.value;
     });
     var data = order.map(function(k){ return {label:k, value:m[k]}; }).sort(function(a,b){ return b.value - a.value; });
-    if (data.length > 9) {
-      var head = data.slice(0, 8);
-      var restV = data.slice(8).reduce(function(a,d){ return a + d.value; }, 0);
-      head.push({label:'その他', value:restV});
-      data = head;
-    }
     var total = data.reduce(function(a,d){ return a + d.value; }, 0);
+    legend.className = 'legend' + (data.length > 12 ? ' many' : '');
     if (!total) {
       svg.innerHTML = '';
       legend.innerHTML = '<div class="empty">現在値を取得できた保有銘柄がありません。</div>';
@@ -1310,13 +1415,13 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
       var xi0 = cx + r0*Math.cos(a1), yi0 = cy + r0*Math.sin(a1);
       var xi1 = cx + r0*Math.cos(a0), yi1 = cy + r0*Math.sin(a0);
       var dAttr = 'M'+x0+','+y0+' A'+r+','+r+' 0 '+big+' 1 '+x1+','+y1+' L'+xi0+','+yi0+' A'+r0+','+r0+' 0 '+big+' 0 '+xi1+','+yi1+' Z';
-      var col = PALETTE[i % PALETTE.length];
+      var col = colorAt(i);
       paths.push('<path d="'+dAttr+'" fill="'+col+'" stroke="var(--card)" stroke-width="2"><title>'+d.label.replace(/&/g,'&amp;').replace(/</g,'&lt;')+' '+(frac*100).toFixed(1)+'%</title></path>');
       a0 = a1;
     });
     svg.innerHTML = paths.join('');
     legend.innerHTML = data.map(function(d, i){
-      var col = PALETTE[i % PALETTE.length];
+      var col = colorAt(i);
       var safe = String(d.label).replace(/&/g,'&amp;').replace(/</g,'&lt;');
       return '<div class="lgitem"><span class="sw" style="background:'+col+'"></span>'+safe
         + '<b>'+(d.value/total*100).toFixed(1)+'%</b><span class="lv">('+yen(d.value)+')</span></div>';
@@ -1479,13 +1584,28 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   var secSeq = 0;
   var secs = [];
   function secName(n){ return String(n == null ? '' : n).replace(/\s+/g, ' ').trim().slice(0, SEC_NAME_MAX) || 'セクション'; }
+  function secLoad(s){
+    var o = {id: s.id, name: secName(s.name),
+             codes: Array.isArray(s.codes) ? s.codes.map(function(c){ return String(c).toUpperCase(); }) : []};
+    if (typeof s.t === 'number' && isFinite(s.t) && s.t >= 0) o.t = s.t;                  // リバランスの目標（%）
+    if (s.m === 'cur' || s.m === 'set') o.m = s.m;                                       // セクション内の割り振り（既定の均等は保存しない）
+    if (s.w && typeof s.w === 'object' && !Array.isArray(s.w)) {                         // 「指定」のときの、銘柄ごとの割合（%）
+      o.w = {};
+      Object.keys(s.w).forEach(function(k){ var v = +s.w[k]; if (isFinite(v) && v >= 0) o.w[String(k).toUpperCase()] = v; });
+    }
+    if (Array.isArray(s.a)) {                                                            // 候補銘柄（まだ持っていない銘柄）
+      var seen = {}, a = [];
+      s.a.forEach(function(c){ c = String(c).toUpperCase(); if (c && !seen[c]) { seen[c] = 1; a.push(c); } });
+      if (a.length) o.a = a;
+    }
+    return o;
+  }
   function newSecId(){ secSeq++; return 's' + Date.now().toString(36) + secSeq + Math.random().toString(36).slice(2, 5); }
   try {
     var sraw = JSON.parse(localStorage.getItem(SECS_KEY) || '[]');
     if (Array.isArray(sraw)) sraw.forEach(function(s){
       if (!s || typeof s.id !== 'string') return;
-      secs.push({id: s.id, name: secName(s.name),
-                 codes: Array.isArray(s.codes) ? s.codes.map(function(c){ return String(c).toUpperCase(); }) : []});
+      secs.push(secLoad(s));
     });
   } catch(e) {}
   function saveSecs(){
@@ -1511,7 +1631,7 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   }
   // セクションの中身を、いま実際に保有している銘柄だけ・重複なしに整える
   function cleanSecs(list){
-    var have = {}, used = {}, changed = false;
+    var have = {}, used = {}, usedCand = {}, changed = false;
     list.forEach(function(h){ have[h.code] = 1; });
     secs.forEach(function(s){
       var keep = s.codes.filter(function(c){
@@ -1522,11 +1642,25 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
       if (keep.length !== s.codes.length) changed = true;
       s.codes = keep;
     });
+    // 候補銘柄：購入を記録して保有銘柄になったら、そのセクションの保有銘柄へ自動で切り替える
+    secs.forEach(function(s){
+      if (!s.a) return;
+      var keepA = [];
+      s.a.forEach(function(c){
+        if (have[c]) {
+          if (!used[c]) { used[c] = 1; s.codes.push(c); }
+          changed = true;
+        } else if (!usedCand[c]) { usedCand[c] = 1; keepA.push(c); }
+        else changed = true;
+      });
+      if (keepA.length !== s.a.length) changed = true;
+      if (keepA.length) s.a = keepA; else delete s.a;
+    });
     if (changed) saveSecs();
   }
   // 銘柄を別のセクションへ移す（toId が空文字なら「未分類」へ戻す）
   function moveCode(code, toId){
-    secs.forEach(function(s){ s.codes = s.codes.filter(function(c){ return c !== code; }); });
+    secs.forEach(function(s){ s.codes = s.codes.filter(function(c){ return c !== code; }); if (s.w) delete s.w[code]; });
     var t = toId ? secById(toId) : null;
     if (t) t.codes.push(code);
     saveSecs();
@@ -1721,6 +1855,7 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     $('holdtable').querySelectorAll('tr.detail:not([hidden]) .pricechart').forEach(function(pc){
       renderPriceChart(pc.dataset.code, pc.querySelector('.pricechart-body'), holdingsByCode[pc.dataset.code]);
     });
+    renderRb();
   }
 
   $('secadd').addEventListener('click', addSection);
@@ -1893,6 +2028,559 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     if (again) again.focus();
   });
 
+  // ---- リバランス（目標と現状の差・売買案）----
+  // 目標％はセクション単位で設定する（セクション合計＝100%）。セクションの中の銘柄は「均等／現状のまま／指定」で割り振る。
+  // 未分類の銘柄はリバランスの対象外（売買しない）。セクションには、まだ持っていない「候補銘柄」も入れられる。
+  var RB_KEY = PF_KEY.replace('pf_lots', 'pf_rb');
+  var rb = {mode: 'buy', cash: 0, unit: 100, bandType: 'rel', bandVal: 20, minTrade: 0};
+  try {
+    var rbs = JSON.parse(localStorage.getItem(RB_KEY) || 'null');
+    if (rbs && typeof rbs === 'object') {
+      if (['buy', 'sell', 'both'].indexOf(rbs.mode) >= 0) rb.mode = rbs.mode;
+      if (isFinite(+rbs.cash) && +rbs.cash >= 0) rb.cash = +rbs.cash;
+      if (rbs.unit === 1 || rbs.unit === 100) rb.unit = rbs.unit;
+      if (rbs.bandType === 'abs' || rbs.bandType === 'rel') rb.bandType = rbs.bandType;
+      if (isFinite(+rbs.bandVal) && +rbs.bandVal >= 0) rb.bandVal = +rbs.bandVal;
+      if (isFinite(+rbs.minTrade) && +rbs.minTrade >= 0) rb.minTrade = +rbs.minTrade;
+    }
+  } catch(e) {}
+  function saveRb(){ try { localStorage.setItem(RB_KEY, JSON.stringify(rb)); } catch(e) {} }
+  var lastByCode = {};
+
+  /*RB-ENGINE-START*/
+  // リバランス案の計算（画面には依存しない純粋な関数。単体試験できる）。
+  //   items: [{code, price, shares, t}]  t＝リバランス対象の全体に対する目標割合（0〜1。合計は1）
+  //   opt  : {mode:'buy'|'sell'|'both', cash, unit, bandType:'rel'|'abs', bandVal, minTrade}
+  //     buy  ＝買い増しのみ（新規資金を、目標より不足している銘柄から順に配分。売らない）
+  //     sell ＝売却のみ（許容幅を超えて多い銘柄を、目標金額まで売る。代金は現金として残す）
+  //     both ＝売却＋買い増し（売却の代金と新規資金を、不足している銘柄に配分）
+  //   unit : 売買単位（日本株：単元＝100、単元未満＝1）。売却できる株数は単位の倍数まで（端数は残る）
+  function rbPlan(items, opt){
+    var u = opt.unit > 0 ? opt.unit : 1;
+    var cash = (opt.mode === 'sell') ? 0 : Math.max(0, +opt.cash || 0);
+    var minTrade = Math.max(0, +opt.minTrade || 0);
+    var bv = Math.max(0, +opt.bandVal || 0);
+    var rows = items.filter(function(it){ return it.price > 0; }).map(function(it){
+      return {code: it.code, price: it.price, shares: it.shares, t: it.t,
+              v: it.price * it.shares, unitCost: it.price * u,
+              sellable: Math.floor(it.shares / u) * u, sell: 0, buy: 0, units: 0};
+    });
+    var V = rows.reduce(function(a, r){ return a + r.v; }, 0);
+    var T = V + cash;
+    var proceeds = 0, buyTotal = 0;
+    // 1) 売却：許容幅を超えて多い銘柄を、目標金額（目標％×売買後の評価額）まで
+    if (opt.mode === 'sell' || opt.mode === 'both') {
+      rows.forEach(function(r){
+        var w = V > 0 ? r.v / V : 0;
+        var over = (opt.bandType === 'abs') ? (w - r.t > bv / 100 + 1e-12)
+                                            : (r.t > 0 ? w > r.t * (1 + bv / 100) + 1e-12 : r.v > 0);
+        if (!over) return;
+        var excess = r.v - r.t * T;
+        if (excess <= 0) return;
+        var units = Math.min(Math.round(excess / r.unitCost), r.sellable / u);
+        var sh = units * u;
+        if (sh <= 0 || sh * r.price < minTrade) return;
+        r.sell = sh;
+        proceeds += sh * r.price;
+      });
+    }
+    // 2) 買い：予算を、目標より不足している銘柄から順に（最も不足している銘柄の「目標に対する割合」を最大にする方式）
+    var budget = 0;
+    if (opt.mode === 'buy' || opt.mode === 'both') {
+      budget = cash + (opt.mode === 'both' ? proceeds : 0);
+      var cand = rows.filter(function(r){ return r.t > 0 && r.sell === 0; });
+      if (budget > 0 && cand.length) {
+        var v1 = function(r){ return r.v - r.sell * r.price; };
+        var lo = Math.min.apply(null, cand.map(function(r){ return v1(r) / r.t; }));
+        var minT = Math.min.apply(null, cand.map(function(r){ return r.t; }));
+        var hi = lo + budget / minT + 1;
+        var need = function(L){ return cand.reduce(function(a, r){ return a + Math.max(0, r.t * L - v1(r)); }, 0); };
+        for (var k = 0; k < 200; k++) {
+          var mid = (lo + hi) / 2;
+          if (need(mid) > budget) hi = mid; else lo = mid;
+        }
+        var spent = 0;
+        cand.forEach(function(r){
+          r.units = Math.floor(Math.max(0, r.t * lo - v1(r)) / r.unitCost + 1e-9);
+          spent += r.units * r.unitCost;
+        });
+        // 単位に丸めたあとの余りで、いちばん不足している銘柄から1単位ずつ（買える範囲で）
+        var rem = budget - spent, guard = 0;
+        while (guard++ < 200000) {
+          var best = null, bf = Infinity;
+          cand.forEach(function(r){
+            if (r.unitCost > rem + 1e-9) return;
+            var f = (v1(r) + r.units * r.unitCost) / r.t;
+            if (f < bf - 1e-12 || (Math.abs(f - bf) <= 1e-12 && best && r.unitCost < best.unitCost)) { bf = f; best = r; }
+          });
+          if (!best) break;
+          best.units++;
+          rem -= best.unitCost;
+        }
+        cand.forEach(function(r){
+          var sh = r.units * u;
+          if (sh > 0 && sh * r.price >= minTrade) { r.buy = sh; buyTotal += sh * r.price; }
+        });
+      }
+    }
+    // 3) 結果
+    var vAfterTotal = 0, sellTotal = 0;
+    rows.forEach(function(r){
+      r.after = r.shares - r.sell + r.buy;
+      r.vAfter = r.after * r.price;
+      vAfterTotal += r.vAfter;
+      if (r.sell > 0) sellTotal += r.sell * r.price;
+    });
+    var devBefore = 0, devAfter = 0;
+    rows.forEach(function(r){
+      r.wBefore = V > 0 ? r.v / V : 0;
+      r.wAfter = vAfterTotal > 0 ? r.vAfter / vAfterTotal : 0;
+      devBefore = Math.max(devBefore, Math.abs(r.wBefore - r.t));
+      devAfter = Math.max(devAfter, Math.abs(r.wAfter - r.t));
+    });
+    return {rows: rows, V: V, T: T, cash: cash, proceeds: proceeds, sellTotal: sellTotal, buyTotal: buyTotal,
+            leftover: cash + proceeds - buyTotal, vAfter: vAfterTotal, devBefore: devBefore, devAfter: devAfter};
+  }
+  /*RB-ENGINE-END*/
+
+  function rbNum(s){
+    if (s == null || String(s).trim() === '') return undefined;
+    var z = String(s).replace(/[０-９]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+                     .replace(/[．。]/g, '.').replace(/[，,\s]/g, '').replace(/[％%円]/g, '');
+    if (z === '') return undefined;
+    var n = Number(z);
+    return (isFinite(n) && n >= 0) ? n : undefined;
+  }
+  function f1(x){ return (Math.round(x * 10) / 10).toFixed(1); }
+
+  // 画面用のモデル：セクションごとの構成銘柄（保有＋候補）と、銘柄ごとの目標割合を求める
+  function rbModel(){
+    var hmap = {};
+    lastHoldings.forEach(function(h){ hmap[h.code] = h; });
+    var infos = secs.map(function(s){
+      var m = [];
+      s.codes.forEach(function(c){
+        var h = hmap[c];
+        if (!h || h.missing || h.price == null) return;      // 現在値のない銘柄は対象外
+        m.push({code: c, name: h.name || c, price: h.price, shares: h.shares, avg: h.avgPrice || 0, value: h.shares * h.price, held: true});
+      });
+      (s.a || []).forEach(function(c){
+        var i = lastByCode[c];
+        if (!i || typeof i.price !== 'number') return;
+        m.push({code: c, name: i.name || c, price: i.price, shares: 0, avg: 0, value: 0, held: false});
+      });
+      return {s: s, m: m, value: m.reduce(function(a, x){ return a + x.value; }, 0), warn: ''};
+    });
+    var V = infos.reduce(function(a, i){ return a + i.value; }, 0);
+    var act = infos.filter(function(i){ return i.m.length; });
+    var sumT = 0, unset = 0;
+    act.forEach(function(i){ if (typeof i.s.t === 'number') sumT += i.s.t; else unset++; });
+    var ready = act.length > 0 && unset === 0 && sumT > 0;
+    infos.forEach(function(i){
+      i.cur = V > 0 ? i.value / V : 0;
+      i.tn = (ready && i.m.length) ? i.s.t / sumT : 0;
+      var mode = i.s.m || 'eq', n = i.m.length;
+      var eq = i.m.map(function(){ return n ? 1 / n : 0; });
+      var sh = eq;
+      if (mode === 'set') {
+        var ws = i.m.map(function(x){ return (i.s.w && typeof i.s.w[x.code] === 'number') ? i.s.w[x.code] : 0; });
+        var sw = ws.reduce(function(a, b){ return a + b; }, 0);
+        if (sw > 0) {
+          sh = ws.map(function(w){ return w / sw; });
+          if (Math.abs(sw - 100) > 0.05) i.warn = '内訳の合計が ' + f1(sw) + '% です（100%ではないため、比率に直して計算します）';
+        } else if (n) i.warn = '内訳が未入力のため、均等で計算します';
+      } else if (mode === 'cur') {
+        var hv = i.m.reduce(function(a, x){ return a + x.value; }, 0);
+        if (hv > 0) sh = i.m.map(function(x){ return x.value / hv; });
+      }
+      i.m.forEach(function(x, k){ x.inSec = sh[k]; x.t = i.tn * sh[k]; x.cur = V > 0 ? x.value / V : 0; });
+    });
+    return {infos: infos, V: V, ready: ready, sumT: sumT, unset: unset, act: act};
+  }
+
+  function bandJudge(cur, t){
+    // 現状（全体に対する割合）が、目標に対して許容幅の内か、多いか、少ないか
+    var bv = rb.bandVal;
+    var hi, lo;
+    if (rb.bandType === 'abs') { hi = t + bv / 100; lo = t - bv / 100; }
+    else { hi = t * (1 + bv / 100); lo = t * (1 - bv / 100); }
+    if (cur > hi + 1e-12) return 'over';
+    if (cur < lo - 1e-12) return 'under';
+    return 'ok';
+  }
+  var JUDGE_TXT = {over: '超過（売却候補）', under: '不足（買い増し候補）', ok: '許容幅の内'};
+  function chip(j){ return '<span class="chip ' + j + '">' + JUDGE_TXT[j] + '</span>'; }
+
+  function drawRbTable(M){
+    var el = $('rbtable');
+    if (!secs.length) {
+      el.innerHTML = '<div class="empty">リバランスの目標は、セクションごとに設定します。上の「保有銘柄一覧」で、「自動でセクションに分ける」（銘柄別・業種別・グループ別）か「＋ セクションを追加」を使って、セクションを作ってください。</div>';
+      return;
+    }
+    var rows = '';
+    var diffTxt = function(cur, t){
+      var d = (cur - t) * 100;
+      return (d >= 0 ? '+' : '') + f1(d) + 'pt';
+    };
+    var gapTxt = function(value, t){
+      var g = value - t * M.V;
+      return (g >= 0 ? '+' : '−') + yen(Math.abs(g));
+    };
+    M.infos.forEach(function(i){
+      var s = i.s, id = escH(s.id);
+      var sel = '<select class="rbsel" data-k="m:' + id + '" aria-label="セクション内の割り振り">'
+        + '<option value="eq"' + ((s.m || 'eq') === 'eq' ? ' selected' : '') + '>内訳：均等</option>'
+        + '<option value="cur"' + (s.m === 'cur' ? ' selected' : '') + '>内訳：現状のまま</option>'
+        + '<option value="set"' + (s.m === 'set' ? ' selected' : '') + '>内訳：指定</option></select>';
+      var judge = (M.ready && i.m.length) ? chip(bandJudge(i.cur, i.tn)) : '';
+      rows += '<tr class="secrow"><td class="nm"><b>' + escH(s.name) + '</b>'
+        + '<span class="skn"> ' + i.m.filter(function(x){ return x.held; }).length + '銘柄'
+        + (i.m.some(function(x){ return !x.held; }) ? '＋候補' + i.m.filter(function(x){ return !x.held; }).length : '') + '</span></td>'
+        + '<td class="n"></td><td class="n">' + yen(i.value) + '</td><td class="n">' + f1(i.cur * 100) + '%</td>'
+        + '<td class="n"><input class="rbin" type="text" inputmode="decimal" autocomplete="off" data-k="t:' + id + '" value="' + (typeof s.t === 'number' ? Math.round(s.t * 1000) / 1000 : '') + '" placeholder="目標" aria-label="セクションの目標（%）">%'
+        + ((M.ready && i.m.length && Math.abs(M.sumT - 100) > 0.05) ? '<div class="eff">計算上 ' + f1(i.tn * 100) + '%</div>' : '') + '</td>'
+        + '<td>' + sel + '</td>'
+        + '<td class="n">' + (M.ready && i.m.length ? diffTxt(i.cur, i.tn) : '') + '</td>'
+        + '<td class="n">' + (M.ready && i.m.length ? gapTxt(i.value, i.tn) : '') + '</td>'
+        + '<td>' + judge + '</td></tr>';
+      if (i.warn) rows += '<tr class="warnrow"><td colspan="9">' + escH(i.warn) + '</td></tr>';
+      i.m.forEach(function(x){
+        var inSec;
+        if ((s.m || 'eq') === 'set') {
+          inSec = '<input class="rbin" type="text" inputmode="decimal" autocomplete="off" data-k="w:' + id + ':' + escH(x.code) + '" value="'
+            + ((s.w && typeof s.w[x.code] === 'number') ? Math.round(s.w[x.code] * 1000) / 1000 : '') + '" aria-label="セクション内の割合（%）">%';
+        } else inSec = f1(x.inSec * 100) + '%';
+        var jd = M.ready ? chip(bandJudge(x.cur, x.t)) : '';
+        if (!x.held) jd = '<span class="chip cand">候補（未保有）</span> ' + (M.ready ? jd : '');
+        rows += '<tr class="strow"><td class="nm sub"><span class="code">' + escH(x.code) + '</span> ' + escH(x.name)
+          + (x.held ? '' : ' <button type="button" class="canddel ghost" data-sec="' + id + '" data-code="' + escH(x.code) + '" title="候補から外す">✕</button>') + '</td>'
+          + '<td class="n">' + (x.held ? x.shares.toLocaleString('ja-JP') + '株' : '―') + '</td>'
+          + '<td class="n">' + yen(x.value) + '</td><td class="n">' + f1(x.cur * 100) + '%</td>'
+          + '<td class="n">' + (M.ready ? f1(x.t * 100) + '%' : '―') + '</td>'
+          + '<td class="n">' + inSec + '</td>'
+          + '<td class="n">' + (M.ready ? diffTxt(x.cur, x.t) : '') + '</td>'
+          + '<td class="n">' + (M.ready ? gapTxt(x.value, x.t) : '') + '</td>'
+          + '<td>' + jd + '</td></tr>';
+      });
+      rows += '<tr class="addrowc"><td colspan="9"><span class="skn">＋ 候補銘柄（まだ持っていない銘柄）を、このセクションに追加：</span> '
+        + '<input class="rbin cin" data-cand="' + id + '" placeholder="証券コード" maxlength="5" aria-label="候補銘柄の証券コード">'
+        + '<button type="button" class="canadd ghost" data-sec="' + id + '">追加</button>'
+        + '<span class="candmsg" data-msg="' + id + '"></span></td></tr>';
+    });
+    var pool = lastHoldings.filter(function(h){
+      return !secs.some(function(s){ return s.codes.indexOf(h.code) >= 0; });
+    });
+    var head = '<table><thead><tr><th>セクション／銘柄</th><th class="n">保有株数</th><th class="n">評価額</th><th class="n">現状</th>'
+      + '<th class="n">目標（全体）</th><th class="n">セクション内</th><th class="n">差</th><th class="n">超過(＋)／不足(−)額</th><th>判定</th></tr></thead><tbody>';
+    var top = '', notes = '';
+    var eqKw = '<b class="kw">「セクションの目標を均等にする」</b>';
+    var eqBtn = '<button type="button" data-rbact="eq">セクションの目標を均等にする</button>';
+    if (!M.act.length) notes += '<p class="note">対象になる銘柄（現在値のある保有銘柄、または候補銘柄）が、セクションにありません。</p>';
+    else if (M.unset) {
+      top = '<div class="rbcall" role="alert"><span class="ic" aria-hidden="true">⚠</span><div>'
+        + '<div class="lead">目標が未入力のセクションがあります</div>'
+        + '<p>すべてのセクションに目標（%）を入力すると、現状との差と売買案が出ます。</p>'
+        + '<p>均等割りにして合計を100%にするには、' + eqKw + 'ボタンを押してください。</p>'
+        + '<div class="acts">' + eqBtn + '</div></div></div>';
+    } else if (Math.abs(M.sumT - 100) > 0.05) {
+      top = '<div class="rbcall" role="alert"><span class="ic" aria-hidden="true">⚠</span><div>'
+        + '<div class="lead">セクションの目標の合計が ' + f1(M.sumT) + '% です（100%ではありません）</div>'
+        + '<p>このままでも、合計が100%になるよう、各セクションの目標を ' + (100 / M.sumT).toFixed(2) + '倍にして計算します（セクション行の「計算上」の値と、銘柄行の目標は、その計算後の値です）。</p>'
+        + '<p>均等割りにして合計を100%にするには、' + eqKw + 'ボタンを押してください。</p>'
+        + '<div class="acts">' + eqBtn + '<button type="button" class="ghost" data-rbact="norm">合計を100%に合わせる（いまの比率のまま）</button></div></div></div>';
+    } else top = '<p class="rbok">✓ セクションの目標の合計：' + f1(M.sumT) + '%</p>';
+    if (pool.length) notes += '<p class="note">「未分類」の ' + pool.length + ' 銘柄は、リバランスの対象外です（売買案に含めません）。</p>';
+    el.innerHTML = top + '<div class="rbscroll">' + head + rows + '</tbody></table></div>' + notes;
+  }
+
+  function drawRbResult(M){
+    var el = $('rbresult');
+    if (!secs.length) { el.innerHTML = ''; return; }
+    if (!M.ready) { el.innerHTML = '<div class="empty">目標（%）を入力すると、売買案が出ます。</div>'; return; }
+    var all = [];
+    M.infos.forEach(function(i){ i.m.forEach(function(x){ all.push({x: x, sec: i}); }); });
+    var items = all.map(function(a){ return {code: a.x.code, price: a.x.price, shares: a.x.shares, t: a.x.t, _a: a}; });
+    // 手数料・税金は考慮しない（計算に入れない）
+    var opt = {mode: rb.mode, cash: rb.cash, unit: rb.unit, bandType: rb.bandType, bandVal: rb.bandVal, minTrade: rb.minTrade};
+    var excludedNote = '';
+    if (rb.mode === 'sell') {
+      // 売却のみ：買えない（未保有の）候補銘柄は計算から外し、残りの目標を比率に直す
+      var held = items.filter(function(it){ return it.shares > 0; });
+      var st = held.reduce(function(a, it){ return a + it.t; }, 0);
+      if (items.length !== held.length) excludedNote = '売却のみでは、未保有の候補銘柄を計算から外しています。';
+      items = held.map(function(it){ it.t = st > 0 ? it.t / st : 0; return it; });
+    }
+    var plan = rbPlan(items, opt);
+    var byCode = {};
+    items.forEach(function(it){ byCode[it.code] = it._a; });
+    var msgs = [];
+    if (rb.mode === 'buy' && !(rb.cash > 0)) msgs.push('買い増しのみは、新規資金の範囲で買います。「新規資金」を入力してください。');
+    var trades = plan.rows.filter(function(r){ return r.sell > 0 || r.buy > 0; });
+    trades.sort(function(a, b){
+      var as = a.sell > 0 ? 0 : 1, bs = b.sell > 0 ? 0 : 1;
+      if (as !== bs) return as - bs;
+      return (b.sell * b.price + b.buy * b.price) - (a.sell * a.price + a.buy * a.price);
+    });
+    var fr = rb.unit === 100 ? '単元（100株）' : '単元未満（1株）';
+    lastRbCtx = {plan: plan, trades: trades, byCode: byCode, fr: fr};
+    var card = function(key, label, val){
+      var on = (openRbHelp === key);
+      return '<div class="rbcard' + (on ? ' on' : '') + '" data-rbhelp="' + key + '" tabindex="0" role="button" aria-expanded="' + (on ? 'true' : 'false') + '"><span>' + label + '</span><b>' + val + '</b></div>';
+    };
+    if (openRbHelp === 'cash' && rb.mode === 'sell') openRbHelp = null;
+    if (openRbHelp && !RB_HELP[openRbHelp]) openRbHelp = null;
+    var html = '<div class="rbsumm">'
+      + card('sell', '売却の合計', yen(plan.sellTotal))
+      + card('buy', '買い付けの合計', yen(plan.buyTotal))
+      + (rb.mode === 'sell' ? '' : card('cash', '新規資金', yen(plan.cash)))
+      + card('left', '余りの現金', yen(plan.leftover))
+      + card('dev', '最大のずれ（銘柄・全体比）', f1(plan.devBefore * 100) + 'pt → ' + f1(plan.devAfter * 100) + 'pt')
+      + '</div><div class="stathelp" id="rbhelp"' + (openRbHelp ? '' : ' hidden') + '></div>';
+    if (!trades.length) {
+      var why = msgs.length ? msgs.join(' ') : (rb.mode === 'buy' ? '買い付けできる銘柄がありません（資金が1単位に満たない、または最小売買額に届かない）。'
+        : '許容幅を超えて多い銘柄がない（または売る株数が1単位に満たない）ため、売却はありません。');
+      html += '<div class="empty">売買案はありません。' + escH(why) + '</div>';
+    } else {
+      html += '<div class="rbscroll"><table><thead><tr><th>売買</th><th>銘柄</th><th class="n">株数</th><th class="n">現在値</th><th class="n">概算金額</th>'
+        + '<th class="n">売買後の株数</th><th class="n">売買後の比率（目標）</th></tr></thead><tbody>';
+      trades.forEach(function(r){
+        var a = byCode[r.code];
+        var isSell = r.sell > 0;
+        var sh = isSell ? r.sell : r.buy;
+        html += '<tr class="' + (isSell ? 'txsellr' : 'txbuyr') + '"><td><span class="rbtag ' + (isSell ? 'sl' : 'by') + '">' + (isSell ? '売り' : '買い') + '</span></td>'
+          + '<td><span class="code">' + escH(r.code) + '</span> ' + escH(a.x.name) + (a.x.held ? '' : ' <span class="chip cand">新規</span>') + '</td>'
+          + '<td class="n"><b>' + sh.toLocaleString('ja-JP') + '株</b></td>'
+          + '<td class="n">' + yen(r.price) + '</td>'
+          + '<td class="n">' + yen(sh * r.price) + '</td>'
+          + '<td class="n">' + r.shares.toLocaleString('ja-JP') + ' → ' + r.after.toLocaleString('ja-JP') + '株</td>'
+          + '<td class="n">' + f1(r.wAfter * 100) + '%（' + f1(r.t * 100) + '%）</td></tr>';
+      });
+      html += '</tbody></table></div>';
+    }
+    // セクション別：売買前→売買後
+    var secRows = M.infos.filter(function(i){ return i.m.length; }).map(function(i){
+      var before = 0, after = 0;
+      i.m.forEach(function(x){
+        before += x.value;
+        var r = plan.rows.filter(function(q){ return q.code === x.code; })[0];
+        after += r ? r.vAfter : x.value;
+      });
+      var tot = plan.vAfter > 0 ? plan.vAfter : 1;
+      return '<tr><td>' + escH(i.s.name) + '</td><td class="n">' + f1(i.cur * 100) + '%</td><td class="n">' + f1(after / tot * 100) + '%</td><td class="n">' + f1(i.tn * 100) + '%</td></tr>';
+    }).join('');
+    html += '<div class="rbscroll"><table class="rbsec"><thead><tr><th>セクション</th><th class="n">現状</th><th class="n">売買後</th><th class="n">目標</th></tr></thead><tbody>' + secRows + '</tbody></table></div>';
+    var odd = plan.rows.filter(function(r){ return rb.unit > 1 && r.shares > 0 && r.shares % rb.unit !== 0; });
+    var notes = [];
+    if (excludedNote) notes.push(excludedNote);
+    if (odd.length) notes.push('端数（単元未満）の株は、単元モードでは売却対象外です：' + odd.map(function(r){ return r.code + '（端数' + (r.shares % rb.unit) + '株）'; }).join('、'));
+    notes.push('売買単位：' + fr + '。計算はランキングの現在値で行います。実際の約定価格・手数料・スプレッド・税金は考慮しません（計算に入れていません）。');
+    notes.push('これは、入力した目標比率に近づけるための参考計算です。投資の助言ではありません。');
+    html += '<p class="note">' + notes.map(escH).join('<br>') + '</p>';
+    el.innerHTML = html;
+    if (openRbHelp) showRbHelp(openRbHelp);
+  }
+
+  // ---- 売買案のカード：クリックで説明（いまの数字を使った計算つき。上の「サマリー」と同じ操作）----
+  var lastRbCtx = null, openRbHelp = null;
+  // 銘柄ごとの売り・買いの内訳
+  function rbLines(ctx, side){
+    var out = [];
+    ctx.plan.rows.forEach(function(r){
+      var sh = side === 'sell' ? r.sell : r.buy;
+      if (!(sh > 0)) return;
+      var a = ctx.byCode[r.code];
+      out.push(escH(r.code + ' ' + ((a && a.x.name) || '')) + '：' + sh.toLocaleString('ja-JP') + '株 × ' + yen(r.price) + ' = ' + yen(sh * r.price));
+    });
+    return out;
+  }
+  function rbMaxDev(plan, key){
+    var best = null, bv = -1;
+    plan.rows.forEach(function(r){
+      var d = Math.abs((key === 'b' ? r.wBefore : r.wAfter) - r.t);
+      if (d > bv) { bv = d; best = r; }
+    });
+    return best ? {code: best.code, d: bv, w: (key === 'b' ? best.wBefore : best.wAfter), t: best.t} : null;
+  }
+  var RB_HELP = {
+    sell: {
+      t: '売却の合計',
+      body: function(){ return '<p>この案で<strong>売る株の代金の合計</strong>です。許容幅を超えて目標より多くなっている銘柄を、目標の金額まで売ります。</p>'
+        + '<p>「買い増しのみ」の方式では、売らないので0円です。</p>'; },
+      calc: function(c){ var l = rbLines(c, 'sell'); return l.length ? (l.join('<br>') + '<br>合計：' + yen(c.plan.sellTotal)) : '売却はありません。'; }
+    },
+    buy: {
+      t: '買い付けの合計',
+      body: function(){ return '<p>この案で<strong>買う株の代金の合計</strong>です。売却の代金と新規資金を、目標より不足している銘柄から順に配分します。</p>'
+        + '<p>売買は単位（100株または1株）に丸めるため、使える資金にちょうどは合いません。端数は「余りの現金」になります。</p>'; },
+      calc: function(c){ var l = rbLines(c, 'buy'); return l.length ? (l.join('<br>') + '<br>合計：' + yen(c.plan.buyTotal)) : '買い付けはありません。'; }
+    },
+    cash: {
+      t: '新規資金',
+      body: function(){ return '<p>いま新たに投じる資金（入力した値）です。「買い増しのみ」「売却＋買い増し」で、不足している銘柄の買い付けに使います。</p>'
+        + '<p>「売却のみ」では使いません（売却代金は現金として残ります）。</p>'; },
+      calc: function(c){ return '新規資金：' + yen(c.plan.cash); }
+    },
+    left: {
+      t: '余りの現金',
+      body: function(){ return '<p><strong>新規資金 ＋ 売却代金 − 買い付け</strong>です。売買を単位（100株・1株）に丸めるため、端数の現金が残ります。</p>'
+        + '<p>「売却のみ」では、売却代金がそのまま現金として残ります。</p>'; },
+      calc: function(c){ var p = c.plan; return '新規資金 ' + yen(p.cash) + ' ＋ 売却代金 ' + yen(p.sellTotal) + ' − 買い付け ' + yen(p.buyTotal) + ' = ' + yen(p.leftover); }
+    },
+    dev: {
+      t: '最大のずれ（銘柄・全体比）',
+      body: function(){ return '<p>各銘柄の、いまの比率（リバランス対象の全体に占める割合）と<strong>目標との差のうち、いちばん大きいもの</strong>です（ポイント）。</p>'
+        + '<p>売買の前→後で、どれだけ目標に近づくかを表します。小さいほど、目標に近い状態です。</p>'; },
+      calc: function(c){
+        var b = rbMaxDev(c.plan, 'b'), a = rbMaxDev(c.plan, 'a');
+        var nm = function(x){ var o = x && c.byCode[x.code]; return x ? escH(x.code + ' ' + ((o && o.x.name) || '')) + '（比率 ' + f1(x.w * 100) + '%・目標 ' + f1(x.t * 100) + '%）' : '―'; };
+        return '売買前：' + (b ? f1(b.d * 100) : '―') + 'pt　' + nm(b) + '<br>売買後：' + (a ? f1(a.d * 100) : '―') + 'pt　' + nm(a);
+      }
+    }
+  };
+  function showRbHelp(k){
+    var el = $('rbhelp'), h = RB_HELP[k];
+    if (!el || !h || !lastRbCtx) { if (el) el.hidden = true; return; }
+    Array.prototype.forEach.call(document.querySelectorAll('#rbresult .rbcard'), function(c){
+      var on = (c.dataset.rbhelp === k);
+      c.classList.toggle('on', on); c.setAttribute('aria-expanded', on ? 'true' : 'false');
+    });
+    el.innerHTML = '<button type="button" class="sh-x" id="rbhelp-close" aria-label="閉じる">✕</button>'
+      + '<div class="sh-t">' + h.t + '</div>' + h.body(lastRbCtx) + '<p class="sh-calc">' + h.calc(lastRbCtx) + '</p>';
+    el.hidden = false;
+  }
+  function toggleRbHelp(k){
+    openRbHelp = (openRbHelp === k) ? null : k;
+    if (openRbHelp) { showRbHelp(openRbHelp); return; }
+    var el = $('rbhelp'); if (el) el.hidden = true;
+    Array.prototype.forEach.call(document.querySelectorAll('#rbresult .rbcard'), function(c){ c.classList.remove('on'); c.setAttribute('aria-expanded', 'false'); });
+  }
+
+  function renderRb(){
+    var box = $('rbbox');
+    if (!lastHoldings.length) { box.hidden = true; return; }
+    box.hidden = false;
+    var M = rbModel();
+    drawRbTable(M);
+    drawRbResult(M);
+    $('rbctl').hidden = !secs.length;
+  }
+  function renderRbResult(){ drawRbResult(rbModel()); }
+  function syncRbControls(){
+    var c = document.querySelectorAll('input[name="rbmode"]');
+    Array.prototype.forEach.call(c, function(r){ r.checked = (r.value === rb.mode); });
+    $('rb-cash').value = rb.cash || '';
+    $('rb-cash').disabled = (rb.mode === 'sell');
+    $('rb-unit').value = String(rb.unit);
+    $('rb-bandtype').value = rb.bandType;
+    $('rb-bandval').value = rb.bandVal;
+    $('rb-min').value = rb.minTrade || '';
+  }
+  // 表の入力は、確定（change）のたびに作り直す。タブで次の入力欄へ移ったときもフォーカスを保つ
+  function rerenderKeepFocus(){
+    setTimeout(function(){
+      var ae = document.activeElement;
+      var fk = (ae && ae.dataset && ae.dataset.k) ? ae.dataset.k : null;
+      var fc = (ae && ae.dataset && ae.dataset.cand) ? ae.dataset.cand : null;
+      renderRb();
+      var t = fk ? document.querySelector('#rbtable [data-k="' + fk + '"]') : (fc ? document.querySelector('#rbtable [data-cand="' + fc + '"]') : null);
+      if (t) { t.focus(); try { t.select(); } catch(x) {} }
+    }, 0);
+  }
+  $('rbbox').addEventListener('change', function(e){
+    var el = e.target, k = el.dataset ? el.dataset.k : null;
+    if (el.name === 'rbmode') { rb.mode = el.value; saveRb(); syncRbControls(); renderRbResult(); return; }
+    if (el.id === 'rb-cash') { rb.cash = rbNum(el.value) || 0; saveRb(); renderRbResult(); return; }
+    if (el.id === 'rb-unit') { rb.unit = (+el.value === 1) ? 1 : 100; saveRb(); renderRbResult(); return; }
+    if (el.id === 'rb-bandtype') { rb.bandType = el.value === 'abs' ? 'abs' : 'rel'; saveRb(); renderRb(); return; }
+    if (el.id === 'rb-bandval') { rb.bandVal = rbNum(el.value) || 0; saveRb(); renderRb(); return; }
+    if (el.id === 'rb-min') { rb.minTrade = rbNum(el.value) || 0; saveRb(); renderRbResult(); return; }
+    if (!k) return;
+    var p = k.split(':'), s = secById(p[1]);
+    if (!s) return;
+    if (p[0] === 't') { var v = rbNum(el.value); if (v === undefined) delete s.t; else s.t = v; }
+    else if (p[0] === 'm') { if (el.value === 'cur' || el.value === 'set') s.m = el.value; else delete s.m; }
+    else if (p[0] === 'w') {
+      var wv = rbNum(el.value); s.w = s.w || {};
+      if (wv === undefined) delete s.w[p[2]]; else s.w[p[2]] = wv;
+    }
+    saveSecs();
+    rerenderKeepFocus();
+  });
+  function addCand(secId, raw){
+    var code = String(raw || '').trim().toUpperCase();
+    var s = secById(secId);
+    if (!s) return 'セクションが見つかりません';
+    if (!isCode(code)) return '証券コードを確認してください';
+    var info = lastByCode[code];
+    if (!info || typeof info.price !== 'number') return 'ランキングに載っていない（現在値がない）ため、候補にできません';
+    if (lastHoldings.some(function(h){ return h.code === code; })) return code + ' はすでに保有銘柄です（保有銘柄一覧で、セクションへ移してください）';
+    if (secs.some(function(x){ return (x.a || []).indexOf(code) >= 0; })) return code + ' はすでに候補に入っています';
+    s.a = (s.a || []).concat([code]);
+    saveSecs();
+    renderRb();
+    return '';
+  }
+  $('rbbox').addEventListener('click', function(e){
+    var cd = e.target.closest('.rbcard');
+    if (cd) { toggleRbHelp(cd.dataset.rbhelp); return; }
+    if (e.target.id === 'rbhelp-close') { toggleRbHelp(openRbHelp); return; }
+    var add = e.target.closest('button.canadd');
+    if (add) {
+      var inp = $('rbtable').querySelector('input[data-cand="' + add.dataset.sec + '"]');
+      var msg = addCand(add.dataset.sec, inp ? inp.value : '');
+      if (msg) {
+        var m = $('rbtable').querySelector('[data-msg="' + add.dataset.sec + '"]');
+        if (m) m.textContent = ' ' + msg;
+      }
+      return;
+    }
+    var del = e.target.closest('button.canddel');
+    if (del) {
+      var s = secById(del.dataset.sec);
+      if (s) { s.a = (s.a || []).filter(function(c){ return c !== del.dataset.code; }); if (!s.a.length) delete s.a; saveSecs(); renderRb(); }
+      return;
+    }
+    var ra = e.target.closest ? e.target.closest('[data-rbact]') : null;
+    var act0 = ra ? ra.dataset.rbact : '';
+    if (e.target.id === 'rb-norm' || act0 === 'norm') {
+      var Mn = rbModel(), actn = Mn.infos.filter(function(i){ return i.m.length && typeof i.s.t === 'number'; });
+      if (!actn.length || !(Mn.sumT > 0)) return;
+      var vn = actn.map(function(i){ return Math.round(i.s.t / Mn.sumT * 1000) / 10; });
+      var dn = Math.round((100 - vn.reduce(function(a, b){ return a + b; }, 0)) * 10) / 10;
+      var mi = 0; vn.forEach(function(v, k){ if (v > vn[mi]) mi = k; });
+      vn[mi] = Math.round((vn[mi] + dn) * 10) / 10;
+      actn.forEach(function(i, k){ i.s.t = vn[k]; });
+      saveSecs(); renderRb(); return;
+    }
+    if (e.target.id === 'rb-eq' || act0 === 'eq') {
+      var act = secs.filter(function(s){ return rbModel().infos.some(function(i){ return i.s === s && i.m.length; }); });
+      var n = act.length; if (!n) return;
+      var base = Math.floor(1000 / n) / 10, used = 0;
+      act.forEach(function(s, k){ s.t = (k === n - 1) ? Math.round((100 - used) * 10) / 10 : base; used += s.t; });
+      saveSecs(); renderRb(); return;
+    }
+    if (e.target.id === 'rb-cur') {
+      var M = rbModel(), act2 = M.infos.filter(function(i){ return i.m.length; });
+      if (!act2.length || !(M.V > 0)) return;
+      var vals = act2.map(function(i){ return Math.round(i.cur * 1000) / 10; });
+      var diff = Math.round((100 - vals.reduce(function(a, b){ return a + b; }, 0)) * 10) / 10;
+      var mx = 0; vals.forEach(function(v, k){ if (v > vals[mx]) mx = k; });
+      vals[mx] = Math.round((vals[mx] + diff) * 10) / 10;
+      act2.forEach(function(i, k){ i.s.t = vals[k]; });
+      saveSecs(); renderRb(); return;
+    }
+  });
+  $('rbbox').addEventListener('keydown', function(e){
+    if (e.key === 'Enter' && e.target.classList && e.target.classList.contains('cin')) {
+      var b = $('rbtable').querySelector('button.canadd[data-sec="' + e.target.dataset.cand + '"]');
+      if (b) b.click();
+    }
+  });
+  $('rbbox').addEventListener('keydown', function(e){
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('rbcard')) { e.preventDefault(); toggleRbHelp(e.target.dataset.rbhelp); }
+  });
+  syncRbControls();
+
   function render(){
     fetch('ranking.json', {cache:'no-cache'}).then(function(r){ return r.json(); }).then(function(j){
       $('asof').textContent = '対象データ：' + (j.generated_at || '') + ' 時点のランキング';
@@ -1910,6 +2598,7 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
         $('summarybox').hidden = true;
         $('chartbox').hidden = true;
         $('holdbox').hidden = true;
+        $('rbbox').hidden = true;
         $('missbox').innerHTML = '';
         return;
       }
@@ -1958,6 +2647,7 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 
       $('holdbox').hidden = false;
       lastHoldings = holdings;
+      lastByCode = byCode;
       renderHold();
 
       persist();
@@ -1976,10 +2666,10 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
   var SFX = '', MARKET = '10年保有（日株）';
   var $ = function(id){ return document.getElementById(id); };
   var K = {filters: 'pp_filters_long' + SFX, wl: 'pp_wl_long_jp', tabs: 'wl_tabs_long' + SFX, secs: 'wl_secs_long' + SFX,
-           sel: 'wl_tabsel_long' + SFX, pf: 'pf_lots_long' + SFX, pfsecs: 'pf_secs_long' + SFX};
+           sel: 'wl_tabsel_long' + SFX, pf: 'pf_lots_long' + SFX, pfsecs: 'pf_secs_long' + SFX, pfrb: 'pf_rb_long' + SFX};
   var L = {tool: 'ツール', date: 'バックアップ日', fmt: '形式',
            filters: '詳しい条件で絞り込むのURL', all: 'あなたの銘柄リスト（全て）', tabs: '全タブの控え',
-           pf: '保有記録の保存・共有', pfsecs: '保有銘柄のセクション'};
+           pf: '保有記録の保存・共有', pfsecs: '保有銘柄のセクション', pfrb: 'リバランス設定'};
   function lsGet(k){ try { return localStorage.getItem(k); } catch(e) { return null; } }
   function lsSet(k, v){
     try { if (v === '' || v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch(e) {}
@@ -2024,14 +2714,15 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     tabs.forEach(function(t){ codes.push(t.codes || []); });
     Object.keys(secs).forEach(function(k){ (secs[k] || []).forEach(function(s){ codes.push(s.codes || []); }); });
     var pfs = jparse(lsGet(K.pfsecs), []); if (!Array.isArray(pfs)) pfs = [];
-    var pfsOut = pfs.map(function(s){ return {n: String((s && s.name) || ''), c: ((s && s.codes) || []).join(',')}; });
+    var pfsOut = pfs.map(function(s){ return {n: String((s && s.name) || ''), c: ((s && s.codes) || []).join(','), t: s && s.t, m: s && s.m, w: s && s.w, a: ((s && s.a) || []).join(',') || undefined}; });
     var master = union.apply(null, codes);
     return {
       filters: base + (qs ? '?' + qs : ''),
       all: master.join(','),
       json: JSON.stringify({v: 2, all: master.join(','), as: secsOut('all'), tabs: tabsOut}),
       pf: lsGet(K.pf) || '',
-      pfs: pfsOut.length ? JSON.stringify(pfsOut) : ''
+      pfs: pfsOut.length ? JSON.stringify(pfsOut) : '',
+      rb: lsGet(K.pfrb) || ''
     };
   }
   function buildCsv(now){
@@ -2045,7 +2736,8 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
       ['ウォッチリスト', L.all, c.all],
       ['ウォッチリスト', L.tabs, c.json],
       ['ポートフォリオ', L.pf, c.pf],
-      ['ポートフォリオ', L.pfsecs, c.pfs]
+      ['ポートフォリオ', L.pfsecs, c.pfs],
+      ['ポートフォリオ', L.pfrb, c.rb]
     ];
     return '﻿' + rows.map(function(r){ return r.map(cell).join(','); }).join('\r\n') + '\r\n';
   }
@@ -2136,11 +2828,17 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
     if (L.pfsecs in v) {   // 古いCSV（この行が無い）のときは、いまのセクションをそのまま残す
       var pa = jparse(v[L.pfsecs], []);
       var ps = (Array.isArray(pa) ? pa : []).map(function(x){
-        return {id: newId(), name: String((x && x.n) || '').replace(/\s+/g, ' ').trim().slice(0, 40) || 'セクション', codes: splitCodes(x && x.c)};
+        var o = {id: newId(), name: String((x && x.n) || '').replace(/\s+/g, ' ').trim().slice(0, 40) || 'セクション', codes: splitCodes(x && x.c)};
+        if (x && typeof x.t === 'number' && x.t >= 0) o.t = x.t;
+        if (x && (x.m === 'cur' || x.m === 'set')) o.m = x.m;
+        if (x && x.w && typeof x.w === 'object') { o.w = {}; Object.keys(x.w).forEach(function(k){ if (typeof x.w[k] === 'number' && x.w[k] >= 0) o.w[k.toUpperCase()] = x.w[k]; }); }
+        var aa = splitCodes(x && x.a); if (aa.length) o.a = aa;
+        return o;
       });
       lsSet(K.pfsecs, ps.length ? JSON.stringify(ps) : '');
       done.push('保有銘柄のセクション');
     }
+    if (L.pfrb in v) { lsSet(K.pfrb, v[L.pfrb]); done.push('リバランス設定'); }
     alert('復元しました：' + (done.join('、') || '（対象なし）') + '\nページを開き直します。');
     location.href = location.pathname;
   }
