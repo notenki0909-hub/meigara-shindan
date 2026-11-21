@@ -2,15 +2,15 @@
  "code": "PSX",
  "name": "Phillips 66",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Energy",
  "is_simple": false,
  "is_reit": false,
- "price": 244.8300018310547,
- "price_date": "2026-11-18",
- "mcap": null,
- "q_score": 69.4,
+ "price": 239.3300018310547,
+ "price_date": "2026-11-20",
+ "mcap": 93356015616,
+ "q_score": 71.9,
  "groups": {
-  "業績": 32.887711811234674,
+  "業績": 38.94966164880427,
   "財務": 90.4403879811008,
   "キャッシュフロー": 99.80945401245879,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 57.0,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 58.976242105635095,
+  "per_cheap": 100.5,
+  "pbr_cheap": 48.4
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 33.1132847133984,
+ "fcf_yield": 2.923218157922632,
+ "per_band_pos": 0.5100242102294571,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 2.424105762327848,
+ "per_vs_sector": 0.35535896296296293,
+ "pbr_vs_sector": 1.4312043684210527,
  "price_chg": {
-  "d": -4.70945050778695,
-  "w": -5.354102070849198,
-  "m": -15.874651115700978,
-  "3m": 2.012500762939462,
-  "6m": 36.51723365142472,
-  "9m": 57.53812242573601,
-  "y": 79.1657612634211
+  "d": -1.392610436040742,
+  "w": -9.65269635884618,
+  "m": -15.915399738129743,
+  "3m": -1.0869585096030532,
+  "6m": 34.68962718370967,
+  "9m": 54.55601704727415,
+  "y": 77.95374530133357
  },
- "div_yield": 2.099415905550197,
- "implied_fcf_growth": null,
+ "div_yield": 2.2228721678427257,
+ "implied_fcf_growth": 0.1501,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:15:56Z"
+  "fetched": "2026-11-21T03:22:59Z"
  },
  "etf_top": [
   {
@@ -76,8 +76,8 @@
  "metric_scores": {
   "rev_cagr": 51.118140409862846,
   "eps_cagr": 20.0,
-  "op_margin": 40.43270683507585,
-  "earnings_stability": 20.0,
+  "op_margin": 45.54088354384481,
+  "earnings_stability": 39.13962264150944,
   "equity_ratio": null,
   "de": 103.22311208881861,
   "net_de": 94.42683807101365,
@@ -101,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 70.42872847196774
  },
- "_generated_at": "2026-11-20T03:42:02"
+ "_generated_at": "2026-11-21T03:46:54"
 }

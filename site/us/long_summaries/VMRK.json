@@ -2,33 +2,30 @@
  "code": "VMRK",
  "name": "Vivmark Residential",
  "jp_sector": null,
- "gics_sector": "Industrials",
- "is_simple": false,
- "is_reit": false,
- "price": 62.66999816894531,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 92.2,
+ "gics_sector": "Real Estate",
+ "is_simple": true,
+ "is_reit": true,
+ "price": 63.040000915527344,
+ "price_date": "2026-11-20",
+ "mcap": 48843300864,
+ "q_score": 73.0,
  "groups": {
-  "業績": 98.31050354229126,
-  "財務": 81.60654144337272,
-  "キャッシュフロー": 99.74654748023129,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
   "金融品質": null,
-  "REIT品質": null
+  "REIT品質": 73.0
  },
  "is_fin_simple": false,
- "is_reit_us": false,
- "current_pfo": null,
+ "is_reit_us": true,
+ "current_pfo": 24.860728182800532,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 65.0,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ffo_cheap": 65.0
  },
  "ev_ebit": null,
  "fcf_yield": null,
@@ -38,16 +35,16 @@
  "per_vs_sector": null,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": -1.338164802727848,
-  "w": -1.970909010191979,
-  "m": 1.0969454300155723,
-  "3m": -6.168592139701879,
-  "6m": -4.698910989819938,
-  "9m": 0.11182060148635653,
-  "y": 5.89725894858486
+  "d": 0.5903985278323809,
+  "w": -1.8374342615169126,
+  "m": -0.8337246843498569,
+  "3m": -7.484588376582613,
+  "6m": -4.7734081244527165,
+  "9m": -0.44219643184830737,
+  "y": 6.956230716572187
  },
- "div_yield": 4.471038905165417,
- "implied_fcf_growth": null,
+ "div_yield": 4.457487244908765,
+ "implied_fcf_growth": 0.1522,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -57,16 +54,11 @@
    "roe": 9.054088503135729,
    "roa": 4.737267979194613,
    "leverage": 1.9112468500620945,
-   "ocf_ni": 1.589559032094519,
-   "accrual": -2.869936369596522,
-   "capex_da": 0.290068931086431,
-   "shares_chg_pct": 0.11706455493987189,
-   "sbc_rev_pct": 0.8701214348551743,
-   "fcf_less_sbc_pct": 45.374211742265416
+   "shares_chg_pct": 0.11706455493987189
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:23:15Z"
+  "fetched": "2026-11-21T03:29:45Z"
  },
  "etf_top": [
   {
@@ -76,18 +68,18 @@
   }
  ],
  "metric_scores": {
-  "rev_cagr": 102.71864157409217,
-  "eps_cagr": 75.11578318748343,
-  "op_margin": 110.0,
-  "earnings_stability": 105.4075894075894,
+  "rev_cagr": null,
+  "eps_cagr": null,
+  "op_margin": null,
+  "earnings_stability": null,
   "equity_ratio": null,
-  "de": 101.82372404907616,
-  "net_de": 88.50899896136019,
-  "debt_to_ocf": 64.2517017183241,
-  "interest_coverage": 71.84174104473045,
-  "ocf_positive": 100.0,
-  "fcf_positive": 100.0,
-  "fcf_payout": 99.23964244069381
+  "de": null,
+  "net_de": null,
+  "debt_to_ocf": null,
+  "interest_coverage": null,
+  "ocf_positive": null,
+  "fcf_positive": null,
+  "fcf_payout": null
  },
  "metric_raw": {
   "rev_cagr": 5.4467774166829575,
@@ -103,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 70.57026816947965
  },
- "_generated_at": "2026-11-20T03:46:00"
+ "_generated_at": "2026-11-21T03:50:26"
 }

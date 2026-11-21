@@ -2,15 +2,15 @@
  "code": "SLB",
  "name": "Schlumberger",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Energy",
  "is_simple": false,
  "is_reit": false,
- "price": 47.900001525878906,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 100.1,
+ "price": 45.88999938964844,
+ "price_date": "2026-11-20",
+ "mcap": 67734994944,
+ "q_score": 101.8,
  "groups": {
-  "業績": 97.46593807725228,
+  "業績": 101.74313892995949,
   "財務": 100.94655047551662,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 82.2,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 80.13058906602406,
+  "fcf_yield": 102.35673501688913,
+  "per_cheap": 63.5,
+  "pbr_cheap": 82.9
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 13.985891341883473,
+ "fcf_yield": 6.70702050506674,
+ "per_band_pos": 0.0,
+ "pbr_band_pos": 0.7064621848434152,
+ "ev_ebit_vs_sector": 1.0238573456722895,
+ "per_vs_sector": 1.0313287037037038,
+ "pbr_vs_sector": 1.3684985263157894,
  "price_chg": {
-  "d": -1.053497878828158,
-  "w": -5.912391142319384,
-  "m": -6.26222513463045,
-  "3m": -11.082230414659088,
-  "6m": -16.331875063966972,
-  "9m": -5.801370770430836,
-  "y": 32.907880990762806
+  "d": -4.196246497287747,
+  "w": -11.186373106494063,
+  "m": -7.386478110527683,
+  "3m": -15.018519648799188,
+  "6m": -19.884775894522555,
+  "9m": -10.441065795410886,
+  "y": 27.9698789977197
  },
- "div_yield": 2.442588648703664,
- "implied_fcf_growth": null,
+ "div_yield": 2.5713663449430695,
+ "implied_fcf_growth": 0.037,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:18:33Z"
+  "fetched": "2026-11-21T03:25:23Z"
  },
  "etf_top": [
   {
@@ -78,8 +78,8 @@
  "metric_scores": {
   "rev_cagr": 105.91779678510753,
   "eps_cagr": 82.24627530827884,
-  "op_margin": 104.69298596552993,
-  "earnings_stability": 97.00669425009279,
+  "op_margin": 108.80848362645159,
+  "earnings_stability": 110.0,
   "equity_ratio": null,
   "de": 105.5432992454709,
   "net_de": 101.70611666475162,
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 35.263042042703056
  },
- "_generated_at": "2026-11-20T03:43:16"
+ "_generated_at": "2026-11-21T03:47:59"
 }

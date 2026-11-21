@@ -2,16 +2,16 @@
  "code": "ATO",
  "name": "Atmos Energy",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Utilities",
  "is_simple": false,
  "is_reit": false,
- "price": 168.69000244140625,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 91.3,
+ "price": 168.27999877929688,
+ "price_date": "2026-11-20",
+ "mcap": 28643053568,
+ "q_score": 96.8,
  "groups": {
   "業績": 106.9456436342647,
-  "財務": 92.37296027665712,
+  "財務": 106.69797827119143,
   "キャッシュフロー": 60.0,
   "金融品質": null,
   "REIT品質": null
@@ -22,31 +22,31 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 67.4,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 84.84589933724187,
+  "fcf_yield": 20.0,
+  "per_cheap": 97.4,
+  "pbr_cheap": 103.8
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 21.24377699287727,
+ "fcf_yield": -7.3254584921216175,
+ "per_band_pos": 0.5438221479249779,
+ "pbr_band_pos": 0.6786842311252199,
+ "ev_ebit_vs_sector": 0.9825983807991335,
+ "per_vs_sector": 0.9393823222748814,
+ "pbr_vs_sector": 0.7723461250000001,
  "price_chg": {
-  "d": -1.730164952430735,
-  "w": -4.109820260795882,
-  "m": 1.0422315213958866,
-  "3m": 1.1027846991801038,
-  "6m": -4.941960971860837,
-  "9m": -6.785654360647719,
-  "y": -3.726742799797056
+  "d": -0.24305154791363082,
+  "w": -4.549066439951477,
+  "m": -3.237309392363108,
+  "3m": 0.2740981021347677,
+  "6m": -5.35965294986096,
+  "9m": -7.395995130488176,
+  "y": -3.2428699683918816
  },
- "div_yield": 2.371213434174549,
+ "div_yield": 2.376990746978845,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:50:29Z"
+  "fetched": "2026-11-21T03:00:06Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -75,10 +75,10 @@
   "op_margin": 110.0,
   "earnings_stability": 110.0,
   "equity_ratio": null,
-  "de": 102.94763170452833,
-  "net_de": 92.75263300188006,
-  "debt_to_ocf": 70.08945655089124,
-  "interest_coverage": 103.70211984932887,
+  "de": 107.45635975377363,
+  "net_de": 107.44378022770002,
+  "debt_to_ocf": 101.89177310329211,
+  "interest_coverage": 110.0,
   "ocf_positive": 100.0,
   "fcf_positive": 20.0,
   "fcf_payout": null
@@ -97,5 +97,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-20T03:28:54"
+ "_generated_at": "2026-11-21T03:35:10"
 }

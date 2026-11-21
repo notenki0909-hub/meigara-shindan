@@ -2,12 +2,12 @@
  "code": "ZTS",
  "name": "Zoetis",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Health Care",
  "is_simple": false,
  "is_reit": false,
- "price": 85.56999969482422,
- "price_date": "2026-11-18",
- "mcap": null,
+ "price": 79.11000061035156,
+ "price_date": "2026-11-20",
+ "mcap": 32143671296,
  "q_score": 89.6,
  "groups": {
   "業績": 102.38500359286506,
@@ -26,32 +26,32 @@
   "gap": -6.702521620403101
  },
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 107.9,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 110.0,
+  "fcf_yield": 103.67495588765244,
+  "per_cheap": 110.0,
+  "pbr_cheap": 65.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 10.862293938281901,
+ "fcf_yield": 7.102486766295732,
+ "per_band_pos": 1.0,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 0.4413772425145023,
+ "per_vs_sector": 0.570088220338983,
+ "pbr_vs_sector": 1.876815,
  "price_chg": {
-  "d": 2.503589187645905,
-  "w": 3.6332808660383797,
-  "m": 6.909043873116794,
-  "3m": 14.06292125278692,
-  "6m": 7.351650580426461,
-  "9m": -32.77026986525799,
-  "y": -27.971382578547765
+  "d": -2.0794656345311413,
+  "w": -5.619182893845198,
+  "m": -3.5243894995712677,
+  "3m": 2.5139335071112434,
+  "6m": -2.71765751692854,
+  "9m": -37.10946813373754,
+  "y": -32.4308170711284
  },
- "div_yield": 2.4775038068958066,
- "implied_fcf_growth": null,
+ "div_yield": 2.6798128980454057,
+ "implied_fcf_growth": 0.0291,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -70,7 +70,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:25:46Z"
+  "fetched": "2026-11-21T03:32:07Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -101,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 38.93999123959702
  },
- "_generated_at": "2026-11-20T03:47:27"
+ "_generated_at": "2026-11-21T03:51:43"
 }

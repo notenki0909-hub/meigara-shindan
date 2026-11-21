@@ -2,16 +2,16 @@
  "code": "PEG",
  "name": "Public Service Enterprise Group",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Utilities",
  "is_simple": false,
  "is_reit": false,
- "price": 74.11000061035156,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 71.5,
+ "price": 73.9000015258789,
+ "price_date": "2026-11-20",
+ "mcap": 36840292352,
+ "q_score": 84.6,
  "groups": {
   "業績": 78.76759848069455,
-  "財務": 62.86061179558557,
+  "財務": 97.02547635651574,
   "キャッシュフロー": 73.33333333333333,
   "金融品質": null,
   "REIT品質": null
@@ -26,32 +26,32 @@
   "gap": -13.866454350513813
  },
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 67.8,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 89.09636357798742,
+  "fcf_yield": 20.94099868522853,
+  "per_cheap": 93.5,
+  "pbr_cheap": 106.5
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 20.43969542013423,
+ "fcf_yield": 0.07057490139213975,
+ "per_band_pos": 0.5326089367725911,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 0.94540681869261,
+ "per_vs_sector": 0.9893700473933649,
+ "pbr_vs_sector": 0.8832191666666667,
  "price_chg": {
-  "d": -0.4834169523975751,
-  "w": -0.9224631193247457,
-  "m": 4.380282549790926,
-  "3m": 2.0658311353686454,
-  "6m": -5.5683009169952395,
-  "9m": -13.392543093775222,
-  "y": -10.016998468748294
+  "d": -0.283361331457499,
+  "w": -2.6093777005900876,
+  "m": 1.6226626586467008,
+  "3m": 0.5031997181077275,
+  "6m": -7.055716840177572,
+  "9m": -14.378399239659345,
+  "y": -8.889161669606116
  },
- "div_yield": 3.5622722685975114,
- "implied_fcf_growth": null,
+ "div_yield": 3.6265222525895293,
+ "implied_fcf_growth": 0.7179,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -68,7 +68,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:13:59Z"
+  "fetched": "2026-11-21T03:21:11Z"
  },
  "etf_top": [
   {
@@ -83,10 +83,10 @@
   "op_margin": 110.0,
   "earnings_stability": 58.00601734410949,
   "equity_ratio": null,
-  "de": 82.99375809680839,
-  "net_de": 63.60617124013661,
-  "debt_to_ocf": 42.154841317970494,
-  "interest_coverage": 62.68767652742679,
+  "de": 101.45703293683508,
+  "net_de": 100.81958437275831,
+  "debt_to_ocf": 86.61613098847786,
+  "interest_coverage": 99.20915712799169,
   "ocf_positive": 100.0,
   "fcf_positive": 100.0,
   "fcf_payout": 20.0
@@ -105,5 +105,5 @@
   "fcf_positive": 1,
   "fcf_payout": 4838.461538461539
  },
- "_generated_at": "2026-11-20T03:41:37"
+ "_generated_at": "2026-11-21T03:46:31"
 }

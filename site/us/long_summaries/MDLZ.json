@@ -2,15 +2,15 @@
  "code": "MDLZ",
  "name": "Mondelez International",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
- "price": 65.69000244140625,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 85.2,
+ "price": 66.27999877929688,
+ "price_date": "2026-11-20",
+ "mcap": 83899760640,
+ "q_score": 83.9,
  "groups": {
-  "業績": 77.82747481140005,
+  "業績": 74.54290877282489,
   "財務": 86.23585295739115,
   "キャッシュフロー": 96.94315644856603,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 81.7,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 69.15664611074128,
+  "fcf_yield": 71.41055588753267,
+  "per_cheap": 104.5,
+  "pbr_cheap": 92.2
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 28.612917303867402,
+ "fcf_yield": 3.8557916915649497,
+ "per_band_pos": 0.8710139597036188,
+ "pbr_band_pos": 0.34469281961035025,
+ "ev_ebit_vs_sector": 1.1198793465310137,
+ "per_vs_sector": 0.8934902109704641,
+ "pbr_vs_sector": 0.47939772727272734,
  "price_chg": {
-  "d": -1.3219126595345188,
-  "w": -1.307084058141128,
-  "m": 4.701945623236936,
-  "3m": 1.923980685615656,
-  "6m": 6.813012099847571,
-  "9m": 11.717692676436409,
-  "y": 17.766231407282753
+  "d": 0.8981524067028124,
+  "w": -1.8655642865719857,
+  "m": 1.6720299080680734,
+  "3m": 2.4420431307263124,
+  "6m": 7.318653789839447,
+  "9m": 9.771443535626645,
+  "y": 18.188296389451743
  },
- "div_yield": 3.0750493605199463,
- "implied_fcf_growth": null,
+ "div_yield": 3.1382016268981974,
+ "implied_fcf_growth": 0.1124,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:08:51Z"
+  "fetched": "2026-11-21T03:16:22Z"
  },
  "etf_top": [
   {
@@ -78,7 +78,7 @@
  "metric_scores": {
   "rev_cagr": 104.396198016853,
   "eps_cagr": 80.39266904721363,
-  "op_margin": 85.10611323440551,
+  "op_margin": 71.96784908010483,
   "earnings_stability": 41.41491894712808,
   "equity_ratio": null,
   "de": 101.56126635188483,
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 76.87789799072642
  },
- "_generated_at": "2026-11-20T03:39:20"
+ "_generated_at": "2026-11-21T03:44:29"
 }

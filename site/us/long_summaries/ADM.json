@@ -2,15 +2,15 @@
  "code": "ADM",
  "name": "Archer Daniels Midland",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
- "price": 67.12999725341797,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 72.3,
+ "price": 66.94999694824219,
+ "price_date": "2026-11-20",
+ "mcap": 31862788096,
+ "q_score": 71.9,
  "groups": {
-  "業績": 35.77987252619372,
+  "業績": 34.76613835021758,
   "財務": 92.94450604998285,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 93.5,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 69.59328765238587,
+  "fcf_yield": 110.0,
+  "per_cheap": 101.0,
+  "pbr_cheap": 105.4
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 28.515300629213485,
+ "fcf_yield": 13.194074502625721,
+ "per_band_pos": 0.5197638191473206,
+ "pbr_band_pos": 0.6331698873044953,
+ "ev_ebit_vs_sector": 1.1160587330416236,
+ "per_vs_sector": 0.5517372151898734,
+ "pbr_vs_sector": 0.20329757575757576,
  "price_chg": {
-  "d": -0.9589872198071614,
-  "w": -5.410742428118997,
-  "m": -15.410790401806441,
-  "3m": -16.4010028615454,
-  "6m": -12.953844835809248,
-  "9m": -1.1048910287960179,
-  "y": 9.995082084436135
+  "d": -0.2681369172357839,
+  "w": -8.161871677772892,
+  "m": -16.144789555220807,
+  "3m": -14.342382534075549,
+  "6m": -13.635191115258682,
+  "9m": -1.0932271627625112,
+  "y": 14.975094409336087
  },
- "div_yield": 3.8581857678656886,
- "implied_fcf_growth": null,
+ "div_yield": 3.106796258120833,
+ "implied_fcf_growth": -0.0583,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,13 +66,13 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:48:05Z"
+  "fetched": "2026-11-21T02:57:53Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 53.14943624485344,
   "eps_cagr": 20.0,
-  "op_margin": 34.19227846366592,
+  "op_margin": 30.137341759761373,
   "earnings_stability": 35.77777539625552,
   "equity_ratio": null,
   "de": 105.707561694453,
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 23.477640342530922
  },
- "_generated_at": "2026-11-20T03:27:40"
+ "_generated_at": "2026-11-21T03:34:04"
 }

@@ -2,15 +2,15 @@
  "code": "KDP",
  "name": "Keurig Dr Pepper",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
- "price": 34.40999984741211,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 91.8,
+ "price": 34.84000015258789,
+ "price_date": "2026-11-20",
+ "mcap": 49738104832,
+ "q_score": 91.7,
  "groups": {
-  "業績": 106.8411026042559,
+  "業績": 106.52924254884422,
   "財務": 75.20533647397302,
   "キャッシュフロー": 93.77538829151733,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 73.7,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 104.43289672276592,
+  "fcf_yield": 59.88893438343381,
+  "per_cheap": 56.7,
+  "pbr_cheap": 105.7
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 17.753382105666574,
+ "fcf_yield": 2.9916700787575357,
+ "per_band_pos": 0.33297151948723125,
+ "pbr_band_pos": 0.6584246314876393,
+ "ev_ebit_vs_sector": 0.6948486147031927,
+ "per_vs_sector": 1.3243622784810127,
+ "pbr_vs_sector": 0.28254498484848484,
  "price_chg": {
-  "d": -1.7137917820237658,
-  "w": -2.8514917384121263,
-  "m": -0.17406838168307903,
-  "3m": 7.397000200259685,
-  "6m": 19.5621925866702,
-  "9m": 16.486116387778814,
-  "y": 25.492340451017693
+  "d": 1.2496376259301778,
+  "w": -4.127682976614356,
+  "m": -0.9945964415453146,
+  "3m": 7.167031532915824,
+  "6m": 19.642854218767503,
+  "9m": 17.030566398604208,
+  "y": 29.564897520971623
  },
- "div_yield": 2.6736413951748124,
- "implied_fcf_growth": null,
+ "div_yield": 2.640642927585243,
+ "implied_fcf_growth": 0.1469,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:05:48Z"
+  "fetched": "2026-11-21T03:13:42Z"
  },
  "etf_top": [
   {
@@ -78,7 +78,7 @@
  "metric_scores": {
   "rev_cagr": 103.00621645635619,
   "eps_cagr": 107.57536746533644,
-  "op_margin": 110.0,
+  "op_margin": 108.75255977835332,
   "earnings_stability": 106.78282649533092,
   "equity_ratio": null,
   "de": 103.67416522965982,
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 84.00537634408603
  },
- "_generated_at": "2026-11-20T03:37:52"
+ "_generated_at": "2026-11-21T03:43:13"
 }

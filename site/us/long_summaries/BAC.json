@@ -2,72 +2,66 @@
  "code": "BAC",
  "name": "Bank of America",
  "jp_sector": null,
- "gics_sector": "Industrials",
- "is_simple": false,
+ "gics_sector": "Financials",
+ "is_simple": true,
  "is_reit": false,
- "price": 48.56999969482422,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 89.1,
+ "price": 47.040000915527344,
+ "price_date": "2026-11-20",
+ "mcap": 324585848832,
+ "q_score": 96.5,
  "groups": {
-  "業績": 102.183550795271,
-  "財務": 70.853391504503,
-  "キャッシュフロー": 97.41395561898219,
-  "金融品質": null,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "金融品質": 96.5,
   "REIT品質": null
  },
- "is_fin_simple": false,
+ "is_fin_simple": true,
  "is_reit_us": false,
  "current_pfo": null,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 86.4,
+ "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "per_cheap": 97.8,
+  "pbr_cheap": 75.0
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
+ "per_band_pos": 0.4550916121772447,
+ "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "per_vs_sector": 0.6489439306358381,
+ "pbr_vs_sector": 0.47932748,
  "price_chg": {
-  "d": -0.6951546793060981,
-  "w": -3.8408210080694727,
-  "m": -4.352105430482367,
-  "3m": -21.267627206923613,
-  "6m": -5.6710077460800035,
-  "9m": -8.462121300899451,
-  "y": -5.9450033522649885
+  "d": -3.150090156290275,
+  "w": -7.800861439684081,
+  "m": -7.909163607490665,
+  "3m": -24.530724316310547,
+  "6m": -9.189186084249279,
+  "9m": -7.891127478712912,
+  "y": -9.573240096911784
  },
- "div_yield": 2.388305553404427,
- "implied_fcf_growth": null,
+ "div_yield": 2.721088382414311,
+ "implied_fcf_growth": 0.1114,
  "insight": {
   "flags": {
-   "lev_roe": true,
-   "cutoff": [
-    "自己資本比率が10%未満（8.9%）"
-   ],
+   "cutoff": [],
    "value_trap": []
   },
   "raw": {
    "roe": 10.060908248500377,
    "roa": 0.8942363100566338,
    "leverage": 11.25083843650142,
-   "ocf_ni": 0.4134189911173752,
-   "accrual": 0.5363674740601618,
-   "shares_chg_pct": -9.807870164589861,
-   "sbc_rev_pct": 3.5376712025960018
+   "shares_chg_pct": -9.807870164589861
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:51:07Z"
+  "fetched": "2026-11-21T03:00:38Z"
  },
  "etf_top": [
   {
@@ -77,18 +71,18 @@
   }
  ],
  "metric_scores": {
-  "rev_cagr": 103.33681552175653,
-  "eps_cagr": 101.03028606878546,
+  "rev_cagr": null,
+  "eps_cagr": null,
   "op_margin": null,
   "earnings_stability": null,
   "equity_ratio": null,
-  "de": 91.73454951969214,
-  "net_de": 100.82562499381685,
-  "debt_to_ocf": 20.0,
+  "de": null,
+  "net_de": null,
+  "debt_to_ocf": null,
   "interest_coverage": null,
-  "ocf_positive": 100.0,
-  "fcf_positive": 100.0,
-  "fcf_payout": 92.24186685694653
+  "ocf_positive": null,
+  "fcf_positive": null,
+  "fcf_payout": null
  },
  "metric_raw": {
   "rev_cagr": 6.003133969580876,
@@ -104,5 +98,5 @@
   "fcf_positive": 1,
   "fcf_payout": 75.8185998572901
  },
- "_generated_at": "2026-11-20T03:29:14"
+ "_generated_at": "2026-11-21T03:35:29"
 }

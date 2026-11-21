@@ -2,16 +2,16 @@
  "code": "NRG",
  "name": "NRG Energy",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Utilities",
  "is_simple": false,
  "is_reit": false,
- "price": 93.8499984741211,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 60.2,
+ "price": 87.80000305175781,
+ "price_date": "2026-11-20",
+ "mcap": 18439868416,
+ "q_score": 64.8,
  "groups": {
-  "業績": 66.65256617515101,
-  "財務": 30.36585794777668,
+  "業績": 62.366851889436724,
+  "財務": 46.81333697346023,
   "キャッシュフロー": 101.8082788671024,
   "金融品質": null,
   "REIT品質": null
@@ -22,39 +22,41 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 95.0,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 103.65120940449134,
+  "fcf_yield": 75.31492833836933,
+  "per_cheap": 105.9,
+  "pbr_cheap": 70.4
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 15.614129843621399,
+ "fcf_yield": 4.1486196253777,
+ "per_band_pos": 0.7147413568020886,
+ "pbr_band_pos": 0.8826380670441715,
+ "ev_ebit_vs_sector": 0.7222076708428029,
+ "per_vs_sector": 0.7274716113744075,
+ "pbr_vs_sector": 1.6620477916666667,
  "price_chg": {
-  "d": 0.20285586652031284,
-  "w": -4.283533347183743,
-  "m": -5.961928252197501,
-  "3m": -17.027673974274414,
-  "6m": -31.456325059017477,
-  "9m": -47.62250122203165,
-  "y": -43.61670159519206
+  "d": -6.446452339614639,
+  "w": -9.577750328020752,
+  "m": -6.97181012200322,
+  "3m": -21.452850232076116,
+  "6m": -36.215033094890494,
+  "9m": -50.26059317546958,
+  "y": -47.985781122979965
  },
- "div_yield": 2.024507225244037,
- "implied_fcf_growth": null,
+ "div_yield": 2.1640090364005524,
+ "implied_fcf_growth": 0.1025,
  "insight": {
   "flags": {
    "lev_roe": true,
    "cutoff": [
     "自己資本比率が10%未満（5.8%）"
    ],
-   "value_trap": []
+   "value_trap": [
+    "買い時スコアは高い（割安圏）が、品質スコアは低め。安い理由がある可能性（バリュートラップ）"
+   ]
   },
   "raw": {
    "roe": 51.39797739440809,
@@ -69,19 +71,19 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:11:18Z"
+  "fetched": "2026-11-21T03:18:45Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 82.73370115232558,
   "eps_cagr": 61.49642751427259,
-  "op_margin": 67.5975273383537,
+  "op_margin": 50.454670195496554,
   "earnings_stability": 54.78260869565217,
   "equity_ratio": null,
   "de": 20.0,
   "net_de": 20.0,
-  "debt_to_ocf": 24.147063948423078,
-  "interest_coverage": 57.31636784268363,
+  "debt_to_ocf": 73.11029796131731,
+  "interest_coverage": 74.14304993252361,
   "ocf_positive": 100.0,
   "fcf_positive": 100.0,
   "fcf_payout": 105.42483660130719
@@ -100,5 +102,5 @@
   "fcf_positive": 1,
   "fcf_payout": 53.72549019607843
  },
- "_generated_at": "2026-11-20T03:40:43"
+ "_generated_at": "2026-11-21T03:45:43"
 }

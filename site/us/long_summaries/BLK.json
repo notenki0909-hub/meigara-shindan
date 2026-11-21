@@ -2,12 +2,12 @@
  "code": "BLK",
  "name": "BlackRock",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Financials",
  "is_simple": false,
  "is_reit": false,
- "price": 1135.81005859375,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 1101.719970703125,
+ "price_date": "2026-11-20",
+ "mcap": 170131374080,
  "q_score": 99.5,
  "groups": {
   "業績": 102.9740176509915,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 63.2,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 93.57733748540167,
+  "fcf_yield": 47.83731116973766,
+  "per_cheap": 50.1,
+  "pbr_cheap": 61.4
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 21.95718473637628,
+ "fcf_yield": 2.0877983377303244,
+ "per_band_pos": 0.40153217842051947,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 0.9061982970027355,
+ "per_vs_sector": 1.4499826589595377,
+ "pbr_vs_sector": 1.1720612400000001,
  "price_chg": {
-  "d": -2.8566214332427675,
-  "w": -6.641399275912063,
-  "m": -1.199540473646843,
-  "3m": -1.7932635302198796,
-  "6m": 6.774153569330199,
-  "9m": 3.8559346202112543,
-  "y": 11.447891581958825
+  "d": -3.0013898567540442,
+  "w": -9.909973758442113,
+  "m": -3.12761627532554,
+  "3m": -6.045489594494957,
+  "6m": 2.676604911754432,
+  "9m": 2.867383185729566,
+  "y": 8.578071771949825
  },
- "div_yield": 1.9721607350205645,
- "implied_fcf_growth": null,
+ "div_yield": 2.0803834558224725,
+ "implied_fcf_growth": 0.1961,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:52:22Z"
+  "fetched": "2026-11-21T03:01:48Z"
  },
  "etf_top": [
   {
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 94.2286036036036
  },
- "_generated_at": "2026-11-20T03:29:35"
+ "_generated_at": "2026-11-21T03:35:48"
 }

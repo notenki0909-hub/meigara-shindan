@@ -2,16 +2,16 @@
  "code": "AEE",
  "name": "Ameren",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Utilities",
  "is_simple": false,
  "is_reit": false,
- "price": 111.54000091552734,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 80.0,
+ "price": 111.93000030517578,
+ "price_date": "2026-11-20",
+ "mcap": 30997614592,
+ "q_score": 92.2,
  "groups": {
   "業績": 104.38487016729546,
-  "財務": 65.78404759265928,
+  "財務": 97.40573833014008,
   "キャッシュフロー": 60.0,
   "金融品質": null,
   "REIT品質": null
@@ -22,31 +22,31 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 61.2,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 64.56058658608957,
+  "fcf_yield": 20.0,
+  "per_cheap": 99.0,
+  "pbr_cheap": 87.3
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 25.081251032576507,
+ "fcf_yield": -2.648590902255709,
+ "per_band_pos": 0.5682989217335033,
+ "pbr_band_pos": 0.32325502596570743,
+ "ev_ebit_vs_sector": 1.1600948673717162,
+ "per_vs_sector": 0.92256336492891,
+ "pbr_vs_sector": 0.908989,
  "price_chg": {
-  "d": -1.1345495326708477,
-  "w": -1.7441823344697904,
-  "m": 4.752063673056095,
-  "3m": 5.097525489604338,
-  "6m": 1.54770997297482,
-  "9m": 1.3539280531130737,
-  "y": 6.329837266980731
+  "d": 0.34964979957621267,
+  "w": -2.4745111274360188,
+  "m": 2.744628049166531,
+  "3m": 4.451284509196984,
+  "6m": 0.5750735774853855,
+  "9m": 0.692692171373932,
+  "y": 8.680456963628336
  },
- "div_yield": 2.6537564781281455,
+ "div_yield": 2.6802465753779474,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:48:17Z"
+  "fetched": "2026-11-21T02:58:05Z"
  },
  "etf_top": [
   {
@@ -81,10 +81,10 @@
   "op_margin": 110.0,
   "earnings_stability": 104.04532008706815,
   "equity_ratio": null,
-  "de": 80.810387284531,
-  "net_de": 60.84919035892844,
-  "debt_to_ocf": 61.145243065911124,
-  "interest_coverage": 60.331369661266564,
+  "de": 101.00216401761062,
+  "net_de": 100.19299780884737,
+  "debt_to_ocf": 100.21473307485833,
+  "interest_coverage": 88.21305841924398,
   "ocf_positive": 100.0,
   "fcf_positive": 20.0,
   "fcf_payout": null
@@ -103,5 +103,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-20T03:27:44"
+ "_generated_at": "2026-11-21T03:34:08"
 }

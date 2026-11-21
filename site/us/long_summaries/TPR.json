@@ -2,12 +2,12 @@
  "code": "TPR",
  "name": "Tapestry, Inc.",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Consumer Discretionary",
  "is_simple": false,
  "is_reit": false,
- "price": 123.68000030517578,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 120.0199966430664,
+ "price_date": "2026-11-20",
+ "mcap": 23585908736,
  "q_score": 91.2,
  "groups": {
   "業績": 106.92575256563104,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 105.9,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 102.2112678310998,
+  "fcf_yield": 105.61557722575708,
+  "per_cheap": 110.0,
+  "pbr_cheap": 20.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
+ "ev_ebit": 13.875997041370665,
+ "fcf_yield": 7.684673167727126,
  "per_band_pos": null,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit_vs_sector": 0.7726056259115069,
+ "per_vs_sector": 0.5370502533783784,
+ "pbr_vs_sector": 7.50181304347826,
  "price_chg": {
-  "d": -3.6835162542163347,
-  "w": -6.748099410495123,
-  "m": 7.398399072706607,
-  "3m": -4.985786244958135,
-  "6m": -11.09194179963765,
-  "9m": -21.268060864201733,
-  "y": 19.752131842557908
+  "d": -2.959252630238074,
+  "w": -9.357304339829508,
+  "m": 5.354633578096357,
+  "3m": -9.185840407572222,
+  "6m": -13.336708872474802,
+  "9m": -21.54017409602873,
+  "y": 14.950667975718046
  },
- "div_yield": 1.3445989617534035,
- "implied_fcf_growth": null,
+ "div_yield": 1.541409808152061,
+ "implied_fcf_growth": 0.0182,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:26:22Z"
+  "fetched": "2026-11-21T03:32:39Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 17.991724137931033
  },
- "_generated_at": "2026-11-20T03:44:42"
+ "_generated_at": "2026-11-21T03:49:16"
 }

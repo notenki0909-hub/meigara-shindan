@@ -2,52 +2,52 @@
  "code": "HBAN",
  "name": "Huntington Bancshares",
  "jp_sector": null,
- "gics_sector": "Industrials",
- "is_simple": false,
+ "gics_sector": "Financials",
+ "is_simple": true,
  "is_reit": false,
- "price": 14.710000038146973,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 90.0,
+ "price": 14.279999732971191,
+ "price_date": "2026-11-20",
+ "mcap": 28779728896,
+ "q_score": 78.8,
  "groups": {
-  "業績": 90.67299137145226,
-  "財務": 82.1496269042675,
-  "キャッシュフロー": 102.68121394532231,
-  "金融品質": null,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "金融品質": 78.8,
   "REIT品質": null
  },
- "is_fin_simple": false,
+ "is_fin_simple": true,
  "is_reit_us": false,
  "current_pfo": null,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 93.0,
+ "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "per_cheap": 75.9,
+  "pbr_cheap": 110.0
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
+ "per_band_pos": 0.01711774229690684,
+ "pbr_band_pos": 1.0,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "per_vs_sector": 0.6765848554913294,
+ "pbr_vs_sector": 0.392928384,
  "price_chg": {
-  "d": -1.5394882777528651,
-  "w": -6.484421702305676,
-  "m": -6.42493773362215,
-  "3m": -13.623021461871232,
-  "6m": -7.192431015052414,
-  "9m": -18.32315462963071,
-  "y": -4.1693832405069635
+  "d": -2.9231835762112524,
+  "w": -9.73451322098865,
+  "m": -8.812261353048289,
+  "3m": -16.197189168230373,
+  "6m": -10.301509644870134,
+  "9m": -16.39344381289267,
+  "y": -7.152148070772057
  },
- "div_yield": 4.214819839511719,
- "implied_fcf_growth": null,
+ "div_yield": 4.3417367758661625,
+ "implied_fcf_growth": 0.018,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -57,31 +57,26 @@
    "roe": 9.08306630515159,
    "roa": 0.9822039394774017,
    "leverage": 9.247637827623038,
-   "ocf_ni": 1.122568973315242,
-   "accrual": -0.12624145191644773,
-   "capex_da": 0.35039370078740156,
-   "shares_chg_pct": 8.638849097202229,
-   "sbc_rev_pct": 1.3897429590456278,
-   "fcf_less_sbc_pct": 25.851678760300086
+   "shares_chg_pct": 8.638849097202229
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:02:19Z"
+  "fetched": "2026-11-21T03:10:42Z"
  },
  "etf_top": [],
  "metric_scores": {
-  "rev_cagr": 100.9751721099569,
-  "eps_cagr": 80.37081063294761,
+  "rev_cagr": null,
+  "eps_cagr": null,
   "op_margin": null,
   "earnings_stability": null,
   "equity_ratio": null,
-  "de": 102.41639963848492,
-  "net_de": 103.19981924246159,
-  "debt_to_ocf": 40.83266183185603,
+  "de": null,
+  "net_de": null,
+  "debt_to_ocf": null,
   "interest_coverage": null,
-  "ocf_positive": 100.0,
-  "fcf_positive": 100.0,
-  "fcf_payout": 108.0436418359669
+  "ocf_positive": null,
+  "fcf_positive": null,
+  "fcf_payout": null
  },
  "metric_raw": {
   "rev_cagr": 3.8776548989612136,
@@ -97,5 +92,5 @@
   "fcf_positive": 1,
   "fcf_payout": 45.86907449209932
  },
- "_generated_at": "2026-11-20T03:36:02"
+ "_generated_at": "2026-11-21T03:41:32"
 }

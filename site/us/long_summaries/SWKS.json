@@ -2,15 +2,15 @@
  "code": "SWKS",
  "name": "Skyworks Solutions",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Information Technology",
  "is_simple": false,
  "is_reit": false,
- "price": 78.66000366210938,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 71.1,
+ "price": 73.91000366210938,
+ "price_date": "2026-11-20",
+ "mcap": 17358106624,
+ "q_score": 68.5,
  "groups": {
-  "業績": 55.132868385956705,
+  "業績": 48.58595888571859,
   "財務": 86.40579908044016,
   "キャッシュフロー": 73.33333333333333,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 28.4,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 35.27048268618048,
+  "per_cheap": 30.0,
+  "pbr_cheap": 110.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 51.05076745086536,
+ "fcf_yield": 1.1452862014635359,
+ "per_band_pos": 0.0,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 1.9718334279978895,
+ "per_vs_sector": 1.6539116326530612,
+ "pbr_vs_sector": 0.14388084328358208,
  "price_chg": {
-  "d": -4.573573491579486,
-  "w": -12.629118373155102,
-  "m": -4.329843718972526,
-  "3m": 17.158183463190625,
-  "6m": 6.962201091706799,
-  "9m": 30.990848728543273,
-  "y": 26.219518689507026
+  "d": -6.038647061858815,
+  "w": -17.82299126547171,
+  "m": -10.292506117683619,
+  "3m": 10.54442564672411,
+  "6m": -10.32515735973698,
+  "9m": 23.636676432496074,
+  "y": 18.085961786107198
  },
- "div_yield": 1.8052376479662124,
- "implied_fcf_growth": null,
+ "div_yield": 1.9212554859173625,
+ "implied_fcf_growth": 0.2798,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,13 +66,13 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:20:15Z"
+  "fetched": "2026-11-21T03:26:56Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 59.849612897021025,
   "eps_cagr": 20.0,
-  "op_margin": 80.62546000317492,
+  "op_margin": 54.43782200222245,
   "earnings_stability": 60.05640064363088,
   "equity_ratio": null,
   "de": 105.36154801686583,
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 161.01609657947685
  },
- "_generated_at": "2026-11-20T03:43:52"
+ "_generated_at": "2026-11-21T03:48:31"
 }

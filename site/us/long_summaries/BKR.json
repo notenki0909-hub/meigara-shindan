@@ -2,15 +2,15 @@
  "code": "BKR",
  "name": "Baker Hughes",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Energy",
  "is_simple": false,
  "is_reit": false,
- "price": 46.66999816894531,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 104.8,
+ "price": 44.810001373291016,
+ "price_date": "2026-11-20",
+ "mcap": 44499849216,
+ "q_score": 105.6,
  "groups": {
-  "業績": 105.26860043180803,
+  "業績": 107.28953937840669,
   "財務": 105.20989147492146,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 87.8,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 86.89517429977872,
+  "fcf_yield": 96.01523884378517,
+  "per_cheap": 89.0,
+  "pbr_cheap": 79.3
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 13.177354291818949,
+ "fcf_yield": 5.7011429132838884,
+ "per_band_pos": 0.28499769964327243,
+ "pbr_band_pos": 0.3488934696232947,
+ "ev_ebit_vs_sector": 0.9646672248769362,
+ "per_vs_sector": 0.7128993055555555,
+ "pbr_vs_sector": 1.1628722105263158,
  "price_chg": {
-  "d": -1.3319261697188667,
-  "w": -4.482198964488493,
-  "m": -16.660717555454795,
-  "3m": -25.13635217402558,
-  "6m": -29.07295440057195,
-  "9m": -24.979908606695446,
-  "y": -2.892224645499464
+  "d": -3.9854229025703236,
+  "w": -9.364881436134798,
+  "m": -16.430432178458965,
+  "3m": -27.714147185034722,
+  "6m": -32.16772172365653,
+  "9m": -29.621481605214107,
+  "y": -7.57012830775291
  },
- "div_yield": 1.9712878425013038,
- "implied_fcf_growth": null,
+ "div_yield": 2.053113081465705,
+ "implied_fcf_growth": 0.0592,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:52:13Z"
+  "fetched": "2026-11-21T03:01:40Z"
  },
  "etf_top": [
   {
@@ -78,8 +78,8 @@
  "metric_scores": {
   "rev_cagr": 107.15882595021785,
   "eps_cagr": null,
-  "op_margin": 101.17982187285905,
-  "earnings_stability": 107.4671534723472,
+  "op_margin": 104.70979218500221,
+  "earnings_stability": 110.0,
   "equity_ratio": null,
   "de": 106.76807900605289,
   "net_de": 103.74057555484761,
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 35.869136775719355
  },
- "_generated_at": "2026-11-20T03:29:35"
+ "_generated_at": "2026-11-21T03:35:48"
 }

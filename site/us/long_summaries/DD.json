@@ -2,15 +2,15 @@
  "code": "DD",
  "name": "DuPont",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Materials",
  "is_simple": false,
  "is_reit": false,
- "price": 149.69000244140625,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 66.0,
+ "price": 145.42999267578125,
+ "price_date": "2026-11-20",
+ "mcap": 19274176512,
+ "q_score": 72.0,
  "groups": {
-  "業績": 46.93170362027129,
+  "業績": 61.76849101890207,
   "財務": 81.77646311268188,
   "キャッシュフロー": 73.33333333333333,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 48.1,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 82.52003492455756,
+  "fcf_yield": 31.898476346865017,
+  "per_cheap": 30.0,
+  "pbr_cheap": 75.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 25.294391293023256,
+ "fcf_yield": 0.8923857260148765,
+ "per_band_pos": 0.0,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 1.0029496944101213,
+ "per_vs_sector": 2.0028645849802373,
+ "pbr_vs_sector": 0.48995889655172414,
  "price_chg": {
-  "d": -0.35944438626768216,
-  "w": -3.238522692739376,
-  "m": 11.584054604514682,
-  "3m": 8.21224641074303,
-  "6m": 5.825384002078948,
-  "9m": -1.0183120608608043,
-  "y": 28.931959008399488
+  "d": -2.845887965893057,
+  "w": -5.429838841070255,
+  "m": 7.646177724337511,
+  "3m": 6.409595832442494,
+  "6m": 0.7411970496715048,
+  "9m": -3.2015526101679126,
+  "y": 27.97429906447939
  },
- "div_yield": 1.6033134884471938,
- "implied_fcf_growth": null,
+ "div_yield": 1.650278567606417,
+ "implied_fcf_growth": 0.3153,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,14 +66,14 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:56:25Z"
+  "fetched": "2026-11-21T03:05:30Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 20.0,
   "eps_cagr": null,
-  "op_margin": 100.79511086081388,
-  "earnings_stability": 20.0,
+  "op_margin": 104.26096267094952,
+  "earnings_stability": 61.04451038575667,
   "equity_ratio": null,
   "de": 107.70529492061212,
   "net_de": 103.22544723040448,
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 347.09302325581393
  },
- "_generated_at": "2026-11-20T03:32:11"
+ "_generated_at": "2026-11-21T03:38:07"
 }

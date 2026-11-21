@@ -2,16 +2,16 @@
  "code": "FE",
  "name": "FirstEnergy",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Utilities",
  "is_simple": false,
  "is_reit": false,
- "price": 47.130001068115234,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 74.6,
+ "price": 47.029998779296875,
+ "price_date": "2026-11-20",
+ "mcap": 27225352192,
+ "q_score": 86.8,
  "groups": {
-  "業績": 108.21809161154331,
-  "財務": 47.966545039984894,
+  "業績": 107.14666304011475,
+  "財務": 80.48440364558819,
   "キャッシュフロー": 60.0,
   "金融品質": null,
   "REIT品質": null
@@ -22,31 +22,31 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 70.2,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 96.89828413274408,
+  "fcf_yield": 20.0,
+  "per_cheap": 93.8,
+  "pbr_cheap": 97.3
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 18.96376709918814,
+ "fcf_yield": -3.6914123017123464,
+ "per_band_pos": 0.9128201594431331,
+ "pbr_band_pos": 0.5143281077949683,
+ "ev_ebit_vs_sector": 0.8771400138384893,
+ "per_vs_sector": 1.0767681042654027,
+ "pbr_vs_sector": 0.8743065416666667,
  "price_chg": {
-  "d": -1.1742452814417215,
-  "w": 1.3548410066994254,
-  "m": 3.5596633845963455,
-  "3m": 2.545696272735265,
-  "6m": 3.582419929923586,
-  "9m": -6.115537147741779,
-  "y": 1.1156413880161642
+  "d": -0.21218393072774955,
+  "w": 0.06382718999335957,
+  "m": 1.1615338381030682,
+  "3m": 0.9877584013035401,
+  "6m": 1.5547341495461886,
+  "9m": -6.76050741525287,
+  "y": 1.7084711768035499
  },
- "div_yield": 3.9040949677482852,
+ "div_yield": 3.9549224926171864,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -67,9 +67,9 @@
   {
    "tier": "confirmed",
    "k": "eps",
-   "where": "EPS（1株利益）の推移",
-   "why": "自動チェックには引っかかりませんでしたが、手作業の確認でYahooの値の誤りが分かりました",
-   "how": "",
+   "where": "EPS（1株利益）の推移・PERの自社過去レンジ内の位置",
+   "why": "決算書の平均株式数が、時価総額÷株価から求めた株式数の4.0倍（通常は1倍前後）で、Yahooの年次の1株利益の桁がずれている疑いがあります。ただし、Yahoo側が正しい場合もあります",
+   "how": "SEC EDGAR で、この会社の最新の年次報告書（10-K）の希薄化後1株利益を、Yahooの値と比べる",
    "confirm": {
     "status": "error",
     "note": "Yahooの2025年のEPS 0.4425ドルは、SECの10-Kの基本EPS（継続事業）1.77ドルのちょうど4分の1。四半期ぶんの値が年次に入っている疑い。2024年も同様",
@@ -82,19 +82,19 @@
   "eps": "1株利益を、確認した値に置き換えて採点（最新期 1.77ドル、4年分）"
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:59:44Z"
+  "fetched": "2026-11-21T03:08:30Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 103.99404011363089,
   "eps_cagr": 110.0,
-  "op_margin": 109.67717504496828,
+  "op_margin": 105.391460759254,
   "earnings_stability": 109.2011512875741,
   "equity_ratio": null,
-  "de": 55.08872901678657,
-  "net_de": 35.27098321342926,
-  "debt_to_ocf": 44.3027027027027,
-  "interest_coverage": 57.20376522702104,
+  "de": 82.57394084732215,
+  "net_de": 77.51907564857206,
+  "debt_to_ocf": 88.22702702702702,
+  "interest_coverage": 73.61757105943153,
   "ocf_positive": 100.0,
   "fcf_positive": 20.0,
   "fcf_payout": null
@@ -113,5 +113,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-20T03:34:21"
+ "_generated_at": "2026-11-21T03:40:02"
 }

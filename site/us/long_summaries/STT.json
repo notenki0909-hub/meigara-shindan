@@ -2,12 +2,12 @@
  "code": "STT",
  "name": "State Street Corporation",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Financials",
  "is_simple": false,
  "is_reit": false,
- "price": 161.22999572753906,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 155.3800048828125,
+ "price_date": "2026-11-20",
+ "mcap": 42275487744,
  "q_score": 103.1,
  "groups": {
   "業績": 102.73110465822744,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 81.4,
+ "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "fcf_yield": 110.0,
+  "per_cheap": 81.6,
+  "pbr_cheap": 73.9
  },
  "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
+ "fcf_yield": 25.648432646501885,
+ "per_band_pos": 0.14597452087838206,
+ "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "per_vs_sector": 0.7337829479768786,
+ "pbr_vs_sector": 0.6877656400000001,
  "price_chg": {
-  "d": -2.3735987367958122,
-  "w": -7.179045158198161,
-  "m": -4.569400035602333,
-  "3m": -13.840650071854032,
-  "6m": 4.905975122882444,
-  "9m": 26.02000363520307,
-  "y": 42.42932868740037
+  "d": -3.6283514232751113,
+  "w": -10.417983501505512,
+  "m": -7.423731963145441,
+  "3m": -18.615123416606906,
+  "6m": 0.9288781831227277,
+  "9m": 24.17486477533528,
+  "y": 36.29824989720394
  },
- "div_yield": 2.1335980221777224,
- "implied_fcf_growth": null,
+ "div_yield": 2.3683871053907186,
+ "implied_fcf_growth": -0.1615,
  "insight": {
   "flags": {
    "lev_roe": true,
@@ -67,7 +67,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:19:52Z"
+  "fetched": "2026-11-21T03:26:36Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -98,5 +98,5 @@
   "fcf_positive": 1,
   "fcf_payout": 10.329244673983215
  },
- "_generated_at": "2026-11-20T03:43:44"
+ "_generated_at": "2026-11-21T03:48:24"
 }

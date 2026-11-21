@@ -2,16 +2,16 @@
  "code": "EXC",
  "name": "Exelon",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Utilities",
  "is_simple": false,
  "is_reit": false,
- "price": 45.41999816894531,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 76.0,
+ "price": 45.70000076293945,
+ "price_date": "2026-11-20",
+ "mcap": 47294779392,
+ "q_score": 88.3,
  "groups": {
-  "業績": 106.55179165703649,
-  "財務": 53.098146626558886,
+  "業績": 106.2694694776082,
+  "財務": 85.49552918601019,
   "キャッシュフロー": 60.0,
   "金融品質": null,
   "REIT品質": null
@@ -22,31 +22,31 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 70.9,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 97.74057099807962,
+  "fcf_yield": 20.0,
+  "per_cheap": 95.1,
+  "pbr_cheap": 105.2
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 18.80442748143829,
+ "fcf_yield": -4.810256077407183,
+ "per_band_pos": 0.4596233273450968,
+ "pbr_band_pos": 0.6684296781964232,
+ "ev_ebit_vs_sector": 0.8697700037668034,
+ "per_vs_sector": 0.8460455924170616,
+ "pbr_vs_sector": 0.65399325,
  "price_chg": {
-  "d": -1.303785925358758,
-  "w": -0.46022988002221155,
-  "m": 5.505224097296857,
-  "3m": 3.746001451292824,
-  "6m": 0.1543543487970922,
-  "9m": -4.9592021368051515,
-  "y": -2.0698639005204633
+  "d": 0.6164742520522237,
+  "w": -1.189187539590375,
+  "m": 1.895211410784814,
+  "3m": 3.0672093046264504,
+  "6m": -1.1464390753728293,
+  "9m": -5.186721909602598,
+  "y": 0.3072857450142852
  },
- "div_yield": 2.774108434159935,
+ "div_yield": 3.6761487351273763,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:58:55Z"
+  "fetched": "2026-11-21T03:07:45Z"
  },
  "etf_top": [
   {
@@ -76,13 +76,13 @@
  "metric_scores": {
   "rev_cagr": 105.92923608211781,
   "eps_cagr": 101.87523929260176,
-  "op_margin": 110.0,
+  "op_margin": 108.87071128228685,
   "earnings_stability": 108.40269125342635,
   "equity_ratio": null,
-  "de": 70.43961386207376,
-  "net_de": 51.30911868879784,
-  "debt_to_ocf": 33.23099882741713,
-  "interest_coverage": 57.412855127946806,
+  "de": 95.36634488506147,
+  "net_de": 92.09919880799802,
+  "debt_to_ocf": 79.92324912056284,
+  "interest_coverage": 74.59332393041844,
   "ocf_positive": 100.0,
   "fcf_positive": 20.0,
   "fcf_payout": null
@@ -101,5 +101,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-20T03:33:56"
+ "_generated_at": "2026-11-21T03:39:40"
 }

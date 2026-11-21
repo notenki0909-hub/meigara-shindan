@@ -2,15 +2,15 @@
  "code": "BG",
  "name": "Bunge Global",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
- "price": 91.75,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 57.0,
+ "price": 90.9000015258789,
+ "price_date": "2026-11-20",
+ "mcap": 17465870336,
+ "q_score": 56.6,
  "groups": {
-  "業績": 46.233327004195175,
+  "業績": 45.18031696769326,
   "財務": 66.47816536960617,
   "キャッシュフロー": 60.0,
   "金融品質": null,
@@ -22,31 +22,31 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 60.4,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 86.056353396356,
+  "fcf_yield": 20.0,
+  "per_cheap": 75.0,
+  "pbr_cheap": 109.1
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 24.83477649382716,
+ "fcf_yield": -5.032672194916265,
+ "per_band_pos": 0.0,
+ "pbr_band_pos": 0.931435308531459,
+ "ev_ebit_vs_sector": 0.9720069077818849,
+ "per_vs_sector": 0.6590108438818565,
+ "pbr_vs_sector": 0.16239127272727275,
  "price_chg": {
-  "d": -1.5452327542449185,
-  "w": -8.231649410484687,
-  "m": -10.25139686276143,
-  "3m": -18.884272385369204,
-  "6m": -23.833637143181242,
-  "9m": -24.764245759726933,
-  "y": -4.566256935218071
+  "d": -0.926428854627892,
+  "w": -10.57550402226327,
+  "m": -11.875908694898706,
+  "3m": -17.483661488707025,
+  "6m": -24.695549486114043,
+  "9m": -25.07418253005741,
+  "y": -2.415458897630729
  },
- "div_yield": 3.11716621253406,
+ "div_yield": 3.1683167784987045,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -66,13 +66,13 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:52:00Z"
+  "fetched": "2026-11-21T03:01:32Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 93.38883384830152,
   "eps_cagr": 20.0,
-  "op_margin": 34.74214051102675,
+  "op_margin": 30.530100365019106,
   "earnings_stability": 36.80233365745242,
   "equity_ratio": null,
   "de": 100.03080985915493,
@@ -97,5 +97,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-20T03:29:27"
+ "_generated_at": "2026-11-21T03:35:41"
 }

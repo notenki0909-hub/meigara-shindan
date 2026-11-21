@@ -2,12 +2,12 @@
  "code": "MDT",
  "name": "Medtronic",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Health Care",
  "is_simple": false,
  "is_reit": false,
- "price": 100.61000061035156,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 99.94000244140625,
+ "price_date": "2026-11-20",
+ "mcap": 127837044736,
  "q_score": 101.0,
  "groups": {
   "業績": 104.69006470500426,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 89.0,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 92.50673772309233,
+  "fcf_yield": 76.5928810510849,
+  "per_cheap": 97.8,
+  "pbr_cheap": 75.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 22.532080365553604,
+ "fcf_yield": 4.244466078831367,
+ "per_band_pos": 1.0,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 0.915566044922942,
+ "per_vs_sector": 1.0404780932203388,
+ "pbr_vs_sector": 0.48976173076923074,
  "price_chg": {
-  "d": -0.1092142663010165,
-  "w": -0.37627216700267807,
-  "m": 8.14791135173223,
-  "3m": 7.7771850614899884,
-  "6m": 28.739601594294474,
-  "9m": 3.8715671860105605,
-  "y": -0.18849447981533762
+  "d": -0.6659359555518995,
+  "w": -2.8388082360670808,
+  "m": 3.4682743871287114,
+  "3m": 7.578041765226695,
+  "6m": 27.150132800971114,
+  "9m": 1.3487494400391098,
+  "y": -0.3986385400467918
  },
- "div_yield": 2.842659758125218,
- "implied_fcf_growth": null,
+ "div_yield": 2.881728967025504,
+ "implied_fcf_growth": 0.0994,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:08:55Z"
+  "fetched": "2026-11-21T03:16:26Z"
  },
  "etf_top": [
   {
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 67.06597862145227
  },
- "_generated_at": "2026-11-20T03:39:20"
+ "_generated_at": "2026-11-21T03:44:29"
 }

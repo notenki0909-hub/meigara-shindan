@@ -2,33 +2,30 @@
  "code": "SPG",
  "name": "Simon Property Group",
  "jp_sector": null,
- "gics_sector": "Industrials",
- "is_simple": false,
- "is_reit": false,
- "price": 225.22000122070312,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 77.5,
+ "gics_sector": "Real Estate",
+ "is_simple": true,
+ "is_reit": true,
+ "price": 224.35000610351562,
+ "price_date": "2026-11-20",
+ "mcap": 84924145664,
+ "q_score": 97.2,
  "groups": {
-  "業績": 107.52469365506822,
-  "財務": 41.536785914112976,
-  "キャッシュフロー": 86.23339577294742,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
   "金融品質": null,
-  "REIT品質": null
+  "REIT品質": 97.2
  },
  "is_fin_simple": false,
- "is_reit_us": false,
- "current_pfo": null,
+ "is_reit_us": true,
+ "current_pfo": 13.548676199095832,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 85.8,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ffo_cheap": 85.8
  },
  "ev_ebit": null,
  "fcf_yield": null,
@@ -38,16 +35,16 @@
  "per_vs_sector": null,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": -2.6622886732279416,
-  "w": -3.591455574559277,
-  "m": 9.569446790031133,
-  "3m": 3.1746796223895313,
-  "6m": 9.917036568817284,
-  "9m": 11.660884793417402,
-  "y": 23.794871812076266
+  "d": -0.3862867917911794,
+  "w": -3.700045101094962,
+  "m": 5.805514623258512,
+  "3m": 1.6400174176802729,
+  "6m": 9.754905378489775,
+  "9m": 12.135751432222674,
+  "y": 24.54893689114781
  },
- "div_yield": 3.9516916578286017,
- "implied_fcf_growth": null,
+ "div_yield": 4.100735346427893,
+ "implied_fcf_growth": 0.1155,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -57,14 +54,11 @@
    "roe": 88.85126495026753,
    "roa": 11.396244135108926,
    "leverage": 7.7965392717886255,
-   "ocf_ni": 0.893884578050191,
-   "accrual": 1.345148589432853,
-   "capex_da": 0.6011184125027503,
    "shares_chg_pct": -0.5291025972535723
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:19:13Z"
+  "fetched": "2026-11-21T03:25:59Z"
  },
  "etf_top": [
   {
@@ -74,18 +68,18 @@
   }
  ],
  "metric_scores": {
-  "rev_cagr": 103.72019960131014,
-  "eps_cagr": 110.0,
-  "op_margin": 110.0,
-  "earnings_stability": 106.37857501896272,
+  "rev_cagr": null,
+  "eps_cagr": null,
+  "op_margin": null,
+  "earnings_stability": null,
   "equity_ratio": null,
-  "de": 20.0,
-  "net_de": 20.0,
-  "debt_to_ocf": 45.92254594064798,
-  "interest_coverage": 80.22459771580392,
-  "ocf_positive": 100.0,
-  "fcf_positive": 100.0,
-  "fcf_payout": 58.70018731884229
+  "de": null,
+  "net_de": null,
+  "debt_to_ocf": null,
+  "interest_coverage": null,
+  "ocf_positive": null,
+  "fcf_positive": null,
+  "fcf_payout": null
  },
  "metric_raw": {
   "rev_cagr": 6.34817964117913,
@@ -101,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 100.97485951086828
  },
- "_generated_at": "2026-11-20T03:43:31"
+ "_generated_at": "2026-11-21T03:48:12"
 }

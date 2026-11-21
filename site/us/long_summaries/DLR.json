@@ -2,33 +2,30 @@
  "code": "DLR",
  "name": "Digital Realty",
  "jp_sector": null,
- "gics_sector": "Industrials",
- "is_simple": false,
- "is_reit": false,
- "price": 174.02000427246094,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 92.3,
+ "gics_sector": "Real Estate",
+ "is_simple": true,
+ "is_reit": true,
+ "price": 162.4600067138672,
+ "price_date": "2026-11-20",
+ "mcap": 62545620992,
+ "q_score": 96.9,
  "groups": {
-  "業績": 107.07302760488614,
-  "財務": 73.20445982386487,
-  "キャッシュフロー": 99.26352411306827,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
   "金融品質": null,
-  "REIT品質": null
+  "REIT品質": 96.9
  },
  "is_fin_simple": false,
- "is_reit_us": false,
- "current_pfo": null,
+ "is_reit_us": true,
+ "current_pfo": 19.525828186281014,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 70.3,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ffo_cheap": 70.3
  },
  "ev_ebit": null,
  "fcf_yield": null,
@@ -38,16 +35,16 @@
  "per_vs_sector": null,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": -2.4059185378672354,
-  "w": -5.1507041398416,
-  "m": -1.2988448289052767,
-  "3m": -8.708420559197572,
-  "6m": -10.423636976709826,
-  "9m": -0.9448932562194701,
-  "y": 9.021431898116173
+  "d": -6.642913041476772,
+  "w": -9.739428992885191,
+  "m": -4.960802390561437,
+  "3m": -13.837176301041376,
+  "6m": -15.398631595792978,
+  "9m": -7.740354311706332,
+  "y": 1.9836808547220697
  },
- "div_yield": 2.8042753017977433,
- "implied_fcf_growth": null,
+ "div_yield": 3.0038161998816753,
+ "implied_fcf_growth": 0.1124,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -57,19 +54,16 @@
    "roe": 5.707965784893549,
    "roa": 2.6484043826502512,
    "leverage": 2.155247069626732,
-   "ocf_ni": 1.843310619300636,
-   "accrual": -2.3307622892260094,
-   "shares_chg_pct": 18.000958275516243,
-   "sbc_rev_pct": 1.5339559068246853
+   "shares_chg_pct": 18.000958275516243
   }
  },
  "data_notice": [
   {
    "tier": "confirmed",
    "k": "eps",
-   "where": "EPS（1株利益）の推移",
-   "why": "自動チェックには引っかかりませんでしたが、手作業の確認でYahooの値の誤りが分かりました",
-   "how": "",
+   "where": "EPS（1株利益）の推移・PERの自社過去レンジ内の位置",
+   "why": "決算書の平均株式数が、時価総額÷株価から求めた株式数の3.6倍（通常は1倍前後）で、Yahooの年次の1株利益の桁がずれている疑いがあります。ただし、Yahoo側が正しい場合もあります",
+   "how": "SEC EDGAR で、この会社の最新の年次報告書（10-K）の希薄化後1株利益を、Yahooの値と比べる",
    "confirm": {
     "status": "error",
     "note": "Yahooの2025年のEPS 0.9325ドル（希薄化後0.895）は、SECの10-Kの基本EPS 3.73ドル（希薄化後3.58ドル）のちょうど4分の1。四半期ぶんの値が年次に入っている疑い。2024年も同様（0.4025ドル＝1.61ドルの4分の1）",
@@ -82,7 +76,7 @@
   "eps": "1株利益を、確認した値に置き換えて採点（最新期 3.73ドル、4年分）"
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:56:38Z"
+  "fetched": "2026-11-21T03:05:41Z"
  },
  "etf_top": [
   {
@@ -92,18 +86,18 @@
   }
  ],
  "metric_scores": {
-  "rev_cagr": 106.90956110097308,
-  "eps_cagr": 110.0,
-  "op_margin": 104.40797045136344,
-  "earnings_stability": 106.97457886720804,
+  "rev_cagr": null,
+  "eps_cagr": null,
+  "op_margin": null,
+  "earnings_stability": null,
   "equity_ratio": null,
-  "de": 101.42648480874904,
-  "net_de": 93.91484294260104,
-  "debt_to_ocf": 31.35299170527697,
-  "interest_coverage": 66.12351983883242,
-  "ocf_positive": 100.0,
-  "fcf_positive": 100.0,
-  "fcf_payout": 97.79057233920477
+  "de": null,
+  "net_de": null,
+  "debt_to_ocf": null,
+  "interest_coverage": null,
+  "ocf_positive": null,
+  "fcf_positive": null,
+  "fcf_payout": null
  },
  "metric_raw": {
   "rev_cagr": 9.218604990875768,
@@ -119,5 +113,5 @@
   "fcf_positive": 1,
   "fcf_payout": 71.65707074559643
  },
- "_generated_at": "2026-11-20T03:32:45"
+ "_generated_at": "2026-11-21T03:38:37"
 }

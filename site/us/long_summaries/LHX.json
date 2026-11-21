@@ -5,9 +5,9 @@
  "gics_sector": "Industrials",
  "is_simple": false,
  "is_reit": false,
- "price": 256.5400085449219,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 249.88999938964844,
+ "price_date": "2026-11-20",
+ "mcap": 46529699840,
  "q_score": 97.6,
  "groups": {
   "業績": 101.09137977571208,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 90.7,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 69.11393730278947,
+  "fcf_yield": 96.85413858882956,
+  "per_cheap": 110.0,
+  "pbr_cheap": 86.9
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 26.314744111627906,
+ "fcf_yield": 5.764060394162216,
+ "per_band_pos": 1.0,
+ "pbr_band_pos": 0.23899179373028334,
+ "ev_ebit_vs_sector": 1.1202530486005922,
+ "per_vs_sector": 0.6924769345238095,
+ "pbr_vs_sector": 0.3430146567164179,
  "price_chg": {
-  "d": 0.07022281309327916,
-  "w": -5.6283063563432485,
-  "m": 3.631591752105301,
-  "3m": -3.8203434265702385,
-  "6m": -16.253706855302564,
-  "9m": -27.966530579787687,
-  "y": -10.124717506060431
+  "d": -2.592191835102775,
+  "w": -8.246743605847584,
+  "m": -1.7071141921985666,
+  "3m": -4.923329849601965,
+  "6m": -19.901919805817514,
+  "9m": -29.63620288267962,
+  "y": -12.396143947537796
  },
- "div_yield": 1.4617603005744617,
- "implied_fcf_growth": null,
+ "div_yield": 2.0008803922575553,
+ "implied_fcf_growth": 0.0577,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:07:16Z"
+  "fetched": "2026-11-21T03:15:02Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 33.66890380313199
  },
- "_generated_at": "2026-11-20T03:38:22"
+ "_generated_at": "2026-11-21T03:43:38"
 }

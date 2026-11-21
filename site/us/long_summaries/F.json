@@ -2,12 +2,12 @@
  "code": "F",
  "name": "Ford Motor Company",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Consumer Discretionary",
  "is_simple": false,
  "is_reit": false,
- "price": 11.239999771118164,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 11.170000076293945,
+ "price_date": "2026-11-20",
+ "mcap": 44604239872,
  "q_score": 49.4,
  "groups": {
   "業績": 45.02800305565025,
@@ -26,32 +26,32 @@
   "gap": -7.8101684896967
  },
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 76.7,
+ "bt_cov": "中",
  "bt_components": {
   "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
+  "fcf_yield": 110.0,
   "per_cheap": null,
-  "pbr_cheap": null
+  "pbr_cheap": 92.2
  },
  "ev_ebit": null,
- "fcf_yield": null,
+ "fcf_yield": 27.950257723876316,
  "per_band_pos": null,
- "pbr_band_pos": null,
+ "pbr_band_pos": 0.3441373389624566,
  "ev_ebit_vs_sector": null,
  "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "pbr_vs_sector": 0.13131413043478263,
  "price_chg": {
-  "d": -0.3546095992902232,
-  "w": -5.54621738293487,
-  "m": -5.54621738293487,
-  "3m": -21.998612837343266,
-  "6m": -17.776154291248368,
-  "9m": -19.771594664597313,
-  "y": -13.671279754710874
+  "d": -0.6227730983063506,
+  "w": -6.213264320729239,
+  "m": -6.448907296064044,
+  "3m": -19.813353685687574,
+  "6m": -25.184193918457975,
+  "9m": -18.10850590071985,
+  "y": -13.410849561198912
  },
- "div_yield": 5.338078400515052,
- "implied_fcf_growth": null,
+ "div_yield": 5.371530849613672,
+ "implied_fcf_growth": -0.1761,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -70,7 +70,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:59:04Z"
+  "fetched": "2026-11-21T03:07:54Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -101,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 23.975294778214487
  },
- "_generated_at": "2026-11-20T03:34:09"
+ "_generated_at": "2026-11-21T03:39:51"
 }

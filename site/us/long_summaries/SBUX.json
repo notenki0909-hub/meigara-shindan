@@ -2,12 +2,12 @@
  "code": "SBUX",
  "name": "Starbucks",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Consumer Discretionary",
  "is_simple": false,
  "is_reit": false,
- "price": 104.47000122070312,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 103.12999725341797,
+ "price_date": "2026-11-20",
+ "mcap": 117578506240,
  "q_score": 88.0,
  "groups": {
   "業績": 73.75732545141018,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 42.7,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 62.23901254420291,
+  "per_cheap": 46.0,
   "pbr_cheap": null
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
+ "ev_ebit": 33.369778021493794,
+ "fcf_yield": 3.167925940815218,
+ "per_band_pos": 0.32049698057067666,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
+ "ev_ebit_vs_sector": 1.858005457766915,
+ "per_vs_sector": 1.5765255743243243,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": -4.252588547055902,
-  "w": -2.601156871117505,
-  "m": 5.4400477291463245,
-  "3m": -2.4374304872253227,
-  "6m": 0.32651875180376155,
-  "9m": 7.159712288318332,
-  "y": 25.369013470692337
+  "d": -1.2826686624175188,
+  "w": -3.109737985782546,
+  "m": 1.1971283951216272,
+  "3m": -4.0561919220403535,
+  "6m": 0.01939350494426506,
+  "9m": 8.809874004709318,
+  "y": 23.243304107683137
  },
- "div_yield": 2.3834593384751965,
- "implied_fcf_growth": null,
+ "div_yield": 2.443517955118031,
+ "implied_fcf_growth": 0.1391,
  "insight": {
   "flags": {
    "cutoff": [
@@ -69,7 +69,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:17:40Z"
+  "fetched": "2026-11-21T03:24:36Z"
  },
  "etf_top": [
   {
@@ -106,5 +106,5 @@
   "fcf_positive": 1,
   "fcf_payout": 75.8349441580756
  },
- "_generated_at": "2026-11-20T03:43:03"
+ "_generated_at": "2026-11-21T03:47:48"
 }

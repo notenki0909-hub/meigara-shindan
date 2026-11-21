@@ -2,12 +2,12 @@
  "code": "VTRS",
  "name": "Viatris",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Health Care",
  "is_simple": false,
  "is_reit": false,
- "price": 19.8799991607666,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 19.6299991607666,
+ "price_date": "2026-11-20",
+ "mcap": 22504906752,
  "q_score": 63.5,
  "groups": {
   "業績": 40.73207955707711,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 62.5,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 107.41328102941402,
   "per_cheap": null,
-  "pbr_cheap": null
+  "pbr_cheap": 75.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
+ "ev_ebit": 141.54046056015778,
+ "fcf_yield": 8.223984308824209,
  "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 5.751339315731727,
  "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "pbr_vs_sector": 0.31624357692307686,
  "price_chg": {
-  "d": -1.972394045047099,
-  "w": -3.8219686144722487,
-  "m": 7.750668502407798,
-  "3m": 21.813722625689834,
-  "6m": 20.777644389544104,
-  "9m": 24.874365989290336,
-  "y": 85.62090653555413
+  "d": -1.257545324717002,
+  "w": -5.715660670030875,
+  "m": 6.222941812860605,
+  "3m": 18.68197142805745,
+  "6m": 17.897895558626907,
+  "9m": 23.072096523561104,
+  "y": 87.66729530762152
  },
- "div_yield": 2.414487023456647,
- "implied_fcf_growth": null,
+ "div_yield": 2.4452369868631965,
+ "implied_fcf_growth": 0.0088,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:23:33Z"
+  "fetched": "2026-11-21T03:30:00Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 30.32202290901232
  },
- "_generated_at": "2026-11-20T03:46:20"
+ "_generated_at": "2026-11-21T03:50:44"
 }

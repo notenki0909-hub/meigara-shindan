@@ -2,12 +2,12 @@
  "code": "BDX",
  "name": "Becton Dickinson",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Health Care",
  "is_simple": false,
  "is_reit": false,
- "price": 212.67999267578125,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 212.77999877929688,
+ "price_date": "2026-11-20",
+ "mcap": 57958465536,
  "q_score": 92.5,
  "groups": {
   "業績": 97.95017122277214,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 63.2,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 78.17127044335419,
+  "fcf_yield": 81.4463012503543,
+  "per_cheap": 30.0,
+  "pbr_cheap": 75.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 25.61904405090422,
+ "fcf_yield": 4.608472593776573,
+ "per_band_pos": 0.0,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 1.0410013836206509,
+ "per_vs_sector": 1.7818383050847455,
+ "pbr_vs_sector": 0.45250117307692306,
  "price_chg": {
-  "d": -1.5734955231682113,
-  "w": -1.4046701329462064,
-  "m": 9.437067347682593,
-  "3m": 10.77082951863606,
-  "6m": 45.422217214209404,
-  "9m": 14.72031575380468,
-  "y": 40.65873338884387
+  "d": 0.04702186710532352,
+  "w": -2.407925528318866,
+  "m": 6.167049557565907,
+  "3m": 11.554992477402815,
+  "6m": 44.13059116823841,
+  "9m": 15.42801508429914,
+  "y": 41.54176612577356
  },
- "div_yield": 1.8692270720830728,
- "implied_fcf_growth": null,
+ "div_yield": 1.992668495311856,
+ "implied_fcf_growth": 0.0882,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:51:43Z"
+  "fetched": "2026-11-21T03:01:15Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 44.77723698989143
  },
- "_generated_at": "2026-11-20T03:29:23"
+ "_generated_at": "2026-11-21T03:35:37"
 }

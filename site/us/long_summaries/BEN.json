@@ -2,12 +2,12 @@
  "code": "BEN",
  "name": "Franklin Resources",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Financials",
  "is_simple": false,
  "is_reit": false,
- "price": 33.27000045776367,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 32.040000915527344,
+ "price_date": "2026-11-20",
+ "mcap": 16420500480,
  "q_score": 86.7,
  "groups": {
   "業績": 98.26752219078053,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 89.4,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 91.98675718118099,
+  "fcf_yield": 86.27487803993333,
+  "per_cheap": 104.5,
+  "pbr_cheap": 75.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 22.294407643124863,
+ "fcf_yield": 4.9706158529949995,
+ "per_band_pos": 0.9476514595480519,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 0.9201158746646663,
+ "per_vs_sector": 0.9401132947976879,
+ "pbr_vs_sector": 0.5522471600000001,
  "price_chg": {
-  "d": -3.397207362366017,
-  "w": -7.222532371737456,
-  "m": 5.018939827245261,
-  "3m": -3.0311887901495194,
-  "6m": 7.809461437935639,
-  "9m": 20.238526801694825,
-  "y": 55.17723707568945
+  "d": -3.6970229194851267,
+  "w": -11.04941557927851,
+  "m": 1.649747621230091,
+  "3m": -7.452334188206066,
+  "6m": 3.2882025877223553,
+  "9m": 18.35981262184272,
+  "y": 49.44029905517744
  },
- "div_yield": 3.967538268223779,
- "implied_fcf_growth": null,
+ "div_yield": 4.119850069543215,
+ "implied_fcf_growth": 0.0779,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:51:47Z"
+  "fetched": "2026-11-21T03:01:19Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 85.46924773339867
  },
- "_generated_at": "2026-11-20T03:29:27"
+ "_generated_at": "2026-11-21T03:35:41"
 }

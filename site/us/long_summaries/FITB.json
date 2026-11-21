@@ -2,55 +2,54 @@
  "code": "FITB",
  "name": "Fifth Third Bancorp",
  "jp_sector": null,
- "gics_sector": "Industrials",
- "is_simple": false,
+ "gics_sector": "Financials",
+ "is_simple": true,
  "is_reit": false,
- "price": 50.849998474121094,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 98.9,
+ "price": 49.38999938964844,
+ "price_date": "2026-11-20",
+ "mcap": 44631064576,
+ "q_score": 84.5,
  "groups": {
-  "業績": 94.71312230171347,
-  "財務": 100.8425710136819,
-  "キャッシュフロー": 103.33333333333333,
-  "金融品質": null,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "金融品質": 84.5,
   "REIT品質": null
  },
- "is_fin_simple": false,
+ "is_fin_simple": true,
  "is_reit_us": false,
  "current_pfo": null,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 88.8,
+ "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "per_cheap": 69.4,
+  "pbr_cheap": 108.2
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
+ "per_band_pos": 0.0,
+ "pbr_band_pos": 0.8538970106274881,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "per_vs_sector": 0.9580246242774566,
+ "pbr_vs_sector": 0.57614464,
  "price_chg": {
-  "d": -2.1550947090142825,
-  "w": -5.658632588894119,
-  "m": -3.7114236852892946,
-  "3m": -7.241884791688447,
-  "6m": 3.4377514889230687,
-  "9m": -5.165983798848062,
-  "y": 23.004349991367555
+  "d": -2.871188059554586,
+  "w": -9.376147908901956,
+  "m": -7.213977429289608,
+  "3m": -10.036433484675133,
+  "6m": -0.18189198346912905,
+  "9m": -2.6030363215455044,
+  "y": 19.069430893695838
  },
- "div_yield": 3.1858408035635652,
- "implied_fcf_growth": null,
+ "div_yield": 3.4014983210388703,
+ "implied_fcf_growth": 0.0038,
  "insight": {
   "flags": {
-   "lev_roe": true,
    "cutoff": [],
    "value_trap": []
   },
@@ -58,31 +57,26 @@
    "roe": 11.609280058921009,
    "roa": 1.1764376609321938,
    "leverage": 9.86816424231265,
-   "ocf_ni": 1.7898493259318002,
-   "accrual": -0.9323594732543418,
-   "capex_da": 1.279783393501805,
-   "shares_chg_pct": -3.2467883298964217,
-   "sbc_rev_pct": 1.8478630540755017,
-   "fcf_less_sbc_pct": 41.28783584627593
+   "shares_chg_pct": -3.2467883298964217
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:00:15Z"
+  "fetched": "2026-11-21T03:08:58Z"
  },
  "etf_top": [],
  "metric_scores": {
-  "rev_cagr": 99.44305425762144,
-  "eps_cagr": 89.98319034580548,
+  "rev_cagr": null,
+  "eps_cagr": null,
   "op_margin": null,
   "earnings_stability": null,
   "equity_ratio": null,
-  "de": 103.57438777389063,
-  "net_de": 100.18504879396059,
-  "debt_to_ocf": 98.7682764731945,
+  "de": null,
+  "net_de": null,
+  "debt_to_ocf": null,
   "interest_coverage": null,
-  "ocf_positive": 100.0,
-  "fcf_positive": 100.0,
-  "fcf_payout": 110.0
+  "ocf_positive": null,
+  "fcf_positive": null,
+  "fcf_payout": null
  },
  "metric_raw": {
   "rev_cagr": 2.874687207964821,
@@ -98,5 +92,5 @@
   "fcf_positive": 1,
   "fcf_payout": 30.565045992115635
  },
- "_generated_at": "2026-11-20T03:34:41"
+ "_generated_at": "2026-11-21T03:40:20"
 }

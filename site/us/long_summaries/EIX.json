@@ -2,16 +2,16 @@
  "code": "EIX",
  "name": "Edison International",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Utilities",
  "is_simple": false,
  "is_reit": false,
- "price": 63.02000045776367,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 62.2,
+ "price": 62.2400016784668,
+ "price_date": "2026-11-20",
+ "mcap": 23949158400,
+ "q_score": 77.1,
  "groups": {
   "業績": 77.72994714554711,
-  "財務": 47.30532605205093,
+  "財務": 85.88193490999305,
   "キャッシュフロー": 60.0,
   "金融品質": null,
   "REIT品質": null
@@ -26,31 +26,31 @@
   "gap": -18.930863067838654
  },
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 79.1,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 107.80693025259338,
+  "fcf_yield": 20.0,
+  "per_cheap": 109.4,
+  "pbr_cheap": 107.7
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 12.469495877862595,
+ "fcf_yield": -2.985491131078744,
+ "per_band_pos": 0.9488453876264507,
+ "pbr_band_pos": 0.8142471759581477,
+ "ev_ebit_vs_sector": 0.576757441159232,
+ "per_vs_sector": 0.3134711184834123,
+ "pbr_vs_sector": 0.5604177916666667,
  "price_chg": {
-  "d": 0.015873887473261128,
-  "w": 5.0508396308054815,
-  "m": 10.194093322345266,
-  "3m": -11.970940520346263,
-  "6m": -10.381113863397594,
-  "9m": -14.537561318906533,
-  "y": 7.87401991269423
+  "d": -1.2377003707253809,
+  "w": 3.4230664055244997,
+  "m": 7.495682276706139,
+  "3m": -15.857779300608243,
+  "6m": -12.559705799915433,
+  "9m": -16.624245939378767,
+  "y": 8.243481179942247
  },
- "div_yield": 5.572833980465869,
+ "div_yield": 5.639460002158637,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -68,7 +68,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:57:40Z"
+  "fetched": "2026-11-21T03:06:38Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -77,10 +77,10 @@
   "op_margin": 110.0,
   "earnings_stability": 110.0,
   "equity_ratio": null,
-  "de": 45.45764833039422,
-  "net_de": 28.458956709710446,
-  "debt_to_ocf": 44.48505747126437,
-  "interest_coverage": 70.81964169683468,
+  "de": 74.54804027532852,
+  "net_de": 71.32632428155495,
+  "debt_to_ocf": 88.36379310344827,
+  "interest_coverage": 109.28958197964046,
   "ocf_positive": 100.0,
   "fcf_positive": 20.0,
   "fcf_payout": null
@@ -99,5 +99,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-20T03:33:26"
+ "_generated_at": "2026-11-21T03:39:14"
 }

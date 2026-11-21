@@ -2,16 +2,16 @@
  "code": "AEP",
  "name": "American Electric Power",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Utilities",
  "is_simple": false,
  "is_reit": false,
- "price": 124.97000122070312,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 78.1,
+ "price": 125.13999938964844,
+ "price_date": "2026-11-20",
+ "mcap": 68142026752,
+ "q_score": 90.7,
  "groups": {
   "業績": 105.71957942357673,
-  "財務": 59.48527912913861,
+  "財務": 92.22196565317532,
   "キャッシュフロー": 60.0,
   "金融品質": null,
   "REIT品質": null
@@ -22,31 +22,31 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 59.1,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 81.84671849263879,
+  "fcf_yield": 20.0,
+  "per_cheap": 75.6,
+  "pbr_cheap": 84.4
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 21.81114702915506,
+ "fcf_yield": -7.472627749292103,
+ "per_band_pos": 0.14309573873700568,
+ "pbr_band_pos": 0.2537584793099641,
+ "ev_ebit_vs_sector": 1.0088412131894107,
+ "per_vs_sector": 0.9690858767772511,
+ "pbr_vs_sector": 0.86625575,
  "price_chg": {
-  "d": -1.2094852010251955,
-  "w": -3.0563977422058963,
-  "m": -1.899676725441568,
-  "3m": 3.3322297816633206,
-  "6m": -3.579970193502069,
-  "9m": -3.401093037453329,
-  "y": 1.1820897572832223
+  "d": 0.13603118131133574,
+  "w": -3.1274140851458854,
+  "m": -4.210042885560361,
+  "3m": 2.590585297385317,
+  "6m": -4.901586083854115,
+  "9m": -5.21851053044835,
+  "y": 2.8181746208010283
  },
- "div_yield": 3.056733586209776,
+ "div_yield": 3.100527424423939,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:48:22Z"
+  "fetched": "2026-11-21T02:58:09Z"
  },
  "etf_top": [
   {
@@ -79,10 +79,10 @@
   "op_margin": 110.0,
   "earnings_stability": 105.14185777617672,
   "equity_ratio": null,
-  "de": 76.40182413770955,
-  "net_de": 57.52585265591882,
-  "debt_to_ocf": 44.93855606758832,
-  "interest_coverage": 59.07488365533775,
+  "de": 100.08371336202282,
+  "net_de": 97.75077514174438,
+  "debt_to_ocf": 88.70391705069125,
+  "interest_coverage": 82.34945705824283,
   "ocf_positive": 100.0,
   "fcf_positive": 20.0,
   "fcf_payout": null
@@ -101,5 +101,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-20T03:27:45"
+ "_generated_at": "2026-11-21T03:34:08"
 }

@@ -2,12 +2,12 @@
  "code": "MO",
  "name": "Altria",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
- "price": 74.68000030517578,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 74.87000274658203,
+ "price_date": "2026-11-20",
+ "mcap": 124541526016,
  "q_score": 100.7,
  "groups": {
   "業績": 99.80759390860078,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 96.4,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
+  "ev_ebit_vs_sector": 110.0,
+  "fcf_yield": 104.28641083358882,
+  "per_cheap": 75.0,
   "pbr_cheap": null
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
+ "ev_ebit": 12.112715082343167,
+ "fcf_yield": 7.285923250076647,
+ "per_band_pos": 0.0,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
+ "ev_ebit_vs_sector": 0.4740788681934703,
+ "per_vs_sector": 0.6513550632911392,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": -2.0718617713020526,
-  "w": -4.158108239100056,
-  "m": 1.1512914168228638,
-  "3m": 12.997434473090363,
-  "6m": 1.3159696550687716,
-  "9m": 10.522422143648736,
-  "y": 26.705127324747057
+  "d": 0.2544221218931719,
+  "w": -4.793993733884305,
+  "m": -1.577490407593407,
+  "3m": 9.347161401749403,
+  "6m": 1.3125861984772058,
+  "9m": 8.538705571194205,
+  "y": 27.742709378779075
  },
- "div_yield": 5.744509885470203,
- "implied_fcf_growth": null,
+ "div_yield": 5.930278932977194,
+ "implied_fcf_growth": 0.0256,
  "insight": {
   "flags": {
    "cutoff": [
@@ -67,7 +67,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:09:26Z"
+  "fetched": "2026-11-21T03:16:58Z"
  },
  "etf_top": [
   {
@@ -104,5 +104,5 @@
   "fcf_positive": 1,
   "fcf_payout": 76.70266696054662
  },
- "_generated_at": "2026-11-20T03:39:41"
+ "_generated_at": "2026-11-21T03:44:48"
 }

@@ -2,15 +2,15 @@
  "code": "CLX",
  "name": "Clorox",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
- "price": 104.9000015258789,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 65.1,
+ "price": 104.7300033569336,
+ "price_date": "2026-11-20",
+ "mcap": 12687766528,
+ "q_score": 64.0,
  "groups": {
-  "業績": 88.81442309465965,
+  "業績": 86.12203363887734,
   "財務": 35.83516483516483,
   "キャッシュフロー": 73.33333333333333,
   "金融品質": null,
@@ -22,38 +22,40 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 90.1,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
+  "ev_ebit_vs_sector": 101.48546043413809,
+  "fcf_yield": 62.560682276766435,
+  "per_cheap": 106.2,
   "pbr_cheap": null
  },
- "ev_ebit": null,
- "fcf_yield": null,
+ "ev_ebit": 20.38912700677201,
+ "fcf_yield": 3.1920511707574826,
  "per_band_pos": null,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
+ "ev_ebit_vs_sector": 0.7980088848051667,
+ "per_vs_sector": 0.79478194092827,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": -3.2198522773521088,
-  "w": -3.0499034338622444,
-  "m": 23.746615170426576,
-  "3m": -1.6777588101663077,
-  "6m": 10.223813748174027,
-  "9m": -15.129447555905529,
-  "y": 4.7533474787723184
+  "d": -0.16205735602717874,
+  "w": -4.321209361502754,
+  "m": 18.125421871251348,
+  "3m": -2.2767517530095094,
+  "6m": 10.114606965458272,
+  "9m": -17.379298207664096,
+  "y": 6.400490736792719
  },
- "div_yield": 4.747378386616544,
- "implied_fcf_growth": null,
+ "div_yield": 4.774181074891541,
+ "implied_fcf_growth": 0.1381,
  "insight": {
   "flags": {
    "cutoff": [
     "自己資本比率が10%未満（1.2%）"
    ],
-   "value_trap": []
+   "value_trap": [
+    "買い時スコアは高い（割安圏）が、品質スコアは低め。安い理由がある可能性（バリュートラップ）"
+   ]
   },
   "raw": {
    "roe": 652.2222222222222,
@@ -68,13 +70,13 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:54:17Z"
+  "fetched": "2026-11-21T03:03:32Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 72.8268411834189,
   "eps_cagr": 102.86715129244449,
-  "op_margin": 101.6921768707483,
+  "op_margin": 90.92261904761905,
   "earnings_stability": 77.8715230320269,
   "equity_ratio": null,
   "de": 20.0,
@@ -99,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 148.64197530864197
  },
- "_generated_at": "2026-11-20T03:30:50"
+ "_generated_at": "2026-11-21T03:36:54"
 }

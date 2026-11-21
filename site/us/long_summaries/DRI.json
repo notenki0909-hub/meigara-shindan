@@ -2,12 +2,12 @@
  "code": "DRI",
  "name": "Darden Restaurants",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Consumer Discretionary",
  "is_simple": false,
  "is_reit": false,
- "price": 231.39999389648438,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 225.74000549316406,
+ "price_date": "2026-11-20",
+ "mcap": 25540952064,
  "q_score": 91.2,
  "groups": {
   "業績": 104.21470926825924,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 75.7,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 71.79944665892391,
+  "fcf_yield": 76.79245353495892,
+  "per_cheap": 78.5,
+  "pbr_cheap": 52.8
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 19.697716957550107,
+ "fcf_yield": 4.259434015121919,
+ "per_band_pos": 0.08691067733866803,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 1.0967548417344157,
+ "per_vs_sector": 0.7404224999999999,
+ "pbr_vs_sector": 1.3440489130434783,
  "price_chg": {
-  "d": -3.268960490057038,
-  "w": 1.5357613399453518,
-  "m": 7.8687251947768155,
-  "3m": 4.422377041086767,
-  "6m": 17.420198557046817,
-  "9m": 6.503424009834391,
-  "y": 35.289992387555415
+  "d": -2.4459760382933626,
+  "w": -1.3115327131045573,
+  "m": 3.7598860205756646,
+  "3m": 0.07980490180823363,
+  "6m": 10.923301845787936,
+  "9m": 5.357981555423708,
+  "y": 32.78823852539063
  },
- "div_yield": 2.6966292846107134,
- "implied_fcf_growth": null,
+ "div_yield": 2.8705589803825133,
+ "implied_fcf_growth": 0.0989,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:56:56Z"
+  "fetched": "2026-11-21T03:05:57Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 63.70070778564207
  },
- "_generated_at": "2026-11-20T03:33:02"
+ "_generated_at": "2026-11-21T03:38:51"
 }

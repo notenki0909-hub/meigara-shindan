@@ -2,33 +2,30 @@
  "code": "SBAC",
  "name": "SBA Communications",
  "jp_sector": null,
- "gics_sector": "Industrials",
- "is_simple": false,
- "is_reit": false,
- "price": 169.66000366210938,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 93.4,
+ "gics_sector": "Real Estate",
+ "is_simple": true,
+ "is_reit": true,
+ "price": 173.3300018310547,
+ "price_date": "2026-11-20",
+ "mcap": 18100504576,
+ "q_score": 66.2,
  "groups": {
-  "業績": 105.36324566117582,
-  "財務": 75.8644653917502,
-  "キャッシュフロー": 102.7873317941475,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
   "金融品質": null,
-  "REIT品質": null
+  "REIT品質": 66.2
  },
  "is_fin_simple": false,
- "is_reit_us": false,
- "current_pfo": null,
+ "is_reit_us": true,
+ "current_pfo": 13.448455273244933,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 105.7,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ffo_cheap": 105.7
  },
  "ev_ebit": null,
  "fcf_yield": null,
@@ -38,53 +35,49 @@
  "per_vs_sector": null,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": -2.162505000176862,
-  "w": -9.063623839990209,
-  "m": -2.162505000176862,
-  "3m": -7.081435420949211,
-  "6m": -18.460134719108346,
-  "9m": -14.974436518686584,
-  "y": -14.183102538678172
+  "d": 2.163148703128881,
+  "w": -8.460524824965132,
+  "m": -2.8364805067023102,
+  "3m": -6.34354840252267,
+  "6m": -15.683224373444759,
+  "9m": -13.178720516444741,
+  "y": -11.606912607421982
  },
- "div_yield": 2.9470705481993713,
- "implied_fcf_growth": null,
+ "div_yield": 2.8846708285813762,
+ "implied_fcf_growth": 0.0547,
  "insight": {
   "flags": {
    "cutoff": [
-    "自己資本比率が10%未満（-41.9%）",
     "債務超過（自己資本がマイナス）"
    ],
-   "value_trap": []
+   "value_trap": [
+    "買い時スコアは高い（割安圏）が、品質スコアは低め。安い理由がある可能性（バリュートラップ）"
+   ]
   },
   "raw": {
    "roe": null,
    "roa": 9.102642830953437,
    "leverage": null,
-   "ocf_ni": 1.225596792808115,
-   "accrual": -2.067609623862687,
-   "capex_da": 0.769177344030655,
-   "shares_chg_pct": -2.158393288702465,
-   "sbc_rev_pct": 2.6902401622086867,
-   "fcf_less_sbc_pct": 35.19453213500292
+   "shares_chg_pct": -2.158393288702465
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:17:23Z"
+  "fetched": "2026-11-21T03:24:19Z"
  },
  "etf_top": [],
  "metric_scores": {
-  "rev_cagr": 96.66114055866947,
-  "eps_cagr": 110.0,
-  "op_margin": 110.0,
-  "earnings_stability": 104.7918420860338,
+  "rev_cagr": null,
+  "eps_cagr": null,
+  "op_margin": null,
+  "earnings_stability": null,
   "equity_ratio": null,
-  "de": 110.0,
-  "net_de": 110.0,
-  "debt_to_ocf": 20.0,
-  "interest_coverage": 63.45786156700083,
-  "ocf_positive": 100.0,
-  "fcf_positive": 100.0,
-  "fcf_payout": 108.36199538244247
+  "de": null,
+  "net_de": null,
+  "debt_to_ocf": null,
+  "interest_coverage": null,
+  "ocf_positive": null,
+  "fcf_positive": null,
+  "fcf_payout": null
  },
  "metric_raw": {
   "rev_cagr": 2.248756625700632,
@@ -100,5 +93,5 @@
   "fcf_positive": 1,
   "fcf_payout": 44.914013852672596
  },
- "_generated_at": "2026-11-20T03:43:03"
+ "_generated_at": "2026-11-21T03:47:48"
 }

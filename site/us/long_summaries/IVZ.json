@@ -2,12 +2,12 @@
  "code": "IVZ",
  "name": "Invesco",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Financials",
  "is_simple": false,
  "is_reit": false,
- "price": 27.770000457763672,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 26.510000228881836,
+ "price_date": "2026-11-20",
+ "mcap": 11651911680,
  "q_score": 66.6,
  "groups": {
   "業績": 44.854570200270366,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 76.2,
+ "bt_cov": "中",
  "bt_components": {
   "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
+  "fcf_yield": 110.0,
   "per_cheap": null,
-  "pbr_cheap": null
+  "pbr_cheap": 75.0
  },
  "ev_ebit": null,
- "fcf_yield": null,
+ "fcf_yield": 12.36706936659513,
  "per_band_pos": null,
- "pbr_band_pos": null,
+ "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": null,
  "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "pbr_vs_sector": 0.46058288000000003,
  "price_chg": {
-  "d": -3.0715503402570232,
-  "w": -2.45872452572371,
-  "m": -5.059827494825053,
-  "3m": -13.27295421374528,
-  "6m": 2.928098328136075,
-  "9m": 4.911224700158234,
-  "y": 22.550753066025074
+  "d": -4.537271185134517,
+  "w": -8.333332783728498,
+  "m": -7.919418597224959,
+  "3m": -18.305085961173784,
+  "6m": -1.9962995320120802,
+  "9m": 5.156688582388225,
+  "y": 15.66317687887362
  },
- "div_yield": 3.0788620306304937,
- "implied_fcf_growth": null,
+ "div_yield": 3.2440588177100667,
+ "implied_fcf_growth": -0.0489,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:05:03Z"
+  "fetched": "2026-11-21T03:13:02Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 40.38167938931297
  },
- "_generated_at": "2026-11-20T03:37:36"
+ "_generated_at": "2026-11-21T03:42:57"
 }

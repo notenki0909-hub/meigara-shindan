@@ -2,15 +2,15 @@
  "code": "CVX",
  "name": "Chevron Corporation",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Energy",
  "is_simple": false,
  "is_reit": false,
- "price": 206.5,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 83.6,
+ "price": 208.3699951171875,
+ "price_date": "2026-11-20",
+ "mcap": 406582722560,
+ "q_score": 88.7,
  "groups": {
-  "業績": 53.998317074463515,
+  "業績": 66.907924368825,
   "財務": 106.75998747291085,
   "キャッシュフロー": 96.95542697953498,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 65.2,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 74.41123156285126,
+  "per_cheap": 101.5,
+  "pbr_cheap": 64.9
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 26.45122481468154,
+ "fcf_yield": 4.080842367213844,
+ "per_band_pos": 0.5333136738229456,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 1.936400059639937,
+ "per_vs_sector": 0.7082789351851851,
+ "pbr_vs_sector": 1.101188052631579,
  "price_chg": {
-  "d": 0.30114391999378487,
-  "w": -4.552810642770567,
-  "m": -8.942587039624005,
-  "3m": 0.5992087016797987,
-  "6m": 8.109526170689296,
-  "9m": 12.270977123346904,
-  "y": 34.4226054964222
+  "d": 0.9055666427058018,
+  "w": -5.238985085468717,
+  "m": -8.077465215371882,
+  "3m": 2.5998320323529223,
+  "6m": 8.849189306556049,
+  "9m": 12.687248385948413,
+  "y": 37.35662446208241
  },
- "div_yield": 3.447941888619855,
- "implied_fcf_growth": null,
+ "div_yield": 3.4169986883167627,
+ "implied_fcf_growth": 0.1047,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:55:59Z"
+  "fetched": "2026-11-21T03:05:05Z"
  },
  "etf_top": [
   {
@@ -76,8 +76,8 @@
  "metric_scores": {
   "rev_cagr": 51.76500046504462,
   "eps_cagr": 20.0,
-  "op_margin": 83.08988833670017,
-  "earnings_stability": 61.138379496109266,
+  "op_margin": 93.60486972615021,
+  "earnings_stability": 102.26182728410514,
   "equity_ratio": null,
   "de": 107.81399839098954,
   "net_de": 103.22901582193617,
@@ -101,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 76.8502892960463
  },
- "_generated_at": "2026-11-20T03:32:04"
+ "_generated_at": "2026-11-21T03:38:00"
 }

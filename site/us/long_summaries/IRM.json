@@ -2,33 +2,30 @@
  "code": "IRM",
  "name": "Iron Mountain",
  "jp_sector": null,
- "gics_sector": "Industrials",
- "is_simple": false,
- "is_reit": false,
- "price": 108.77999877929688,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 75.5,
+ "gics_sector": "Real Estate",
+ "is_simple": true,
+ "is_reit": true,
+ "price": 102.22000122070312,
+ "price_date": "2026-11-20",
+ "mcap": 30444570624,
+ "q_score": 69.5,
  "groups": {
-  "業績": 86.57357927349781,
-  "財務": 72.49927850950696,
-  "キャッシュフロー": 60.0,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
   "金融品質": null,
-  "REIT品質": null
+  "REIT品質": 69.5
  },
  "is_fin_simple": false,
- "is_reit_us": false,
- "current_pfo": null,
+ "is_reit_us": true,
+ "current_pfo": 23.28565280980604,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 42.5,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ffo_cheap": 42.5
  },
  "ev_ebit": null,
  "fcf_yield": null,
@@ -38,20 +35,19 @@
  "per_vs_sector": null,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": -2.6838432928625533,
-  "w": -5.061968021531172,
-  "m": -5.17782634083016,
-  "3m": -10.850678764153098,
-  "6m": -14.568446387341238,
-  "9m": -1.3691197059532145,
-  "y": 21.84139814809434
+  "d": -6.030518139555497,
+  "w": -10.136262663118135,
+  "m": -7.626967433669218,
+  "3m": -15.65310738389899,
+  "6m": -19.16811484995956,
+  "9m": -8.06727315743162,
+  "y": 17.90081293973518
  },
- "div_yield": 3.1770546412781813,
+ "div_yield": 3.883780035795907,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [
-    "自己資本比率が10%未満（-4.6%）",
     "債務超過（自己資本がマイナス）"
    ],
    "value_trap": []
@@ -60,16 +56,11 @@
    "roe": null,
    "roa": 0.6844538222663847,
    "leverage": null,
-   "ocf_ni": 9.267513192384035,
-   "accrual": -6.000722752450961,
-   "capex_da": 2.220115512237941,
-   "shares_chg_pct": 1.7048942521449062,
-   "sbc_rev_pct": 2.0325318104703207,
-   "fcf_less_sbc_pct": -16.624742438026832
+   "shares_chg_pct": 1.7048942521449062
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:04:45Z"
+  "fetched": "2026-11-21T03:12:47Z"
  },
  "etf_top": [
   {
@@ -79,17 +70,17 @@
   }
  ],
  "metric_scores": {
-  "rev_cagr": 108.42733668144474,
-  "eps_cagr": 20.0,
-  "op_margin": 110.0,
-  "earnings_stability": 107.86698041254652,
+  "rev_cagr": null,
+  "eps_cagr": null,
+  "op_margin": null,
+  "earnings_stability": null,
   "equity_ratio": null,
-  "de": 110.0,
-  "net_de": 110.0,
-  "debt_to_ocf": 20.0,
-  "interest_coverage": 49.99711403802787,
-  "ocf_positive": 100.0,
-  "fcf_positive": 20.0,
+  "de": null,
+  "net_de": null,
+  "debt_to_ocf": null,
+  "interest_coverage": null,
+  "ocf_positive": null,
+  "fcf_positive": null,
   "fcf_payout": null
  },
  "metric_raw": {
@@ -106,5 +97,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-20T03:37:28"
+ "_generated_at": "2026-11-21T03:42:51"
 }

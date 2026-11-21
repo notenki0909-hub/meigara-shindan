@@ -2,15 +2,15 @@
  "code": "MOS",
  "name": "Mosaic Company (The)",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Materials",
  "is_simple": false,
  "is_reit": false,
- "price": 19.850000381469727,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 60.1,
+ "price": 18.65999984741211,
+ "price_date": "2026-11-20",
+ "mcap": 5932082176,
+ "q_score": 63.0,
  "groups": {
-  "業績": 36.45913983164355,
+  "業績": 43.77911081331451,
   "財務": 84.65072438450802,
   "キャッシュフロー": 60.0,
   "金融品質": null,
@@ -22,36 +22,38 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 63.3,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
+  "ev_ebit_vs_sector": 110.0,
+  "fcf_yield": 20.0,
   "per_cheap": null,
-  "pbr_cheap": null
+  "pbr_cheap": 110.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
+ "ev_ebit": 10.137185664225457,
+ "fcf_yield": -9.012012715583797,
  "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 0.40195026424367397,
  "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "pbr_vs_sector": 0.18104393103448277,
  "price_chg": {
-  "d": -0.40140452825421225,
-  "w": -8.777572735854044,
-  "m": 12.273755875777237,
-  "3m": -18.68086642542861,
-  "6m": -9.525980408904589,
-  "9m": -32.55181727613249,
-  "y": -19.570501879990367
+  "d": -5.994964791882329,
+  "w": -14.872263766127736,
+  "m": 8.048635511318514,
+  "3m": -22.250000635782875,
+  "6m": -17.103511072069733,
+  "9m": -35.05046938834854,
+  "y": -23.836735316685264
  },
- "div_yield": 4.433249285080585,
+ "div_yield": 4.715970027845655,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
    "cutoff": [],
-   "value_trap": []
+   "value_trap": [
+    "PBR 0.53倍（1倍割れ）かつROE 4.5%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+   ]
   },
   "raw": {
    "roe": 4.474178520302195,
@@ -66,14 +68,14 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:09:30Z"
+  "fetched": "2026-11-21T03:17:03Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 23.264647152591067,
   "eps_cagr": 20.0,
-  "op_margin": 82.57191217398312,
-  "earnings_stability": 20.0,
+  "op_margin": 93.00056420298031,
+  "earnings_stability": 38.85123189768666,
   "equity_ratio": null,
   "de": 105.63132504199456,
   "net_de": 101.04688495560576,
@@ -97,5 +99,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-20T03:39:41"
+ "_generated_at": "2026-11-21T03:44:48"
 }

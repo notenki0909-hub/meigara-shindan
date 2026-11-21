@@ -2,15 +2,15 @@
  "code": "ADP",
  "name": "Automatic Data Processing",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Information Technology",
  "is_simple": false,
  "is_reit": false,
- "price": 301.19000244140625,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 104.6,
+ "price": 301.7099914550781,
+ "price_date": "2026-11-20",
+ "mcap": 119102865408,
+ "q_score": 104.2,
  "groups": {
-  "業績": 106.554176219824,
+  "業績": 105.63696051317993,
   "財務": 104.19519243735503,
   "キャッシュフロー": 101.66795781774529,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 94.9,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 101.34284521192626,
+  "fcf_yield": 73.46750736448355,
+  "per_cheap": 110.0,
+  "pbr_cheap": 25.1
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
+ "ev_ebit": 20.789680811213014,
+ "fcf_yield": 4.010063052336267,
+ "per_band_pos": 1.0,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit_vs_sector": 0.8030004175825807,
+ "per_vs_sector": 0.6823301275510203,
+ "pbr_vs_sector": 1.749197537313433,
  "price_chg": {
-  "d": -1.433388348930853,
-  "w": -2.1856361044578887,
-  "m": 2.271647688083611,
-  "3m": 7.25757809907035,
-  "6m": 36.854780050672666,
-  "9m": 40.43455995109675,
-  "y": 20.625575512213512
+  "d": 0.17264484526609003,
+  "w": -2.65221224629979,
+  "m": -2.023124938928178,
+  "3m": 6.607533671667487,
+  "6m": 33.908834372347776,
+  "9m": 46.65337953666771,
+  "y": 20.486397125807464
  },
- "div_yield": 2.257711061084399,
- "implied_fcf_growth": null,
+ "div_yield": 2.5189752461782726,
+ "implied_fcf_growth": 0.1071,
  "insight": {
   "flags": {
    "cutoff": [
@@ -68,7 +68,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:48:09Z"
+  "fetched": "2026-11-21T02:57:57Z"
  },
  "etf_top": [
   {
@@ -80,7 +80,7 @@
  "metric_scores": {
   "rev_cagr": 104.23156378385283,
   "eps_cagr": 103.81853240621807,
-  "op_margin": 110.0,
+  "op_margin": 106.33113717342373,
   "earnings_stability": 108.16660868922511,
   "equity_ratio": null,
   "de": 101.26077729141797,
@@ -105,5 +105,5 @@
   "fcf_positive": 1,
   "fcf_payout": 54.98837964029229
  },
- "_generated_at": "2026-11-20T03:27:40"
+ "_generated_at": "2026-11-21T03:34:04"
 }

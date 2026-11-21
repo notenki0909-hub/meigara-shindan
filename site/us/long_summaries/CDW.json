@@ -2,15 +2,15 @@
  "code": "CDW",
  "name": "CDW Corporation",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Information Technology",
  "is_simple": false,
  "is_reit": false,
- "price": 169.00999450683594,
- "price_date": "2026-11-18",
- "mcap": null,
- "q_score": 80.6,
+ "price": 161.77999877929688,
+ "price_date": "2026-11-20",
+ "mcap": 20191651840,
+ "q_score": 78.2,
  "groups": {
-  "業績": 84.73994682653719,
+  "業績": 78.71860626628538,
   "財務": 63.666516654567516,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 103.1,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 107.38118092047101,
+  "fcf_yield": 91.85147661500092,
+  "per_cheap": 110.0,
+  "pbr_cheap": 110.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 15.318042908915197,
+ "fcf_yield": 5.388860746125069,
+ "per_band_pos": 1.0,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 0.5916586677835147,
+ "per_vs_sector": 0.4815683673469387,
+ "pbr_vs_sector": 0.5725391791044776,
  "price_chg": {
-  "d": 3.6425994455296706,
-  "w": -2.3515179576849787,
-  "m": 9.045737477756411,
-  "3m": 26.56133218810521,
-  "6m": 59.12813855917292,
-  "9m": 36.1117798172804,
-  "y": 20.514823079548616
+  "d": -3.478313829619206,
+  "w": -5.750070182431655,
+  "m": -1.7251831017665364,
+  "3m": 22.088903090967182,
+  "6m": 45.984478636352776,
+  "9m": 31.389590179501138,
+  "y": 15.797001649731568
  },
- "div_yield": 1.4910360818324704,
- "implied_fcf_growth": null,
+ "div_yield": 1.6812955992852194,
+ "implied_fcf_growth": 0.0669,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,13 +66,13 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:53:28Z"
+  "fetched": "2026-11-21T03:02:48Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 78.24503135514803,
   "eps_cagr": 83.24006540923432,
-  "op_margin": 73.61787413669094,
+  "op_margin": 49.53251189568366,
   "earnings_stability": 103.85681640507548,
   "equity_ratio": null,
   "de": 51.168412570507655,
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 30.1994301994302
  },
- "_generated_at": "2026-11-20T03:30:33"
+ "_generated_at": "2026-11-21T03:36:40"
 }

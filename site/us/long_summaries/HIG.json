@@ -2,52 +2,52 @@
  "code": "HIG",
  "name": "Hartford (The)",
  "jp_sector": null,
- "gics_sector": "Industrials",
- "is_simple": false,
+ "gics_sector": "Financials",
+ "is_simple": true,
  "is_reit": false,
- "price": 135.5800018310547,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 106.9,
+ "price": 136.83999633789062,
+ "price_date": "2026-11-20",
+ "mcap": 36592848896,
+ "q_score": 106.1,
  "groups": {
-  "業績": 108.60776360243153,
-  "財務": 107.00090409031871,
-  "キャッシュフロー": 103.33333333333333,
-  "金融品質": null,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "金融品質": 106.1,
   "REIT品質": null
  },
- "is_fin_simple": false,
+ "is_fin_simple": true,
  "is_reit_us": false,
  "current_pfo": null,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 91.2,
+ "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "per_cheap": 109.8,
+  "pbr_cheap": 72.6
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
+ "per_band_pos": 0.9820334568485803,
+ "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "per_vs_sector": 0.5294395375722544,
+ "pbr_vs_sector": 0.79227644,
  "price_chg": {
-  "d": -0.2868275252975838,
-  "w": -0.9642016977939316,
-  "m": -0.17670849670265998,
-  "3m": -0.3820751279507095,
-  "6m": -0.323483625632659,
-  "9m": -4.648709822672248,
-  "y": 1.8479618420220056
+  "d": 0.9293365465550041,
+  "w": -0.465521828293336,
+  "m": -1.8716390587805387,
+  "3m": -1.539789505997513,
+  "6m": 0.6028466693672296,
+  "9m": -2.6327003877886668,
+  "y": 3.525498502288249
  },
- "div_yield": 1.7701725679209117,
- "implied_fcf_growth": null,
+ "div_yield": 1.9584917215157185,
+ "implied_fcf_growth": -0.0843,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -57,29 +57,26 @@
    "roe": 20.211813056536172,
    "roa": 4.4606207193274185,
    "leverage": 4.53116602560725,
-   "ocf_ni": 1.5437956204379562,
-   "accrual": -2.4994907557185138,
-   "capex_da": 0.42676767676767674,
    "shares_chg_pct": -12.118845722701721
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:02:32Z"
+  "fetched": "2026-11-21T03:10:54Z"
  },
  "etf_top": [],
  "metric_scores": {
-  "rev_cagr": 106.33688503309442,
-  "eps_cagr": 110.0,
-  "op_margin": 108.09416937663171,
-  "earnings_stability": 110.0,
+  "rev_cagr": null,
+  "eps_cagr": null,
+  "op_margin": null,
+  "earnings_stability": null,
   "equity_ratio": null,
-  "de": 107.69692818378208,
-  "net_de": 102.76700563781021,
-  "debt_to_ocf": 107.53968253968254,
-  "interest_coverage": 110.0,
-  "ocf_positive": 100.0,
-  "fcf_positive": 100.0,
-  "fcf_payout": 110.0
+  "de": null,
+  "net_de": null,
+  "debt_to_ocf": null,
+  "interest_coverage": null,
+  "ocf_positive": null,
+  "fcf_positive": null,
+  "fcf_payout": null
  },
  "metric_raw": {
   "rev_cagr": 8.703196529784973,
@@ -95,5 +92,5 @@
   "fcf_positive": 1,
   "fcf_payout": 10.655310272901094
  },
- "_generated_at": "2026-11-20T03:36:06"
+ "_generated_at": "2026-11-21T03:41:35"
 }

@@ -2,15 +2,15 @@
  "code": "HRL",
  "name": "Hormel Foods",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
- "price": 23.059999465942383,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 82.1,
+ "price": 23.540000915527344,
+ "price_date": "2026-11-20",
+ "mcap": 12955257856,
+ "q_score": 80.9,
  "groups": {
-  "業績": 66.54306788711914,
+  "業績": 63.61547565308291,
   "財務": 100.17345909364076,
   "キャッシュフロー": 78.44540636259157,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 70.1,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 105.37063428212375,
+  "fcf_yield": 74.99429970846683,
+  "per_cheap": 30.0,
+  "pbr_cheap": 110.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 16.91481029321084,
+ "fcf_yield": 4.124572478135012,
+ "per_band_pos": 0.0,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 0.662027800125669,
+ "per_vs_sector": 1.6020144725738397,
+ "pbr_vs_sector": 0.25025728787878787,
  "price_chg": {
-  "d": -0.38876956402129625,
-  "w": 5.634445930073606,
-  "m": 12.817998353372161,
-  "3m": -3.433834688618531,
-  "6m": 9.392787236254541,
-  "9m": -7.72309052762118,
-  "y": 3.3154112062544705
+  "d": 2.081532787083895,
+  "w": 6.564059542433198,
+  "m": 10.205993646457578,
+  "3m": -2.283101841331714,
+  "6m": 10.82863074008451,
+  "9m": -6.4387875266676335,
+  "y": 6.083823113918907
  },
- "div_yield": 5.082393873126242,
- "implied_fcf_growth": null,
+ "div_yield": 4.970263188172818,
+ "implied_fcf_growth": 0.1033,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,13 +66,13 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:03:29Z"
+  "fetched": "2026-11-21T03:11:43Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 82.43314120564925,
   "eps_cagr": 20.0,
-  "op_margin": 73.68295148915924,
+  "op_margin": 61.972582553014334,
   "earnings_stability": 90.05617885366807,
   "equity_ratio": null,
   "de": 106.38354365447856,
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 118.49783568416896
  },
- "_generated_at": "2026-11-20T03:36:26"
+ "_generated_at": "2026-11-21T03:41:53"
 }

@@ -2,33 +2,30 @@
  "code": "WY",
  "name": "Weyerhaeuser",
  "jp_sector": null,
- "gics_sector": "Industrials",
- "is_simple": false,
- "is_reit": false,
- "price": 19.540000915527344,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 53.6,
+ "gics_sector": "Real Estate",
+ "is_simple": true,
+ "is_reit": true,
+ "price": 19.59000015258789,
+ "price_date": "2026-11-20",
+ "mcap": 14111539200,
+ "q_score": 31.5,
  "groups": {
-  "業績": 35.273264496789174,
-  "財務": 69.09988979678441,
-  "キャッシュフロー": 60.0,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
   "金融品質": null,
-  "REIT品質": null
+  "REIT品質": 31.5
  },
  "is_fin_simple": false,
- "is_reit_us": false,
- "current_pfo": null,
+ "is_reit_us": true,
+ "current_pfo": 17.551665671641793,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 77.1,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ffo_cheap": 77.1
  },
  "ev_ebit": null,
  "fcf_yield": null,
@@ -38,15 +35,15 @@
  "per_vs_sector": null,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": -2.5436326231400463,
-  "w": -4.496569941899509,
-  "m": 2.9504814899749654,
-  "3m": -20.01637056309178,
-  "6m": -16.921766431864917,
-  "9m": -22.705694680421406,
-  "y": -9.411213759933334
+  "d": 0.2558814468673676,
+  "w": -5.862562924862836,
+  "m": -1.1604417042266113,
+  "3m": -19.68019416637523,
+  "6m": -17.202027561590995,
+  "9m": -22.045360896103226,
+  "y": -8.243560643724345
  },
- "div_yield": 4.29887390298175,
+ "div_yield": 4.287901957412868,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -57,30 +54,25 @@
    "roe": 3.437301082113304,
    "roa": 1.9502799012821284,
    "leverage": 1.7624655208996394,
-   "ocf_ni": 1.7345679012345678,
-   "accrual": -1.4359407523605539,
-   "capex_da": 1.8526522593320236,
-   "shares_chg_pct": -1.6734580250384101,
-   "sbc_rev_pct": 0.6227371469949312,
-   "fcf_less_sbc_pct": -6.140477914554671
+   "shares_chg_pct": -1.6734580250384101
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:25:15Z"
+  "fetched": "2026-11-21T03:31:38Z"
  },
  "etf_top": [],
  "metric_scores": {
-  "rev_cagr": 32.672658690580725,
-  "eps_cagr": 20.0,
-  "op_margin": 68.42039929657598,
-  "earnings_stability": 20.0,
+  "rev_cagr": null,
+  "eps_cagr": null,
+  "op_margin": null,
+  "earnings_stability": null,
   "equity_ratio": null,
-  "de": 104.06216847018884,
-  "net_de": 98.32378527477191,
-  "debt_to_ocf": 20.0,
-  "interest_coverage": 54.013605442176875,
-  "ocf_positive": 100.0,
-  "fcf_positive": 20.0,
+  "de": null,
+  "net_de": null,
+  "debt_to_ocf": null,
+  "interest_coverage": null,
+  "ocf_positive": null,
+  "fcf_positive": null,
   "fcf_payout": null
  },
  "metric_raw": {
@@ -97,5 +89,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-20T03:47:10"
+ "_generated_at": "2026-11-21T03:51:28"
 }

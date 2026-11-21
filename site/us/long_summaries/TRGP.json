@@ -2,15 +2,15 @@
  "code": "TRGP",
  "name": "Targa Resources",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Energy",
  "is_simple": false,
  "is_reit": false,
- "price": 285.4200134277344,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 72.0,
+ "price": 278.29998779296875,
+ "price_date": "2026-11-20",
+ "mcap": 59710382080,
+ "q_score": 72.3,
  "groups": {
-  "業績": 95.87357236782856,
+  "業績": 96.78281302965438,
   "財務": 46.398411481922565,
   "キャッシュフロー": 73.33333333333333,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 34.5,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 33.042957905654724,
+  "per_cheap": 54.8,
+  "pbr_cheap": 30.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 23.134690826128722,
+ "fcf_yield": 0.9782218429241041,
+ "per_band_pos": 0.0,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 1.6936084060123515,
+ "per_vs_sector": 1.140199861111111,
+ "pbr_vs_sector": 8.233483684210526,
  "price_chg": {
-  "d": -1.6369713547892073,
-  "w": -3.671945600226101,
-  "m": -3.4438404822685786,
-  "3m": -4.573718621405421,
-  "6m": 5.61723791515607,
-  "9m": 23.371517569800957,
-  "y": 68.30994831105505
+  "d": -2.494578270548764,
+  "w": -6.400295845932669,
+  "m": -3.8820268081221854,
+  "3m": -5.42378218004147,
+  "6m": 0.5600678565379491,
+  "9m": 20.02414872709832,
+  "y": 63.55194041109415
  },
- "div_yield": 1.6642140622709536,
- "implied_fcf_growth": null,
+ "div_yield": 1.7966224287870143,
+ "implied_fcf_growth": 0.3022,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:21:03Z"
+  "fetched": "2026-11-21T03:27:40Z"
  },
  "etf_top": [
   {
@@ -79,7 +79,7 @@
   "rev_cagr": 57.1312521186175,
   "eps_cagr": 110.0,
   "op_margin": 110.0,
-  "earnings_stability": 106.36303735269674,
+  "earnings_stability": 110.0,
   "equity_ratio": null,
   "de": 20.0,
   "net_de": 20.0,
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 140.0958739941791
  },
- "_generated_at": "2026-11-20T03:44:42"
+ "_generated_at": "2026-11-21T03:49:16"
 }

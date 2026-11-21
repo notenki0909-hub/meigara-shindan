@@ -2,18 +2,18 @@
  "code": "MS",
  "name": "Morgan Stanley",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Financials",
  "is_simple": true,
  "is_reit": false,
- "price": 174.97999572753906,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 88.1,
+ "price": 165.6699981689453,
+ "price_date": "2026-11-20",
+ "mcap": 258949464064,
+ "q_score": 100.6,
  "groups": {
   "業績": null,
   "財務": null,
   "キャッシュフロー": null,
-  "金融品質": 88.1,
+  "金融品質": 100.6,
   "REIT品質": null
  },
  "is_fin_simple": true,
@@ -21,32 +21,32 @@
  "current_pfo": null,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
- "q_cov": "中",
- "bt_score": 60.0,
- "bt_cov": "中",
+ "q_cov": "高",
+ "bt_score": 89.1,
+ "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "per_cheap": 107.8,
+  "pbr_cheap": 70.4
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
+ "per_band_pos": 0.9174531054910566,
+ "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "per_vs_sector": 0.7594211560693641,
+ "pbr_vs_sector": 0.9661325599999999,
  "price_chg": {
-  "d": -3.416681847970171,
-  "w": -7.501190769549693,
-  "m": -6.432810615828943,
-  "3m": -18.309991493688017,
-  "6m": -12.73253178331043,
-  "9m": -0.24514447613753765,
-  "y": 9.478817320229016
+  "d": -5.320606804157391,
+  "w": -13.102542107135996,
+  "m": -9.947275604898142,
+  "3m": -22.613043370726913,
+  "6m": -17.58941492566587,
+  "9m": -0.6774609485240002,
+  "y": 2.08269457307404
  },
- "div_yield": 2.457423765568905,
+ "div_yield": 2.7766041231611878,
  "implied_fcf_growth": null,
  "insight": {
   "flags": {
@@ -61,7 +61,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:09:44Z"
+  "fetched": "2026-11-21T03:17:15Z"
  },
  "etf_top": [
   {
@@ -98,5 +98,5 @@
   "fcf_positive": 0,
   "fcf_payout": null
  },
- "_generated_at": "2026-11-20T03:39:58"
+ "_generated_at": "2026-11-21T03:45:03"
 }

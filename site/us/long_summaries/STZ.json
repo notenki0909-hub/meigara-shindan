@@ -2,12 +2,12 @@
  "code": "STZ",
  "name": "Constellation Brands",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
- "price": 141.44000244140625,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 141.8699951171875,
+ "price_date": "2026-11-20",
+ "mcap": 24007839744,
  "q_score": 91.5,
  "groups": {
   "業績": 95.54793813491615,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 108.3,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 110.0,
+  "fcf_yield": 104.90853014584334,
+  "per_cheap": 110.0,
+  "pbr_cheap": 110.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
+ "ev_ebit": 12.262247125144075,
+ "fcf_yield": 7.472559043753003,
  "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 0.47993139433049214,
+ "per_vs_sector": 0.5359064978902954,
+ "pbr_vs_sector": 0.4250717575757576,
  "price_chg": {
-  "d": -1.5178893955555939,
-  "w": -2.185341306173394,
-  "m": 7.135280915083486,
-  "3m": 4.260650614232042,
-  "6m": -6.225551465660139,
-  "9m": -9.570999853080142,
-  "y": 8.35823470783621
+  "d": 0.3040106535344478,
+  "w": -2.568508672129066,
+  "m": 2.0794355148161747,
+  "3m": 3.1031895525205133,
+  "6m": -5.103682195861204,
+  "9m": -11.008658420105611,
+  "y": 9.747033672382122
  },
- "div_yield": 2.905825741697532,
- "implied_fcf_growth": null,
+ "div_yield": 2.904067203637243,
+ "implied_fcf_growth": 0.0221,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:20:01Z"
+  "fetched": "2026-11-21T03:26:44Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 39.894091415830545
  },
- "_generated_at": "2026-11-20T03:43:48"
+ "_generated_at": "2026-11-21T03:48:28"
 }

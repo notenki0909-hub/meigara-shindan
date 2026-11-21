@@ -2,12 +2,12 @@
  "code": "GILD",
  "name": "Gilead Sciences",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Health Care",
  "is_simple": false,
  "is_reit": false,
- "price": 166.52999877929688,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 166.42999267578125,
+ "price_date": "2026-11-20",
+ "mcap": 206429536256,
  "q_score": 100.0,
  "groups": {
   "業績": 101.28094304134036,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 81.1,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
+  "ev_ebit_vs_sector": 102.08022096556552,
+  "fcf_yield": 81.07653114312289,
   "per_cheap": null,
-  "pbr_cheap": null
+  "pbr_cheap": 30.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
+ "ev_ebit": 19.126701671310144,
+ "fcf_yield": 4.580739835734217,
  "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 0.777192266205207,
  "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "pbr_vs_sector": 3.045847596153846,
  "price_chg": {
-  "d": -1.4498739556086382,
-  "w": -0.845488654211124,
-  "m": 8.439142304471492,
-  "3m": 13.967974503243475,
-  "6m": 27.60919446689416,
-  "9m": 9.993398608164572,
-  "y": 30.94039815985099
+  "d": -0.06005290593208423,
+  "w": -0.9816808289495049,
+  "m": 5.8782302251183305,
+  "3m": 13.418281617506445,
+  "6m": 23.86870491198769,
+  "9m": 11.079216873696884,
+  "y": 29.952356646979283
  },
- "div_yield": 1.9516003265617283,
- "implied_fcf_growth": null,
+ "div_yield": 1.9707986206486825,
+ "implied_fcf_growth": 0.089,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:01:25Z"
+  "fetched": "2026-11-21T03:09:54Z"
  },
  "etf_top": [
   {
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 42.332910321489
  },
- "_generated_at": "2026-11-20T03:35:25"
+ "_generated_at": "2026-11-21T03:40:59"
 }

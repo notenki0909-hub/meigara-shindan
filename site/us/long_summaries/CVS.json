@@ -2,12 +2,12 @@
  "code": "CVS",
  "name": "CVS Health",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Health Care",
  "is_simple": false,
  "is_reit": false,
- "price": 80.04000091552734,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 80.83999633789062,
+ "price_date": "2026-11-20",
+ "mcap": 103432691712,
  "q_score": 71.9,
  "groups": {
   "業績": 57.06467819229903,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 106.6,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 104.72983391731564,
+  "fcf_yield": 105.15967911363383,
+  "per_cheap": 110.0,
+  "pbr_cheap": 106.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 16.844457555320172,
+ "fcf_yield": 7.5479037340901485,
+ "per_band_pos": 1.0,
+ "pbr_band_pos": 0.6826555367163645,
+ "ev_ebit_vs_sector": 0.6844558128939525,
+ "per_vs_sector": 0.3978424576271186,
+ "pbr_vs_sector": 0.24720380769230768,
  "price_chg": {
-  "d": -1.6103227820102317,
-  "w": -10.858670119819468,
-  "m": -14.34991596644144,
-  "3m": -13.953984300112932,
-  "6m": -14.2306031105071,
-  "9m": 4.368233625602769,
-  "y": 2.6943782503725533
+  "d": 0.9994945192561611,
+  "w": -9.524345026928305,
+  "m": -14.43692478239309,
+  "3m": -14.100525115713703,
+  "6m": -13.317612603307893,
+  "9m": 4.987008231026779,
+  "y": 5.604171280348891
  },
- "div_yield": 3.3233382928210013,
- "implied_fcf_growth": null,
+ "div_yield": 3.2904504212022436,
+ "implied_fcf_growth": 0.0207,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:55:54Z"
+  "fetched": "2026-11-21T03:05:01Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 43.51223261175868
  },
- "_generated_at": "2026-11-20T03:32:04"
+ "_generated_at": "2026-11-21T03:38:00"
 }

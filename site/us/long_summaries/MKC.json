@@ -2,15 +2,15 @@
  "code": "MKC",
  "name": "McCormick & Company",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
- "price": 45.83000183105469,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 96.5,
+ "price": 47.400001525878906,
+ "price_date": "2026-11-20",
+ "mcap": 12753656832,
+ "q_score": 96.1,
  "groups": {
-  "業績": 102.39359914008742,
+  "業績": 101.27919065027598,
   "財務": 88.25135406116763,
   "キャッシュフロー": 100.52944354403026,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 104.8,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 107.05792560835611,
+  "fcf_yield": 97.40525035321886,
+  "per_cheap": 110.0,
+  "pbr_cheap": 110.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 15.40595002472754,
+ "fcf_yield": 5.805393776491414,
+ "per_band_pos": 1.0,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 0.6029726037075358,
+ "per_vs_sector": 0.3616636286919831,
+ "pbr_vs_sector": 0.27592662121212125,
  "price_chg": {
-  "d": -1.0792142893136125,
-  "w": -1.2497263914336365,
-  "m": -1.057853771584294,
-  "3m": -17.28929442833206,
-  "6m": -2.406297434940974,
-  "9m": -33.094887837876364,
-  "y": -29.600609976552793
+  "d": 3.425702884786652,
+  "w": 0.9369728492003571,
+  "m": -2.689381201428398,
+  "3m": -15.658361419211264,
+  "6m": -0.836815308715555,
+  "9m": -31.82798452746033,
+  "y": -28.978119503940725
  },
- "div_yield": 4.18939542502701,
- "implied_fcf_growth": null,
+ "div_yield": 4.3037973298085745,
+ "implied_fcf_growth": 0.0568,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,13 +66,13 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:09:12Z"
+  "fetched": "2026-11-21T03:16:42Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 97.81121717583787,
   "eps_cagr": 99.98653958322429,
-  "op_margin": 105.66107167396585,
+  "op_margin": 101.20343771472011,
   "earnings_stability": 106.11556812732164,
   "equity_ratio": null,
   "de": 102.74121851303059,
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 65.23500810372771
  },
- "_generated_at": "2026-11-20T03:39:29"
+ "_generated_at": "2026-11-21T03:44:37"
 }

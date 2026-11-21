@@ -2,12 +2,12 @@
  "code": "JNJ",
  "name": "Johnson & Johnson",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Health Care",
  "is_simple": false,
  "is_reit": false,
- "price": 267.1400146484375,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 270.4700012207031,
+ "price_date": "2026-11-20",
+ "mcap": 651105206272,
  "q_score": 104.6,
  "groups": {
   "業績": 106.55452684023322,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 54.5,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 73.89240580769695,
+  "fcf_yield": 59.549164126802104,
+  "per_cheap": 30.0,
+  "pbr_cheap": 43.2
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 26.54044406438506,
+ "fcf_yield": 2.9661873095101576,
+ "per_band_pos": 0.0,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 1.0784414491826517,
+ "per_vs_sector": 1.7390885593220338,
+ "pbr_vs_sector": 1.535679423076923,
  "price_chg": {
-  "d": -2.038869567183099,
-  "w": -5.77736138542404,
-  "m": 3.631009354280579,
-  "3m": -1.1471194856279232,
-  "6m": 15.280723071575263,
-  "9m": 10.165371189274985,
-  "y": 33.57000732421875
+  "d": 1.246532301290748,
+  "w": -5.347331156359358,
+  "m": 1.0687253935548702,
+  "3m": -0.9412566817276202,
+  "6m": 15.417771378095146,
+  "9m": 10.01871349239698,
+  "y": 33.55884082628482
  },
- "div_yield": 1.9764916188046944,
- "implied_fcf_growth": null,
+ "div_yield": 1.9817354885232719,
+ "implied_fcf_growth": 0.1481,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:05:21Z"
+  "fetched": "2026-11-21T03:13:18Z"
  },
  "etf_top": [
   {
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 64.10707813389945
  },
- "_generated_at": "2026-11-20T03:37:52"
+ "_generated_at": "2026-11-21T03:43:12"
 }

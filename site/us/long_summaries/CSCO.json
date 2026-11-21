@@ -2,15 +2,15 @@
  "code": "CSCO",
  "name": "Cisco",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Information Technology",
  "is_simple": false,
  "is_reit": false,
- "price": 94.69999694824219,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 101.1,
+ "price": 90.63999938964844,
+ "price_date": "2026-11-20",
+ "mcap": 357343494144,
+ "q_score": 100.6,
  "groups": {
-  "業績": 99.051882554363,
+  "業績": 97.89258527840565,
   "財務": 102.61149394046083,
   "キャッシュフロー": 102.07470649156244,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 81.3,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 92.79574475207383,
+  "fcf_yield": 67.63670514680472,
+  "per_cheap": 83.5,
+  "pbr_cheap": 75.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 23.638533973227073,
+ "fcf_yield": 3.572752886010354,
+ "per_band_pos": 0.16909805160901456,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 0.9130372334193539,
+ "per_vs_sector": 0.6149587244897958,
+ "pbr_vs_sector": 0.5157589925373134,
  "price_chg": {
-  "d": -2.5519688713167343,
-  "w": -7.165969056863708,
-  "m": -11.70986848577149,
-  "3m": -14.715421318949428,
-  "6m": -19.88155719690099,
-  "9m": 19.57070782481136,
-  "y": 22.398854318802176
+  "d": -4.287220368985567,
+  "w": -5.227938134576327,
+  "m": -13.585661247898084,
+  "3m": -17.77193447400265,
+  "6m": -24.72386294082388,
+  "9m": 16.59377653763856,
+  "y": 15.626993360606711
  },
- "div_yield": 1.7634636259943388,
- "implied_fcf_growth": null,
+ "div_yield": 1.8534863319867416,
+ "implied_fcf_growth": 0.1228,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:25:59Z"
+  "fetched": "2026-11-21T03:32:19Z"
  },
  "etf_top": [
   {
@@ -78,7 +78,7 @@
  "metric_scores": {
   "rev_cagr": 100.63453922242266,
   "eps_cagr": 93.67030720005499,
-  "op_margin": 110.0,
+  "op_margin": 105.36281089617054,
   "earnings_stability": 91.9026837949744,
   "equity_ratio": null,
   "de": 104.1268768022273,
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 51.32764157593797
  },
- "_generated_at": "2026-11-20T03:31:47"
+ "_generated_at": "2026-11-21T03:37:45"
 }

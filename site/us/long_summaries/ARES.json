@@ -2,12 +2,12 @@
  "code": "ARES",
  "name": "Ares Management",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Financials",
  "is_simple": false,
  "is_reit": false,
- "price": 127.9800033569336,
- "price_date": "2026-11-18",
- "mcap": null,
+ "price": 123.30000305175781,
+ "price_date": "2026-11-20",
+ "mcap": 40930201600,
  "q_score": 64.9,
  "groups": {
   "業績": 64.25835523797396,
@@ -26,32 +26,32 @@
   "gap": -35.916250421832345
  },
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 44.0,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 20.0,
+  "fcf_yield": 106.01812252007085,
+  "per_cheap": 20.0,
+  "pbr_cheap": 30.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
+ "ev_ebit": 60.15853149265836,
+ "fcf_yield": 7.805436756021256,
  "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 2.482811865153048,
+ "per_vs_sector": 5.841940751445086,
+ "pbr_vs_sector": 4.735478,
  "price_chg": {
-  "d": 0.18788593798162445,
-  "w": -7.186885253883613,
-  "m": 10.052457089494581,
-  "3m": -8.735643402861315,
-  "6m": 4.8071433275256314,
-  "9m": -1.4401252666028208,
-  "y": -9.911301171079323
+  "d": -0.9001729092349753,
+  "w": -8.402048515943628,
+  "m": -0.32335804878939056,
+  "3m": -11.934856160759487,
+  "6m": -0.8922117013727138,
+  "9m": 7.619798708376857,
+  "y": -15.065092920739541
  },
- "div_yield": 4.039693596179222,
- "implied_fcf_growth": null,
+ "div_yield": 4.379561935398522,
+ "implied_fcf_growth": 0.0161,
  "insight": {
   "flags": {
    "lev_roe": true,
@@ -71,7 +71,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:50:12Z"
+  "fetched": "2026-11-21T02:59:49Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -102,5 +102,5 @@
   "fcf_positive": 1,
   "fcf_payout": 54.986179021347624
  },
- "_generated_at": "2026-11-20T03:28:53"
+ "_generated_at": "2026-11-21T03:35:10"
 }

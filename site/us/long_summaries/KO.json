@@ -2,12 +2,12 @@
  "code": "KO",
  "name": "Coca-Cola Company (The)",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
- "price": 96.08999633789062,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 96.98999786376953,
+ "price_date": "2026-11-20",
+ "mcap": 417241497600,
  "q_score": 88.8,
  "groups": {
   "業績": 105.93574006940781,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 49.2,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 61.41224097570287,
+  "fcf_yield": 36.92385195132933,
+  "per_cheap": 49.4,
+  "pbr_cheap": 35.4
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 30.344275876869425,
+ "fcf_yield": 1.2692888963497,
+ "per_band_pos": 0.0,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 1.1876428914625998,
+ "per_vs_sector": 1.2071991139240508,
+ "pbr_vs_sector": 1.6916604545454546,
  "price_chg": {
-  "d": -2.0389439032198586,
-  "w": -1.385474209452553,
-  "m": 3.6793224228381938,
-  "3m": 5.477495002579014,
-  "6m": 18.381173469896073,
-  "9m": 20.35320734638868,
-  "y": 34.919958847119446
+  "d": 0.9366235406172096,
+  "w": -2.277080238015583,
+  "m": 1.7306498733555609,
+  "3m": 5.435373536375798,
+  "6m": 19.035338571222702,
+  "9m": 20.39473783899477,
+  "y": 36.39431448640795
  },
- "div_yield": 2.185451222846929,
- "implied_fcf_growth": null,
+ "div_yield": 2.185792397869433,
+ "implied_fcf_growth": 0.2653,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:06:32Z"
+  "fetched": "2026-11-21T03:14:22Z"
  },
  "etf_top": [
   {
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 165.7666163141994
  },
- "_generated_at": "2026-11-20T03:38:05"
+ "_generated_at": "2026-11-21T03:43:24"
 }

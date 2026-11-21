@@ -2,12 +2,12 @@
  "code": "SYF",
  "name": "Synchrony Financial",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Financials",
  "is_simple": false,
  "is_reit": false,
- "price": 70.16000366210938,
- "price_date": "2026-11-18",
- "mcap": null,
+ "price": 67.76000213623047,
+ "price_date": "2026-11-20",
+ "mcap": 21100793856,
  "q_score": 101.6,
  "groups": {
   "業績": 98.8142579338144,
@@ -26,32 +26,32 @@
   "gap": -8.80012958014742
  },
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 81.1,
+ "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "fcf_yield": 110.0,
+  "per_cheap": 79.4,
+  "pbr_cheap": 75.0
  },
  "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
+ "fcf_yield": 46.68544732121001,
+ "per_band_pos": 0.08754799224015604,
+ "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "per_vs_sector": 0.4088479190751445,
+ "pbr_vs_sector": 0.56821804,
  "price_chg": {
-  "d": -0.4822643090647172,
-  "w": -2.5826063144312794,
-  "m": -4.362045967309669,
-  "3m": -8.53864620067386,
-  "6m": -2.623177390139375,
-  "9m": -2.9061699585366862,
-  "y": -0.4399000329556979
+  "d": -1.711633686376346,
+  "w": -6.214529915251942,
+  "m": -9.761612144281617,
+  "3m": -15.321163485575129,
+  "6m": -5.666155632846737,
+  "9m": -1.6260092361312095,
+  "y": -6.602344195781928
  },
- "div_yield": 1.8244012730735888,
- "implied_fcf_growth": null,
+ "div_yield": 2.007083761989471,
+ "implied_fcf_growth": -0.2724,
  "insight": {
   "flags": {
    "lev_roe": true,
@@ -68,7 +68,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:20:24Z"
+  "fetched": "2026-11-21T03:27:04Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -99,5 +99,5 @@
   "fcf_positive": 1,
   "fcf_payout": 5.177139376713024
  },
- "_generated_at": "2026-11-20T03:43:52"
+ "_generated_at": "2026-11-21T03:48:31"
 }

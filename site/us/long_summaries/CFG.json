@@ -2,52 +2,52 @@
  "code": "CFG",
  "name": "Citizens Financial Group",
  "jp_sector": null,
- "gics_sector": "Industrials",
- "is_simple": false,
+ "gics_sector": "Financials",
+ "is_simple": true,
  "is_reit": false,
- "price": 62.029998779296875,
- "price_date": "2026-11-18",
- "mcap": null,
- "q_score": 90.3,
+ "price": 58.709999084472656,
+ "price_date": "2026-11-20",
+ "mcap": 24610940928,
+ "q_score": 69.4,
  "groups": {
-  "業績": 84.92023601118751,
-  "財務": 88.83872876145904,
-  "キャッシュフロー": 102.93405334642448,
-  "金融品質": null,
+  "業績": null,
+  "財務": null,
+  "キャッシュフロー": null,
+  "金融品質": 69.4,
   "REIT品質": null
  },
- "is_fin_simple": false,
+ "is_fin_simple": true,
  "is_reit_us": false,
  "current_pfo": null,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 82.5,
+ "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "per_cheap": 90.1,
+  "pbr_cheap": 75.0
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
+ "per_band_pos": 0.30133870019122777,
+ "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "per_vs_sector": 0.6855841618497109,
+ "pbr_vs_sector": 0.43098608,
  "price_chg": {
-  "d": -1.6021607258284387,
-  "w": -5.123888979585356,
-  "m": -3.410156337244419,
-  "3m": -11.0170713040311,
-  "6m": -1.273281916987623,
-  "9m": -3.9634582810650687,
-  "y": 24.783745567745296
+  "d": -2.9747137448192573,
+  "w": -10.036780320792293,
+  "m": -10.009195268418692,
+  "3m": -16.403251775330585,
+  "6m": -6.646526229516548,
+  "9m": -6.048971823434401,
+  "y": 14.757621695814871
  },
- "div_yield": 3.0630340760769834,
- "implied_fcf_growth": null,
+ "div_yield": 3.5428377319632913,
+ "implied_fcf_growth": 0.0079,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -57,31 +57,26 @@
    "roe": 6.957479955922027,
    "roa": 0.8089206586231119,
    "leverage": 8.600942356651593,
-   "ocf_ni": 1.2075368651010376,
-   "accrual": -0.17122053204527432,
-   "capex_da": 0.36401673640167365,
-   "shares_chg_pct": -12.805660935613272,
-   "sbc_rev_pct": 1.4550745725718441,
-   "fcf_less_sbc_pct": 23.244816296835214
+   "shares_chg_pct": -12.805660935613272
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:53:41Z"
+  "fetched": "2026-11-21T03:03:00Z"
  },
  "etf_top": [],
  "metric_scores": {
-  "rev_cagr": 90.8022924892668,
-  "eps_cagr": 79.03817953310823,
+  "rev_cagr": null,
+  "eps_cagr": null,
   "op_margin": null,
   "earnings_stability": null,
   "equity_ratio": null,
-  "de": 105.71303720028878,
+  "de": null,
   "net_de": null,
-  "debt_to_ocf": 71.96442032262928,
+  "debt_to_ocf": null,
   "interest_coverage": null,
-  "ocf_positive": 100.0,
-  "fcf_positive": 100.0,
-  "fcf_payout": 108.80216003927345
+  "ocf_positive": null,
+  "fcf_positive": null,
+  "fcf_payout": null
  },
  "metric_raw": {
   "rev_cagr": 0.9305158100850308,
@@ -97,5 +92,5 @@
   "fcf_positive": 1,
   "fcf_payout": 43.59351988217968
  },
- "_generated_at": "2026-11-20T03:30:38"
+ "_generated_at": "2026-11-21T03:36:43"
 }

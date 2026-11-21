@@ -2,12 +2,12 @@
  "code": "GEN",
  "name": "Gen Digital",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Information Technology",
  "is_simple": false,
  "is_reit": false,
- "price": 30.149999618530273,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 29.190000534057617,
+ "price_date": "2026-11-20",
+ "mcap": 17317730304,
  "q_score": 76.2,
  "groups": {
   "業績": 93.64603104451456,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 108.4,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 110.0,
+  "fcf_yield": 109.31485002681947,
+  "per_cheap": 105.8,
+  "pbr_cheap": 98.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 11.682473458932714,
+ "fcf_yield": 8.79445500804584,
+ "per_band_pos": 0.6628892389001448,
+ "pbr_band_pos": 0.459681722321546,
+ "ev_ebit_vs_sector": 0.4512349733075594,
+ "per_vs_sector": 0.3779913010204081,
+ "pbr_vs_sector": 0.4713020895522388,
  "price_chg": {
-  "d": -1.050212346686752,
-  "w": 1.5493401017119712,
-  "m": 24.99999406918978,
-  "3m": 4.21707328200831,
-  "6m": 21.327964409258836,
-  "9m": 34.8993248497995,
-  "y": 14.464690371568011
+  "d": -3.1840766057013137,
+  "w": -3.9802601962373174,
+  "m": 17.276019485149185,
+  "3m": 0.2748193817543543,
+  "6m": 17.60677233265513,
+  "9m": 34.826794680743745,
+  "y": 12.010748780735048
  },
- "div_yield": 1.6583748136855652,
- "implied_fcf_growth": null,
+ "div_yield": 1.7129153506407848,
+ "implied_fcf_growth": -0.0005,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:01:21Z"
+  "fetched": "2026-11-21T03:09:50Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 20.48588312541037
  },
- "_generated_at": "2026-11-20T03:35:21"
+ "_generated_at": "2026-11-21T03:40:55"
 }

@@ -2,15 +2,15 @@
  "code": "SJM",
  "name": "J.M. Smucker Company (The)",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Consumer Staples",
  "is_simple": false,
  "is_reit": false,
- "price": 131.2899932861328,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 87.7,
+ "price": 133.67999267578125,
+ "price_date": "2026-11-20",
+ "mcap": 14280122368,
+ "q_score": 87.1,
  "groups": {
-  "業績": 95.91017801052335,
+  "業績": 94.289110597601,
   "財務": 70.63065621766803,
   "キャッシュフロー": 103.31199907743758,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 77.8,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 106.54140356222253,
+  "fcf_yield": 106.98856424813516,
+  "per_cheap": 20.0,
+  "pbr_cheap": 75.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
+ "ev_ebit": 15.867849864482501,
+ "fcf_yield": 8.096569274440547,
  "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "pbr_band_pos": 0.0,
+ "ev_ebit_vs_sector": 0.6210508753222114,
+ "per_vs_sector": 2.6357502109704645,
+ "pbr_vs_sector": 0.37624074242424244,
  "price_chg": {
-  "d": -1.8172359500353452,
-  "w": -0.3188925718049851,
-  "m": 2.7227883530345,
-  "3m": 5.606494215265645,
-  "6m": 28.829348021058966,
-  "9m": 18.94364608898136,
-  "y": 23.057447072640926
+  "d": 1.8203972213173047,
+  "w": 0.7460925587156941,
+  "m": 0.21740256950275594,
+  "3m": 6.204806354793924,
+  "6m": 29.334357475219598,
+  "9m": 20.432425834037172,
+  "y": 27.69126904032728
  },
- "div_yield": 3.38182666391298,
- "implied_fcf_growth": null,
+ "div_yield": 3.351286838312073,
+ "implied_fcf_growth": 0.011,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,13 +66,13 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:18:24Z"
+  "fetched": "2026-11-21T03:25:15Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 95.54962416932796,
   "eps_cagr": null,
-  "op_margin": 104.05471910449316,
+  "op_margin": 99.19151686572606,
   "earnings_stability": 88.12619075774896,
   "equity_ratio": null,
   "de": 88.85096864966269,
@@ -97,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 40.192008303061755
  },
- "_generated_at": "2026-11-20T03:43:12"
+ "_generated_at": "2026-11-21T03:47:55"
 }

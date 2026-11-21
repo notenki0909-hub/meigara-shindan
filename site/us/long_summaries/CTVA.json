@@ -2,15 +2,15 @@
  "code": "CTVA",
  "name": "Corteva",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Materials",
  "is_simple": false,
  "is_reit": false,
- "price": 8.359999656677246,
- "price_date": "2026-11-18",
- "mcap": null,
- "q_score": 101.0,
+ "price": 7.889999866485596,
+ "price_date": "2026-11-20",
+ "mcap": 5265178624,
+ "q_score": 101.9,
  "groups": {
-  "業績": 95.1885615581712,
+  "業績": 97.47126616204491,
   "財務": 105.68751613794477,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
@@ -22,36 +22,38 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 109.0,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 110.0,
+  "fcf_yield": 110.0,
+  "per_cheap": 107.1,
+  "pbr_cheap": 110.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 1.2692549156166475,
+ "fcf_yield": 53.46447292725315,
+ "per_band_pos": 0.7643046447218482,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 0.050327316241738605,
+ "per_vs_sector": 0.2398905533596838,
+ "pbr_vs_sector": 0.07417972413793104,
  "price_chg": {
-  "d": -5.215420114094915,
-  "w": -31.13674283151553,
-  "m": -35.19379919462571,
-  "3m": -29.877422006475907,
-  "6m": -29.290106497657387,
-  "9m": -27.65593748009033,
-  "y": -12.774896397680068
+  "d": -2.8325125900867,
+  "w": -16.330863084330293,
+  "m": -38.64696674086689,
+  "3m": -36.49698299312627,
+  "6m": -33.90290356947263,
+  "9m": -31.223056539856387,
+  "y": -18.696891299656404
  },
- "div_yield": 1.292201010005025,
- "implied_fcf_growth": null,
+ "div_yield": 9.125475439592194,
+ "implied_fcf_growth": -0.3011,
  "insight": {
   "flags": {
    "cutoff": [],
-   "value_trap": []
+   "value_trap": [
+    "PBR 0.22倍（1倍割れ）かつROE 4.5%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+   ]
   },
   "raw": {
    "roe": 4.531146454605699,
@@ -64,14 +66,14 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:55:36Z"
+  "fetched": "2026-11-21T03:04:45Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 86.20787182315934,
   "eps_cagr": 85.25909424831013,
-  "op_margin": 104.3583702086087,
-  "earnings_stability": 104.92890995260663,
+  "op_margin": 108.41809857671015,
+  "earnings_stability": 110.0,
   "equity_ratio": null,
   "de": 108.93141153081511,
   "net_de": 105.80392644135189,
@@ -95,5 +97,5 @@
   "fcf_positive": 1,
   "fcf_payout": 16.873889875666073
  },
- "_generated_at": "2026-11-20T03:31:59"
+ "_generated_at": "2026-11-21T03:37:56"
 }

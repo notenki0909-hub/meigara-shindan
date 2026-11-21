@@ -2,12 +2,12 @@
  "code": "ROL",
  "name": "Rollins, Inc.",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Consumer Discretionary",
  "is_simple": false,
  "is_reit": false,
- "price": 37.970001220703125,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 37.81999969482422,
+ "price_date": "2026-11-20",
+ "mcap": 18079672320,
  "q_score": 105.4,
  "groups": {
   "業績": 107.7744139850457,
@@ -26,32 +26,32 @@
   "gap": -5.544609241696174
  },
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 61.9,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 30.46953599668711,
+  "fcf_yield": 67.93752073193917,
+  "per_cheap": 87.2,
+  "pbr_cheap": 84.3
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 26.192712418120617,
+ "fcf_yield": 3.5953140548954376,
+ "per_band_pos": 1.0,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 1.4583915600289876,
+ "per_vs_sector": 1.1722042905405403,
+ "pbr_vs_sector": 1.4131556521739133,
  "price_chg": {
-  "d": 0.7161815710865715,
-  "w": 0.15827320900163588,
-  "m": 13.512706590941415,
-  "3m": 2.8718541795532904,
-  "6m": -28.385513215997694,
-  "9m": -38.10920592488721,
-  "y": -35.21583206740839
+  "d": -0.39505272861860563,
+  "w": -2.7263409057884602,
+  "m": 7.10846282614932,
+  "3m": 1.5029559809920379,
+  "6m": -29.255517503723716,
+  "9m": -37.36336696622591,
+  "y": -36.27632575034486
  },
- "div_yield": 1.9726098918100854,
- "implied_fcf_growth": null,
+ "div_yield": 2.115282936158993,
+ "implied_fcf_growth": 0.1219,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -70,7 +70,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:17:00Z"
+  "fetched": "2026-11-21T03:23:59Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -101,5 +101,5 @@
   "fcf_positive": 1,
   "fcf_payout": 50.44467794117421
  },
- "_generated_at": "2026-11-20T03:42:46"
+ "_generated_at": "2026-11-21T03:47:33"
 }

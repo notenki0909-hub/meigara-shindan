@@ -2,12 +2,12 @@
  "code": "AMGN",
  "name": "Amgen",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Health Care",
  "is_simple": false,
  "is_reit": false,
- "price": 438.82000732421875,
- "price_date": "2026-11-19",
- "mcap": null,
+ "price": 435.6400146484375,
+ "price_date": "2026-11-20",
+ "mcap": 235642683392,
  "q_score": 79.4,
  "groups": {
   "業績": 102.67602143290165,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 70.4,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 53.36809756838523,
+  "fcf_yield": 65.83210411856419,
+  "per_cheap": 91.9,
+  "pbr_cheap": 20.0
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
+ "ev_ebit": 30.960097289867843,
+ "fcf_yield": 3.4374078088923143,
+ "per_band_pos": 0.723048880577604,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit_vs_sector": 1.258029146276629,
+ "per_vs_sector": 1.0701056779661018,
+ "pbr_vs_sector": 3.1573423076923075,
  "price_chg": {
-  "d": -1.1421764754573793,
-  "w": -6.046330317730164,
-  "m": 0.1095065452247912,
-  "3m": -0.1160811380133242,
-  "6m": 30.051564774239846,
-  "9m": 17.09673310853068,
-  "y": 27.567667601383405
+  "d": -0.7246690266407452,
+  "w": -6.448772287966342,
+  "m": -2.6023931681780743,
+  "3m": -1.8475085069193597,
+  "6m": 28.393760778515762,
+  "9m": 14.817352598984868,
+  "y": 27.23131495736586
  },
- "div_yield": 2.265165633766536,
- "implied_fcf_growth": null,
+ "div_yield": 2.3138370354097484,
+ "implied_fcf_growth": 0.128,
  "insight": {
   "flags": {
    "cutoff": [
@@ -68,7 +68,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T02:49:32Z"
+  "fetched": "2026-11-21T02:59:13Z"
  },
  "etf_top": [
   {
@@ -105,5 +105,5 @@
   "fcf_positive": 1,
   "fcf_payout": 63.25925925925926
  },
- "_generated_at": "2026-11-20T03:28:17"
+ "_generated_at": "2026-11-21T03:34:38"
 }

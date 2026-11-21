@@ -2,15 +2,15 @@
  "code": "IBM",
  "name": "IBM",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Information Technology",
  "is_simple": false,
  "is_reit": false,
- "price": 223.8800048828125,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 91.3,
+ "price": 224.44000244140625,
+ "price_date": "2026-11-20",
+ "mcap": 212122927104,
+ "q_score": 89.8,
  "groups": {
-  "業績": 107.12584879069836,
+  "業績": 103.30236417297067,
   "財務": 69.05317496206946,
   "キャッシュフロー": 101.7105582229982,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 100.3,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
-  "pbr_cheap": null
+  "ev_ebit_vs_sector": 101.03910421632489,
+  "fcf_yield": 92.00227501030616,
+  "per_cheap": 107.9,
+  "pbr_cheap": 108.7
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
- "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
- "pbr_vs_sector": null,
+ "ev_ebit": 21.0649157143772,
+ "fcf_yield": 5.400170625772962,
+ "per_band_pos": 0.8340155357689784,
+ "pbr_band_pos": 0.8981135739877877,
+ "ev_ebit_vs_sector": 0.8136313524286288,
+ "per_vs_sector": 0.4885247704081632,
+ "pbr_vs_sector": 0.4454588805970149,
  "price_chg": {
-  "d": -2.034741137409757,
-  "w": -8.497156758785462,
-  "m": -10.967947623749797,
-  "3m": -5.006783842361062,
-  "6m": -11.49938577598817,
-  "9m": -12.941358805945779,
-  "y": -22.786688926587516
+  "d": 0.2501329044042544,
+  "w": -9.181403307204928,
+  "m": -10.975367142103442,
+  "3m": -2.856644319822488,
+  "6m": -11.582096722594326,
+  "9m": 0.48802162888030853,
+  "y": -22.212593702228688
  },
- "div_yield": 3.015007974264255,
- "implied_fcf_growth": null,
+ "div_yield": 3.0119407977483017,
+ "implied_fcf_growth": 0.0666,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -66,7 +66,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:03:52Z"
+  "fetched": "2026-11-21T03:12:03Z"
  },
  "etf_top": [
   {
@@ -78,7 +78,7 @@
  "metric_scores": {
   "rev_cagr": 100.79797767325377,
   "eps_cagr": 110.0,
-  "op_margin": 109.28114529393847,
+  "op_margin": 93.98720682302772,
   "earnings_stability": 108.4242721956012,
   "equity_ratio": null,
   "de": 60.84415584415584,
@@ -103,5 +103,5 @@
   "fcf_positive": 1,
   "fcf_payout": 54.60497599301615
  },
- "_generated_at": "2026-11-20T03:36:51"
+ "_generated_at": "2026-11-21T03:42:15"
 }

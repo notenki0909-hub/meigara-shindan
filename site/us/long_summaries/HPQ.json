@@ -2,15 +2,15 @@
  "code": "HPQ",
  "name": "HP Inc.",
  "jp_sector": null,
- "gics_sector": "Industrials",
+ "gics_sector": "Information Technology",
  "is_simple": false,
  "is_reit": false,
- "price": 27.81999969482422,
- "price_date": "2026-11-19",
- "mcap": null,
- "q_score": 90.1,
+ "price": 27.959999084472656,
+ "price_date": "2026-11-20",
+ "mcap": 25214074880,
+ "q_score": 87.8,
  "groups": {
-  "業績": 74.32811939995779,
+  "業績": 68.66214598463995,
   "財務": 99.05740627988396,
   "キャッシュフロー": 103.33333333333333,
   "金融品質": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 60.0,
- "bt_cov": "低",
+ "bt_score": 104.6,
+ "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": null,
-  "fcf_yield": null,
-  "per_cheap": null,
+  "ev_ebit_vs_sector": 110.0,
+  "fcf_yield": 110.0,
+  "per_cheap": 93.8,
   "pbr_cheap": null
  },
- "ev_ebit": null,
- "fcf_yield": null,
- "per_band_pos": null,
+ "ev_ebit": 8.942073642384106,
+ "fcf_yield": 11.10490871993476,
+ "per_band_pos": 0.375888147712187,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": null,
- "per_vs_sector": null,
+ "ev_ebit_vs_sector": 0.3453871627031327,
+ "per_vs_sector": 0.27223867346938774,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": -2.9309147140966885,
-  "w": -3.6703583682314966,
-  "m": -11.174968180406442,
-  "3m": -6.361492587982642,
-  "6m": 27.031964289555745,
-  "9m": 49.65034678039759,
-  "y": 22.501104431331242
+  "d": 0.503232894263772,
+  "w": -4.768397468579422,
+  "m": -17.180093380991433,
+  "3m": -2.16935213746845,
+  "6m": 10.776542543661026,
+  "9m": 52.37056405027294,
+  "y": 24.432576497033164
  },
- "div_yield": 4.313443613096999,
- "implied_fcf_growth": null,
+ "div_yield": 4.291845634095209,
+ "implied_fcf_growth": -0.0335,
  "insight": {
   "flags": {
    "cutoff": [
@@ -69,13 +69,13 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-20T03:03:20Z"
+  "fetched": "2026-11-21T03:11:34Z"
  },
  "etf_top": [],
  "metric_scores": {
   "rev_cagr": 67.95740419662471,
   "eps_cagr": 69.99051398097113,
-  "op_margin": 68.87964553757121,
+  "op_margin": 46.21575187629985,
   "earnings_stability": 90.48491388466408,
   "equity_ratio": null,
   "de": 110.0,
@@ -100,5 +100,5 @@
   "fcf_positive": 1,
   "fcf_payout": 38.857142857142854
  },
- "_generated_at": "2026-11-20T03:36:26"
+ "_generated_at": "2026-11-21T03:41:53"
 }
