@@ -22,20 +22,20 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 89.9,
+ "bt_score": 90.0,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": 104.8,
+  "per_cheap": 105.1,
   "pbr_cheap": 75.0
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": 0.6805740761960877,
+ "per_band_pos": 0.6875741669484783,
  "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 0.762546416184971,
+ "per_vs_sector": 0.7513507514450867,
  "pbr_vs_sector": 0.4251868,
  "price_chg": {
   "d": 0.22641547820851926,
@@ -51,7 +51,9 @@
  "insight": {
   "flags": {
    "cutoff": [],
-   "value_trap": []
+   "value_trap": [
+    "買い時スコアは高い（割安圏）が、品質スコアは低め。安い理由がある可能性（バリュートラップ）"
+   ]
   },
   "raw": {
    "roe": 7.525705534893897,
@@ -61,7 +63,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-21T02:58:37Z"
+  "fetched": "2026-11-22T01:53:26Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -92,5 +94,5 @@
   "fcf_positive": 1,
   "fcf_payout": 29.450814725407366
  },
- "_generated_at": "2026-11-21T03:34:08"
+ "_generated_at": "2026-11-22T02:29:40"
 }
