@@ -1,8 +1,8 @@
 {
  "code": "1815",
  "name": "鉄建建設",
- "asof": "2026-11-21",
- "data_fetched_at": "2026-11-21T22:30:45",
+ "asof": "2026-11-22",
+ "data_fetched_at": "2026-11-22T22:53:59",
  "jp_sector": "建設業",
  "industry": "Engineering & Construction",
  "is_simple": false,
@@ -80,7 +80,7 @@
   {
    "k": "pbr",
    "where": "PBR（Yahoo表示 0.00倍）",
-   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは0.75倍で、Yahoo表示と23773.18倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
+   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは0.75倍で、Yahoo表示と21107.70倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
    "how": "IR BANK（irbank.net/1815/results）の1株純資産（BPS）で、株価÷BPSを計算して確認",
    "keys": [
     "pbr_vs_sector"
@@ -89,5 +89,5 @@
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-21T22:30:48"
+ "_generated_at": "2026-11-22T22:54:01"
 }
