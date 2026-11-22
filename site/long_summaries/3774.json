@@ -35,7 +35,7 @@
  "per_band_pos": 0.0,
  "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": 1.2499104006611386,
- "per_vs_sector": 1.548333756906077,
+ "per_vs_sector": 1.5967762430939225,
  "pbr_vs_sector": 2.2022133,
  "price_chg": {
   "d": -3.0377871079278806,
@@ -54,15 +54,17 @@
    "value_trap": []
   },
   "raw": {
-   "roe": null,
-   "roa": null,
+   "roe": 15.308182548874417,
+   "roa": 6.971951356601995,
    "leverage": 2.195681203997291,
+   "ocf_ni": 2.0861584256656194,
+   "accrual": -7.968842891981412,
    "capex_da": 0.8719471139132031,
    "shares_chg_pct": -1.9015022357651734
   }
  },
  "data_asof": {
-  "fetched": "2026-11-21T23:23:41Z"
+  "fetched": "2026-11-22T23:43:28Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -93,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 29.827036868456986
  },
- "_generated_at": "2026-11-21T23:23:44"
+ "_generated_at": "2026-11-22T23:43:30"
 }
