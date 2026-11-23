@@ -267,6 +267,12 @@ body.dragging-row,body.dragging-row *{cursor:grabbing!important}
 #rbbox p.rbok{margin:10px 0;font-size:13px;font-weight:700;color:var(--gA)}
 #rbtable th,#rbresult th{font-size:12px;font-weight:700;color:color-mix(in srgb,var(--fg) 72%,var(--card))}
 #rbtable td,#rbresult td{font-variant-numeric:tabular-nums}
+/* 見出しクリックの並べ替え */
+#rbbox th button.thsort{background:none;border:0;border-radius:3px;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;display:inline-flex;gap:3px;align-items:center;white-space:nowrap;text-align:inherit}
+#rbbox th button.thsort .arr{font-size:10px;color:color-mix(in srgb,var(--fg) 72%,var(--card))}
+#rbbox th button.thsort.on .arr{color:var(--accent)}
+#rbbox th button.thsort:hover{text-decoration:underline}
+#rbbox th button.thsort:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 #rbtable tr.secrow td{background:color-mix(in srgb,var(--accent) 9%,var(--card));font-weight:700;border-top:2px solid color-mix(in srgb,var(--accent) 35%,var(--line))}
 #rbtable tr.secrow td.nm b{font-size:14.5px}
 #rbtable tr.warnrow td{font-size:12.5px;font-weight:600;border-left:4px solid var(--wfg)}
@@ -437,6 +443,7 @@ details.box[open]>summary{margin-bottom:8px}
   <h2>リバランス</h2>
   <p class="note">理想の配分（目標）をセクションごとに設定すると、現状との差と、買い増し・売却の案が出ます。目標％はセクション単位で入力し（合計100%）、セクションの中の銘柄は「均等／現状のまま／指定」で割り振ります。「未分類」の銘柄は対象外です。まだ持っていない候補銘柄も、セクションに追加できます。</p>
   <h3 class="rbh">① 目標と現状の差</h3>
+  <p class="note">表の見出し（↕）をクリックすると、その列で並べ替えられます（セクションの順、セクション内の銘柄の順の両方）。もう一度で逆順、さらにもう一度で元の並びに戻ります。並べ替えは表示だけで、セクションの本来の順序は変わりません。</p>
   <div class="rbtools"><button type="button" id="rb-eq" class="ghost">セクションの目標を均等にする</button><button type="button" id="rb-cur" class="ghost">現状の比率を目標にコピー</button></div>
   <div id="rbtable"></div>
   <div id="rbctl">
@@ -2281,7 +2288,12 @@ details.box[open]>summary{margin-bottom:8px}
   // 目標％はセクション単位で設定する（セクション合計＝100%）。セクションの中の銘柄は「均等／現状のまま／指定」で割り振る。
   // 未分類の銘柄はリバランスの対象外（売買しない）。セクションには、まだ持っていない「候補銘柄」も入れられる。
   var RB_KEY = PF_KEY.replace('pf_lots', 'pf_rb');
-  var rb = {mode: 'buy', cash: 0, unit: 100, bandType: 'rel', bandVal: 20, minTrade: 0};
+  var rb = {mode: 'buy', cash: 0, unit: 100, bandType: 'rel', bandVal: 20, minTrade: 0, sort: {}};
+  // 表の並べ替え（表示だけ）。表1＝目標と現状の差、表2＝売買案、表3＝セクション別の売買前後。値は 'キー:asc|desc'
+  var RB_SORTKEYS = {'1': ['nm', 'shares', 'value', 'cur', 't', 'inSec', 'diff', 'gap', 'judge'],
+                     '2': ['side', 'code', 'sh', 'price', 'amt', 'after', 'wAfter'],
+                     '3': ['nm', 'cur', 'after', 't']};
+  var RB_ASCFIRST = {nm: 1, judge: 1, side: 1, code: 1};   // 文字・順位の列は昇順から、数値の列は降順（大きい順）から
   try {
     var rbs = JSON.parse(localStorage.getItem(RB_KEY) || 'null');
     if (rbs && typeof rbs === 'object') {
@@ -2291,6 +2303,12 @@ details.box[open]>summary{margin-bottom:8px}
       if (rbs.bandType === 'abs' || rbs.bandType === 'rel') rb.bandType = rbs.bandType;
       if (isFinite(+rbs.bandVal) && +rbs.bandVal >= 0) rb.bandVal = +rbs.bandVal;
       if (isFinite(+rbs.minTrade) && +rbs.minTrade >= 0) rb.minTrade = +rbs.minTrade;
+      if (rbs.sort && typeof rbs.sort === 'object') {
+        Object.keys(RB_SORTKEYS).forEach(function(tb){
+          var p = String(rbs.sort[tb] || '').split(':');
+          if (RB_SORTKEYS[tb].indexOf(p[0]) >= 0 && (p[1] === 'asc' || p[1] === 'desc')) rb.sort[tb] = p[0] + ':' + p[1];
+        });
+      }
     }
   } catch(e) {}
   function saveRb(){ try { localStorage.setItem(RB_KEY, JSON.stringify(rb)); } catch(e) {} }
@@ -2447,6 +2465,40 @@ details.box[open]>summary{margin-bottom:8px}
     return {infos: infos, V: V, ready: ready, sumT: sumT, unset: unset, act: act};
   }
 
+  function rbSortGet(tb){
+    var p = String((rb.sort && rb.sort[tb]) || '').split(':');
+    return (RB_SORTKEYS[tb].indexOf(p[0]) >= 0 && (p[1] === 'asc' || p[1] === 'desc')) ? {k: p[0], d: p[1]} : null;
+  }
+  function rbSortNext(tb, k){          // 1回目＝初期の向き → 2回目＝逆 → 3回目＝解除（元の並び）
+    var cur = rbSortGet(tb), first = RB_ASCFIRST[k] ? 'asc' : 'desc', second = first === 'asc' ? 'desc' : 'asc';
+    rb.sort = rb.sort || {};
+    if (!cur || cur.k !== k) rb.sort[tb] = k + ':' + first;
+    else if (cur.d === first) rb.sort[tb] = k + ':' + second;
+    else delete rb.sort[tb];
+  }
+  function rbTh(tb, k, label, cls, tip){
+    var s = rbSortGet(tb), on = !!(s && s.k === k);
+    return '<th' + (cls ? ' class="' + cls + '"' : '') + (on ? ' aria-sort="' + (s.d === 'asc' ? 'ascending' : 'descending') + '"' : '') + '>'
+      + '<button type="button" class="thsort' + (on ? ' on' : '') + '" data-rbsort="' + tb + ':' + k + '" title="' + (tip || 'クリックで並べ替え') + '">'
+      + label + '<span class="arr" aria-hidden="true">' + (on ? (s.d === 'asc' ? '▲' : '▼') : '↕') + '</span></button></th>';
+  }
+  // 並べ替え（表示用の複製を返す）。値のない行は、向きに関わらず最後。同じ値は元の順を保つ
+  function rbSorted(tb, arr, val){
+    var s = rbSortGet(tb);
+    if (!s) return arr.slice();
+    var sg = s.d === 'asc' ? 1 : -1;
+    var w = arr.map(function(o, i){ return {o: o, i: i, v: val(s.k, o)}; });
+    var nul = function(v){ return v == null || (typeof v === 'number' && !isFinite(v)); };
+    w.sort(function(a, b){
+      var an = nul(a.v), bn = nul(b.v);
+      if (an || bn) return (an && bn) ? a.i - b.i : (an ? 1 : -1);
+      var c = (typeof a.v === 'string') ? a.v.localeCompare(b.v, 'ja', {numeric: true}) : a.v - b.v;
+      return c ? c * sg : a.i - b.i;
+    });
+    return w.map(function(x){ return x.o; });
+  }
+  var JUDGE_RANK = {over: 0, under: 1, ok: 2};
+
   function bandJudge(cur, t){
     // 現状（全体に対する割合）が、目標に対して許容幅の内か、多いか、少ないか
     var bv = rb.bandVal;
@@ -2475,7 +2527,34 @@ details.box[open]>summary{margin-bottom:8px}
       var g = value - t * M.V;
       return (g >= 0 ? '+' : '−') + yen(Math.abs(g));
     };
-    M.infos.forEach(function(i){
+    var secVal = function(k, i){
+      var on = M.ready && i.m.length;
+      switch (k) {
+        case 'nm': return i.s.name;
+        case 'value': return i.value;
+        case 'cur': return i.cur;
+        case 't': return on ? i.tn : null;
+        case 'diff': return on ? i.cur - i.tn : null;
+        case 'gap': return on ? i.value - i.tn * M.V : null;
+        case 'judge': return on ? JUDGE_RANK[bandJudge(i.cur, i.tn)] : null;
+      }
+      return null;   // 保有株数・セクション内は、セクション行には値がない（元の並びのまま）
+    };
+    var stVal = function(k, x){
+      switch (k) {
+        case 'nm': return x.code;
+        case 'shares': return x.held ? x.shares : null;
+        case 'value': return x.value;
+        case 'cur': return x.cur;
+        case 't': return M.ready ? x.t : null;
+        case 'inSec': return x.inSec;
+        case 'diff': return M.ready ? x.cur - x.t : null;
+        case 'gap': return M.ready ? x.value - x.t * M.V : null;
+        case 'judge': return M.ready ? JUDGE_RANK[bandJudge(x.cur, x.t)] : null;
+      }
+      return null;
+    };
+    rbSorted('1', M.infos, secVal).forEach(function(i){
       var s = i.s, id = escH(s.id);
       var sel = '<select class="rbsel" data-k="m:' + id + '" aria-label="セクション内の割り振り">'
         + '<option value="eq"' + ((s.m || 'eq') === 'eq' ? ' selected' : '') + '>内訳：均等</option>'
@@ -2493,7 +2572,7 @@ details.box[open]>summary{margin-bottom:8px}
         + '<td class="n">' + (M.ready && i.m.length ? gapTxt(i.value, i.tn) : '') + '</td>'
         + '<td>' + judge + '</td></tr>';
       if (i.warn) rows += '<tr class="warnrow"><td colspan="9">' + escH(i.warn) + '</td></tr>';
-      i.m.forEach(function(x){
+      rbSorted('1', i.m, stVal).forEach(function(x){
         var inSec;
         if ((s.m || 'eq') === 'set') {
           inSec = '<input class="rbin" type="text" inputmode="decimal" autocomplete="off" data-k="w:' + id + ':' + escH(x.code) + '" value="'
@@ -2519,8 +2598,11 @@ details.box[open]>summary{margin-bottom:8px}
     var pool = lastHoldings.filter(function(h){
       return !secs.some(function(s){ return s.codes.indexOf(h.code) >= 0; });
     });
-    var head = '<table><thead><tr><th>セクション／銘柄</th><th class="n">保有株数</th><th class="n">評価額</th><th class="n">現状</th>'
-      + '<th class="n">目標（全体）</th><th class="n">セクション内</th><th class="n">差</th><th class="n">超過(＋)／不足(−)額</th><th>判定</th></tr></thead><tbody>';
+    var head = '<table><thead><tr>' + rbTh('1', 'nm', 'セクション／銘柄', '', 'セクション名・銘柄の証券コード順')
+      + rbTh('1', 'shares', '保有株数', 'n') + rbTh('1', 'value', '評価額', 'n') + rbTh('1', 'cur', '現状', 'n')
+      + rbTh('1', 't', '目標（全体）', 'n') + rbTh('1', 'inSec', 'セクション内', 'n') + rbTh('1', 'diff', '差', 'n')
+      + rbTh('1', 'gap', '超過(＋)／不足(−)額', 'n') + rbTh('1', 'judge', '判定', '', '判定の順（超過→不足→許容幅の内）')
+      + '</tr></thead><tbody>';
     var top = '', notes = '';
     var eqKw = '<b class="kw">「セクションの目標を均等にする」</b>';
     var eqBtn = '<button type="button" data-rbact="eq">セクションの目標を均等にする</button>';
@@ -2570,6 +2652,19 @@ details.box[open]>summary{margin-bottom:8px}
       if (as !== bs) return as - bs;
       return (b.sell * b.price + b.buy * b.price) - (a.sell * a.price + a.buy * a.price);
     });
+    trades = rbSorted('2', trades, function(k, r){
+      var sh = r.sell > 0 ? r.sell : r.buy;
+      switch (k) {
+        case 'side': return r.sell > 0 ? 0 : 1;
+        case 'code': return r.code;
+        case 'sh': return sh;
+        case 'price': return r.price;
+        case 'amt': return sh * r.price;
+        case 'after': return r.after;
+        case 'wAfter': return r.wAfter;
+      }
+      return null;
+    });
     var fr = rb.unit === 100 ? '単元（100株）' : '単元未満（1株）';
     lastRbCtx = {plan: plan, trades: trades, byCode: byCode, fr: fr};
     var card = function(key, label, val){
@@ -2590,8 +2685,10 @@ details.box[open]>summary{margin-bottom:8px}
         : '許容幅を超えて多い銘柄がない（または売る株数が1単位に満たない）ため、売却はありません。');
       html += '<div class="empty">売買案はありません。' + escH(why) + '</div>';
     } else {
-      html += '<div class="rbscroll"><table><thead><tr><th>売買</th><th>銘柄</th><th class="n">株数</th><th class="n">現在値</th><th class="n">概算金額</th>'
-        + '<th class="n">売買後の株数</th><th class="n">売買後の比率（目標）</th></tr></thead><tbody>';
+      html += '<div class="rbscroll"><table><thead><tr>' + rbTh('2', 'side', '売買') + rbTh('2', 'code', '銘柄', '', '証券コード順')
+        + rbTh('2', 'sh', '株数', 'n') + rbTh('2', 'price', '現在値', 'n') + rbTh('2', 'amt', '概算金額', 'n')
+        + rbTh('2', 'after', '売買後の株数', 'n') + rbTh('2', 'wAfter', '売買後の比率（目標）', 'n', '売買後の比率の順')
+        + '</tr></thead><tbody>';
       trades.forEach(function(r){
         var a = byCode[r.code];
         var isSell = r.sell > 0;
@@ -2607,7 +2704,7 @@ details.box[open]>summary{margin-bottom:8px}
       html += '</tbody></table></div>';
     }
     // セクション別：売買前→売買後
-    var secRows = M.infos.filter(function(i){ return i.m.length; }).map(function(i){
+    var secList = M.infos.filter(function(i){ return i.m.length; }).map(function(i){
       var before = 0, after = 0;
       i.m.forEach(function(x){
         before += x.value;
@@ -2615,9 +2712,14 @@ details.box[open]>summary{margin-bottom:8px}
         after += r ? r.vAfter : x.value;
       });
       var tot = plan.vAfter > 0 ? plan.vAfter : 1;
-      return '<tr><td>' + escH(i.s.name) + '</td><td class="n">' + f1(i.cur * 100) + '%</td><td class="n">' + f1(after / tot * 100) + '%</td><td class="n">' + f1(i.tn * 100) + '%</td></tr>';
+      return {i: i, after: after / tot};
+    });
+    var secRows = rbSorted('3', secList, function(k, a){
+      return k === 'nm' ? a.i.s.name : (k === 'cur' ? a.i.cur : (k === 'after' ? a.after : (k === 't' ? a.i.tn : null)));
+    }).map(function(a){
+      return '<tr><td>' + escH(a.i.s.name) + '</td><td class="n">' + f1(a.i.cur * 100) + '%</td><td class="n">' + f1(a.after * 100) + '%</td><td class="n">' + f1(a.i.tn * 100) + '%</td></tr>';
     }).join('');
-    html += '<div class="rbscroll"><table class="rbsec"><thead><tr><th>セクション</th><th class="n">現状</th><th class="n">売買後</th><th class="n">目標</th></tr></thead><tbody>' + secRows + '</tbody></table></div>';
+    html += '<div class="rbscroll"><table class="rbsec"><thead><tr>' + rbTh('3', 'nm', 'セクション') + rbTh('3', 'cur', '現状', 'n') + rbTh('3', 'after', '売買後', 'n') + rbTh('3', 't', '目標', 'n') + '</tr></thead><tbody>' + secRows + '</tbody></table></div>';
     var odd = plan.rows.filter(function(r){ return rb.unit > 1 && r.shares > 0 && r.shares % rb.unit !== 0; });
     var notes = [];
     if (excludedNote) notes.push(excludedNote);
@@ -2770,6 +2872,16 @@ details.box[open]>summary{margin-bottom:8px}
     return '';
   }
   $('rbbox').addEventListener('click', function(e){
+    var sb = e.target.closest ? e.target.closest('button.thsort') : null;
+    if (sb) {
+      var sp = String(sb.dataset.rbsort || '').split(':');
+      if (RB_SORTKEYS[sp[0]] && RB_SORTKEYS[sp[0]].indexOf(sp[1]) >= 0) {
+        rbSortNext(sp[0], sp[1]); saveRb(); renderRb();
+        var nb = document.querySelector('#rbbox [data-rbsort="' + sb.dataset.rbsort + '"]');
+        if (nb) nb.focus();
+      }
+      return;
+    }
     var cd = e.target.closest('.rbcard');
     if (cd) { toggleRbHelp(cd.dataset.rbhelp); return; }
     if (e.target.id === 'rbhelp-close') { toggleRbHelp(openRbHelp); return; }
