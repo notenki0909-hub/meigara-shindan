@@ -2014,7 +2014,8 @@ def render_portfolio(market):
     t = "\n".join(out)
     bk_css, bk_box, bk_script = _backup_parts(market, "sub")
     rep = {"@@BACKUP_CSS@@": bk_css, "@@BACKUP_BOX@@": bk_box, "@@BACKUP_SCRIPT@@": bk_script,
-           "@@M@@": "yen" if jp else "dollar", "@@R@@": "yen" if jp else "usd"}
+           "@@M@@": "yen" if jp else "dollar", "@@R@@": "yen" if jp else "usd",
+           "@@CODELBL@@": "証券コード" if jp else "ティッカー"}
     for k, v in rep.items():
         t = t.replace(k, v)
     return t
