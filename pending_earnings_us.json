@@ -1,64 +1,4 @@
 {
- "CWEN": {
-  "ticker": "CWEN",
-  "name": "Clearway Energy, Inc. (Class C)",
-  "target_date": "2026-11-09",
-  "detected_at": "2026-11-09T06:40:17",
-  "status": "resolved",
-  "attempts": 2,
-  "next_retry_at": "2026-11-10T04:25:41",
-  "resolved_at": "2026-11-10T07:23:52"
- },
- "HRB": {
-  "ticker": "HRB",
-  "name": "H&R Block",
-  "target_date": "2026-11-09",
-  "detected_at": "2026-11-09T06:40:17",
-  "status": "resolved",
-  "attempts": 2,
-  "next_retry_at": "2026-11-10T04:25:41",
-  "resolved_at": "2026-11-10T07:23:52"
- },
- "NHI": {
-  "ticker": "NHI",
-  "name": "National Health Investors, Inc.",
-  "target_date": "2026-11-09",
-  "detected_at": "2026-11-09T06:40:17",
-  "status": "resolved",
-  "attempts": 3,
-  "next_retry_at": "2026-11-10T13:23:52",
-  "resolved_at": "2026-11-10T19:46:47"
- },
- "NRG": {
-  "ticker": "NRG",
-  "name": "NRG Energy",
-  "target_date": "2026-11-09",
-  "detected_at": "2026-11-09T06:40:17",
-  "status": "resolved",
-  "attempts": 1,
-  "next_retry_at": "2026-11-09T12:40:17",
-  "resolved_at": "2026-11-09T22:25:41"
- },
- "OXY": {
-  "ticker": "OXY",
-  "name": "Occidental Petroleum",
-  "target_date": "2026-11-09",
-  "detected_at": "2026-11-09T06:40:17",
-  "status": "resolved",
-  "attempts": 2,
-  "next_retry_at": "2026-11-10T04:25:41",
-  "resolved_at": "2026-11-10T07:23:52"
- },
- "VRTS": {
-  "ticker": "VRTS",
-  "name": "Virtus Investment Partners, Inc.",
-  "target_date": "2026-11-09",
-  "detected_at": "2026-11-09T06:40:17",
-  "status": "resolved",
-  "attempts": 1,
-  "next_retry_at": "2026-11-09T12:40:17",
-  "resolved_at": "2026-11-09T22:25:41"
- },
  "CTVA": {
   "ticker": "CTVA",
   "name": "Corteva",
@@ -268,5 +208,44 @@
   "attempts": 1,
   "next_retry_at": "2026-11-20T13:21:50",
   "resolved_at": "2026-11-20T21:17:07"
+ },
+ "BBY": {
+  "ticker": "BBY",
+  "name": "Best Buy",
+  "target_date": "2026-11-24",
+  "detected_at": "2026-11-24T20:14:57",
+  "status": "resolved",
+  "attempts": 0,
+  "next_retry_at": "2026-11-24T20:14:57",
+  "resolved_at": "2026-11-24T20:14:57"
+ },
+ "HPQ": {
+  "ticker": "HPQ",
+  "name": "HP Inc.",
+  "target_date": "2026-11-24",
+  "detected_at": "2026-11-24T20:14:57",
+  "status": "pending",
+  "attempts": 1,
+  "next_retry_at": "2026-11-25T02:14:57"
+ },
+ "MDT": {
+  "ticker": "MDT",
+  "name": "Medtronic",
+  "target_date": "2026-11-24",
+  "detected_at": "2026-11-24T20:14:57",
+  "status": "resolved",
+  "attempts": 0,
+  "next_retry_at": "2026-11-24T20:14:57",
+  "resolved_at": "2026-11-24T20:14:57"
+ },
+ "SJM": {
+  "ticker": "SJM",
+  "name": "J.M. Smucker Company (The)",
+  "target_date": "2026-11-24",
+  "detected_at": "2026-11-24T20:14:57",
+  "status": "resolved",
+  "attempts": 0,
+  "next_retry_at": "2026-11-24T20:14:57",
+  "resolved_at": "2026-11-24T20:14:57"
  }
 }
