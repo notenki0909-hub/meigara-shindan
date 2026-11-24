@@ -1,24 +1,24 @@
 {
  "code": "ASH",
  "name": "Ashland Inc.",
- "asof": "2026-11-23",
- "data_fetched_at": "2026-11-23T02:10:56",
+ "asof": "2026-11-24",
+ "data_fetched_at": "2026-11-24T05:45:15",
  "gics_sector": "Materials",
  "industry": "Specialty Chemicals",
  "is_simple": false,
  "is_reit": false,
- "price": 72.4000015258789,
- "price_date": "2026-11-20",
- "mcap": 3315439872,
- "sel_score": 62.8,
- "tim_score": 85.7,
- "sel_label": "選定スコア下位（質に不安）",
+ "price": 69.66000366210938,
+ "price_date": "2026-11-23",
+ "mcap": 3189966080,
+ "sel_score": 73.4,
+ "tim_score": 87.0,
+ "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア中位（妥当水準）",
- "comment": "選定スコアが基準未達の水準。",
+ "comment": "選定・買い時とも中位水準。",
  "cov_sel": [
-  14,
   17,
-  "中"
+  17,
+  "高"
  ],
  "cov_tim": [
   5,
@@ -26,51 +26,46 @@
   "中"
  ],
  "groups": {
-  "業績": 49.3,
-  "財務": 72.5,
-  "キャッシュフロー": 60.0,
-  "配当の持続力": 68.0,
-  "配当利回りセオリー": 99.5,
-  "利回り水準とChowder": 81.3,
-  "株価バリュエーション": 64.7,
+  "業績": 58.8,
+  "財務": 84.8,
+  "キャッシュフロー": 103.3,
+  "配当の持続力": 61.6,
+  "配当利回りセオリー": 101.2,
+  "利回り水準とChowder": 82.9,
+  "株価バリュエーション": 65.0,
   "金利スプレッド": null
  },
- "div_yield": 2.3204419400453946,
- "total_yield": 5.336632969312235,
+ "div_yield": 2.4117139128343363,
+ "total_yield": 2.4117139128343363,
  "streak_up": 6,
  "streak_flat": 17,
  "payout_ni": 303.64,
  "roe": 1.33299995,
- "chowder": 10.067079526069003,
+ "chowder": 10.158351498857945,
  "dgr5": 7.746637586023608,
  "ocf_positive": 1,
- "fcf_positive": 0,
- "fcf_payout": null,
- "interest_coverage": null,
- "per_vs_sector": 5.203018577075099,
- "pbr_vs_sector": 0.6214346896551723,
+ "fcf_positive": 1,
+ "fcf_payout": 30.278884462151396,
+ "interest_coverage": 2.1311475409836067,
+ "per_vs_sector": 5.006108695652173,
+ "pbr_vs_sector": 0.5979163448275863,
  "per_band_pos": null,
- "yield_band_pos": 0.5951402510489422,
+ "yield_band_pos": 0.6473562192292641,
  "next_earn": "2027-02-01",
  "earn_disc_date": "2026-11-03",
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
-  "⚠ 配当性向が100%超（304%：純利益を上回る配当）",
-  "⚠ バリュートラップ注意：買い時が高い（86）のに質が低め（選定63）。安さの理由を確認"
+  "⚠ 配当性向が100%超（304%：純利益を上回る配当）"
  ],
- "roa": null,
- "leverage": 2.42,
+ "roa": 0.09,
+ "leverage": 2.45,
  "insight_flags": [
   {
    "k": "payout",
    "t": "配当性向が100%超（304%：純利益を上回る配当）"
-  },
-  {
-   "k": "trap",
-   "t": "バリュートラップ注意：買い時が高い（86）のに質が低め（選定63）。安さの理由を確認"
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-23T02:10:58"
+ "_generated_at": "2026-11-24T05:45:17"
 }
