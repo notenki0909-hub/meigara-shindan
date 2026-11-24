@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": true,
  "is_reit": false,
- "price": 2048.5,
- "price_date": "2026-11-20",
- "mcap": 2067371130880,
+ "price": 2104.5,
+ "price_date": "2026-11-24",
+ "mcap": 2123887017984,
  "q_score": 97.8,
  "groups": {
   "業績": null,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 30.0,
+ "bt_score": 47.5,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": null,
   "fcf_yield": null,
-  "per_cheap": 30.0,
+  "per_cheap": 65.0,
   "pbr_cheap": 30.0
  },
  "ev_ebit": null,
  "fcf_yield": null,
- "per_band_pos": 0.0,
+ "per_band_pos": 1.0,
  "pbr_band_pos": 0.0,
  "ev_ebit_vs_sector": null,
- "per_vs_sector": 6.0647239639639645,
- "pbr_vs_sector": 4.649274153846154,
+ "per_vs_sector": 1.9093111238126346,
+ "pbr_vs_sector": 4.776371846153847,
  "price_chg": {
-  "d": -3.826291079812205,
-  "w": -7.579517256936608,
-  "m": -7.932584269662923,
-  "3m": -6.525211042664846,
-  "6m": 12.585875240450672,
-  "9m": 12.585875240450672,
-  "y": 15.051951698960963
+  "d": 2.733707590920176,
+  "w": -4.123006833712983,
+  "m": -5.41573033707865,
+  "3m": -4.035567715458277,
+  "6m": 14.749182115594328,
+  "9m": 16.367155100912356,
+  "y": 20.809414466130892
  },
- "div_yield": 4.002928972418843,
- "implied_fcf_growth": 0.0826,
+ "div_yield": 3.8964124495129484,
+ "implied_fcf_growth": 0.0863,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -62,15 +62,24 @@
  },
  "data_notice": [
   {
-   "tier": "check",
+   "tier": "confirmed",
    "k": "per",
-   "where": "PER（Yahoo表示 67.3倍）",
-   "why": "直近4四半期の純利益（837.5億円）から求めたPERは24.7倍で、Yahoo表示と2.7倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
-   "how": "IR BANK（irbank.net/8697/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する"
+   "where": "PER（Yahoo表示 68.8倍）",
+   "why": "直近4四半期の純利益（837.5億円）から求めたPERは25.4倍で、Yahoo表示と2.7倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
+   "how": "IR BANK（irbank.net/8697/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する",
+   "confirm": {
+    "status": "error",
+    "note": "Yahoo 69.0倍（直近の1株利益 30.59円）は誤り。決算短信で求めた直近12か月の1株利益は、2026/03期 76.81円 − 2026/03期中間期 33.46円 ＋ 2027/03期中間期 55.95円 ＝ 99.30円で、株価2,111円ならPERは約21.3倍。Yahooの2026/03期の1株利益76.81円は短信と一致",
+    "date": "2026-11-24",
+    "replaced": "PERを、株価÷直近12か月の1株利益99.30円＝21.2倍に置き換えて採点"
+   }
   }
  ],
+ "data_fix": {
+  "per": "PERを、株価÷直近12か月の1株利益99.30円＝21.2倍に置き換えて採点"
+ },
  "data_asof": {
-  "fetched": "2026-11-22T23:54:57Z"
+  "fetched": "2026-11-24T04:48:02Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -101,5 +110,5 @@
   "fcf_positive": 1,
   "fcf_payout": 56.49546219164559
  },
- "_generated_at": "2026-11-22T23:54:58"
+ "_generated_at": "2026-11-24T04:48:04"
 }

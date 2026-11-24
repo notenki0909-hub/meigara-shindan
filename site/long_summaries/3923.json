@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 937.5999755859375,
- "price_date": "2026-11-20",
- "mcap": 332020645888,
+ "price": 943.7000122070312,
+ "price_date": "2026-11-24",
+ "mcap": 334180777984,
  "q_score": 108.6,
  "groups": {
   "業績": 110.0,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 66.0,
+ "bt_score": 65.6,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 65.5592118504083,
-  "fcf_yield": 69.56318290384591,
-  "per_cheap": 108.7,
+  "ev_ebit_vs_sector": 64.66573732012651,
+  "fcf_yield": 69.24280833647435,
+  "per_cheap": 108.5,
   "pbr_cheap": 20.0
  },
- "ev_ebit": 18.34111535820121,
- "fcf_yield": 3.717238717788444,
+ "ev_ebit": 18.465654539290863,
+ "fcf_yield": 3.6932106252355767,
  "per_band_pos": null,
  "pbr_band_pos": null,
- "ev_ebit_vs_sector": 1.1513568963089273,
- "per_vs_sector": 0.7318607182320441,
- "pbr_vs_sector": 3.71538615,
+ "ev_ebit_vs_sector": 1.159174798448893,
+ "per_vs_sector": 0.73662226519337,
+ "pbr_vs_sector": 3.7395585,
  "price_chg": {
-  "d": -6.333668772633616,
-  "w": -17.93435662267505,
-  "m": -13.704558160521174,
-  "3m": -14.021093481344572,
-  "6m": 6.545451771129263,
-  "9m": 9.507120090909726,
-  "y": -21.670845815711147
+  "d": 0.6506011923988808,
+  "w": -17.32807602216109,
+  "m": -14.519926430522535,
+  "3m": -12.902629237929741,
+  "6m": 5.642004377340615,
+  "9m": 15.085367342320888,
+  "y": -21.61960031503063
  },
- "div_yield": 0.8532423430365954,
- "implied_fcf_growth": 0.1174,
+ "div_yield": 0.8477270209301365,
+ "implied_fcf_growth": 0.1183,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -63,17 +63,8 @@
    "shares_chg_pct": -2.2954686435221805
   }
  },
- "data_notice": [
-  {
-   "tier": "check",
-   "k": "pbr",
-   "where": "PBR（Yahoo表示 7.43倍）",
-   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは12.75倍で、Yahoo表示と1.72倍ずれています。ただし、照合ではYahoo側のPBRが正しい場合が多くありました（株式数のデータのずれなど）",
-   "how": "IR BANK（irbank.net/3923/results）の1株純資産（BPS）で、株価÷BPSを計算して確認する"
-  }
- ],
  "data_asof": {
-  "fetched": "2026-11-22T23:43:32Z"
+  "fetched": "2026-11-24T04:34:07Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -104,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 6.603467833414357
  },
- "_generated_at": "2026-11-22T23:43:34"
+ "_generated_at": "2026-11-24T04:34:10"
 }
