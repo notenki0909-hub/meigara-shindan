@@ -1,8 +1,8 @@
 {
  "code": "NWE",
  "name": "NorthWestern Energy Group Inc",
- "asof": "2026-11-24",
- "data_fetched_at": "2026-11-24T06:03:49",
+ "asof": "2026-11-25",
+ "data_fetched_at": "2026-11-25T05:06:33",
  "gics_sector": "Utilities",
  "industry": "Utilities - Regulated Electric",
  "is_simple": false,
@@ -11,19 +11,19 @@
  "price_date": "2026-11-16",
  "mcap": 5223963648,
  "sel_score": 72.7,
- "tim_score": 77.9,
+ "tim_score": 80.4,
  "sel_label": "選定スコア中位（一部に弱点）",
  "tim_label": "買い時スコア下位（やや割高水準）",
- "comment": "選定は中位、買い時は下位（やや割高水準）。",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定は中位、買い時は下位（やや割高水準）。",
  "cov_sel": [
   15,
   17,
   "高"
  ],
  "cov_tim": [
-  5,
+  4,
   7,
-  "中"
+  "低"
  ],
  "groups": {
   "業績": 96.6,
@@ -32,7 +32,7 @@
   "配当の持続力": 44.2,
   "配当利回りセオリー": null,
   "利回り水準とChowder": 101.0,
-  "株価バリュエーション": 55.4,
+  "株価バリュエーション": 63.1,
   "金利スプレッド": 72.2
  },
  "div_yield": 3.1562829871787366,
@@ -49,13 +49,14 @@
  "interest_coverage": 2.2475141502218143,
  "per_vs_sector": 1.5185549763033175,
  "pbr_vs_sector": 0.7538389166666667,
- "per_band_pos": 0.0,
+ "per_band_pos": null,
  "yield_band_pos": null,
  "next_earn": "2027-02-17",
  "earn_disc_date": null,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "warnings": [
+  "買い時スコアは採点できた指標が少ない（カバレッジ低）。点数は目安程度に。",
   "⚠ 配当性向が100%超（101%：純利益を上回る配当）"
  ],
  "roa": 2.14,
@@ -67,5 +68,5 @@
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-24T06:03:50"
+ "_generated_at": "2026-11-25T05:06:34"
 }
