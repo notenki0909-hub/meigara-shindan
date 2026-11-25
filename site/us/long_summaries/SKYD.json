@@ -5,9 +5,9 @@
  "gics_sector": "Communication Services",
  "is_simple": false,
  "is_reit": false,
- "price": 6.329999923706055,
- "price_date": "2026-11-23",
- "mcap": 31929927680,
+ "price": 6.5,
+ "price_date": "2026-11-24",
+ "mcap": 32787445760,
  "q_score": 73.6,
  "groups": {
   "業績": 69.18584512738293,
@@ -22,37 +22,37 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 40.1,
+ "bt_score": 40.0,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 40.4197142735276,
+  "fcf_yield": 39.88566004111935,
   "per_cheap": null,
   "pbr_cheap": 110.0
  },
- "ev_ebit": 27.02980577114428,
- "fcf_yield": 1.53147857051457,
+ "ev_ebit": 27.56308815920398,
+ "fcf_yield": 1.491424503083951,
  "per_band_pos": null,
  "pbr_band_pos": 1.0,
- "ev_ebit_vs_sector": 1.7771075457688545,
+ "ev_ebit_vs_sector": 1.795640922423712,
  "per_vs_sector": null,
- "pbr_vs_sector": 0.10078733898305085,
+ "pbr_vs_sector": 0.10349411864406778,
  "price_chg": {
-  "d": 2.0967761038742205,
-  "w": -10.085227869235535,
-  "m": -18.532819314740202,
-  "3m": -40.674790267624076,
-  "6m": -38.95853429544389,
-  "9m": -39.076037396147946,
-  "y": -59.630103313093706
+  "d": 2.685625250283019,
+  "w": -6.069365197447796,
+  "m": -13.217620846073396,
+  "3m": -39.47858344019991,
+  "6m": -38.79472627077328,
+  "9m": -36.02362108641528,
+  "y": -59.093770550285676
  },
- "div_yield": 3.1595577000087083,
- "implied_fcf_growth": 0.239,
+ "div_yield": 3.076923076923077,
+ "implied_fcf_growth": 0.2427,
  "insight": {
   "flags": {
    "cutoff": [],
    "value_trap": [
-    "PBR 0.59倍（1倍割れ）かつROE -52.9%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
+    "PBR 0.61倍（1倍割れ）かつROE -52.9%（5%未満）。PBR＝PER×ROEなので、低PBRの理由が「稼ぐ力の弱さ」の可能性（資産を使って稼げていない）"
    ]
   },
   "raw": {
@@ -68,7 +68,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-24T06:37:21Z"
+  "fetched": "2026-11-25T05:37:35Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -99,5 +99,5 @@
   "fcf_positive": 1,
   "fcf_payout": 34.355828220858896
  },
- "_generated_at": "2026-11-24T06:37:24"
+ "_generated_at": "2026-11-25T05:37:37"
 }
