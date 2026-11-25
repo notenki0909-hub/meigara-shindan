@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 6572.0,
- "price_date": "2026-11-24",
- "mcap": 323170238464,
+ "price": 6000.0,
+ "price_date": "2026-11-25",
+ "mcap": 295042809856,
  "q_score": 99.6,
  "groups": {
   "業績": 90.39084203233969,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 92.4,
+ "bt_score": 100.9,
  "bt_cov": "高",
  "bt_components": {
-  "ev_ebit_vs_sector": 60.41355961632735,
-  "fcf_yield": 91.93319154992753,
+  "ev_ebit_vs_sector": 85.78651006091,
+  "fcf_yield": 98.79082590764557,
   "per_cheap": 110.0,
-  "pbr_cheap": 107.1
+  "pbr_cheap": 109.0
  },
- "ev_ebit": 13.614819801204204,
- "fcf_yield": 5.394989366244564,
+ "ev_ebit": 12.179600462087969,
+ "fcf_yield": 5.909311943073417,
  "per_band_pos": 1.0,
- "pbr_band_pos": 0.914811234225273,
- "ev_ebit_vs_sector": 1.1963813533571357,
- "per_vs_sector": 0.6632989177489177,
- "pbr_vs_sector": 0.7489038333333333,
+ "pbr_band_pos": 1.0,
+ "ev_ebit_vs_sector": 0.9743680369670374,
+ "per_vs_sector": 0.5611152813852813,
+ "pbr_vs_sector": 0.6837222777777777,
  "price_chg": {
-  "d": 7.333006696064026,
-  "w": -1.646213708470523,
-  "m": -11.032895627453632,
-  "3m": -11.785234899328856,
-  "6m": -26.19876473891073,
-  "9m": -36.31782945736434,
-  "y": -2.766681461754694
+  "d": -9.200968523002418,
+  "w": -9.214707217430773,
+  "m": -18.456102201685244,
+  "3m": -20.781621336149993,
+  "6m": -34.77551907816066,
+  "9m": -42.775393419170236,
+  "y": -12.536443148688047
  },
- "div_yield": 2.3128423615337796,
- "implied_fcf_growth": 0.0668,
+ "div_yield": 2.533333333333333,
+ "implied_fcf_growth": 0.0543,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -64,7 +64,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-24T04:42:16Z"
+  "fetched": "2026-11-25T02:43:22Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -95,5 +95,5 @@
   "fcf_positive": 1,
   "fcf_payout": 46.395182104961286
  },
- "_generated_at": "2026-11-24T04:42:18"
+ "_generated_at": "2026-11-25T02:43:24"
 }
