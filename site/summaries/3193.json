@@ -1,8 +1,8 @@
 {
  "code": "3193",
  "name": "エターナルホスピタリティグループ",
- "asof": "2026-11-27",
- "data_fetched_at": "2026-11-27T02:07:58",
+ "asof": "2026-11-28",
+ "data_fetched_at": "2026-11-28T01:27:35",
  "jp_sector": "サービス業",
  "industry": "Restaurants",
  "is_simple": false,
@@ -14,11 +14,11 @@
   "basis": "業種",
   "name": "サービス業"
  },
- "price": 1323.0,
+ "price": 1311.0,
  "price_date": "2026-11-27",
- "mcap": 15262503936,
+ "mcap": 15124068352,
  "sel_score": 97.4,
- "tim_score": 89.0,
+ "tim_score": 89.5,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
  "comment": "選定・買い時とも上位水準。",
@@ -38,11 +38,11 @@
   "キャッシュフロー": 103.3,
   "配当の持続力": 77.9,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 81.5,
-  "株価バリュエーション": 58.2,
+  "利回り水準とChowder": 81.7,
+  "株価バリュエーション": 59.7,
   "金利スプレッド": null
  },
- "div_yield": 1.7384731670445956,
+ "div_yield": 1.7543859649122806,
  "streak_up": 0,
  "streak_flat": 4,
  "payout_ni": 40.25905828811482,
@@ -51,18 +51,18 @@
  "roe": 12.920000000000002,
  "div_policy": null,
  "dgr5": 41.88404747480776,
- "chowder": 43.622520641852354,
+ "chowder": 43.63843343972004,
  "ocf_positive": 1,
  "fcf_positive": 1,
  "fcf_payout": 26.949415569720607,
- "per_vs_sector": 1.1578855000000001,
+ "per_vs_sector": 1.1473831,
  "pbr_vs_sector": null,
- "per_band_pos": 0.09588135888317416,
+ "per_band_pos": 0.11064270091735465,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 32000.0,
- "total_yield": 1.7386828312001903,
+ "total_yield": 1.7545975481930172,
  "total_payout": 40.56813767737707,
  "interest_coverage": 66.43475755114872,
  "warnings": [],
@@ -72,8 +72,8 @@
  "review": [
   {
    "k": "pbr",
-   "where": "PBR（Yahoo表示 2.87倍）",
-   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは1.44倍で、Yahoo表示と0.50倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
+   "where": "PBR（Yahoo表示 2.85倍）",
+   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは1.42倍で、Yahoo表示と0.50倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
    "how": "IR BANK（irbank.net/3193/results）の1株純資産（BPS）で、株価÷BPSを計算して確認",
    "keys": [
     "pbr_vs_sector"
@@ -82,5 +82,5 @@
   }
  ],
  "kind": "gen",
- "_generated_at": "2026-11-27T02:08:01"
+ "_generated_at": "2026-11-28T01:27:37"
 }

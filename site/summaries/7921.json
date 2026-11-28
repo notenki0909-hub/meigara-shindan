@@ -1,8 +1,8 @@
 {
  "code": "7921",
  "name": "ＴＡＫＡＲＡ　＆　ＣＯＭＰＡＮＹ",
- "asof": "2026-11-27",
- "data_fetched_at": "2026-11-27T01:49:52",
+ "asof": "2026-11-28",
+ "data_fetched_at": "2026-11-28T01:13:39",
  "jp_sector": "サービス業",
  "industry": "Specialty Business Services",
  "is_simple": false,
@@ -14,23 +14,23 @@
   "basis": "業種",
   "name": "サービス業"
  },
- "price": 1367.0,
+ "price": 1351.0,
  "price_date": "2026-11-27",
- "mcap": 17644832768,
+ "mcap": 52314931200,
  "sel_score": 93.3,
- "tim_score": 109.4,
+ "tim_score": 109.3,
  "sel_label": "選定スコア上位（質・持続力とも高水準）",
  "tim_label": "買い時スコア上位（割安水準）",
- "comment": "選定・買い時とも上位水準。",
+ "comment": "※データ不足（買い時のカバレッジ低）。点数は目安、参考程度に。　選定・買い時とも上位水準。",
  "cov_sel": [
   15,
   16,
   "高"
  ],
  "cov_tim": [
+  3,
   6,
-  6,
-  "高"
+  "低"
  ],
  "groups": {
   "業績": 103.8,
@@ -38,11 +38,11 @@
   "キャッシュフロー": 60.0,
   "配当の持続力": 85.1,
   "配当利回りセオリー": 110.0,
-  "利回り水準とChowder": 108.0,
-  "株価バリュエーション": 110.0,
+  "利回り水準とChowder": 108.1,
+  "株価バリュエーション": null,
   "金利スプレッド": null
  },
- "div_yield": 4.389173372348208,
+ "div_yield": 4.441154700222058,
  "streak_up": 0,
  "streak_flat": 13,
  "payout_ni": 45.815516188149054,
@@ -51,25 +51,51 @@
  "roe": 11.404,
  "div_policy": null,
  "dgr5": 17.316067631184097,
- "chowder": 21.705241003532304,
+ "chowder": 21.757222331406155,
  "ocf_positive": 1,
  "fcf_positive": 0,
  "fcf_payout": null,
- "per_vs_sector": 0.24298765000000003,
- "pbr_vs_sector": 0.2941479611111111,
- "per_band_pos": 1.0,
+ "per_vs_sector": null,
+ "pbr_vs_sector": null,
+ "per_band_pos": null,
  "yield_band_pos": 1.0,
  "next_earn": null,
  "earn_disc_date": null,
  "buyback_yen": 255156000.0,
- "total_yield": 5.835239783715627,
+ "total_yield": 4.9288854381724505,
  "total_payout": 59.12040560366009,
  "interest_coverage": 2011.8274785323965,
- "warnings": [],
+ "warnings": [
+  "買い時スコアは取得できた指標が少なく（3/6・カバレッジ低）、点数は目安です。"
+ ],
  "roa": 7.95,
  "leverage": 1.31,
  "insight_flags": [],
- "review": [],
+ "review": [
+  {
+   "k": "per",
+   "where": "PER（Yahoo表示 4.8倍）",
+   "why": "直近4四半期の純利益（36.3億円）から求めたPERは14.4倍で、Yahoo表示と0.3倍ずれています。Yahooの1株利益に誤りがある可能性があるため、PER（業種比・過去レンジ内の位置・益回り）を採点から外しています",
+   "how": "IR BANK（irbank.net/7921/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認し、Yahooの値が誤りならそのまま「―」、Yahooが正しければ報告（基準の見直し）",
+   "keys": [
+    "per_vs_sector",
+    "per_band_pos"
+   ],
+   "names": [
+    "益回り（1÷PER）"
+   ]
+  },
+  {
+   "k": "pbr",
+   "where": "PBR（Yahoo表示 0.52倍）",
+   "why": "株価÷（純資産÷発行済株式数）で求めたPBRは1.57倍で、Yahoo表示と3.00倍ずれています。どちらが正しいか機械では決められないため、PBR（業種比）を採点から外しています",
+   "how": "IR BANK（irbank.net/7921/results）の1株純資産（BPS）で、株価÷BPSを計算して確認",
+   "keys": [
+    "pbr_vs_sector"
+   ],
+   "names": []
+  }
+ ],
  "kind": "gen",
- "_generated_at": "2026-11-27T01:49:55"
+ "_generated_at": "2026-11-28T01:13:40"
 }
