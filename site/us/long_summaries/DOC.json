@@ -5,9 +5,9 @@
  "gics_sector": "Real Estate",
  "is_simple": true,
  "is_reit": true,
- "price": 20.709999084472656,
- "price_date": "2026-11-25",
- "mcap": 15035847680,
+ "price": 20.959999084472656,
+ "price_date": "2026-11-27",
+ "mcap": 15217352704,
  "q_score": 67.7,
  "groups": {
   "業績": null,
@@ -18,14 +18,14 @@
  },
  "is_fin_simple": false,
  "is_reit_us": true,
- "current_pfo": 14.683774811348302,
+ "current_pfo": 14.861029792661359,
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 91.6,
+ "bt_score": 89.1,
  "bt_cov": "高",
  "bt_components": {
-  "ffo_cheap": 91.6
+  "ffo_cheap": 89.1
  },
  "ev_ebit": null,
  "fcf_yield": null,
@@ -35,22 +35,20 @@
  "per_vs_sector": null,
  "pbr_vs_sector": null,
  "price_chg": {
-  "d": 1.669112573546916,
-  "w": 7.083758640516069,
-  "m": 8.885376372423547,
-  "3m": -2.403394181831453,
-  "6m": 6.150686014930895,
-  "9m": 18.275264498926667,
-  "y": 16.022401355083016
+  "d": 1.2071463594966358,
+  "w": 9.223546123793591,
+  "m": 12.991913458396454,
+  "3m": 0.0,
+  "6m": 9.451694527403331,
+  "9m": 18.55202897443764,
+  "y": 15.737152833070866
  },
- "div_yield": 5.890874234343623,
- "implied_fcf_growth": 0.0071,
+ "div_yield": 5.820610941265671,
+ "implied_fcf_growth": 0.0088,
  "insight": {
   "flags": {
    "cutoff": [],
-   "value_trap": [
-    "買い時スコアは高い（割安圏）が、品質スコアは低め。安い理由がある可能性（バリュートラップ）"
-   ]
+   "value_trap": []
   },
   "raw": {
    "roe": 0.9512814106063204,
@@ -60,7 +58,7 @@
   }
  },
  "data_asof": {
-  "fetched": "2026-11-27T04:33:35Z"
+  "fetched": "2026-11-28T04:22:30Z"
  },
  "etf_top": [],
  "metric_scores": {
@@ -91,5 +89,5 @@
   "fcf_positive": 1,
   "fcf_payout": 67.82131044227486
  },
- "_generated_at": "2026-11-27T04:33:37"
+ "_generated_at": "2026-11-28T04:22:32"
 }
