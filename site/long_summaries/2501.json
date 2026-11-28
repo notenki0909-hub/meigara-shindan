@@ -5,9 +5,9 @@
  "gics_sector": null,
  "is_simple": false,
  "is_reit": false,
- "price": 2219.5,
+ "price": 2194.5,
  "price_date": "2026-11-27",
- "mcap": 865325809664,
+ "mcap": 855578968064,
  "q_score": 86.7,
  "groups": {
   "業績": 75.20194504488532,
@@ -22,32 +22,32 @@
  "quarter_decel_factor": null,
  "quarter_decel_detail": null,
  "q_cov": "高",
- "bt_score": 49.8,
+ "bt_score": 50.2,
  "bt_cov": "高",
  "bt_components": {
   "ev_ebit_vs_sector": 20.0,
-  "fcf_yield": 68.14525681316513,
+  "fcf_yield": 68.69373241794898,
   "per_cheap": 30.0,
-  "pbr_cheap": 81.2
+  "pbr_cheap": 82.2
  },
- "ev_ebit": 42.62024019576871,
- "fcf_yield": 3.610894260987385,
+ "ev_ebit": 42.22138429692679,
+ "fcf_yield": 3.6520299313461733,
  "per_band_pos": 0.0,
- "pbr_band_pos": 0.7505688526766425,
- "ev_ebit_vs_sector": 2.526392424171233,
- "per_vs_sector": 7.3639685,
- "pbr_vs_sector": 1.41397125,
+ "pbr_band_pos": 0.764491173425652,
+ "ev_ebit_vs_sector": 2.5373428063056966,
+ "per_vs_sector": 7.2330250000000005,
+ "pbr_vs_sector": 1.3980446666666666,
  "price_chg": {
-  "d": -0.7822977201609294,
-  "w": -2.9726775956284146,
-  "m": 11.813602015113345,
-  "3m": 15.779864371413677,
-  "6m": 34.51515151515152,
-  "9m": 27.9250720461095,
-  "y": 41.20752837835675
+  "d": -1.8998658918193967,
+  "w": -4.065573770491804,
+  "m": 10.554156171284635,
+  "3m": 14.475743348982784,
+  "6m": 33.00000000000001,
+  "9m": 26.48414985590779,
+  "y": 39.61699528105604
  },
- "div_yield": 1.7120973192160396,
- "implied_fcf_growth": 0.1213,
+ "div_yield": 1.7316017316017316,
+ "implied_fcf_growth": 0.1198,
  "insight": {
   "flags": {
    "cutoff": [],
@@ -67,8 +67,8 @@
   {
    "tier": "check",
    "k": "per",
-   "where": "PER（Yahoo表示 147.3倍）",
-   "why": "直近4四半期の純利益（3,103.9億円）から求めたPERは2.8倍で、Yahoo表示と52.8倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
+   "where": "PER（Yahoo表示 144.7倍）",
+   "why": "直近4四半期の純利益（3,103.9億円）から求めたPERは2.8倍で、Yahoo表示と52.5倍ずれています。ただし、直近の大きな利益がYahooに未反映の場合や、一時的な損益の場合もあります",
    "how": "IR BANK（irbank.net/2501/quarter）の四半期の純利益と、決算短信の直近4四半期の純利益を確認する",
    "confirm": {
     "status": "unclear",
@@ -78,7 +78,7 @@
   }
  ],
  "data_asof": {
-  "fetched": "2026-11-27T01:19:16Z"
+  "fetched": "2026-11-28T00:50:13Z"
  },
  "etf_top": null,
  "metric_scores": {
@@ -109,5 +109,5 @@
   "fcf_positive": 1,
   "fcf_payout": 12.977661140626001
  },
- "_generated_at": "2026-11-27T02:12:24"
+ "_generated_at": "2026-11-28T01:31:13"
 }
